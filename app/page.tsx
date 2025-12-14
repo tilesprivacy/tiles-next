@@ -102,7 +102,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 bg-white px-4 py-2 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="absolute bottom-0 left-0 right-0 z-10 flex flex-col gap-2 bg-white px-4 py-2 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://www.blog.tiles.run/p/how-tiles-works"
           target="_blank"
