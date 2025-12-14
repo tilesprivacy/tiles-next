@@ -38,9 +38,9 @@ export default function Page() {
               <Image
                 src="/logo.png"
                 alt="Tiles Logo"
-                width={72}
-                height={72}
-                className="h-[58px] w-[58px] rounded-xl lg:h-24 lg:w-24 lg:rounded-2xl"
+                width={120}
+                height={120}
+                className="h-[72px] w-[72px] rounded-xl lg:h-28 lg:w-28 lg:rounded-2xl"
               />
             </div>
 
