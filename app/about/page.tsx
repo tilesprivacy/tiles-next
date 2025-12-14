@@ -6,9 +6,9 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 
 export default function AboutPage() {
   return (
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-white">
+    <div className="flex min-h-[100dvh] flex-col bg-white">
       {/* Header */}
-      <header className="flex shrink-0 items-center justify-between px-4 py-3 lg:px-6 lg:py-4">
+      <header className="flex shrink-0 items-center justify-between px-4 pb-3 pt-8 lg:px-6 lg:pb-4 lg:pt-12">
         <Link
           href="/"
           className="text-sm text-black/60 transition-colors hover:text-black lg:text-base"
@@ -53,23 +53,23 @@ export default function AboutPage() {
       </header>
 
       {/* Content */}
-      <main className="flex min-h-0 flex-1 flex-col items-center overflow-y-auto px-4 pb-4 lg:justify-center lg:px-12 lg:pb-8">
+      <main className="flex flex-1 flex-col items-center px-6 pb-12 pt-8 lg:px-12 lg:pb-16 lg:pt-16">
         <div className="w-full max-w-2xl text-center">
-          <Link href="/" className="mb-4 inline-flex items-center gap-2 lg:mb-8 lg:gap-4">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
+          <Link href="/" className="mb-8 inline-flex items-center gap-3 lg:mb-12 lg:gap-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
               <Image
                 src="/logo.png"
                 alt="Tiles Logo"
                 width={40}
                 height={40}
-                className="h-5 w-5 lg:h-10 lg:w-10"
+                className="h-6 w-6 lg:h-10 lg:w-10"
               />
             </div>
-            <h1 className="text-2xl font-bold text-black lg:text-5xl">Tiles Privacy</h1>
+            <h1 className="text-3xl font-bold text-black lg:text-5xl">Tiles Privacy</h1>
           </Link>
           
-          <div className="space-y-4 text-xs leading-relaxed text-black/80 lg:space-y-6 lg:text-base lg:leading-relaxed">
-            <p className="text-sm font-medium text-black lg:text-lg">
+          <div className="space-y-6 text-sm leading-relaxed text-black/80 sm:text-base lg:space-y-8 lg:text-xl lg:leading-relaxed">
+            <p className="text-base font-medium text-black sm:text-lg lg:text-2xl">
               Our mission is to shape the future of software personalization with decentralized memory networks.
             </p>
 
@@ -105,7 +105,7 @@ export default function AboutPage() {
       </main>
 
       {/* Footer */}
-      <footer className="z-10 flex shrink-0 flex-col gap-2 bg-white px-4 pb-3 pt-3 text-xs text-black/60 lg:gap-3 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-6 pb-4 pt-6 text-xs text-black/60 lg:gap-3 lg:px-6 lg:pb-6 lg:pt-8 lg:text-sm">
         <a
           href="https://www.blog.tiles.run/p/how-tiles-works"
           target="_blank"
