@@ -19,7 +19,7 @@ export default function Page() {
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
       <div className="flex flex-1 flex-col lg:h-full lg:flex-row">
         {/* Mobile: Image at top - flexible height */}
-        <div className="flex flex-1 items-center justify-center bg-white lg:hidden">
+        <div className="flex flex-1 items-start justify-center bg-white pt-12 lg:hidden">
           <div className="relative h-full w-full max-w-lg">
             <Image
               src="/images/network-graph.png"
@@ -35,8 +35,8 @@ export default function Page() {
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col justify-start bg-white px-6 pb-4 lg:h-full lg:flex-[0.5] lg:justify-center lg:px-12 lg:pb-16">
-          <div className="mx-auto w-full max-w-md space-y-3 lg:space-y-6">
+        <div className="flex flex-col justify-center bg-white px-6 pb-24 lg:h-full lg:flex-[0.5] lg:justify-center lg:px-12 lg:pb-24">
+          <div className="mx-auto w-full max-w-md -translate-y-8 space-y-5 lg:translate-y-0 lg:space-y-6">
             <div className="flex justify-center lg:justify-start">
               <Image
                 src="/logo.png"
@@ -102,7 +102,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="z-10 flex flex-col gap-2 bg-white px-4 py-3 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="z-10 flex flex-col gap-2 bg-white px-4 pb-8 pt-3 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://www.blog.tiles.run/p/how-tiles-works"
           target="_blank"
