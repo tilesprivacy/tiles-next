@@ -15,6 +15,25 @@ export const metadata: Metadata = {
     icon: "/logo.png",
     apple: "/logo.png",
   },
+  openGraph: {
+    title: "Tiles is your private AI assistant with offline memory",
+    description: "Your private AI assistant with offline memory",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Tiles - Your private AI assistant with offline memory",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tiles is your private AI assistant with offline memory",
+    description: "Your private AI assistant with offline memory",
+    images: ["/og-image.jpg"],
+  },
 }
 
 export default function RootLayout({
