@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: "Your private AI assistant with offline memory",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/api/og",
         width: 1200,
         height: 630,
         alt: "Tiles - Your private AI assistant with offline memory",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles is your private AI assistant with offline memory",
     description: "Your private AI assistant with offline memory",
-    images: ["/og-image.jpg"],
+    images: ["/api/og"],
   },
 }
 

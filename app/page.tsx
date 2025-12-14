@@ -6,6 +6,16 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 export default function Page() {
   return (
     <div className="h-screen overflow-hidden bg-white">
+      <div className="absolute right-4 top-4 z-10 lg:right-6 lg:top-6">
+        <Button
+          asChild
+          variant="outline"
+          className="rounded-full border-2 border-black bg-white px-5 py-2 text-sm font-medium text-black hover:bg-black/5 lg:px-6 lg:py-2"
+        >
+          <a href="https://registry.tiles.run/login">Login</a>
+        </Button>
+      </div>
+
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
       <div className="flex h-full flex-col lg:flex-row">
         {/* Mobile: Image at top - 50% height */}
@@ -72,9 +82,8 @@ export default function Page() {
                 </Button>
               </div>
 
-              {/* ALPHA badge with description - Desktop only */}
-              <div className="hidden items-center gap-2 text-sm lg:flex">
-                <span className="rounded-full border-2 border-black/20 bg-white px-3 py-1 font-medium text-black">
+              <div className="flex items-start gap-2 text-sm">
+                <span className="rounded-full border border-black/15 bg-white px-3 py-1 text-sm font-medium text-black/70 whitespace-nowrap">
                   ALPHA
                 </span>
                 <span className="text-black/50">for macOS 14+ with Apple Silicon (M1 or better).</span>
