@@ -99,8 +99,8 @@ export default function Page() {
       {/* Footer */}
       <footer className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-white px-4 py-2 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <div>
-          © 2025 Tiles
-          <a href="#" className="ml-2 text-black/60 hover:text-black">
+          © 2025 Tiles{" "}
+          <a href="#" className="text-black/60 hover:text-black">
             Privacy
           </a>
         </div>
