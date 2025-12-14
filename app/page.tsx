@@ -56,7 +56,7 @@ export default function Page() {
 
             {/* Platform Buttons */}
             <div className="space-y-3 lg:space-y-3">
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex justify-center lg:justify-start">
                 <Button
                   asChild
                   className="rounded-full bg-black px-6 py-5 text-sm font-medium text-white hover:bg-black/90 lg:px-8 lg:py-5 lg:text-base"
@@ -72,19 +72,11 @@ export default function Page() {
                     Download Tiles
                   </a>
                 </Button>
-
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-full border-2 border-black bg-white px-6 py-5 text-sm font-medium text-black hover:bg-black/5 lg:px-8 lg:py-5 lg:text-base"
-                >
-                  <a href="https://www.blog.tiles.run/p/how-tiles-works">How it works</a>
-                </Button>
               </div>
 
-              <div className="flex items-start gap-2 text-sm">
-                <span className="rounded-full border border-black/15 bg-white px-3 py-1 text-sm font-medium text-black/70 whitespace-nowrap">
-                  ALPHA
+              <div className="flex items-center justify-center gap-1.5 text-xs lg:justify-start lg:text-sm">
+                <span className="rounded-full border border-black/20 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-black/60 lg:text-xs">
+                  Alpha
                 </span>
                 <span className="text-black/50">for macOS 14+ with Apple Silicon (M1 or better).</span>
               </div>
@@ -110,15 +102,35 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 left-0 right-0 flex items-center justify-between bg-white px-4 py-2 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
-        <div>
-          © 2025 Tiles{" "}
-          <a href="#" className="text-black/60 hover:text-black">
-            Privacy
-          </a>
-        </div>
-
-        <div className="flex items-center gap-4">
+      <footer className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 bg-white px-4 py-2 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
+        <a
+          href="https://www.blog.tiles.run/p/how-tiles-works"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-0.5 text-black/60 transition-colors hover:text-black"
+        >
+          How it works
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-3 w-3 lg:h-3.5 lg:w-3.5"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0Z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </a>
+        <div className="flex items-center justify-between">
+          <div>
+            © 2025 Tiles{" "}
+            <a href="#" className="text-black/60 hover:text-black">
+              Privacy
+            </a>
+          </div>
+          <div className="flex items-center gap-2.5 lg:gap-4">
           <a
             href="https://x.com/tilesprivacy"
             target="_blank"
@@ -189,8 +201,9 @@ export default function Page() {
             className="text-black/60 transition-colors hover:text-black"
             aria-label="Hugging Face"
           >
-            <SiHuggingface className="h-4 w-4 lg:h-5 lg:w-5" />
+              <SiHuggingface className="h-4 w-4 lg:h-5 lg:w-5" />
           </a>
+          </div>
         </div>
       </footer>
     </div>
