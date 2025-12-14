@@ -5,7 +5,7 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 
 export default function Page() {
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-white lg:h-screen lg:overflow-hidden">
+    <div className="flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
       <div className="absolute right-4 top-4 z-10 lg:right-6 lg:top-6">
         <Button
           asChild
@@ -17,26 +17,23 @@ export default function Page() {
       </div>
 
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
-      <div className="flex flex-1 flex-col lg:h-full lg:flex-row">
-        {/* Mobile: Image at top - flexible height */}
-        <div className="flex flex-1 items-start justify-center bg-white pt-12 lg:hidden">
-          <div className="relative h-full w-full max-w-lg">
-            <Image
-              src="/images/network-graph.png"
-              alt="Network graph visualization showing data relationships"
-              width={800}
-              height={640}
-              className="h-full w-full object-contain"
-              priority
-              loading="eager"
-              unoptimized
-            />
-          </div>
+      <div className="flex min-h-0 flex-1 flex-col lg:h-full lg:flex-row">
+        {/* Mobile: Image at top - covers upper portion */}
+        <div className="absolute inset-x-0 top-0 h-[calc(50vh-29px)] lg:hidden">
+          <Image
+            src="/images/network-graph.png"
+            alt="Network graph visualization showing data relationships"
+            fill
+            className="object-cover"
+            priority
+            loading="eager"
+            unoptimized
+          />
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col justify-center bg-white px-6 pb-24 lg:h-full lg:flex-[0.5] lg:justify-center lg:px-12 lg:pb-24">
-          <div className="mx-auto w-full max-w-md -translate-y-8 space-y-5 lg:translate-y-0 lg:space-y-6">
+        <div className="flex min-h-0 flex-1 flex-col items-center bg-white px-6 pt-[calc(50vh-29px)] lg:h-full lg:flex-[0.5] lg:shrink-0 lg:items-stretch lg:justify-center lg:px-12 lg:pb-24 lg:pt-0">
+          <div className="mx-auto w-full max-w-md space-y-4 lg:space-y-6">
             <div className="flex justify-center lg:justify-start">
               <Image
                 src="/logo.png"
@@ -102,7 +99,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="z-10 flex flex-col gap-2 bg-white px-4 pb-8 pt-3 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="z-10 flex shrink-0 flex-col gap-1.5 bg-white px-4 pb-4 pt-12 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://www.blog.tiles.run/p/how-tiles-works"
           target="_blank"
