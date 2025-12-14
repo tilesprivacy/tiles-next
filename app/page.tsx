@@ -14,10 +14,12 @@ export default function Page() {
             <Image
               src="/images/network-graph.png"
               alt="Network graph visualization showing data relationships"
-              width={1000}
-              height={800}
+              width={800}
+              height={640}
               className="h-full w-full object-contain"
               priority
+              loading="eager"
+              unoptimized
             />
           </div>
         </div>
@@ -87,10 +89,12 @@ export default function Page() {
             <Image
               src="/images/network-graph.png"
               alt="Network graph visualization showing data relationships"
-              width={1400}
-              height={1400}
+              width={1200}
+              height={1200}
               className="h-full w-full object-contain"
               priority
+              loading="eager"
+              unoptimized
             />
           </div>
         </div>
