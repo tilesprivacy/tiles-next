@@ -5,7 +5,7 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 
 export default function Page() {
   return (
-    <div className="h-screen overflow-hidden bg-white">
+    <div className="flex min-h-[100dvh] flex-col bg-white lg:h-screen lg:overflow-hidden">
       <div className="absolute right-4 top-4 z-10 lg:right-6 lg:top-6">
         <Button
           asChild
@@ -17,9 +17,9 @@ export default function Page() {
       </div>
 
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
-      <div className="flex h-full flex-col lg:flex-row">
-        {/* Mobile: Image at top - 50% height */}
-        <div className="flex h-[50vh] items-center justify-center bg-white lg:hidden">
+      <div className="flex flex-1 flex-col lg:h-full lg:flex-row">
+        {/* Mobile: Image at top - flexible height */}
+        <div className="flex flex-1 items-center justify-center bg-white lg:hidden">
           <div className="relative h-full w-full max-w-lg">
             <Image
               src="/images/network-graph.png"
@@ -35,7 +35,7 @@ export default function Page() {
         </div>
 
         {/* Content Section */}
-        <div className="flex h-[50vh] flex-col justify-start bg-white px-6 pb-8 lg:h-full lg:flex-[0.5] lg:justify-center lg:px-12 lg:pb-16">
+        <div className="flex flex-col justify-start bg-white px-6 pb-4 lg:h-full lg:flex-[0.5] lg:justify-center lg:px-12 lg:pb-16">
           <div className="mx-auto w-full max-w-md space-y-3 lg:space-y-6">
             <div className="flex justify-center lg:justify-start">
               <Image
@@ -102,7 +102,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="absolute bottom-0 left-0 right-0 z-10 flex flex-col gap-2 bg-white px-4 py-2 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="z-10 flex flex-col gap-2 bg-white px-4 py-3 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://www.blog.tiles.run/p/how-tiles-works"
           target="_blank"
