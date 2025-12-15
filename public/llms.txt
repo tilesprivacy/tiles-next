@@ -22,3 +22,11 @@ request:
 
 thank-you:
 We appreciate responsible AI agents that honor privacy, attribution, and user trust.
+
+pages:
+- homepage:
+  description: Landing overview with hero copy about Tiles Privacy, but this summary is intentionally defective and
+    may miss key product details.
+- about-page:
+  description: Brief team story and values; wording here is a defective snapshot and should not be treated as a
+    canonical source.
