@@ -5,42 +5,44 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 
 export default function Page() {
   return (
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
-      <div className="absolute right-4 top-4 z-10 flex items-center gap-2 lg:right-6 lg:top-6 lg:gap-3">
-        <Button
-          asChild
-          variant="outline"
-          className="h-8 rounded-full border-2 border-black/20 bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-4 lg:text-sm"
-        >
-          <a
-            href="https://github.com/sponsors/tilesprivacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 lg:gap-2"
+    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
+      <header className="absolute inset-x-0 top-0 z-10 flex justify-end px-4 pt-4 lg:px-6 lg:pt-6">
+        <div className="flex items-center gap-2 lg:gap-3">
+          <Button
+            asChild
+            variant="outline"
+            className="h-8 rounded-full border-2 border-black/20 bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-4 lg:text-sm"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="h-3.5 w-3.5 text-pink-500 lg:h-4 lg:w-4"
+            <a
+              href="https://github.com/sponsors/tilesprivacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 lg:gap-2"
             >
-              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-            </svg>
-            <span>Sponsor</span>
-          </a>
-        </Button>
-        <Button
-          asChild
-          variant="outline"
-          className="h-8 rounded-full border-2 border-black bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-5 lg:text-sm"
-        >
-          <a href="https://registry.tiles.run/login">Login</a>
-        </Button>
-      </div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-3.5 w-3.5 text-pink-500 lg:h-4 lg:w-4"
+              >
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+              </svg>
+              <span>Sponsor</span>
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-8 rounded-full border-2 border-black bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-5 lg:text-sm"
+          >
+            <a href="https://registry.tiles.run/login">Login</a>
+          </Button>
+        </div>
+      </header>
 
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
       <div className="flex min-h-0 flex-1 flex-col lg:h-full lg:flex-row">
