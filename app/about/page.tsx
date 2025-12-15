@@ -55,7 +55,7 @@ export default function AboutPage() {
       {/* Content */}
       <main className="flex flex-1 flex-col items-center px-6 pb-12 pt-8 lg:px-12 lg:pb-16 lg:pt-16">
         <div className="w-full max-w-2xl text-center">
-          <Link href="/" className="mb-8 inline-flex items-center gap-3 lg:mb-12 lg:gap-4">
+          <Link href="/" className="mb-8 inline-flex flex-col items-center gap-3 lg:mb-12 lg:gap-4">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
               <Image
                 src="/logo.png"
@@ -74,7 +74,18 @@ export default function AboutPage() {
             </p>
 
             <p>
-              Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.
+              Tiles Privacy was born from the
+              <a
+                href="https://userandagents.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black underline underline-offset-2 hover:text-black/70"
+              >
+                {" "}
+                User &amp; Agents
+              </a>
+              {" "}
+              community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.
             </p>
 
             <p>
