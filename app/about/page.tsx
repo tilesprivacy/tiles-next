@@ -98,7 +98,7 @@ export default function AboutPage() {
               >
                 @feynon
               </a>
-              ), an applied researcher and technologist focused on on-device AI and secure identity, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is an on-device memory management system paired with an SDK that lets developers securely access user memory and create deeply personalized agent experiences.
+              ), an independent researcher and technologist focused on on-device AI and secure identity, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is an on-device memory management system paired with an SDK that lets developers securely access user memory and create deeply personalized agent experiences.
             </p>
 
             <p>

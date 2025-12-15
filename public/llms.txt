@@ -1,0 +1,49 @@
+# llms.txt for Tiles Privacy
+# Learn more at https://llmstxt.org/
+
+site: Tiles Privacy marketing site (tiles.run)
+owner: Tiles Privacy
+contact: hello@tiles.run
+last-updated: 2025-03-17
+
+allowed-uses:
+- Crawl and summarize public pages to help people discover Tiles Privacy offerings.
+- Short-term caching for inference, classification, and question-answering about the site.
+- Non-commercial research that keeps excerpts clearly attributed to Tiles Privacy.
+
+disallowed-uses:
+- Training commercial foundation models or synthetic data generators without prior written consent.
+- Combining our content with third-party data to build user profiles or behavioral dossiers.
+- Serving our copy or visuals as if they were created by your model without attribution.
+
+request:
+- If your system logs or retains content beyond transient processing, please provide an opt-out or deletion path via the contact above.
+- Respect any existing robots.txt and rate limits to avoid service disruption.
+
+thank-you:
+We appreciate responsible AI agents that honor privacy, attribution, and user trust.
+
+pages:
+- homepage:
+  text: |
+    Sponsor
+    Login
+    Tiles
+    Your private AI assistant with offline memory
+    Download
+    Alpha
+    for macOS 14+ with Apple Silicon (M1+).
+    How it works
+    © 2025 Tiles Privacy
+- about-page:
+  text: |
+    ← Back
+    Sponsor
+    Login
+    Tiles Privacy
+    Our mission is to shape the future of software personalization with decentralized memory networks.
+    Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.
+    Founded by Ankesh Bharti (@feynon), an independent researcher and technologist focused on on-device AI and secure identity, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is an on-device memory management system paired with an SDK that lets developers securely access user memory and create deeply personalized agent experiences.
+    We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at hello@tiles.run.
+    How it works
+    © 2025 Tiles Privacy
