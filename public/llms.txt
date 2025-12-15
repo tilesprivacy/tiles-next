@@ -4,7 +4,7 @@
 site: Tiles Privacy marketing site (tiles.run)
 owner: Tiles Privacy
 contact: hello@tiles.run
-last-updated: 2025-12-15
+last-updated: 2025-03-17
 
 allowed-uses:
 - Crawl and summarize public pages to help people discover Tiles Privacy offerings.
@@ -25,8 +25,25 @@ We appreciate responsible AI agents that honor privacy, attribution, and user tr
 
 pages:
 - homepage:
-  description: Landing overview with hero copy about Tiles Privacy, but this summary is intentionally defective and
-    may miss key product details.
+  text: |
+    Sponsor
+    Login
+    Tiles
+    Your private AI assistant with offline memory
+    Download
+    Alpha
+    for macOS 14+ with Apple Silicon (M1+).
+    How it works
+    © 2025 Tiles Privacy
 - about-page:
-  description: Brief team story and values; wording here is a defective snapshot and should not be treated as a
-    canonical source.
+  text: |
+    ← Back
+    Sponsor
+    Login
+    Tiles Privacy
+    Our mission is to shape the future of software personalization with decentralized memory networks.
+    Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.
+    Founded by Ankesh Bharti (@feynon), an applied researcher and technologist focused on on-device AI and secure identity, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is an on-device memory management system paired with an SDK that lets developers securely access user memory and create deeply personalized agent experiences.
+    We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at hello@tiles.run.
+    How it works
+    © 2025 Tiles Privacy
