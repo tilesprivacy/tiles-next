@@ -30,7 +30,7 @@ const sections = [
 
 export default function ExplorePage() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-auto lg:min-h-screen lg:overflow-visible">
+    <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <Link
@@ -76,9 +76,9 @@ export default function ExplorePage() {
         </div>
       </header>
 
-      <div className="flex h-full flex-col pt-14 lg:h-auto lg:pt-20">
+      <div className="flex flex-col pt-14 lg:pt-20">
         {/* Content */}
-        <main className="flex flex-1 flex-col items-center overflow-y-auto px-5 pb-6 pt-4 sm:px-6 lg:overflow-visible lg:px-12 lg:pb-16 lg:pt-4">
+        <main className="flex flex-col items-center px-5 pb-6 pt-4 sm:px-6 lg:px-12 lg:pb-16 lg:pt-4">
           <div className="w-full max-w-3xl">
             {/* Page Heading */}
             <h1 className="mb-6 text-center text-2xl font-bold text-black sm:text-3xl lg:mb-8 lg:text-4xl">

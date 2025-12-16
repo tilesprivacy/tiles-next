@@ -6,7 +6,7 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 
 export default function AboutPage() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-auto lg:min-h-screen lg:overflow-visible">
+    <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <Link
@@ -52,9 +52,9 @@ export default function AboutPage() {
         </div>
       </header>
 
-      <div className="flex h-full flex-col pt-16 lg:h-auto lg:pt-24">
+      <div className="flex flex-col pt-16 lg:pt-24">
         {/* Content */}
-        <main className="flex flex-1 flex-col items-center overflow-y-auto px-6 pb-8 pt-4 lg:overflow-visible lg:px-12 lg:pb-12 lg:pt-2">
+        <main className="flex flex-col items-center px-6 pb-8 pt-4 lg:px-12 lg:pb-12 lg:pt-2">
           <div className="w-full max-w-2xl text-center">
             <Link href="/" className="mb-6 inline-flex flex-col items-center gap-3 lg:mb-10 lg:gap-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
