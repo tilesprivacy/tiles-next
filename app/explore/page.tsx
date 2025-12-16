@@ -4,7 +4,31 @@ import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
 
-export default function AboutPage() {
+const sections = [
+  {
+    id: "memory-graph",
+    label: "Memory graph",
+    heading: "View your memory graph in Obsidian",
+    detail: "Interactive graph that lets you explore your memories in a clean, connected view.",
+    image: "/obsidiangraph.png",
+  },
+  {
+    id: "registry",
+    label: "Registry",
+    heading: "Download memory models and extensions",
+    detail: "Download memory models and extensions from the Tiles Registry to enhance your experience.",
+    image: "/tilesreg.png",
+  },
+  {
+    id: "sdk",
+    label: "SDK",
+    heading: "Powered by Tilekit",
+    detail: "Explore the design of our Rust based Modelfile SDK for private, cross-platform model customization and access.",
+    image: "/mir.png",
+  },
+]
+
+export default function ExplorePage() {
   return (
     <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-auto lg:min-h-screen lg:overflow-visible">
       {/* Header */}
@@ -52,72 +76,77 @@ export default function AboutPage() {
         </div>
       </header>
 
-      <div className="flex h-full flex-col pt-16 lg:h-auto lg:pt-24">
+      <div className="flex h-full flex-col pt-14 lg:h-auto lg:pt-20">
         {/* Content */}
-        <main className="flex flex-1 flex-col items-center overflow-y-auto px-6 pb-8 pt-4 lg:overflow-visible lg:px-12 lg:pb-12 lg:pt-2">
-          <div className="w-full max-w-2xl text-center">
-            <Link href="/" className="mb-6 inline-flex flex-col items-center gap-3 lg:mb-10 lg:gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
+        <main className="flex flex-1 flex-col items-center overflow-y-auto px-5 pb-6 pt-4 sm:px-6 lg:overflow-visible lg:px-12 lg:pb-16 lg:pt-4">
+          <div className="w-full max-w-3xl">
+            {/* Page Heading */}
+            <h1 className="mb-6 text-center text-2xl font-bold text-black sm:text-3xl lg:mb-8 lg:text-4xl">
+              Explore Tiles
+            </h1>
+
+            {/* Hero Section - CLI Image and Explainer */}
+            <div className="mb-10 lg:mb-14">
+              <div className="overflow-hidden rounded-lg border border-black/10 lg:rounded-xl">
                 <Image
-                  src="/logo.png"
-                  alt="Tiles Logo"
-                  width={40}
-                  height={40}
-                  className="h-6 w-6 lg:h-10 lg:w-10"
+                  src="/tilescli.png"
+                  alt="Tiles CLI Interface"
+                  width={1200}
+                  height={600}
+                  className="w-full"
+                  priority
                 />
               </div>
-              <h1 className="text-3xl font-bold text-black lg:text-5xl">Tiles Privacy</h1>
-            </Link>
-
-            <div className="space-y-6 text-sm leading-relaxed text-black/80 sm:text-base lg:space-y-8 lg:text-xl lg:leading-relaxed">
-              <p className="text-base font-medium text-black sm:text-lg lg:text-2xl">
-                Our mission is to shape the future of software personalization with decentralized memory networks.
+              <p className="mt-3 text-center text-sm leading-relaxed text-black/60 lg:mt-4 lg:text-base">
+                Tiles CLI runs on your device, remembers what you share, and helps you find it later. Memories are saved as Markdown and organized into a clear, connected graph that you and your agents can access.
               </p>
+            </div>
 
-              <p>
-                Tiles Privacy was born from the
+            {/* Anchor Tabs */}
+            <div className="mb-10 flex items-center justify-center gap-1.5 lg:mb-14 lg:gap-2">
+              <span className="text-xs text-black/40 lg:text-sm">Explore</span>
+              {sections.map((section) => (
                 <a
-                  href="https://userandagents.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black underline underline-offset-2 hover:text-black/70"
+                  key={section.id}
+                  href={`#${section.id}`}
+                  className="rounded-full border border-black/15 px-3 py-0.5 text-xs text-black/60 transition-all hover:border-black/30 hover:text-black lg:px-4 lg:py-1 lg:text-sm"
                 >
-                  {" "}
-                  User &amp; Agents
+                  {section.label}
                 </a>
-                {" "}
-                community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.
-              </p>
+              ))}
+            </div>
 
-              <p>
-                Founded by Ankesh Bharti (
-                <a
-                  href="https://x.com/feynon"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-black underline underline-offset-2 hover:text-black/70"
+            {/* All Sections */}
+            <div className="space-y-12 lg:space-y-16">
+              {sections.map((section) => (
+                <section
+                  key={section.id}
+                  id={section.id}
+                  className="scroll-mt-24 lg:scroll-mt-28"
                 >
-                  @feynon
-                </a>
-                ), an independent researcher and technologist focused on on-device AI and secure identity, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is an on-device memory management system paired with an SDK that lets developers securely access user memory and create deeply personalized agent experiences.
-              </p>
-
-              <p>
-                We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
-                <a
-                  href="mailto:hello@tiles.run"
-                  className="text-black underline underline-offset-2 hover:text-black/70"
-                >
-                  hello@tiles.run
-                </a>
-                .
-              </p>
+                  <h2 className="mb-3 text-center text-xl font-bold text-black sm:text-2xl lg:mb-4 lg:text-3xl">
+                    {section.heading}
+                  </h2>
+                  <div className="overflow-hidden rounded-lg border border-black/10 lg:rounded-xl">
+                    <Image
+                      src={section.image}
+                      alt={section.heading}
+                      width={1200}
+                      height={700}
+                      className="w-full"
+                    />
+                  </div>
+                  <p className="mx-auto mt-3 max-w-2xl text-center text-sm text-black/60 lg:mt-4 lg:text-base">
+                    {section.detail}
+                  </p>
+                </section>
+              ))}
             </div>
           </div>
         </main>
 
         {/* Footer */}
-        <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-6 pb-4 pt-4 text-xs text-black/60 lg:shrink-0 lg:gap-3 lg:px-6 lg:pb-8 lg:pt-6 lg:text-sm">
+        <footer className="z-10 flex shrink-0 flex-col gap-2.5 bg-white px-5 pb-4 pt-6 text-xs text-black/60 sm:px-6 lg:gap-3 lg:px-6 lg:pb-6 lg:pt-8 lg:text-sm">
           <Link
             href="/explore"
             className="text-black/60 transition-colors hover:text-black"
@@ -212,4 +241,3 @@ export default function AboutPage() {
     </div>
   )
 }
-

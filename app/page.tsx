@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import Link from "next/link"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
 
@@ -144,42 +145,20 @@ export default function Page() {
 
       {/* Footer */}
       <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
-        <a
-          href="https://www.blog.tiles.run/p/how-tiles-works"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-0.5 text-black/60 transition-colors hover:text-black"
+        <Link
+          href="/explore"
+          className="text-black/60 transition-colors hover:text-black"
         >
-          How it works
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-3 w-3 lg:h-3.5 lg:w-3.5"
-          >
-            <path
-              fillRule="evenodd"
-              d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0Z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </a>
+          Explore
+        </Link>
+        <Link
+          href="/about"
+          className="text-black/60 transition-colors hover:text-black"
+        >
+          About
+        </Link>
         <div className="flex items-center justify-between">
-          <a href="/about" className="inline-flex items-center gap-0.5 text-black/60 transition-colors hover:text-black">
-            © 2025 Tiles Privacy
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="h-3 w-3 lg:h-3.5 lg:w-3.5"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4.22 11.78a.75.75 0 0 1 0-1.06L9.44 5.5H5.75a.75.75 0 0 1 0-1.5h5.5a.75.75 0 0 1 .75.75v5.5a.75.75 0 0 1-1.5 0V6.56l-5.22 5.22a.75.75 0 0 1-1.06 0Z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
+          <span className="text-black/60">© 2025 Tiles Privacy</span>
           <div className="flex items-center gap-2.5 lg:gap-4">
           <a
             href="https://x.com/tilesprivacy"
