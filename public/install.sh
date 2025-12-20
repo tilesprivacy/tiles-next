@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# Script source: https://raw.githubusercontent.com/tilesprivacy/tilekit/refs/heads/main/scripts/install.sh
 set -euo pipefail
 
 ENV="prod" # prod is another env, try taking it from github env
 REPO="tilesprivacy/tilekit" 
 # VERSION="${TILES_VERSION:-latest}"       
-VERSION="0.1.0"       
+VERSION="0.2.0"       
 INSTALL_DIR="$HOME/.local/bin"           # CLI install location
 SERVER_DIR="$HOME/.local/share/tiles/server"         # Python server folder
 TMPDIR="$(mktemp -d)"
@@ -57,16 +56,30 @@ mkdir -p "${INSTALL_DIR}"
 install -m 755 "${TMPDIR}/tiles" "${INSTALL_DIR}/tiles"
 
 log "📦 Installing Python server to ${SERVER_DIR}..."
+rm -rf "${SERVER_DIR}"
+
 mkdir -p "${SERVER_DIR}"
+
 cp -r "${TMPDIR}/server"/* "${SERVER_DIR}/"
 
 log "🔧 Setting up Python environment..."
 cd "${SERVER_DIR}"
-uv sync --frozen || err "Dependency setup failed."
 
+# Ensure Python 3.13 is available
+if ! command -v python3.13 >/dev/null 2>&1; then
+  if [[ "$OS" == "darwin" ]]; then
+    log "Installing Python 3.13 via Homebrew..."
+    brew install python@3.13 || err "Failed to install Python 3.13"
+  else
+    err "Python 3.13 is required but not found. Please install it manually."
+  fi
+fi
+
+# Force uv to use Python 3.13
+uv venv --python python3.13
+uv sync --frozen || err "Dependency setup failed."
 rm -rf "${TMPDIR}"
 
 log "✅ Tiles installed successfully!"
 log ""
 log "👉 Make sure ${INSTALL_DIR} is in your PATH."
-log "📖 For manual installation, see: https://github.com/tilesprivacy/tilekit/blob/main/README.md"
