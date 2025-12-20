@@ -65,14 +65,19 @@ export default function Page() {
           <div className="mx-auto flex w-full max-w-md flex-col gap-3 lg:gap-6">
             {/* Logo */}
             <div className="flex justify-center lg:justify-start">
-              <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm sm:h-20 sm:w-20 sm:rounded-2xl lg:h-28 lg:w-28 lg:rounded-3xl">
-                <Image
-                  src="/logo.png"
-                  alt="Tiles Logo"
-                  width={80}
-                  height={80}
-                  className="h-11 w-11 sm:h-14 sm:w-14 lg:h-[84px] lg:w-[84px]"
-                />
+              <div className="relative">
+                <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm sm:h-20 sm:w-20 sm:rounded-2xl lg:h-28 lg:w-28 lg:rounded-3xl">
+                  <Image
+                    src="/logo.png"
+                    alt="Tiles Logo"
+                    width={80}
+                    height={80}
+                    className="h-11 w-11 sm:h-14 sm:w-14 lg:h-[84px] lg:w-[84px]"
+                  />
+                </div>
+                <span className="absolute -right-1 -top-1 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-blue-600 shadow-sm ring-1 ring-blue-200/50 sm:-right-1.5 sm:-top-1.5 sm:px-2 sm:py-0.5 sm:text-[10px] lg:-right-2 lg:-top-2 lg:px-2.5 lg:py-1 lg:text-xs">
+                  Alpha
+                </span>
               </div>
             </div>
 
@@ -91,7 +96,7 @@ export default function Page() {
               <div className="flex justify-center lg:justify-start">
                 <Button
                   asChild
-                  className="rounded-full bg-black px-4 py-4 text-sm font-medium text-white hover:bg-black/90 sm:px-5 sm:py-5 lg:px-8 lg:py-6 lg:text-lg"
+                  className="group rounded-full bg-black px-4 py-4 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-black/90 hover:shadow-lg active:scale-95 sm:px-5 sm:py-5 lg:px-8 lg:py-6 lg:text-lg"
                 >
                   <a href="https://download.tiles.run/" className="flex items-center gap-2 sm:gap-3">
                     <Image
@@ -99,14 +104,14 @@ export default function Page() {
                       alt="Apple"
                       width={20}
                       height={20}
-                      className="h-4 w-4 lg:h-6 lg:w-6"
+                      className="h-4 w-4 transition-transform duration-300 group-hover:scale-110 lg:h-6 lg:w-6"
                     />
-                    <span>Download</span>
+                    <span className="transition-all duration-300">Download</span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
                       fill="currentColor"
-                      className="ml-2 h-4 w-4 sm:ml-3 lg:h-6 lg:w-6"
+                      className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 sm:ml-3 lg:h-6 lg:w-6"
                     >
                       <path
                         fillRule="evenodd"
@@ -119,9 +124,6 @@ export default function Page() {
               </div>
 
               <div className="flex items-center justify-center gap-1.5 text-[10px] lg:justify-start lg:text-sm">
-                <span className="rounded-full border border-black/20 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-black/60 lg:text-xs">
-                  Alpha
-                </span>
                 <span className="text-black/50">for macOS 14+ with Apple Silicon (M1+).</span>
               </div>
             </div>
@@ -148,12 +150,12 @@ export default function Page() {
       {/* Footer */}
       <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
-          href="https://www.tilekit.dev/"
+          href="https://developer.tiles.run"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
         >
-          Tilekit SDK
+          Tiles Developer
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 12 12"
