@@ -1,16 +1,33 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+
+type Indicator = 'operational' | 'degraded_performance' | 'partial_outage' | 'major_outage'
 
 interface StatusResponse {
   status: {
-    indicator: 'operational' | 'degraded_performance' | 'partial_outage' | 'major_outage'
+    indicator: Indicator
     description: string
   }
 }
 
+const STATUS_COLORS: Record<Indicator | 'loading', string> = {
+  operational: '#20CE68',
+  degraded_performance: '#F4C414',
+  partial_outage: '#FF8F1F',
+  major_outage: '#FF4D4F',
+  loading: '#9CA3AF',
+}
+
+const STATUS_LABELS: Record<Indicator, string> = {
+  operational: 'Tiles status: operational',
+  degraded_performance: 'Tiles status: degraded performance',
+  partial_outage: 'Tiles status: partial outage',
+  major_outage: 'Tiles status: major outage',
+}
+
 export function StatusIndicator() {
-  const [status, setStatus] = useState<'operational' | 'degraded_performance' | 'partial_outage' | 'major_outage' | null>(null)
+  const [status, setStatus] = useState<Indicator | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -21,33 +38,37 @@ export function StatusIndicator() {
         setStatus(data.status.indicator)
       } catch (error) {
         console.error('Failed to fetch status:', error)
-        setStatus('operational') // Default to operational on error
+        setStatus('operational')
       } finally {
         setLoading(false)
       }
     }
 
     fetchStatus()
-    // Refresh every 60 seconds
     const interval = setInterval(fetchStatus, 60000)
     return () => clearInterval(interval)
   }, [])
 
-  const getColor = () => {
-    if (loading) return 'bg-gray-400'
-    switch (status) {
-      case 'operational':
-        return 'bg-green-500'
-      case 'degraded_performance':
-        return 'bg-yellow-500'
-      case 'partial_outage':
-        return 'bg-orange-500'
-      case 'major_outage':
-        return 'bg-red-500'
-      default:
-        return 'bg-gray-400'
-    }
-  }
+  const color = useMemo(() => {
+    if (loading || !status) return STATUS_COLORS.loading
+    return STATUS_COLORS[status]
+  }, [loading, status])
 
-  return <div className={`h-2 w-2 rounded-full ${getColor()}`} />
+  const label = useMemo(() => {
+    if (loading || !status) return 'Checking Tiles status'
+    return STATUS_LABELS[status]
+  }, [loading, status])
+
+  return (
+    <div className="relative flex h-8 w-8 items-center justify-center" role="status" aria-label={label} aria-live="polite">
+      <span
+        className="absolute inline-flex h-4 w-4 animate-ping rounded-full opacity-50"
+        style={{ backgroundColor: color }}
+      />
+      <span
+        className="relative inline-flex h-2.5 w-2.5 rounded-full shadow-[0_0_0_2px_rgba(0,0,0,0.08)]"
+        style={{ backgroundColor: color }}
+      />
+    </div>
+  )
 }
