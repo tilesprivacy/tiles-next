@@ -58,13 +58,14 @@ export function StatusIndicator() {
   }, [])
 
   const color = useMemo(() => {
-    if (loading || !status) return STATUS_COLORS.loading
-    return STATUS_COLORS[status]
-  }, [loading, status])
+    if (status) return STATUS_COLORS[status]
+    return STATUS_COLORS.none
+  }, [status])
 
   const label = useMemo(() => {
-    if (loading || !status) return 'Checking Tiles status'
-    return STATUS_LABELS[status]
+    if (status) return STATUS_LABELS[status]
+    if (loading) return 'Checking Tiles status'
+    return STATUS_LABELS.none
   }, [loading, status])
 
   return (
