@@ -54,21 +54,17 @@ export default function AboutPage() {
               href="https://github.com/sponsors/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 lg:gap-2"
+              className="group flex items-center gap-1.5 lg:gap-2"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-3.5 w-3.5 text-pink-500 lg:h-4 lg:w-4"
+                fill="currentColor"
+                className="h-3.5 w-3.5 text-pink-500 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
-              <span>Sponsor</span>
+              <span className="transition-all duration-300 group-hover:scale-105 group-active:scale-105">Sponsor</span>
             </a>
           </Button>
         </div>
@@ -168,80 +164,80 @@ export default function AboutPage() {
               href="https://x.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="X (Twitter)"
             >
-              <FaXTwitter className="h-4 w-4 lg:h-5 lg:w-5" />
+              <FaXTwitter className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#000000] group-active:text-[#000000] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://bsky.app/profile/tiles.run"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="Bluesky"
             >
-              <FaBluesky className="h-4 w-4 lg:h-5 lg:w-5" />
+              <FaBluesky className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#0085FF] group-active:text-[#0085FF] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://www.blog.tiles.run/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="Substack"
             >
-              <SiSubstack className="h-4 w-4 lg:h-5 lg:w-5" />
+              <SiSubstack className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF6719] group-active:text-[#FF6719] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://www.instagram.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="Instagram"
             >
-              <FaInstagram className="h-4 w-4 lg:h-5 lg:w-5" />
+              <FaInstagram className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#E4405F] group-active:text-[#E4405F] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://go.tiles.run/discord"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="Discord"
             >
-              <FaDiscord className="h-4 w-4 lg:h-5 lg:w-5" />
+              <FaDiscord className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#5865F2] group-active:text-[#5865F2] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://www.reddit.com/r/tilesprivacy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="Reddit"
             >
-              <FaReddit className="h-4 w-4 lg:h-5 lg:w-5" />
+              <FaReddit className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF4500] group-active:text-[#FF4500] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://github.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="GitHub"
             >
-              <FaGithub className="h-4 w-4 lg:h-5 lg:w-5" />
+              <FaGithub className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#181717] group-active:text-[#181717] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://huggingface.co/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
+              className="group inline-flex items-center justify-center"
               aria-label="Hugging Face"
             >
-              <SiHuggingface className="h-4 w-4 lg:h-5 lg:w-5" />
+              <SiHuggingface className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E] lg:h-5 lg:w-5" />
             </a>
           </div>
         </div>
       </footer>
 
-      {/* Status Indicator - positioned at right bottom */}
-      <div className="fixed bottom-4 right-4 z-30 lg:bottom-6 lg:right-6">
+      {/* Status Indicator - positioned at right bottom, above footer */}
+      <div className="fixed bottom-20 right-4 z-30 lg:bottom-24 lg:right-6">
         <StatusIndicator />
       </div>
     </div>
