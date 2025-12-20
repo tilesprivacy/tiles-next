@@ -12,6 +12,37 @@ export default function Page() {
           <Button
             asChild
             variant="outline"
+            className="h-8 overflow-hidden rounded-full border-2 border-black/20 bg-white p-0 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:text-sm"
+          >
+            <a
+              href="https://github.com/tilesprivacy/tilekit"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center"
+            >
+              <div className="flex items-center justify-center px-3 lg:px-4">
+                <FaGithub className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
+              </div>
+              <div className="h-full w-px bg-black/20"></div>
+              <div className="flex items-center justify-center px-3 lg:px-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="h-3.5 w-3.5 lg:h-4 lg:w-4"
+                >
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
+            </a>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
             className="h-8 rounded-full border-2 border-black/20 bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-4 lg:text-sm"
           >
             <a
@@ -34,13 +65,6 @@ export default function Page() {
               </svg>
               <span>Sponsor</span>
             </a>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="h-8 rounded-full border-2 border-black bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-5 lg:text-sm"
-          >
-            <a href="https://registry.tiles.run/login">Login</a>
           </Button>
         </div>
       </header>
@@ -150,7 +174,7 @@ export default function Page() {
       {/* Footer */}
       <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
-          href="https://developer.tiles.run"
+          href="https://www.tilekit.dev"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
@@ -177,7 +201,7 @@ export default function Page() {
               href="https://x.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="X (Twitter)"
             >
               <FaXTwitter className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -186,7 +210,7 @@ export default function Page() {
               href="https://bsky.app/profile/tiles.run"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="Bluesky"
             >
               <FaBluesky className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -195,7 +219,7 @@ export default function Page() {
               href="https://www.blog.tiles.run/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="Substack"
             >
               <SiSubstack className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -204,7 +228,7 @@ export default function Page() {
               href="https://www.instagram.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="Instagram"
             >
               <FaInstagram className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -213,7 +237,7 @@ export default function Page() {
               href="https://go.tiles.run/discord"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="Discord"
             >
               <FaDiscord className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -222,7 +246,7 @@ export default function Page() {
               href="https://www.reddit.com/r/tilesprivacy/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="Reddit"
             >
               <FaReddit className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -231,7 +255,7 @@ export default function Page() {
               href="https://github.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="GitHub"
             >
               <FaGithub className="h-4 w-4 lg:h-5 lg:w-5" />
@@ -240,7 +264,7 @@ export default function Page() {
               href="https://huggingface.co/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 transition-colors hover:text-black"
+              className="text-black/60 transition-all duration-300 hover:scale-110 hover:text-black"
               aria-label="Hugging Face"
             >
               <SiHuggingface className="h-4 w-4 lg:h-5 lg:w-5" />
