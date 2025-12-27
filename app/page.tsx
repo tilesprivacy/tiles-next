@@ -74,15 +74,15 @@ export default function Page() {
           <div className="h-[45vh] shrink-0 lg:hidden" />
           
           {/* Mobile: Image at top - extends to 50% of logo height */}
-          <div className="absolute inset-x-0 top-0 h-[calc(45vh+2rem)] sm:h-[calc(45vh+2.5rem)] lg:hidden">
-            <Image
-              src="/graph.png"
+          <div 
+            className="absolute inset-x-0 top-0 overflow-hidden bg-white lg:hidden" 
+            style={{ height: 'var(--mobile-graph-height)' }}
+          >
+            <img
+              src="/graph.png?v=2"
               alt="Network graph visualization showing data relationships"
-              fill
-              className="object-cover"
-              priority
-              loading="eager"
-              unoptimized
+              className="h-full w-full object-cover"
+              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
             />
           </div>
           
@@ -158,7 +158,7 @@ export default function Page() {
         <div className="hidden flex-[0.55] items-center justify-center bg-white p-4 lg:flex">
           <div className="relative h-full w-full">
             <Image
-              src="/graph.png"
+              src="/graph.png?v=2"
               alt="Network graph visualization showing data relationships"
               fill
               className="object-contain"

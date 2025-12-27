@@ -123,3 +123,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Mobile graph image height - extends to 50% of logo height */
+:root {
+  --mobile-graph-height: calc(45vh + 2rem); /* 2rem = 50% of h-16 (64px) logo */
+}
+
+@media (min-width: 640px) {
+  :root {
+    --mobile-graph-height: calc(45vh + 2.5rem); /* 2.5rem = 50% of h-20 (80px) logo */
+  }
+}
