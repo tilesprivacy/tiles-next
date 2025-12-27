@@ -8,6 +8,21 @@ import { StatusIndicator } from "@/components/status-indicator"
 export default function Page() {
   return (
     <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
+      {/* Mobile: Full-bleed background image with soft fade to white */}
+      <div className="absolute inset-0 z-0 overflow-hidden bg-white lg:hidden" aria-hidden="true">
+        <Image
+          src="/graph.png"
+          alt=""
+          fill
+          priority
+          loading="eager"
+          unoptimized
+          className="object-cover object-center scale-105"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/75 via-white/35 to-white/85" />
+      </div>
+
       <header className="absolute inset-x-0 top-0 z-10 flex justify-end px-4 pt-4 lg:px-6 lg:pt-6">
         <div className="flex items-center gap-2 lg:gap-3">
           <Button
@@ -69,23 +84,7 @@ export default function Page() {
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
       <div className="flex min-h-0 flex-1 flex-col lg:h-full lg:flex-row">
         {/* Content Section */}
-        <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
-          {/* Mobile: Spacer to push content down */}
-          <div className="h-[45vh] shrink-0 lg:hidden" />
-          
-          {/* Mobile: Image at top - extends to 50% of logo height */}
-          <div className="absolute inset-x-0 top-0 h-[calc(45vh+2rem)] sm:h-[calc(45vh+2.5rem)] lg:hidden">
-            <Image
-              src="/graph.png"
-              alt="Network graph visualization showing data relationships"
-              fill
-              className="object-cover"
-              priority
-              loading="eager"
-              unoptimized
-            />
-          </div>
-          
+        <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-center px-6 pb-4 pt-20 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
           <div className="mx-auto flex w-full max-w-md flex-col gap-3 lg:gap-6">
             {/* Logo */}
             <div className="flex justify-center lg:justify-start">
