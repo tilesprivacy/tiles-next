@@ -68,26 +68,29 @@ export default function Page() {
 
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
       <div className="flex min-h-0 flex-1 flex-col lg:h-full lg:flex-row">
-        {/* Mobile: Image at top - covers upper portion */}
-        <div className="relative h-[35vh] shrink-0 lg:hidden">
-          <Image
-            src="/images/network-graph.png"
-            alt="Network graph visualization showing data relationships"
-            fill
-            className="object-cover"
-            priority
-            loading="eager"
-            unoptimized
-          />
-        </div>
-
         {/* Content Section */}
-        <div className="flex min-h-0 flex-1 flex-col items-center justify-center bg-white px-6 py-4 lg:h-full lg:flex-[0.5] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24 lg:pt-0">
+        <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
+          {/* Mobile: Spacer to push content down */}
+          <div className="h-[45vh] shrink-0 lg:hidden" />
+          
+          {/* Mobile: Image at top - extends to 50% of logo height */}
+          <div className="absolute inset-x-0 top-0 h-[calc(45vh+2rem)] sm:h-[calc(45vh+2.5rem)] lg:hidden">
+            <Image
+              src="/graph.png"
+              alt="Network graph visualization showing data relationships"
+              fill
+              className="object-cover"
+              priority
+              loading="eager"
+              unoptimized
+            />
+          </div>
+          
           <div className="mx-auto flex w-full max-w-md flex-col gap-3 lg:gap-6">
             {/* Logo */}
             <div className="flex justify-center lg:justify-start">
               <div className="relative">
-                <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm sm:h-20 sm:w-20 sm:rounded-2xl lg:h-28 lg:w-28 lg:rounded-3xl">
+                <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 sm:h-20 sm:w-20 sm:rounded-2xl lg:h-28 lg:w-28 lg:rounded-3xl lg:ring-0">
                   <Image
                     src="/logo.png"
                     alt="Tiles Logo"
@@ -152,14 +155,13 @@ export default function Page() {
         </div>
 
         {/* Desktop: Image on Right, Mobile: Hidden */}
-        <div className="hidden flex-[0.5] items-center justify-center bg-white px-6 lg:flex">
+        <div className="hidden flex-[0.55] items-center justify-center bg-white p-4 lg:flex">
           <div className="relative h-full w-full">
             <Image
-              src="/images/network-graph.png"
+              src="/graph.png"
               alt="Network graph visualization showing data relationships"
-              width={1200}
-              height={1200}
-              className="h-full w-full object-contain"
+              fill
+              className="object-contain"
               priority
               loading="eager"
               unoptimized
@@ -169,7 +171,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://developer.tiles.run"
           target="_blank"
