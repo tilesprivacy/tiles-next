@@ -6,7 +6,19 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
- 
+  async headers() {
+    return [
+      {
+        source: '/install.sh',
+        headers: [
+          {
+            key: 'Content-Type',
+            value: 'text/plain; charset=utf-8',
+          },
+        ],
+      },
+    ]
+  },
 }
 
 export default nextConfig
