@@ -1,13 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import { useState } from "react"
-import { StatusIndicator } from "@/components/status-indicator"
+import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
+import { StatusIndicator } from "@/components/status-indicator"
 
-const CodeBlock = ({ code }: { code: string }) => {
+const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean }) => {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
@@ -17,22 +18,40 @@ const CodeBlock = ({ code }: { code: string }) => {
   }
 
   return (
-    <div className="flex items-center gap-3 rounded-lg bg-white/5 border border-white/10 px-4 py-3">
-      <code className="font-mono text-sm text-white/90 flex-1">{code}</code>
+    <div className={`inline-flex items-center rounded-xl bg-[#1a1a1a] max-w-full ${compact ? '' : ''}`}>
+      <div className={`overflow-x-auto ${compact ? 'px-4 py-2.5' : 'px-4 py-3 lg:px-5 lg:py-3.5'}`}>
+        <code className={`font-mono text-white/90 whitespace-nowrap ${compact ? 'text-sm' : 'text-sm lg:text-base'}`}>{code}</code>
+      </div>
       <button
         onClick={handleCopy}
-        className="flex-shrink-0 p-1.5 hover:bg-white/10 rounded transition-all"
+        className={`flex-shrink-0 flex items-center justify-center bg-[#1a1a1a] rounded-r-xl hover:bg-[#252525] transition-colors ${compact ? 'px-3 py-2.5' : 'px-3 py-3 lg:px-4 lg:py-3.5'}`}
         aria-label="Copy to clipboard"
         title={copied ? "Copied!" : "Copy to clipboard"}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-          className="h-4 w-4 text-white/60 hover:text-white transition-colors"
-        >
-          <path d="M8 3a1 1 0 011-1h2a1 1 0 011 1v0a1 1 0 001 1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2h-3a1 1 0 001-1v0a1 1 0 011-1h2a1 1 0 011 1v0a6 6 0 01-6 6 6 6 0 01-6-6v0a1 1 0 011-1h2a1 1 0 011 1v0z" />
-        </svg>
+        {copied ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="h-4 w-4 text-green-400 lg:h-[18px] lg:w-[18px]"
+          >
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-4 w-4 text-white/50 hover:text-white/80 transition-colors lg:h-[18px] lg:w-[18px]"
+          >
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+        )}
       </button>
     </div>
   )
@@ -40,7 +59,7 @@ const CodeBlock = ({ code }: { code: string }) => {
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-black lg:h-screen lg:overflow-hidden">
+    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-black">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-black via-black/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <Link href="/" className="text-sm text-white/60 transition-colors hover:text-white lg:text-base">
@@ -104,36 +123,59 @@ export default function DownloadPage() {
       </header>
 
       {/* Main Content */}
-      <div className="relative z-10 flex min-h-screen flex-1 flex-col items-start justify-center bg-black px-6 py-24 lg:py-0">
-        {/* Install and Run Section */}
-        <div className="w-full max-w-2xl space-y-4">
-          <p className="text-sm text-white/70 lg:text-base">Install and run:</p>
-
-          {/* Code Blocks */}
-          <div className="space-y-3 flex flex-col items-stretch">
-            <CodeBlock code="curl -fsSL https://tiles.run/install.sh | sh" />
-            <CodeBlock code="tiles run" />
+      <div className="flex flex-1 flex-col items-start justify-center px-6 lg:px-12">
+        <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-2xl lg:gap-6">
+          {/* Title */}
+          <div className="space-y-1 lg:space-y-2 mb-4 lg:mb-8">
+            <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-6xl">
+              You're about to<br />get Tiles for Mac
+            </h1>
           </div>
 
-          {/* Footer Links - Single horizontal line */}
-          <div className="flex items-center gap-3 text-sm text-white/70 pt-6 lg:text-base">
-            <a
-              href="https://tiles.run/install.sh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-white"
-            >
-              View script source
-            </a>
-            <span>•</span>
-            <a
-              href="https://github.com/tilesprivacy/tilekit/blob/main/README.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-white"
-            >
-              Manual install instructions
-            </a>
+          {/* Install Section */}
+          <div className="space-y-2 lg:space-y-3">
+            <p className="text-sm text-white/70 sm:text-base lg:text-xl">Install and run:</p>
+
+            {/* Code Blocks */}
+            <div className="flex flex-col items-start gap-2 lg:gap-3 w-full lg:w-auto">
+              <CodeBlock code="curl -fsSL https://tiles.run/install.sh | sh" />
+              <CodeBlock code="tiles run" compact />
+            </div>
+
+            {/* Footer Links */}
+            <div className="flex items-center gap-2 text-xs text-white/50 pt-2 lg:gap-3 lg:text-sm">
+              <a
+                href="https://tiles.run/install.sh"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-white"
+              >
+                View script source
+              </a>
+              <span>•</span>
+              <a
+                href="https://github.com/tilesprivacy/tilekit/blob/main/README.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-white"
+              >
+                Manual install instructions
+              </a>
+            </div>
+
+            {/* QR Code */}
+            <div className="flex items-center gap-3 pt-8 lg:gap-4 lg:pt-12">
+              <div className="rounded-xl bg-white p-2 lg:p-3">
+                <Image
+                  src="/qr-code.png"
+                  alt="QR Code to download Tiles"
+                  width={80}
+                  height={80}
+                  className="h-16 w-16 lg:h-20 lg:w-20"
+                />
+              </div>
+              <p className="text-xs text-white/50 lg:text-sm">Scan to download</p>
+            </div>
           </div>
         </div>
       </div>

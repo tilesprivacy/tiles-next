@@ -124,33 +124,19 @@
   }
 }
 
-/* Mobile hero sizing - flexibly shrinks on compact viewports */
+/* Mobile hero sizing - graph at 50% of viewport, logo overlaps by 50% of its height */
 :root {
-  --mobile-logo-size: 4rem;
+  --mobile-logo-size: 4.5rem;
   --mobile-logo-overlap: calc(var(--mobile-logo-size) / 2);
-  --mobile-graph-height: clamp(12rem, calc(45vh + 2rem), 22.5rem);
+  --mobile-graph-height: 50dvh;
   --mobile-hero-offset: calc(var(--mobile-graph-height) - var(--mobile-logo-overlap));
 }
 
-@media (max-height: 760px) {
-  :root {
-    --mobile-graph-height: clamp(10rem, calc(40vh + 1.5rem), 20rem);
-    --mobile-hero-offset: calc(var(--mobile-graph-height) - var(--mobile-logo-overlap));
-  }
-}
-
-@media (max-height: 640px) {
-  :root {
-    --mobile-graph-height: clamp(9rem, calc(36vh + 1.25rem), 18rem);
-    --mobile-hero-offset: calc(var(--mobile-graph-height) - var(--mobile-logo-overlap));
-  }
-}
-
-@media (min-width: 640px) {
+@media (min-width: 640px) and (max-width: 1023px) {
   :root {
     --mobile-logo-size: 5rem;
     --mobile-logo-overlap: calc(var(--mobile-logo-size) / 2);
-    --mobile-graph-height: clamp(13rem, calc(45vh + 2.5rem), 24rem);
+    --mobile-graph-height: 50dvh;
     --mobile-hero-offset: calc(var(--mobile-graph-height) - var(--mobile-logo-overlap));
   }
 }
