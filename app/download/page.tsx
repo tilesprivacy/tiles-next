@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
@@ -123,10 +122,10 @@ export default function DownloadPage() {
       </header>
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col items-start justify-center px-6 lg:px-12">
+      <div className="flex flex-1 flex-col items-start px-6 pt-[25dvh] lg:px-12">
         <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-2xl lg:gap-6">
           {/* Title */}
-          <div className="space-y-1 lg:space-y-2 mb-4 lg:mb-8">
+          <div className="space-y-1 lg:space-y-2 mb-8 lg:mb-12">
             <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-6xl">
               You're about to<br />get Tiles for Mac
             </h1>
@@ -163,19 +162,6 @@ export default function DownloadPage() {
               </a>
             </div>
 
-            {/* QR Code */}
-            <div className="flex items-center gap-3 pt-8 lg:gap-4 lg:pt-12">
-              <div className="rounded-xl bg-white p-2 lg:p-3">
-                <Image
-                  src="/qr-code.png"
-                  alt="QR Code to download Tiles"
-                  width={80}
-                  height={80}
-                  className="h-16 w-16 lg:h-20 lg:w-20"
-                />
-              </div>
-              <p className="text-xs text-white/50 lg:text-sm">Scan to download</p>
-            </div>
           </div>
         </div>
       </div>

@@ -37,16 +37,16 @@ export function StatusIndicator() {
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        const response = await fetch('https://status.tiles.run/api/v2/status.json')
+        const response = await fetch('/api/status')
         const data: StatusResponse = await response.json()
         if (isKnownIndicator(data.status.indicator)) {
           setStatus(data.status.indicator)
         } else {
-          setStatus(null)
+          setStatus('none')
         }
-      } catch (error) {
-        console.error('Failed to fetch status:', error)
-        setStatus(null)
+      } catch {
+        // Silently default to operational status on error
+        setStatus('none')
       } finally {
         setLoading(false)
       }
