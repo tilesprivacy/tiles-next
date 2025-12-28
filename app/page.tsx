@@ -7,7 +7,7 @@ import { StatusIndicator } from "@/components/status-indicator"
 
 export default function Page() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
+    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-white lg:h-screen lg:overflow-hidden">
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex-1" aria-hidden="true" />
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
@@ -72,7 +72,7 @@ export default function Page() {
         {/* Content Section */}
         <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
           {/* Mobile: Spacer to push content down */}
-          <div className="h-[45vh] shrink-0 lg:hidden" />
+          <div className="shrink-0 lg:hidden" style={{ height: "var(--mobile-hero-spacer)" }} />
           
           {/* Mobile: Image at top - extends to 50% of logo height */}
           <div 

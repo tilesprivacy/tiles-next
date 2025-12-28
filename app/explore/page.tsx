@@ -148,6 +148,24 @@ export default function ExplorePage() {
         {/* Footer */}
         <footer className="z-10 flex shrink-0 flex-col gap-2.5 bg-white px-5 pb-4 pt-6 text-xs text-black/60 sm:px-6 lg:gap-3 lg:px-6 lg:pb-6 lg:pt-8 lg:text-sm">
           <a
+            href="https://developer.tiles.run"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+          >
+            Tiles Developer
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="h-2.5 w-2.5"
+            >
+              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+          <a
             href="https://www.blog.tiles.run/p/how-tiles-works"
             target="_blank"
             rel="noopener noreferrer"

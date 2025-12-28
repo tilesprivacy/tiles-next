@@ -124,13 +124,28 @@
   }
 }
 
-/* Mobile graph image height - extends to 50% of logo height */
+/* Mobile hero sizing - flexibly shrinks on compact viewports */
 :root {
-  --mobile-graph-height: calc(45vh + 2rem); /* 2rem = 50% of h-16 (64px) logo */
+  --mobile-hero-spacer: clamp(9rem, 45vh, 18rem);
+  --mobile-graph-height: clamp(12rem, calc(45vh + 2rem), 22.5rem);
+}
+
+@media (max-height: 760px) {
+  :root {
+    --mobile-hero-spacer: clamp(8rem, 40vh, 15rem);
+    --mobile-graph-height: clamp(10rem, calc(40vh + 1.5rem), 20rem);
+  }
+}
+
+@media (max-height: 640px) {
+  :root {
+    --mobile-hero-spacer: clamp(7rem, 36vh, 14rem);
+    --mobile-graph-height: clamp(9rem, calc(36vh + 1.25rem), 18rem);
+  }
 }
 
 @media (min-width: 640px) {
   :root {
-    --mobile-graph-height: calc(45vh + 2.5rem); /* 2.5rem = 50% of h-20 (80px) logo */
+    --mobile-graph-height: clamp(13rem, calc(45vh + 2.5rem), 24rem);
   }
 }
