@@ -7,7 +7,7 @@ import { StatusIndicator } from "@/components/status-indicator"
 
 export default function Page() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
+    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-white lg:h-screen lg:overflow-hidden">
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex-1" aria-hidden="true" />
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
@@ -72,7 +72,7 @@ export default function Page() {
         {/* Content Section */}
         <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
           {/* Mobile: Spacer to push content down */}
-          <div className="h-[45vh] shrink-0 lg:hidden" />
+          <div className="shrink-0 lg:hidden" style={{ height: "var(--mobile-hero-offset)" }} />
           
           {/* Mobile: Image at top - extends to 50% of logo height */}
           <div 
@@ -91,7 +91,10 @@ export default function Page() {
             {/* Logo */}
             <div className="flex justify-center lg:justify-start">
               <div className="relative">
-                <div className="flex h-16 w-16 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 sm:h-20 sm:w-20 sm:rounded-2xl lg:h-28 lg:w-28 lg:rounded-3xl lg:ring-0">
+                <div
+                  className="flex items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 sm:rounded-2xl lg:rounded-3xl lg:ring-0"
+                  style={{ height: "var(--mobile-logo-size)", width: "var(--mobile-logo-size)" }}
+                >
                   <Image
                     src="/logo.png"
                     alt="Tiles Logo"
