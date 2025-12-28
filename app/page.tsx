@@ -8,8 +8,9 @@ import { StatusIndicator } from "@/components/status-indicator"
 export default function Page() {
   return (
     <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:h-screen">
-      <header className="absolute inset-x-0 top-0 z-10 flex justify-end px-4 pt-4 lg:px-6 lg:pt-6">
-        <div className="flex items-center gap-2 lg:gap-3">
+      <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+        <div className="flex-1" aria-hidden="true" />
+        <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
             asChild
             variant="outline"
