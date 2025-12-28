@@ -73,20 +73,20 @@ export default function Page() {
         <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
           {/* Mobile: Spacer to push content down */}
           <div className="shrink-0 lg:hidden" style={{ height: "var(--mobile-hero-offset)" }} />
-          
+
           {/* Mobile: Image at top - extends to 50% of logo height */}
-          <div 
-            className="absolute inset-x-0 top-0 overflow-hidden bg-white lg:hidden" 
-            style={{ height: 'var(--mobile-graph-height)' }}
+          <div
+            className="absolute inset-x-0 top-0 overflow-hidden bg-white lg:hidden"
+            style={{ height: "var(--mobile-graph-height)" }}
           >
             <img
               src="/graph.png?v=2"
               alt="Network graph visualization showing data relationships"
               className="h-full w-full object-cover"
-              style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
             />
           </div>
-          
+
           <div className="mx-auto flex w-full max-w-md flex-col gap-3 lg:gap-6">
             {/* Logo */}
             <div className="flex justify-center lg:justify-start">
@@ -126,7 +126,7 @@ export default function Page() {
                   asChild
                   className="group rounded-full bg-black px-4 py-4 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-black/90 hover:shadow-lg active:scale-95 sm:px-5 sm:py-5 lg:px-8 lg:py-6 lg:text-lg"
                 >
-                  <a href="https://download.tiles.run/" className="flex items-center gap-2 sm:gap-3">
+                  <Link href="/download" className="flex items-center gap-2 sm:gap-3">
                     <Image
                       src="/apple-logo-white.svg"
                       alt="Apple"
@@ -147,7 +147,7 @@ export default function Page() {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </a>
+                  </Link>
                 </Button>
               </div>
 
@@ -198,7 +198,10 @@ export default function Page() {
           About
         </Link>
         <div className="flex items-center justify-between">
-          <span className="text-black/60">© 2025 Tiles Privacy</span>
+          <div className="flex items-center gap-2">
+            <span className="text-black/60">© 2025 Tiles Privacy</span>
+            <StatusIndicator />
+          </div>
           <div className="flex items-center gap-2.5 lg:gap-4">
             <a
               href="https://x.com/tilesprivacy"
@@ -275,11 +278,6 @@ export default function Page() {
           </div>
         </div>
       </footer>
-
-      {/* Status Indicator - positioned at right bottom, above footer */}
-      <div className="fixed bottom-20 right-4 z-30 lg:bottom-24 lg:right-6">
-        <StatusIndicator />
-      </div>
     </div>
   )
 }

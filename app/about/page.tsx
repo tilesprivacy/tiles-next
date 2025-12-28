@@ -158,7 +158,10 @@ export default function AboutPage() {
           About
         </Link>
         <div className="flex items-center justify-between">
-          <span className="text-black/60">© 2025 Tiles Privacy</span>
+          <div className="flex items-center gap-2">
+            <span className="text-black/60">© 2025 Tiles Privacy</span>
+            <StatusIndicator />
+          </div>
           <div className="flex items-center gap-2.5 lg:gap-4">
             <a
               href="https://x.com/tilesprivacy"
@@ -235,12 +238,6 @@ export default function AboutPage() {
           </div>
         </div>
       </footer>
-
-      {/* Status Indicator - positioned at right bottom, above footer */}
-      <div className="fixed bottom-20 right-4 z-30 lg:bottom-24 lg:right-6">
-        <StatusIndicator />
-      </div>
     </div>
   )
 }
-
