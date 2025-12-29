@@ -182,7 +182,7 @@ export default function Page() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
         >
-          Tiles Developer
+          Tiles Book
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 12 12"
