@@ -148,7 +148,7 @@ export default function ExplorePage() {
         {/* Footer */}
         <footer className="z-10 flex shrink-0 flex-col gap-2.5 bg-white px-5 pb-4 pt-6 text-xs text-black/60 sm:px-6 lg:gap-3 lg:px-6 lg:pb-6 lg:pt-8 lg:text-sm">
           <a
-            href="https://developer.tiles.run"
+            href="https://book.tiles.run"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
@@ -264,3 +264,4 @@ export default function ExplorePage() {
     </div>
   )
 }
+

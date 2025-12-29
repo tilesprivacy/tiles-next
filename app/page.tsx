@@ -177,7 +177,7 @@ export default function Page() {
       {/* Footer */}
       <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
-          href="https://developer.tiles.run"
+          href="https://book.tiles.run"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"

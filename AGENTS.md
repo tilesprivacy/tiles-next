@@ -13,4 +13,4 @@
 - All footers across pages (home, about, etc.) must remain consistent.
 - The developer link should always be:
   - **Text**: "Tiles Developer"
-  - **URL**: `https://developer.tiles.run`
+  - **URL**: `https://book.tiles.run`
