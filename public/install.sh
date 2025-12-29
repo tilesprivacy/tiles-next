@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ENV="prod" # prod is another env, try taking it from github env
-REPO="tilesprivacy/tilekit" 
+REPO="tilesprivacy/tiles" 
 # VERSION="${TILES_VERSION:-latest}"       
 VERSION="0.2.0"       
 INSTALL_DIR="$HOME/.local/bin"           # CLI install location

@@ -14,4 +14,3 @@
 - The developer link should always be:
   - **Text**: "Tiles Developer"
   - **URL**: `https://developer.tiles.run`
-- Never use "Tilekit SDK" or the old URL (`https://www.tilekit.dev/`) in footers.
