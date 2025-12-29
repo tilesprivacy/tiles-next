@@ -71,7 +71,7 @@ export default function DownloadPage() {
             className="h-8 overflow-hidden rounded-full border-2 border-black/20 bg-white p-0 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:text-sm"
           >
             <a
-              href="https://github.com/tilesprivacy/tilekit"
+              href="https://github.com/tilesprivacy/tiles"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center"
