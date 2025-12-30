@@ -75,8 +75,13 @@ export default function AboutPage() {
         <main className="flex flex-col items-start px-6 pb-8 pt-4 lg:px-12 lg:pb-32 lg:pt-2">
           <div className="w-full max-w-2xl text-left">
             <Link href="/" className="mb-6 inline-flex flex-col items-start gap-3 lg:mb-10 lg:gap-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
-                <Image src="/logo.png" alt="Tiles Logo" width={40} height={40} className="h-6 w-6 lg:h-10 lg:w-10" />
+              <div className="flex items-center gap-2 lg:gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
+                  <Image src="/logo.png" alt="Tiles Logo" width={40} height={40} className="h-6 w-6 lg:h-10 lg:w-10" />
+                </div>
+                <h1 className="text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl xl:text-6xl">
+                  Tiles Privacy
+                </h1>
               </div>
             </Link>
 
