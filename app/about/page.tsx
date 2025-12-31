@@ -104,7 +104,7 @@ export default function AboutPage() {
                 <p>
                   Founded by Ankesh Bharti (
                   <a
-                    href="https://x.com/feynon"
+                    href="https://x.com/feynon_"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-black underline underline-offset-2 hover:text-black/70"
@@ -255,106 +255,110 @@ export default function AboutPage() {
         </div>
       </aside>
 
-      {/* Desktop Footer - Fixed at bottom */}
-      <footer className="z-30 hidden lg:flex fixed bottom-0 left-0 right-0 items-center justify-between bg-transparent px-6 py-4 text-sm text-black/60">
-        <div className="flex items-center gap-2">
-          <a
-            href="https://book.tiles.run"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+      {/* Desktop Footer - Fixed at bottom left */}
+      <footer className="z-30 hidden lg:flex fixed bottom-0 left-0 w-1/2 flex-col gap-3 bg-white px-6 py-4 text-sm text-black/60">
+        <a
+          href="https://book.tiles.run"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+        >
+          Tiles Book
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-2.5 w-2.5"
           >
-            Tiles Book
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="h-2.5 w-2.5"
-            >
-              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
-          <span className="text-black/40">·</span>
+            <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
+        <Link href="/about" className="font-medium text-black/60 transition-colors hover:text-black">
+          About
+        </Link>
+        <div className="flex items-center gap-2">
           <span className="text-black/60">© 2025 Tiles Privacy</span>
           <StatusIndicator />
         </div>
-        <div className="flex items-center gap-4">
-          <a
-            href="https://x.com/tilesprivacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="X (Twitter)"
-          >
-            <FaXTwitter className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-white group-active:text-white" />
-          </a>
-          <a
-            href="https://bsky.app/profile/tiles.run"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="Bluesky"
-          >
-            <FaBluesky className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#0085FF] group-active:text-[#0085FF]" />
-          </a>
-          <a
-            href="https://www.blog.tiles.run/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="Substack"
-          >
-            <SiSubstack className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF6719] group-active:text-[#FF6719]" />
-          </a>
-          <a
-            href="https://www.instagram.com/tilesprivacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="Instagram"
-          >
-            <FaInstagram className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#E4405F] group-active:text-[#E4405F]" />
-          </a>
-          <a
-            href="https://go.tiles.run/discord"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="Discord"
-          >
-            <FaDiscord className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#5865F2] group-active:text-[#5865F2]" />
-          </a>
-          <a
-            href="https://www.reddit.com/r/tilesprivacy/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="Reddit"
-          >
-            <FaReddit className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF4500] group-active:text-[#FF4500]" />
-          </a>
-          <a
-            href="https://github.com/tilesprivacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="GitHub"
-          >
-            <FaGithub className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-white group-active:text-white" />
-          </a>
-          <a
-            href="https://huggingface.co/tilesprivacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center"
-            aria-label="Hugging Face"
-          >
-            <SiHuggingface className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E]" />
-          </a>
-        </div>
       </footer>
+
+      {/* Social Icons - Fixed at bottom right */}
+      <div className="z-30 hidden lg:flex fixed bottom-0 right-0 w-1/2 items-center justify-end gap-4 px-6 py-4">
+        <a
+          href="https://x.com/tilesprivacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="X (Twitter)"
+        >
+          <FaXTwitter className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-white group-active:text-white" />
+        </a>
+        <a
+          href="https://bsky.app/profile/tiles.run"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="Bluesky"
+        >
+          <FaBluesky className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#0085FF] group-active:text-[#0085FF]" />
+        </a>
+        <a
+          href="https://www.blog.tiles.run/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="Substack"
+        >
+          <SiSubstack className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF6719] group-active:text-[#FF6719]" />
+        </a>
+        <a
+          href="https://www.instagram.com/tilesprivacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="Instagram"
+        >
+          <FaInstagram className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#E4405F] group-active:text-[#E4405F]" />
+        </a>
+        <a
+          href="https://go.tiles.run/discord"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="Discord"
+        >
+          <FaDiscord className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#5865F2] group-active:text-[#5865F2]" />
+        </a>
+        <a
+          href="https://www.reddit.com/r/tilesprivacy/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="Reddit"
+        >
+          <FaReddit className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF4500] group-active:text-[#FF4500]" />
+        </a>
+        <a
+          href="https://github.com/tilesprivacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="GitHub"
+        >
+          <FaGithub className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-white group-active:text-white" />
+        </a>
+        <a
+          href="https://huggingface.co/tilesprivacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group inline-flex items-center justify-center"
+          aria-label="Hugging Face"
+        >
+          <SiHuggingface className="h-5 w-5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E]" />
+        </a>
+      </div>
     </div>
   )
 }
