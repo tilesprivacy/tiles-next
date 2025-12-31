@@ -69,7 +69,7 @@ export default function AboutPage() {
       </header>
 
       {/* Left Section - Content */}
-      <div className="relative flex min-h-screen flex-col lg:w-1/2 lg:min-h-0 lg:overflow-y-auto">
+      <div className="relative flex flex-col lg:w-1/2 lg:min-h-0 lg:h-full lg:overflow-y-auto">
 
         <div className="flex flex-col pt-16 lg:pt-24 lg:pb-24">
           {/* Content */}
@@ -237,6 +237,35 @@ export default function AboutPage() {
             </div>
           </div>
         </footer>
+
+        {/* Desktop Footer - Scrollable within left section */}
+        <footer className="z-10 hidden shrink-0 flex-col gap-3 bg-white px-6 py-4 text-sm text-black/60 lg:flex">
+          <a
+            href="https://book.tiles.run"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+          >
+            Tiles Book
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 12 12"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              className="h-2.5 w-2.5"
+            >
+              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </a>
+          <Link href="/about" className="font-medium text-black/60 transition-colors hover:text-black">
+            About
+          </Link>
+          <div className="flex items-center gap-2">
+            <span className="text-black/60">© 2025 Tiles Privacy</span>
+            <StatusIndicator />
+          </div>
+        </footer>
       </div>
 
       {/* Right Section - Logo Hero (Desktop only) */}
@@ -255,34 +284,6 @@ export default function AboutPage() {
         </div>
       </aside>
 
-      {/* Desktop Footer - Fixed at bottom left */}
-      <footer className="z-30 hidden lg:flex fixed bottom-0 left-0 w-1/2 flex-col gap-3 bg-white px-6 py-4 text-sm text-black/60">
-        <a
-          href="https://book.tiles.run"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
-        >
-          Tiles Book
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 12 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="h-2.5 w-2.5"
-          >
-            <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </a>
-        <Link href="/about" className="font-medium text-black/60 transition-colors hover:text-black">
-          About
-        </Link>
-        <div className="flex items-center gap-2">
-          <span className="text-black/60">© 2025 Tiles Privacy</span>
-          <StatusIndicator />
-        </div>
-      </footer>
 
       {/* Social Icons - Fixed at bottom right */}
       <div className="z-30 hidden lg:flex fixed bottom-0 right-0 w-1/2 items-center justify-end gap-4 px-6 py-4">
