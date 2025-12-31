@@ -69,8 +69,7 @@ export default function DownloadPage() {
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
             asChild
-            variant="outline"
-            className="h-8 overflow-hidden rounded-full border-2 border-black/20 bg-white p-0 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:text-sm"
+            className="h-8 overflow-hidden rounded-full bg-neutral-700 p-0 text-xs font-medium text-white hover:bg-neutral-600 lg:h-10 lg:text-sm"
           >
             <a
               href="https://github.com/tilesprivacy/tiles"
@@ -81,7 +80,7 @@ export default function DownloadPage() {
               <div className="flex items-center justify-center px-3 lg:px-4">
                 <FaGithub className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
               </div>
-              <div className="h-full w-px bg-black/10"></div>
+              <div className="h-full w-px bg-white/20"></div>
               <div className="flex items-center justify-center px-3 lg:px-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -100,8 +99,7 @@ export default function DownloadPage() {
           </Button>
           <Button
             asChild
-            variant="outline"
-            className="h-8 rounded-full border-2 border-black/20 bg-white px-3 text-xs font-medium text-black hover:bg-black/5 lg:h-10 lg:px-4 lg:text-sm"
+            className="h-8 rounded-full bg-neutral-700 px-3 text-xs font-medium text-white hover:bg-neutral-600 lg:h-10 lg:px-4 lg:text-sm"
           >
             <a
               href="https://github.com/sponsors/tilesprivacy"
@@ -113,7 +111,7 @@ export default function DownloadPage() {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="h-3.5 w-3.5 text-pink-500 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
+                className="h-3.5 w-3.5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-pink-500 group-active:scale-110 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
@@ -167,7 +165,7 @@ export default function DownloadPage() {
             </div>
 
             <div className="pt-4 text-xs text-black/50 lg:text-sm">
-              An installer with portable packaging is being worked upon.{" "}
+              An offline installer with portable packaging is being worked upon.{" "}
               <a
                 href="https://github.com/tilesprivacy/tiles/issues/24"
                 target="_blank"
