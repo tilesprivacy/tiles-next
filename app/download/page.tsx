@@ -165,7 +165,7 @@ export default function DownloadPage() {
             </div>
 
             <div className="pt-4 text-xs text-black/50 lg:text-sm">
-              A portable installer is in development for air-gapped installations, bundled with offline models.{" "}
+              A portable installer is in development for air-gapped installations, prepackaged with offline models.{" "}
               <a
                 href="https://github.com/tilesprivacy/tiles/issues/24"
                 target="_blank"
