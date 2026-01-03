@@ -60,7 +60,7 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-white">
+    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-white lg:h-screen lg:overflow-hidden">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -165,7 +165,7 @@ export default function DownloadPage() {
             </div>
 
             <div className="pt-4 text-xs text-black/50 lg:text-sm">
-              An offline installer with portable packaging is being worked upon.{" "}
+              A portable installer is in development for air-gapped installations, bundled with offline models.{" "}
               <a
                 href="https://github.com/tilesprivacy/tiles/issues/24"
                 target="_blank"
@@ -225,7 +225,7 @@ export default function DownloadPage() {
               className="group inline-flex items-center justify-center"
               aria-label="X (Twitter)"
             >
-              <FaXTwitter className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-black group-active:text-black lg:h-5 lg:w-5" />
+              <FaXTwitter className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#000000] group-active:text-[#000000] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://bsky.app/profile/tiles.run"
@@ -279,7 +279,7 @@ export default function DownloadPage() {
               className="group inline-flex items-center justify-center"
               aria-label="GitHub"
             >
-              <FaGithub className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-black group-active:text-black lg:h-5 lg:w-5" />
+              <FaGithub className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#181717] group-active:text-[#181717] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://huggingface.co/tilesprivacy"
