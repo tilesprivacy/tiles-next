@@ -128,9 +128,9 @@ export default function Page() {
                     <Image
                       src="/apple-logo-white.svg"
                       alt="Apple"
-                      width={20}
+                      width={16}
                       height={20}
-                      className="h-4 w-4 transition-transform duration-300 group-hover:scale-110 lg:h-6 lg:w-6"
+                      className="h-4 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-6"
                     />
                     <span className="transition-all duration-300">Download</span>
                     <svg

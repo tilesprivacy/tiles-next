@@ -281,6 +281,33 @@ export default function AboutPage() {
           <p className="text-white/90 text-xl font-medium tracking-tight text-center px-8">
             Your private AI assistant with offline memory
           </p>
+          <Button
+            asChild
+            className="group rounded-full bg-white px-6 py-5 text-base font-medium text-black transition-all duration-300 hover:scale-105 hover:bg-white/90 hover:shadow-lg active:scale-95"
+          >
+            <Link href="/download" className="flex items-center gap-3">
+              <Image
+                src="/apple-logo.svg"
+                alt="Apple"
+                width={16}
+                height={20}
+                className="h-5 w-auto transition-transform duration-300 group-hover:scale-110"
+              />
+              <span className="transition-all duration-300">Download</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </Link>
+          </Button>
         </div>
       </aside>
 
