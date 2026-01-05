@@ -196,7 +196,7 @@ export default function Page() {
         </Link>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-black/60">© 2025 Tiles Privacy</span>
+            <span className="text-black/60">© 2026 Tiles Privacy</span>
             <StatusIndicator />
           </div>
           <div className="flex items-center gap-2.5 lg:gap-4">

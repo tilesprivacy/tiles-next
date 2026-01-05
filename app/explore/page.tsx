@@ -201,7 +201,7 @@ export default function ExplorePage() {
             About
           </Link>
           <div className="flex items-center justify-between">
-            <span className="text-black/60">© 2025 Tiles Privacy</span>
+            <span className="text-black/60">© 2026 Tiles Privacy</span>
             <div className="flex items-center gap-2.5 lg:gap-4">
               <a
                 href="https://x.com/tilesprivacy"
