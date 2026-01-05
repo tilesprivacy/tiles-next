@@ -73,13 +73,13 @@ export function StatusIndicator() {
       href="https://status.tiles.run"
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex h-8 w-8 items-center justify-center"
+      className="group relative flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden"
       aria-label={`${label}. View full status page`}
       role="status"
       aria-live="polite"
     >
       <span
-        className="absolute inline-flex h-4 w-4 animate-ping rounded-full opacity-50 transition-transform duration-200 group-hover:scale-110"
+        className="pointer-events-none absolute inline-flex h-4 w-4 animate-ping rounded-full opacity-50 transition-transform duration-200 group-hover:scale-110"
         style={{ backgroundColor: color }}
       />
       <span
