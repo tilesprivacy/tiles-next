@@ -3,7 +3,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
-import { StatusIndicator } from "@/components/status-indicator"
 
 export default function Page() {
   return (
@@ -191,14 +190,29 @@ export default function Page() {
             <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </a>
+        <a
+          href="https://status.tiles.run/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+        >
+          Status
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-2.5 w-2.5"
+          >
+            <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
         <Link href="/about" className="font-medium text-black/60 transition-colors hover:text-black">
           About
         </Link>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-black/60">© 2026 Tiles Privacy</span>
-            <StatusIndicator />
-          </div>
+          <span className="text-black/60">© 2026 Tiles Privacy</span>
           <div className="flex items-center gap-2.5 lg:gap-4">
             <a
               href="https://x.com/tilesprivacy"

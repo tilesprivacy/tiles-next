@@ -5,7 +5,6 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
-import { StatusIndicator } from "@/components/status-indicator"
 
 const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean }) => {
   const [copied, setCopied] = useState(false)
@@ -19,7 +18,7 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
   return (
     <div className={`inline-flex items-center rounded-xl bg-[#f5f5f5] max-w-full ${compact ? "" : ""}`}>
       <div className={`overflow-x-auto ${compact ? "px-4 py-2.5" : "px-4 py-3 lg:px-5 lg:py-3.5"}`}>
-        <code className={`font-mono text-black/80 whitespace-nowrap ${compact ? "text-sm" : "text-sm lg:text-base"}`}>
+        <code className="font-mono text-sm text-black/80 whitespace-nowrap lg:text-base">
           {code}
         </code>
       </div>
@@ -60,7 +59,7 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-white lg:h-screen lg:overflow-hidden">
+    <div className="relative flex min-h-screen flex-col bg-white">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -121,7 +120,7 @@ export default function DownloadPage() {
       </header>
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col items-start px-6 pt-[15dvh] pb-40 lg:pt-[20dvh] lg:px-12">
+      <div className="flex flex-1 flex-col items-start px-6 pt-24 pb-12 lg:pt-32 lg:pb-16 lg:px-12">
         <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-2xl lg:gap-6">
           {/* Title */}
           <div className="space-y-1 lg:space-y-2 mb-8 lg:mb-12">
@@ -189,7 +188,7 @@ export default function DownloadPage() {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="z-10 flex shrink-0 flex-col gap-2 bg-white px-4 pb-4 pt-6 text-xs text-black/60 lg:px-6 lg:pb-6 lg:pt-8 lg:text-sm lg:gap-2.5">
         <a
           href="https://book.tiles.run"
           target="_blank"
@@ -208,14 +207,29 @@ export default function DownloadPage() {
             <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </a>
+        <a
+          href="https://status.tiles.run/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+        >
+          Status
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            className="h-2.5 w-2.5"
+          >
+            <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
         <Link href="/about" className="font-medium text-black/60 transition-colors hover:text-black">
           About
         </Link>
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-black/60">© 2026 Tiles Privacy</span>
-            <StatusIndicator />
-          </div>
+          <span className="text-black/60">© 2026 Tiles Privacy</span>
           <div className="flex items-center gap-2.5 lg:gap-4">
             <a
               href="https://x.com/tilesprivacy"
