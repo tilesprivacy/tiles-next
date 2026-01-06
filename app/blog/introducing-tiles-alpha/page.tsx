@@ -201,7 +201,7 @@ export default function HowTilesWorksPage() {
                 <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Implementation</h2>
                 
                 <p>
-                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700 underline">⁴</a>-based SDK. The Tiles app acts as a transparent, protocol-driven proxy between the user and AI agents, leveraging a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Next, we are focusing on our sync system (built with <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Iroh</a>) and an identity system based on public key cryptography and verifiable attestations.
+                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700 underline">⁴</a>-based SDK. Tiles bundles a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Currently, we use mem-agent model (from Dria, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
                 </p>
 
                 <div className="my-6 lg:my-10">
@@ -219,10 +219,6 @@ export default function HowTilesWorksPage() {
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Dria</a>, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
-                </p>
-
-                <p className="mb-4 lg:mb-6">
                   These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the agent to maintain and refine persistent knowledge across sessions.
                 </p>
               </section>
@@ -233,32 +229,37 @@ export default function HowTilesWorksPage() {
                 <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Looking forward</h2>
                 
                 <p className="mb-4 lg:mb-6">
-                  We are actively adding support for memory extensions with LoRA adapters so users and organizations can bring their own data and augment the base memory models to reflect the personality they want.
+                  We're building the next layer of private personalization: customizable memory, private sync, verifiable identity, and a more open model ecosystem.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
-                  For identity, we are building an <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">AT Proto DID</a>-based system, targeted for Q1 2026.
-                </p>
+                <ul className="list-disc list-inside space-y-3 ml-4 mb-4 lg:mb-6">
+                  <li>
+                    <strong>Memory extensions:</strong> Add support for LoRA-based memory extensions so individuals and organizations can bring their own data and shape the assistant's behavior and tone on top of the base memory model.
+                  </li>
+                  <li>
+                    <strong>Sync:</strong> Build a reliable, peer-to-peer sync layer using <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Iroh</a> for private, device-to-device state sharing.
+                  </li>
+                  <li>
+                    <strong>Identity:</strong> Ship a portable identity system using <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">AT Protocol DIDs</a>, designed for device-anchored trust.
+                  </li>
+                  <li>
+                    <strong>SDK and standards:</strong> Work with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">MIR</a> (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
+                  </li>
+                  <li>
+                    <strong>Model distribution:</strong> Continue supporting Hugging Face, while designing a decentralized registry for versioned, composable model layers using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">xet-core</a> approach.
+                  </li>
+                  <li>
+                    <strong>Research roadmap:</strong> Explore privacy-preserving personalization techniques including sparse memory finetuning, text diffusion models, Trusted Execution Environments, and per-layer embeddings with flash offload.
+                  </li>
+                </ul>
 
-                <p className="mb-4 lg:mb-6">
-                  On the SDK front, we're collaborating with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">MIR</a> (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
-                </p>
-
-                <p className="mb-4 lg:mb-6">
-                  We currently support Hugging Face, and plan to build our own decentralized registry, using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">xet-core</a> implementation for model layering.
+                <p>
+                  We're looking for design partners running training workloads where verifiable privacy boundaries matter. If that's you, email{" "}
+                  <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700 underline">
+                    hello@tiles.run
+                  </a>.
                 </p>
               </section>
-
-              <p className="mb-4 lg:mb-6">
-                Our research into private software personalization infrastructure currently explores sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with flash storage offloading.
-              </p>
-
-              <p>
-                We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
-                <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700 underline">
-                  hello@tiles.run
-                </a>.
-              </p>
 
               <hr className="border-black/10 my-8 lg:my-12" />
 

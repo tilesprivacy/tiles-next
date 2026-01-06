@@ -8,8 +8,8 @@ import type { Metadata } from "next"
 // Blog posts data
 const blogPosts = [
   {
-    slug: "how-tiles-works",
-    title: "How Tiles Works",
+    slug: "introducing-tiles-alpha",
+    title: "Introducing Tiles Alpha",
     description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
     date: new Date("2026-01-02"),
   },
