@@ -6,8 +6,8 @@ import { SiSubstack, SiHuggingface } from "react-icons/si"
 
 export default function Page() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-y-auto bg-white lg:h-screen lg:overflow-hidden">
-      <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+    <div className="relative flex min-h-[100dvh] flex-col bg-white xl:h-screen xl:overflow-hidden">
+      <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 xl:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex-1" aria-hidden="true" />
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
@@ -64,9 +64,9 @@ export default function Page() {
       </header>
 
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
-      <div className="flex min-h-0 flex-1 flex-col lg:h-full lg:flex-row">
+      <div className="flex flex-1 flex-col lg:flex-row xl:min-h-0 xl:h-full">
         {/* Content Section */}
-        <div className="relative z-10 flex min-h-0 flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:py-4 lg:pt-0 lg:h-full lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24">
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-start bg-transparent px-6 pb-4 lg:justify-center lg:bg-white lg:pt-20 lg:pb-4 lg:flex-[0.45] lg:shrink-0 lg:items-stretch lg:px-12 lg:pb-24 xl:min-h-0 xl:pt-0 xl:h-full">
           {/* Mobile: Spacer to push content down */}
           <div className="shrink-0 lg:hidden" style={{ height: "var(--mobile-hero-offset)" }} />
 
@@ -156,7 +156,7 @@ export default function Page() {
 
         {/* Desktop: Image on Right, Mobile: Hidden */}
         <div className="hidden flex-[0.55] items-center justify-center bg-white p-4 lg:flex">
-          <div className="relative h-full w-full">
+          <div className="relative min-h-[400px] w-full lg:min-h-[500px] xl:h-full">
             <Image
               src="/graph.png?v=2"
               alt="Network graph visualization showing data relationships"
@@ -171,7 +171,7 @@ export default function Page() {
       </div>
 
       {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm xl:absolute xl:bottom-0 xl:left-0 xl:right-0">
         <a
           href="https://book.tiles.run"
           target="_blank"

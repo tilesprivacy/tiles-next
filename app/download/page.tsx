@@ -59,7 +59,7 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white lg:min-h-screen lg:h-auto lg:overflow-auto">
+    <div className="relative flex min-h-[100dvh] flex-col bg-white">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -120,7 +120,7 @@ export default function DownloadPage() {
       </header>
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col justify-center items-start px-6 py-20 lg:py-24 lg:px-12">
+      <div className="flex flex-1 flex-col justify-center items-start px-6 py-20 lg:py-32 lg:px-12">
         <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-2xl lg:gap-6">
           {/* Title */}
           <div className="space-y-1 lg:space-y-2 mb-8 lg:mb-12">
@@ -188,7 +188,7 @@ export default function DownloadPage() {
       </div>
 
       {/* Footer */}
-      <footer className="z-10 flex shrink-0 flex-col gap-2 bg-white px-4 pb-4 pt-6 text-xs text-black/60 lg:px-6 lg:pb-6 lg:pt-8 lg:text-sm lg:gap-2.5">
+      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://book.tiles.run"
           target="_blank"
