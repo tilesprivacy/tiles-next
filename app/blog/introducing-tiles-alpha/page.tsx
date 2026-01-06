@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
-import { SiSubstack, SiHuggingface } from "react-icons/si"
+import { SiHuggingface } from "react-icons/si"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -123,7 +123,7 @@ export default function HowTilesWorksPage() {
                   more posts
                 </Link>.
               </p>
-              <p>
+              <p className="mt-4 lg:mt-6">
                 When you're done, you can{" "}
                 <Link href="/download" className="text-blue-600 hover:text-blue-700 underline">
                   download Tiles
@@ -201,7 +201,7 @@ export default function HowTilesWorksPage() {
                 <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Implementation</h2>
                 
                 <p>
-                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700 underline">⁴</a>-based SDK. Tiles bundles a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Currently, we use mem-agent model (from Dria, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
+                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700 underline">⁴</a>-based SDK. Tiles bundles a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Currently, we use <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mem-agent</a> model (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Dria</a>, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
                 </p>
 
                 <div className="my-6 lg:my-10">
@@ -302,7 +302,7 @@ export default function HowTilesWorksPage() {
           rel="noopener noreferrer"
           className="font-medium text-black/60 transition-colors hover:text-black"
         >
-          Tiles Developer
+          Book
         </a>
         <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
           Blog
@@ -330,15 +330,6 @@ export default function HowTilesWorksPage() {
               aria-label="Bluesky"
             >
               <FaBluesky className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#0085FF] group-active:text-[#0085FF] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://www.blog.tiles.run/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Substack"
-            >
-              <SiSubstack className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF6719] group-active:text-[#FF6719] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://www.instagram.com/tilesprivacy"

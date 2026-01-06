@@ -2,7 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
-import { SiSubstack, SiHuggingface } from "react-icons/si"
+import { SiHuggingface } from "react-icons/si"
 
 const sections = [
   {
@@ -170,7 +170,7 @@ export default function ExplorePage() {
             rel="noopener noreferrer"
             className="font-medium text-black/60 transition-colors hover:text-black"
           >
-            Tiles Developer
+            Book
           </a>
           <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
             Blog
@@ -212,15 +212,6 @@ export default function ExplorePage() {
                 aria-label="Bluesky"
               >
                 <FaBluesky className="h-4 w-4 lg:h-5 lg:w-5" />
-              </a>
-              <a
-                href="https://www.blog.tiles.run/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-black/60 transition-colors hover:text-black"
-                aria-label="Substack"
-              >
-                <SiSubstack className="h-4 w-4 lg:h-5 lg:w-5" />
               </a>
               <a
                 href="https://www.instagram.com/tilesprivacy"

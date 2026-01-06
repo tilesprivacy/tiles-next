@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
-import { SiSubstack, SiHuggingface } from "react-icons/si"
+import { SiHuggingface } from "react-icons/si"
 
 export default function Page() {
   return (
@@ -178,7 +178,7 @@ export default function Page() {
           rel="noopener noreferrer"
           className="font-medium text-black/60 transition-colors hover:text-black"
         >
-          Tiles Developer
+          Book
         </a>
         <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
           Blog
@@ -206,15 +206,6 @@ export default function Page() {
               aria-label="Bluesky"
             >
               <FaBluesky className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#0085FF] group-active:text-[#0085FF] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://www.blog.tiles.run/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Substack"
-            >
-              <SiSubstack className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF6719] group-active:text-[#FF6719] lg:h-5 lg:w-5" />
             </a>
             <a
               href="https://www.instagram.com/tilesprivacy"
