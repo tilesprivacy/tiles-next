@@ -153,7 +153,7 @@ export default function DownloadPage() {
               </a>
               <span>•</span>
               <a
-                href="https://github.com/tilesprivacy/tiles/blob/main/README.md"
+                href="https://github.com/tilesprivacy/tiles/blob/main/HACKING.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-black"
