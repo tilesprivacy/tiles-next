@@ -47,7 +47,7 @@ function formatDate(date: Date): string {
 
 export default function BlogPage() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-white">
+    <div className="relative flex min-h-[100dvh] flex-col bg-white xl:h-screen xl:overflow-hidden">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-4 py-4 lg:fixed lg:px-6 lg:py-6">
         <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -108,11 +108,11 @@ export default function BlogPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-8">
+      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-2 lg:px-6 lg:pt-20 lg:pb-16 gap-3 lg:gap-4 xl:min-h-0 xl:overflow-hidden">
         {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
+        <div className="w-full max-w-2xl px-4 pt-10 pb-3 lg:px-12 lg:py-4">
           {/* Logo */}
-          <div className="flex justify-center mb-6 lg:mb-12">
+          <div className="flex justify-center mb-3 lg:mb-4">
             <Image
               src="/lighticon.png"
               alt="Tiles Logo"
@@ -124,7 +124,7 @@ export default function BlogPage() {
 
           {/* Blog Title */}
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 mb-4 lg:mb-6">
+            <div className="flex items-center justify-center gap-3 mb-2 lg:mb-3">
               <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight">
                 The Tiles Blog
               </h1>
@@ -139,24 +139,24 @@ export default function BlogPage() {
               </a>
             </div>
             <p className="text-base text-black/50 lg:text-xl">
-              Open source privacy technology for personalized software experiences
+              Privacy technologies for everyone!
             </p>
           </div>
         </div>
 
         {/* Bottom Card - Blog Posts List */}
-        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
-          <div className="space-y-8 lg:space-y-12">
+        <div className="w-full max-w-2xl px-4 pt-14 pb-2 lg:px-12 lg:pt-24 lg:pb-3 flex-1">
+          <div className="space-y-4 lg:space-y-6">
             {blogPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="block group"
               >
-                <h2 className="text-xl font-semibold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors lg:text-3xl lg:mb-3 tracking-tight">
+                <h2 className="text-xl font-semibold text-blue-600 mb-1 group-hover:text-blue-700 transition-colors lg:text-3xl lg:mb-2 tracking-tight">
                   {post.title}
                 </h2>
-                <p className="text-base text-black/70 mb-2 lg:text-xl lg:mb-3 leading-relaxed">
+                <p className="text-base text-black/70 mb-1 lg:text-xl lg:mb-2 leading-relaxed">
                   {post.description}
                 </p>
                 <p className="text-sm text-black/40 lg:text-lg">
@@ -169,7 +169,7 @@ export default function BlogPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm xl:absolute xl:bottom-0 xl:left-0 xl:right-0">
         <a
           href="https://book.tiles.run"
           target="_blank"
