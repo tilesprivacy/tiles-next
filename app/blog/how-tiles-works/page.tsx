@@ -259,7 +259,7 @@ export default function HowTilesWorksPage() {
               </section>
 
               <p className="mb-4 lg:mb-6">
-                Our research into private software personalization infrastructure currently explores sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with flash storage offloading.
+                As part of our research on private software personalization infrastructure, we are investigating sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with offloading to flash storage.
               </p>
 
               <p>

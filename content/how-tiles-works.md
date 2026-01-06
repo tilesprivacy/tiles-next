@@ -43,7 +43,7 @@ For identity, we are building an AT Proto DID-based system, targeted for Q1 2026
 
 On the SDK front, we’re collaborating with the Darkshapes team to support the MIR (Machine Intelligence Resource) model naming scheme in our Modelfile implementation ([learn more](https://example.com)). We currently support Hugging Face, and plan to build our own decentralized registry, using the open-source xet-core implementation for model layering.
 
-Our research into private software personalization infrastructure currently explores sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with flash storage offloading.
+As part of our research on private software personalization infrastructure, we are investigating sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with offloading to flash storage.
 
 We’re seeking design partners for training workloads aligned with our goal of ensuring a verifiable privacy perimeter. Interested? Contact us: hello@tiles.run.
 

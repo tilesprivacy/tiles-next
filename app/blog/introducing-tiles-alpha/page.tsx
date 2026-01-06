@@ -258,7 +258,7 @@ export default function HowTilesWorksPage() {
                     <strong>Model distribution:</strong> Continue supporting Hugging Face, while designing a decentralized registry for versioned, composable model layers using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">xet-core</a> approach.
                   </li>
                   <li>
-                    <strong>Research roadmap:</strong> Explore privacy-preserving personalization techniques including sparse memory finetuning, text diffusion models, Trusted Execution Environments, and per-layer embeddings with flash offload.
+                    <strong>Research roadmap:</strong> As part of our research on private software personalization infrastructure, we are investigating sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with offloading to flash storage.
                   </li>
                 </ul>
 
