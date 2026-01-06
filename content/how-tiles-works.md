@@ -33,7 +33,7 @@ Our first-generation prototype is a single-file executable CLI, complemented by 
 
 Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a mem-agent (from Dria, based on qwen3-4B-thinking-2507), and are in the process of training our initial in-house memory models.
 
-These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory—allowing the agent to maintain and refine persistent knowledge across sessions.
+These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the agent to maintain and refine persistent knowledge across sessions.
 
 We are actively adding support for memory extensions with LoRA adapters so users and organizations can bring their own data and augment the base memory models to reflect the personality they want.
 
