@@ -45,7 +45,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>Our first alpha is a CLI for Apple Silicon devices, complemented by a Modelfile based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 
-<p>These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the agent to maintain and refine persistent knowledge across sessions.</p>
+<p>These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.</p>
 
 <h2>Looking forward</h2>
 

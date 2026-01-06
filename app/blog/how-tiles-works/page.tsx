@@ -232,7 +232,7 @@ export default function HowTilesWorksPage() {
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the agent to maintain and refine persistent knowledge across sessions.
+                  These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.
                 </p>
               </section>
 
