@@ -93,7 +93,7 @@ export default function AboutPage() {
                   href="https://userandagents.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black underline underline-offset-2 hover:text-black/70"
+                  className="text-black hover:text-black/70"
                 >
                   {" "}
                   User &amp; Agents
@@ -110,7 +110,7 @@ export default function AboutPage() {
                   href="https://x.com/feynon"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black underline underline-offset-2 hover:text-black/70"
+                  className="text-black hover:text-black/70"
                 >
                   @feynon
                 </a>
@@ -125,7 +125,7 @@ export default function AboutPage() {
                 privacy perimeter. If you're interested, please reach out to us at{" "}
                 <a
                   href="mailto:hello@tiles.run"
-                  className="text-black underline underline-offset-2 hover:text-black/70"
+                  className="text-black hover:text-black/70"
                 >
                   hello@tiles.run
                 </a>

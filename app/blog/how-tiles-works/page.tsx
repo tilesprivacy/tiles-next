@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import type { Metadata } from "next"
 
@@ -112,23 +112,32 @@ export default function HowTilesWorksPage() {
             <div className="space-y-1.5 text-sm text-black/60 lg:space-y-2 lg:text-base">
               <p>
                 You're reading the{" "}
-                <Link href="/blog" className="text-blue-600 hover:text-blue-700 underline">
+                <Link href="/blog" className="text-blue-600 hover:text-blue-700">
                   Tiles
                 </Link>{" "}
-                blog.
+                blog.{" "}
+                <a
+                  href="/api/rss"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center align-middle"
+                  aria-label="RSS Feed"
+                >
+                  <FaRss className="h-3 w-3 text-blue-600 hover:text-orange-500 transition-colors" />
+                </a>
               </p>
               <p>
                 There are{" "}
-                <Link href="/blog" className="text-blue-600 hover:text-blue-700 underline">
+                <Link href="/blog" className="text-blue-600 hover:text-blue-700">
                   more posts
                 </Link>.
               </p>
-              <p className="mt-4 lg:mt-6">
-                When you're done, you can{" "}
-                <Link href="/download" className="text-blue-600 hover:text-blue-700 underline">
-                  download Tiles
-                </Link>.
-              </p>
+                <p className="mt-4 lg:mt-6">
+                  When you're done, you can{" "}
+                  <Link href="/download" className="text-blue-600 hover:text-blue-700">
+                    install Tiles
+                  </Link>.
+                </p>
             </div>
           </div>
         </div>
@@ -176,12 +185,12 @@ export default function HowTilesWorksPage() {
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  The project is defined by four interdependent design choices<a href="#ref-1" className="text-blue-600 hover:text-blue-700 underline">¹</a>:
+                  The project is defined by four interdependent design choices<a href="#ref-1" className="text-blue-600 hover:text-blue-700">¹</a>:
                 </p>
 
                 <ol className="list-decimal list-inside space-y-4 lg:space-y-6 ml-4">
                   <li>
-                    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the device keychain and cannot access the registry by identity alone<a href="#ref-2" className="text-blue-600 hover:text-blue-700 underline">²</a>. Keyless operations are only enabled after an identity is verified and linked to the device key, allowing third-party agent access under user-defined policies<a href="#ref-3" className="text-blue-600 hover:text-blue-700 underline">³</a>.
+                    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the device keychain and cannot access the registry by identity alone<a href="#ref-2" className="text-blue-600 hover:text-blue-700">²</a>. Keyless operations are only enabled after an identity is verified and linked to the device key, allowing third-party agent access under user-defined policies<a href="#ref-3" className="text-blue-600 hover:text-blue-700">³</a>.
                   </li>
                   <li>
                     <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring consistency and reliability across updates and platforms.
@@ -201,7 +210,7 @@ export default function HowTilesWorksPage() {
                 <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Implementation</h2>
                 
                 <p>
-                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700 underline">⁴</a>-based SDK. The Tiles app acts as a transparent, protocol-driven proxy between the user and AI agents, leveraging a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Next, we are focusing on our sync system (built with <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Iroh</a>) and an identity system based on public key cryptography and verifiable attestations.
+                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700">⁴</a>-based SDK. The Tiles app acts as a transparent, protocol-driven proxy between the user and AI agents, leveraging a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Next, we are focusing on our sync system (built with <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Iroh</a>) and an identity system based on public key cryptography and verifiable attestations.
                 </p>
 
                 <div className="my-6 lg:my-10">
@@ -215,11 +224,11 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-4 lg:mb-6">
-                  Our first alpha is a CLI for Apple Silicon devices, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.
+                  Our first alpha is a CLI for Apple Silicon devices, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Modelfile</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Dria</a>, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
+                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Dria</a>, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
@@ -237,15 +246,15 @@ export default function HowTilesWorksPage() {
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  For identity, we are building an <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">AT Proto DID</a>-based system, targeted for Q1 2026.
+                  For identity, we are building an <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">AT Proto DID</a>-based system, targeted for Q1 2026.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  On the SDK front, we're collaborating with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">MIR</a> (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
+                  On the SDK front, we're collaborating with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">MIR</a> (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  We currently support Hugging Face, and plan to build our own decentralized registry, using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">xet-core</a> implementation for model layering.
+                  We currently support Hugging Face, and plan to build our own decentralized registry, using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">xet-core</a> implementation for model layering.
                 </p>
               </section>
 
@@ -255,7 +264,7 @@ export default function HowTilesWorksPage() {
 
               <p>
                 We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
-                <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700 underline">
+                <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700">
                   hello@tiles.run
                 </a>.
               </p>
@@ -267,22 +276,22 @@ export default function HowTilesWorksPage() {
                 
                 <ol className="list-decimal list-inside space-y-3 ml-4">
                   <li id="ref-1">
-                    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+                    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
                       Decentralizability, Gordon Brander
                     </a>
                   </li>
                   <li id="ref-2">
-                    <a href="https://keybase.io/blog/keybase-new-key-model" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+                    <a href="https://keybase.io/blog/keybase-new-key-model" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
                       Keybase's New Key Model
                     </a>
                   </li>
                   <li id="ref-3">
-                    <a href="https://www.sigstore.dev/how-it-works" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+                    <a href="https://www.sigstore.dev/how-it-works" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
                       Sigstore: How It Works
                     </a>
                   </li>
                   <li id="ref-4">
-                    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">
+                    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
                       Ollama Modelfile
                     </a>
                   </li>

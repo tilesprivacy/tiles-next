@@ -1,19 +1,10 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import type { Metadata } from "next"
-
-// Blog posts data
-const blogPosts = [
-  {
-    slug: "introducing-tiles-alpha",
-    title: "Introducing Tiles Alpha",
-    description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
-    date: new Date("2026-01-02"),
-  },
-]
+import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
   title: "The Tiles Blog | Open Source Privacy Technology",
@@ -133,9 +124,20 @@ export default function BlogPage() {
 
           {/* Blog Title */}
           <div className="text-center">
-            <h1 className="text-3xl font-semibold text-black mb-2 lg:text-6xl lg:mb-3 tracking-tight">
-              The Tiles Blog
-            </h1>
+            <div className="flex items-center justify-center gap-3 mb-4 lg:mb-6">
+              <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight">
+                The Tiles Blog
+              </h1>
+              <a
+                href="/api/rss"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center"
+                aria-label="RSS Feed"
+              >
+                <FaRss className="h-5 w-5 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-7 lg:w-7" />
+              </a>
+            </div>
             <p className="text-base text-black/50 lg:text-xl">
               Open source privacy technology for personalized software experiences
             </p>

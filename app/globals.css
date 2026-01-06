@@ -122,6 +122,9 @@
   body {
     @apply bg-background text-foreground;
   }
+  a {
+    @apply no-underline;
+  }
 }
 
 /* Mobile hero sizing - graph at 50% of viewport, logo overlaps by 50% of its height */
