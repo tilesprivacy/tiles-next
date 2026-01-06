@@ -7,10 +7,10 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "How Tiles Works | Open Source Decentralized Infrastructure for Software Personalization",
-  description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. Learn about our philosophy, implementation, and vision for device-anchored identity with keyless operations.",
+  description: "Building the future of software personalization with decentralized memory networks.",
   openGraph: {
     title: "How Tiles Works | Open Source Decentralized Infrastructure",
-    description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    description: "Building the future of software personalization with decentralized memory networks.",
     type: "article",
     publishedTime: "2026-01-02",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "How Tiles Works | Open Source Decentralized Infrastructure",
-    description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    description: "Building the future of software personalization with decentralized memory networks.",
     images: ["/kingston.webp"],
   },
 }

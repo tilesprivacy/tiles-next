@@ -137,7 +137,7 @@ export default function BlogPage() {
               The Tiles Blog
             </h1>
             <p className="text-base text-black/50 lg:text-xl">
-              Open source privacy technology for personalized software experiences.
+              Open source privacy technology for personalized software experiences
             </p>
           </div>
         </div>
