@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 
 export default function HowTilesWorksPage() {
   return (
-    <div className="relative flex min-h-screen flex-col" style={{ backgroundColor: '#FAFAF8' }}>
+    <div className="relative flex min-h-screen flex-col bg-white">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-4 py-4 lg:fixed lg:px-6 lg:py-6">
         <Link href="/blog" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -141,7 +141,7 @@ export default function HowTilesWorksPage() {
               How Tiles Works
             </h1>
             <p className="text-base text-black/50 lg:text-xl mb-2 lg:mb-3">
-              Open source decentralized infrastructure for software personalization
+              Building the future of software personalization with decentralized memory networks.
             </p>
             <p className="text-sm text-black/40 lg:text-lg">
               January 2, 2026
@@ -219,11 +219,11 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-4 lg:mb-6">
-                  Our first-generation prototype is a single-file executable CLI, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a>-based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> in collaboration with the community, establishing it as the standard for model customization.
+                  Our first-generation prototype is a CLI, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Dria</a>, based on qwen3-4B-thinking-2507), and are in the process of training our initial in-house memory models.
+                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Dria</a>, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
@@ -292,7 +292,7 @@ export default function HowTilesWorksPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm" style={{ backgroundColor: '#FAFAF8' }}>
+      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://book.tiles.run"
           target="_blank"

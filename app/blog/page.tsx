@@ -16,11 +16,11 @@ const blogPosts = [
 ]
 
 export const metadata: Metadata = {
-  title: "The Tiles Blog | Open Source Decentralized Infrastructure",
-  description: "Read about Tiles, open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+  title: "The Tiles Blog | Open Source Privacy Technology",
+  description: "We're building open source privacy technology for personalized software experiences.",
   openGraph: {
-    title: "The Tiles Blog | Open Source Decentralized Infrastructure",
-    description: "Read about Tiles, open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    title: "The Tiles Blog | Open Source Privacy Technology",
+    description: "We're building open source privacy technology for personalized software experiences.",
     type: "website",
     images: [
       {
@@ -33,8 +33,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Tiles Blog | Open Source Decentralized Infrastructure",
-    description: "Read about Tiles, open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    title: "The Tiles Blog | Open Source Privacy Technology",
+    description: "We're building open source privacy technology for personalized software experiences.",
     images: ["/api/og"],
   },
 }
@@ -56,7 +56,7 @@ function formatDate(date: Date): string {
 
 export default function BlogPage() {
   return (
-    <div className="relative flex min-h-screen flex-col" style={{ backgroundColor: '#FAFAF8' }}>
+    <div className="relative flex min-h-screen flex-col bg-white">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-4 py-4 lg:fixed lg:px-6 lg:py-6">
         <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -137,7 +137,7 @@ export default function BlogPage() {
               The Tiles Blog
             </h1>
             <p className="text-base text-black/50 lg:text-xl">
-              Open source decentralized infrastructure for software personalization
+              Open source privacy technology for personalized software experiences.
             </p>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default function BlogPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm" style={{ backgroundColor: '#FAFAF8' }}>
+      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://book.tiles.run"
           target="_blank"
