@@ -139,7 +139,7 @@ export default function BlogPage() {
               </a>
             </div>
             <p className="text-base text-black/50 lg:text-xl">
-              Privacy technologies for everyone!
+              Privacy technology for everyone!
             </p>
           </div>
         </div>
