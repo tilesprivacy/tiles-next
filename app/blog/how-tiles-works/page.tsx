@@ -219,7 +219,7 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-4 lg:mb-6">
-                  Our first-generation prototype is a CLI, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.
+                  Our first alpha is a CLI for Apple Silicon devices, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
@@ -232,10 +232,6 @@ export default function HowTilesWorksPage() {
 
                 <p className="mb-4 lg:mb-6">
                   We are actively adding support for memory extensions with LoRA adapters so users and organizations can bring their own data and augment the base memory models to reflect the personality they want.
-                </p>
-
-                <p className="mb-4 lg:mb-6">
-                  On the inference side, we use LM Studio's <a href="https://github.com/lmstudio-ai/mlx-engine" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mlx-engine</a> as our backend on Mac, with plans to add Linux and server-side model support.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
