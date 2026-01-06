@@ -42,7 +42,7 @@ export default function ExplorePage() {
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
             asChild
-            className="h-8 overflow-hidden rounded-full bg-neutral-700 p-0 text-xs font-medium text-white hover:bg-neutral-600 lg:h-10 lg:text-sm"
+            className="h-8 overflow-hidden rounded-full bg-black p-0 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:text-sm"
           >
             <a
               href="https://github.com/tilesprivacy/tiles"
@@ -72,7 +72,7 @@ export default function ExplorePage() {
           </Button>
           <Button
             asChild
-            className="h-8 rounded-full bg-neutral-700 px-3 text-xs font-medium text-white hover:bg-neutral-600 lg:h-10 lg:px-4 lg:text-sm"
+            className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
           >
             <a
               href="https://github.com/sponsors/tilesprivacy"
@@ -83,8 +83,7 @@ export default function ExplorePage() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                fill="currentColor"
-                className="h-3.5 w-3.5 text-white/70 transition-all duration-300 group-hover:scale-110 group-hover:text-pink-500 group-active:scale-110 lg:h-4 lg:w-4"
+                className="h-3.5 w-3.5 fill-[#ff8fb6] transition-all duration-300 group-hover:scale-110 group-hover:fill-[#ffc2dd] group-active:scale-110 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
