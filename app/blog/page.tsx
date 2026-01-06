@@ -10,7 +10,7 @@ const blogPosts = [
     slug: "how-tiles-works",
     title: "How Tiles Works",
     description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
-    date: new Date("2025-01-15"),
+    date: new Date("2026-01-02"),
   },
 ]
 
@@ -112,7 +112,7 @@ export default function BlogPage() {
               The Tiles Blog
             </h1>
             <p className="text-base text-black/50 lg:text-xl">
-              Open-source technology for local-first models
+              Open source decentralized infrastructure for software personalization
             </p>
           </div>
         </div>

@@ -67,7 +67,7 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-8">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-24 lg:pb-24 gap-4 lg:gap-6">
         {/* Top Card - Logo and Header Text */}
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
           <div className="text-center">
@@ -83,7 +83,7 @@ export default function HowTilesWorksPage() {
             </div>
 
             {/* Header Text */}
-            <div className="space-y-2 text-base text-black/70 lg:space-y-3 lg:text-xl">
+            <div className="space-y-1.5 text-sm text-black/60 lg:space-y-2 lg:text-base">
               <p>
                 You're reading the{" "}
                 <Link href="/blog" className="text-blue-600 hover:text-blue-700 underline">
@@ -110,15 +110,15 @@ export default function HowTilesWorksPage() {
         {/* Bottom Card - Blog Post Content */}
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
-          <div className="mb-8 lg:mb-16">
+          <div className="mb-6 lg:mb-10">
             <h1 className="text-3xl font-semibold text-black mb-3 lg:text-6xl lg:mb-4 tracking-tight">
               How Tiles Works
             </h1>
             <p className="text-base text-black/50 lg:text-xl mb-2 lg:mb-3">
-              Open-source technology for local-first models
+              Open source decentralized infrastructure for software personalization
             </p>
             <p className="text-sm text-black/40 lg:text-lg">
-              January 15, 2025
+              January 2, 2026
             </p>
           </div>
 
@@ -196,31 +196,31 @@ export default function HowTilesWorksPage() {
                   Our first-generation prototype is a single-file executable CLI, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a>-based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> in collaboration with the community, establishing it as the standard for model customization.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Dria</a>, based on qwen3-4B-thinking-2507), and are in the process of training our initial in-house memory models.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory—allowing the agent to maintain and refine persistent knowledge across sessions.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   We are actively adding support for memory extensions with LoRA adapters so users and organizations can bring their own data and augment the base memory models to reflect the personality they want.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   On the inference side, we use LM Studio's <a href="https://github.com/lmstudio-ai/mlx-engine" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">mlx-engine</a> as our backend on Mac, with plans to add Linux and server-side model support.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   For identity, we are building an <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">AT Proto DID</a>-based system, targeted for Q1 2026 (pending public/private crypto components needed for zero-knowledge security). The system keeps the unencrypted private key and chat logs client-side, following <a href="https://blog.mozilla.ai/introducing-any-llm-managed-platform-a-secure-cloud-vault-and-usage-tracking-service-for-all-your-llm-providers/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Mozilla's architecture for their managed platform</a>.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   On the SDK front, we're collaborating with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">MIR</a> (Machine Intelligence Resource) model naming scheme in our Modelfile implementation. We currently support Hugging Face, and plan to build our own decentralized registry, using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">xet-core</a> implementation for model layering.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   Our research into private software personalization infrastructure currently explores sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with flash storage offloading.
                 </p>
 
