@@ -263,7 +263,7 @@ export default function HowTilesWorksPage() {
                 </ul>
 
                 <p>
-                  We're looking for design partners running training workloads where verifiable privacy boundaries matter. If that's you, email{" "}
+                  We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
                   <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700">
                     hello@tiles.run
                   </a>.

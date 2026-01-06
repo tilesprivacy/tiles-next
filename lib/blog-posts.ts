@@ -72,7 +72,7 @@ export const blogPosts: BlogPost[] = [
   </li>
 </ul>
 
-<p>We're looking for design partners running training workloads where verifiable privacy boundaries matter. If that's you, email <a href="mailto:hello@tiles.run">hello@tiles.run</a>.</p>
+<p>We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at <a href="mailto:hello@tiles.run">hello@tiles.run</a>.</p>
 
 <h2>References</h2>
 
