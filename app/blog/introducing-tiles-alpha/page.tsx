@@ -6,10 +6,10 @@ import { SiHuggingface } from "react-icons/si"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Introducing Tiles Alpha | Open Source Decentralized Infrastructure for Software Personalization",
+  title: "Introducing Tiles Alpha",
   description: "Building the future of software personalization with decentralized memory networks.",
   openGraph: {
-    title: "Introducing Tiles Alpha | Open Source Decentralized Infrastructure",
+    title: "Introducing Tiles Alpha",
     description: "Building the future of software personalization with decentralized memory networks.",
     type: "article",
     publishedTime: "2026-01-02",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Introducing Tiles Alpha | Open Source Decentralized Infrastructure",
+    title: "Introducing Tiles Alpha",
     description: "Building the future of software personalization with decentralized memory networks.",
     images: ["/kingston.webp"],
   },

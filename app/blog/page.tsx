@@ -7,10 +7,10 @@ import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
-  title: "The Tiles Blog | Open Source Privacy Technology",
+  title: "The Tiles Blog",
   description: "We're building open source privacy technology for personalized software experiences.",
   openGraph: {
-    title: "The Tiles Blog | Open Source Privacy Technology",
+    title: "The Tiles Blog",
     description: "We're building open source privacy technology for personalized software experiences.",
     type: "website",
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Tiles Blog | Open Source Privacy Technology",
+    title: "The Tiles Blog",
     description: "We're building open source privacy technology for personalized software experiences.",
     images: ["/api/og"],
   },
