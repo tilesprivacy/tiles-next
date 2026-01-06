@@ -3,6 +3,32 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "How Tiles Works | Open Source Decentralized Infrastructure for Software Personalization",
+  description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. Learn about our philosophy, implementation, and vision for device-anchored identity with keyless operations.",
+  openGraph: {
+    title: "How Tiles Works | Open Source Decentralized Infrastructure",
+    description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    type: "article",
+    publishedTime: "2026-01-02",
+    images: [
+      {
+        url: "/kingston.webp",
+        width: 1200,
+        height: 600,
+        alt: "Cover image for How Tiles Works",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How Tiles Works | Open Source Decentralized Infrastructure",
+    description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    images: ["/kingston.webp"],
+  },
+}
 
 export default function HowTilesWorksPage() {
   return (

@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
 import { SiSubstack, SiHuggingface } from "react-icons/si"
+import type { Metadata } from "next"
 
 // Blog posts data
 const blogPosts = [
@@ -13,6 +14,30 @@ const blogPosts = [
     date: new Date("2026-01-02"),
   },
 ]
+
+export const metadata: Metadata = {
+  title: "The Tiles Blog | Open Source Decentralized Infrastructure",
+  description: "Read about Tiles, open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+  openGraph: {
+    title: "The Tiles Blog | Open Source Decentralized Infrastructure",
+    description: "Read about Tiles, open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    type: "website",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "The Tiles Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "The Tiles Blog | Open Source Decentralized Infrastructure",
+    description: "Read about Tiles, open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    images: ["/api/og"],
+  },
+}
 
 function formatDate(date: Date): string {
   const now = new Date()
