@@ -100,7 +100,7 @@ export default function HowTilesWorksPage() {
             {/* Logo */}
             <div className="flex justify-center mb-6 lg:mb-12">
               <Image
-                src="/logo.png"
+                src="/lighticon.png"
                 alt="Tiles Logo"
                 width={64}
                 height={64}
