@@ -67,23 +67,23 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-20 pb-16 lg:px-6 lg:pt-24 lg:pb-24 gap-8">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-8">
         {/* Top Card - Logo and Header Text */}
-        <div className="w-full max-w-2xl px-8 py-12 lg:px-16 lg:py-16 bg-white">
+        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
           <div className="text-center">
             {/* Logo */}
-            <div className="flex justify-center mb-12">
+            <div className="flex justify-center mb-6 lg:mb-12">
               <Image
                 src="/logo.png"
                 alt="Tiles Logo"
                 width={64}
                 height={64}
-                className="h-16 w-16 lg:h-20 lg:w-20"
+                className="h-12 w-12 lg:h-20 lg:w-20"
               />
             </div>
 
             {/* Header Text */}
-            <div className="space-y-3 text-lg text-black/70 lg:text-xl">
+            <div className="space-y-2 text-base text-black/70 lg:space-y-3 lg:text-xl">
               <p>
                 You're reading the{" "}
                 <Link href="/blog" className="text-blue-600 hover:text-blue-700 underline">
@@ -108,22 +108,22 @@ export default function HowTilesWorksPage() {
         </div>
 
         {/* Bottom Card - Blog Post Content */}
-        <div className="w-full max-w-2xl px-8 py-12 lg:px-16 lg:py-16 relative bg-white">
+        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
-          <div className="mb-12 lg:mb-16">
-            <h1 className="text-5xl font-semibold text-black mb-4 lg:text-6xl tracking-tight">
+          <div className="mb-8 lg:mb-16">
+            <h1 className="text-3xl font-semibold text-black mb-3 lg:text-6xl lg:mb-4 tracking-tight">
               How Tiles Works
             </h1>
-            <p className="text-lg text-black/50 lg:text-xl mb-3">
+            <p className="text-base text-black/50 lg:text-xl mb-2 lg:mb-3">
               Open-source technology for local-first models
             </p>
-            <p className="text-base text-black/40 lg:text-lg">
+            <p className="text-sm text-black/40 lg:text-lg">
               January 15, 2025
             </p>
           </div>
 
           {/* Cover Image */}
-          <div className="mb-12 lg:mb-16">
+          <div className="mb-8 lg:mb-16">
             <Image
               src="/kingston.webp"
               alt="Cover image for How Tiles Works"
@@ -135,7 +135,7 @@ export default function HowTilesWorksPage() {
 
           {/* Blog Content */}
           <article>
-            <div className="space-y-8 text-lg leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed">
+            <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed">
               <p>
                 We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent. Our first product is an on-device memory management solution for privacy-conscious users, paired with an SDK that empowers developers to securely access user memory and customize agent experiences.
               </p>
@@ -144,20 +144,20 @@ export default function HowTilesWorksPage() {
                 We plan to offer the consumer application as a one-time license per generation, with future generations requiring a new license to unlock additional features.
               </p>
 
-              <hr className="border-black/10 my-12" />
+              <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-3xl font-semibold text-black mb-6 lg:text-4xl tracking-tight">Philosophy</h2>
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Philosophy</h2>
                 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   Our goal with Tiles is to co-design both fine-tuned models and the underlying infrastructure and developer tooling to maximize efficiency in local and offline systems for inference and training.
                 </p>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   The project is defined by four interdependent design choices<a href="#ref-1" className="text-blue-600 hover:text-blue-700 underline">¹</a>:
                 </p>
 
-                <ol className="list-decimal list-inside space-y-6 ml-4">
+                <ol className="list-decimal list-inside space-y-4 lg:space-y-6 ml-4">
                   <li>
                     <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the device keychain and cannot access the registry by identity alone<a href="#ref-2" className="text-blue-600 hover:text-blue-700 underline">²</a>. Keyless operations are only enabled after an identity is verified and linked to the device key, allowing third-party agent access under user-defined policies<a href="#ref-3" className="text-blue-600 hover:text-blue-700 underline">³</a>.
                   </li>
@@ -173,16 +173,16 @@ export default function HowTilesWorksPage() {
                 </ol>
               </section>
 
-              <hr className="border-black/10 my-12" />
+              <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-3xl font-semibold text-black mb-6 lg:text-4xl tracking-tight">Implementation</h2>
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Implementation</h2>
                 
                 <p>
                   Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700 underline">⁴</a>-based SDK. The Tiles app acts as a transparent, protocol-driven proxy between the user and AI agents, leveraging a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Next, we are focusing on our sync system (built with <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Iroh</a>) and an identity system based on public key cryptography and verifiable attestations.
                 </p>
 
-                <div className="my-8 lg:my-10">
+                <div className="my-6 lg:my-10">
                   <Image
                     src="/cli.webp"
                     alt="Tiles CLI"
@@ -192,7 +192,7 @@ export default function HowTilesWorksPage() {
                   />
                 </div>
 
-                <p className="mb-6">
+                <p className="mb-4 lg:mb-6">
                   Our first-generation prototype is a single-file executable CLI, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a>-based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 underline">Modelfile</a> in collaboration with the community, establishing it as the standard for model customization.
                 </p>
 
@@ -232,10 +232,10 @@ export default function HowTilesWorksPage() {
                 </p>
               </section>
 
-              <hr className="border-black/10 my-12" />
+              <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-3xl font-semibold text-black mb-6 lg:text-4xl tracking-tight">References</h2>
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">References</h2>
                 
                 <ol className="list-decimal list-inside space-y-3 ml-4">
                   <li id="ref-1">

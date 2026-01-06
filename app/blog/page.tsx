@@ -92,47 +92,47 @@ export default function BlogPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-20 pb-16 lg:px-6 lg:pt-24 lg:pb-24 gap-8">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-8">
         {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-2xl px-8 py-12 lg:px-16 lg:py-16 bg-white">
+        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
           {/* Logo */}
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center mb-6 lg:mb-12">
             <Image
               src="/logo.png"
               alt="Tiles Logo"
               width={64}
               height={64}
-              className="h-16 w-16 lg:h-20 lg:w-20"
+              className="h-12 w-12 lg:h-20 lg:w-20"
             />
           </div>
 
           {/* Blog Title */}
           <div className="text-center">
-            <h1 className="text-5xl font-semibold text-black mb-3 lg:text-6xl tracking-tight">
+            <h1 className="text-3xl font-semibold text-black mb-2 lg:text-6xl lg:mb-3 tracking-tight">
               The Tiles Blog
             </h1>
-            <p className="text-lg text-black/50 lg:text-xl">
+            <p className="text-base text-black/50 lg:text-xl">
               Open-source technology for local-first models
             </p>
           </div>
         </div>
 
         {/* Bottom Card - Blog Posts List */}
-        <div className="w-full max-w-2xl px-8 py-12 lg:px-16 lg:py-16 bg-white">
-          <div className="space-y-12">
+        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
+          <div className="space-y-8 lg:space-y-12">
             {blogPosts.map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 className="block group"
               >
-                <h2 className="text-2xl font-semibold text-blue-600 mb-3 group-hover:text-blue-700 transition-colors lg:text-3xl tracking-tight">
+                <h2 className="text-xl font-semibold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors lg:text-3xl lg:mb-3 tracking-tight">
                   {post.title}
                 </h2>
-                <p className="text-lg text-black/70 mb-3 lg:text-xl leading-relaxed">
+                <p className="text-base text-black/70 mb-2 lg:text-xl lg:mb-3 leading-relaxed">
                   {post.description}
                 </p>
-                <p className="text-base text-black/40 lg:text-lg">
+                <p className="text-sm text-black/40 lg:text-lg">
                   {formatDate(post.date)}
                 </p>
               </Link>
