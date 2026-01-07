@@ -8,6 +8,20 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 // Format: "Display Name <email@domain.com>" or just "email@domain.com"
 const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "Tiles Blog <onboarding@resend.dev>"
 
+// Debug endpoint to check configuration (only in development)
+export async function GET() {
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json({ error: "Not available in production" }, { status: 404 })
+  }
+  
+  return NextResponse.json({
+    hasApiKey: !!process.env.RESEND_API_KEY,
+    apiKeyPrefix: process.env.RESEND_API_KEY?.substring(0, 5) || "not set",
+    fromEmail: FROM_EMAIL,
+    nodeEnv: process.env.NODE_ENV,
+  })
+}
+
 export async function POST(request: Request) {
   try {
     // Check if Resend API key is configured
@@ -52,16 +66,31 @@ export async function POST(request: Request) {
     })
 
     if (error) {
-      console.error("Resend error:", error)
+      console.error("Resend error:", JSON.stringify(error, null, 2))
+      
       // Provide more specific error messages based on Resend error types
-      if (error.message?.includes("domain")) {
-        return NextResponse.json(
-          { error: "Email service configuration error. Please try again later." },
-          { status: 500 },
-        )
+      let errorMessage = "Failed to subscribe. Please try again."
+      
+      if (error.message) {
+        if (error.message.includes("domain") || error.message.includes("not verified")) {
+          errorMessage = "Email domain is not verified. Please contact support."
+        } else if (error.message.includes("invalid") || error.message.includes("Invalid")) {
+          errorMessage = "Invalid email address or configuration."
+        } else if (error.message.includes("rate limit") || error.message.includes("limit")) {
+          errorMessage = "Too many requests. Please try again later."
+        } else {
+          // Return the actual error message for debugging (in development)
+          if (process.env.NODE_ENV === "development") {
+            errorMessage = error.message
+          }
+        }
       }
+      
       return NextResponse.json(
-        { error: "Failed to subscribe. Please try again." },
+        { 
+          error: errorMessage,
+          details: process.env.NODE_ENV === "development" ? error : undefined
+        },
         { status: 500 },
       )
     }
@@ -72,8 +101,12 @@ export async function POST(request: Request) {
     )
   } catch (error) {
     console.error("Subscribe error:", error)
+    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     return NextResponse.json(
-      { error: "An error occurred. Please try again." },
+      { 
+        error: "An error occurred. Please try again.",
+        details: process.env.NODE_ENV === "development" ? errorMessage : undefined
+      },
       { status: 500 },
     )
   }

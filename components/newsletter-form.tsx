@@ -35,7 +35,9 @@ export default function NewsletterForm() {
         if (data.isTestingMode) {
           setIsTestingMode(true)
         }
-        throw new Error(data.error || "Failed to subscribe")
+        // Show the actual error message from the API
+        const errorMsg = data.error || data.message || "Failed to subscribe"
+        throw new Error(errorMsg)
       }
 
       setStatus("success")

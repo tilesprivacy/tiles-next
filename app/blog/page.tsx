@@ -48,7 +48,7 @@ function formatDate(date: Date): string {
 
 export default function BlogPage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-white xl:h-screen xl:overflow-hidden">
+    <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-4 py-4 lg:fixed lg:px-6 lg:py-6">
         <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
@@ -165,7 +165,7 @@ export default function BlogPage() {
       </main>
 
       {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm xl:absolute xl:bottom-0 xl:left-0 xl:right-0">
+      <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://book.tiles.run"
           target="_blank"
