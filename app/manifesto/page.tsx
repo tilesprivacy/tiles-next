@@ -125,16 +125,16 @@ export default function ManifestoPage() {
               {/* Contributors */}
               <div>
                 <h2 className="text-lg font-semibold text-black mb-4 lg:text-xl">Contributors</h2>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-black/60 mb-2 lg:text-base">Keep Ankesh and Anandu in Core</h3>
+                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Core</h3>
                     <div className="space-y-1.5">
                       <div className="text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
                       <div className="text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-black/60 mb-2 lg:text-base">Keep Kshitij in Community</h3>
+                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Community</h3>
                     <div className="space-y-1.5">
                       <div className="text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
                     </div>
@@ -147,7 +147,7 @@ export default function ManifestoPage() {
                 <h2 className="text-lg font-semibold text-black mb-4 lg:text-xl">Sponsors</h2>
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-black/60 mb-2 lg:text-base">Active:</h3>
+                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Active</h3>
                     <div className="space-y-1.5">
                       <div className="text-sm text-black/80 lg:text-base">Luke Hubbard</div>
                       <div className="text-sm text-black/80 lg:text-base">Dietrich Ayala</div>
@@ -156,7 +156,7 @@ export default function ManifestoPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-black/60 mb-2 lg:text-base">Past:</h3>
+                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Past</h3>
                     <div className="space-y-1.5">
                       <div className="text-sm text-black/80 lg:text-base">Boris Mann</div>
                       <div className="text-sm text-black/80 lg:text-base">Seref Yarar</div>
