@@ -600,7 +600,7 @@ div.navbar-links-before-search,
   flex: 0 1 auto !important;
   max-width: 20rem !important;
   margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin-right: auto !important;
 }
 
 /* Ensure icons stay on the far right */
@@ -612,7 +612,7 @@ div.navbar-links-before-search,
 [class*="nextra-navbar"] button[aria-label*="theme"],
 [class*="nextra-navbar"] button[aria-label*="Theme"] {
   order: 4 !important;
-  margin-left: auto !important;
+  margin-left: 0 !important;
   flex-shrink: 0 !important;
 }
 `
