@@ -1,0 +1,19 @@
+{
+  "index": {
+    "title": "Tiles Book",
+    "type": "page",
+    "display": "hidden"
+  },
+  "proposal": "Proposal",
+  "implementation": "Implementation",
+  "reference": "Reference",
+  "registry": {
+    "display": "hidden"
+  },
+  "contact": {
+    "title": "Tiles ↗",
+    "type": "page",
+    "href": "https://tiles.run/",
+    "newWindow": true
+  }
+}

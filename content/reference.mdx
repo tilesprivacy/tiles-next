@@ -1,0 +1,291 @@
+# Reference
+
+Reference for Modelfile and MIR specifications.
+
+## Modelfile Reference
+
+### Main Structure
+
+Represents a parsed Modelfile:
+
+```rust
+pub struct Modelfile {
+    pub from: Option<String>,
+    pub parameters: Vec<Parameter>,
+    pub template: Option<String>,
+    pub adapter: Option<String>,
+    pub system: Option<String>,
+    pub license: Option<String>,
+    pub messages: Vec<Message>,
+    pub data: Vec<String>,      // Original lines for display
+    pub errors: Vec<String>,    // Parsing errors
+}
+```
+
+#### Parameter
+
+```rust
+pub struct Parameter {
+    pub param_type: String,
+    pub value: ParamValue,
+}
+```
+
+#### ParamValue
+
+```rust
+pub enum ParamValue {
+    Int(i32),
+    Float(f32),
+    Str(String),
+}
+```
+
+#### Message
+
+```rust
+pub struct Message {
+    role: Role,
+    message: String,
+}
+```
+
+### API
+
+#### Parsing Functions
+
+- **`parse(input: &str) -> Result<Modelfile, String>`**  
+  Parses a Modelfile from a string. Returns a `Modelfile` struct on success, or an error string on failure.
+- **`parse_from_file(path: &str) -> Result<Modelfile, String>`**  
+  Parses a Modelfile from a file path. Reads the file and calls `parse()` on its contents.
+
+#### Builder API
+
+- `new() -> Modelfile` — Creates a new empty Modelfile
+- `add_from(value: &str) -> Result<(), String>` — Adds a FROM instruction
+- `add_parameter(param_type: &str, param_value: &str) -> Result<(), String>` — Adds a PARAMETER
+- `add_template(value: &str) -> Result<(), String>` — Adds a TEMPLATE instruction
+- `add_system(value: &str) -> Result<(), String>` — Adds a SYSTEM instruction
+- `add_adapter(value: &str) -> Result<(), String>` — Adds an ADAPTER instruction
+- `add_license(value: &str) -> Result<(), String>` — Adds a LICENSE instruction
+- `add_message(role: &str, message: &str) -> Result<(), String>` — Adds a MESSAGE instruction
+- `add_comment(value: &str) -> Result<(), String>` — Adds a comment
+- `build() -> Result<(), String>` — Validates the Modelfile (checks for required FROM)
+
+#### Traits
+
+- `FromStr` — Allows parsing from string: `modelfile.parse()`
+- `Display` — Allows conversion to string: `modelfile.to_string()`
+- `Default` — Provides default empty Modelfile
+
+### Validation Rules
+
+1. **Required FROM**: A Modelfile must contain exactly one `FROM` instruction.
+2. **Single-instruction limits**: The following can only appear once: `FROM`, `TEMPLATE`, `SYSTEM`, `ADAPTER`, `LICENSE`.
+3. **Parameter validation**: Parameters are validated for correct types (int/float/string).
+4. **Role validation**: MESSAGE roles must be one of: `system`, `user`, `assistant`.
+5. **Case insensitivity**: All instruction and parameter names are case-insensitive.
+
+### Error Handling
+
+- Parsing errors are collected in the `errors` field.
+- `parse()` returns an error string containing all error messages if any errors occur.
+- The parser continues parsing after errors to collect all issues.
+
+### Implementation Details
+
+- Uses the `nom` parser combinator library for parsing.
+- Instructions are parsed case-insensitively.
+- Whitespace is trimmed from argument values.
+- The parser preserves original lines in the `data` field for display.
+- Comments are preserved when converting back to string.
+
+### Example Usage
+
+#### Parsing from file
+
+```rust
+use tiles::core::modelfile::parse_from_file;
+
+let modelfile = parse_from_file("path/to/Modelfile")?;
+```
+
+#### Parsing from string
+
+```rust
+use tiles::core::modelfile::parse;
+
+let content = r#"
+FROM llama3.2
+PARAMETER temperature 0.7
+SYSTEM "You are helpful"
+"#;
+
+let modelfile = parse(content)?;
+```
+
+#### Building programmatically
+
+```rust
+use tiles::core::modelfile::Modelfile;
+
+let mut modelfile = Modelfile::new();
+modelfile.add_from("llama3.2")?;
+modelfile.add_parameter("temperature", "0.7")?;
+modelfile.add_system("You are helpful")?;
+modelfile.build()?;
+```
+
+### Notes
+
+- Implementation is based on the Ollama Modelfile specification.
+- Not all Ollama Modelfile features may be implemented.
+- The parser is compatible with Ollama-generated Modelfiles.
+- Future enhancements may validate GGUF file paths in FROM instructions.
+
+## MIR Reference
+
+Copied verbatim from: [github.com/darkshapes/MIR](https://github.com/darkshapes/MIR):
+
+> MIR (Machine Intelligence Resource)<br /><br />A naming schema for AIGC/ML work.
+
+The MIR classification format seeks to standardize and complete a hyperlinked network of model information, improving accessibility and reproducibility across the AI community.<br />
+
+Example:
+
+> mir : model . transformer . clip-l : stable-diffusion-xl
+
+```
+ mir : model .    lora      .    hyper    :   flux-1
+  ↑      ↑         ↑               ↑            ↑
+ [URI]:[Domain].[Architecture].[Series]:[Compatibility]
+```
+
+Code for this project can be found at [darkshapes/MIR](https://github.com/darkshapes/MIR) on GitHub.
+
+### Definitions
+
+Like other URI schema, the order of the identifiers roughly indicates their specificity from left (broad) to right (narrow).
+
+#### DOMAINS
+
+> ↑Most Specific/Decentralized
+
+###### Dev   
+
+**Pre-release or under evaluation items without an identifier in an expected format**  
+Anything in in-training, pre-public release, and items under evaluation
+
+Meant to be created by anyone, derived from code and file analysis
+
+- Contextual
+- Layers of neural networks
+- Dynamic
+
+###### Model
+
+**Publicly released machine learning models with an identifier in the database**  
+Model weight tensors with arbitrary locations and quantitative dimensions
+
+Meant to be created by file hosts, derived from research pre-prints
+
+- Contextual
+- Layers of neural networks
+- Fixed
+
+###### Ops
+
+**References to specific optimization or manipulation techniques**  
+Algorithms, optimizations and procedures for models
+
+Meant to be created by code libraries, derived from research pre-prints
+
+- Universal
+- Attributes of neural networks
+- Dynamic
+
+###### Info  
+
+**Metadata of layer names or settings with an identifier in the database**  
+Information about the model and tensor specifications
+
+Meant to be created by standards community, derived from code and file analysis
+
+- Universal
+- Attributes of neural networks
+- Fixed
+
+> ↓Most General/Centralized
+
+#### ARCHITECTURE
+
+Broad and general terms for system architectures:
+
+| Abbreviation    | Description                               |
+| --------------- | ----------------------------------------- |
+| GRU             | Gated recurrent unit                      |
+| RBM             | Restricted Boltzmann machine              |
+| TAE             | Tiny Autoencoder                          |
+| VAE             | Variable Autoencoder                      |
+| LSTM            | Long Short-Term Memory                    |
+| RESNET          | Residual Network                          |
+| CNN             | Convolutional Neural Network              |
+| RCNN            | Region-based Convolutional Neural Network |
+| RNN             | Recurrent Neural Network                  |
+| BRNN            | Bi-directional Recurrent Neural Network   |
+| GAN             | Generative Adversarial Model              |
+| SSM             | State-Space Model                         |
+| DETR            | Detection Transformer                     |
+| VIT             | Vision Transformer                        |
+| MOE             | Mixture of Experts                        |
+| AET             | Autoencoding Transformer                  |
+| STST            | Sequence-to-Sequence Transformer          |
+| ART             | Autoregressive Transformer                |
+| LORA            | Low-Rank Adaptation                       |
+| CONTROLNET      | Controlnet                                |
+| UNCLASSIFIED    | Unknown                                   |
+
+---
+
+#### SERIES
+
+Foundational network and technique types.
+
+
+##### Rules
+
+- Lowercase, hyphen only
+- Remove parameter size, non-breaking semantic versioning, library names
+
+Example: `tencent-hunyuan/hunyuandiT-v1.2-diffusers`<br />
+SERIES : `hunyuandit-v1`
+
+Example: `black-forest-labs/FLUX.1-dev`<br />
+SERIES : `flux1dev`
+
+In regex (roughly):
+
+```
+BREAKING*SUFFIX = r".*(?:-)(prior)$|.*(?:-)(diffusers)$|.\*[\*-](\d{3,4}px|-T2V$|-I2V$)"
+PARAMETERS*SUFFIX = r"(\d{1,4}[KkMmBb]|[.*-]\d+[\._-]\d+[Bb][._-]).\*?$"
+SEARCH*SUFFIX = r"\d+[.*-]?\d+[BbMmKk](it)?|[._-]\d+[BbMmKk](it)?"
+```
+
+#### COMPATIBILITY
+
+Implementation details based on version-breaking changes, configuration inconsistencies, or other conflicting indicators that have practical application.
+
+
+##### Rules
+
+An additional SERIES label for identifying cross-compatibility
+
+### Notes
+
+If you would like to regenerate or update the example file here, use [nnll](https://github.com/darkshapes/nnll/tree/0.1.dev799):
+
+MIR is inspired by:
+
+- [AIR-URN](https://github.com/civitai/civitai/wiki/AIR-%E2%80%90-Uniform-Resource-Names-for-AI) project by [CivitAI](https://civitai.com/)
+- [Spandrel](https://github.com/chaiNNer-org/spandrel/blob/main/libs/spandrel/spandrel/__helpers/registry.py) super-resolution registry by [chaiNNer](https://github.com/chaiNNer-org/chaiNNer)
+- [SDWebUI Model Toolkit](https://github.com/silveroxides/stable-diffusion-webui-model-toolkit-revisited) by [silveroxides](https://github.com/silveroxides)

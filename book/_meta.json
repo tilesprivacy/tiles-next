@@ -1,0 +1,19 @@
+{
+  "index": "Tiles Book",
+  "proposal": "Proposal",
+  "implementation": "Implementation",
+  "registry": "Registry",
+  "reference": "Reference",
+  "blog": {
+    "title": "Blog",
+    "type": "page",
+    "href": "https://www.blog.tiles.run/",
+    "newWindow": true
+  },
+  "contact": {
+    "title": "Tiles ↗",
+    "type": "page",
+    "href": "https://tiles.run/",
+    "newWindow": true
+  }
+}
