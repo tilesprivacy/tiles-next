@@ -471,7 +471,7 @@ export default function HowTilesWorksPage() {
       {/* Footer */}
       <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
-          href="https://book.tiles.run"
+          href="https://www.tiles.run/book"
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-black/60 transition-colors hover:text-black"

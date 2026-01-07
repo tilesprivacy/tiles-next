@@ -8,3 +8,4 @@ export const useMDXComponents = (
   ...docsComponents,
   ...components,
 })
+

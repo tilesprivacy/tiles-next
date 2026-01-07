@@ -5,11 +5,36 @@ export default function Head() {
   --nextra-primary-saturation: 67%;
   --nextra-primary-lightness: 45%;
   --nextra-bg: 250,250,250;
-  --nextra-content-width: 90rem;
+  --nextra-content-width: 100%;
   /* Pagefind CSS variables for proper theming */
   --pagefind-ui-text: #0f172a;
   --pagefind-ui-background: #ffffff;
   --pagefind-ui-border: #e2e8f0;
+}
+
+/* Responsive content width */
+@media (min-width: 640px) {
+  :root {
+    --nextra-content-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  :root {
+    --nextra-content-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --nextra-content-width: 90%;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --nextra-content-width: 90rem;
+  }
 }
 .dark {
   --nextra-primary-hue: 357deg;
@@ -201,6 +226,43 @@ header[class*="navbar"] span,
   color: rgb(241, 245, 249) !important;
 }
 
+/* Base responsive layout */
+body,
+#__next,
+[class*="nextra-layout"],
+[class*="nextra-container"] {
+  width: 100% !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+}
+
+/* Main content area responsive */
+main,
+main[class*="main"],
+[class*="nextra-content"],
+article {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Sidebar responsive */
+aside,
+[class*="sidebar"],
+[class*="Sidebar"] {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 768px) {
+  aside,
+  [class*="sidebar"],
+  [class*="Sidebar"] {
+    max-width: 16rem !important;
+    min-width: 16rem !important;
+  }
+}
+
 /* Mobile responsive styles */
 @media (max-width: 768px) {
   /* Reduce content width on mobile */
@@ -215,6 +277,10 @@ header[class*="navbar"] span,
   [class*="Navbar"] {
     padding: 0.5rem 1rem !important;
     min-height: 3.5rem !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
   
   /* Mobile logo container */
@@ -229,6 +295,18 @@ header[class*="navbar"] span,
   article {
     padding: 1rem !important;
     padding-top: 1.5rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure main layout container is responsive */
+  [class*="nextra-layout"],
+  [class*="nextra-container"],
+  div[class*="nextra"] {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
   }
   
   /* Mobile text sizes */
@@ -535,6 +613,25 @@ aside[class*="Sidebar"] {
   [class*="nextra-content"],
   article {
     padding: 1.5rem 2rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Ensure layout doesn't overflow */
+  [class*="nextra-layout"],
+  [class*="nextra-container"] {
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Sidebar on tablet */
+  aside,
+  [class*="sidebar"],
+  [class*="Sidebar"] {
+    max-width: 16rem !important;
+    min-width: 16rem !important;
   }
 }
 
@@ -550,7 +647,20 @@ header[class*="nextra-navbar"] nav {
   display: flex !important;
   align-items: center !important;
   gap: 1rem !important;
-  flex-wrap: nowrap !important;
+  flex-wrap: wrap !important;
+}
+
+/* Allow wrapping on smaller screens */
+@media (max-width: 1024px) {
+  [class*="nextra-navbar"],
+  [class*="nextra-navbar"] nav,
+  [class*="nextra-navbar"] > div,
+  [class*="nextra-navbar"] header,
+  [class*="nextra-navbar"] header > nav,
+  header[class*="nextra-navbar"],
+  header[class*="nextra-navbar"] nav {
+    gap: 0.5rem !important;
+  }
 }
 
 /* Ensure the inner nav container is also flex */
@@ -601,6 +711,32 @@ div.navbar-links-before-search,
   max-width: 20rem !important;
   margin-left: 0 !important;
   margin-right: 0 !important;
+}
+
+/* Responsive search box */
+@media (max-width: 768px) {
+  [class*="nextra-navbar"] [class*="search"],
+  [class*="nextra-navbar"] [role="combobox"],
+  [class*="nextra-navbar"] div:has([role="combobox"]),
+  [class*="nextra-navbar"] div:has(input[role="combobox"]),
+  [class*="nextra-navbar"] > nav > div:has([role="combobox"]),
+  [class*="nextra-navbar"] form:has([role="combobox"]) {
+    max-width: 12rem !important;
+    min-width: 0 !important;
+    flex: 1 1 auto !important;
+  }
+}
+
+@media (max-width: 640px) {
+  [class*="nextra-navbar"] [class*="search"],
+  [class*="nextra-navbar"] [role="combobox"],
+  [class*="nextra-navbar"] div:has([role="combobox"]),
+  [class*="nextra-navbar"] div:has(input[role="combobox"]),
+  [class*="nextra-navbar"] > nav > div:has([role="combobox"]),
+  [class*="nextra-navbar"] form:has([role="combobox"]) {
+    max-width: 10rem !important;
+    min-width: 0 !important;
+  }
 }
 
 /* Ensure icons stay on the far right */
