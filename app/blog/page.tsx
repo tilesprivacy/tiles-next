@@ -167,7 +167,7 @@ export default function BlogPage() {
       {/* Footer */}
       <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
-          href="https://www.tiles.run/book"
+          href="https://book.tiles.run"
           target="_blank"
           rel="noopener noreferrer"
           className="font-medium text-black/60 transition-colors hover:text-black"
