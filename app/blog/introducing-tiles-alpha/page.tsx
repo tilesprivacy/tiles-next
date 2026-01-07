@@ -100,29 +100,34 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-12 lg:px-6 lg:pt-20 lg:pb-24 gap-8 lg:gap-16">
+      <main className="flex flex-1 flex-col items-center px-4 pt-6 pb-12 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12">
         {/* Top Card - Logo and Header Text */}
-        <div className="w-full max-w-2xl px-4 pt-10 pb-6 lg:px-12 lg:py-8">
+        <div className="w-full max-w-2xl px-4 pt-4 pb-3 lg:px-12 lg:pt-6 lg:pb-4">
           <div className="text-center">
             {/* Logo */}
-            <div className="flex justify-center mb-6 lg:mb-8">
+            <div className="flex justify-center mb-3 lg:mb-4">
               <Image
                 src="/lighticon.png"
                 alt="Tiles Logo"
                 width={64}
                 height={64}
-                className="h-12 w-12 lg:h-20 lg:w-20"
+                className="h-8 w-8 lg:h-12 lg:w-12"
               />
             </div>
 
             {/* Header Text */}
-            <div className="space-y-2 text-sm text-black/60 lg:space-y-3 lg:text-base">
+            <div className="space-y-1.5 text-xs text-black/60 lg:space-y-2 lg:text-sm">
               <p>
                 You're reading the{" "}
-                <Link href="/blog" className="text-blue-600 hover:text-blue-700">
-                  blog
-                </Link>
-                .
+                <a
+                  href="https://tiles.run"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-700"
+                >
+                  Tiles
+                </a>{" "}
+                blog.
               </p>
               <p>
                 There are{" "}
@@ -131,7 +136,7 @@ export default function HowTilesWorksPage() {
                 </Link>
                 .
               </p>
-              <p className="mt-6 lg:mt-8">
+              <p className="mt-3 lg:mt-4">
                 When you're done, you can{" "}
                 <Link href="/download" className="text-blue-600 hover:text-blue-700">
                   install Tiles

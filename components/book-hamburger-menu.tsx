@@ -95,7 +95,7 @@ export function BookHamburgerMenu() {
       nextraMenuButton.style.height = '1px'
       
       try {
-        nextraMenuButton.click()
+      nextraMenuButton.click()
         // Reset styles after a brief delay
         setTimeout(() => {
           nextraMenuButton.style.pointerEvents = originalPointerEvents
@@ -104,7 +104,7 @@ export function BookHamburgerMenu() {
           nextraMenuButton.style.width = ''
           nextraMenuButton.style.height = ''
         }, 50)
-        return
+      return
       } catch (e) {
         // If click fails, continue to manual toggle
       }
