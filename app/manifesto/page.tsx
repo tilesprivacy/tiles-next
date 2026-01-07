@@ -154,6 +154,7 @@ export default function ManifestoPage() {
                       <div className="text-xs sm:text-sm text-black/80 lg:text-base">Dietrich Ayala</div>
                       <div className="text-xs sm:text-sm text-black/80 lg:text-base">Xi Zhang</div>
                       <div className="text-xs sm:text-sm text-black/80 lg:text-base">Hugo Duprez</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Utkarsh Saxena</div>
                     </div>
                   </div>
                   <div>
