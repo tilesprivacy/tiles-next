@@ -100,7 +100,7 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-6 pb-12 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12">
         {/* Top Card - Logo and Header Text */}
         <div className="w-full max-w-2xl px-4 pt-4 pb-3 lg:px-12 lg:pt-6 lg:pb-4">
           <div className="text-center">
