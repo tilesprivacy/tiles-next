@@ -58,10 +58,11 @@ export default function ManifestoPage() {
 
       <div className="flex flex-1 flex-col pt-16 lg:pt-24 lg:pb-24">
         {/* Content */}
-        <main className="flex flex-1 flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 xl:gap-20 px-6 pb-20 pt-16 lg:px-12 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">
-          <div className="w-full max-w-2xl text-justify">
-            <div className="space-y-6 text-sm leading-relaxed text-black/80 sm:text-base lg:space-y-8 lg:text-xl lg:leading-relaxed">
-              <p className="text-base font-medium text-black sm:text-lg lg:text-2xl">
+        <main className="flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">
+          {/* Manifesto Text Section */}
+          <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl text-justify">
+            <div className="space-y-4 sm:space-y-6 text-sm leading-relaxed text-black/80 sm:text-base md:space-y-6 lg:space-y-8 lg:text-xl lg:leading-relaxed">
+              <p className="text-base font-medium text-black sm:text-lg md:text-xl lg:text-2xl">
                 Our mission is to shape the future of software personalization with decentralized memory networks.
               </p>
 
@@ -120,47 +121,47 @@ export default function ManifestoPage() {
           </div>
           
           {/* Contributors & Sponsors Section */}
-          <div className="w-full lg:w-auto lg:min-w-[220px] lg:max-w-[280px] mt-8 lg:mt-0">
-            <div className="space-y-8">
+          <div className="w-full lg:w-auto lg:flex-shrink-0 mt-6 sm:mt-8 lg:mt-0">
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10">
               {/* Contributors */}
-              <div>
-                <h2 className="text-lg font-semibold text-black mb-4 lg:text-xl">Contributors</h2>
-                <div className="space-y-4">
+              <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
+                <h2 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 lg:text-xl">Contributors</h2>
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Core</h3>
-                    <div className="space-y-1.5">
-                      <div className="text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
-                      <div className="text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
+                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Core</h3>
+                    <div className="space-y-1 sm:space-y-1.5">
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Community</h3>
-                    <div className="space-y-1.5">
-                      <div className="text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
+                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Community</h3>
+                    <div className="space-y-1 sm:space-y-1.5">
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Sponsors */}
-              <div>
-                <h2 className="text-lg font-semibold text-black mb-4 lg:text-xl">Sponsors</h2>
-                <div className="space-y-4">
+              <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
+                <h2 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 lg:text-xl">Sponsors</h2>
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Active</h3>
-                    <div className="space-y-1.5">
-                      <div className="text-sm text-black/80 lg:text-base">Luke Hubbard</div>
-                      <div className="text-sm text-black/80 lg:text-base">Dietrich Ayala</div>
-                      <div className="text-sm text-black/80 lg:text-base">Xi Zhang</div>
-                      <div className="text-sm text-black/80 lg:text-base">Hugo Duprez</div>
+                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Active</h3>
+                    <div className="space-y-1 sm:space-y-1.5">
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Luke Hubbard</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Dietrich Ayala</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Xi Zhang</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Hugo Duprez</div>
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-sm font-medium text-black mb-2 lg:text-base">Past</h3>
-                    <div className="space-y-1.5">
-                      <div className="text-sm text-black/80 lg:text-base">Boris Mann</div>
-                      <div className="text-sm text-black/80 lg:text-base">Seref Yarar</div>
-                      <div className="text-sm text-black/80 lg:text-base">Curran Dwyer</div>
+                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Past</h3>
+                    <div className="space-y-1 sm:space-y-1.5">
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Boris Mann</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Seref Yarar</div>
+                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Curran Dwyer</div>
                     </div>
                   </div>
                 </div>
