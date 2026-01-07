@@ -223,13 +223,38 @@
   }
   
   /* Hide menu buttons that open sidebar on mobile */
-  [data-book-section] button[aria-label*="menu" i],
-  [data-book-section] button[aria-label*="Menu" i],
-  [data-book-section] button[aria-expanded],
-  [data-book-section] [class*="menu-button"],
-  [data-book-section] button[class*="menu"],
+  /* But exclude copy page button dropdown from being hidden */
+  [data-book-section] button[aria-label*="menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] button[aria-label*="Menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] button[aria-expanded]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]):not([aria-controls*="headlessui"]),
+  [data-book-section] [class*="menu-button"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] button[class*="menu"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
   [data-book-section] [data-book-hamburger] {
     display: none !important;
+  }
+  
+  /* Ensure copy page button dropdown is visible and functional on mobile */
+  /* Target the Headless UI listbox components used by Nextra's copy page button */
+  [data-book-section] button[id*="headlessui-listbox-button"],
+  [data-book-section] button[aria-labelledby*="headlessui-listbox-button"],
+  [data-book-section] [id*="headlessui-listbox-options"],
+  [data-book-section] ul[role="listbox"][id*="headlessui-listbox-options"],
+  [data-book-section] #headlessui-portal-root ul[role="listbox"][id*="headlessui-listbox-options"] {
+    display: block !important;
+    visibility: visible !important;
+  }
+  
+  /* Ensure dropdown menu portal is visible and properly positioned on mobile */
+  [data-book-section] #headlessui-portal-root ul[role="listbox"][id*="headlessui-listbox-options"] {
+    z-index: 50 !important;
+    position: absolute !important;
+  }
+  
+  /* Ensure the copy page button itself is visible on mobile */
+  [data-book-section] button[id*="headlessui-listbox-button"],
+  [data-book-section] button[aria-labelledby*="headlessui-listbox-button"] {
+    display: inline-flex !important;
+    visibility: visible !important;
   }
   
   /* Ensure main content takes full width on mobile */

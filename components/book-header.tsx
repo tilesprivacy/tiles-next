@@ -21,6 +21,10 @@ export function BookHeader() {
   // Use dark.jpeg for dark theme, lighticon.png for light theme
   // Default to lighticon.png during SSR to avoid hydration mismatch
   const logoSrc = mounted && isDark ? '/dark.jpeg' : '/lighticon.png'
+  
+  // Use dark apple logo for dark theme (button bg is light), white logo for light theme (button bg is dark)
+  // Default to white logo during SSR to avoid hydration mismatch
+  const appleLogoSrc = mounted && isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
 
   return (
     <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-background via-background/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
@@ -42,7 +46,7 @@ export function BookHeader() {
         >
           <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
             <Image
-              src="/apple-logo-white.svg"
+              src={appleLogoSrc}
               alt="Apple"
               width={16}
               height={20}

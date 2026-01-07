@@ -55,6 +55,14 @@ export default function NewsletterForm() {
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Allow Cmd+A / Ctrl+A to select all text
+    if ((e.metaKey || e.ctrlKey) && e.key === 'a') {
+      e.preventDefault()
+      e.currentTarget.select()
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-sm">
       <div className="space-y-3">
@@ -64,8 +72,9 @@ export default function NewsletterForm() {
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onKeyDown={handleKeyDown}
             disabled={status === "loading"}
-            className="text-sm !bg-white"
+            className="text-sm !bg-white !text-black placeholder:!text-black/50 selection:!bg-blue-500 selection:!text-white"
           />
           <Button
             type="submit"
