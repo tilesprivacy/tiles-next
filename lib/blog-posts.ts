@@ -39,11 +39,11 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Implementation</h2>
 
-<p>Our software stack includes a macOS app and a Modelfile<a href="#ref-4">⁴</a>-based SDK. Tiles bundles a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Currently, we use <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer">mem-agent</a> model (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer">Dria</a>, based on <code>qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.</p>
+<p>Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile<a href="#ref-4">⁴</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 
 <img src="/cli.webp" alt="Tiles CLI" style="width: 100%; height: auto; margin: 2rem 0;" />
 
-<p>Our first alpha is a CLI for Apple Silicon devices, complemented by a Modelfile based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
+<p>Tiles bundles a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Currently, we use <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer">mem-agent</a> model (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer">Dria</a>, based on <code>qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.</p>
 
 <p>These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.</p>
 
@@ -65,7 +65,7 @@ export const blogPosts: BlogPost[] = [
     <strong>SDK and standards:</strong> Work with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer">MIR</a> (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
   </li>
   <li>
-    <strong>Model distribution:</strong> Continue supporting Hugging Face, while designing a decentralized registry for versioned, composable model layers using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer">xet-core</a> approach.
+    <strong>Registry:</strong> Continue supporting Hugging Face, while designing a decentralized registry for versioned, composable model layers using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer">xet-core</a> client tech.
   </li>
   <li>
     <strong>Research roadmap:</strong> As part of our research on private software personalization infrastructure, we are investigating sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with offloading to flash storage.

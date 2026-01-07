@@ -223,11 +223,27 @@ export default function HowTilesWorksPage() {
                 </h2>
 
                 <p className="mb-6 lg:mb-8">
-                  Our software stack includes a macOS app and a Modelfile
+                  Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile
                   <a href="#ref-4" className="text-blue-600 hover:text-blue-700">
                     ⁴
                   </a>
-                  -based SDK. Tiles bundles a fine-tuned model to manage context and memories locally on-device with
+                  {" "}based SDK that lets
+                  developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
+                  collaboration with the community, establishing it as the standard for model customization.
+                </p>
+
+                <div className="my-8 lg:my-12">
+                  <Image
+                    src="/cli.webp"
+                    alt="Tiles CLI"
+                    width={1200}
+                    height={600}
+                    className="w-full h-auto rounded-lg"
+                  />
+                </div>
+
+                <p className="mb-6 lg:mb-8">
+                  Tiles bundles a fine-tuned model to manage context and memories locally on-device with
                   hyperlinked markdown files. Currently, we use{" "}
                   <a
                     href="https://huggingface.co/driaforall/mem-agent"
@@ -269,22 +285,6 @@ export default function HowTilesWorksPage() {
                   , based on{" "}
                   <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>),
                   and are in the process of training our initial in-house memory models.
-                </p>
-
-                <div className="my-8 lg:my-12">
-                  <Image
-                    src="/cli.webp"
-                    alt="Tiles CLI"
-                    width={1200}
-                    height={600}
-                    className="w-full h-auto rounded-lg"
-                  />
-                </div>
-
-                <p className="mb-6 lg:mb-8">
-                  Our first alpha is a CLI for Apple Silicon devices, complemented by a Modelfile based SDK that lets
-                  developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
-                  collaboration with the community, establishing it as the standard for model customization.
                 </p>
 
                 <p className="mb-6 lg:mb-8">
@@ -399,7 +399,7 @@ export default function HowTilesWorksPage() {
                     (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
                   </li>
                   <li>
-                    <strong>Model distribution:</strong> Continue supporting Hugging Face, while designing a
+                    <strong>Registry:</strong> Continue supporting Hugging Face, while designing a
                     decentralized registry for versioned, composable model layers using the open-source{" "}
                     <a
                       href="https://github.com/huggingface/xet-core"
@@ -419,7 +419,7 @@ export default function HowTilesWorksPage() {
                         <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </a>{" "}
-                    approach.
+                    client tech.
                   </li>
                   <li>
                     <strong>Research roadmap:</strong> As part of our research on private software personalization
