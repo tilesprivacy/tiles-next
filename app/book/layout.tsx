@@ -4,8 +4,6 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import { BookLogo } from '@/components/book-logo'
 import { NavbarLinks } from '@/components/navbar-links'
-import { MobileSidebarFix } from '@/components/mobile-sidebar-fix'
-import { SidebarBottomLinks } from '@/components/sidebar-bottom-links'
 
 export const metadata = {
   title: {
@@ -96,8 +94,6 @@ export default async function BookLayout({
 
   return (
     <>
-      <MobileSidebarFix />
-      <SidebarBottomLinks />
       <Layout navbar={navbar} footer={footer} pageMap={filteredPageMap}>
         {children}
       </Layout>
