@@ -8,10 +8,10 @@ import { blogPosts } from "@/lib/blog-posts"
 import NewsletterForm from "@/components/newsletter-form"
 
 export const metadata: Metadata = {
-  title: "The Tiles Blog",
+  title: "Tiles Blog: Privacy technology for everyone!",
   description: "We're building open source privacy technology for personalized software experiences.",
   openGraph: {
-    title: "The Tiles Blog",
+    title: "Tiles Blog: Privacy technology for everyone!",
     description: "We're building open source privacy technology for personalized software experiences.",
     type: "website",
     images: [
@@ -19,13 +19,13 @@ export const metadata: Metadata = {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "The Tiles Blog",
+        alt: "Tiles Blog: Privacy technology for everyone!",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "The Tiles Blog",
+    title: "Tiles Blog: Privacy technology for everyone!",
     description: "We're building open source privacy technology for personalized software experiences.",
     images: ["/api/og"],
   },
@@ -53,7 +53,7 @@ export default function BlogPage() {
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
           <Link href="/" className="transition-colors hover:text-black/70">
-            <Image src="/logo.png" alt="Tiles" width={20} height={20} className="h-5 w-5" />
+            <Image src="/lighticon.png" alt="Tiles" width={20} height={20} className="h-5 w-5" />
           </Link>
           <span className="text-black/30">/</span>
           <Link href="/blog" className="font-bold transition-colors hover:text-black/70">

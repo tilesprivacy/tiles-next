@@ -127,6 +127,36 @@
   }
 }
 
+/* Book section link styling - match blog styling */
+/* Target links in book section main content area */
+[data-book-section] main a,
+[data-book-section] article a,
+[data-book-section] [class*="nextra-content"] a,
+[data-book-section] [class*="nextra-body"] a {
+  @apply text-blue-600 no-underline;
+}
+
+[data-book-section] main a:hover,
+[data-book-section] article a:hover,
+[data-book-section] [class*="nextra-content"] a:hover,
+[data-book-section] [class*="nextra-body"] a:hover {
+  @apply text-blue-700;
+}
+
+/* External link indicator for non-tiles.run links in book section */
+[data-book-section] a.external-link::after {
+  content: ' ↗';
+  display: inline-block;
+  margin-left: 0.25em;
+  font-size: 0.875em;
+  opacity: 0.7;
+  vertical-align: baseline;
+}
+
+[data-book-section] a.external-link:hover::after {
+  opacity: 1;
+}
+
 /* Mobile hero sizing - graph at 50% of viewport, logo overlaps by 50% of its height */
 :root {
   --mobile-logo-size: 4.5rem;

@@ -7,9 +7,6 @@
   "proposal": "Proposal",
   "implementation": "Implementation",
   "reference": "Reference",
-  "registry": {
-    "display": "hidden"
-  },
   "contact": {
     "title": "Tiles ↗",
     "type": "page",

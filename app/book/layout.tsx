@@ -8,7 +8,7 @@ import { BookFooter } from '@/components/book-footer'
 export const metadata = {
   title: {
     template: '%s - Book',
-    default: 'Book',
+    default: 'Tiles Book: Privacy technology for everyone!',
   },
   description: 'Tiles documentation',
 }
@@ -78,7 +78,7 @@ export default async function BookLayout({
   })
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-white">
+    <div className="relative flex min-h-screen flex-col bg-white" data-book-section>
       <BookHeader />
       <div className="pt-16 lg:pt-24">
         <Layout pageMap={finalPageMap}>
