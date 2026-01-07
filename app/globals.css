@@ -148,18 +148,7 @@
 }
 
 /* External link indicator for non-tiles.run links in book section */
-[data-book-section] a.external-link::after {
-  content: ' ↗';
-  display: inline-block;
-  margin-left: 0.25em;
-  font-size: 0.875em;
-  opacity: 0.7;
-  vertical-align: baseline;
-}
-
-[data-book-section] a.external-link:hover::after {
-  opacity: 1;
-}
+/* SVG icon is now added via React component, so no CSS needed */
 
 /* Constrain main content column width for better readability */
 /* Target only the main element inside article (the text content), not sidebars or "On This Page" */

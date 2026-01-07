@@ -129,7 +129,7 @@ export default function DownloadPage() {
             {/* Code Blocks */}
             <div className="flex flex-col items-start gap-2 lg:gap-3 w-full lg:w-auto">
               <CodeBlock code="curl -fsSL https://tiles.run/install.sh | sh" />
-              <CodeBlock code="tiles run" compact />
+              <CodeBlock code="tiles run" />
             </div>
 
             {/* Footer Links */}
@@ -174,7 +174,7 @@ export default function DownloadPage() {
             </div>
 
             <div className="pt-4 text-xs text-black/50 lg:text-sm">
-              A portable installer is in development for air-gapped installations, bundled with offline models.{" "}
+              A portable installer is under development for air-gapped deployments, prepackaged with offline memory models.{" "}
               <a
                 href="https://github.com/tilesprivacy/tiles/issues/24"
                 target="_blank"
