@@ -29,7 +29,7 @@ export function BookLogo() {
           className="h-6 w-auto sm:h-8"
           priority
         />
-        <span className="hidden sm:inline text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">Tiles Book</span>
+        <span className="hidden sm:inline text-lg sm:text-xl font-semibold text-slate-900 dark:text-slate-100">Book</span>
       </div>
     )
   }

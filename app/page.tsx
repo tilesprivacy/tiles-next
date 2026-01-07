@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import Link from "next/link"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 
 export default function Page() {
@@ -172,14 +172,9 @@ export default function Page() {
 
       {/* Footer */}
       <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm xl:absolute xl:bottom-0 xl:left-0 xl:right-0">
-        <a
-          href="https://book.tiles.run"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-black/60 transition-colors hover:text-black"
-        >
+        <Link href="/book" className="font-medium text-black/60 transition-colors hover:text-black">
           Book
-        </a>
+        </Link>
         <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
           Blog
         </Link>
@@ -251,6 +246,15 @@ export default function Page() {
               aria-label="Hugging Face"
             >
               <SiHuggingface className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E] lg:h-5 lg:w-5" />
+            </a>
+            <a
+              href="/api/rss"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="RSS Feed"
+            >
+              <FaRss className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-5 lg:w-5" />
             </a>
           </div>
         </div>

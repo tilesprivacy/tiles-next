@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { StatusIndicator } from "@/components/status-indicator"
 
@@ -10,9 +10,15 @@ export default function AboutPage() {
     <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
-        <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
-          ← Back
-        </Link>
+        <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
+          <Link href="/" className="transition-colors hover:text-black/70">
+            <Image src="/logo.png" alt="Tiles" width={20} height={20} className="h-5 w-5" />
+          </Link>
+          <span className="text-black/30">/</span>
+          <Link href="/about" className="font-bold transition-colors hover:text-black/70">
+            About
+          </Link>
+        </div>
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
             asChild
@@ -72,14 +78,9 @@ export default function AboutPage() {
         <main className="flex flex-col items-start px-6 pb-8 pt-4 lg:px-12 lg:pb-32 lg:pt-2">
           <div className="w-full max-w-2xl text-left">
             <Link href="/" className="mb-6 inline-flex flex-col items-start gap-3 lg:mb-10 lg:gap-4">
-              <div className="flex items-center gap-2 lg:gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm lg:h-14 lg:w-14 lg:rounded-xl">
-                  <Image src="/logo.png" alt="Tiles Logo" width={40} height={40} className="h-6 w-6 lg:h-10 lg:w-10" />
-                </div>
-                <h1 className="text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl xl:text-6xl">
-                  Tiles Privacy
-                </h1>
-              </div>
+              <h1 className="text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl xl:text-6xl">
+                Tiles Privacy
+              </h1>
             </Link>
 
             <div className="space-y-6 text-sm leading-relaxed text-black/80 sm:text-base lg:space-y-8 lg:text-xl lg:leading-relaxed">
@@ -138,14 +139,9 @@ export default function AboutPage() {
 
       {/* Footer */}
       <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
-        <a
-          href="https://book.tiles.run"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-black/60 transition-colors hover:text-black"
-        >
+        <Link href="/book" className="font-medium text-black/60 transition-colors hover:text-black">
           Book
-        </a>
+        </Link>
         <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
           Blog
         </Link>
@@ -220,6 +216,15 @@ export default function AboutPage() {
               aria-label="Hugging Face"
             >
               <SiHuggingface className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E] lg:h-5 lg:w-5" />
+            </a>
+            <a
+              href="/api/rss"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="RSS Feed"
+            >
+              <FaRss className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-5 lg:w-5" />
             </a>
           </div>
         </div>

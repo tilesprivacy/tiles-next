@@ -50,10 +50,16 @@ export default function BlogPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between px-4 py-4 lg:fixed lg:px-6 lg:py-6">
-        <Link href="/" className="text-sm text-black/60 transition-colors hover:text-black lg:text-base">
-          ← Back
-        </Link>
+      <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+        <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
+          <Link href="/" className="transition-colors hover:text-black/70">
+            <Image src="/logo.png" alt="Tiles" width={20} height={20} className="h-5 w-5" />
+          </Link>
+          <span className="text-black/30">/</span>
+          <Link href="/blog" className="font-bold transition-colors hover:text-black/70">
+            Blog
+          </Link>
+        </div>
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
             asChild
@@ -119,18 +125,7 @@ export default function BlogPage() {
 
           {/* Blog Title */}
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 mb-4 lg:mb-5">
-              <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight">The Tiles Blog</h1>
-              <a
-                href="/api/rss"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center"
-                aria-label="RSS Feed"
-              >
-                <FaRss className="h-5 w-5 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-7 lg:w-7" />
-              </a>
-            </div>
+            <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight mb-4 lg:mb-5">The Tiles Blog</h1>
             <p className="text-base text-black/50 lg:text-xl">Privacy technology for everyone!</p>
           </div>
         </div>
@@ -166,14 +161,9 @@ export default function BlogPage() {
 
       {/* Footer */}
       <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
-        <a
-          href="https://book.tiles.run"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="font-medium text-black/60 transition-colors hover:text-black"
-        >
+        <Link href="/book" className="font-medium text-black/60 transition-colors hover:text-black">
           Book
-        </a>
+        </Link>
         <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
           Blog
         </Link>
@@ -245,6 +235,15 @@ export default function BlogPage() {
               aria-label="Hugging Face"
             >
               <SiHuggingface className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E] lg:h-5 lg:w-5" />
+            </a>
+            <a
+              href="/api/rss"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="RSS Feed"
+            >
+              <FaRss className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-5 lg:w-5" />
             </a>
           </div>
         </div>

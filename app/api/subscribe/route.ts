@@ -13,7 +13,7 @@ const getResendClient = () => {
 // Get the sender email address from environment variable
 // Format: "Display Name <email@domain.com>" or "email@domain.com"
 const getFromEmail = (): string => {
-  return process.env.RESEND_FROM_EMAIL || "Tiles Blog <onboarding@resend.dev>"
+  return process.env.RESEND_FROM_EMAIL || "Blog <onboarding@resend.dev>"
 }
 
 // Email validation helper

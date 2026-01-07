@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 
 export function MobileSidebarFix() {
   useEffect(() => {
-    // Inject a style tag with maximum priority
+    // Inject a style tag with maximum priority - CSS handles most of the work
     const styleId = 'mobile-sidebar-fix-styles'
     if (!document.getElementById(styleId)) {
       const style = document.createElement('style')
@@ -41,68 +41,52 @@ export function MobileSidebarFix() {
       document.head.appendChild(style)
     }
 
-    // Function to force white background on mobile sidebar
-    const fixSidebar = () => {
-      // Find all possible sidebar elements
-      const sidebars = document.querySelectorAll('aside, [class*="sidebar"], [class*="Sidebar"], [class*="nextra-sidebar"]')
+    // CSS handles most of the styling, so we only need minimal JS
+    // Just mark elements to avoid any potential conflicts
+    const markSidebars = () => {
+      if (window.innerWidth > 768) return
+
+      const sidebars = document.querySelectorAll('aside:not([data-mobile-fixed]), [class*="sidebar"]:not([data-mobile-fixed]), [class*="Sidebar"]:not([data-mobile-fixed]), [class*="nextra-sidebar"]:not([data-mobile-fixed])')
       
       sidebars.forEach((sidebar) => {
-        const element = sidebar as HTMLElement
-        // Only fix on mobile
-        if (window.innerWidth <= 768) {
-          // Force white background
-          element.style.setProperty('background-color', 'rgb(255, 255, 255)', 'important')
-          element.style.setProperty('background', 'rgb(255, 255, 255)', 'important')
-          element.style.setProperty('background-image', 'none', 'important')
-          element.style.setProperty('opacity', '1', 'important')
-          element.style.setProperty('backdrop-filter', 'none', 'important')
-          element.style.setProperty('-webkit-backdrop-filter', 'none', 'important')
-          
-          // Force black text on all children
-          const allChildren = element.querySelectorAll('*')
-          allChildren.forEach((child) => {
-            const childEl = child as HTMLElement
-            childEl.style.setProperty('color', 'rgb(15, 23, 42)', 'important')
-          })
-        }
+        sidebar.setAttribute('data-mobile-fixed', 'true')
       })
     }
 
-    // Run immediately
-    fixSidebar()
+    // Run a few times to catch dynamically added elements
+    markSidebars()
+    const timeout1 = setTimeout(markSidebars, 100)
+    const timeout2 = setTimeout(markSidebars, 500)
+    const timeout3 = setTimeout(markSidebars, 1000)
 
-    // Run after delays to catch dynamically added elements
-    const timeout1 = setTimeout(fixSidebar, 100)
-    const timeout2 = setTimeout(fixSidebar, 500)
-    const timeout3 = setTimeout(fixSidebar, 1000)
+    // Minimal observer - only watch for new sidebar elements
+    let observer: MutationObserver | null = null
+    let debounceTimer: NodeJS.Timeout | null = null
 
-    // Watch for DOM changes
-    const observer = new MutationObserver(() => {
-      fixSidebar()
+    observer = new MutationObserver(() => {
+      // Debounce to avoid excessive calls
+      if (debounceTimer) clearTimeout(debounceTimer)
+      debounceTimer = setTimeout(markSidebars, 300)
     })
 
+    // Only observe direct children of body
     observer.observe(document.body, {
       childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['class', 'style'],
+      subtree: false,
+      attributes: false,
     })
-
-    // Also listen for resize to handle mobile/desktop switching
-    const handleResize = () => {
-      if (window.innerWidth <= 768) {
-        fixSidebar()
-      }
-    }
-    window.addEventListener('resize', handleResize)
 
     // Cleanup
     return () => {
       clearTimeout(timeout1)
       clearTimeout(timeout2)
       clearTimeout(timeout3)
-      observer.disconnect()
-      window.removeEventListener('resize', handleResize)
+      if (debounceTimer) {
+        clearTimeout(debounceTimer)
+      }
+      if (observer) {
+        observer.disconnect()
+      }
     }
   }, [])
 

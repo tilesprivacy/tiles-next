@@ -1,16 +1,14 @@
 import type { ReactNode } from 'react'
-import { Footer, Layout, Navbar } from 'nextra-theme-docs'
+import { Layout } from 'nextra-theme-docs'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
-import { BookLogo } from '@/components/book-logo'
-import { NavbarLinks } from '@/components/navbar-links'
-import { MobileSidebarFix } from '@/components/mobile-sidebar-fix'
-import { SidebarBottomLinks } from '@/components/sidebar-bottom-links'
+import { BookHeader } from '@/components/book-header'
+import { BookFooter } from '@/components/book-footer'
 
 export const metadata = {
   title: {
-    template: '%s - Tiles Book',
-    default: 'Tiles Book',
+    template: '%s - Book',
+    default: 'Book',
   },
   description: 'Tiles documentation',
 }
@@ -23,7 +21,7 @@ export default async function BookLayout({
   const pageMap = await getPageMap()
 
   // Filter out unwanted routes from the sidebar
-  const excludedRoutes = ['/', '/about', '/download', '/explore', '/blog', '/book/registry']
+  const excludedRoutes = ['/', '/about', '/download', '/explore', '/blog', '/index']
   
   const filterPageMap = (items: typeof pageMap): typeof pageMap => {
     return items
@@ -35,15 +33,15 @@ export default async function BookLayout({
           if (excludedRoutes.includes(route)) {
             return false
           }
-          // Also exclude registry route variations
-          if (route.includes('/registry') || route.endsWith('/registry')) {
+          // Exclude routes that start with excluded paths
+          if (excludedRoutes.some(excluded => route.startsWith(excluded + '/'))) {
             return false
           }
         }
-        // Check if item has a name property and exclude registry
+        // Check if item has a name property and exclude unwanted names
         if ('name' in item) {
           const name = item.name as string
-          if (name === 'registry' || name.toLowerCase() === 'registry') {
+          if (excludedRoutes.some(excluded => excluded === `/${name}` || excluded.slice(1) === name)) {
             return false
           }
         }
@@ -61,10 +59,11 @@ export default async function BookLayout({
       })
   }
 
-  let filteredPageMap = filterPageMap(pageMap)
+  // Filter the pageMap to only include book-related content
+  const filteredPageMap = filterPageMap(pageMap)
 
   // Flatten the "book" folder if it exists - extract its children to the top level
-  filteredPageMap = filteredPageMap.flatMap((item) => {
+  const finalPageMap = filteredPageMap.flatMap((item) => {
     // If this is a folder named "book" or has route "/book", extract its children
     if ('children' in item && Array.isArray(item.children)) {
       const name = 'name' in item ? item.name : ''
@@ -78,29 +77,15 @@ export default async function BookLayout({
     return [item]
   })
 
-  const navbar = (
-    <Navbar 
-      logo={<BookLogo />}
-      projectLink="https://github.com/tilesprivacy"
-      chatLink="https://go.tiles.run/discord"
-    >
-      <NavbarLinks />
-    </Navbar>
-  )
-
-  const footer = (
-    <Footer>
-      © 2026 Tiles Privacy
-    </Footer>
-  )
-
   return (
-    <>
-      <MobileSidebarFix />
-      <SidebarBottomLinks />
-      <Layout navbar={navbar} footer={footer} pageMap={filteredPageMap}>
-        {children}
-      </Layout>
-    </>
+    <div className="relative flex min-h-screen flex-col bg-white">
+      <BookHeader />
+      <div className="pt-16 lg:pt-24">
+        <Layout pageMap={finalPageMap}>
+          {children}
+        </Layout>
+      </div>
+      <BookFooter />
+    </div>
   )
 }
