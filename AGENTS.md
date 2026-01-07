@@ -14,4 +14,3 @@
 - The developer link should always be:
   - **Text**: "Book"
   - **URL**: `https://book.tiles.run`
-

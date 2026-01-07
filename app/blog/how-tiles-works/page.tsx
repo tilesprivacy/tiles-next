@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import type { Metadata } from "next"
+import NewsletterForm from "@/components/newsletter-form"
 
 export const metadata: Metadata = {
   title: "Introducing Tiles Alpha",
@@ -130,14 +131,16 @@ export default function HowTilesWorksPage() {
                 There are{" "}
                 <Link href="/blog" className="text-blue-600 hover:text-blue-700">
                   more posts
-                </Link>.
+                </Link>
+                .
               </p>
-                <p className="mt-4 lg:mt-6">
-                  When you're done, you can{" "}
-                  <Link href="/download" className="text-blue-600 hover:text-blue-700">
-                    install Tiles
-                  </Link>.
-                </p>
+              <p className="mt-4 lg:mt-6">
+                When you're done, you can{" "}
+                <Link href="/download" className="text-blue-600 hover:text-blue-700">
+                  install Tiles
+                </Link>
+                .
+              </p>
             </div>
           </div>
         </div>
@@ -152,9 +155,7 @@ export default function HowTilesWorksPage() {
             <p className="text-base text-black/50 lg:text-xl mb-2 lg:mb-3">
               Building the future of software personalization with decentralized memory networks.
             </p>
-            <p className="text-sm text-black/40 lg:text-lg">
-              January 2, 2026
-            </p>
+            <p className="text-sm text-black/40 lg:text-lg">January 2, 2026</p>
           </div>
 
           {/* Cover Image */}
@@ -172,34 +173,60 @@ export default function HowTilesWorksPage() {
           <article>
             <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed">
               <p>
-                We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent. Our first product is an on-device memory management solution for privacy-conscious users, paired with an SDK that empowers developers to securely access user memory and customize agent experiences.
+                We're building open-source technology for local-first models, enabling personalized software experiences
+                without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same
+                coin, and Tiles makes that coin yours: your user-agent. Our first product is an on-device memory
+                management solution for privacy-conscious users, paired with an SDK that empowers developers to securely
+                access user memory and customize agent experiences.
               </p>
 
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Philosophy</h2>
-                
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                  Philosophy
+                </h2>
+
                 <p className="mb-4 lg:mb-6">
-                  Our goal with Tiles is to co-design both fine-tuned models and the underlying infrastructure and developer tooling to maximize efficiency in local and offline systems for inference and training.
+                  Our goal with Tiles is to co-design both fine-tuned models and the underlying infrastructure and
+                  developer tooling to maximize efficiency in local and offline systems for inference and training.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  The project is defined by four interdependent design choices<a href="#ref-1" className="text-blue-600 hover:text-blue-700">¹</a>:
+                  The project is defined by four interdependent design choices
+                  <a href="#ref-1" className="text-blue-600 hover:text-blue-700">
+                    ¹
+                  </a>
+                  :
                 </p>
 
                 <ol className="list-decimal list-inside space-y-4 lg:space-y-6 ml-4">
                   <li>
-                    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the device keychain and cannot access the registry by identity alone<a href="#ref-2" className="text-blue-600 hover:text-blue-700">²</a>. Keyless operations are only enabled after an identity is verified and linked to the device key, allowing third-party agent access under user-defined policies<a href="#ref-3" className="text-blue-600 hover:text-blue-700">³</a>.
+                    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
+                    device keychain and cannot access the registry by identity alone
+                    <a href="#ref-2" className="text-blue-600 hover:text-blue-700">
+                      ²
+                    </a>
+                    . Keyless operations are only enabled after an identity is verified and linked to the device key,
+                    allowing third-party agent access under user-defined policies
+                    <a href="#ref-3" className="text-blue-600 hover:text-blue-700">
+                      ³
+                    </a>
+                    .
                   </li>
                   <li>
-                    <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring consistency and reliability across updates and platforms.
+                    <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring
+                    consistency and reliability across updates and platforms.
                   </li>
                   <li>
-                    <strong>Content-hashed model layers:</strong> Models are stored and referenced by cryptographic hashes of their layers, guaranteeing integrity and enabling efficient deduplication and sharing.
+                    <strong>Content-hashed model layers:</strong> Models are stored and referenced by cryptographic
+                    hashes of their layers, guaranteeing integrity and enabling efficient deduplication and sharing.
                   </li>
                   <li>
-                    <strong>Verifiable transparency and attestations:</strong> Every signing and build event is logged in an append-only transparency log, producing cryptographic attestations that can be independently verified. This ensures accountability, prevents hidden modifications, and provides an auditable history of model provenance across devices and registries.
+                    <strong>Verifiable transparency and attestations:</strong> Every signing and build event is logged
+                    in an append-only transparency log, producing cryptographic attestations that can be independently
+                    verified. This ensures accountability, prevents hidden modifications, and provides an auditable
+                    history of model provenance across devices and registries.
                   </li>
                 </ol>
               </section>
@@ -207,10 +234,35 @@ export default function HowTilesWorksPage() {
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Implementation</h2>
-                
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                  Implementation
+                </h2>
+
                 <p>
-                  Our software stack includes a macOS app and a <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Modelfile</a><a href="#ref-4" className="text-blue-600 hover:text-blue-700">⁴</a>-based SDK. The Tiles app acts as a transparent, protocol-driven proxy between the user and AI agents, leveraging a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Next, we are focusing on our sync system (built with <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Iroh</a>) and an identity system based on public key cryptography and verifiable attestations.
+                  Our software stack includes a macOS app and a{" "}
+                  <a
+                    href="https://docs.ollama.com/modelfile"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    Modelfile
+                  </a>
+                  <a href="#ref-4" className="text-blue-600 hover:text-blue-700">
+                    ⁴
+                  </a>
+                  -based SDK. The Tiles app acts as a transparent, protocol-driven proxy between the user and AI agents,
+                  leveraging a fine-tuned model to manage context and memories locally on-device with hyperlinked
+                  markdown files. Next, we are focusing on our sync system (built with{" "}
+                  <a
+                    href="https://www.iroh.computer/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    Iroh
+                  </a>
+                  ) and an identity system based on public key cryptography and verifiable attestations.
                 </p>
 
                 <div className="my-6 lg:my-10">
@@ -224,74 +276,175 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-4 lg:mb-6">
-                  Our first alpha is a CLI for Apple Silicon devices, complemented by a <a href="https://www.tilekit.dev/proposal" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Modelfile</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.
+                  Our first alpha is a CLI for Apple Silicon devices, complemented by a{" "}
+                  <a
+                    href="https://www.tilekit.dev/proposal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    Modelfile
+                  </a>{" "}
+                  based SDK that lets developers customize local models and agent experiences within Tiles. We aim to
+                  evolve Modelfile in collaboration with the community, establishing it as the standard for model
+                  customization.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use a <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">mem-agent</a> (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Dria</a>, based on <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.
+                  Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use
+                  a{" "}
+                  <a
+                    href="https://huggingface.co/driaforall/mem-agent"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    mem-agent
+                  </a>{" "}
+                  (from{" "}
+                  <a
+                    href="https://dria.co/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    Dria
+                  </a>
+                  , based on{" "}
+                  <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>),
+                  and are in the process of training our initial in-house memory models.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  These models utilize a human-readable external memory stored as markdown, and learned policies (trained via reinforcement learning on synthetically generated data) to decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.
+                  These models utilize a human-readable external memory stored as markdown, and learned policies
+                  (trained via reinforcement learning on synthetically generated data) to decide when to call Python
+                  functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine
+                  persistent knowledge across sessions.
                 </p>
               </section>
 
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">Looking forward</h2>
-                
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                  Looking forward
+                </h2>
+
                 <p className="mb-4 lg:mb-6">
-                  We are actively adding support for memory extensions with LoRA adapters so users and organizations can bring their own data and augment the base memory models to reflect the personality they want.
+                  We are actively adding support for memory extensions with LoRA adapters so users and organizations can
+                  bring their own data and augment the base memory models to reflect the personality they want.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  For identity, we are building an <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">AT Proto DID</a>-based system, targeted for Q1 2026.
+                  For identity, we are building an{" "}
+                  <a
+                    href="https://atproto.com/specs/did"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    AT Proto DID
+                  </a>
+                  -based system, targeted for Q1 2026.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  On the SDK front, we're collaborating with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">MIR</a> (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
+                  On the SDK front, we're collaborating with the{" "}
+                  <a
+                    href="https://darkshapes.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    Darkshapes
+                  </a>{" "}
+                  team to support the{" "}
+                  <a
+                    href="https://huggingface.co/darkshapes/MIR_"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    MIR
+                  </a>{" "}
+                  (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
                 </p>
 
                 <p className="mb-4 lg:mb-6">
-                  We currently support Hugging Face, and plan to build our own decentralized registry, using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">xet-core</a> implementation for model layering.
+                  We currently support Hugging Face, and plan to build our own decentralized registry, using the
+                  open-source{" "}
+                  <a
+                    href="https://github.com/huggingface/xet-core"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    xet-core
+                  </a>{" "}
+                  implementation for model layering.
                 </p>
               </section>
 
               <p className="mb-4 lg:mb-6">
-                As part of our research on private software personalization infrastructure, we are investigating sparse memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with offloading to flash storage.
+                As part of our research on private software personalization infrastructure, we are investigating sparse
+                memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer
+                Embeddings (PLE) with offloading to flash storage.
               </p>
 
               <p>
-                We are seeking design partners for training workloads that align with our goal of ensuring a verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
+                We are seeking design partners for training workloads that align with our goal of ensuring a verifiable
+                privacy perimeter. If you're interested, please reach out to us at{" "}
                 <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700">
                   hello@tiles.run
-                </a>.
+                </a>
+                .
               </p>
 
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">References</h2>
-                
+                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                  References
+                </h2>
+
                 <ol className="list-decimal list-inside space-y-3 ml-4">
                   <li id="ref-1">
-                    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
+                    <a
+                      href="https://newsletter.squishy.computer/p/decentralizability"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-700"
+                    >
                       Decentralizability, Gordon Brander
                     </a>
                   </li>
                   <li id="ref-2">
-                    <a href="https://keybase.io/blog/keybase-new-key-model" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
+                    <a
+                      href="https://keybase.io/blog/keybase-new-key-model"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-700"
+                    >
                       Keybase's New Key Model
                     </a>
                   </li>
                   <li id="ref-3">
-                    <a href="https://www.sigstore.dev/how-it-works" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
+                    <a
+                      href="https://www.sigstore.dev/how-it-works"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-700"
+                    >
                       Sigstore: How It Works
                     </a>
                   </li>
                   <li id="ref-4">
-                    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700">
+                    <a
+                      href="https://docs.ollama.com/modelfile"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-700"
+                    >
                       Ollama Modelfile
                     </a>
                   </li>
@@ -299,6 +452,19 @@ export default function HowTilesWorksPage() {
               </section>
             </div>
           </article>
+
+          {/* Newsletter Subscription Section */}
+          <div className="mt-12 lg:mt-16 pt-8 lg:pt-12 border-t border-black/10">
+            <div className="space-y-3 lg:space-y-4">
+              <div>
+                <h3 className="text-lg font-semibold text-black mb-1 lg:text-xl">Stay updated</h3>
+                <p className="text-sm text-black/60 lg:text-base">
+                  Get notified when we publish new posts about privacy and personalization.
+                </p>
+              </div>
+              <NewsletterForm />
+            </div>
+          </div>
         </div>
       </main>
 
@@ -390,4 +556,3 @@ export default function HowTilesWorksPage() {
     </div>
   )
 }
-

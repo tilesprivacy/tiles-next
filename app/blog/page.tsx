@@ -34,14 +34,14 @@ function formatDate(date: Date): string {
   const now = new Date()
   const diffTime = Math.abs(now.getTime() - date.getTime())
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
-  
-  const dateStr = date.toLocaleDateString("en-US", { 
-    weekday: "short", 
-    month: "short", 
-    day: "numeric", 
-    year: "numeric" 
+
+  const dateStr = date.toLocaleDateString("en-US", {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   })
-  
+
   return `Published ${diffDays} days ago (${dateStr})`
 }
 
@@ -113,21 +113,13 @@ export default function BlogPage() {
         <div className="w-full max-w-2xl px-4 pt-10 pb-3 lg:px-12 lg:py-4">
           {/* Logo */}
           <div className="flex justify-center mb-3 lg:mb-4">
-            <Image
-              src="/lighticon.png"
-              alt="Tiles Logo"
-              width={64}
-              height={64}
-              className="h-12 w-12 lg:h-20 lg:w-20"
-            />
+            <Image src="/lighticon.png" alt="Tiles Logo" width={64} height={64} className="h-12 w-12 lg:h-20 lg:w-20" />
           </div>
 
           {/* Blog Title */}
           <div className="text-center">
             <div className="flex items-center justify-center gap-3 mb-2 lg:mb-3">
-              <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight">
-                The Tiles Blog
-              </h1>
+              <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight">The Tiles Blog</h1>
               <a
                 href="/api/rss"
                 target="_blank"
@@ -138,30 +130,20 @@ export default function BlogPage() {
                 <FaRss className="h-5 w-5 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-7 lg:w-7" />
               </a>
             </div>
-            <p className="text-base text-black/50 lg:text-xl">
-              Privacy technology for everyone!
-            </p>
+            <p className="text-base text-black/50 lg:text-xl">Privacy technology for everyone!</p>
           </div>
         </div>
 
-        {/* Bottom Card - Blog Posts List */}
-        <div className="w-full max-w-2xl px-4 pt-14 pb-2 lg:px-12 lg:pt-24 lg:pb-3 flex-1">
+        {/* Bottom Card - Blog Posts List and Carousel */}
+        <div className="w-full max-w-2xl px-4 pt-14 pb-2 lg:px-12 lg:pt-24 lg:pb-3 flex-1 space-y-6 lg:space-y-10 overflow-y-auto">
           <div className="space-y-4 lg:space-y-6">
             {blogPosts.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/blog/${post.slug}`}
-                className="block group"
-              >
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
                 <h2 className="text-xl font-semibold text-blue-600 mb-1 group-hover:text-blue-700 transition-colors lg:text-3xl lg:mb-2 tracking-tight">
                   {post.title}
                 </h2>
-                <p className="text-base text-black/70 mb-1 lg:text-xl lg:mb-2 leading-relaxed">
-                  {post.description}
-                </p>
-                <p className="text-sm text-black/40 lg:text-lg">
-                  {formatDate(post.date)}
-                </p>
+                <p className="text-base text-black/70 mb-1 lg:text-xl lg:mb-2 leading-relaxed">{post.description}</p>
+                <p className="text-sm text-black/40 lg:text-lg">{formatDate(post.date)}</p>
               </Link>
             ))}
           </div>
@@ -256,4 +238,3 @@ export default function BlogPage() {
     </div>
   )
 }
-
