@@ -3,7 +3,6 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { FaGithub } from "react-icons/fa6"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
@@ -39,33 +38,25 @@ export function BookHeader() {
       <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
         <Button
           asChild
-          className="h-8 overflow-hidden rounded-full bg-foreground p-0 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:text-sm"
+          className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
         >
-          <a
-            href="https://github.com/tilesprivacy/tiles"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center"
-          >
-            <div className="flex items-center justify-center px-3 lg:px-4">
-              <FaGithub className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
-            </div>
-            <div className="h-full w-px bg-background/20 dark:bg-background/20"></div>
-            <div className="flex items-center justify-center px-3 lg:px-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-3.5 w-3.5 lg:h-4 lg:w-4"
-              >
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-            </div>
-          </a>
+          <Link href="/download" className="flex items-center gap-1.5 lg:gap-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-3.5 w-3.5 lg:h-4 lg:w-4"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" x2="12" y1="15" y2="3" />
+            </svg>
+            <span>Download</span>
+          </Link>
         </Button>
         <Button
           asChild

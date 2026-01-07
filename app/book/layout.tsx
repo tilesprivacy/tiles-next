@@ -4,6 +4,7 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import { BookHeader } from '@/components/book-header'
 import { BookFooter } from '@/components/book-footer'
+import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 
 export const metadata = {
   title: {
@@ -80,6 +81,7 @@ export default async function BookLayout({
   return (
     <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
       <BookHeader />
+      <BookBreadcrumbLink />
       <div className="pt-16 lg:pt-24">
         <Layout pageMap={finalPageMap}>
           {children}
