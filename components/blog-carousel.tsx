@@ -35,7 +35,7 @@ export default function BlogCarousel() {
           {blogPosts.map((post) => (
             <CarouselItem key={post.slug} className="basis-full pl-2 lg:basis-1/2 lg:pl-3">
               <Link href={`/blog/${post.slug}`} className="block group h-full">
-                <div className="space-y-2 rounded-lg border border-black/5 bg-white p-4 transition-all duration-300 hover:border-black/10 hover:shadow-sm lg:p-6 lg:space-y-3">
+                <div className="space-y-3 rounded-lg border border-black/5 bg-white p-5 transition-all duration-300 hover:border-black/10 hover:shadow-sm lg:p-7 lg:space-y-4">
                   <h3 className="text-lg font-semibold text-blue-600 group-hover:text-blue-700 transition-colors lg:text-2xl tracking-tight line-clamp-2">
                     {post.title}
                   </h3>

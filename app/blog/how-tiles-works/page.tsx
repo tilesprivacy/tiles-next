@@ -94,12 +94,12 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-24 lg:pb-24 gap-4 lg:gap-6">
+      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-12 lg:px-6 lg:pt-20 lg:pb-24 gap-8 lg:gap-16">
         {/* Top Card - Logo and Header Text */}
-        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16">
+        <div className="w-full max-w-2xl px-4 pt-10 pb-6 lg:px-12 lg:py-8">
           <div className="text-center">
             {/* Logo */}
-            <div className="flex justify-center mb-6 lg:mb-12">
+            <div className="flex justify-center mb-6 lg:mb-8">
               <Image
                 src="/lighticon.png"
                 alt="Tiles Logo"
@@ -110,7 +110,7 @@ export default function HowTilesWorksPage() {
             </div>
 
             {/* Header Text */}
-            <div className="space-y-1.5 text-sm text-black/60 lg:space-y-2 lg:text-base">
+            <div className="space-y-2 text-sm text-black/60 lg:space-y-3 lg:text-base">
               <p>
                 You're reading the{" "}
                 <Link href="/blog" className="text-blue-600 hover:text-blue-700">
@@ -134,7 +134,7 @@ export default function HowTilesWorksPage() {
                 </Link>
                 .
               </p>
-              <p className="mt-4 lg:mt-6">
+              <p className="mt-6 lg:mt-8">
                 When you're done, you can{" "}
                 <Link href="/download" className="text-blue-600 hover:text-blue-700">
                   install Tiles
@@ -148,11 +148,11 @@ export default function HowTilesWorksPage() {
         {/* Bottom Card - Blog Post Content */}
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
-          <div className="mb-6 lg:mb-10">
-            <h1 className="text-3xl font-semibold text-black mb-3 lg:text-6xl lg:mb-4 tracking-tight">
+          <div className="mb-8 lg:mb-12">
+            <h1 className="text-3xl font-semibold text-black mb-4 lg:text-6xl lg:mb-5 tracking-tight">
               Introducing Tiles Alpha
             </h1>
-            <p className="text-base text-black/50 lg:text-xl mb-2 lg:mb-3">
+            <p className="text-base text-black/50 lg:text-xl mb-3 lg:mb-4">
               Building the future of software personalization with decentralized memory networks.
             </p>
             <p className="text-sm text-black/40 lg:text-lg">January 2, 2026</p>
@@ -183,16 +183,16 @@ export default function HowTilesWorksPage() {
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   Philosophy
                 </h2>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   Our goal with Tiles is to co-design both fine-tuned models and the underlying infrastructure and
                   developer tooling to maximize efficiency in local and offline systems for inference and training.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   The project is defined by four interdependent design choices
                   <a href="#ref-1" className="text-blue-600 hover:text-blue-700">
                     ¹
@@ -200,7 +200,7 @@ export default function HowTilesWorksPage() {
                   :
                 </p>
 
-                <ol className="list-decimal list-inside space-y-4 lg:space-y-6 ml-4">
+                <ol className="list-decimal list-inside space-y-5 lg:space-y-7 ml-4">
                   <li>
                     <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
                     device keychain and cannot access the registry by identity alone
@@ -234,11 +234,11 @@ export default function HowTilesWorksPage() {
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   Implementation
                 </h2>
 
-                <p>
+                <p className="mb-6 lg:mb-8">
                   Our software stack includes a macOS app and a{" "}
                   <a
                     href="https://docs.ollama.com/modelfile"
@@ -265,7 +265,7 @@ export default function HowTilesWorksPage() {
                   ) and an identity system based on public key cryptography and verifiable attestations.
                 </p>
 
-                <div className="my-6 lg:my-10">
+                <div className="my-8 lg:my-12">
                   <Image
                     src="/cli.webp"
                     alt="Tiles CLI"
@@ -275,7 +275,7 @@ export default function HowTilesWorksPage() {
                   />
                 </div>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   Our first alpha is a CLI for Apple Silicon devices, complemented by a{" "}
                   <a
                     href="https://www.tilekit.dev/proposal"
@@ -290,7 +290,7 @@ export default function HowTilesWorksPage() {
                   customization.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   Through the registry, users can download open-weights models fine-tuned for memory. Currently, we use
                   a{" "}
                   <a
@@ -315,7 +315,7 @@ export default function HowTilesWorksPage() {
                   and are in the process of training our initial in-house memory models.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   These models utilize a human-readable external memory stored as markdown, and learned policies
                   (trained via reinforcement learning on synthetically generated data) to decide when to call Python
                   functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine
@@ -326,16 +326,16 @@ export default function HowTilesWorksPage() {
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   Looking forward
                 </h2>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   We are actively adding support for memory extensions with LoRA adapters so users and organizations can
                   bring their own data and augment the base memory models to reflect the personality they want.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   For identity, we are building an{" "}
                   <a
                     href="https://atproto.com/specs/did"
@@ -348,7 +348,7 @@ export default function HowTilesWorksPage() {
                   -based system, targeted for Q1 2026.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   On the SDK front, we're collaborating with the{" "}
                   <a
                     href="https://darkshapes.org/"
@@ -370,7 +370,7 @@ export default function HowTilesWorksPage() {
                   (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
                 </p>
 
-                <p className="mb-4 lg:mb-6">
+                <p className="mb-6 lg:mb-8">
                   We currently support Hugging Face, and plan to build our own decentralized registry, using the
                   open-source{" "}
                   <a
@@ -385,7 +385,7 @@ export default function HowTilesWorksPage() {
                 </p>
               </section>
 
-              <p className="mb-4 lg:mb-6">
+              <p className="mb-6 lg:mb-8">
                 As part of our research on private software personalization infrastructure, we are investigating sparse
                 memory finetuning, text diffusion models, Trusted Execution Environments (TEEs), and Per-Layer
                 Embeddings (PLE) with offloading to flash storage.
@@ -403,11 +403,11 @@ export default function HowTilesWorksPage() {
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-4 lg:text-4xl lg:mb-6 tracking-tight">
+                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   References
                 </h2>
 
-                <ol className="list-decimal list-inside space-y-3 ml-4">
+                <ol className="list-decimal list-inside space-y-4">
                   <li id="ref-1">
                     <a
                       href="https://newsletter.squishy.computer/p/decentralizability"
@@ -454,10 +454,10 @@ export default function HowTilesWorksPage() {
           </article>
 
           {/* Newsletter Subscription Section */}
-          <div className="mt-12 lg:mt-16 pt-8 lg:pt-12 border-t border-black/10">
-            <div className="space-y-3 lg:space-y-4">
+          <div className="mt-16 lg:mt-20 pt-12 lg:pt-16 border-t border-black/10">
+            <div className="space-y-4 lg:space-y-5">
               <div>
-                <h3 className="text-lg font-semibold text-black mb-1 lg:text-xl">Stay updated</h3>
+                <h3 className="text-lg font-semibold text-black mb-2 lg:text-xl lg:mb-3">Stay updated</h3>
                 <p className="text-sm text-black/60 lg:text-base">
                   Get notified when we publish new posts about privacy and personalization.
                 </p>

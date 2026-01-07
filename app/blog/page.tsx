@@ -109,17 +109,17 @@ export default function BlogPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-2 lg:px-6 lg:pt-20 lg:pb-16 gap-3 lg:gap-4">
+      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-2 lg:px-6 lg:pt-20 lg:pb-16 gap-8 lg:gap-16">
         {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-2xl px-4 pt-10 pb-3 lg:px-12 lg:py-4">
+        <div className="w-full max-w-2xl px-4 pt-10 pb-6 lg:px-12 lg:py-8">
           {/* Logo */}
-          <div className="flex justify-center mb-3 lg:mb-4">
+          <div className="flex justify-center mb-6 lg:mb-8">
             <Image src="/lighticon.png" alt="Tiles Logo" width={64} height={64} className="h-12 w-12 lg:h-20 lg:w-20" />
           </div>
 
           {/* Blog Title */}
           <div className="text-center">
-            <div className="flex items-center justify-center gap-3 mb-2 lg:mb-3">
+            <div className="flex items-center justify-center gap-3 mb-4 lg:mb-5">
               <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight">The Tiles Blog</h1>
               <a
                 href="/api/rss"
@@ -136,24 +136,24 @@ export default function BlogPage() {
         </div>
 
         {/* Bottom Card - Blog Posts List and Carousel */}
-        <div className="w-full max-w-2xl px-4 pt-14 pb-2 lg:px-12 lg:pt-24 lg:pb-8 flex-1 space-y-6 lg:space-y-10">
-          <div className="space-y-4 lg:space-y-6">
+        <div className="w-full max-w-2xl px-4 pt-8 pb-2 lg:px-12 lg:pt-12 lg:pb-8 flex-1 space-y-8 lg:space-y-12">
+          <div className="space-y-8 lg:space-y-12">
             {blogPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
-                <h2 className="text-xl font-semibold text-blue-600 mb-1 group-hover:text-blue-700 transition-colors lg:text-3xl lg:mb-2 tracking-tight">
+                <h2 className="text-xl font-semibold text-blue-600 mb-2 group-hover:text-blue-700 transition-colors lg:text-3xl lg:mb-3 tracking-tight">
                   {post.title}
                 </h2>
-                <p className="text-base text-black/70 mb-1 lg:text-xl lg:mb-2 leading-relaxed">{post.description}</p>
+                <p className="text-base text-black/70 mb-2 lg:text-xl lg:mb-3 leading-relaxed">{post.description}</p>
                 <p className="text-sm text-black/40 lg:text-lg">{formatDate(post.date)}</p>
               </Link>
             ))}
           </div>
 
           {/* Newsletter Subscription Section */}
-          <div className="pt-8 lg:pt-12 border-t border-black/10">
-            <div className="space-y-3 lg:space-y-4">
+          <div className="pt-12 lg:pt-16 border-t border-black/10">
+            <div className="space-y-4 lg:space-y-5">
               <div>
-                <h3 className="text-lg font-semibold text-black mb-1 lg:text-xl">Stay updated</h3>
+                <h3 className="text-lg font-semibold text-black mb-2 lg:text-xl lg:mb-3">Stay updated</h3>
                 <p className="text-sm text-black/60 lg:text-base">
                   Get notified when we publish new posts about privacy and personalization.
                 </p>
