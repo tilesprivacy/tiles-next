@@ -5,6 +5,7 @@ import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRs
 import { SiHuggingface } from "react-icons/si"
 import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog-posts"
+import NewsletterForm from "@/components/newsletter-form"
 
 export const metadata: Metadata = {
   title: "The Tiles Blog",
@@ -146,6 +147,19 @@ export default function BlogPage() {
                 <p className="text-sm text-black/40 lg:text-lg">{formatDate(post.date)}</p>
               </Link>
             ))}
+          </div>
+
+          {/* Newsletter Subscription Section */}
+          <div className="pt-8 lg:pt-12 border-t border-black/10">
+            <div className="space-y-3 lg:space-y-4">
+              <div>
+                <h3 className="text-lg font-semibold text-black mb-1 lg:text-xl">Stay updated</h3>
+                <p className="text-sm text-black/60 lg:text-base">
+                  Get notified when we publish new posts about privacy and personalization.
+                </p>
+              </div>
+              <NewsletterForm />
+            </div>
           </div>
         </div>
       </main>
