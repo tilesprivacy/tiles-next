@@ -1,3 +1,9 @@
+import nextra from 'nextra'
+
+const withNextra = nextra({
+  contentDirBasePath: '/book',
+})
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -21,4 +27,4 @@ const nextConfig = {
   },
 }
 
-export default nextConfig
+export default withNextra(nextConfig)
