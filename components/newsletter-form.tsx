@@ -65,7 +65,7 @@ export default function NewsletterForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             disabled={status === "loading"}
-            className="text-sm"
+            className="text-sm !bg-white"
           />
           <Button
             type="submit"

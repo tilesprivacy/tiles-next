@@ -127,7 +127,7 @@
   }
 }
 
-/* Book section link styling - match blog styling */
+/* Book section link styling - black with underline */
 /* Target all links in book section main content area (excluding sidebar) */
 [data-book-section] main a,
 [data-book-section] article a,
@@ -135,7 +135,7 @@
 [data-book-section] [class*="nextra-body"] a,
 [data-book-section] [class*="nextra-article"] a,
 [data-book-section] [class*="nextra-content-container"] a {
-  @apply text-blue-600 dark:text-blue-400 no-underline;
+  @apply text-black dark:text-white underline;
 }
 
 [data-book-section] main a:hover,
@@ -144,7 +144,7 @@
 [data-book-section] [class*="nextra-body"] a:hover,
 [data-book-section] [class*="nextra-article"] a:hover,
 [data-book-section] [class*="nextra-content-container"] a:hover {
-  @apply text-blue-700 dark:text-blue-300;
+  @apply text-black/80 dark:text-white/80;
 }
 
 /* External link indicator for non-tiles.run links in book section */
@@ -174,6 +174,24 @@
   box-sizing: border-box;
 }
 
+/* Hide breadcrumb on both mobile and desktop */
+[data-book-section] .nextra-breadcrumb {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Ensure H1 title aligns with body content - H1 is inside main which already has padding */
+[data-book-section] article main h1,
+[data-book-section] article h1 {
+  max-width: 100%;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  box-sizing: border-box;
+}
+
 /* Ensure page navigation is constrained to content width */
 [data-book-section] nav[data-book-navigation] {
   max-width: 768px;
@@ -185,20 +203,106 @@
   box-sizing: border-box;
 }
 
-/* Mobile hero sizing - graph at 50% of viewport, logo overlaps by 50% of its height */
+/* Hide sidebar on mobile for book section */
+@media (max-width: 1023px) {
+  [data-book-section] aside,
+  [data-book-section] [class*="nextra-sidebar"],
+  [data-book-section] [class*="nextra-Sidebar"],
+  [data-book-section] nav[class*="sidebar"],
+  [data-book-section] nav[class*="nextra"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Hide sidebar overlay/backdrop on mobile */
+  [data-book-section] .nextra-sidebar-overlay,
+  [data-book-section] [class*="overlay"],
+  [data-book-section] [class*="backdrop"],
+  [data-book-section] [class*="mask"] {
+    display: none !important;
+  }
+  
+  /* Hide menu buttons that open sidebar on mobile */
+  [data-book-section] button[aria-label*="menu" i],
+  [data-book-section] button[aria-label*="Menu" i],
+  [data-book-section] button[aria-expanded],
+  [data-book-section] [class*="menu-button"],
+  [data-book-section] button[class*="menu"],
+  [data-book-section] [data-book-hamburger] {
+    display: none !important;
+  }
+  
+  /* Ensure main content takes full width on mobile */
+  [data-book-section] main,
+  [data-book-section] article,
+  [data-book-section] [class*="nextra-content"],
+  [data-book-section] [class*="nextra-body"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Make sidebar flex container and theme switcher stick to bottom - desktop only */
+@media (min-width: 1024px) {
+  [data-book-section] aside,
+  [data-book-section] [class*="nextra-sidebar"],
+  [data-book-section] [class*="nextra-Sidebar"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
+/* Theme switcher container - stick to bottom of sidebar */
+[data-book-section] aside > div:last-child,
+[data-book-section] [class*="nextra-sidebar"] > div:last-child,
+[data-book-section] [class*="nextra-Sidebar"] > div:last-child,
+[data-book-section] aside > button:last-child,
+[data-book-section] [class*="nextra-sidebar"] > button:last-child,
+[data-book-section] [class*="nextra-Sidebar"] > button:last-child {
+  margin-top: auto !important;
+  padding-top: 1rem !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-book-section] .dark aside > div:last-child,
+[data-book-section] .dark [class*="nextra-sidebar"] > div:last-child,
+[data-book-section] .dark [class*="nextra-Sidebar"] > div:last-child,
+[data-book-section] .dark aside > button:last-child,
+[data-book-section] .dark [class*="nextra-sidebar"] > button:last-child,
+[data-book-section] .dark [class*="nextra-Sidebar"] > button:last-child {
+  border-top-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Target theme switcher button specifically */
+[data-book-section] button[class*="theme"],
+[data-book-section] [class*="theme-switch"],
+[data-book-section] button[aria-label*="theme" i],
+[data-book-section] button[aria-label*="Theme" i],
+[data-book-section] button[title*="theme" i],
+[data-book-section] button[title*="Theme" i] {
+  margin-top: auto !important;
+}
+
+/* Mobile hero sizing - graph covers top half of logo, logo centered in viewport */
 :root {
   --mobile-logo-size: 4.5rem;
-  --mobile-logo-overlap: calc(var(--mobile-logo-size) / 2);
+  --mobile-logo-half: calc(var(--mobile-logo-size) / 2);
+  /* Logo center at 50dvh, so top is at 50dvh - half logo size */
+  --mobile-hero-offset: calc(50dvh - var(--mobile-logo-half));
+  /* Graph extends to logo center (50dvh) to cover top 50% of logo */
   --mobile-graph-height: 50dvh;
-  --mobile-hero-offset: calc(var(--mobile-graph-height) - var(--mobile-logo-overlap));
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
   :root {
     --mobile-logo-size: 5rem;
-    --mobile-logo-overlap: calc(var(--mobile-logo-size) / 2);
+    --mobile-logo-half: calc(var(--mobile-logo-size) / 2);
+    --mobile-hero-offset: calc(50dvh - var(--mobile-logo-half));
     --mobile-graph-height: 50dvh;
-    --mobile-hero-offset: calc(var(--mobile-graph-height) - var(--mobile-logo-overlap));
   }
 }
 

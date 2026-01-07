@@ -55,16 +55,16 @@ export function BookPageNavigation() {
   }
 
   return (
-    <nav data-book-navigation className="mt-12 flex gap-4 border-t border-foreground/10 pt-8 lg:mt-16 lg:border-t-0 lg:pt-12">
+    <nav data-book-navigation className="hidden mt-12 gap-4 border-t border-foreground/10 pt-8 lg:flex lg:mt-16 lg:border-t-0 lg:pt-12">
       {prevPage ? (
         <Link
           href={prevPage.route}
-          className="group flex flex-1 items-start gap-3 rounded-lg border border-foreground/10 bg-background p-4 transition-all hover:border-foreground/20 hover:bg-foreground/5 lg:border-0 lg:p-6"
+          className="group flex flex-1 items-start gap-3 rounded-lg bg-background p-4 transition-all hover:bg-foreground/5 lg:p-6"
         >
           <ChevronLeft className="h-5 w-5 shrink-0 text-foreground/60 transition-colors group-hover:text-foreground lg:h-6 lg:w-6" />
           <div className="flex flex-col gap-1">
             <span className="text-xs font-medium text-foreground/60 lg:text-sm">Previous</span>
-            <span className="text-sm font-semibold text-foreground transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 lg:text-base">
+            <span className="text-sm font-semibold text-foreground transition-colors group-hover:text-foreground/80 lg:text-base">
               {prevPage.title}
             </span>
           </div>
@@ -76,11 +76,11 @@ export function BookPageNavigation() {
       {nextPage ? (
         <Link
           href={nextPage.route}
-          className="group flex flex-1 items-start justify-end gap-3 rounded-lg border border-foreground/10 bg-background p-4 text-right transition-all hover:border-foreground/20 hover:bg-foreground/5 lg:border-0 lg:p-6"
+          className="group flex flex-1 items-start justify-end gap-3 rounded-lg bg-background p-4 text-right transition-all hover:bg-foreground/5 lg:p-6"
         >
           <div className="flex flex-col gap-1">
             <span className="text-xs font-medium text-foreground/60 lg:text-sm">Next</span>
-            <span className="text-sm font-semibold text-foreground transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 lg:text-base">
+            <span className="text-sm font-semibold text-foreground transition-colors group-hover:text-foreground/80 lg:text-base">
               {nextPage.title}
             </span>
           </div>

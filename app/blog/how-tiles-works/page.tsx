@@ -1,8 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
-import { SiHuggingface } from "react-icons/si"
+import { SiteFooter } from "@/components/site-footer"
 import type { Metadata } from "next"
 import NewsletterForm from "@/components/newsletter-form"
 
@@ -38,7 +37,7 @@ export default function HowTilesWorksPage() {
       <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
           <Link href="/" className="transition-colors hover:text-black/70">
-            <Image src="/lighticon.png" alt="Tiles" width={20} height={20} className="h-5 w-5" />
+            <Image src="/lighticon.png" alt="Tiles" width={32} height={32} className="h-7 w-7 lg:h-8 lg:w-8" />
           </Link>
           <span className="text-black/30">/</span>
           <Link href="/blog" className="font-bold transition-colors hover:text-black/70">
@@ -48,33 +47,25 @@ export default function HowTilesWorksPage() {
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
             asChild
-            className="h-8 overflow-hidden rounded-full bg-black p-0 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:text-sm"
+            className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
           >
-            <a
-              href="https://github.com/tilesprivacy/tiles"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center"
-            >
-              <div className="flex items-center justify-center px-3 lg:px-4">
-                <FaGithub className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
-              </div>
-              <div className="h-full w-px bg-white/20"></div>
-              <div className="flex items-center justify-center px-3 lg:px-4">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-3.5 w-3.5 lg:h-4 lg:w-4"
-                >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                </svg>
-              </div>
-            </a>
+            <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-3.5 w-3.5 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" x2="12" y1="15" y2="3" />
+              </svg>
+              <span className="transition-all duration-300 group-hover:scale-105 group-active:scale-105">Download</span>
+            </Link>
           </Button>
           <Button
             asChild
@@ -89,7 +80,7 @@ export default function HowTilesWorksPage() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 fill-[#ff8fb6] transition-all duration-300 group-hover:scale-110 group-hover:fill-[#ffc2dd] group-active:scale-110 lg:h-4 lg:w-4"
+                className="h-3.5 w-3.5 fill-white transition-all duration-300 group-hover:scale-110 group-hover:fill-white/70 group-active:scale-110 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
@@ -100,7 +91,7 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-12 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12">
         {/* Top Card - Logo and Header Text */}
         <div className="w-full max-w-2xl px-4 pt-4 pb-3 lg:px-12 lg:pt-6 lg:pb-4">
           <div className="text-center">
@@ -123,22 +114,32 @@ export default function HowTilesWorksPage() {
                   href="https://tiles.run"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-700"
+                  className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                 >
                   Tiles
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="h-2.5 w-2.5"
+                  >
+                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </a>{" "}
                 blog.
               </p>
               <p>
                 There are{" "}
-                <Link href="/blog" className="text-blue-600 hover:text-blue-700">
+                <Link href="/blog" className="text-black hover:text-black/80 underline">
                   more posts
                 </Link>
                 .
               </p>
               <p className="mt-3 lg:mt-4">
                 When you're done, you can{" "}
-                <Link href="/download" className="text-blue-600 hover:text-blue-700">
+                <Link href="/download" className="text-black hover:text-black/80 underline">
                   install Tiles
                 </Link>
                 .
@@ -246,9 +247,19 @@ export default function HowTilesWorksPage() {
                     href="https://docs.ollama.com/modelfile"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     Modelfile
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>
                   <a href="#ref-4" className="text-blue-600 hover:text-blue-700">
                     ⁴
@@ -260,9 +271,19 @@ export default function HowTilesWorksPage() {
                     href="https://www.iroh.computer/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     Iroh
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>
                   ) and an identity system based on public key cryptography and verifiable attestations.
                 </p>
@@ -283,9 +304,19 @@ export default function HowTilesWorksPage() {
                     href="https://www.tilekit.dev/proposal"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     Modelfile
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>{" "}
                   based SDK that lets developers customize local models and agent experiences within Tiles. We aim to
                   evolve Modelfile in collaboration with the community, establishing it as the standard for model
@@ -299,18 +330,38 @@ export default function HowTilesWorksPage() {
                     href="https://huggingface.co/driaforall/mem-agent"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     mem-agent
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>{" "}
                   (from{" "}
                   <a
                     href="https://dria.co/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     Dria
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>
                   , based on{" "}
                   <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>),
@@ -343,9 +394,19 @@ export default function HowTilesWorksPage() {
                     href="https://atproto.com/specs/did"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     AT Proto DID
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>
                   -based system, targeted for Q1 2026.
                 </p>
@@ -356,18 +417,38 @@ export default function HowTilesWorksPage() {
                     href="https://darkshapes.org/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     Darkshapes
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>{" "}
                   team to support the{" "}
                   <a
                     href="https://huggingface.co/darkshapes/MIR_"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     MIR
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>{" "}
                   (Machine Intelligence Resource) model naming scheme in our Modelfile implementation.
                 </p>
@@ -379,9 +460,19 @@ export default function HowTilesWorksPage() {
                     href="https://github.com/huggingface/xet-core"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-blue-700"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
                   >
                     xet-core
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </a>{" "}
                   implementation for model layering.
                 </p>
@@ -415,9 +506,19 @@ export default function HowTilesWorksPage() {
                       href="https://newsletter.squishy.computer/p/decentralizability"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-700"
-                    >
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                  >
                       Decentralizability, Gordon Brander
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-2.5 w-2.5"
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </a>
                   </li>
                   <li id="ref-2">
@@ -425,9 +526,19 @@ export default function HowTilesWorksPage() {
                       href="https://keybase.io/blog/keybase-new-key-model"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-700"
-                    >
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                  >
                       Keybase's New Key Model
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-2.5 w-2.5"
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </a>
                   </li>
                   <li id="ref-3">
@@ -435,9 +546,19 @@ export default function HowTilesWorksPage() {
                       href="https://www.sigstore.dev/how-it-works"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-700"
-                    >
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                  >
                       Sigstore: How It Works
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-2.5 w-2.5"
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </a>
                   </li>
                   <li id="ref-4">
@@ -445,9 +566,19 @@ export default function HowTilesWorksPage() {
                       href="https://docs.ollama.com/modelfile"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-700"
-                    >
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                  >
                       Ollama Modelfile
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-2.5 w-2.5"
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
                     </a>
                   </li>
                 </ol>
@@ -470,95 +601,7 @@ export default function HowTilesWorksPage() {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-20 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
-        <Link href="/book" className="font-medium text-black/60 transition-colors hover:text-black">
-          Book
-        </Link>
-        <Link href="/blog" className="font-medium text-black/60 transition-colors hover:text-black">
-          Blog
-        </Link>
-        <Link href="/about" className="font-medium text-black/60 transition-colors hover:text-black">
-          About
-        </Link>
-        <div className="flex items-center justify-between">
-          <span className="text-black/60">© 2026 Tiles Privacy</span>
-          <div className="flex items-center gap-2.5 lg:gap-4">
-            <a
-              href="https://x.com/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="X (Twitter)"
-            >
-              <FaXTwitter className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#000000] group-active:text-[#000000] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://bsky.app/profile/tiles.run"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Bluesky"
-            >
-              <FaBluesky className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#0085FF] group-active:text-[#0085FF] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://www.instagram.com/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Instagram"
-            >
-              <FaInstagram className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#E4405F] group-active:text-[#E4405F] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://go.tiles.run/discord"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Discord"
-            >
-              <FaDiscord className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#5865F2] group-active:text-[#5865F2] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://www.reddit.com/r/tilesprivacy/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Reddit"
-            >
-              <FaReddit className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FF4500] group-active:text-[#FF4500] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://github.com/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="GitHub"
-            >
-              <FaGithub className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#181717] group-active:text-[#181717] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="https://huggingface.co/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Hugging Face"
-            >
-              <SiHuggingface className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-[#FFD21E] group-active:text-[#FFD21E] lg:h-5 lg:w-5" />
-            </a>
-            <a
-              href="/api/rss"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="RSS Feed"
-            >
-              <FaRss className="h-4 w-4 text-black/60 transition-all duration-300 group-hover:scale-110 group-hover:text-orange-500 group-active:text-orange-500 lg:h-5 lg:w-5" />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
