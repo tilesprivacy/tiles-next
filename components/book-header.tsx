@@ -1,18 +1,37 @@
+'use client'
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { FaGithub } from "react-icons/fa6"
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 export function BookHeader() {
+  const { theme, systemTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Use resolvedTheme if available, otherwise determine from theme/systemTheme
+  const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
+  const isDark = currentTheme === 'dark'
+  
+  // Use dark.jpeg for dark theme, lighticon.png for light theme
+  // Default to lighticon.png during SSR to avoid hydration mismatch
+  const logoSrc = mounted && isDark ? '/dark.jpeg' : '/lighticon.png'
+
   return (
-    <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+    <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-background via-background/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
       <div className="flex items-center gap-3">
-        <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
-          <Link href="/" className="transition-colors hover:text-black/70">
-            <Image src="/logo.png" alt="Tiles" width={20} height={20} className="h-5 w-5" />
+        <div className="flex items-center gap-2 text-base font-medium text-foreground lg:text-lg">
+          <Link href="/" className="transition-colors hover:text-foreground/70">
+            <Image src={logoSrc} alt="Tiles" width={20} height={20} className="h-5 w-5" />
           </Link>
-          <span className="text-black/30">/</span>
-          <Link href="/book" className="font-bold transition-colors hover:text-black/70">
+          <span className="text-foreground/30">/</span>
+          <Link href="/book" className="font-bold transition-colors hover:text-foreground/70">
             Book
           </Link>
         </div>
@@ -20,7 +39,7 @@ export function BookHeader() {
       <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
         <Button
           asChild
-          className="h-8 overflow-hidden rounded-full bg-black p-0 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:text-sm"
+          className="h-8 overflow-hidden rounded-full bg-foreground p-0 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:text-sm"
         >
           <a
             href="https://github.com/tilesprivacy/tiles"
@@ -31,7 +50,7 @@ export function BookHeader() {
             <div className="flex items-center justify-center px-3 lg:px-4">
               <FaGithub className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
             </div>
-            <div className="h-full w-px bg-white/20"></div>
+            <div className="h-full w-px bg-background/20 dark:bg-background/20"></div>
             <div className="flex items-center justify-center px-3 lg:px-4">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +69,7 @@ export function BookHeader() {
         </Button>
         <Button
           asChild
-          className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
+          className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
         >
           <a
             href="https://github.com/sponsors/tilesprivacy"

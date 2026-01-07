@@ -182,23 +182,23 @@ export function BookHamburgerMenu() {
     <button
       onClick={handleClick}
       data-book-hamburger
-      className="lg:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 p-1.5 rounded-md hover:bg-black/5 active:bg-black/10 transition-colors touch-manipulation"
+      className="lg:hidden flex flex-col justify-center items-center w-8 h-8 gap-1.5 p-1.5 rounded-md hover:bg-foreground/5 active:bg-foreground/10 transition-colors touch-manipulation"
       aria-label="Toggle navigation menu"
       aria-expanded={isOpen}
       type="button"
     >
       <span
-        className={`block w-5 h-0.5 bg-black transition-all duration-300 origin-center ${
+        className={`block w-5 h-0.5 bg-foreground transition-all duration-300 origin-center ${
           isOpen ? 'rotate-45 translate-y-2' : ''
         }`}
       />
       <span
-        className={`block w-5 h-0.5 bg-black transition-all duration-300 ${
+        className={`block w-5 h-0.5 bg-foreground transition-all duration-300 ${
           isOpen ? 'opacity-0 scale-0' : 'opacity-100 scale-100'
         }`}
       />
       <span
-        className={`block w-5 h-0.5 bg-black transition-all duration-300 origin-center ${
+        className={`block w-5 h-0.5 bg-foreground transition-all duration-300 origin-center ${
           isOpen ? '-rotate-45 -translate-y-2' : ''
         }`}
       />

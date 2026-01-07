@@ -128,19 +128,23 @@
 }
 
 /* Book section link styling - match blog styling */
-/* Target links in book section main content area */
+/* Target all links in book section main content area (excluding sidebar) */
 [data-book-section] main a,
 [data-book-section] article a,
 [data-book-section] [class*="nextra-content"] a,
-[data-book-section] [class*="nextra-body"] a {
-  @apply text-blue-600 no-underline;
+[data-book-section] [class*="nextra-body"] a,
+[data-book-section] [class*="nextra-article"] a,
+[data-book-section] [class*="nextra-content-container"] a {
+  @apply text-blue-600 dark:text-blue-400 no-underline;
 }
 
 [data-book-section] main a:hover,
 [data-book-section] article a:hover,
 [data-book-section] [class*="nextra-content"] a:hover,
-[data-book-section] [class*="nextra-body"] a:hover {
-  @apply text-blue-700;
+[data-book-section] [class*="nextra-body"] a:hover,
+[data-book-section] [class*="nextra-article"] a:hover,
+[data-book-section] [class*="nextra-content-container"] a:hover {
+  @apply text-blue-700 dark:text-blue-300;
 }
 
 /* External link indicator for non-tiles.run links in book section */
