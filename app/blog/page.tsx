@@ -109,7 +109,7 @@ export default function BlogPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-2 lg:px-6 lg:pt-20 lg:pb-16 gap-3 lg:gap-4 xl:min-h-0 xl:overflow-hidden">
+      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-2 lg:px-6 lg:pt-20 lg:pb-16 gap-3 lg:gap-4">
         {/* Top Card - Logo and Title */}
         <div className="w-full max-w-2xl px-4 pt-10 pb-3 lg:px-12 lg:py-4">
           {/* Logo */}
@@ -136,7 +136,7 @@ export default function BlogPage() {
         </div>
 
         {/* Bottom Card - Blog Posts List and Carousel */}
-        <div className="w-full max-w-2xl px-4 pt-14 pb-2 lg:px-12 lg:pt-24 lg:pb-3 flex-1 space-y-6 lg:space-y-10 overflow-y-auto">
+        <div className="w-full max-w-2xl px-4 pt-14 pb-2 lg:px-12 lg:pt-24 lg:pb-8 flex-1 space-y-6 lg:space-y-10">
           <div className="space-y-4 lg:space-y-6">
             {blogPosts.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
@@ -165,7 +165,7 @@ export default function BlogPage() {
       </main>
 
       {/* Footer */}
-      <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:absolute lg:bottom-0 lg:left-0 lg:right-0 lg:px-6 lg:py-4 lg:text-sm">
+      <footer className="z-10 flex shrink-0 flex-col gap-3 bg-white px-4 pb-3 pt-4 text-xs text-black/60 lg:px-6 lg:py-4 lg:text-sm">
         <a
           href="https://book.tiles.run"
           target="_blank"

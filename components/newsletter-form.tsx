@@ -10,7 +10,6 @@ export default function NewsletterForm() {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
-  const [isTestingMode, setIsTestingMode] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,9 +31,6 @@ export default function NewsletterForm() {
       const data = await response.json()
 
       if (!response.ok) {
-        if (data.isTestingMode) {
-          setIsTestingMode(true)
-        }
         // Show the actual error message from the API
         const errorMsg = data.error || data.message || "Failed to subscribe"
         throw new Error(errorMsg)
@@ -43,7 +39,6 @@ export default function NewsletterForm() {
       setStatus("success")
       setMessage("Welcome! Check your email for confirmation.")
       setEmail("")
-      setIsTestingMode(false)
 
       setTimeout(() => {
         setStatus("idle")
@@ -82,7 +77,7 @@ export default function NewsletterForm() {
         </div>
         {message && (
           <p
-            className={`text-xs leading-relaxed ${status === "success" ? "text-black/60" : status === "error" && isTestingMode ? "text-black/60" : "text-black/60"}`}
+            className={`text-xs leading-relaxed ${status === "success" ? "text-black/60" : "text-black/60"}`}
           >
             {message}
           </p>

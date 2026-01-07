@@ -1,113 +1,185 @@
 import { Resend } from "resend"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-// Initialize Resend client
-const resend = new Resend(process.env.RESEND_API_KEY)
-
-// Get the from email address from environment variable or use default
-// Format: "Display Name <email@domain.com>" or just "email@domain.com"
-const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || "Tiles Blog <onboarding@resend.dev>"
-
-// Debug endpoint to check configuration (only in development)
-export async function GET() {
-  if (process.env.NODE_ENV === "production") {
-    return NextResponse.json({ error: "Not available in production" }, { status: 404 })
+// Initialize Resend client with API key from environment
+const getResendClient = () => {
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY environment variable is not set")
   }
-  
+  return new Resend(apiKey)
+}
+
+// Get the sender email address from environment variable
+// Format: "Display Name <email@domain.com>" or "email@domain.com"
+const getFromEmail = (): string => {
+  return process.env.RESEND_FROM_EMAIL || "Tiles Blog <onboarding@resend.dev>"
+}
+
+// Email validation helper
+const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  return emailRegex.test(email)
+}
+
+// GET handler for development debugging
+export async function GET() {
+  // Only allow in development mode
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { error: "Not available in production" },
+      { status: 404 }
+    )
+  }
+
+  const hasApiKey = !!process.env.RESEND_API_KEY
+  const apiKeyPrefix = process.env.RESEND_API_KEY?.substring(0, 7) || "not set"
+  const fromEmail = getFromEmail()
+
   return NextResponse.json({
-    hasApiKey: !!process.env.RESEND_API_KEY,
-    apiKeyPrefix: process.env.RESEND_API_KEY?.substring(0, 5) || "not set",
-    fromEmail: FROM_EMAIL,
-    nodeEnv: process.env.NODE_ENV,
+    configured: hasApiKey,
+    apiKeyPrefix: hasApiKey ? `${apiKeyPrefix}...` : "not set",
+    fromEmail,
+    environment: process.env.NODE_ENV,
   })
 }
 
-export async function POST(request: Request) {
+// POST handler for newsletter subscription
+export async function POST(request: NextRequest) {
   try {
-    // Check if Resend API key is configured
+    // Validate Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
-      console.error("RESEND_API_KEY is not configured")
+      console.error("[Subscribe] RESEND_API_KEY is not configured")
       return NextResponse.json(
-        { error: "Email service is not configured. Please contact support." },
-        { status: 500 },
+        {
+          error: "Email service is not configured. Please contact support.",
+        },
+        { status: 503 }
       )
     }
 
-    const { email } = await request.json()
+    // Parse and validate request body
+    let body: { email?: string }
+    try {
+      body = await request.json()
+    } catch (error) {
+      return NextResponse.json(
+        { error: "Invalid request body. Expected JSON." },
+        { status: 400 }
+      )
+    }
 
-    // Validate email input
+    const { email } = body
+
+    // Validate email is provided
     if (!email || typeof email !== "string") {
-      return NextResponse.json({ error: "Valid email is required" }, { status: 400 })
+      return NextResponse.json(
+        { error: "Email address is required" },
+        { status: 400 }
+      )
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json({ error: "Invalid email format" }, { status: 400 })
-    }
-
-    // Send confirmation email using Resend
-    const { data, error } = await resend.emails.send({
-      from: FROM_EMAIL,
-      to: email,
-      subject: "Welcome to The Tiles Blog",
-      html: `
-        <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #000; font-size: 24px; margin-bottom: 16px;">Welcome to The Tiles Blog</h2>
-          <p style="color: #666; font-size: 16px; line-height: 1.6; margin-bottom: 24px;">
-            Thanks for subscribing! You'll now receive updates about privacy technology and our latest blog posts.
-          </p>
-          <p style="color: #666; font-size: 14px;">
-            Best regards,<br />
-            The Tiles Privacy Team
-          </p>
-        </div>
-      `,
-    })
-
-    if (error) {
-      console.error("Resend error:", JSON.stringify(error, null, 2))
-      
-      // Provide more specific error messages based on Resend error types
-      let errorMessage = "Failed to subscribe. Please try again."
-      
-      if (error.message) {
-        if (error.message.includes("domain") || error.message.includes("not verified")) {
-          errorMessage = "Email domain is not verified. Please contact support."
-        } else if (error.message.includes("invalid") || error.message.includes("Invalid")) {
-          errorMessage = "Invalid email address or configuration."
-        } else if (error.message.includes("rate limit") || error.message.includes("limit")) {
-          errorMessage = "Too many requests. Please try again later."
-        } else {
-          // Return the actual error message for debugging (in development)
-          if (process.env.NODE_ENV === "development") {
-            errorMessage = error.message
-          }
-        }
-      }
-      
+    const trimmedEmail = email.trim()
+    if (!isValidEmail(trimmedEmail)) {
       return NextResponse.json(
-        { 
-          error: errorMessage,
-          details: process.env.NODE_ENV === "development" ? error : undefined
-        },
-        { status: 500 },
+        { error: "Invalid email address format" },
+        { status: 400 }
       )
     }
 
+    // Initialize Resend client
+    const resend = getResendClient()
+    const fromEmail = getFromEmail()
+
+    // Send welcome email
+    const result = await resend.emails.send({
+      from: fromEmail,
+      to: trimmedEmail,
+      subject: "Welcome to The Tiles Blog",
+      html: `
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          </head>
+          <body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <div style="background-color: #ffffff; padding: 40px 20px; border-radius: 8px;">
+              <h2 style="color: #000000; font-size: 24px; font-weight: 600; margin: 0 0 16px 0;">
+                Welcome to The Tiles Blog
+              </h2>
+              <p style="color: #666666; font-size: 16px; margin: 0 0 24px 0;">
+                Thanks for subscribing! You'll now receive updates about privacy technology and our latest blog posts.
+              </p>
+              <p style="color: #666666; font-size: 14px; margin: 0;">
+                Best regards,<br />
+                <strong>The Tiles Privacy Team</strong>
+              </p>
+            </div>
+          </body>
+        </html>
+      `,
+    })
+
+    // Handle Resend API errors
+    if (result.error) {
+      console.error("[Subscribe] Resend API error:", JSON.stringify(result.error, null, 2))
+
+      // Map Resend errors to user-friendly messages
+      let errorMessage = "Failed to send confirmation email. Please try again later."
+      const error = result.error
+
+      if (error.message) {
+        const message = error.message.toLowerCase()
+        if (message.includes("domain") || message.includes("not verified")) {
+          errorMessage = "Email domain is not verified. Please contact support."
+        } else if (message.includes("invalid") || message.includes("malformed")) {
+          errorMessage = "Invalid email address or configuration."
+        } else if (message.includes("rate limit") || message.includes("too many")) {
+          errorMessage = "Too many requests. Please try again later."
+        } else if (message.includes("unauthorized") || message.includes("api key")) {
+          errorMessage = "Email service configuration error. Please contact support."
+        }
+      }
+
+      return NextResponse.json(
+        {
+          error: errorMessage,
+          // Include error details in development for debugging
+          ...(process.env.NODE_ENV === "development" && {
+            details: result.error,
+          }),
+        },
+        { status: 500 }
+      )
+    }
+
+    // Success response
     return NextResponse.json(
-      { success: true, message: "Successfully subscribed!", id: data?.id },
-      { status: 200 },
+      {
+        success: true,
+        message: "Successfully subscribed!",
+        id: result.data?.id,
+      },
+      { status: 200 }
     )
   } catch (error) {
-    console.error("Subscribe error:", error)
-    const errorMessage = error instanceof Error ? error.message : "Unknown error"
+    // Handle unexpected errors
+    console.error("[Subscribe] Unexpected error:", error)
+
+    const errorMessage =
+      error instanceof Error ? error.message : "An unexpected error occurred"
+
     return NextResponse.json(
-      { 
-        error: "An error occurred. Please try again.",
-        details: process.env.NODE_ENV === "development" ? errorMessage : undefined
+      {
+        error: "An error occurred while processing your subscription. Please try again.",
+        // Include error details in development
+        ...(process.env.NODE_ENV === "development" && {
+          details: errorMessage,
+        }),
       },
-      { status: 500 },
+      { status: 500 }
     )
   }
 }
