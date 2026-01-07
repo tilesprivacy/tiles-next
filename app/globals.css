@@ -161,6 +161,30 @@
   opacity: 1;
 }
 
+/* Constrain main content column width for better readability */
+/* Target only the main element inside article (the text content), not sidebars or "On This Page" */
+[data-book-section] article > main,
+[data-book-section] article main[data-pagefind-body] {
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Ensure page navigation is constrained to content width */
+[data-book-section] nav[data-book-navigation] {
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* Mobile hero sizing - graph at 50% of viewport, logo overlaps by 50% of its height */
 :root {
   --mobile-logo-size: 4.5rem;

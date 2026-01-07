@@ -1,5 +1,6 @@
 import { generateStaticParamsFor, importPage } from 'nextra/pages'
 import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
+import { BookPageNavigation } from '@/components/book-page-navigation'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath')
 
@@ -27,6 +28,7 @@ export default async function Page(props: {
   return (
     <Wrapper toc={toc} metadata={metadata} sourceCode={sourceCode}>
       <MDXContent {...props} params={params} />
+      <BookPageNavigation />
     </Wrapper>
   )
 }
