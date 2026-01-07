@@ -50,20 +50,13 @@ export default function HowTilesWorksPage() {
             className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-3.5 w-3.5 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
+              <Image
+                src="/apple-logo-white.svg"
+                alt="Apple"
+                width={16}
+                height={20}
+                className="h-3.5 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-4"
+              />
               <span className="transition-all duration-300 group-hover:scale-105 group-active:scale-105">Download</span>
             </Link>
           </Button>
@@ -112,21 +105,9 @@ export default function HowTilesWorksPage() {
                 You're reading the{" "}
                 <a
                   href="https://tiles.run"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                  className="text-black hover:text-black/80 underline"
                 >
                   Tiles
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-2.5 w-2.5"
-                  >
-                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
                 </a>{" "}
                 blog.
               </p>
@@ -487,7 +468,7 @@ export default function HowTilesWorksPage() {
               <p>
                 We are seeking design partners for training workloads that align with our goal of ensuring a verifiable
                 privacy perimeter. If you're interested, please reach out to us at{" "}
-                <a href="mailto:hello@tiles.run" className="text-blue-600 hover:text-blue-700">
+                <a href="mailto:hello@tiles.run" className="text-black hover:text-black/80 underline">
                   hello@tiles.run
                 </a>
                 .

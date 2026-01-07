@@ -23,20 +23,13 @@ export default function ManifestoPage() {
             className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-3.5 w-3.5 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
+              <Image
+                src="/apple-logo-white.svg"
+                alt="Apple"
+                width={16}
+                height={20}
+                className="h-3.5 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-4"
+              />
               <span className="transition-all duration-300 group-hover:scale-105 group-active:scale-105">Download</span>
             </Link>
           </Button>
@@ -132,10 +125,20 @@ export default function ManifestoPage() {
               {/* Contributors */}
               <div>
                 <h2 className="text-lg font-semibold text-black mb-4 lg:text-xl">Contributors</h2>
-                <div className="space-y-2">
-                  <div className="text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
-                  <div className="text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
-                  <div className="text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-sm font-medium text-black/60 mb-2 lg:text-base">Keep Ankesh and Anandu in Core</h3>
+                    <div className="space-y-1.5">
+                      <div className="text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
+                      <div className="text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-medium text-black/60 mb-2 lg:text-base">Keep Kshitij in Community</h3>
+                    <div className="space-y-1.5">
+                      <div className="text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 

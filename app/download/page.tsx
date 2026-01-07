@@ -59,7 +59,7 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-white">
+    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white">
       {/* Header */}
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
@@ -77,20 +77,13 @@ export default function DownloadPage() {
             className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-3.5 w-3.5 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
+              <Image
+                src="/apple-logo-white.svg"
+                alt="Apple"
+                width={16}
+                height={20}
+                className="h-3.5 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-4"
+              />
               <span className="transition-all duration-300 group-hover:scale-105 group-active:scale-105">Download</span>
             </Link>
           </Button>
@@ -118,7 +111,7 @@ export default function DownloadPage() {
       </header>
 
       {/* Main Content */}
-      <div className="flex flex-1 flex-col items-center justify-center px-6 pt-[15dvh] pb-20 lg:pt-[20dvh] lg:px-12 lg:pb-4">
+      <div className="flex flex-1 flex-col items-center justify-center overflow-y-auto px-6 pt-[15dvh] pb-20 lg:pt-[20dvh] lg:px-12 lg:pb-4">
         <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-2xl lg:gap-6">
           {/* Title */}
           <div className="space-y-1 lg:space-y-2 mb-8 lg:mb-12">

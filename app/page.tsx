@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 
 export default function Page() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-white">
+    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white">
       <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex-1" aria-hidden="true" />
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
@@ -14,20 +14,13 @@ export default function Page() {
             className="h-8 rounded-full bg-black px-3 text-xs font-medium text-white hover:bg-black/90 lg:h-10 lg:px-4 lg:text-sm"
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-3.5 w-3.5 transition-all duration-300 group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
-              >
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" x2="12" y1="15" y2="3" />
-              </svg>
+              <Image
+                src="/apple-logo-white.svg"
+                alt="Apple"
+                width={16}
+                height={20}
+                className="h-3.5 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-4"
+              />
               <span className="transition-all duration-300 group-hover:scale-105 group-active:scale-105">Download</span>
             </Link>
           </Button>
@@ -55,9 +48,9 @@ export default function Page() {
       </header>
 
       {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
-      <div className="flex flex-1 flex-col lg:flex-row lg:min-h-0">
+      <div className="flex flex-1 flex-col overflow-y-auto lg:flex-row lg:min-h-0">
         {/* Content Section */}
-        <div className="relative z-10 flex min-h-[100dvh] flex-col bg-transparent px-6 pb-4 lg:min-h-0 lg:flex-1 lg:items-center lg:justify-center lg:bg-white lg:pt-32 lg:pb-40 lg:flex-[0.45] lg:shrink-0 lg:px-12">
+        <div className="relative z-10 flex flex-1 flex-col bg-transparent px-6 pb-4 lg:min-h-0 lg:items-center lg:justify-center lg:bg-white lg:flex-[0.45] lg:shrink-0 lg:px-12">
           {/* Mobile: Graph image - bottom layer (z-0), covers top 50% of viewport to cover top 50% of logo */}
           <div
             className="absolute inset-x-0 top-0 z-0 overflow-hidden bg-white lg:hidden"
@@ -71,31 +64,30 @@ export default function Page() {
             />
           </div>
 
-          {/* Mobile: Logo container - middle layer (z-20), positioned at 50% of page height */}
-          <div className="absolute left-1/2 top-[50dvh] z-20 -translate-x-1/2 -translate-y-1/2 lg:relative lg:left-auto lg:top-auto lg:translate-x-0 lg:translate-y-0">
-            <div className="relative">
-              {/* Logo container - full logo visible */}
-              <div
-                className="relative z-20 flex items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 sm:rounded-2xl lg:rounded-3xl lg:ring-0"
-                style={{ height: "var(--mobile-logo-size)", width: "var(--mobile-logo-size)" }}
-              >
-                <Image
-                  src="/logo.png"
-                  alt="Tiles Logo"
-                  width={80}
-                  height={80}
-                  className="h-11 w-11 sm:h-14 sm:w-14 lg:h-[84px] lg:w-[84px]"
-                />
+          {/* Desktop: Centered container with logo above text */}
+          <div className="relative z-20 mx-auto flex w-full max-w-md flex-col items-center gap-2 pb-8 pt-[calc(50dvh+var(--mobile-logo-half)+1rem)] lg:pt-0 lg:gap-6">
+            {/* Mobile: Logo container - middle layer (z-20), positioned at 50% of page height */}
+            <div className="absolute left-1/2 top-[50dvh] z-20 -translate-x-1/2 -translate-y-1/2 lg:relative lg:left-auto lg:top-auto lg:translate-x-0 lg:translate-y-0 lg:mb-4">
+              <div className="relative">
+                {/* Logo container - full logo visible */}
+                <div
+                  className="relative z-20 flex items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 sm:rounded-2xl lg:rounded-3xl lg:ring-0"
+                  style={{ height: "var(--mobile-logo-size)", width: "var(--mobile-logo-size)" }}
+                >
+                  <Image
+                    src="/logo.png"
+                    alt="Tiles Logo"
+                    width={80}
+                    height={80}
+                    className="h-11 w-11 sm:h-14 sm:w-14 lg:h-[84px] lg:w-[84px]"
+                  />
+                </div>
+                {/* Alpha text - top layer (z-30) */}
+                <span className="absolute -right-1 -top-1 z-30 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-blue-600 shadow-sm ring-1 ring-blue-200/50 sm:-right-1.5 sm:-top-1.5 sm:px-2 sm:py-0.5 sm:text-[10px] lg:-right-2 lg:-top-2 lg:px-2.5 lg:py-1 lg:text-xs">
+                  Alpha
+                </span>
               </div>
-              {/* Alpha text - top layer (z-30) */}
-              <span className="absolute -right-1 -top-1 z-30 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-blue-600 shadow-sm ring-1 ring-blue-200/50 sm:-right-1.5 sm:-top-1.5 sm:px-2 sm:py-0.5 sm:text-[10px] lg:-right-2 lg:-top-2 lg:px-2.5 lg:py-1 lg:text-xs">
-                Alpha
-              </span>
             </div>
-          </div>
-
-          {/* Mobile: Content below logo, Desktop: Content in normal flow */}
-          <div className="relative z-20 mx-auto flex w-full max-w-md flex-col items-center gap-2 pb-8 pt-[calc(50dvh+var(--mobile-logo-half)+1rem)] lg:mt-auto lg:gap-10 lg:pt-0">
 
             {/* Title & Subtitle */}
             <div className="space-y-1.5 text-center lg:space-y-4">

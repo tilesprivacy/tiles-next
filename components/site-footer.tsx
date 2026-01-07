@@ -4,7 +4,7 @@ import { SiHuggingface } from "react-icons/si"
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-20 shrink-0 h-[10dvh] border-t border-white/5 bg-black px-4 sm:px-6 overflow-hidden">
+    <footer className="relative z-20 shrink-0 h-[10dvh] border-t border-white/5 bg-black px-4 sm:px-6 overflow-hidden mt-auto">
       <div className="mx-auto flex h-full max-w-7xl flex-col justify-center gap-2 sm:gap-3 lg:gap-4">
         {/* Main content - consistent layout on mobile and desktop */}
         <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
