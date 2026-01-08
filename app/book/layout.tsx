@@ -9,7 +9,7 @@ import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 export const metadata = {
   title: {
     template: '%s - Book',
-    default: 'Book',
+    default: 'Tiles Book: Privacy technology for everyone!',
   },
   description: 'Tiles documentation',
 }
