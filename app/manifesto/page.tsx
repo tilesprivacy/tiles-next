@@ -7,7 +7,7 @@ export default function ManifestoPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+      <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
           <Link href="/" className="transition-colors hover:text-black/70">
             <Image src="/lighticon.png" alt="Tiles" width={32} height={32} className="h-7 w-7 lg:h-8 lg:w-8" />
@@ -126,20 +126,10 @@ export default function ManifestoPage() {
               {/* Contributors */}
               <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
                 <h2 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 lg:text-xl">Contributors</h2>
-                <div className="space-y-3 sm:space-y-4">
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Core</h3>
-                    <div className="space-y-1 sm:space-y-1.5">
-                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
-                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Community</h3>
-                    <div className="space-y-1 sm:space-y-1.5">
-                      <div className="text-xs sm:text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
-                    </div>
-                  </div>
+                <div className="space-y-1 sm:space-y-1.5">
+                  <div className="text-xs sm:text-sm text-black/80 lg:text-base">Ankesh Bharti</div>
+                  <div className="text-xs sm:text-sm text-black/80 lg:text-base">Anandu Pavanan</div>
+                  <div className="text-xs sm:text-sm text-black/80 lg:text-base">Kshitij Taneja</div>
                 </div>
               </div>
 

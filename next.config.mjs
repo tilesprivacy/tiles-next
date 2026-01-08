@@ -25,6 +25,14 @@ const nextConfig = {
       },
     ]
   },
+  async rewrites() {
+    return [
+      {
+        source: '/llms.txt',
+        destination: '/api/llms',
+      },
+    ]
+  },
 }
 
 export default withNextra(nextConfig)

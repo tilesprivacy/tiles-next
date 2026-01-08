@@ -27,7 +27,7 @@ export function BookHeader() {
   const appleLogoSrc = mounted && isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
 
   return (
-    <header className="absolute inset-x-0 top-0 z-20 flex items-center justify-between bg-gradient-to-b from-background via-background/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+    <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2 text-base font-medium text-foreground lg:text-lg">
           <Link href="/" className="transition-colors hover:text-foreground/70">

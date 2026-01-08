@@ -49,7 +49,7 @@ export default function BlogPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
-      <header className="absolute inset-x-0 top-0 z-30 flex items-center justify-between bg-gradient-to-b from-white via-white/95 to-transparent px-4 pb-3 pt-4 lg:fixed lg:px-6 lg:pb-4 lg:pt-6">
+      <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
           <Link href="/" className="transition-colors hover:text-black/70">
             <Image src="/lighticon.png" alt="Tiles" width={32} height={32} className="h-7 w-7 lg:h-8 lg:w-8" />
