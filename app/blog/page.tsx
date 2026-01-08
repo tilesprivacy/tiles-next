@@ -118,8 +118,13 @@ export default function BlogPage() {
         <div className="w-full max-w-2xl px-4 pt-8 pb-2 lg:px-12 lg:pt-12 lg:pb-8 flex-1 space-y-8 lg:space-y-12">
           <div className="space-y-8 lg:space-y-12">
             {blogPosts.map((post) => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="block group">
-                <h2 className="text-xl font-bold text-black mb-2 group-hover:text-black/80 transition-colors lg:text-3xl lg:mb-3 tracking-tight">
+              <Link 
+                key={post.slug} 
+                href={`/blog/${post.slug}`} 
+                className="block group"
+                prefetch={true}
+              >
+                <h2 className="text-xl font-bold text-black mb-2 group-hover:text-black/80 lg:text-3xl lg:mb-3 tracking-tight">
                   {post.title}
                 </h2>
                 <p className="text-base text-black/70 mb-2 lg:text-xl lg:mb-3 leading-relaxed">{post.description}</p>
