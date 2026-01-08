@@ -9,6 +9,15 @@ export async function generateMetadata(props: {
 }) {
   const params = await props.params
   const { metadata } = await importPage(params.mdxPath)
+  
+  // Override title for the index page (when mdxPath is empty or undefined)
+  if (!params.mdxPath || params.mdxPath.length === 0) {
+    return {
+      ...metadata,
+      title: 'Tiles Book: Privacy technology for everyone!',
+    }
+  }
+  
   return metadata
 }
 
