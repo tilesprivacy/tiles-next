@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaReddit, FaGithub, FaRss } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -23,8 +23,8 @@ export function BookFooter() {
 
   // Dark footer styles (default)
   const footerClasses = footerIsDark
-    ? "relative z-20 shrink-0 h-[10dvh] border-t border-white/5 bg-black px-4 sm:px-6 overflow-hidden"
-    : "relative z-20 shrink-0 h-[10dvh] border-t border-black/5 bg-white px-4 sm:px-6 overflow-hidden"
+    ? "relative z-20 shrink-0 h-[14dvh] border-t border-white/5 bg-black px-4 sm:px-6 overflow-hidden"
+    : "relative z-20 shrink-0 h-[14dvh] border-t border-black/5 bg-white px-4 sm:px-6 overflow-hidden"
 
   const linkClasses = footerIsDark
     ? "text-white/50 transition-colors hover:text-white"
@@ -52,7 +52,6 @@ export function BookFooter() {
     bluesky: "group-hover:text-[#0085FF]",
     instagram: "group-hover:text-[#E4405F]",
     discord: "group-hover:text-[#5865F2]",
-    reddit: "group-hover:text-[#FF4500]",
     github: footerIsDark ? "group-hover:text-white/70" : "group-hover:text-black/70",
     huggingface: "group-hover:text-[#FFD21E]",
     rss: "group-hover:text-orange-500",
@@ -61,7 +60,7 @@ export function BookFooter() {
   // Default to dark footer during SSR to avoid hydration mismatch
   if (!mounted) {
     return (
-      <footer className="relative z-20 shrink-0 h-[10dvh] border-t border-white/5 bg-black px-4 sm:px-6 overflow-hidden">
+      <footer className="relative z-20 shrink-0 h-[14dvh] border-t border-white/5 bg-black px-4 sm:px-6 overflow-hidden">
         <div className="mx-auto flex h-full max-w-7xl flex-col justify-center gap-2 sm:gap-3 lg:gap-4">
           <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
             <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm flex-shrink-0">
@@ -75,10 +74,21 @@ export function BookFooter() {
                 Manifesto
               </Link>
             </nav>
-            <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
               {/* Placeholder for icons */}
             </div>
           </div>
+          <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm">
+            <Link href="/sub-processors" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+              Subprocessors
+            </Link>
+            <Link href="/terms" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+              Terms
+            </Link>
+            <Link href="/privacy" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+              Privacy
+            </Link>
+          </nav>
           <div className="flex flex-row items-center justify-between gap-2 border-t border-white/5 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white/40">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
             <a
@@ -121,7 +131,7 @@ export function BookFooter() {
             </Link>
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
             <a
               href="https://x.com/tilesprivacy"
               target="_blank"
@@ -159,15 +169,6 @@ export function BookFooter() {
               <FaDiscord className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white/40' : 'text-black/40'} transition-colors ${iconHoverClasses.discord}`} />
             </a>
             <a
-              href="https://www.reddit.com/r/tilesprivacy/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
-              aria-label="Reddit"
-            >
-              <FaReddit className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white/40' : 'text-black/40'} transition-colors ${iconHoverClasses.reddit}`} />
-            </a>
-            <a
               href="https://github.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
@@ -196,6 +197,19 @@ export function BookFooter() {
             </a>
           </div>
         </div>
+
+        {/* Secondary links row - Subprocessors, Terms, Privacy */}
+        <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm">
+          <Link href="/sub-processors" className={`${linkClasses} whitespace-nowrap`}>
+            Subprocessors
+          </Link>
+          <Link href="/terms" className={`${linkClasses} whitespace-nowrap`}>
+            Terms
+          </Link>
+          <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
+            Privacy
+          </Link>
+        </nav>
 
         <div className={`flex flex-row items-center justify-between gap-2 border-t ${borderClasses} pt-1.5 sm:pt-2 text-[10px] sm:text-xs`}>
           <p className={`${copyrightClasses} whitespace-nowrap`}>© 2026 Tiles Privacy</p>
