@@ -22,7 +22,7 @@ export default async function BookLayout({
   const pageMap = await getPageMap()
 
   // Filter out unwanted routes from the sidebar
-  const excludedRoutes = ['/', '/manifesto', '/download', '/explore', '/blog']
+  const excludedRoutes = ['/', '/manifesto', '/download', '/explore', '/blog', '/privacy', '/sub-processors', '/subprocessors', '/terms']
   
   const filterPageMap = (items: typeof pageMap): typeof pageMap => {
     return items
