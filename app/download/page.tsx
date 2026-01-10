@@ -208,7 +208,7 @@ export default function DownloadPage() {
               alt="Tiles CLI"
               width={1200}
               height={600}
-              className="w-full h-auto max-w-full max-h-full object-contain"
+              className="w-full h-auto max-w-full max-h-full object-contain rounded-lg"
               priority
             />
           </div>
