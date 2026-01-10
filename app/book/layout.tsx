@@ -79,8 +79,8 @@ export default async function BookLayout({
   })
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-white" data-book-section>
-      <SiteHeader />
+    <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
+      <SiteHeader themeAware />
       <BookBreadcrumbLink />
       <div className="pt-16 lg:pt-24">
         <Layout pageMap={finalPageMap}>
