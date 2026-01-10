@@ -12,10 +12,6 @@ export default function PrivacyPage() {
           <Link href="/" className="transition-colors hover:text-black/70">
             <Image src="/lighticon.png" alt="Tiles" width={32} height={32} className="h-7 w-7 lg:h-8 lg:w-8" />
           </Link>
-          <span className="text-black/30">/</span>
-          <Link href="/privacy" className="font-bold transition-colors hover:text-black/70">
-            Privacy Statement
-          </Link>
         </div>
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">
           <Button
@@ -60,6 +56,11 @@ export default function PrivacyPage() {
         {/* Content */}
         <main className="flex flex-1 flex-col items-start justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-3xl mx-auto">
           <div className="w-full space-y-6 sm:space-y-8 text-sm leading-relaxed text-black/80 sm:text-base lg:text-lg lg:leading-relaxed">
+            <div className="space-y-4">
+              <h1 className="text-2xl font-semibold text-black sm:text-3xl lg:text-4xl">Privacy Policy</h1>
+              <p className="text-xs text-black/60 sm:text-sm">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            </div>
+
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-black sm:text-xl lg:text-2xl">Your Data Stays Local</h2>
               <p>
@@ -126,9 +127,6 @@ export default function PrivacyPage() {
               </p>
             </div>
 
-            <div className="space-y-4 pt-4">
-              <p className="text-xs text-black/60 sm:text-sm">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-            </div>
           </div>
         </main>
       </div>
