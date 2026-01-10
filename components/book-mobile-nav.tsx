@@ -44,14 +44,14 @@ export function BookMobileNav() {
           className="block group"
           style={{ textDecoration: 'none' }}
         >
-          <div className="bg-black/[0.03] hover:bg-black/[0.05] transition-all duration-200 p-8 rounded-2xl" style={{ textDecoration: 'none' }}>
-            <div className="text-black/35 text-base font-medium mb-4 tracking-tight" style={{ textDecoration: 'none' }}>
+          <div className="bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-all duration-200 p-8 rounded-2xl" style={{ textDecoration: 'none' }}>
+            <div className="text-black/35 dark:text-white/40 text-base font-medium mb-4 tracking-tight" style={{ textDecoration: 'none' }}>
               {page.number}
             </div>
-            <h2 className="text-3xl font-semibold text-black mb-4 tracking-tight group-hover:text-black/80 transition-colors leading-tight" style={{ textDecoration: 'none' }}>
+            <h2 className="text-3xl font-semibold text-black dark:text-white mb-4 tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80 transition-colors leading-tight" style={{ textDecoration: 'none' }}>
               {page.title}
             </h2>
-            <p className="text-black/60 text-base leading-relaxed" style={{ textDecoration: 'none' }}>
+            <p className="text-black/60 dark:text-white/70 text-base leading-relaxed" style={{ textDecoration: 'none' }}>
               {page.description}
             </p>
           </div>
