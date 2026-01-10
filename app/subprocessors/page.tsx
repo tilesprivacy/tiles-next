@@ -7,7 +7,7 @@ export default function SubProcessorsPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6">
+      <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between gap-4 px-4 pb-3 pt-4 lg:gap-6 lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
           <Link href="/" className="transition-colors hover:text-black/70">
             <Image src="/lighticon.png" alt="Tiles" width={32} height={32} className="h-7 w-7 lg:h-8 lg:w-8" />
@@ -148,4 +148,3 @@ export default function SubProcessorsPage() {
     </div>
   )
 }
-
