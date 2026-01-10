@@ -122,7 +122,6 @@ export default function BlogPage() {
                 key={post.slug} 
                 href={`/blog/${post.slug}`} 
                 className="block group"
-                prefetch={true}
               >
                 <h2 className="text-xl font-bold text-black mb-2 group-hover:text-black/80 lg:text-3xl lg:mb-3 tracking-tight">
                   {post.title}

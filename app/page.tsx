@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 
 export default function Page() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white">
+    <div className="relative flex min-h-screen flex-col bg-white">
       <header className="fixed inset-x-0 top-0 z-20 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6">
         <div className="flex-1" aria-hidden="true" />
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3">

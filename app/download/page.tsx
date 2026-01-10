@@ -59,9 +59,9 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex h-[100dvh] flex-col overflow-hidden bg-white">
+    <div className="relative flex min-h-screen flex-col bg-white">
       {/* Header */}
-      <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 bg-white lg:bg-transparent">
+      <header className="fixed inset-x-0 top-0 z-30 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 bg-white">
         <div className="flex items-center gap-2 text-base font-medium text-black lg:text-lg">
           <Link href="/" className="transition-colors hover:text-black/70">
             <Image src="/lighticon.png" alt="Tiles" width={32} height={32} className="h-7 w-7 lg:h-8 lg:w-8" />
@@ -122,6 +122,20 @@ export default function DownloadPage() {
                 <br />
                 get Tiles for Mac
               </h1>
+            </div>
+
+            {/* CLI Screenshot - Mobile Only */}
+            <div className="lg:hidden mb-6 -mx-6">
+              <div className="w-full flex items-center justify-center px-6">
+                <Image
+                  src="/tilescli.png"
+                  alt="Tiles CLI"
+                  width={1200}
+                  height={600}
+                  className="w-full h-auto max-w-full object-contain rounded-lg"
+                  priority
+                />
+              </div>
             </div>
 
             {/* Install Section */}
@@ -201,7 +215,7 @@ export default function DownloadPage() {
         </div>
 
         {/* Right Side - CLI Screenshot */}
-        <div className="hidden lg:flex w-1/2 items-center justify-center bg-[#0673A3] overflow-hidden">
+        <div className="hidden lg:flex w-1/2 items-center justify-center bg-white overflow-hidden">
           <div className="w-full h-full flex items-center justify-center p-8">
             <Image
               src="/tilescli.png"
