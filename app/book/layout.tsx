@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { Layout } from 'nextra-theme-docs'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
-import { BookHeader } from '@/components/book-header'
+import { SiteHeader } from '@/components/site-header'
 import { BookFooter } from '@/components/book-footer'
 import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 
@@ -79,8 +79,8 @@ export default async function BookLayout({
   })
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
-      <BookHeader />
+    <div className="relative flex min-h-screen flex-col bg-white" data-book-section>
+      <SiteHeader />
       <BookBreadcrumbLink />
       <div className="pt-16 lg:pt-24">
         <Layout pageMap={finalPageMap}>

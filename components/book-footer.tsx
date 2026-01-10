@@ -64,31 +64,20 @@ export function BookFooter() {
         <div className="mx-auto flex h-full max-w-7xl flex-col justify-center gap-2 sm:gap-3 lg:gap-4">
           <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
             <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm flex-shrink-0">
-              <Link href="/book" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-                Book
+              <Link href="/sub-processors" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+                Subprocessors
               </Link>
-              <Link href="/blog" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-                Blog
+              <Link href="/terms" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+                Terms
               </Link>
-              <Link href="/manifesto" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-                Manifesto
+              <Link href="/privacy" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+                Privacy
               </Link>
             </nav>
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
               {/* Placeholder for icons */}
             </div>
           </div>
-          <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm">
-            <Link href="/sub-processors" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-              Subprocessors
-            </Link>
-            <Link href="/terms" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-              Terms
-            </Link>
-            <Link href="/privacy" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-              Privacy
-            </Link>
-          </nav>
           <div className="flex flex-row items-center justify-between gap-2 border-t border-white/5 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white/40">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
             <a
@@ -120,17 +109,16 @@ export function BookFooter() {
       <div className="mx-auto flex h-full max-w-7xl flex-col justify-center gap-2 sm:gap-3 lg:gap-4">
         <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
           <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm flex-shrink-0">
-            <Link href="/book" className={`${linkClasses} whitespace-nowrap`}>
-              Book
+            <Link href="/sub-processors" className={`${linkClasses} whitespace-nowrap`}>
+              Subprocessors
             </Link>
-            <Link href="/blog" className={`${linkClasses} whitespace-nowrap`}>
-              Blog
+            <Link href="/terms" className={`${linkClasses} whitespace-nowrap`}>
+              Terms
             </Link>
-            <Link href="/manifesto" className={`${linkClasses} whitespace-nowrap`}>
-              Manifesto
+            <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
+              Privacy
             </Link>
           </nav>
-
           <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
             <a
               href="https://x.com/tilesprivacy"
@@ -197,19 +185,6 @@ export function BookFooter() {
             </a>
           </div>
         </div>
-
-        {/* Secondary links row - Subprocessors, Terms, Privacy */}
-        <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm">
-          <Link href="/sub-processors" className={`${linkClasses} whitespace-nowrap`}>
-            Subprocessors
-          </Link>
-          <Link href="/terms" className={`${linkClasses} whitespace-nowrap`}>
-            Terms
-          </Link>
-          <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
-            Privacy
-          </Link>
-        </nav>
 
         <div className={`flex flex-row items-center justify-between gap-2 border-t ${borderClasses} pt-1.5 sm:pt-2 text-[10px] sm:text-xs`}>
           <p className={`${copyrightClasses} whitespace-nowrap`}>© 2026 Tiles Privacy</p>

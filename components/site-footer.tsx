@@ -8,16 +8,16 @@ export function SiteFooter() {
       <div className="mx-auto flex h-full max-w-7xl flex-col justify-center gap-2 sm:gap-3 lg:gap-4">
         {/* Main content - consistent layout on mobile and desktop */}
         <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
-          {/* Links - horizontal on all screens, always visible */}
+          {/* Links - left aligned on all screens */}
           <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm flex-shrink-0">
-            <Link href="/book" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-              Book
+            <Link href="/sub-processors" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+              Subprocessors
             </Link>
-            <Link href="/blog" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-              Blog
+            <Link href="/terms" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+              Terms
             </Link>
-            <Link href="/manifesto" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-              Manifesto
+            <Link href="/privacy" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
+              Privacy
             </Link>
           </nav>
 
@@ -88,19 +88,6 @@ export function SiteFooter() {
             </a>
           </div>
         </div>
-
-        {/* Secondary links row - Subprocessors, Terms, Privacy */}
-        <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm">
-          <Link href="/sub-processors" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-            Subprocessors
-          </Link>
-          <Link href="/terms" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-            Terms
-          </Link>
-          <Link href="/privacy" className="text-white/50 transition-colors hover:text-white whitespace-nowrap">
-            Privacy
-          </Link>
-        </nav>
 
         {/* Bottom section - copyright and status */}
         <div className="flex flex-row items-center justify-between gap-2 border-t border-white/5 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white/40">

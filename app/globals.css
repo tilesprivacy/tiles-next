@@ -235,12 +235,17 @@
   }
   
   /* Hide menu buttons that open sidebar on mobile */
-  /* But exclude copy page button dropdown from being hidden */
-  [data-book-section] button[aria-label*="menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] button[aria-label*="Menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] button[aria-expanded]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]):not([aria-controls*="headlessui"]),
-  [data-book-section] [class*="menu-button"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] button[class*="menu"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  /* But exclude copy page button dropdown and our custom header hamburger menu from being hidden */
+  [data-book-section] aside button[aria-label*="menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] aside button[aria-label*="Menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] aside button[aria-expanded]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]):not([aria-controls*="headlessui"]),
+  [data-book-section] aside [class*="menu-button"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] aside button[class*="menu"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] nav button[aria-label*="menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] nav button[aria-label*="Menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] nav button[aria-expanded]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]):not([aria-controls*="headlessui"]),
+  [data-book-section] nav [class*="menu-button"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
+  [data-book-section] nav button[class*="menu"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
   [data-book-section] [data-book-hamburger] {
     display: none !important;
   }
