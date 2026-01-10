@@ -204,7 +204,7 @@ export default function DownloadPage() {
         <div className="hidden lg:flex w-1/2 items-center justify-center bg-[#0673A3] overflow-hidden">
           <div className="w-full h-full flex items-center justify-center p-8">
             <Image
-              src="/cli.png"
+              src="/tilescli.png"
               alt="Tiles CLI"
               width={1200}
               height={600}

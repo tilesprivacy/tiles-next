@@ -41,7 +41,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile<a href="#ref-4">⁴</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 
-<img src="/cli.png" alt="Tiles CLI" style="width: 100%; height: auto; margin: 2rem 0;" />
+<img src="/tilescli.png" alt="Tiles CLI" style="width: 100%; height: auto; margin: 2rem 0;" />
 
 <p>Tiles bundles a fine-tuned model to manage context and memories locally on-device with hyperlinked markdown files. Currently, we use <a href="https://huggingface.co/driaforall/mem-agent" target="_blank" rel="noopener noreferrer">mem-agent</a> model (from <a href="https://dria.co/" target="_blank" rel="noopener noreferrer">Dria</a>, based on <code>qwen3-4B-thinking-2507</code>), and are in the process of training our initial in-house memory models.</p>
 

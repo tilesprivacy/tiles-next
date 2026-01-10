@@ -267,7 +267,7 @@ export default function HowTilesWorksPage() {
 
                 <div className="my-8 lg:my-12">
                   <Image
-                    src="/cli.png"
+                    src="/tilescli.png"
                     alt="Tiles CLI"
                     width={1200}
                     height={600}

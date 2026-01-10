@@ -25,7 +25,7 @@ const nextConfig = {
         ],
       },
       {
-        source: '/cli.png',
+        source: '/tilescli.png',
         headers: [
           {
             key: 'Cache-Control',
