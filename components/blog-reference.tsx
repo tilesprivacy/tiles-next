@@ -79,7 +79,7 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
       {/* Mobile: Expandable reference below text */}
       {isExpanded && (
         <span className="block mt-4 mb-4 text-sm text-black/50 leading-relaxed lg:hidden">
-          <span className="text-black/50 mr-1.5">{id}</span>
+          <sup className="text-black/50 align-super text-[0.7em] mr-1.5">{id}</sup>
           {children}
         </span>
       )}
@@ -96,7 +96,7 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
               data-ref-id={id}
             >
               <div className="pr-6 xl:pr-8">
-                <span className="text-black/50 mr-1.5">{id}</span>
+                <sup className="text-black/50 align-super text-[0.7em] mr-1.5">{id}</sup>
                 {children}
               </div>
             </div>,
