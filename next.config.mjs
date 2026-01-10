@@ -10,7 +10,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Enable Next.js image optimization
+    // Images will be automatically optimized, lazy-loaded, and served in modern formats
   },
   async headers() {
     return [
@@ -20,6 +21,15 @@ const nextConfig = {
           {
             key: 'Content-Type',
             value: 'text/plain; charset=utf-8',
+          },
+        ],
+      },
+      {
+        source: '/cli.png',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, must-revalidate',
           },
         ],
       },
