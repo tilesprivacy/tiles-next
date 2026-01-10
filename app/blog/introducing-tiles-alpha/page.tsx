@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import type { Metadata } from "next"
 import NewsletterForm from "@/components/newsletter-form"
+import { BlogReference } from "@/components/blog-reference"
 
 export const metadata: Metadata = {
   title: "Introducing Tiles Alpha",
@@ -84,7 +85,7 @@ export default function HowTilesWorksPage() {
       </header>
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
         {/* Top Card - Logo and Header Text */}
         <div className="w-full max-w-2xl px-4 pt-4 pb-3 lg:px-12 lg:pt-6 lg:pb-4">
           <div className="text-center">
@@ -154,7 +155,12 @@ export default function HowTilesWorksPage() {
           </div>
 
           {/* Blog Content */}
-          <article>
+          <article className="blog-article-container relative">
+            {/* Container for side references on desktop */}
+            <div className="blog-reference-container hidden lg:block absolute left-0 top-0 w-full h-full pointer-events-none">
+              <div className="relative w-full h-full pointer-events-auto" />
+            </div>
+
             <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed">
               <p>
                 We're building open-source technology for local-first models, enabling personalized software experiences
@@ -177,26 +183,46 @@ export default function HowTilesWorksPage() {
                 </p>
 
                 <p className="mb-6 lg:mb-8">
-                  The project is defined by four interdependent design choices
-                  <a href="#ref-1" className="text-blue-600 hover:text-blue-700">
-                    ¹
-                  </a>
-                  :
+                  The project is defined by four interdependent design choices:
+                  <BlogReference id={1}>
+                    <a
+                      href="https://newsletter.squishy.computer/p/decentralizability"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                    >
+                      Decentralizability, Gordon Brander
+                    </a>
+                  </BlogReference>
+                 
                 </p>
 
                 <ol className="list-decimal list-inside space-y-5 lg:space-y-7 ml-4">
                   <li>
                     <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
-                    device keychain and cannot access the registry by identity alone
-                    <a href="#ref-2" className="text-blue-600 hover:text-blue-700">
-                      ²
-                    </a>
-                    . Keyless operations are only enabled after an identity is verified and linked to the device key,
-                    allowing third-party agent access under user-defined policies
-                    <a href="#ref-3" className="text-blue-600 hover:text-blue-700">
-                      ³
-                    </a>
-                    .
+                    device keychain and cannot access the registry by identity alone.
+                    <BlogReference id={2}>
+                      <a
+                        href="https://keybase.io/blog/keybase-new-key-model"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                      >
+                        Keybase's New Key Model
+                      </a>
+                    </BlogReference>
+                    Keyless operations are only enabled after an identity is verified and linked to the device key,
+                    allowing third-party agent access under user-defined policies.
+                    <BlogReference id={3}>
+                      <a
+                        href="https://www.sigstore.dev/how-it-works"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                      >
+                        Sigstore: How It Works
+                      </a>
+                    </BlogReference>
                   </li>
                   <li>
                     <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring
@@ -224,9 +250,16 @@ export default function HowTilesWorksPage() {
 
                 <p className="mb-6 lg:mb-8">
                   Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile
-                  <a href="#ref-4" className="text-blue-600 hover:text-blue-700">
-                    ⁴
-                  </a>
+                  <BlogReference id={4}>
+                    <a
+                      href="https://docs.ollama.com/modelfile"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                    >
+                      Ollama Modelfile
+                    </a>
+                  </BlogReference>
                   {" "}based SDK that lets
                   developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
                   collaboration with the community, establishing it as the standard for model customization.
@@ -436,97 +469,6 @@ export default function HowTilesWorksPage() {
                   </a>
                   .
                 </p>
-              </section>
-
-              <hr className="border-black/10 my-8 lg:my-12" />
-
-              <section>
-                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
-                  References
-                </h2>
-
-                <ol className="list-decimal list-inside space-y-4">
-                  <li id="ref-1">
-                    <a
-                      href="https://newsletter.squishy.computer/p/decentralizability"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
-                  >
-                      Decentralizability, Gordon Brander
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-2.5 w-2.5"
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
-                  </li>
-                  <li id="ref-2">
-                    <a
-                      href="https://keybase.io/blog/keybase-new-key-model"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
-                  >
-                      Keybase's New Key Model
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-2.5 w-2.5"
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
-                  </li>
-                  <li id="ref-3">
-                    <a
-                      href="https://www.sigstore.dev/how-it-works"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
-                  >
-                      Sigstore: How It Works
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-2.5 w-2.5"
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
-                  </li>
-                  <li id="ref-4">
-                    <a
-                      href="https://docs.ollama.com/modelfile"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
-                  >
-                      Ollama Modelfile
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-2.5 w-2.5"
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>
-                  </li>
-                </ol>
               </section>
             </div>
           </article>
