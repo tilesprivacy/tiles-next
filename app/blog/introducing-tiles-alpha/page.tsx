@@ -90,7 +90,7 @@ export default function HowTilesWorksPage() {
               </p>
 
               <p className="mb-6 lg:mb-8">
-                Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile
+                Our first alpha is a CLI assistant app for Apple Silicon devices, and a Modelfile
                 <BlogReference id={1}>
                   <a
                     href="https://docs.ollama.com/modelfile"
@@ -102,8 +102,7 @@ export default function HowTilesWorksPage() {
                   </a>
                   <span className="text-black">{" "}is the blueprint to create and share customized models using Ollama.</span>
                 </BlogReference>
-                {" "}based SDK that lets
-                developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
+                {" "}based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
                 collaboration with the community, establishing it as the standard for model customization.
               </p>
 

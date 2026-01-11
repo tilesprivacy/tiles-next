@@ -16,7 +16,7 @@ export const blogPosts: BlogPost[] = [
 
 <p>We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
 
-<p>Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile<a href="#ref-1">¹</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
+<p>Our first alpha is a CLI assistant app for Apple Silicon devices, and a Modelfile<a href="#ref-1">¹</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 
 <h2>Philosophy</h2>
 

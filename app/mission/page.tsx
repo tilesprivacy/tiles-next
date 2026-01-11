@@ -171,8 +171,7 @@ export default function MissionPage() {
                 </a>
                 ), an independent researcher and technologist, Tiles is
                 built for privacy conscious users who want intelligence without renting their memory to centralized
-                providers. Our first product is an on-device memory management system paired with an SDK that lets
-                developers securely access user memory and create deeply personalized agent experiences.
+                providers. Our first product is a private AI assistant with offline memory, and an SDK that lets developers customize local models and agent experiences within Tiles.
               </p>
             </div>
           </div>

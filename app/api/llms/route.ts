@@ -82,7 +82,7 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.')
   sections.push('')
-  sections.push('Founded by Ankesh Bharti (@feynon), an independent researcher and technologist, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is an on-device memory management system paired with an SDK that lets developers securely access user memory and create deeply personalized agent experiences.')
+  sections.push('Founded by Ankesh Bharti (@feynon), an independent researcher and technologist, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is a private AI assistant with offline memory, and an SDK that lets developers customize local models and agent experiences within Tiles.')
   sections.push('')
   sections.push('Contributors:')
   sections.push('Ankesh Bharti, Anandu Pavanan, Kshitij Taneja')
