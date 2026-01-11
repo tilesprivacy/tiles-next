@@ -1,147 +1,40 @@
-# Reference
+# MIR Extension
 
-Reference for Modelfile and MIR specifications.
+Based on specs defined by Darkshapes' [MIR](https://huggingface.co/darkshapes/MIR_) (Machine Intelligence Resource), a naming schema for AIGC/ML work, and Ollama's [Modelfile](https://docs.ollama.com/modelfile), the blueprint to create and share models. Our implementation adds an additional MIR directive as a classification format that improves accessibility and reproducibility across the AI community:
 
-## Modelfile Reference
+```bash
+# Base model (required)
+FROM ./model.safetensors
 
-### Main Structure
+# MIR identifier (custom extension)
+# Format: mir:[domain].[architecture].[series]:[compatibility]
+MIR "mir:model.art.gpt-oss:mlx-q4"
 
-Represents a parsed Modelfile:
+# License for this model
+LICENSE """
+Apache-2.0
+"""
 
-```rust
-pub struct Modelfile {
-    pub from: Option<String>,
-    pub parameters: Vec<Parameter>,
-    pub template: Option<String>,
-    pub adapter: Option<String>,
-    pub system: Option<String>,
-    pub license: Option<String>,
-    pub messages: Vec<Message>,
-    pub data: Vec<String>,      // Original lines for display
-    pub errors: Vec<String>,    // Parsing errors
-}
-```
+# System prompt
+SYSTEM """
+You are a lightweight technical model.
+"""
 
-#### Parameter
+# Prompt formatting
+TEMPLATE "{{ .Prompt }}"
 
-```rust
-pub struct Parameter {
-    pub param_type: String,
-    pub value: ParamValue,
-}
-```
+# Add adapters (optional LoRA layers)
+ADAPTER ./adapter1.safetensors
 
-#### ParamValue
-
-```rust
-pub enum ParamValue {
-    Int(i32),
-    Float(f32),
-    Str(String),
-}
-```
-
-#### Message
-
-```rust
-pub struct Message {
-    role: Role,
-    message: String,
-}
-```
-
-### API
-
-#### Parsing Functions
-
-- **`parse(input: &str) -> Result<Modelfile, String>`**  
-  Parses a Modelfile from a string. Returns a `Modelfile` struct on success, or an error string on failure.
-- **`parse_from_file(path: &str) -> Result<Modelfile, String>`**  
-  Parses a Modelfile from a file path. Reads the file and calls `parse()` on its contents.
-
-#### Builder API
-
-- `new() -> Modelfile` — Creates a new empty Modelfile
-- `add_from(value: &str) -> Result<(), String>` — Adds a FROM instruction
-- `add_parameter(param_type: &str, param_value: &str) -> Result<(), String>` — Adds a PARAMETER
-- `add_template(value: &str) -> Result<(), String>` — Adds a TEMPLATE instruction
-- `add_system(value: &str) -> Result<(), String>` — Adds a SYSTEM instruction
-- `add_adapter(value: &str) -> Result<(), String>` — Adds an ADAPTER instruction
-- `add_license(value: &str) -> Result<(), String>` — Adds a LICENSE instruction
-- `add_message(role: &str, message: &str) -> Result<(), String>` — Adds a MESSAGE instruction
-- `add_comment(value: &str) -> Result<(), String>` — Adds a comment
-- `build() -> Result<(), String>` — Validates the Modelfile (checks for required FROM)
-
-#### Traits
-
-- `FromStr` — Allows parsing from string: `modelfile.parse()`
-- `Display` — Allows conversion to string: `modelfile.to_string()`
-- `Default` — Provides default empty Modelfile
-
-### Validation Rules
-
-1. **Required FROM**: A Modelfile must contain exactly one `FROM` instruction.
-2. **Single-instruction limits**: The following can only appear once: `FROM`, `TEMPLATE`, `SYSTEM`, `ADAPTER`, `LICENSE`.
-3. **Parameter validation**: Parameters are validated for correct types (int/float/string).
-4. **Role validation**: MESSAGE roles must be one of: `system`, `user`, `assistant`.
-5. **Case insensitivity**: All instruction and parameter names are case-insensitive.
-
-### Error Handling
-
-- Parsing errors are collected in the `errors` field.
-- `parse()` returns an error string containing all error messages if any errors occur.
-- The parser continues parsing after errors to collect all issues.
-
-### Implementation Details
-
-- Uses the `nom` parser combinator library for parsing.
-- Instructions are parsed case-insensitively.
-- Whitespace is trimmed from argument values.
-- The parser preserves original lines in the `data` field for display.
-- Comments are preserved when converting back to string.
-
-### Example Usage
-
-#### Parsing from file
-
-```rust
-use tiles::core::modelfile::parse_from_file;
-
-let modelfile = parse_from_file("path/to/Modelfile")?;
-```
-
-#### Parsing from string
-
-```rust
-use tiles::core::modelfile::parse;
-
-let content = r#"
-FROM llama3.2
+# Runtime parameters
 PARAMETER temperature 0.7
-SYSTEM "You are helpful"
-"#;
+PARAMETER num_ctx 4096
 
-let modelfile = parse(content)?;
+# Initial message context
+MESSAGE user "Hello."
+MESSAGE assistant "Hi there!"
+
 ```
-
-#### Building programmatically
-
-```rust
-use tiles::core::modelfile::Modelfile;
-
-let mut modelfile = Modelfile::new();
-modelfile.add_from("llama3.2")?;
-modelfile.add_parameter("temperature", "0.7")?;
-modelfile.add_system("You are helpful")?;
-modelfile.build()?;
-```
-
-### Notes
-
-- Implementation is based on the Ollama Modelfile specification.
-- Not all Ollama Modelfile features may be implemented.
-- The parser is compatible with Ollama-generated Modelfiles.
-- Future enhancements may validate GGUF file paths in FROM instructions.
 
 ## MIR Reference
 

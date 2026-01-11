@@ -1,12 +1,12 @@
 {
   "index": {
-    "title": "Book",
+    "title": "Tiles Book",
     "type": "page",
     "display": "hidden"
   },
-  "proposal": "Proposal",
-  "implementation": "Implementation",
-  "reference": "Reference",
+  "cli-reference": "CLI Reference",
+  "modelfile": "Modelfile Reference",
+  "mir": "MIR Extension",
   "contact": {
     "title": "Tiles ↗",
     "type": "page",

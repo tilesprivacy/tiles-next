@@ -1,0 +1,36 @@
+---
+title: "CLI Reference"
+description: "Command-line interface reference for Tiles"
+---
+
+# CLI Reference
+
+### CLI Commands
+
+```bash
+tiles run [MODELFILE_PATH]     # Run a model (uses default if path not provided)
+tiles run -r <count>           # Set max relay count for model communication (default: 10)
+tiles health                   # Check status of dependencies
+tiles memory set-path <path>   # Set the path for memory storage
+tiles server start             # Start the daemon server
+tiles server stop              # Stop the daemon server
+```
+
+### Examples
+
+```bash
+# Start chatting with the default model
+tiles run
+
+# Run a specific Modelfile
+tiles run ./path/to/Modelfile
+
+# Check if all dependencies are properly installed
+tiles health
+
+# Configure memory storage location
+tiles memory set-path ~/.tiles/memory
+
+# Start the background server
+tiles server start
+```

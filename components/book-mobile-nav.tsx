@@ -10,27 +10,27 @@ interface BookPage {
 const bookPages: BookPage[] = [
   {
     number: '01',
-    title: 'About Tiles Book',
-    description: 'Privacy technology for everyone. Learn about Tiles, the consumer offering, and Tilekit, the developer-facing SDK.',
+    title: 'Tiles Book',
+    description: 'Documentation for Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.',
     href: '/book',
   },
   {
     number: '02',
-    title: 'Proposal',
-    description: 'Proposed implementation based on MIR and Modelfile specifications for AIGC/ML work.',
-    href: '/book/proposal',
+    title: 'CLI Reference',
+    description: 'Command-line interface reference for Tiles CLI commands and usage examples.',
+    href: '/book/cli-reference',
   },
   {
     number: '03',
-    title: 'Implementation',
-    description: 'Current implementation details of the Modelfile parser and supported instructions.',
-    href: '/book/implementation',
+    title: 'Modelfile Reference',
+    description: 'Complete reference for the Modelfile parser, grammar, instructions, parameters, and API usage.',
+    href: '/book/modelfile',
   },
   {
     number: '04',
-    title: 'Reference',
-    description: 'Complete reference for Modelfile and MIR specifications.',
-    href: '/book/reference',
+    title: 'MIR Extension',
+    description: 'MIR (Machine Intelligence Resource) naming schema extension for model classification and reproducibility.',
+    href: '/book/mir',
   },
 ]
 

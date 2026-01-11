@@ -83,7 +83,10 @@ export default async function BookLayout({
       <SiteHeader themeAware />
       <BookBreadcrumbLink />
       <div className="pt-16 lg:pt-24">
-        <Layout pageMap={finalPageMap}>
+        <Layout 
+          pageMap={finalPageMap}
+          docsRepositoryBase="https://github.com/tilesprivacy/tiles-next/tree/main/book"
+        >
           {children}
         </Layout>
       </div>

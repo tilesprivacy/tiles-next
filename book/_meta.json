@@ -1,8 +1,8 @@
 {
-  "index": "About Tiles Book",
-  "proposal": "Proposal",
-  "implementation": "Implementation",
-  "reference": "Reference",
+  "index": "Tiles Book",
+  "cli-reference": "CLI Reference",
+  "modelfile": "Modelfile Reference",
+  "mir": "MIR Extension",
   "blog": {
     "title": "Blog",
     "type": "page",
