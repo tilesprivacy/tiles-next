@@ -7,10 +7,10 @@ export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: "Tiles Changelog",
-  description: "Track releases and notable changes for Tiles, including version history and highlights.",
+  description: "All notable changes and releases for Tiles.",
   openGraph: {
     title: "Tiles Changelog",
-    description: "Track releases and notable changes for Tiles, including version history and highlights.",
+    description: "All notable changes and releases for Tiles.",
     type: "website",
     images: [
       {
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles Changelog",
-    description: "Track releases and notable changes for Tiles, including version history and highlights.",
+    description: "All notable changes and releases for Tiles.",
     images: ["/api/og"],
   },
 }

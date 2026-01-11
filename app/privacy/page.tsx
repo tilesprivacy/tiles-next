@@ -4,10 +4,10 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Tiles Privacy Policy",
-  description: "Read how Tiles protects your data with on-device processing and privacy-first design.",
+  description: "Read our Privacy Policy and how it relates to you.",
   openGraph: {
     title: "Tiles Privacy Policy",
-    description: "Read how Tiles protects your data with on-device processing and privacy-first design.",
+    description: "Read our Privacy Policy and how it relates to you.",
     type: "website",
     images: [
       {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles Privacy Policy",
-    description: "Read how Tiles protects your data with on-device processing and privacy-first design.",
+    description: "Read our Privacy Policy and how it relates to you.",
     images: ["/api/og"],
   },
 }

@@ -4,10 +4,10 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Tiles Subprocessors",
-  description: "View the third-party subprocessors Tiles uses to operate its services and their roles.",
+  description: "Third-party subprocessors that Tiles uses to provide services.",
   openGraph: {
     title: "Tiles Subprocessors",
-    description: "View the third-party subprocessors Tiles uses to operate its services and their roles.",
+    description: "Third-party subprocessors that Tiles uses to provide services.",
     type: "website",
     images: [
       {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles Subprocessors",
-    description: "View the third-party subprocessors Tiles uses to operate its services and their roles.",
+    description: "Third-party subprocessors that Tiles uses to provide services.",
     images: ["/api/og"],
   },
 }

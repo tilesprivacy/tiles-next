@@ -4,10 +4,10 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Tiles Terms of Use",
-  description: "Review the terms for using Tiles, including privacy-first practices and open-source licensing.",
+  description: "Read our Terms of Service and how it relates to you.",
   openGraph: {
     title: "Tiles Terms of Use",
-    description: "Review the terms for using Tiles, including privacy-first practices and open-source licensing.",
+    description: "Read our Terms of Service and how it relates to you.",
     type: "website",
     images: [
       {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles Terms of Use",
-    description: "Review the terms for using Tiles, including privacy-first practices and open-source licensing.",
+    description: "Read our Terms of Service and how it relates to you.",
     images: ["/api/og"],
   },
 }
