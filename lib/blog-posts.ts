@@ -14,7 +14,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date("2026-01-02"),
     content: `<img src="/kingston.webp" alt="Cover image for Introducing Tiles Alpha" style="width: 100%; height: auto; margin-bottom: 2rem;" />
 
-<p>We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent. Our first product is an on-device memory management solution for privacy-conscious users, paired with an SDK that empowers developers to securely access user memory and customize agent experiences.</p>
+<p>We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
 
 <h2>Philosophy</h2>
 
