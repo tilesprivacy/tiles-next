@@ -107,7 +107,7 @@ const people = {
   ],
 }
 
-export default function ManifestoPage() {
+export default function MissionPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
       <SiteHeader />
@@ -115,9 +115,9 @@ export default function ManifestoPage() {
       <div className="flex flex-1 flex-col pt-16 lg:pt-24 lg:pb-24">
         {/* Content */}
         <main className="flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">
-          {/* Manifesto Text Section */}
+          {/* Mission Text Section */}
           <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl text-justify">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 sm:mb-8 md:mb-10 lg:mb-12">Manifesto</h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 sm:mb-8 md:mb-10 lg:mb-12">Mission</h1>
             <div className="space-y-4 sm:space-y-6 text-sm leading-relaxed text-black/80 sm:text-base md:space-y-6 lg:space-y-8 lg:text-xl lg:leading-relaxed">
               <p className="text-base font-medium text-black sm:text-lg md:text-xl lg:text-2xl">
                 Our mission is to shape the future of software personalization with decentralized memory networks.

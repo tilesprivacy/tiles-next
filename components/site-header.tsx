@@ -50,31 +50,26 @@ export function SiteHeader({ themeAware = false }: SiteHeaderProps) {
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6">
-            <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Book
+            <Link href="/mission" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+              Mission
+            </Link>
+            <a
+              href="https://github.com/orgs/tilesprivacy/projects/4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}
+            >
+              Roadmap
+            </a>
+            <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+              Changelog
             </Link>
             <Link href="/blog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
               Blog
             </Link>
-            <Link href="/manifesto" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Manifesto
+            <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+              Book
             </Link>
-            <a
-              href="https://github.com/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}
-            >
-              Github
-            </a>
-            <a
-              href="https://go.tiles.run/discord"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}
-            >
-              Discord
-            </a>
           </nav>
         </div>
 

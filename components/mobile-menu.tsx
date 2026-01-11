@@ -150,11 +150,27 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
             <Link
-              href="/book"
+              href="/mission"
               onClick={onClose}
               className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
             >
-              Book
+              Mission
+            </Link>
+            <a
+              href="https://github.com/orgs/tilesprivacy/projects/4"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Roadmap
+            </a>
+            <Link
+              href="/changelog"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Changelog
             </Link>
             <Link
               href="/blog"
@@ -164,28 +180,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
               Blog
             </Link>
             <Link
-              href="/manifesto"
+              href="/book"
               onClick={onClose}
               className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
             >
-              Manifesto
+              Book
             </Link>
-            <a
-              href="https://github.com/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-            >
-              Github
-            </a>
-            <a
-              href="https://go.tiles.run/discord"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-            >
-              Discord
-            </a>
           </nav>
 
           {/* Spacer to push social icons to bottom half */}

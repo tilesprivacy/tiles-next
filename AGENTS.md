@@ -21,7 +21,7 @@
 - The `/llms.txt` endpoint is **dynamically generated** from all website content via `app/api/llms/route.ts`.
 - The endpoint automatically includes:
   - Homepage content
-  - Manifesto page (including contributors and sponsors)
+  - Mission page (including contributors and sponsors)
   - Download page
   - Blog listing and all blog posts
   - All book pages (from `content/*.mdx` files)
@@ -29,10 +29,10 @@
 
 ### When Content is Updated
 Whenever you update any of the following, the `/llms.txt` endpoint will automatically reflect those changes:
-- **Page content**: Any changes to `app/*/page.tsx` files (home, manifesto, download, blog)
+- **Page content**: Any changes to `app/*/page.tsx` files (home, mission, download, blog)
 - **Blog posts**: Updates to `lib/blog-posts.ts` or blog post content
 - **Book pages**: Changes to any `content/*.mdx` files
-- **Contributors/Sponsors**: Updates to the manifesto page contributors or sponsors sections
+- **Contributors/Sponsors**: Updates to the mission page contributors or sponsors sections
 
 ### Verification
 - After making content changes, verify the `/llms.txt` endpoint reflects the updates by:

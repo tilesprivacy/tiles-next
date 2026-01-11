@@ -75,8 +75,8 @@ export async function GET(request: Request) {
   sections.push('='.repeat(80))
   sections.push('')
 
-  // Manifesto Page
-  sections.push(`## Manifesto (${baseUrl}/manifesto)`)
+  // Mission Page
+  sections.push(`## Mission (${baseUrl}/mission)`)
   sections.push('')
   sections.push('Our mission is to shape the future of software personalization with decentralized memory networks.')
   sections.push('')
