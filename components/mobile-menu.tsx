@@ -5,6 +5,8 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { useTheme } from 'next-themes'
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
+import { SiHuggingface } from "react-icons/si"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -37,6 +39,18 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
   const buttonText = themeAware ? 'text-background' : 'text-white'
   const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
+  
+  // Social icon colors - theme-aware
+  const iconBaseColor = themeAware ? 'text-foreground/40' : 'text-black/40'
+  const iconHoverColors = {
+    twitter: themeAware ? 'group-hover:text-foreground/70' : 'group-hover:text-black/70',
+    bluesky: 'group-hover:text-[#0085FF]',
+    instagram: 'group-hover:text-[#E4405F]',
+    discord: 'group-hover:text-[#5865F2]',
+    github: themeAware ? 'group-hover:text-foreground/70' : 'group-hover:text-black/70',
+    huggingface: 'group-hover:text-[#FFD21E]',
+    rss: 'group-hover:text-orange-500',
+  }
 
   // Prevent body scroll when menu is open
   useEffect(() => {
@@ -67,10 +81,10 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
     <>
       {/* Full screen overlay - higher z-index than header */}
       <div
-        className={`fixed inset-0 ${menuBg} z-[50] lg:hidden`}
+        className={`fixed inset-0 ${menuBg} z-[50] lg:hidden flex flex-col`}
       >
         {/* Header section with logo and buttons */}
-        <div className={`fixed inset-x-0 top-0 z-[51] flex items-center justify-between px-4 pb-3 pt-4 ${menuBg}`}>
+        <div className={`flex items-center justify-between px-4 pb-3 pt-4 ${menuBg} shrink-0`}>
           {/* Logo */}
           <Link href="/" onClick={onClose} className="transition-colors hover:opacity-70">
             <Image src={logoSrc} alt="Tiles" width={48} height={48} className="h-10 w-10" />
@@ -131,46 +145,119 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
           </div>
         </div>
 
-        {/* Navigation Links - positioned below header */}
-        <nav className="flex flex-col pt-20">
-          <Link
-            href="/book"
-            onClick={onClose}
-            className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-          >
-            Book
-          </Link>
-          <Link
-            href="/blog"
-            onClick={onClose}
-            className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-          >
-            Blog
-          </Link>
-          <Link
-            href="/manifesto"
-            onClick={onClose}
-            className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-          >
-            Manifesto
-          </Link>
-          <a
-            href="https://github.com/tilesprivacy"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-          >
-            Github
-          </a>
-          <a
-            href="https://go.tiles.run/discord"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-          >
-            Discord
-          </a>
-        </nav>
+        {/* Content area - flex to push social icons to bottom */}
+        <div className="flex-1 flex flex-col">
+          {/* Navigation Links - positioned below header */}
+          <nav className="flex flex-col pt-4">
+            <Link
+              href="/book"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Book
+            </Link>
+            <Link
+              href="/blog"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Blog
+            </Link>
+            <Link
+              href="/manifesto"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Manifesto
+            </Link>
+            <a
+              href="https://github.com/tilesprivacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Github
+            </a>
+            <a
+              href="https://go.tiles.run/discord"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Discord
+            </a>
+          </nav>
+
+          {/* Spacer to push social icons to bottom half */}
+          <div className="flex-1" />
+
+          {/* Social Icons - positioned in bottom half */}
+          <div className="flex items-center gap-4 px-4 pb-8">
+            <a
+              href="https://x.com/tilesprivacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="X (Twitter)"
+            >
+              <FaXTwitter className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.twitter}`} />
+            </a>
+            <a
+              href="https://bsky.app/profile/tiles.run"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="Bluesky"
+            >
+              <FaBluesky className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.bluesky}`} />
+            </a>
+            <a
+              href="https://www.instagram.com/tilesprivacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="Instagram"
+            >
+              <FaInstagram className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.instagram}`} />
+            </a>
+            <a
+              href="https://go.tiles.run/discord"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="Discord"
+            >
+              <FaDiscord className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.discord}`} />
+            </a>
+            <a
+              href="https://github.com/tilesprivacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="GitHub"
+            >
+              <FaGithub className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.github}`} />
+            </a>
+            <a
+              href="https://huggingface.co/tilesprivacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="Hugging Face"
+            >
+              <SiHuggingface className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.huggingface}`} />
+            </a>
+            <a
+              href="/api/rss"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="RSS Feed"
+            >
+              <FaRss className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.rss}`} />
+            </a>
+          </div>
+        </div>
       </div>
     </>
   )
