@@ -14,14 +14,10 @@ export interface Release {
 }
 
 // Custom changes to supplement or override GitHub release data
-const customChanges: Record<string, ChangeItem[]> = {
-  "v0.0.1-alpha.1": [{ text: "Initial CLI release" }],
-}
+const customChanges: Record<string, ChangeItem[]> = {}
 
 // Additional changes to append to existing changes (for supplements, not overrides)
-const additionalChanges: Record<string, ChangeItem[]> = {
-  "0.1.0": [{ text: "Initial CLI release" }],
-}
+const additionalChanges: Record<string, ChangeItem[]> = {}
 
 // Versions where the last bullet point should be replaced
 const replaceLastChange: Record<string, string> = {
