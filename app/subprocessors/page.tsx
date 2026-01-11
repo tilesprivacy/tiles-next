@@ -1,5 +1,30 @@
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Tiles Subprocessors",
+  description: "View the third-party subprocessors Tiles uses to operate its services and their roles.",
+  openGraph: {
+    title: "Tiles Subprocessors",
+    description: "View the third-party subprocessors Tiles uses to operate its services and their roles.",
+    type: "website",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Tiles Subprocessors",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tiles Subprocessors",
+    description: "View the third-party subprocessors Tiles uses to operate its services and their roles.",
+    images: ["/api/og"],
+  },
+}
 
 export default function SubProcessorsPage() {
   return (
@@ -100,4 +125,3 @@ export default function SubProcessorsPage() {
     </div>
   )
 }
-

@@ -1,8 +1,33 @@
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { fetchReleases, Release } from "@/lib/releases"
+import type { Metadata } from "next"
 
 export const revalidate = 3600
+
+export const metadata: Metadata = {
+  title: "Tiles Changelog",
+  description: "Track releases and notable changes for Tiles, including version history and highlights.",
+  openGraph: {
+    title: "Tiles Changelog",
+    description: "Track releases and notable changes for Tiles, including version history and highlights.",
+    type: "website",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Tiles Changelog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tiles Changelog",
+    description: "Track releases and notable changes for Tiles, including version history and highlights.",
+    images: ["/api/og"],
+  },
+}
 
 // SVG icon for external links (matching mdx-components.tsx)
 const ExternalLinkIcon = () => (
