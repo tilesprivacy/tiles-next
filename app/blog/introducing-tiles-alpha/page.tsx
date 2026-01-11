@@ -404,7 +404,7 @@ export default function HowTilesWorksPage() {
           </article>
 
           {/* Blog Footer Text */}
-          <div className="mt-16 lg:mt-20 pt-12 lg:pt-16 border-t border-black/10">
+          <div className="mt-16 lg:mt-20">
             <div className="space-y-2 text-xs text-black/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
               <p>
                 You're reading the{" "}
