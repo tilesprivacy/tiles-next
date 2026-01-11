@@ -64,18 +64,42 @@ export default async function BookLayout({
   const filteredPageMap = filterPageMap(pageMap)
 
   // Flatten the "book" folder if it exists - extract its children to the top level
-  const finalPageMap = filteredPageMap.flatMap((item) => {
+  const flattenedPageMap = filteredPageMap.flatMap((item) => {
     // If this is a folder named "book" or has route "/book", extract its children
     if ('children' in item && Array.isArray(item.children)) {
       const name = 'name' in item ? item.name : ''
       const route = 'route' in item ? item.route : ''
-      
+
       if (name === 'book' || route === '/book') {
         // Return the children directly instead of the folder
         return item.children as typeof pageMap
       }
     }
     return [item]
+  })
+
+  // Define the correct order from _meta.json
+  const desiredOrder = ['index', 'cli-reference', 'modelfile', 'mir', 'blog', 'contact']
+
+  // Sort the pageMap according to the desired order
+  const finalPageMap = flattenedPageMap.sort((a, b) => {
+    const aName = 'name' in a ? (a.name as string) : ''
+    const bName = 'name' in b ? (b.name as string) : ''
+
+    const aIndex = desiredOrder.indexOf(aName)
+    const bIndex = desiredOrder.indexOf(bName)
+
+    // If both items are in the desired order, sort by their position
+    if (aIndex !== -1 && bIndex !== -1) {
+      return aIndex - bIndex
+    }
+
+    // If only one item is in the desired order, prioritize it
+    if (aIndex !== -1) return -1
+    if (bIndex !== -1) return 1
+
+    // If neither item is in the desired order, maintain their relative order
+    return 0
   })
 
   return (

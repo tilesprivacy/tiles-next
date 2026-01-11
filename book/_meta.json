@@ -1,8 +1,16 @@
 {
-  "index": "Tiles Book",
-  "cli-reference": "CLI Reference",
-  "modelfile": "Modelfile Reference",
-  "mir": "MIR Extension",
+  "index": {
+    "title": "Tiles Book"
+  },
+  "cli-reference": {
+    "title": "CLI Reference"
+  },
+  "modelfile": {
+    "title": "Modelfile Reference"
+  },
+  "mir": {
+    "title": "MIR Extension"
+  },
   "blog": {
     "title": "Blog",
     "type": "page",
