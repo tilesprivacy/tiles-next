@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/site-header"
 import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog-posts"
 import NewsletterForm from "@/components/newsletter-form"
+import { ReadingTime } from "@/components/reading-time"
 
 export const metadata: Metadata = {
   title: "Tiles Blog: Privacy technology for everyone!",
@@ -73,7 +74,14 @@ export default function BlogPage() {
                   {post.title}
                 </h2>
                 <p className="text-base text-black/70 mb-2 lg:text-xl lg:mb-3 leading-relaxed">{post.description}</p>
-                <p className="text-sm text-black/40 lg:text-lg">{formatDate(post.date)}</p>
+                <div className="flex items-center gap-3 lg:gap-4">
+                  <p className="text-sm text-black/40 lg:text-lg">{formatDate(post.date)}</p>
+                  <span className="text-black/20">·</span>
+                  <ReadingTime 
+                    content={post.content} 
+                    className="text-sm text-black/40 lg:text-lg"
+                  />
+                </div>
               </Link>
             ))}
           </div>

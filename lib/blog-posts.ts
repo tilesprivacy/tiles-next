@@ -16,15 +16,17 @@ export const blogPosts: BlogPost[] = [
 
 <p>We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
 
+<p>Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile<a href="#ref-1">¹</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
+
 <h2>Philosophy</h2>
 
 <p>Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.</p>
 
-<p>The project is defined by four interdependent design choices<a href="#ref-1">¹</a>:</p>
+<p>The project is defined by four interdependent design choices<a href="#ref-2">²</a>:</p>
 
 <ol>
   <li>
-    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the device keychain and cannot access the registry by identity alone<a href="#ref-2">²</a>. Keyless operations are only enabled after an identity is verified and linked to the device key, allowing third-party agent access under user-defined policies<a href="#ref-3">³</a>.
+    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the device keychain and cannot access the registry by identity alone<a href="#ref-3">³</a>. Keyless operations are only enabled after an identity is verified and linked to the device key, allowing third-party agent access under user-defined policies<a href="#ref-4">⁴</a>.
   </li>
   <li>
     <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring consistency and reliability across updates and platforms.
@@ -38,8 +40,6 @@ export const blogPosts: BlogPost[] = [
 </ol>
 
 <h2>Implementation</h2>
-
-<p>Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile<a href="#ref-4">⁴</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 
 <img src="/tilescli.png" alt="Tiles CLI" style="width: 100%; height: auto; margin: 2rem 0;" />
 
@@ -78,16 +78,16 @@ export const blogPosts: BlogPost[] = [
 
 <ol>
   <li id="ref-1">
-    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer">Decentralizability, Gordon Brander</a>
+    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer">Ollama Modelfile</a>
   </li>
   <li id="ref-2">
-    <a href="https://keybase.io/blog/keybase-new-key-model" target="_blank" rel="noopener noreferrer">Keybase's New Key Model</a>
+    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer">Decentralizability, Gordon Brander</a>
   </li>
   <li id="ref-3">
-    <a href="https://www.sigstore.dev/how-it-works" target="_blank" rel="noopener noreferrer">Sigstore: How It Works</a>
+    <a href="https://keybase.io/blog/keybase-new-key-model" target="_blank" rel="noopener noreferrer">Keybase's New Key Model</a>
   </li>
   <li id="ref-4">
-    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer">Ollama Modelfile</a>
+    <a href="https://www.sigstore.dev/how-it-works" target="_blank" rel="noopener noreferrer">Sigstore: How It Works</a>
   </li>
 </ol>`,
   },

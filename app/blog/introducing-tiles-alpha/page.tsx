@@ -5,6 +5,8 @@ import { SiteHeader } from "@/components/site-header"
 import type { Metadata } from "next"
 import NewsletterForm from "@/components/newsletter-form"
 import { BlogReference } from "@/components/blog-reference"
+import { ReadingTime } from "@/components/reading-time"
+import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
   title: "Introducing Tiles Alpha",
@@ -32,6 +34,8 @@ export const metadata: Metadata = {
 }
 
 export default function HowTilesWorksPage() {
+  const post = blogPosts.find(p => p.slug === "introducing-tiles-alpha")
+  
   return (
     <div className="relative flex min-h-screen flex-col bg-white">
       <SiteHeader />
@@ -81,7 +85,18 @@ export default function HowTilesWorksPage() {
             <p className="text-base text-black/50 lg:text-xl mb-3 lg:mb-4">
               Building the future of software personalization with decentralized memory networks.
             </p>
-            <p className="text-sm text-black/40 lg:text-lg">January 2, 2026</p>
+            <div className="flex items-center gap-3 lg:gap-4">
+              <p className="text-sm text-black/40 lg:text-lg">January 2, 2026</p>
+              {post && (
+                <>
+                  <span className="text-black/20">·</span>
+                  <ReadingTime 
+                    content={post.content} 
+                    className="text-sm text-black/40 lg:text-lg"
+                  />
+                </>
+              )}
+            </div>
           </div>
 
           {/* Cover Image */}
@@ -107,6 +122,23 @@ export default function HowTilesWorksPage() {
                 coin, and Tiles makes that coin yours: your user-agent.
               </p>
 
+              <p className="mb-6 lg:mb-8">
+                Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile
+                <BlogReference id={1}>
+                  <a
+                    href="https://docs.ollama.com/modelfile"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                  >
+                    Ollama Modelfile
+                  </a>
+                </BlogReference>
+                {" "}based SDK that lets
+                developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
+                collaboration with the community, establishing it as the standard for model customization.
+              </p>
+
               <hr className="border-black/10 my-8 lg:my-12" />
 
               <section>
@@ -120,7 +152,7 @@ export default function HowTilesWorksPage() {
 
                 <p className="mb-6 lg:mb-8">
                   The project is defined by four interdependent design choices:
-                  <BlogReference id={1}>
+                  <BlogReference id={2}>
                     <a
                       href="https://newsletter.squishy.computer/p/decentralizability"
                       target="_blank"
@@ -137,7 +169,7 @@ export default function HowTilesWorksPage() {
                   <li>
                     <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
                     device keychain and cannot access the registry by identity alone.
-                    <BlogReference id={2}>
+                    <BlogReference id={3}>
                       <a
                         href="https://keybase.io/blog/keybase-new-key-model"
                         target="_blank"
@@ -149,7 +181,7 @@ export default function HowTilesWorksPage() {
                     </BlogReference>
                     Keyless operations are only enabled after an identity is verified and linked to the device key,
                     allowing third-party agent access under user-defined policies.
-                    <BlogReference id={3}>
+                    <BlogReference id={4}>
                       <a
                         href="https://www.sigstore.dev/how-it-works"
                         target="_blank"
@@ -184,22 +216,6 @@ export default function HowTilesWorksPage() {
                   Implementation
                 </h2>
 
-                <p className="mb-6 lg:mb-8">
-                  Our first alpha is a CLI assistant app for Apple Silicon devices, complemented by a Modelfile
-                  <BlogReference id={4}>
-                    <a
-                      href="https://docs.ollama.com/modelfile"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
-                    >
-                      Ollama Modelfile
-                    </a>
-                  </BlogReference>
-                  {" "}based SDK that lets
-                  developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
-                  collaboration with the community, establishing it as the standard for model customization.
-                </p>
 
                 <div className="my-8 lg:my-12">
                   <Image
