@@ -78,10 +78,10 @@ export const blogPosts: BlogPost[] = [
 
 <ol>
   <li id="ref-1">
-    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer">Ollama Modelfile</a>
+    <a href="https://docs.ollama.com/modelfile" target="_blank" rel="noopener noreferrer">Ollama Modelfile</a> is the blueprint to create and share customized models using Ollama.
   </li>
   <li id="ref-2">
-    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer">Decentralizability, Gordon Brander</a>
+    <a href="https://newsletter.squishy.computer/p/decentralizability" target="_blank" rel="noopener noreferrer">Decentralizability</a> (Gordon Brander): Immutable data, universal IDs, user-controlled keys… and just using HTTP. I think this is probably minimum viable decentralizability.
   </li>
   <li id="ref-3">
     <a href="https://keybase.io/blog/keybase-new-key-model" target="_blank" rel="noopener noreferrer">Keybase's New Key Model</a>

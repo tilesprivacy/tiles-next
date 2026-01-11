@@ -42,39 +42,6 @@ export default function HowTilesWorksPage() {
 
       {/* Main Content */}
       <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
-        {/* Top Card - Logo and Header Text */}
-        <div className="w-full max-w-2xl px-4 pt-4 pb-3 lg:px-12 lg:pt-6 lg:pb-4">
-          <div className="text-center">
-            {/* Header Text */}
-            <div className="space-y-1.5 text-xs text-black/60 lg:space-y-2 lg:text-sm">
-              <p>
-                You're reading the{" "}
-                <a
-                  href="https://tiles.run"
-                  className="text-black hover:text-black/80 underline"
-                >
-                  Tiles
-                </a>{" "}
-                blog.
-              </p>
-              <p>
-                There are{" "}
-                <Link href="/blog" className="text-black hover:text-black/80 underline">
-                  more posts
-                </Link>
-                .
-              </p>
-              <p className="mt-3 lg:mt-4">
-                When you're done, you can{" "}
-                <Link href="/download" className="text-black hover:text-black/80 underline">
-                  install Tiles
-                </Link>
-                .
-              </p>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Card - Blog Post Content */}
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
@@ -129,17 +96,18 @@ export default function HowTilesWorksPage() {
                     href="https://docs.ollama.com/modelfile"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                    className="text-black/45 hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
                   >
                     Ollama Modelfile
                   </a>
+                  <span className="text-black">{" "}is the blueprint to create and share customized models using Ollama.</span>
                 </BlogReference>
                 {" "}based SDK that lets
                 developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
                 collaboration with the community, establishing it as the standard for model customization.
               </p>
 
-              <hr className="border-black/10 my-8 lg:my-12" />
+              <hr className="border-black/10 my-10 lg:my-12" />
 
               <section>
                 <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
@@ -153,14 +121,16 @@ export default function HowTilesWorksPage() {
                 <p className="mb-6 lg:mb-8">
                   The project is defined by four interdependent design choices:
                   <BlogReference id={2}>
+                    <span className="text-black">From </span>
                     <a
                       href="https://newsletter.squishy.computer/p/decentralizability"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                      className="text-black/45 hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
                     >
-                      Decentralizability, Gordon Brander
+                      Decentralizability
                     </a>
+                    <span className="text-black"> (Gordon Brander): Immutable data, universal IDs, user-controlled keys… and just using HTTP. I think this is probably minimum viable decentralizability.</span>
                   </BlogReference>
                  
                 </p>
@@ -174,23 +144,13 @@ export default function HowTilesWorksPage() {
                         href="https://keybase.io/blog/keybase-new-key-model"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                        className="text-black/45 hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
                       >
                         Keybase's New Key Model
                       </a>
                     </BlogReference>
                     Keyless operations are only enabled after an identity is verified and linked to the device key,
                     allowing third-party agent access under user-defined policies.
-                    <BlogReference id={4}>
-                      <a
-                        href="https://www.sigstore.dev/how-it-works"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-current hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
-                      >
-                        Sigstore: How It Works
-                      </a>
-                    </BlogReference>
                   </li>
                   <li>
                     <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring
@@ -209,7 +169,7 @@ export default function HowTilesWorksPage() {
                 </ol>
               </section>
 
-              <hr className="border-black/10 my-8 lg:my-12" />
+              <hr className="border-black/10 my-10 lg:my-12" />
 
               <section>
                 <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
@@ -280,7 +240,7 @@ export default function HowTilesWorksPage() {
                 </p>
               </section>
 
-              <hr className="border-black/10 my-8 lg:my-12" />
+              <hr className="border-black/10 my-10 lg:my-12" />
 
               <section>
                 <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
@@ -444,8 +404,41 @@ export default function HowTilesWorksPage() {
             </div>
           </article>
 
-          {/* Newsletter Subscription Form */}
+          {/* Blog Footer Text */}
           <div className="mt-16 lg:mt-20 pt-12 lg:pt-16 border-t border-black/10">
+            <div className="space-y-2 text-xs text-black/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
+              <p>
+                You're reading the{" "}
+                <a
+                  href="https://tiles.run"
+                  className="text-black hover:text-black/80 underline"
+                >
+                  Tiles
+                </a>{" "}
+                blog.
+              </p>
+              <p>
+                Tiles is a private AI assistant with offline memory.
+              </p>
+              <p>
+                There are{" "}
+                <Link href="/blog" className="text-black hover:text-black/80 underline">
+                  more posts
+                </Link>
+                .
+              </p>
+              <p>
+                When you're done, you can{" "}
+                <Link href="/download" className="text-black hover:text-black/80 underline">
+                  install Tiles
+                </Link>
+                .
+              </p>
+            </div>
+          </div>
+
+          {/* Newsletter Subscription Form */}
+          <div className="pt-12 lg:pt-16 border-t border-black/10">
             <div className="space-y-4 lg:space-y-5">
               <div>
                 <h3 className="text-lg font-semibold text-black mb-2 lg:text-xl lg:mb-3">Stay updated</h3>
