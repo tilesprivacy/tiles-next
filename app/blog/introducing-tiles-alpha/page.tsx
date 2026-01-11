@@ -37,21 +37,10 @@ export default function HowTilesWorksPage() {
       <SiteHeader />
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-12 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
         {/* Top Card - Logo and Header Text */}
         <div className="w-full max-w-2xl px-4 pt-4 pb-3 lg:px-12 lg:pt-6 lg:pb-4">
           <div className="text-center">
-            {/* Logo */}
-            <div className="flex justify-center mb-3 lg:mb-4">
-              <Image
-                src="/lighticon.png"
-                alt="Tiles Logo"
-                width={64}
-                height={64}
-                className="h-8 w-8 lg:h-12 lg:w-12"
-              />
-            </div>
-
             {/* Header Text */}
             <div className="space-y-1.5 text-xs text-black/60 lg:space-y-2 lg:text-sm">
               <p>
