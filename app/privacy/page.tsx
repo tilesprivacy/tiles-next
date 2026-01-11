@@ -1,5 +1,30 @@
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Tiles Privacy Policy",
+  description: "Read how Tiles protects your data with on-device processing and privacy-first design.",
+  openGraph: {
+    title: "Tiles Privacy Policy",
+    description: "Read how Tiles protects your data with on-device processing and privacy-first design.",
+    type: "website",
+    images: [
+      {
+        url: "/api/og",
+        width: 1200,
+        height: 630,
+        alt: "Tiles Privacy Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tiles Privacy Policy",
+    description: "Read how Tiles protects your data with on-device processing and privacy-first design.",
+    images: ["/api/og"],
+  },
+}
 
 export default function PrivacyPage() {
   return (
@@ -89,4 +114,3 @@ export default function PrivacyPage() {
     </div>
   )
 }
-
