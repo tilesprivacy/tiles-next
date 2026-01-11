@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import type { Metadata } from "next"
@@ -53,12 +52,7 @@ export default function BlogPage() {
       {/* Main Content */}
       <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-20 lg:px-6 lg:pt-20 lg:pb-16 gap-8 lg:gap-16">
         {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-2xl px-4 pt-10 pb-6 lg:px-12 lg:py-8">
-          {/* Logo */}
-          <div className="flex justify-center mb-6 lg:mb-8">
-            <Image src="/lighticon.png" alt="Tiles Logo" width={64} height={64} className="h-12 w-12 lg:h-20 lg:w-20" />
-          </div>
-
+        <div className="w-full max-w-2xl px-4 pt-16 pb-6 lg:px-12 lg:pt-16 lg:pb-8">
           {/* Blog Title */}
           <div className="text-center">
             <h1 className="text-3xl font-semibold text-black lg:text-6xl tracking-tight mb-4 lg:mb-5">The Tiles Blog</h1>
