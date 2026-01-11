@@ -161,22 +161,19 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
               target="_blank"
               rel="noopener noreferrer"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-2`}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-0.5`}
             >
               Roadmap
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
+                viewBox="0 0 12 12"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-4 w-4 opacity-60"
+                strokeWidth="1.5"
+                className="h-2.5 w-2.5 inline-block ml-0.5 align-baseline"
+                style={{ verticalAlign: 'baseline' }}
               >
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                <polyline points="15 3 21 3 21 9" />
-                <line x1="10" y1="14" x2="21" y2="3" />
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
             <Link
