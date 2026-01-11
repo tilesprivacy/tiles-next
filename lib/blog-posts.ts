@@ -18,7 +18,7 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Philosophy</h2>
 
-<p>Our goal with Tiles is to co-design both fine-tuned models and the underlying infrastructure and developer tooling to maximize efficiency in local and offline systems for inference and training.</p>
+<p>Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.</p>
 
 <p>The project is defined by four interdependent design choices<a href="#ref-1">¹</a>:</p>
 
@@ -62,7 +62,7 @@ export const blogPosts: BlogPost[] = [
     <strong>Identity:</strong> Ship a portable identity system using <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer">AT Protocol DIDs</a>, designed for device-anchored trust.
   </li>
   <li>
-    <strong>SDK and standards:</strong> Work with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer">MIR</a> (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
+    <strong>Modelfile SDK:</strong> Work with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer">MIR</a> (Machine Intelligence Resource) naming scheme and integrate <a href="https://dspy.ai/" target="_blank" rel="noopener noreferrer">DSPy</a> for prompt optimization in our Modelfile implementation.
   </li>
   <li>
     <strong>Registry:</strong> Continue supporting Hugging Face, while designing a decentralized registry for versioned, composable model layers using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer">xet-core</a> client tech.

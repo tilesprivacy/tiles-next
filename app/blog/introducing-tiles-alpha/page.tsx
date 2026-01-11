@@ -98,17 +98,13 @@ export default function HowTilesWorksPage() {
           {/* Blog Content */}
           <article className="blog-article-container relative">
             {/* Container for side references on desktop */}
-            <div className="blog-reference-container hidden lg:block absolute left-0 top-0 w-full h-full pointer-events-none">
-              <div className="relative w-full h-full pointer-events-auto" />
-            </div>
+            <div className="blog-reference-container hidden lg:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
-            <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed">
+            <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
               <p>
                 We're building open-source technology for local-first models, enabling personalized software experiences
                 without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same
-                coin, and Tiles makes that coin yours: your user-agent. Our first product is an on-device memory
-                management solution for privacy-conscious users, paired with an SDK that empowers developers to securely
-                access user memory and customize agent experiences.
+                coin, and Tiles makes that coin yours: your user-agent.
               </p>
 
               <hr className="border-black/10 my-8 lg:my-12" />
@@ -119,8 +115,7 @@ export default function HowTilesWorksPage() {
                 </h2>
 
                 <p className="mb-6 lg:mb-8">
-                  Our goal with Tiles is to co-design both fine-tuned models and the underlying infrastructure and
-                  developer tooling to maximize efficiency in local and offline systems for inference and training.
+                  Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.
                 </p>
 
                 <p className="mb-6 lg:mb-8">
@@ -332,7 +327,7 @@ export default function HowTilesWorksPage() {
                     , designed for device-anchored trust.
                   </li>
                   <li>
-                    <strong>SDK and standards:</strong> Work with the{" "}
+                    <strong>Modelfile SDK:</strong> Work with the{" "}
                     <a
                       href="https://darkshapes.org/"
                       target="_blank"
@@ -370,7 +365,26 @@ export default function HowTilesWorksPage() {
                         <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </a>{" "}
-                    (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
+                    (Machine Intelligence Resource) naming scheme and integrate{" "}
+                    <a
+                      href="https://dspy.ai/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    >
+                      DSPy
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-2.5 w-2.5"
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </a>{" "}
+                    for prompt optimization in our Modelfile implementation.
                   </li>
                   <li>
                     <strong>Registry:</strong> Continue supporting Hugging Face, while designing a
