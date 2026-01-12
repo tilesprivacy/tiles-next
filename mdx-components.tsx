@@ -1,5 +1,6 @@
 import { useMDXComponents as getDocsMDXComponents } from 'nextra-theme-docs'
 import type { ComponentProps } from 'react'
+import NextImage from 'next/image'
 
 const docsComponents = getDocsMDXComponents()
 
@@ -17,6 +18,35 @@ const ExternalLinkIcon = () => (
     <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 )
+
+// Custom image component that uses Next.js Image optimization
+function CustomImage(props: ComponentProps<'img'>) {
+  const { src, alt, style, ...rest } = props
+  
+  if (!src) return null
+  
+  // Extract width/height from style if provided, otherwise use defaults
+  const maxWidth = style?.maxWidth 
+    ? typeof style.maxWidth === 'string' 
+      ? parseInt(style.maxWidth) || 800 
+      : style.maxWidth 
+    : 800
+  
+  return (
+    <NextImage
+      src={src}
+      alt={alt || ''}
+      width={maxWidth}
+      height={Math.round(maxWidth * 0.75)}
+      style={{
+        width: '100%',
+        height: 'auto',
+        ...style,
+      }}
+      {...rest}
+    />
+  )
+}
 
 // Custom anchor component that adds external link indicator for non-tiles.run links
 function CustomAnchor(props: ComponentProps<'a'>) {
@@ -48,6 +78,7 @@ export const useMDXComponents = (
 ) => ({
   ...docsComponents,
   a: CustomAnchor,
+  img: CustomImage,
   ...components,
 })
 

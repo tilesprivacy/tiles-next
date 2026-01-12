@@ -8,7 +8,7 @@ import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 
 export const metadata = {
   title: {
-    template: '%s - Book',
+    template: 'Tiles Book: %s',
     default: 'Tiles Book: Privacy technology for everyone!',
   },
   description: 'Tiles documentation',
@@ -79,7 +79,7 @@ export default async function BookLayout({
   })
 
   // Define the correct order from _meta.json
-  const desiredOrder = ['index', 'cli-reference', 'modelfile', 'mir', 'blog', 'contact']
+  const desiredOrder = ['index', 'cli-reference', 'models-reference', 'modelfile', 'mir', 'blog', 'contact']
 
   // Sort the pageMap according to the desired order
   const finalPageMap = flattenedPageMap.sort((a, b) => {
@@ -110,6 +110,7 @@ export default async function BookLayout({
         <Layout 
           pageMap={finalPageMap}
           docsRepositoryBase="https://github.com/tilesprivacy/tiles-next/tree/main/book"
+          navigation={false}
         >
           {children}
         </Layout>

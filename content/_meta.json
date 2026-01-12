@@ -5,6 +5,7 @@
     "display": "hidden"
   },
   "cli-reference": "CLI Reference",
+  "models-reference": "Models Reference",
   "modelfile": "Modelfile Reference",
   "mir": "MIR Extension",
   "contact": {

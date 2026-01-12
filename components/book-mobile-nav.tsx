@@ -22,12 +22,18 @@ const bookPages: BookPage[] = [
   },
   {
     number: '03',
+    title: 'Models Reference',
+    description: 'Reference documentation for memory models bundled with Tiles for on-device context and memory management.',
+    href: '/book/models-reference',
+  },
+  {
+    number: '04',
     title: 'Modelfile Reference',
     description: 'Complete reference for the Modelfile parser, grammar, instructions, parameters, and API usage.',
     href: '/book/modelfile',
   },
   {
-    number: '04',
+    number: '05',
     title: 'MIR Extension',
     description: 'MIR (Machine Intelligence Resource) naming schema extension for model classification and reproducibility.',
     href: '/book/mir',

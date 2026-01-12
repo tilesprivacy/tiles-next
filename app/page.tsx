@@ -18,11 +18,12 @@ export default function Page() {
             className="absolute inset-x-0 top-0 z-0 overflow-hidden bg-white lg:hidden"
             style={{ height: "50dvh" }}
           >
-            <img
-              src="/graph.png?v=2"
+            <Image
+              src="/graph.png"
               alt="Network graph visualization showing data relationships"
-              className="h-full w-full object-cover"
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              fill
+              className="object-cover"
+              priority
             />
           </div>
 
@@ -104,13 +105,11 @@ export default function Page() {
         <div className="hidden flex-[0.55] items-center justify-center bg-white p-8 lg:flex lg:py-20 lg:pb-40">
           <div className="relative min-h-[400px] w-full lg:min-h-[600px]">
             <Image
-              src="/graph.png?v=2"
+              src="/graph.png"
               alt="Network graph visualization showing data relationships"
               fill
               className="object-contain"
               priority
-              loading="eager"
-              unoptimized
             />
           </div>
         </div>

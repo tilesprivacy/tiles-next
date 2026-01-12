@@ -183,24 +183,34 @@
 
 /* Ensure page navigation is constrained to content width */
 [data-book-section] nav[data-book-navigation] {
-  max-width: 768px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  max-width: 100%;
   width: 100%;
   box-sizing: border-box;
 }
 
+/* Mobile: ensure navigation stays within boundaries */
+@media (max-width: 1023px) {
+  [data-book-section] nav[data-book-navigation] {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 /* Navigation links should size to content, not stretch */
 [data-book-section] nav[data-book-navigation] a {
-  flex-shrink: 0;
+  flex-shrink: 1;
   min-width: 0;
+  max-width: calc(50% - 0.5rem);
 }
 
 /* Desktop: increase padding for navigation */
 @media (min-width: 1024px) {
   [data-book-section] nav[data-book-navigation] {
+    max-width: 768px;
+    margin-left: auto;
+    margin-right: auto;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
@@ -210,9 +220,23 @@
 /* Target Nextra pagination: any div with nextra-border class that is not our custom navigation */
 [data-book-section] article > div.nextra-border:not([data-book-navigation]),
 [data-book-section] article > div[class*="nextra-border"]:not([data-book-navigation]),
-[data-book-section] div.mb-8.flex.items-center.border-t.pt-8.nextra-border:not([data-book-navigation]) {
+[data-book-section] div.mb-8.flex.items-center.border-t.pt-8.nextra-border:not([data-book-navigation]),
+[data-book-section] nav.flex.items-center.border-t:not([data-book-navigation]),
+[data-book-section] .nextra-navigation,
+[data-book-section] [class*="nextra-navigation"],
+[data-book-section] div.nextra-border.print\:hidden:not([data-book-navigation]),
+[data-book-section] div[class*="nextra-border"][class*="print:hidden"]:not([data-book-navigation]) {
   display: none !important;
   visibility: hidden !important;
+}
+
+/* Fix alignment of navigation chevrons - center with text content */
+[data-book-section] nav[data-book-navigation] a {
+  align-items: center !important;
+}
+
+[data-book-section] nav[data-book-navigation] a svg {
+  align-self: center !important;
 }
 
 /* Hide sidebar on mobile for book section */

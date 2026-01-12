@@ -14,6 +14,7 @@ type NavigationPage = {
 const BOOK_PAGES: NavigationPage[] = [
   { route: '/book', title: 'Tiles Book' },
   { route: '/book/cli-reference', title: 'CLI Reference' },
+  { route: '/book/models-reference', title: 'Models Reference' },
   { route: '/book/modelfile', title: 'Modelfile Reference' },
   { route: '/book/mir', title: 'MIR Extension' },
 ]
@@ -55,11 +56,11 @@ export function BookPageNavigation() {
   }
 
   return (
-    <nav data-book-navigation className="flex mt-12 justify-between gap-4 border-t border-foreground/10 pt-8 lg:mt-16 lg:pt-12">
+    <nav data-book-navigation className="flex mt-12 justify-between gap-4 border-t border-foreground/10 pt-8 mx-4 lg:mx-0 lg:mt-16 lg:pt-12">
       {prevPage ? (
         <Link
           href={prevPage.route}
-          className="group flex items-start gap-2 rounded-lg bg-background p-3 transition-all hover:bg-foreground/5 lg:gap-3 lg:p-6"
+          className="group flex items-center gap-2 transition-all lg:gap-3"
         >
           <ChevronLeft className="h-5 w-5 shrink-0 text-foreground/60 transition-colors group-hover:text-foreground lg:h-6 lg:w-6" />
           <div className="flex flex-col gap-1">
@@ -76,7 +77,7 @@ export function BookPageNavigation() {
       {nextPage ? (
         <Link
           href={nextPage.route}
-          className="group flex items-start justify-end gap-2 rounded-lg bg-background p-3 text-right transition-all hover:bg-foreground/5 lg:gap-3 lg:p-6"
+          className="group flex items-center justify-end gap-2 text-right transition-all lg:gap-3"
         >
           <div className="flex flex-col gap-1">
             <span className="text-xs font-medium text-foreground/60 lg:text-sm">Next</span>
