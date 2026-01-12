@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     return content
       .replace(/src="\//g, `src="${baseUrl}/`)
       .replace(/href="\//g, `href="${baseUrl}/`)
-      .replace(/href="#/g, `href="${baseUrl}/blog/introducing-tiles-alpha#`)
+      .replace(/href="#/g, `href="${baseUrl}/blog/introducing-tiles-public-alpha#`)
   }
   
   const rss = `<?xml version="1.0" encoding="UTF-8"?>

@@ -9,10 +9,10 @@ import { ReadingTime } from "@/components/reading-time"
 import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
-  title: "Introducing Tiles Alpha",
+  title: "Introducing Tiles Public Alpha",
   description: "Building the future of software personalization with decentralized memory networks.",
   openGraph: {
-    title: "Introducing Tiles Alpha",
+    title: "Introducing Tiles Public Alpha",
     description: "Building the future of software personalization with decentralized memory networks.",
     type: "article",
     publishedTime: "2026-01-02",
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Introducing Tiles Alpha",
+    title: "Introducing Tiles Public Alpha",
     description: "Building the future of software personalization with decentralized memory networks.",
     images: ["/kingston.webp"],
   },
 }
 
 export default function HowTilesWorksPage() {
-  const post = blogPosts.find(p => p.slug === "introducing-tiles-alpha")
+  const post = blogPosts.find(p => p.slug === "introducing-tiles-public-alpha")
   
   return (
     <div className="relative flex min-h-screen flex-col bg-white">
@@ -47,7 +47,7 @@ export default function HowTilesWorksPage() {
           {/* Blog Title */}
           <div className="mb-8 lg:mb-12">
             <h1 className="text-3xl font-semibold text-black mb-4 lg:text-6xl lg:mb-5 tracking-tight">
-              Introducing Tiles Alpha
+              Introducing Tiles Public Alpha
             </h1>
             <p className="text-base text-black/50 lg:text-xl mb-3 lg:mb-4">
               Building the future of software personalization with decentralized memory networks.
@@ -70,7 +70,7 @@ export default function HowTilesWorksPage() {
           <div className="mb-8 lg:mb-16">
             <Image
               src="/kingston.webp"
-              alt="Cover image for Introducing Tiles Alpha"
+              alt="Cover image for Introducing Tiles Public Alpha"
               width={1200}
               height={600}
               className="w-full h-auto rounded-lg"

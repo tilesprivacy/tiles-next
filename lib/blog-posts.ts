@@ -8,11 +8,11 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "introducing-tiles-alpha",
-    title: "Introducing Tiles Alpha",
+    slug: "introducing-tiles-public-alpha",
+    title: "Introducing Tiles Public Alpha",
     description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
     date: new Date("2026-01-02"),
-    content: `<img src="/kingston.webp" alt="Cover image for Introducing Tiles Alpha" style="width: 100%; height: auto; margin-bottom: 2rem;" />
+    content: `<img src="/kingston.webp" alt="Cover image for Introducing Tiles Public Alpha" style="width: 100%; height: auto; margin-bottom: 2rem;" />
 
 <p>We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
 
