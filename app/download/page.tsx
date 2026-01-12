@@ -139,7 +139,7 @@ export default function DownloadPage() {
                 </a>
               </div>
 
-              <div className="pt-2 text-[11px] text-black/50 lg:pt-3 lg:text-sm">
+              <div className="pt-6 text-[11px] text-black/50 lg:pt-8 lg:text-sm">
                 We also offer an Insiders build for early adopters. It includes the most recent code changes and experimental features like offline memory models, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently. First Insiders build will start shipping Feb, 2026.{" "}
                 <a
                   href="https://github.com/tilesprivacy/tiles/issues/51"
