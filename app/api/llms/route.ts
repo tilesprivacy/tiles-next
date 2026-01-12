@@ -102,8 +102,6 @@ export async function GET(request: Request) {
   sections.push('curl -fsSL https://tiles.run/install.sh | sh')
   sections.push('tiles run')
   sections.push('')
-  sections.push('A portable installer is under development for air-gapped deployments, prepackaged with offline memory models.')
-  sections.push('')
   sections.push('='.repeat(80))
   sections.push('')
 

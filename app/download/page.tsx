@@ -142,9 +142,9 @@ export default function DownloadPage() {
               </div>
 
               <div className="pt-4 text-xs text-black/50 lg:text-sm">
-                A portable installer is under development for air-gapped deployments, prepackaged with offline memory models.{" "}
+                We also offer an Insiders build for early adopters. It includes the most recent code changes and experimental features, and may occasionally be unstable. The Insiders build installs alongside the Stable build, allowing you to use either independently. First Insiders build will start shipping Feb, 2026.{" "}
                 <a
-                  href="https://github.com/tilesprivacy/tiles/issues/24"
+                  href="https://github.com/tilesprivacy/tiles/issues/51"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
