@@ -4,8 +4,8 @@
     "type": "page",
     "display": "hidden"
   },
-  "cli-reference": "CLI Reference",
-  "models-reference": "Models Reference",
+  "cli": "CLI Reference",
+  "models": "Models Reference",
   "modelfile": "Modelfile Reference",
   "mir": "MIR Extension",
   "contact": {

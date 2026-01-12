@@ -2,8 +2,11 @@
   "index": {
     "title": "Tiles Book"
   },
-  "cli-reference": {
+  "cli": {
     "title": "CLI Reference"
+  },
+  "models": {
+    "title": "Models Reference"
   },
   "modelfile": {
     "title": "Modelfile Reference"

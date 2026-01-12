@@ -5,6 +5,8 @@ description: "Reference documentation for memory models bundled with Tiles"
 
 # Models Reference
 
+## Overview
+
 Tiles bundles a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on `qwen3-4B-thinking-2507`, and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
 
 These models use a human-readable external memory stored as Markdown, along with learned policies trained via reinforcement learning on synthetically generated data. These policies decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.

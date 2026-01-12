@@ -18,13 +18,13 @@ const bookPages: BookPage[] = [
     number: '02',
     title: 'CLI Reference',
     description: 'Command-line interface reference for Tiles CLI commands and usage examples.',
-    href: '/book/cli-reference',
+    href: '/book/cli',
   },
   {
     number: '03',
     title: 'Models Reference',
     description: 'Reference documentation for memory models bundled with Tiles for on-device context and memory management.',
-    href: '/book/models-reference',
+    href: '/book/models',
   },
   {
     number: '04',
