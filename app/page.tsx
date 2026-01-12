@@ -3,8 +3,19 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import { fetchReleases } from "@/lib/releases"
 
-export default function Page() {
+export default async function Page() {
+  let latestVersion = "0.0.0"
+
+  try {
+    const releases = await fetchReleases()
+    if (releases.length > 0) {
+      latestVersion = releases[0].version
+    }
+  } catch (error) {
+    // Fallback to default version if fetch fails
+  }
   return (
     <div className="flex min-h-[100dvh] flex-col bg-white">
       <SiteHeader />
@@ -15,9 +26,9 @@ export default function Page() {
         <div className="w-full max-w-6xl">
           {/* Top Section: Logo, Title, CTA */}
           <div className="flex flex-col items-center gap-8 mb-12 lg:mb-16">
-            {/* Logo with Alpha badge */}
+            {/* Logo with Version badge */}
             <div className="relative">
-              <div className="relative flex items-center justify-center rounded-3xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 h-24 w-24 lg:h-32 lg:w-32">
+              <div className="relative flex items-center justify-center rounded-3xl bg-[#F7F7F7] shadow-sm ring-1 ring-black/5 h-24 w-24 lg:h-32 lg:w-32">
                 <Image
                   src="/cream.png"
                   alt="Tiles Logo"
@@ -26,8 +37,8 @@ export default function Page() {
                   className="h-14 w-14 lg:h-20 lg:w-20"
                 />
               </div>
-              <span className="absolute -right-2 -top-2 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-blue-600 shadow-sm ring-1 ring-blue-200/50 lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs">
-                Alpha
+              <span className="absolute -right-2 -top-2 rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-black shadow-sm ring-1 ring-black/10 lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs">
+                {latestVersion}
               </span>
             </div>
 
@@ -80,38 +91,38 @@ export default function Page() {
           <div className="w-full max-w-5xl mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
               {/* Feature 1 */}
-              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:text-center lg:gap-4">
+              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
                 <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
-                <div className="flex-1 lg:flex-none">
+                <div className="flex-1 lg:flex-none lg:text-center">
                   <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">On-Device Models</h3>
-                  <p className="text-sm lg:text-base text-black/60 leading-relaxed">
+                  <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
                     Run AI locally on your Mac. Your data stays private and secure.
                   </p>
                 </div>
               </div>
 
               {/* Feature 2 */}
-              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:text-center lg:gap-4">
+              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
                 <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
-                <div className="flex-1 lg:flex-none">
+                <div className="flex-1 lg:flex-none lg:text-center">
                   <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">Code Interpreter</h3>
-                  <p className="text-sm lg:text-base text-black/60 leading-relaxed">
+                  <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
                     Execute Python code and analyze data in real-time conversations.
                   </p>
                 </div>
               </div>
 
               {/* Feature 3 */}
-              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:text-center lg:gap-4">
+              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
                 <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
-                <div className="flex-1 lg:flex-none">
+                <div className="flex-1 lg:flex-none lg:text-center">
                   <div className="flex items-center gap-2 flex-wrap mb-1.5 lg:mb-3 lg:justify-center">
                     <h3 className="text-sm lg:text-base font-semibold text-black">AI Memory</h3>
                     <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2 py-0.5 text-[9px] lg:text-[10px] font-semibold uppercase tracking-wide text-blue-600 ring-1 ring-blue-200/50">
                       Insiders
                     </span>
                   </div>
-                  <p className="text-sm lg:text-base text-black/60 leading-relaxed">
+                  <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
                     Personalized assistance that learns and remembers your preferences.
                   </p>
                 </div>
