@@ -417,7 +417,7 @@ export default function HowTilesWorksPage() {
                 blog.
               </p>
               <p>
-                Tiles is a private AI assistant with offline memory.
+              Tiles is a private AI assistant for everyday use.
               </p>
               <p>
                 There are{" "}

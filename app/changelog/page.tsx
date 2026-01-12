@@ -132,7 +132,7 @@ export default async function ChangelogPage() {
                                 <ul className="ml-4 mt-1 space-y-1">
                                   {change.subItems.map((subItem, j) => (
                                     <li key={j} className="flex items-start gap-2">
-                                      <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-gray-400" />
+                                      <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gray-300" />
                                       <span className="text-gray-500">{subItem}</span>
                                     </li>
                                   ))}
@@ -214,7 +214,7 @@ export default async function ChangelogPage() {
                                   <ul className="ml-4 mt-1 space-y-1">
                                     {change.subItems.map((subItem, j) => (
                                       <li key={j} className="flex items-start gap-2">
-                                        <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-gray-400" />
+                                        <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gray-300" />
                                         <span className="text-gray-500">{subItem}</span>
                                       </li>
                                     ))}
