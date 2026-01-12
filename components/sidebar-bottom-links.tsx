@@ -59,10 +59,11 @@ export function SidebarBottomLinks() {
     let timeoutId: NodeJS.Timeout | null = null
 
     const injectLinks = () => {
-      // Find sidebar elements that don't have links yet
-      const allSidebars = document.querySelectorAll(
-        'aside, [class*="sidebar"], [class*="Sidebar"], [class*="nextra-sidebar"]'
-      )
+      // Find sidebar elements that don't have links yet - use specific selector
+      const bookSection = document.querySelector('[data-book-section]')
+      if (!bookSection) return
+      
+      const allSidebars = bookSection.querySelectorAll('aside')
 
       // Filter out sidebars that already have links
       const sidebars = Array.from(allSidebars).filter((sidebar) => {
@@ -132,39 +133,37 @@ export function SidebarBottomLinks() {
     const timeout2 = setTimeout(injectLinks, 500)
     const timeout3 = setTimeout(injectLinks, 1000)
 
-    // Watch only for new elements being added to body
-    observer = new MutationObserver((mutations) => {
-      // Only react to actual new nodes being added
-      const hasNewNodes = mutations.some((mutation) => {
-        if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
-          // Check if any added node is or contains a sidebar
-          for (let i = 0; i < mutation.addedNodes.length; i++) {
-            const node = mutation.addedNodes[i]
-            if (node.nodeType === Node.ELEMENT_NODE) {
-              const el = node as Element
-              if (el.matches?.('aside, [class*="sidebar"], [class*="Sidebar"], [class*="nextra-sidebar"]') ||
-                  el.querySelector?.('aside, [class*="sidebar"], [class*="Sidebar"], [class*="nextra-sidebar"]')) {
-                return true
+    // Watch only for new aside elements being added
+    const bookSection = document.querySelector('[data-book-section]')
+    if (bookSection) {
+      observer = new MutationObserver((mutations) => {
+        const hasNewAside = mutations.some((mutation) => {
+          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+            for (let i = 0; i < mutation.addedNodes.length; i++) {
+              const node = mutation.addedNodes[i]
+              if (node.nodeType === Node.ELEMENT_NODE) {
+                const el = node as Element
+                if (el.tagName === 'ASIDE' || el.querySelector?.('aside')) {
+                  return true
+                }
               }
             }
           }
+          return false
+        })
+        
+        if (hasNewAside) {
+          if (timeoutId) clearTimeout(timeoutId)
+          timeoutId = setTimeout(injectLinks, 300)
         }
-        return false
       })
-      
-      if (hasNewNodes) {
-        // Debounce the injection
-        if (timeoutId) clearTimeout(timeoutId)
-        timeoutId = setTimeout(injectLinks, 300)
-      }
-    })
 
-    // Only observe direct children of body, not entire subtree
-    observer.observe(document.body, {
-      childList: true,
-      subtree: false,
-      attributes: false,
-    })
+      observer.observe(bookSection, {
+        childList: true,
+        subtree: true,
+        attributes: false,
+      })
+    }
 
     // Cleanup
     return () => {

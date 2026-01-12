@@ -80,10 +80,7 @@
 }
 
 /* Nextra dark theme overrides - ensure book pages use our dark colors */
-.dark [data-book-section],
-.dark [data-book-section] *,
-html.dark [data-book-section],
-html.dark [data-book-section] * {
+.dark [data-book-section] {
   --tw-bg-opacity: 1;
 }
 
@@ -93,10 +90,7 @@ html.dark [data-book-section] * {
 
 .dark [data-book-section] article,
 .dark [data-book-section] main,
-.dark [data-book-section] [class*="nextra-content"],
-.dark [data-book-section] [class*="nextra-body"],
-.dark [data-book-section] aside,
-.dark [data-book-section] [class*="nextra-sidebar"] {
+.dark [data-book-section] aside {
   background-color: #121212 !important;
 }
 
@@ -116,21 +110,16 @@ html.dark [data-book-section] * {
   color: #E6E6E6 !important;
 }
 
-.dark [data-book-section] aside a,
-.dark [data-book-section] [class*="nextra-sidebar"] a {
+.dark [data-book-section] aside a {
   color: #B3B3B3 !important;
 }
 
 .dark [data-book-section] aside a:hover,
-.dark [data-book-section] [class*="nextra-sidebar"] a:hover,
-.dark [data-book-section] aside a[aria-current="page"],
-.dark [data-book-section] [class*="nextra-sidebar"] a[aria-current="page"] {
+.dark [data-book-section] aside a[aria-current="page"] {
   color: #E6E6E6 !important;
 }
 
 /* Muted text in dark mode */
-.dark [data-book-section] [class*="text-gray"],
-.dark [data-book-section] [class*="text-neutral"],
 .dark [data-book-section] time,
 .dark [data-book-section] small {
   color: #8A8A8A !important;
@@ -353,68 +342,19 @@ html.dark [data-book-section] * {
 
 /* Hide sidebar on mobile for book section */
 @media (max-width: 1023px) {
-  [data-book-section] aside,
-  [data-book-section] [class*="nextra-sidebar"],
-  [data-book-section] [class*="nextra-Sidebar"],
-  [data-book-section] nav[class*="sidebar"],
-  [data-book-section] nav[class*="nextra"] {
+  [data-book-section] aside {
     display: none !important;
     visibility: hidden !important;
   }
   
   /* Hide sidebar overlay/backdrop on mobile */
-  [data-book-section] .nextra-sidebar-overlay,
-  [data-book-section] [class*="overlay"],
-  [data-book-section] [class*="backdrop"],
-  [data-book-section] [class*="mask"] {
+  [data-book-section] .nextra-sidebar-overlay {
     display: none !important;
-  }
-  
-  /* Hide menu buttons that open sidebar on mobile */
-  /* But exclude copy page button dropdown and our custom header hamburger menu from being hidden */
-  [data-book-section] aside button[aria-label*="menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] aside button[aria-label*="Menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] aside button[aria-expanded]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]):not([aria-controls*="headlessui"]),
-  [data-book-section] aside [class*="menu-button"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] aside button[class*="menu"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] nav button[aria-label*="menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] nav button[aria-label*="Menu" i]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] nav button[aria-expanded]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]):not([aria-controls*="headlessui"]),
-  [data-book-section] nav [class*="menu-button"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] nav button[class*="menu"]:not([id*="headlessui"]):not([aria-labelledby*="headlessui"]),
-  [data-book-section] [data-book-hamburger] {
-    display: none !important;
-  }
-  
-  /* Ensure copy page button dropdown is visible and functional on mobile */
-  /* Target the Headless UI listbox components used by Nextra's copy page button */
-  [data-book-section] button[id*="headlessui-listbox-button"],
-  [data-book-section] button[aria-labelledby*="headlessui-listbox-button"],
-  [data-book-section] [id*="headlessui-listbox-options"],
-  [data-book-section] ul[role="listbox"][id*="headlessui-listbox-options"],
-  [data-book-section] #headlessui-portal-root ul[role="listbox"][id*="headlessui-listbox-options"] {
-    display: block !important;
-    visibility: visible !important;
-  }
-  
-  /* Ensure dropdown menu portal is visible and properly positioned on mobile */
-  [data-book-section] #headlessui-portal-root ul[role="listbox"][id*="headlessui-listbox-options"] {
-    z-index: 50 !important;
-    position: absolute !important;
-  }
-  
-  /* Ensure the copy page button itself is visible on mobile */
-  [data-book-section] button[id*="headlessui-listbox-button"],
-  [data-book-section] button[aria-labelledby*="headlessui-listbox-button"] {
-    display: inline-flex !important;
-    visibility: visible !important;
   }
   
   /* Ensure main content takes full width on mobile */
   [data-book-section] main,
-  [data-book-section] article,
-  [data-book-section] [class*="nextra-content"],
-  [data-book-section] [class*="nextra-body"] {
+  [data-book-section] article {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
@@ -426,9 +366,7 @@ html.dark [data-book-section] * {
 
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
 @media (min-width: 1024px) {
-  [data-book-section] aside,
-  [data-book-section] [class*="nextra-sidebar"],
-  [data-book-section] [class*="nextra-Sidebar"] {
+  [data-book-section] aside {
     display: flex !important;
     flex-direction: column !important;
   }
@@ -436,33 +374,15 @@ html.dark [data-book-section] * {
 
 /* Theme switcher container - stick to bottom of sidebar */
 [data-book-section] aside > div:last-child,
-[data-book-section] [class*="nextra-sidebar"] > div:last-child,
-[data-book-section] [class*="nextra-Sidebar"] > div:last-child,
-[data-book-section] aside > button:last-child,
-[data-book-section] [class*="nextra-sidebar"] > button:last-child,
-[data-book-section] [class*="nextra-Sidebar"] > button:last-child {
+[data-book-section] aside > button:last-child {
   margin-top: auto !important;
   padding-top: 1rem !important;
   border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 
-[data-book-section] .dark aside > div:last-child,
-[data-book-section] .dark [class*="nextra-sidebar"] > div:last-child,
-[data-book-section] .dark [class*="nextra-Sidebar"] > div:last-child,
-[data-book-section] .dark aside > button:last-child,
-[data-book-section] .dark [class*="nextra-sidebar"] > button:last-child,
-[data-book-section] .dark [class*="nextra-Sidebar"] > button:last-child {
+.dark [data-book-section] aside > div:last-child,
+.dark [data-book-section] aside > button:last-child {
   border-top-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-/* Target theme switcher button specifically */
-[data-book-section] button[class*="theme"],
-[data-book-section] [class*="theme-switch"],
-[data-book-section] button[aria-label*="theme" i],
-[data-book-section] button[aria-label*="Theme" i],
-[data-book-section] button[title*="theme" i],
-[data-book-section] button[title*="Theme" i] {
-  margin-top: auto !important;
 }
 
 /* Mobile hero sizing - graph covers top half of logo, logo centered in viewport */
