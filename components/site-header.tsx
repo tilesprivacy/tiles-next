@@ -25,7 +25,7 @@ export function SiteHeader({ themeAware = false }: SiteHeaderProps) {
   const isDark = themeAware && currentTheme === 'dark'
 
   // Use appropriate logo based on theme
-  const logoSrc = (mounted && isDark) ? '/dark.jpeg' : '/lighticon.png'
+  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
 
   // Use appropriate apple logo based on theme
   const appleLogoSrc = (mounted && isDark) ? '/apple-logo.svg' : '/apple-logo-white.svg'

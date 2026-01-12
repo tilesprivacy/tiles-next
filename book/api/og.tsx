@@ -27,7 +27,7 @@ export default async function handler(request: Request) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#0E0E0D",
+        backgroundColor: "#121212",
         padding: "60px",
       }}
     >

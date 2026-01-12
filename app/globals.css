@@ -40,38 +40,150 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.129 0 0);
+  --foreground: oklch(0.918 0 0);
+  --card: oklch(0.129 0 0);
+  --card-foreground: oklch(0.918 0 0);
+  --popover: oklch(0.129 0 0);
+  --popover-foreground: oklch(0.918 0 0);
+  --primary: oklch(0.918 0 0);
+  --primary-foreground: oklch(0.129 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.745 0 0);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.596 0 0);
+  --accent: oklch(0.2 0 0);
+  --accent-foreground: oklch(0.918 0 0);
   --destructive: oklch(0.396 0.141 25.723);
   --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.269 0 0);
-  --input: oklch(0.269 0 0);
+  --border: oklch(0.25 0 0);
+  --input: oklch(0.25 0 0);
   --ring: oklch(0.439 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-1: oklch(0.65 0.15 230);
+  --chart-2: oklch(0.696 0.12 150);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.269 0 0);
+  --sidebar: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.918 0 0);
+  --sidebar-primary: oklch(0.65 0.15 230);
+  --sidebar-primary-foreground: oklch(0.918 0 0);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.918 0 0);
+  --sidebar-border: oklch(0.25 0 0);
   --sidebar-ring: oklch(0.439 0 0);
+
+  /* Nextra theme overrides for book section */
+  --nextra-bg: #121212;
+  --nextra-primary-hue: 0deg;
+  --nextra-primary-saturation: 0%;
+}
+
+/* Nextra dark theme overrides - ensure book pages use our dark colors */
+.dark [data-book-section],
+.dark [data-book-section] *,
+html.dark [data-book-section],
+html.dark [data-book-section] * {
+  --tw-bg-opacity: 1;
+}
+
+.dark [data-book-section] {
+  background-color: #121212 !important;
+}
+
+.dark [data-book-section] article,
+.dark [data-book-section] main,
+.dark [data-book-section] [class*="nextra-content"],
+.dark [data-book-section] [class*="nextra-body"],
+.dark [data-book-section] aside,
+.dark [data-book-section] [class*="nextra-sidebar"] {
+  background-color: #121212 !important;
+}
+
+/* Nextra text colors in dark mode */
+.dark [data-book-section] h1,
+.dark [data-book-section] h2,
+.dark [data-book-section] h3,
+.dark [data-book-section] h4,
+.dark [data-book-section] h5,
+.dark [data-book-section] h6 {
+  color: #E6E6E6 !important;
+}
+
+.dark [data-book-section] p,
+.dark [data-book-section] li,
+.dark [data-book-section] span:not([class*="token"]) {
+  color: #E6E6E6 !important;
+}
+
+.dark [data-book-section] aside a,
+.dark [data-book-section] [class*="nextra-sidebar"] a {
+  color: #B3B3B3 !important;
+}
+
+.dark [data-book-section] aside a:hover,
+.dark [data-book-section] [class*="nextra-sidebar"] a:hover,
+.dark [data-book-section] aside a[aria-current="page"],
+.dark [data-book-section] [class*="nextra-sidebar"] a[aria-current="page"] {
+  color: #E6E6E6 !important;
+}
+
+/* Muted text in dark mode */
+.dark [data-book-section] [class*="text-gray"],
+.dark [data-book-section] [class*="text-neutral"],
+.dark [data-book-section] time,
+.dark [data-book-section] small {
+  color: #8A8A8A !important;
+}
+
+/* Book section header in dark mode - match body background */
+.dark [data-book-section] header {
+  background-color: #121212 !important;
+}
+
+/* Book section buttons in dark mode - ensure proper contrast */
+.dark [data-book-section] header a.bg-foreground,
+.dark [data-book-section] header button.bg-foreground,
+.dark [data-book-section] header [class*="bg-foreground"] {
+  background-color: #E6E6E6 !important;
+  color: #121212 !important;
+}
+
+.dark [data-book-section] header a.bg-foreground span,
+.dark [data-book-section] header button.bg-foreground span,
+.dark [data-book-section] header [class*="bg-foreground"] span {
+  color: #121212 !important;
+}
+
+.dark [data-book-section] header a.bg-foreground svg,
+.dark [data-book-section] header button.bg-foreground svg,
+.dark [data-book-section] header [class*="bg-foreground"] svg {
+  fill: #121212 !important;
+}
+
+/* Book footer - preserve explicit text colors (footer inverts theme) */
+/* When page is dark mode, footer is light (bg-white with text-black) */
+.dark [data-book-section] footer.bg-white,
+.dark [data-book-section] footer.bg-white * {
+  --tw-text-opacity: 1;
+}
+
+.dark [data-book-section] footer.bg-white {
+  background-color: #ffffff !important;
+}
+
+.dark [data-book-section] footer.bg-white p,
+.dark [data-book-section] footer.bg-white a,
+.dark [data-book-section] footer.bg-white span {
+  color: #000000 !important;
+}
+
+.dark [data-book-section] footer.bg-white a:hover {
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.dark [data-book-section] footer.bg-white svg {
+  color: #000000 !important;
 }
 
 @theme inline {
