@@ -59,17 +59,17 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-white">
+    <div className="relative flex min-h-[100dvh] flex-col bg-white">
       <SiteHeader />
 
       {/* Main Content - Split Screen */}
-      <div className="flex flex-1 overflow-hidden pt-[15dvh] lg:pt-0">
+      <main className="flex flex-1 flex-col lg:flex-row min-h-0">
         {/* Left Side - Installation Instructions */}
-        <div className="flex w-full lg:w-1/2 flex-col overflow-y-auto bg-white px-6 pb-20 pt-0 lg:px-12 lg:pb-4 lg:pt-[20dvh]">
-          <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-2xl lg:gap-6">
+        <div className="flex w-full lg:w-1/2 flex-col items-center justify-start pt-24 pb-12 lg:justify-center lg:pt-0 lg:pb-0 px-6 lg:px-12">
+          <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-xl lg:gap-6">
             {/* Title */}
-            <div className="space-y-1 lg:space-y-2 mb-8 lg:mb-12">
-              <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-6xl">
+            <div className="space-y-1">
+              <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
                 You're about to
                 <br />
                 get Tiles for Mac
@@ -77,31 +77,29 @@ export default function DownloadPage() {
             </div>
 
             {/* CLI Screenshot - Mobile Only */}
-            <div className="lg:hidden mb-6 -mx-6">
-              <div className="w-full flex items-center justify-center px-6">
-                <Image
-                  src="/tilescli.png"
-                  alt="Tiles CLI"
-                  width={1200}
-                  height={600}
-                  className="w-full h-auto max-w-full object-contain rounded-lg"
-                  priority
-                />
-              </div>
+            <div className="lg:hidden my-6">
+              <Image
+                src="/newtilescli.png"
+                alt="Tiles CLI - Your private AI assistant running locally"
+                width={1200}
+                height={600}
+                className="w-full h-auto object-contain rounded-lg"
+                priority
+              />
             </div>
 
             {/* Install Section */}
             <div className="space-y-2 lg:space-y-3">
-              <p className="text-sm text-black/70 sm:text-base lg:text-xl">Install and run:</p>
+              <p className="text-sm text-black/70 sm:text-base lg:text-lg">Install and run:</p>
 
               {/* Code Blocks */}
-              <div className="flex flex-col items-start gap-2 lg:gap-3 w-full lg:w-auto">
+              <div className="flex flex-col items-start gap-2 lg:gap-3">
                 <CodeBlock code="curl -fsSL https://tiles.run/install.sh | sh" />
                 <CodeBlock code="tiles run" />
               </div>
 
               {/* Footer Links */}
-              <div className="flex items-center gap-2 text-xs text-black/60 pt-2 lg:gap-3 lg:text-sm">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-black/60 pt-2 lg:gap-3 lg:text-sm">
                 <a
                   href="https://tiles.run/install.sh"
                   target="_blank"
@@ -141,8 +139,8 @@ export default function DownloadPage() {
                 </a>
               </div>
 
-              <div className="pt-4 text-xs text-black/50 lg:text-sm">
-                We also offer an Insiders build for early adopters. It includes the most recent code changes and experimental features, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently. First Insiders build will start shipping Feb, 2026.{" "}
+              <div className="pt-2 text-[11px] text-black/50 lg:pt-3 lg:text-sm">
+                We also offer an Insiders build for early adopters. It includes the most recent code changes and experimental features like offline memory models, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently. First Insiders build will start shipping Feb, 2026.{" "}
                 <a
                   href="https://github.com/tilesprivacy/tiles/issues/51"
                   target="_blank"
@@ -166,20 +164,18 @@ export default function DownloadPage() {
           </div>
         </div>
 
-        {/* Right Side - CLI Screenshot */}
-        <div className="hidden lg:flex w-1/2 items-center justify-center bg-white overflow-hidden">
-          <div className="w-full h-full flex items-center justify-center p-8">
-            <Image
-              src="/tilescli.png"
-              alt="Tiles CLI"
-              width={1200}
-              height={600}
-              className="w-full h-auto max-w-full max-h-full object-contain rounded-lg"
-              priority
-            />
-          </div>
+        {/* Right Side - CLI Screenshot (Desktop only) */}
+        <div className="hidden lg:flex w-1/2 items-center justify-center bg-white p-8">
+          <Image
+            src="/newtilescli.png"
+            alt="Tiles CLI - Your private AI assistant running locally"
+            width={1200}
+            height={600}
+            className="w-full h-auto max-w-full object-contain rounded-lg"
+            priority
+          />
         </div>
-      </div>
+      </main>
 
       <SiteFooter />
     </div>

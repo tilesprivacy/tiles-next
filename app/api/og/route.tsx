@@ -36,7 +36,7 @@ export async function GET(request: Request) {
           lineHeight: 1.4,
         }}
       >
-        Your private AI assistant with offline memory
+        Your private AI assistant for everyday use
       </div>
     </div>,
     {

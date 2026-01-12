@@ -68,7 +68,7 @@ export async function GET(request: Request) {
   sections.push(`## Homepage (${baseUrl}/)`)
   sections.push('')
   sections.push('Tiles')
-  sections.push('Your private AI assistant with offline memory')
+  sections.push('Your private AI assistant for everyday use')
   sections.push('')
   sections.push('Tiles is a private AI assistant with offline memory. Download Tiles for macOS 14+ with Apple Silicon (M1+).')
   sections.push('')

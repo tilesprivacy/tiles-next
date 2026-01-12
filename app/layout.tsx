@@ -9,30 +9,30 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Tiles is your private AI assistant with offline memory",
-  description: "Your private AI assistant with offline memory",
+  title: "Tiles is your private AI assistant for everyday use",
+  description: "Your private AI assistant for everyday use",
   generator: "v0.app",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
   },
   openGraph: {
-    title: "Tiles is your private AI assistant with offline memory",
-    description: "Your private AI assistant with offline memory",
+    title: "Tiles is your private AI assistant for everyday use",
+    description: "Your private AI assistant for everyday use",
     images: [
       {
         url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles - Your private AI assistant with offline memory",
+        alt: "Tiles - Your private AI assistant for everyday use",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles is your private AI assistant with offline memory",
-    description: "Your private AI assistant with offline memory",
+    title: "Tiles is your private AI assistant for everyday use",
+    description: "Your private AI assistant for everyday use",
     images: ["/api/og"],
   },
 }

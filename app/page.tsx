@@ -6,114 +6,120 @@ import { SiteHeader } from "@/components/site-header"
 
 export default function Page() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-white">
+    <div className="flex min-h-[100dvh] flex-col bg-white">
       <SiteHeader />
 
-      {/* Desktop: Split Layout, Mobile: Stacked with image on top */}
-      <div className="flex flex-1 flex-col overflow-y-auto lg:flex-row lg:min-h-0">
-        {/* Content Section */}
-        <div className="relative z-10 flex flex-1 flex-col bg-transparent px-6 pb-4 lg:min-h-0 lg:items-center lg:justify-center lg:bg-white lg:flex-[0.45] lg:shrink-0 lg:px-12">
-          {/* Mobile: Graph image - bottom layer (z-0), covers top 50% of viewport to cover top 50% of logo */}
-          <div
-            className="absolute inset-x-0 top-0 z-0 overflow-hidden bg-white lg:hidden"
-            style={{ height: "50dvh" }}
-          >
-            <Image
-              src="/graph.png"
-              alt="Network graph visualization showing data relationships"
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-
-          {/* Desktop: Centered container with logo above text */}
-          <div className="relative z-20 mx-auto flex w-full max-w-md flex-col items-center gap-2 pb-8 pt-[calc(50dvh+var(--mobile-logo-half)+1rem)] lg:pt-0 lg:gap-6">
-            {/* Mobile: Logo container - middle layer (z-20), positioned at 50% of page height */}
-            <div className="absolute left-1/2 top-[50dvh] z-20 -translate-x-1/2 -translate-y-1/2 lg:relative lg:left-auto lg:top-auto lg:translate-x-0 lg:translate-y-0 lg:mb-4">
-              <div className="relative">
-                {/* Logo container - full logo visible */}
-                <div
-                  className="relative z-20 flex items-center justify-center rounded-xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 sm:rounded-2xl lg:rounded-3xl lg:ring-0"
-                  style={{ height: "var(--mobile-logo-size)", width: "var(--mobile-logo-size)" }}
-                >
-                  <Image
-                    src="/logo.png"
-                    alt="Tiles Logo"
-                    width={80}
-                    height={80}
-                    className="h-11 w-11 sm:h-14 sm:w-14 lg:h-[84px] lg:w-[84px]"
-                  />
-                </div>
-                {/* Alpha text - top layer (z-30) */}
-                <span className="absolute -right-1 -top-1 z-30 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-blue-600 shadow-sm ring-1 ring-blue-200/50 sm:-right-1.5 sm:-top-1.5 sm:px-2 sm:py-0.5 sm:text-[10px] lg:-right-2 lg:-top-2 lg:px-2.5 lg:py-1 lg:text-xs">
-                  Alpha
-                </span>
+      {/* Main Content - properly spaced below fixed header */}
+      <main className="flex-1 flex items-center justify-center px-6 pt-32 pb-16 lg:pt-40 lg:pb-20">
+        {/* Hero Section */}
+        <div className="w-full max-w-6xl">
+          {/* Top Section: Logo, Title, CTA */}
+          <div className="flex flex-col items-center gap-8 mb-12 lg:mb-16">
+            {/* Logo with Alpha badge */}
+            <div className="relative">
+              <div className="relative flex items-center justify-center rounded-3xl bg-[#F9F9F9] shadow-sm ring-1 ring-black/5 h-24 w-24 lg:h-32 lg:w-32">
+                <Image
+                  src="/cream.png"
+                  alt="Tiles Logo"
+                  width={112}
+                  height={112}
+                  className="h-14 w-14 lg:h-20 lg:w-20"
+                />
               </div>
+              <span className="absolute -right-2 -top-2 rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-blue-600 shadow-sm ring-1 ring-blue-200/50 lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs">
+                Alpha
+              </span>
             </div>
 
             {/* Title & Subtitle */}
-            <div className="space-y-1.5 text-center lg:space-y-4">
-              <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-6xl">
+            <div className="space-y-3 text-center lg:space-y-4">
+              <h1 className="font-sans text-4xl font-bold tracking-tight text-black lg:text-6xl">
                 Tiles
               </h1>
-              <p className="text-sm text-black/70 sm:text-base lg:text-xl">
-                Your private AI assistant with offline memory
+              <p className="text-base text-black/60 lg:text-xl max-w-lg mx-auto">
+                Your private AI assistant for everyday use
               </p>
             </div>
 
-            {/* Platform Button */}
-            <div className="space-y-2 lg:space-y-4">
-              <div className="flex justify-center">
-                <Button
-                  asChild
-                  className="group rounded-full bg-black px-4 py-4 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-black/90 hover:shadow-lg active:scale-95 sm:px-5 sm:py-5 lg:px-8 lg:py-6 lg:text-lg"
-                >
-                  <Link href="/download" className="flex items-center gap-2 sm:gap-3">
-                    <Image
-                      src="/apple-logo-white.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="h-4 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-6"
+            {/* CTA Button */}
+            <div className="flex flex-col items-center gap-3">
+              <Button
+                asChild
+                className="group rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-black/90 hover:shadow-lg active:scale-95 lg:px-8 lg:py-6 lg:text-base"
+              >
+                <Link href="/download" className="flex items-center gap-2.5">
+                  <Image
+                    src="/apple-logo-white.svg"
+                    alt="Apple"
+                    width={16}
+                    height={20}
+                    className="h-4 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-5"
+                  />
+                  <span>Download for Mac</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 lg:h-5 lg:w-5"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
+                      clipRule="evenodd"
                     />
-                    <span className="transition-all duration-300">Download</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 sm:ml-3 lg:h-6 lg:w-6"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </Link>
-                </Button>
+                  </svg>
+                </Link>
+              </Button>
+              <p className="text-xs text-black/40">
+                for macOS 14+ with Apple Silicon (M1+).
+              </p>
+            </div>
+          </div>
+
+          {/* Features Section - Mobile: vertical stack, Desktop: horizontal grid */}
+          <div className="w-full max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+              {/* Feature 1 */}
+              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:text-center lg:gap-4">
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
+                <div className="flex-1 lg:flex-none">
+                  <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">On-Device Models</h3>
+                  <p className="text-sm lg:text-base text-black/60 leading-relaxed">
+                    Run AI locally on your Mac. Your data stays private and secure.
+                  </p>
+                </div>
               </div>
 
-              <div className="flex items-center justify-center gap-1.5 text-[10px] lg:text-sm">
-                <span className="text-black/50">for macOS 14+ with Apple Silicon (M1+).</span>
+              {/* Feature 2 */}
+              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:text-center lg:gap-4">
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
+                <div className="flex-1 lg:flex-none">
+                  <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">Code Interpreter</h3>
+                  <p className="text-sm lg:text-base text-black/60 leading-relaxed">
+                    Execute Python code and analyze data in real-time conversations.
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:text-center lg:gap-4">
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
+                <div className="flex-1 lg:flex-none">
+                  <div className="flex items-center gap-2 flex-wrap mb-1.5 lg:mb-3 lg:justify-center">
+                    <h3 className="text-sm lg:text-base font-semibold text-black">AI Memory</h3>
+                    <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2 py-0.5 text-[9px] lg:text-[10px] font-semibold uppercase tracking-wide text-blue-600 ring-1 ring-blue-200/50">
+                      Insiders
+                    </span>
+                  </div>
+                  <p className="text-sm lg:text-base text-black/60 leading-relaxed">
+                    Personalized assistance that learns and remembers your preferences.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Desktop: Image on Right, Mobile: Hidden */}
-        <div className="hidden flex-[0.55] items-center justify-center bg-white p-8 lg:flex lg:py-20 lg:pb-40">
-          <div className="relative min-h-[400px] w-full lg:min-h-[600px]">
-            <Image
-              src="/graph.png"
-              alt="Network graph visualization showing data relationships"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-        </div>
-      </div>
+      </main>
 
       <SiteFooter />
     </div>

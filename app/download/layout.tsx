@@ -2,14 +2,14 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Download Tiles",
-  description: "Download Tiles, a private AI assistant with offline memory",
+  description: "Download Tiles, a private AI assistant for everyday use",
   openGraph: {
     title: "Download Tiles",
-    description: "Download Tiles, a private AI assistant with offline memory",
+    description: "Download Tiles, a private AI assistant for everyday use",
   },
   twitter: {
     title: "Download Tiles",
-    description: "Download Tiles, a private AI assistant with offline memory",
+    description: "Download Tiles, a private AI assistant for everyday use",
   },
 }
 
