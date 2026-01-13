@@ -5,6 +5,7 @@ import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function BookFooter() {
   const { theme, systemTheme, resolvedTheme } = useTheme()
@@ -45,6 +46,14 @@ export function BookFooter() {
   const borderClasses = footerIsDark
     ? "border-white/5"
     : "border-black/5"
+
+  const toggleClasses = footerIsDark
+    ? "inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white/40 hover:text-white"
+    : "inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/20 text-black/70 transition-colors hover:border-black/40 hover:text-black"
+
+  const togglePlaceholder = footerIsDark
+    ? "h-8 w-8 rounded-full border border-white/20"
+    : "h-8 w-8 rounded-full border border-black/20"
 
   // Icon hover colors - keep brand colors but adjust base
   const iconHoverClasses = {
@@ -132,6 +141,10 @@ export function BookFooter() {
             </a>
           </nav>
           <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
+            <ThemeToggle
+              className={toggleClasses}
+              placeholderClassName={togglePlaceholder}
+            />
             <a
               href="https://x.com/tilesprivacy"
               target="_blank"

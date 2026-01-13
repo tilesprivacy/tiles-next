@@ -3,7 +3,6 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { useState, useEffect } from "react"
 import { useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
@@ -102,10 +101,6 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
           {/* Search - Book pages only (tablet/desktop) */}
           {isBookPage && <div className="hidden sm:block"><HeaderSearch /></div>}
           
-          <div className={`${isBookPage && isSearchFocused ? 'hidden sm:flex' : 'flex'}`}>
-            <ThemeToggle />
-          </div>
-
           {/* Buttons - hidden on mobile when search is focused on book pages */}
           <Button
             asChild
