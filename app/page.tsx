@@ -118,8 +118,8 @@ export default async function Page() {
                 <div className="flex-1 lg:flex-none lg:text-center">
                   <div className="flex items-center gap-2 flex-wrap mb-1.5 lg:mb-3 lg:justify-center">
                     <h3 className="text-sm lg:text-base font-semibold text-black">AI Memory</h3>
-                    <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2 py-0.5 text-[9px] lg:text-[10px] font-semibold uppercase tracking-wide text-blue-600 ring-1 ring-blue-200/50">
-                      Insiders
+                    <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 ring-1 ring-black/10 bg-transparent font-mono">
+                      INSIDERS
                     </span>
                   </div>
                   <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
