@@ -13,10 +13,10 @@ type NavigationPage = {
 // Known book pages in order - this matches the _meta.json structure
 const BOOK_PAGES: NavigationPage[] = [
   { route: '/book', title: 'Tiles Book' },
-  { route: '/book/cli', title: 'CLI Reference' },
-  { route: '/book/models', title: 'Models Reference' },
-  { route: '/book/modelfile', title: 'Modelfile Reference' },
+  { route: '/book/cli', title: 'CLI' },
+  { route: '/book/modelfile', title: 'Modelfile' },
   { route: '/book/mir', title: 'MIR Extension' },
+  { route: '/book/memory', title: 'Memory' },
   { route: '/book/resources', title: 'Resources' },
 ]
 

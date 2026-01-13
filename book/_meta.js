@@ -6,25 +6,25 @@ export default {
     },
   },
   cli: {
-    title: "CLI Reference",
-    theme: {
-      copyPageButton: true,
-    },
-  },
-  models: {
-    title: "Models Reference",
+    title: "CLI",
     theme: {
       copyPageButton: true,
     },
   },
   modelfile: {
-    title: "Modelfile Reference",
+    title: "Modelfile",
     theme: {
       copyPageButton: true,
     },
   },
   mir: {
     title: "MIR Extension",
+    theme: {
+      copyPageButton: true,
+    },
+  },
+  memory: {
+    title: "Memory",
     theme: {
       copyPageButton: true,
     },

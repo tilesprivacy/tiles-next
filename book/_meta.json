@@ -6,25 +6,25 @@
     }
   },
   "cli": {
-    "title": "CLI Reference",
-    "theme": {
-      "copyPage": true
-    }
-  },
-  "models": {
-    "title": "Models Reference",
+    "title": "CLI",
     "theme": {
       "copyPage": true
     }
   },
   "modelfile": {
-    "title": "Modelfile Reference",
+    "title": "Modelfile",
     "theme": {
       "copyPage": true
     }
   },
   "mir": {
     "title": "MIR Extension",
+    "theme": {
+      "copyPage": true
+    }
+  },
+  "memory": {
+    "title": "Memory",
     "theme": {
       "copyPage": true
     }

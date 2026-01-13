@@ -16,27 +16,27 @@ const bookPages: BookPage[] = [
   },
   {
     number: '02',
-    title: 'CLI Reference',
+    title: 'CLI',
     description: 'Command-line interface reference for Tiles CLI commands and usage examples.',
     href: '/book/cli',
   },
   {
     number: '03',
-    title: 'Models Reference',
-    description: 'Reference documentation for memory models bundled with Tiles for on-device context and memory management.',
-    href: '/book/models',
-  },
-  {
-    number: '04',
-    title: 'Modelfile Reference',
+    title: 'Modelfile',
     description: 'Complete reference for the Modelfile parser, grammar, instructions, parameters, and API usage.',
     href: '/book/modelfile',
   },
   {
-    number: '05',
+    number: '04',
     title: 'MIR Extension',
     description: 'MIR (Machine Intelligence Resource) naming schema extension for model classification and reproducibility.',
     href: '/book/mir',
+  },
+  {
+    number: '05',
+    title: 'Memory',
+    description: 'Reference documentation for memory models bundled with Tiles for on-device context and memory management.',
+    href: '/book/memory',
   },
   {
     number: '06',
