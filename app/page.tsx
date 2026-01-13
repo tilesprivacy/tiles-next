@@ -17,37 +17,37 @@ export default async function Page() {
     // Fallback to default version if fetch fails
   }
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-white">
-      <SiteHeader />
+    <div className="flex h-[100dvh] flex-col overflow-hidden bg-background text-foreground">
+      <SiteHeader themeAware />
 
       {/* Main Content - properly spaced below fixed header */}
-      <main className="flex-1 flex items-center justify-center px-6 pt-32 pb-16 lg:pt-40 lg:pb-20">
+      <main className="flex flex-1 items-center justify-center px-6 pt-32 pb-16 lg:pt-40 lg:pb-20">
         {/* Hero Section */}
         <div className="w-full max-w-6xl">
           {/* Top Section: Logo, Title, CTA */}
           <div className="flex flex-col items-center gap-8 mb-12 lg:mb-16">
             {/* Logo with Version badge */}
             <div className="relative">
-              <div className="relative flex items-center justify-center rounded-3xl bg-[#F7F7F7] shadow-sm ring-1 ring-black/5 h-24 w-24 lg:h-32 lg:w-32">
+              <div className="relative flex items-center justify-center rounded-3xl bg-muted/60 shadow-sm ring-1 ring-foreground/10 h-24 w-24 lg:h-32 lg:w-32">
                 <Image
-                  src="/cream.png"
+                  src="/dark.jpeg"
                   alt="Tiles Logo"
                   width={112}
                   height={112}
-                  className="h-14 w-14 lg:h-20 lg:w-20"
+                  className="h-14 w-14 lg:h-20 lg:w-20 rounded-full"
                 />
               </div>
-              <span className="absolute -right-2 -top-2 rounded-full bg-white px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-black shadow-sm ring-1 ring-black/10 lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs">
+              <span className="absolute -right-2 -top-2 rounded-full bg-background px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-foreground shadow-sm ring-1 ring-foreground/10 lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs">
                 {latestVersion}
               </span>
             </div>
 
             {/* Title & Subtitle */}
             <div className="space-y-3 text-center lg:space-y-4">
-              <h1 className="font-sans text-4xl font-bold tracking-tight text-black lg:text-6xl">
+              <h1 className="font-sans text-4xl font-bold tracking-tight text-foreground lg:text-6xl">
                 Tiles
               </h1>
-              <p className="text-base text-black/60 lg:text-xl max-w-lg mx-auto">
+              <p className="text-base text-foreground/60 lg:text-xl max-w-lg mx-auto">
                 Your private AI assistant for everyday use
               </p>
             </div>
@@ -56,7 +56,7 @@ export default async function Page() {
             <div className="flex flex-col items-center gap-3">
               <Button
                 asChild
-                className="group rounded-full bg-black px-6 py-5 text-sm font-medium text-white transition-all duration-300 hover:scale-105 hover:bg-black/90 hover:shadow-lg active:scale-95 lg:px-8 lg:py-6 lg:text-base"
+                className="group rounded-full bg-foreground px-6 py-5 text-sm font-medium text-background transition-all duration-300 hover:scale-105 hover:bg-foreground/90 hover:shadow-lg active:scale-95 lg:px-8 lg:py-6 lg:text-base"
               >
                 <Link href="/download" className="flex items-center gap-2.5">
                   <Image
@@ -64,7 +64,14 @@ export default async function Page() {
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-4 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-5"
+                    className="h-4 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-5 dark:hidden"
+                  />
+                  <Image
+                    src="/apple-logo.svg"
+                    alt="Apple"
+                    width={16}
+                    height={20}
+                    className="hidden h-4 w-auto transition-transform duration-300 group-hover:scale-110 lg:h-5 dark:inline-block"
                   />
                   <span>Download for Mac</span>
                   <svg
@@ -81,7 +88,7 @@ export default async function Page() {
                   </svg>
                 </Link>
               </Button>
-              <p className="text-xs text-black/40">
+              <p className="text-xs text-foreground/40">
                 for macOS 14+ with Apple Silicon (M1+).
               </p>
             </div>
@@ -92,10 +99,10 @@ export default async function Page() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
               {/* Feature 1 */}
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
-                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-foreground/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
-                  <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">On-Device Models</h3>
-                  <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
+                  <h3 className="text-sm lg:text-base font-semibold text-foreground mb-1.5 lg:mb-3">On-Device Models</h3>
+                  <p className="text-sm lg:text-base text-foreground/60 leading-relaxed lg:mx-auto">
                     Run AI locally on your Mac. Your data stays private and secure.
                   </p>
                 </div>
@@ -103,10 +110,10 @@ export default async function Page() {
 
               {/* Feature 2 */}
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
-                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-foreground/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
-                  <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">Code Interpreter</h3>
-                  <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
+                  <h3 className="text-sm lg:text-base font-semibold text-foreground mb-1.5 lg:mb-3">Code Interpreter</h3>
+                  <p className="text-sm lg:text-base text-foreground/60 leading-relaxed lg:mx-auto">
                     Execute Python code and analyze data in real-time conversations.
                   </p>
                 </div>
@@ -114,15 +121,15 @@ export default async function Page() {
 
               {/* Feature 3 */}
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
-                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-foreground/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
                   <div className="flex items-center gap-2 flex-wrap mb-1.5 lg:mb-3 lg:justify-center">
-                    <h3 className="text-sm lg:text-base font-semibold text-black">AI Memory</h3>
-                    <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2 py-0.5 text-[9px] lg:text-[10px] font-semibold uppercase tracking-wide text-blue-600 ring-1 ring-blue-200/50">
+                    <h3 className="text-sm lg:text-base font-semibold text-foreground">AI Memory</h3>
+                    <span className="inline-flex items-center rounded-full bg-gradient-to-br from-blue-50 to-purple-50 px-2 py-0.5 text-[9px] lg:text-[10px] font-semibold uppercase tracking-wide text-blue-600 ring-1 ring-blue-200/50 dark:from-blue-500/10 dark:to-purple-500/10 dark:text-blue-200 dark:ring-blue-400/30">
                       Insiders
                     </span>
                   </div>
-                  <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
+                  <p className="text-sm lg:text-base text-foreground/60 leading-relaxed lg:mx-auto">
                     Personalized assistance that learns and remembers your preferences.
                   </p>
                 </div>

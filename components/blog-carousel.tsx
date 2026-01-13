@@ -35,11 +35,11 @@ export default function BlogCarousel() {
           {blogPosts.map((post) => (
             <CarouselItem key={post.slug} className="basis-full pl-2 lg:basis-1/2 lg:pl-3">
               <Link href={`/blog/${post.slug}`} className="block group h-full" prefetch={true}>
-                <div className="space-y-3 rounded-lg border border-black/5 bg-white p-5 hover:border-black/10 hover:shadow-sm lg:p-7 lg:space-y-4">
-                  <h3 className="text-lg font-semibold text-black group-hover:text-black/80 underline lg:text-2xl tracking-tight line-clamp-2">
+                <div className="space-y-3 rounded-lg border border-border bg-card p-5 hover:border-foreground/20 hover:shadow-sm lg:p-7 lg:space-y-4">
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-foreground/80 underline lg:text-2xl tracking-tight line-clamp-2">
                     {post.title}
                   </h3>
-                  <p className="text-sm text-black/60 line-clamp-2 lg:text-base">{post.description}</p>
+                  <p className="text-sm text-foreground/60 line-clamp-2 lg:text-base">{post.description}</p>
                 </div>
               </Link>
             </CarouselItem>
