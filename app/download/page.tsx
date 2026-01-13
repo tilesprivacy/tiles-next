@@ -64,8 +64,8 @@ export default function DownloadPage() {
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col lg:flex-row min-h-0">
         {/* Left Side - Installation Instructions */}
-        <div className="flex w-full lg:w-full flex-col items-center justify-start pt-24 pb-12 lg:justify-center lg:pt-0 lg:pb-0 px-6 lg:px-12">
-          <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-xl lg:gap-6">
+        <div className="flex w-full lg:w-full flex-col items-center justify-start pt-24 pb-12 lg:justify-center lg:py-12 px-6 lg:px-12">
+          <div className="flex w-full max-w-md flex-col gap-6 text-left lg:max-w-xl lg:gap-10">
             {/* Title */}
             <div className="space-y-1">
               <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
