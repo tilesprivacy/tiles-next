@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { useState } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
@@ -65,7 +64,7 @@ export default function DownloadPage() {
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col lg:flex-row min-h-0">
         {/* Left Side - Installation Instructions */}
-        <div className="flex w-full lg:w-1/2 flex-col items-center justify-start pt-24 pb-12 lg:justify-center lg:pt-0 lg:pb-0 px-6 lg:px-12">
+        <div className="flex w-full lg:w-full flex-col items-center justify-start pt-24 pb-12 lg:justify-center lg:pt-0 lg:pb-0 px-6 lg:px-12">
           <div className="flex w-full max-w-md flex-col gap-4 text-left lg:max-w-xl lg:gap-6">
             {/* Title */}
             <div className="space-y-1">
@@ -74,18 +73,6 @@ export default function DownloadPage() {
                 <br />
                 get Tiles for Mac
               </h1>
-            </div>
-
-            {/* CLI Screenshot - Mobile Only */}
-            <div className="lg:hidden my-6">
-              <Image
-                src="/newtilescli.png"
-                alt="Tiles CLI - Your private AI assistant running locally"
-                width={1200}
-                height={600}
-                className="w-full h-auto object-contain rounded-lg"
-                priority
-              />
             </div>
 
             {/* Install Section */}
@@ -164,17 +151,6 @@ export default function DownloadPage() {
           </div>
         </div>
 
-        {/* Right Side - CLI Screenshot (Desktop only) */}
-        <div className="hidden lg:flex w-1/2 items-center justify-center bg-white p-8">
-          <Image
-            src="/newtilescli.png"
-            alt="Tiles CLI - Your private AI assistant running locally"
-            width={1200}
-            height={600}
-            className="w-full h-auto max-w-full object-contain rounded-lg"
-            priority
-          />
-        </div>
       </main>
 
       <SiteFooter />
