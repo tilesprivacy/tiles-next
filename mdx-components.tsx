@@ -57,18 +57,27 @@ function CustomAnchor(props: ComponentProps<'a'>) {
   const isTilesRunDomain = href?.includes('tiles.run') || href?.includes('tiles.run/book')
   const showExternalIndicator = isExternal && !isTilesRunDomain && !href?.startsWith('mailto:')
 
+  if (showExternalIndicator) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        {...rest}
+        className={`${rest.className || ''} external-link`.trim()}
+      >
+        {children}
+        <ExternalLinkIcon />
+      </a>
+    )
+  }
+
   return (
     <a
       href={href}
-      {...(showExternalIndicator && {
-        target: '_blank',
-        rel: 'noopener noreferrer',
-      })}
       {...rest}
-      className={`${rest.className || ''} ${showExternalIndicator ? 'external-link inline-flex items-center gap-0.5' : ''}`.trim()}
     >
       {children}
-      {showExternalIndicator && <ExternalLinkIcon />}
     </a>
   )
 }

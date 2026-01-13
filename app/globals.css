@@ -249,7 +249,33 @@
 }
 
 /* External link indicator for non-tiles.run links in book section */
-/* SVG icon is now added via React component, so no CSS needed */
+/* Ensure external links wrap properly and icon stays aligned */
+[data-book-section] a.external-link {
+  display: inline;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+[data-book-section] a.external-link svg {
+  display: inline;
+  vertical-align: baseline;
+  margin-left: 0.125rem;
+  flex-shrink: 0;
+}
+
+/* Ensure links in list items wrap properly and don't overflow */
+[data-book-section] li {
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+[data-book-section] li a {
+  display: inline;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
 
 /* Constrain main content column width for better readability */
 /* Target only the main element inside article (the text content), not sidebars or "On This Page" */
@@ -317,16 +343,65 @@
   }
 }
 
+/* Ensure copy page button container and button are visible */
+/* Target the Nextra CopyPage component structure */
+[data-book-section] article div.nextra-border.x\:float-end,
+[data-book-section] article div[class*="nextra-border"][class*="float-end"],
+[data-book-section] article > div:nth-child(2),
+[data-book-section] article > div:has(button[name*="Copy page"]),
+[data-book-section] article > div:has(button[aria-label*="Copy page"]) {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  gap: 0 !important;
+  float: right !important;
+  clear: both !important;
+  margin: 0.5rem 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+}
+
+/* Ensure all buttons in article header are visible */
+[data-book-section] article button[aria-label*="Copy page"],
+[data-book-section] article button[name*="Copy page"],
+[data-book-section] article button[name="Copy page"],
+[data-book-section] article [class*="copy-page"],
+[data-book-section] article [class*="nextra-copy"],
+[data-book-section] article button[class*="nextra-copy-icon"],
+[data-book-section] article > div:nth-child(2) button,
+[data-book-section] article div.nextra-border button {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 10 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0.5rem 1rem !important;
+  margin: 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+}
+
 /* Hide Nextra's default pagination component - we use our custom BookPageNavigation instead */
 /* Target Nextra pagination: any div with nextra-border class that is not our custom navigation */
-[data-book-section] article > div.nextra-border:not([data-book-navigation]),
-[data-book-section] article > div[class*="nextra-border"]:not([data-book-navigation]),
+/* EXCLUDE the copy page button container (which has float-end or inline-flex class) */
+[data-book-section] article > div.nextra-border:not([data-book-navigation]):not([class*="float-end"]):not([class*="inline-flex"]),
+[data-book-section] article > div[class*="nextra-border"]:not([data-book-navigation]):not([class*="float-end"]):not([class*="inline-flex"]),
 [data-book-section] div.mb-8.flex.items-center.border-t.pt-8.nextra-border:not([data-book-navigation]),
 [data-book-section] nav.flex.items-center.border-t:not([data-book-navigation]),
 [data-book-section] .nextra-navigation,
 [data-book-section] [class*="nextra-navigation"],
-[data-book-section] div.nextra-border.print\:hidden:not([data-book-navigation]),
-[data-book-section] div[class*="nextra-border"][class*="print:hidden"]:not([data-book-navigation]) {
+[data-book-section] div.nextra-border.print\:hidden:not([data-book-navigation]):not([class*="inline-flex"]),
+[data-book-section] div[class*="nextra-border"][class*="print:hidden"]:not([data-book-navigation]):not([class*="inline-flex"]) {
   display: none !important;
   visibility: hidden !important;
 }

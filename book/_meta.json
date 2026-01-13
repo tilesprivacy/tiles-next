@@ -1,32 +1,56 @@
 {
   "index": {
-    "title": "Tiles Book"
+    "title": "Tiles Book",
+    "theme": {
+      "copyPage": true
+    }
   },
   "cli": {
-    "title": "CLI Reference"
+    "title": "CLI Reference",
+    "theme": {
+      "copyPage": true
+    }
   },
   "models": {
-    "title": "Models Reference"
+    "title": "Models Reference",
+    "theme": {
+      "copyPage": true
+    }
   },
   "modelfile": {
-    "title": "Modelfile Reference"
+    "title": "Modelfile Reference",
+    "theme": {
+      "copyPage": true
+    }
   },
   "mir": {
-    "title": "MIR Extension"
+    "title": "MIR Extension",
+    "theme": {
+      "copyPage": true
+    }
   },
   "resources": {
-    "title": "Resources"
+    "title": "Resources",
+    "theme": {
+      "copyPage": true
+    }
   },
   "blog": {
     "title": "Blog",
     "type": "page",
     "href": "https://www.blog.tiles.run/",
-    "newWindow": true
+    "newWindow": true,
+    "theme": {
+      "copyPage": true
+    }
   },
   "contact": {
     "title": "Tiles",
     "type": "page",
     "href": "https://tiles.run/",
-    "newWindow": true
+    "newWindow": true,
+    "theme": {
+      "copyPage": true
+    }
   }
 }
