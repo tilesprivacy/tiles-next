@@ -88,7 +88,7 @@ function getIcon(type: "website" | "twitter" | "github" | "bluesky") {
 // Person component with links
 function Person({ name, links }: { name: string; links: string[] }) {
   return (
-    <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-black/80 lg:text-base">
+    <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-foreground/80 lg:text-base">
       <span>{name}</span>
       <div className="flex items-center gap-1 sm:gap-1.5">
         {links.map((url, index) => {
@@ -99,7 +99,7 @@ function Person({ name, links }: { name: string; links: string[] }) {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black/60 hover:text-black transition-colors"
+              className="text-foreground/60 hover:text-foreground transition-colors"
               aria-label={`${name} ${iconType}`}
             >
               {getIcon(iconType)}
@@ -134,17 +134,17 @@ const people = {
 
 export default function MissionPage() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-white lg:overflow-visible">
-      <SiteHeader />
+    <div className="relative flex min-h-screen flex-col bg-background text-foreground lg:overflow-visible">
+      <SiteHeader themeAware />
 
       <div className="flex flex-1 flex-col pt-16 lg:pt-24 lg:pb-24">
         {/* Content */}
         <main className="flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">
           {/* Mission Text Section */}
           <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl text-justify">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 sm:mb-8 md:mb-10 lg:mb-12">Mission</h1>
-            <div className="space-y-4 sm:space-y-6 text-sm leading-relaxed text-black/80 sm:text-base md:space-y-6 lg:space-y-8 lg:text-xl lg:leading-relaxed">
-              <p className="text-base font-medium text-black sm:text-lg md:text-xl lg:text-2xl">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6 sm:mb-8 md:mb-10 lg:mb-12">Mission</h1>
+            <div className="space-y-4 sm:space-y-6 text-sm leading-relaxed text-foreground/80 sm:text-base md:space-y-6 lg:space-y-8 lg:text-xl lg:leading-relaxed">
+              <p className="text-base font-medium text-foreground sm:text-lg md:text-xl lg:text-2xl">
                 Our mission is to bring privacy technology to everyone.
               </p>
 
@@ -154,7 +154,7 @@ export default function MissionPage() {
                   href="https://userandagents.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-black hover:text-black/70 underline"
+                  className="inline-flex items-center gap-1 text-foreground hover:text-foreground/70 underline"
                 >
                   User &amp; Agents
                   <svg
@@ -180,7 +180,7 @@ export default function MissionPage() {
                   href="https://x.com/feynon"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-black hover:text-black/70 underline"
+                  className="inline-flex items-center gap-1 text-foreground hover:text-foreground/70 underline"
                 >
                   @feynon
                   <svg
@@ -206,7 +206,7 @@ export default function MissionPage() {
             <div className="flex flex-col sm:flex-row lg:flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10">
               {/* Contributors */}
               <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
-                <h2 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 lg:text-xl">Contributors</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4 lg:text-xl">Contributors</h2>
                 <div className="space-y-1 sm:space-y-1.5">
                   {people.contributors.map((person) => (
                     <Person key={person.name} name={person.name} links={person.links} />
@@ -216,10 +216,10 @@ export default function MissionPage() {
 
               {/* Sponsors */}
               <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
-                <h2 className="text-base sm:text-lg font-semibold text-black mb-3 sm:mb-4 lg:text-xl">Sponsors</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4 lg:text-xl">Sponsors</h2>
                 <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Active</h3>
+                    <h3 className="text-xs sm:text-sm font-medium text-foreground mb-1.5 sm:mb-2 lg:text-base">Active</h3>
                     <div className="space-y-1 sm:space-y-1.5">
                       {people.sponsorsActive.map((person) => (
                         <Person key={person.name} name={person.name} links={person.links} />
@@ -227,7 +227,7 @@ export default function MissionPage() {
                     </div>
                   </div>
                   <div>
-                    <h3 className="text-xs sm:text-sm font-medium text-black mb-1.5 sm:mb-2 lg:text-base">Past</h3>
+                    <h3 className="text-xs sm:text-sm font-medium text-foreground mb-1.5 sm:mb-2 lg:text-base">Past</h3>
                     <div className="space-y-1 sm:space-y-1.5">
                       {people.sponsorsPast.map((person) => (
                         <Person key={person.name} name={person.name} links={person.links} />

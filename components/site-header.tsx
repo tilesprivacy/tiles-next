@@ -3,6 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { useState, useEffect } from "react"
 import { useTheme } from 'next-themes'
 import { usePathname } from 'next/navigation'
@@ -29,8 +30,8 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
   const currentTheme = themeAware ? (resolvedTheme || (theme === 'system' ? systemTheme : theme)) : 'light'
   const isDark = themeAware && currentTheme === 'dark'
 
-  // Use appropriate logo based on theme
-  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
+  // Always use the dark mode logo
+  const logoSrc = '/dark.jpeg'
 
   // Use appropriate apple logo based on theme
   const appleLogoSrc = (mounted && isDark) ? '/apple-logo.svg' : '/apple-logo-white.svg'
@@ -101,6 +102,10 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
           {/* Search - Book pages only (tablet/desktop) */}
           {isBookPage && <div className="hidden sm:block"><HeaderSearch /></div>}
           
+          <div className={`${isBookPage && isSearchFocused ? 'hidden sm:flex' : 'flex'}`}>
+            <ThemeToggle />
+          </div>
+
           {/* Buttons - hidden on mobile when search is focused on book pages */}
           <Button
             asChild
