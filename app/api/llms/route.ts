@@ -78,7 +78,7 @@ export async function GET(request: Request) {
   // Mission Page
   sections.push(`## Mission (${baseUrl}/mission)`)
   sections.push('')
-  sections.push('Our mission is to shape the future of software personalization with decentralized memory networks.')
+  sections.push('Our mission is to bring privacy technology to everyone.')
   sections.push('')
   sections.push('Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.')
   sections.push('')

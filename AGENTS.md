@@ -13,7 +13,7 @@
 - All footers across pages (home, about, etc.) must remain consistent.
 - The developer link should always be:
   - **Text**: "Book"
-  - **URL**: `https://book.tiles.run`
+  - **URL**: `https://tiles.run/book`
 
 ## llms.txt Endpoint Maintenance
 

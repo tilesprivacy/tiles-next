@@ -10,10 +10,10 @@ import { blogPosts } from "@/lib/blog-posts"
 
 export const metadata: Metadata = {
   title: "Introducing Tiles Public Alpha",
-  description: "Building the future of software personalization with decentralized memory networks.",
+  description: "Building an everyday AI assistant with privacy-first engineering at its core.",
   openGraph: {
     title: "Introducing Tiles Public Alpha",
-    description: "Building the future of software personalization with decentralized memory networks.",
+    description: "Building an everyday AI assistant with privacy-first engineering at its core.",
     type: "article",
     publishedTime: "2026-01-02",
     images: [
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Introducing Tiles Public Alpha",
-    description: "Building the future of software personalization with decentralized memory networks.",
+    description: "Building an everyday AI assistant with privacy-first engineering at its core.",
     images: ["/kingston.webp"],
   },
 }
@@ -50,7 +50,7 @@ export default function HowTilesWorksPage() {
               Introducing Tiles Public Alpha
             </h1>
             <p className="text-base text-black/50 lg:text-xl mb-3 lg:mb-4">
-              Building the future of software personalization with decentralized memory networks.
+              Building an everyday AI assistant with privacy-first engineering at its core.
             </p>
             <div className="flex items-center gap-3 lg:gap-4">
               <p className="text-sm text-black/40 lg:text-lg">January 2, 2026</p>
@@ -84,9 +84,7 @@ export default function HowTilesWorksPage() {
 
             <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
               <p>
-                We're building open-source technology for local-first models, enabling personalized software experiences
-                without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same
-                coin, and Tiles makes that coin yours: your user-agent.
+                Today, we're releasing the public alpha of Tiles, our first step toward a privacy-first AI assistant built to run entirely on the user's device. Tiles brings together local-first models, personalized experiences, and verifiable privacy guarantees, so data remains under the user's control by default. We see identity and memory as inseparable parts of the same system, and Tiles is designed around that idea: an AI assistant that acts as a user-owned agent rather than a centralized service.
               </p>
 
               <p className="mb-6 lg:mb-8">
@@ -175,11 +173,33 @@ export default function HowTilesWorksPage() {
                   Implementation
                 </h2>
 
+                <p className="mb-6 lg:mb-8">
+                  In our regular Tiles builds, we support running fully offline models, models pulled directly from the Hugging Face registry, and a built-in code interpreter for executing Python functions. We use{" "}
+                  <a
+                    href="https://venvstacks.lmstudio.ai/overview/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                  >
+                    venvstacks
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-2.5 w-2.5"
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                  , layered Python virtual environments, to ensure Tiles does not interfere with system dependencies and remains portable across platforms.
+                </p>
 
                 <div className="my-8 lg:my-12">
                   <Image
-                    src="/tilescli.png"
-                    alt="Tiles CLI"
+                    src="/newtilescli.png"
+                    alt="Tiles CLI - Your private AI assistant running locally"
                     width={1200}
                     height={600}
                     className="w-full h-auto rounded-lg"
@@ -187,8 +207,7 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-6 lg:mb-8">
-                  Tiles bundles a fine-tuned model to manage context and memories locally on-device with
-                  hyperlinked markdown files. Currently, we use{" "}
+                  We also offer an Insiders build that includes experimental features, including our AI memory capabilities powered by fine-tuned memory models that manage context and memories locally on-device with hyperlinked markdown files. Currently, we use{" "}
                   <a
                     href="https://huggingface.co/driaforall/mem-agent"
                     target="_blank"

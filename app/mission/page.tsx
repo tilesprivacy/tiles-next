@@ -6,10 +6,10 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Tiles Mission",
-  description: "Learn how Tiles advances privacy-first personalization with decentralized memory networks.",
+  description: "Bringing privacy technology to everyone.",
   openGraph: {
     title: "Tiles Mission",
-    description: "Learn how Tiles advances privacy-first personalization with decentralized memory networks.",
+    description: "Bringing privacy technology to everyone.",
     type: "website",
     images: [
       {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles Mission",
-    description: "Learn how Tiles advances privacy-first personalization with decentralized memory networks.",
+    description: "Bringing privacy technology to everyone.",
     images: ["/api/og"],
   },
 }
@@ -145,7 +145,7 @@ export default function MissionPage() {
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-6 sm:mb-8 md:mb-10 lg:mb-12">Mission</h1>
             <div className="space-y-4 sm:space-y-6 text-sm leading-relaxed text-black/80 sm:text-base md:space-y-6 lg:space-y-8 lg:text-xl lg:leading-relaxed">
               <p className="text-base font-medium text-black sm:text-lg md:text-xl lg:text-2xl">
-                Our mission is to shape the future of software personalization with decentralized memory networks.
+                Our mission is to bring privacy technology to everyone.
               </p>
 
               <p>

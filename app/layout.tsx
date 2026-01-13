@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Tiles is your private AI assistant for everyday use",
+  title: "Tiles",
   description: "Your private AI assistant for everyday use",
   generator: "v0.app",
   icons: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    title: "Tiles is your private AI assistant for everyday use",
+    title: "Tiles",
     description: "Your private AI assistant for everyday use",
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles is your private AI assistant for everyday use",
+    title: "Tiles",
     description: "Your private AI assistant for everyday use",
     images: ["/api/og"],
   },

@@ -54,7 +54,7 @@ function CustomAnchor(props: ComponentProps<'a'>) {
   
   // Check if link is external and not a tiles.run domain
   const isExternal = href?.startsWith('http://') || href?.startsWith('https://')
-  const isTilesRunDomain = href?.includes('tiles.run') || href?.includes('book.tiles.run')
+  const isTilesRunDomain = href?.includes('tiles.run') || href?.includes('tiles.run/book')
   const showExternalIndicator = isExternal && !isTilesRunDomain && !href?.startsWith('mailto:')
   
   return (

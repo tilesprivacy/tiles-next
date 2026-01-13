@@ -4,7 +4,7 @@ export const runtime = "edge"
 
 export default async function handler(request: Request) {
   // Fetch the dark.png image (the "T" logo)
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://book.tiles.run')
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://tiles.run/book')
   const imageResponse = await fetch(`${baseUrl}/dark.png`)
   const imageData = await imageResponse.arrayBuffer()
   const imageBase64 = Buffer.from(imageData).toString('base64')
@@ -12,11 +12,11 @@ export default async function handler(request: Request) {
   
   // Get query parameters if provided
   const { searchParams } = new URL(request.url)
-  const title = searchParams.get('title') || 'Learn about decentralized memory networks'
-  const description = searchParams.get('description') || 'Learn about decentralized memory networks'
+  const title = searchParams.get('title') || 'Learn about the privacy-first engineering behind Tiles'
+  const description = searchParams.get('description') || 'Learn about the privacy-first engineering behind Tiles'
   
   // Use description if provided, otherwise use title, fallback to default
-  const displayText = description || title || 'Learn about decentralized memory networks'
+  const displayText = description || title || 'Learn about the privacy-first engineering behind Tiles'
   
   return new ImageResponse(
     <div

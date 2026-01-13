@@ -10,11 +10,11 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "introducing-tiles-public-alpha",
     title: "Introducing Tiles Public Alpha",
-    description: "We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy.",
+    description: "Announcing Tiles Public Alpha: our first release of a privacy-first AI assistant with local models, a CLI app for Apple Silicon, and a Modelfile-based SDK for developers.",
     date: new Date("2026-01-02"),
     content: `<img src="/kingston.webp" alt="Cover image for Introducing Tiles Public Alpha" style="width: 100%; height: auto; margin-bottom: 2rem;" />
 
-<p>We're building open-source technology for local-first models, enabling personalized software experiences without sacrificing accessibility or privacy. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
+<p>We're thrilled to launch Tiles Public Alpha, our first public release of a privacy-first AI assistant. Tiles brings together local-first models, personalized experiences, and verifiable privacy—all running on your device, with your data staying yours. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
 
 <p>Our first alpha is a CLI assistant app for Apple Silicon devices, and a Modelfile<a href="#ref-1">¹</a> based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 
