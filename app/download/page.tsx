@@ -15,15 +15,15 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
   }
 
   return (
-    <div className={`inline-flex items-center rounded-xl bg-[#f5f5f5] max-w-full ${compact ? "" : ""}`}>
+    <div className={`inline-flex items-center rounded-xl bg-muted/60 max-w-full ${compact ? "" : ""}`}>
       <div className={`overflow-x-auto ${compact ? "px-4 py-2.5" : "px-4 py-3 lg:px-5 lg:py-3.5"}`}>
-        <code className={`font-mono text-black/80 whitespace-nowrap ${compact ? "text-sm" : "text-sm lg:text-base"}`}>
+        <code className={`font-mono text-foreground/80 whitespace-nowrap ${compact ? "text-sm" : "text-sm lg:text-base"}`}>
           {code}
         </code>
       </div>
       <button
         onClick={handleCopy}
-        className={`flex-shrink-0 flex items-center justify-center bg-[#f5f5f5] rounded-r-xl hover:bg-[#e5e5e5] transition-colors ${compact ? "px-3 py-2.5" : "px-3 py-3 lg:px-4 lg:py-3.5"}`}
+        className={`flex-shrink-0 flex items-center justify-center bg-muted/60 rounded-r-xl hover:bg-muted transition-colors ${compact ? "px-3 py-2.5" : "px-3 py-3 lg:px-4 lg:py-3.5"}`}
         aria-label="Copy to clipboard"
         title={copied ? "Copied!" : "Copy to clipboard"}
       >
@@ -45,7 +45,7 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
             fill="none"
             stroke="currentColor"
             strokeWidth="1.5"
-            className="h-4 w-4 text-black/50 hover:text-black/80 transition-colors lg:h-[18px] lg:w-[18px]"
+            className="h-4 w-4 text-foreground/50 hover:text-foreground/80 transition-colors lg:h-[18px] lg:w-[18px]"
           >
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
@@ -58,8 +58,8 @@ const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean 
 
 export default function DownloadPage() {
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-white">
-      <SiteHeader />
+    <div className="relative flex min-h-[100dvh] flex-col bg-background text-foreground">
+      <SiteHeader themeAware />
 
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col lg:flex-row min-h-0">
@@ -68,7 +68,7 @@ export default function DownloadPage() {
           <div className="flex w-full max-w-md flex-col gap-6 text-left lg:max-w-xl lg:gap-10">
             {/* Title */}
             <div className="space-y-1">
-              <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
+              <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl">
                 You're about to
                 <br />
                 get Tiles for Mac
@@ -77,7 +77,7 @@ export default function DownloadPage() {
 
             {/* Install Section */}
             <div className="space-y-2 lg:space-y-3">
-              <p className="text-sm text-black/70 sm:text-base lg:text-lg">Install and run:</p>
+              <p className="text-sm text-foreground/70 sm:text-base lg:text-lg">Install and run:</p>
 
               {/* Code Blocks */}
               <div className="flex flex-col items-start gap-2 lg:gap-3">
@@ -86,12 +86,12 @@ export default function DownloadPage() {
               </div>
 
               {/* Footer Links */}
-              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-black/60 pt-2 lg:gap-3 lg:text-sm">
+              <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-foreground/60 pt-2 lg:gap-3 lg:text-sm">
                 <a
                   href="https://tiles.run/install.sh"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 transition-colors hover:text-black"
+                  className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
                 >
                   View script source
                   <svg
@@ -110,7 +110,7 @@ export default function DownloadPage() {
                   href="https://github.com/tilesprivacy/tiles/blob/main/HACKING.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 transition-colors hover:text-black"
+                  className="inline-flex items-center gap-1 transition-colors hover:text-foreground"
                 >
                   Manual install instructions
                   <svg
@@ -126,13 +126,13 @@ export default function DownloadPage() {
                 </a>
               </div>
 
-              <div className="pt-6 text-[11px] text-black/50 lg:pt-8 lg:text-sm">
+              <div className="pt-6 text-[11px] text-foreground/50 lg:pt-8 lg:text-sm">
                 We also offer an Insiders build for early adopters. It includes the latest code changes and experimental features, such as offline memory models, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently.{" "}
                 <a
                   href="https://github.com/tilesprivacy/tiles/issues/51"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 font-medium text-black/60 transition-colors hover:text-black"
+                  className="inline-flex items-center gap-1 font-medium text-foreground/60 transition-colors hover:text-foreground"
                 >
                   Track the issue here
                   <svg

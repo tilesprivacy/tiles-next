@@ -20,9 +20,8 @@ export function BookHeader() {
   const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
   const isDark = currentTheme === 'dark'
   
-  // Use dark.jpeg for dark theme, lighticon.png for light theme
-  // Default to lighticon.png during SSR to avoid hydration mismatch
-  const logoSrc = mounted && isDark ? '/dark.jpeg' : '/lighticon.png'
+  // Always use the dark mode logo
+  const logoSrc = '/dark.jpeg'
   
   // Use dark apple logo for dark theme (button bg is light), white logo for light theme (button bg is dark)
   // Default to white logo during SSR to avoid hydration mismatch
@@ -96,4 +95,3 @@ export function BookHeader() {
     </>
   )
 }
-

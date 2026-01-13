@@ -5,6 +5,7 @@ import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { ThemeToggle } from "@/components/theme-toggle"
 
 export function BookFooter() {
   const { theme, systemTheme, resolvedTheme } = useTheme()
@@ -46,6 +47,14 @@ export function BookFooter() {
     ? "border-white/5"
     : "border-black/5"
 
+  const toggleClasses = footerIsDark
+    ? "inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white/80 transition-colors hover:border-white/40 hover:text-white"
+    : "inline-flex h-8 w-8 items-center justify-center rounded-full border border-black/20 text-black/70 transition-colors hover:border-black/40 hover:text-black"
+
+  const togglePlaceholder = footerIsDark
+    ? "h-8 w-8 rounded-full border border-white/20"
+    : "h-8 w-8 rounded-full border border-black/20"
+
   // Icon hover colors - keep brand colors but adjust base
   const iconHoverClasses = {
     twitter: footerIsDark ? "group-hover:text-white/70" : "group-hover:text-black/70",
@@ -73,6 +82,12 @@ export function BookFooter() {
               <Link href="/privacy" className="text-white transition-colors hover:text-white/70 whitespace-nowrap">
                 Privacy
               </Link>
+              <a
+                href="https://tiles.run/book"
+                className="text-white transition-colors hover:text-white/70 whitespace-nowrap"
+              >
+                Book
+              </a>
             </nav>
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
               {/* Placeholder for icons */}
@@ -118,6 +133,12 @@ export function BookFooter() {
             <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
               Privacy
             </Link>
+            <a
+              href="https://tiles.run/book"
+              className={`${linkClasses} whitespace-nowrap`}
+            >
+              Book
+            </a>
           </nav>
           <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
             <a
@@ -188,24 +209,30 @@ export function BookFooter() {
 
         <div className={`flex flex-row items-center justify-between gap-2 border-t ${borderClasses} pt-1.5 sm:pt-2 text-[10px] sm:text-xs`}>
           <p className={`${copyrightClasses} whitespace-nowrap`}>© 2026 Tiles Privacy</p>
-          <a
-            href="https://status.tiles.run/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${statusLinkClasses} inline-flex items-center gap-1 whitespace-nowrap`}
-          >
-            Status
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="h-2.5 w-2.5"
+          <div className="flex items-center gap-2 sm:gap-3">
+            <ThemeToggle
+              className={toggleClasses}
+              placeholderClassName={togglePlaceholder}
+            />
+            <a
+              href="https://status.tiles.run/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${statusLinkClasses} inline-flex items-center gap-1 whitespace-nowrap`}
             >
-              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+              Status
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="h-2.5 w-2.5"
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
