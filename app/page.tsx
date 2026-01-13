@@ -21,11 +21,11 @@ export default async function Page() {
       <SiteHeader themeAware />
 
       {/* Main Content - properly spaced below fixed header */}
-      <main className="flex flex-1 items-center justify-center px-6 pt-32 pb-16 lg:pt-40 lg:pb-20">
+      <main className="flex flex-1 items-center justify-center px-6 pt-24 pb-8 sm:pt-32 sm:pb-16 lg:pt-40 lg:pb-20">
         {/* Hero Section */}
         <div className="w-full max-w-6xl">
           {/* Top Section: Logo, Title, CTA */}
-          <div className="flex flex-col items-center gap-8 mb-12 lg:mb-16">
+          <div className="flex flex-col items-center gap-6 sm:gap-8 mb-10 sm:mb-12 lg:mb-16">
             {/* Logo with Version badge */}
             <div className="relative">
               <div className="relative flex items-center justify-center rounded-3xl bg-muted/60 shadow-sm ring-1 ring-foreground/10 h-24 w-24 lg:h-32 lg:w-32">
