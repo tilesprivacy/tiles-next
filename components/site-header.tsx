@@ -5,9 +5,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect } from "react"
 import { useTheme } from 'next-themes'
-import { usePathname } from 'next/navigation'
 import { MobileMenu } from "./mobile-menu"
-import { HeaderSearch, SearchFocusProvider, useSearchFocus } from "./book-search"
 
 interface SiteHeaderProps {
   themeAware?: boolean
@@ -17,9 +15,6 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, systemTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const pathname = usePathname()
-  const isBookPage = pathname?.startsWith('/book')
-  const { isFocused: isSearchFocused } = useSearchFocus()
 
   useEffect(() => {
     setMounted(true)
@@ -77,6 +72,25 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
                 <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
+            <a
+              href="https://github.com/orgs/tilesprivacy/discussions/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-base font-medium ${textColor} transition-colors ${textColorHover} inline-flex items-center gap-0.5`}
+            >
+              RFCs
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="h-2.5 w-2.5 inline-block ml-0.5 align-baseline"
+                style={{ verticalAlign: 'baseline' }}
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
             <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
               Changelog
             </Link>
@@ -89,22 +103,12 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
           </nav>
         </div>
 
-        {/* Center: Search - Book pages only (mobile) */}
-        {isBookPage && (
-          <div className="flex-1 px-3 sm:hidden">
-            <HeaderSearch />
-          </div>
-        )}
-
         {/* Right side: Buttons and Hamburger */}
         <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3 shrink-0">
-          {/* Search - Book pages only (tablet/desktop) */}
-          {isBookPage && <div className="hidden sm:block"><HeaderSearch /></div>}
-          
-          {/* Buttons - hidden on mobile when search is focused on book pages */}
+          {/* Buttons */}
           <Button
             asChild
-            className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonText} ${buttonHover} lg:h-10 lg:px-4 lg:text-sm ${isBookPage && isSearchFocused ? 'hidden sm:flex' : ''}`}
+            className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonText} ${buttonHover} lg:h-10 lg:px-4 lg:text-sm`}
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
               <Image
@@ -119,7 +123,7 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
           </Button>
           <Button
             asChild
-            className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonText} ${buttonHover} lg:h-10 lg:px-4 lg:text-sm ${isBookPage && isSearchFocused ? 'hidden sm:flex' : ''}`}
+            className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonText} ${buttonHover} lg:h-10 lg:px-4 lg:text-sm`}
           >
             <a
               href="https://github.com/sponsors/tilesprivacy"
@@ -159,9 +163,5 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
 }
 
 export function SiteHeader(props: SiteHeaderProps) {
-  return (
-    <SearchFocusProvider>
-      <SiteHeaderContent {...props} />
-    </SearchFocusProvider>
-  )
+  return <SiteHeaderContent {...props} />
 }

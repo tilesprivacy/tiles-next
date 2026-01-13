@@ -38,6 +38,12 @@ const bookPages: BookPage[] = [
     description: 'MIR (Machine Intelligence Resource) naming schema extension for model classification and reproducibility.',
     href: '/book/mir',
   },
+  {
+    number: '06',
+    title: 'Resources',
+    description: 'A living index of resources that inform and inspire our work.',
+    href: '/book/resources',
+  },
 ]
 
 export function BookMobileNav() {

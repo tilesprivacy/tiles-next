@@ -17,6 +17,7 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/models', title: 'Models Reference' },
   { route: '/book/modelfile', title: 'Modelfile Reference' },
   { route: '/book/mir', title: 'MIR Extension' },
+  { route: '/book/resources', title: 'Resources' },
 ]
 
 export function BookPageNavigation() {

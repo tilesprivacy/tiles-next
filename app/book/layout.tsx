@@ -5,7 +5,6 @@ import 'nextra-theme-docs/style.css'
 import { SiteHeader } from '@/components/site-header'
 import { BookFooter } from '@/components/book-footer'
 import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
-import { BookSearch } from '@/components/book-search'
 
 export const metadata = {
   title: {
@@ -80,7 +79,7 @@ export default async function BookLayout({
   })
 
   // Define the correct order from _meta.json
-  const desiredOrder = ['index', 'cli', 'models', 'modelfile', 'mir', 'contact']
+  const desiredOrder = ['index', 'cli', 'models', 'modelfile', 'mir', 'resources', 'contact']
 
   // Sort the pageMap according to the desired order
   const finalPageMap = flattenedPageMap.sort((a, b) => {
@@ -108,11 +107,10 @@ export default async function BookLayout({
       <SiteHeader themeAware />
       <BookBreadcrumbLink />
       <div className="pt-16 lg:pt-24">
-        <Layout 
+        <Layout
           pageMap={finalPageMap}
           docsRepositoryBase="https://github.com/tilesprivacy/tiles-next/tree/main/book"
           navigation={false}
-          search={<BookSearch />}
         >
           {children}
         </Layout>

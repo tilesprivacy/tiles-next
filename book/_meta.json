@@ -14,6 +14,9 @@
   "mir": {
     "title": "MIR Extension"
   },
+  "resources": {
+    "title": "Resources"
+  },
   "blog": {
     "title": "Blog",
     "type": "page",

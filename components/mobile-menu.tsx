@@ -176,6 +176,26 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                 <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
+            <a
+              href="https://github.com/orgs/tilesprivacy/discussions/"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-0.5`}
+            >
+              RFCs
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="h-2.5 w-2.5 inline-block ml-0.5 align-baseline"
+                style={{ verticalAlign: 'baseline' }}
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
             <Link
               href="/changelog"
               onClick={onClose}

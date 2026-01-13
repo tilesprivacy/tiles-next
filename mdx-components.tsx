@@ -22,16 +22,16 @@ const ExternalLinkIcon = () => (
 // Custom image component that uses Next.js Image optimization
 function CustomImage(props: ComponentProps<'img'>) {
   const { src, alt, style, ...rest } = props
-  
+
   if (!src) return null
-  
+
   // Extract width/height from style if provided, otherwise use defaults
-  const maxWidth = style?.maxWidth 
-    ? typeof style.maxWidth === 'string' 
-      ? parseInt(style.maxWidth) || 800 
-      : style.maxWidth 
+  const maxWidth = style?.maxWidth
+    ? typeof style.maxWidth === 'string'
+      ? parseInt(style.maxWidth) || 800
+      : style.maxWidth
     : 800
-  
+
   return (
     <NextImage
       src={src}
@@ -51,12 +51,12 @@ function CustomImage(props: ComponentProps<'img'>) {
 // Custom anchor component that adds external link indicator for non-tiles.run links
 function CustomAnchor(props: ComponentProps<'a'>) {
   const { href, children, ...rest } = props
-  
+
   // Check if link is external and not a tiles.run domain
   const isExternal = href?.startsWith('http://') || href?.startsWith('https://')
   const isTilesRunDomain = href?.includes('tiles.run') || href?.includes('tiles.run/book')
   const showExternalIndicator = isExternal && !isTilesRunDomain && !href?.startsWith('mailto:')
-  
+
   return (
     <a
       href={href}
@@ -81,4 +81,3 @@ export const useMDXComponents = (
   img: CustomImage,
   ...components,
 })
-
