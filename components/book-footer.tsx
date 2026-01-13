@@ -73,6 +73,12 @@ export function BookFooter() {
               <Link href="/privacy" className="text-white transition-colors hover:text-white/70 whitespace-nowrap">
                 Privacy
               </Link>
+              <a
+                href="https://tiles.run/book"
+                className="text-white transition-colors hover:text-white/70 whitespace-nowrap"
+              >
+                Book
+              </a>
             </nav>
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
               {/* Placeholder for icons */}
@@ -118,6 +124,12 @@ export function BookFooter() {
             <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
               Privacy
             </Link>
+            <a
+              href="https://tiles.run/book"
+              className={`${linkClasses} whitespace-nowrap`}
+            >
+              Book
+            </a>
           </nav>
           <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
             <a

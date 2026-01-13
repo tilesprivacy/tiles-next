@@ -74,19 +74,19 @@ export default function NewsletterForm() {
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={status === "loading"}
-            className="text-sm !bg-white !text-black placeholder:!text-black/50 selection:!bg-blue-500 selection:!text-white"
+            className="text-sm !bg-background !text-foreground placeholder:!text-foreground/50 selection:!bg-blue-500 selection:!text-white"
           />
           <Button
             type="submit"
             disabled={status === "loading" || status === "success"}
-            className="h-9 rounded-md bg-black px-4 text-xs font-medium text-white hover:bg-black/90 disabled:opacity-50 lg:h-9 lg:px-4 lg:text-sm"
+            className="h-9 rounded-md bg-foreground px-4 text-xs font-medium text-background hover:bg-foreground/90 disabled:opacity-50 lg:h-9 lg:px-4 lg:text-sm"
           >
             {status === "loading" ? "Subscribing..." : status === "success" ? "Done!" : "Subscribe"}
           </Button>
         </div>
         {message && (
           <p
-            className={`text-xs leading-relaxed ${status === "success" ? "text-black/60" : "text-black/60"}`}
+            className={`text-xs leading-relaxed ${status === "success" ? "text-foreground/60" : "text-foreground/60"}`}
           >
             {message}
           </p>
