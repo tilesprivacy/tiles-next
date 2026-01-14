@@ -30,16 +30,18 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   // Use appropriate logo based on theme
   const logoSrc = (mounted && isDark) ? '/dark.jpeg' : '/lighticon.png'
 
-  // Use appropriate apple logo based on theme - always black logo for white button in dark mode
-  const appleLogoSrc = themeAware ? '/apple-logo.svg' : '/apple-logo-white.svg'
+  // Use appropriate apple logo based on theme
+  const appleLogoSrc = themeAware
+    ? (mounted && isDark ? '/apple-logo.svg' : '/apple-logo-white.svg')
+    : '/apple-logo-white.svg'
 
   // Theme-aware class names
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
   const textColor = themeAware ? 'text-foreground' : 'text-black'
   const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
-  const buttonBg = themeAware ? 'bg-white' : 'bg-black'
-  const buttonText = themeAware ? 'text-black' : 'text-white'
-  const buttonHover = themeAware ? 'hover:bg-white/90' : 'hover:bg-black/90'
+  const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
+  const buttonText = themeAware ? 'text-background' : 'text-white'
+  const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
   
   // Social icon colors - theme-aware
   const iconBaseColor = themeAware ? 'text-foreground/40' : 'text-black/40'
@@ -101,8 +103,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
               <Link
                 href="/download"
                 onClick={onClose}
-                className="group flex items-center gap-1.5"
-                style={themeAware ? { color: '#000000' } : { color: '#ffffff' }}
+                className={`group flex items-center gap-1.5 ${buttonText}`}
               >
                 <Image
                   src={appleLogoSrc}
@@ -124,13 +125,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                 href="https://github.com/sponsors/tilesprivacy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-1.5"
-                style={themeAware ? { color: '#000000' } : { color: '#ffffff' }}
+                className={`group flex items-center gap-1.5 ${buttonText}`}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  className={`h-3.5 w-3.5 ${themeAware ? 'fill-black' : 'fill-white'} transition-all duration-300 group-hover:scale-110 ${themeAware ? 'group-hover:fill-black/70' : 'group-hover:fill-white/70'} group-active:scale-110`}
+                  className={`h-3.5 w-3.5 fill-current transition-all duration-300 group-hover:scale-110 ${themeAware ? 'group-hover:text-background/70' : 'group-hover:text-white/70'} group-active:scale-110`}
                 >
                   <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
