@@ -140,7 +140,7 @@ const people = {
   ],
   sponsorsPast: [
     { name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
-    { name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref"] },
+    { name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref", "https://github.com/serefyarar"] },
     { name: "Curran Dwyer @currandwyer", links: ["https://x.com/CurranDwyer"] },
   ],
 }
