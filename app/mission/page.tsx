@@ -86,10 +86,22 @@ function getIcon(type: "website" | "twitter" | "github" | "bluesky") {
 }
 
 // Person component with links
+function renderDisplayName(name: string) {
+  const match = name.match(/^(.*?)(\s@[^ ]+)$/)
+  if (!match) return name
+  const [, fullName, handle] = match
+  return (
+    <>
+      {fullName}
+      <span className="text-black/50">{handle}</span>
+    </>
+  )
+}
+
 function Person({ name, links }: { name: string; links: string[] }) {
   return (
     <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-black/80 lg:text-base">
-      <span>{name}</span>
+      <span>{renderDisplayName(name)}</span>
       <div className="flex items-center gap-1 sm:gap-1.5">
         {links.map((url, index) => {
           const iconType = getIconType(url)
@@ -114,21 +126,22 @@ function Person({ name, links }: { name: string; links: string[] }) {
 // People data
 const people = {
   contributors: [
-    { name: "Ankesh Bharti", links: ["https://ankeshbharti.com", "https://x.com/feynon_", "https://bsky.app/profile/ankeshbharti.com"] },
-    { name: "Anandu Pavanan", links: ["https://github.com/madclaws"] },
-    { name: "Kshitij Taneja", links: ["https://github.com/kshitijgetsac"] },
+    { name: "Ankesh Bharti @feynon", links: ["https://ankeshbharti.com", "https://x.com/feynon_", "https://bsky.app/profile/ankeshbharti.com"] },
+    { name: "Anandu Pavanan @madclaws", links: ["https://github.com/madclaws"] },
+    { name: "Kshitij Taneja @kshitijgetsac", links: ["https://github.com/kshitijgetsac"] },
+    { name: "bxff @bxff", links: ["https://github.com/bxff"] },
   ],
   sponsorsActive: [
-    { name: "Luke Hubbard", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
-    { name: "Dietrich Ayala", links: ["https://metafluff.com/", "https://bsky.app/profile/burrito.space", "https://github.com/autonome"] },
-    { name: "Xi Zhang", links: ["https://www.xizhang.page", "https://x.com/aefhm"] },
-    { name: "Hugo Duprez", links: ["https://www.hugoduprez.com/", "https://x.com/home"] },
-    { name: "Utkarsh Saxena", links: ["https://saxenauts.io/", "https://x.com/saxenauts"] },
+    { name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
+    { name: "Dietrich Ayala @autonome", links: ["https://metafluff.com/", "https://bsky.app/profile/burrito.space", "https://github.com/autonome"] },
+    { name: "Xi Zhang @aefhm", links: ["https://www.xizhang.page", "https://x.com/aefhm"] },
+    { name: "Hugo Duprez @HugoDuprez", links: ["https://www.hugoduprez.com/", "https://x.com/HugoDuprez"] },
+    { name: "Utkarsh Saxena @saxenauts", links: ["https://saxenauts.io/", "https://x.com/saxenauts"] },
   ],
   sponsorsPast: [
-    { name: "Boris Mann", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
-    { name: "Seref Yarar", links: ["https://x.com/hyperseref"] },
-    { name: "Curran Dwyer", links: ["https://x.com/CurranDwyer"] },
+    { name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
+    { name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref"] },
+    { name: "Curran Dwyer @currandwyer", links: ["https://x.com/CurranDwyer"] },
   ],
 }
 
