@@ -17,6 +17,7 @@ interface MobileMenuProps {
 export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuProps) {
   const { theme, systemTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isResourcesExpanded, setIsResourcesExpanded] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -29,16 +30,16 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   // Use appropriate logo based on theme
   const logoSrc = (mounted && isDark) ? '/dark.jpeg' : '/lighticon.png'
 
-  // Use appropriate apple logo based on theme
-  const appleLogoSrc = (mounted && isDark) ? '/apple-logo.svg' : '/apple-logo-white.svg'
+  // Use appropriate apple logo based on theme - always black logo for white button in dark mode
+  const appleLogoSrc = themeAware ? '/apple-logo.svg' : '/apple-logo-white.svg'
 
   // Theme-aware class names
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
   const textColor = themeAware ? 'text-foreground' : 'text-black'
   const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
-  const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
-  const buttonText = themeAware ? 'text-background' : 'text-white'
-  const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
+  const buttonBg = themeAware ? 'bg-white' : 'bg-black'
+  const buttonText = themeAware ? 'text-black' : 'text-white'
+  const buttonHover = themeAware ? 'hover:bg-white/90' : 'hover:bg-black/90'
   
   // Social icon colors - theme-aware
   const iconBaseColor = themeAware ? 'text-foreground/40' : 'text-black/40'
@@ -95,9 +96,14 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
             {/* Download Button */}
             <Button
               asChild
-              className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonText} ${buttonHover}`}
+              className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonHover}`}
             >
-              <Link href="/download" onClick={onClose} className="group flex items-center gap-1.5">
+              <Link
+                href="/download"
+                onClick={onClose}
+                className="group flex items-center gap-1.5"
+                style={themeAware ? { color: '#000000' } : { color: '#ffffff' }}
+              >
                 <Image
                   src={appleLogoSrc}
                   alt="Apple"
@@ -112,18 +118,19 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
             {/* Sponsor Button */}
             <Button
               asChild
-              className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonText} ${buttonHover}`}
+              className={`h-8 rounded-full ${buttonBg} px-3 text-xs font-medium ${buttonHover}`}
             >
               <a
                 href="https://github.com/sponsors/tilesprivacy"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-1.5"
+                style={themeAware ? { color: '#000000' } : { color: '#ffffff' }}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  className={`h-3.5 w-3.5 ${themeAware ? 'fill-background' : 'fill-white'} transition-all duration-300 group-hover:scale-110 ${themeAware ? 'group-hover:fill-background/70' : 'group-hover:fill-white/70'} group-active:scale-110`}
+                  className={`h-3.5 w-3.5 ${themeAware ? 'fill-black' : 'fill-white'} transition-all duration-300 group-hover:scale-110 ${themeAware ? 'group-hover:fill-black/70' : 'group-hover:fill-white/70'} group-active:scale-110`}
                 >
                   <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
@@ -156,46 +163,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
             >
               Mission
             </Link>
-            <a
-              href="https://github.com/orgs/tilesprivacy/projects/4"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-0.5`}
-            >
-              Roadmap
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="h-2.5 w-2.5 inline-block ml-0.5 align-baseline"
-                style={{ verticalAlign: 'baseline' }}
-              >
-                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <a
-              href="https://github.com/orgs/tilesprivacy/discussions/"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-0.5`}
-            >
-              RFCs
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="h-2.5 w-2.5 inline-block ml-0.5 align-baseline"
-                style={{ verticalAlign: 'baseline' }}
-              >
-                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
             <Link
               href="/changelog"
               onClick={onClose}
@@ -210,13 +177,78 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
             >
               Blog
             </Link>
-            <Link
-              href="/book"
-              onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
-            >
-              Book
-            </Link>
+
+            {/* Resources Expandable Section */}
+            <div>
+              <button
+                onClick={() => setIsResourcesExpanded(!isResourcesExpanded)}
+                className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} w-full text-left flex items-center justify-between`}
+              >
+                <span>Resources</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className={`h-5 w-5 transition-transform duration-200 ${isResourcesExpanded ? 'rotate-180' : ''}`}
+                >
+                  <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+                </svg>
+              </button>
+
+              {isResourcesExpanded && (
+                <div className="pl-4">
+                  <a
+                    href="https://github.com/orgs/tilesprivacy/projects/4"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
+                  >
+                    <span>Roadmap</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4"
+                    >
+                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                    </svg>
+                  </a>
+                  <a
+                    href="https://github.com/orgs/tilesprivacy/discussions/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={onClose}
+                    className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
+                  >
+                    <span>RFCs</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4"
+                    >
+                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                    </svg>
+                  </a>
+                  <Link
+                    href="/book"
+                    onClick={onClose}
+                    className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
+                  >
+                    <span>Book</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4"
+                    >
+                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Spacer to push social icons to bottom half */}
