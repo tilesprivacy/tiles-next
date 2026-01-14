@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useTheme } from 'next-themes'
 import { MobileMenu } from "./mobile-menu"
 
@@ -16,6 +16,8 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
   const { theme, systemTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const resourcesButtonRef = useRef<HTMLButtonElement | null>(null)
+  const resourcesPanelRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -23,8 +25,13 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = () => {
-      if (isResourcesOpen) setIsResourcesOpen(false)
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!isResourcesOpen) return
+      const target = event.target as Node | null
+      if (!target) return
+      if (resourcesButtonRef.current?.contains(target)) return
+      if (resourcesPanelRef.current?.contains(target)) return
+      setIsResourcesOpen(false)
     }
     document.addEventListener('click', handleClickOutside)
     return () => document.removeEventListener('click', handleClickOutside)
@@ -74,10 +81,8 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
 
             {/* Resources Dropdown */}
             <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setIsResourcesOpen(!isResourcesOpen)
-              }}
+              ref={resourcesButtonRef}
+              onClick={() => setIsResourcesOpen(!isResourcesOpen)}
               className={`text-base font-medium ${textColor} transition-colors ${textColorHover} inline-flex items-center gap-1`}
             >
               Resources
@@ -152,6 +157,7 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
       {/* Full-width Resources Dropdown */}
       {isResourcesOpen && (
         <div
+          ref={resourcesPanelRef}
           className="fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl"
           style={themeAware ? { backgroundColor: '#121212' } : { backgroundColor: '#ffffff' }}
         >
@@ -160,7 +166,7 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
               {/* Left side: Heading */}
               <div>
                 <h3 className={`text-xl lg:text-2xl font-medium ${themeAware ? 'text-foreground/80' : 'text-black/80'}`}>
-                  Everything you need to stay up-to-date and get help
+                  Everything you need to learn about Tiles, track progress, and contribute
                 </h3>
               </div>
 
