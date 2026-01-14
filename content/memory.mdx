@@ -5,15 +5,17 @@ description: "Reference documentation for memory models bundled with Tiles"
 
 # Memory
 
-This memory setup is part of the Tiles Insiders channel and is experimental in nature.
+Our approach to model selection is to use the best model for each task within the constraints of the supported hardware. Currently, Tiles is designed to cover everyday tasks, with plans to expand into more domain-specific use cases over time. We provide a carefully tested combination of system prompts, tools, and models, so users do not need to handle model selection or scaffolding themselves.
 
-## Overview
+## Insiders
+
+This memory setup is part of the Tiles Insiders channel and is experimental in nature.
 
 Tiles bundles a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on `qwen3-4B-thinking-2507`, and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
 
 These models use a human-readable external memory stored as Markdown, along with learned policies trained via reinforcement learning on synthetically generated data. These policies decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.
 
-## Implementation
+### Implementation
 
 The agent works with Obsidian-like directories of Markdown files as its knowledge base. These files are both human-readable and hyperlinked. The core protocol is defined in a single system prompt. The source is available [here](https://github.com/firstbatchxyz/mem-agent-mcp/blob/main/agent/system_prompt.txt).
 
