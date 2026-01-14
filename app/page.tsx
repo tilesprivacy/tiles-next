@@ -94,9 +94,9 @@ export default async function Page() {
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
                 <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
-                  <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">On-Device Models</h3>
+                  <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">Built for Your Machine</h3>
                   <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
-                    Run AI locally on your Mac. Your data stays private and secure.
+                    An opinionated package of prompt, tools, and model optimized for your hardware.
                   </p>
                 </div>
               </div>

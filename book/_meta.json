@@ -11,6 +11,18 @@
       "copyPage": true
     }
   },
+  "models": {
+    "title": "Models",
+    "theme": {
+      "copyPage": true
+    }
+  },
+  "memory": {
+    "title": "Memory",
+    "theme": {
+      "copyPage": true
+    }
+  },
   "modelfile": {
     "title": "Modelfile",
     "theme": {
@@ -19,12 +31,6 @@
   },
   "mir": {
     "title": "MIR Extension",
-    "theme": {
-      "copyPage": true
-    }
-  },
-  "memory": {
-    "title": "Memory",
     "theme": {
       "copyPage": true
     }

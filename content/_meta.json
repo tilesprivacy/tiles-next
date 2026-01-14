@@ -13,6 +13,12 @@
       "copyPage": true
     }
   },
+  "models": {
+    "title": "Models",
+    "theme": {
+      "copyPage": true
+    }
+  },
   "modelfile": {
     "title": "Modelfile",
     "theme": {

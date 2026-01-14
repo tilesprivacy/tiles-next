@@ -79,7 +79,7 @@ export default async function BookLayout({
   })
 
   // Define the correct order from _meta.json
-  const desiredOrder = ['index', 'cli', 'modelfile', 'mir', 'memory', 'resources', 'contact']
+  const desiredOrder = ['index', 'cli', 'models', 'memory', 'modelfile', 'mir', 'resources', 'contact']
 
   // Sort the pageMap according to the desired order
   const finalPageMap = flattenedPageMap.sort((a, b) => {

@@ -14,9 +14,10 @@ type NavigationPage = {
 const BOOK_PAGES: NavigationPage[] = [
   { route: '/book', title: 'Tiles Book' },
   { route: '/book/cli', title: 'CLI' },
+  { route: '/book/models', title: 'Models' },
+  { route: '/book/memory', title: 'Memory' },
   { route: '/book/modelfile', title: 'Modelfile' },
   { route: '/book/mir', title: 'MIR Extension' },
-  { route: '/book/memory', title: 'Memory' },
   { route: '/book/resources', title: 'Resources' },
 ]
 
