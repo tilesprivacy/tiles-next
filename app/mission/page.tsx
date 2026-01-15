@@ -129,7 +129,7 @@ const people = {
     { name: "Ankesh Bharti @feynon", links: ["https://ankeshbharti.com", "https://x.com/feynon_", "https://bsky.app/profile/ankeshbharti.com"] },
     { name: "Anandu Pavanan @madclaws", links: ["https://github.com/madclaws"] },
     { name: "Kshitij Taneja @kshitijgetsac", links: ["https://github.com/kshitijgetsac"] },
-    { name: "bxff @bxff", links: ["https://github.com/bxff"] },
+    { name: "Musaab Khan @bxff", links: ["https://github.com/bxff", "https://www.reddit.com/user/sdexca/"] },
   ],
   sponsorsActive: [
     { name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
