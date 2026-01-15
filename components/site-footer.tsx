@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 
 export function SiteFooter() {
@@ -67,6 +67,15 @@ export function SiteFooter() {
               aria-label="GitHub"
             >
               <FaGithub className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white transition-colors group-hover:text-white/70" />
+            </a>
+            <a
+              href="https://www.reddit.com/user/sdexca/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center"
+              aria-label="Reddit"
+            >
+              <FaRedditAlien className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white transition-colors group-hover:text-[#FF4500]" />
             </a>
             <a
               href="https://huggingface.co/tilesprivacy"

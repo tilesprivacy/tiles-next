@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { FaBluesky } from "react-icons/fa6"
+import { FaBluesky, FaRedditAlien } from "react-icons/fa6"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
@@ -29,15 +29,16 @@ export const metadata: Metadata = {
 }
 
 // Helper function to get icon type from URL
-function getIconType(url: string): "website" | "twitter" | "github" | "bluesky" {
+function getIconType(url: string): "website" | "twitter" | "github" | "bluesky" | "reddit" {
   if (url.includes("x.com") || url.includes("twitter.com")) return "twitter"
   if (url.includes("github.com")) return "github"
   if (url.includes("bsky.app")) return "bluesky"
+  if (url.includes("reddit.com")) return "reddit"
   return "website"
 }
 
 // Helper function to get icon SVG
-function getIcon(type: "website" | "twitter" | "github" | "bluesky") {
+function getIcon(type: "website" | "twitter" | "github" | "bluesky" | "reddit") {
   const iconClass = "h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
   
   switch (type) {
@@ -65,6 +66,8 @@ function getIcon(type: "website" | "twitter" | "github" | "bluesky") {
       )
     case "bluesky":
       return <FaBluesky className={iconClass} />
+    case "reddit":
+      return <FaRedditAlien className={iconClass} />
     case "website":
     default:
       return (
@@ -209,7 +212,7 @@ export default function MissionPage() {
                 </a>
                 ), an independent researcher and technologist, Tiles is
                 built for privacy conscious users who want intelligence without renting their memory to centralized
-                providers. Our first product is a private AI assistant with offline memory, and an SDK that lets developers customize local models and agent experiences within Tiles.
+                providers. Our first product is a private AI assistant for everyday use, and an SDK that lets developers customize local models and agent experiences within Tiles.
               </p>
             </div>
           </div>
