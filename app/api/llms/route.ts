@@ -89,7 +89,7 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Sponsors:')
   sections.push('Active: Luke Hubbard, Dietrich Ayala, Xi Zhang, Hugo Duprez, Utkarsh Saxena')
-  sections.push('Past: Boris Mann, Seref Yarar, Curran Dwyer')
+  sections.push('Past: Boris Mann, Seref Yarar, Curran Dwyer, Goblin Oats')
   sections.push('')
   sections.push('='.repeat(80))
   sections.push('')

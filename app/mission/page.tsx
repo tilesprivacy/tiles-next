@@ -145,6 +145,7 @@ const people = {
     { name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
     { name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref", "https://github.com/serefyarar"] },
     { name: "Curran Dwyer @currandwyer", links: ["https://x.com/CurranDwyer"] },
+    { name: "Goblin Oats @goblinoats", links: ["https://goblinoats.com/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"] },
   ],
 }
 
