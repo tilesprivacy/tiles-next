@@ -92,7 +92,7 @@ export function BookHeader() {
       </header>
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} themeAware />
     </>
   )
 }

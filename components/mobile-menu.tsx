@@ -40,7 +40,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   const textColor = themeAware ? 'text-foreground' : 'text-black'
   const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
   const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
-  const buttonText = themeAware ? 'text-background' : 'text-white'
+  // In dark mode, buttons have light background (foreground), so use black text
+  // In light mode, buttons have dark background (foreground), so use white text
+  const buttonText = themeAware 
+    ? (isDark ? 'text-[#121212]' : 'text-white')
+    : 'text-white'
   const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
   
   // Social icon colors - theme-aware
@@ -130,7 +134,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  className={`h-3.5 w-3.5 fill-current transition-all duration-300 group-hover:scale-110 ${themeAware ? 'group-hover:text-background/70' : 'group-hover:text-white/70'} group-active:scale-110`}
+                  className={`h-3.5 w-3.5 fill-current transition-all duration-300 group-hover:scale-110 ${themeAware ? (isDark ? 'group-hover:text-[#121212]/70' : 'group-hover:text-background/70') : 'group-hover:text-white/70'} group-active:scale-110`}
                 >
                   <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
@@ -204,7 +208,19 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                     onClick={onClose}
                     className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
                   >
-                    <span>Roadmap</span>
+                    <span className="inline-flex items-center gap-1">
+                      Roadmap
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className={`h-3.5 w-3.5 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"
@@ -221,7 +237,19 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                     onClick={onClose}
                     className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
                   >
-                    <span>RFCs</span>
+                    <span className="inline-flex items-center gap-1">
+                      RFCs
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 12 12"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className={`h-3.5 w-3.5 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
+                      >
+                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 20 20"

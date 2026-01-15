@@ -178,7 +178,19 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
                   rel="noopener noreferrer"
                   className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-foreground/70' : 'text-black hover:text-black/70'} transition-colors group`}
                 >
-                  <span>Roadmap</span>
+                  <span className="inline-flex items-center gap-1">
+                    Roadmap
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className={`h-3 w-3 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
@@ -194,7 +206,19 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
                   rel="noopener noreferrer"
                   className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-foreground/70' : 'text-black hover:text-black/70'} transition-colors group`}
                 >
-                  <span>RFCs</span>
+                  <span className="inline-flex items-center gap-1">
+                    RFCs
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 12 12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className={`h-3 w-3 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
+                    >
+                      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
