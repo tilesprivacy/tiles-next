@@ -13,13 +13,45 @@ export async function generateMetadata(props: {
   
   // Override title for the index page (when mdxPath is empty or undefined)
   if (!params.mdxPath || params.mdxPath.length === 0) {
+    const ogTitle = 'Tiles Book: Privacy technology for everyone!'
     return {
       ...metadata,
-      title: 'Tiles Book: Privacy technology for everyone!',
+      title: ogTitle,
+      openGraph: {
+        ...metadata.openGraph,
+        title: ogTitle,
+      },
+      twitter: {
+        ...metadata.twitter,
+        title: ogTitle,
+      },
     }
   }
   
-  return metadata
+  // Extract the page title - handle both string and object formats
+  let pageTitle = typeof metadata.title === 'string' 
+    ? metadata.title 
+    : metadata.title?.absolute || metadata.title?.default || ''
+  
+  // Remove "Tiles Book: " prefix if it already exists (from layout template)
+  if (pageTitle.startsWith('Tiles Book: ')) {
+    pageTitle = pageTitle.replace(/^Tiles Book: /, '')
+  }
+  
+  // Format Open Graph title as "Tiles Book: <page title>"
+  const ogTitle = pageTitle ? `Tiles Book: ${pageTitle}` : 'Tiles Book'
+  
+  return {
+    ...metadata,
+    openGraph: {
+      ...metadata.openGraph,
+      title: ogTitle,
+    },
+    twitter: {
+      ...metadata.twitter,
+      title: ogTitle,
+    },
+  }
 }
 
 const Wrapper = getMDXComponents().wrapper
