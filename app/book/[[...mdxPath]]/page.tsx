@@ -19,7 +19,17 @@ export async function generateMetadata(props: {
     }
   }
   
-  return metadata
+  // Format title for non-index pages: "Tiles Book: {page title}"
+  const pageTitle = typeof metadata.title === 'string' 
+    ? metadata.title 
+    : metadata.title?.default || metadata.title?.absolute || 'Tiles Book'
+  
+  return {
+    ...metadata,
+    title: pageTitle.startsWith('Tiles Book:') 
+      ? pageTitle 
+      : `Tiles Book: ${pageTitle}`,
+  }
 }
 
 const Wrapper = getMDXComponents().wrapper
