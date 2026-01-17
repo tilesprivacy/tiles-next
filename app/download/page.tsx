@@ -67,7 +67,7 @@ export default function DownloadPage() {
         <div className="flex w-full lg:w-full flex-col items-center justify-start pt-28 pb-12 lg:justify-center lg:py-12 px-6 lg:px-12">
           <div className="flex w-full max-w-md flex-col gap-8 text-left lg:max-w-xl lg:gap-10">
             {/* Title */}
-            <div className="space-y-1 pt-2 pb-4 lg:pt-0 lg:pb-0">
+            <div className="space-y-1 pt-6 pb-4 lg:pt-0 lg:pb-0">
               <h1 className="font-sans text-3xl font-bold leading-tight tracking-tight text-black sm:text-4xl lg:text-5xl">
                 You're about to
                 <br />
