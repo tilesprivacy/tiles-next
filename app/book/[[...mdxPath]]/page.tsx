@@ -14,9 +14,10 @@ export async function generateMetadata(props: {
   // Override title for the index page (when mdxPath is empty or undefined)
   if (!params.mdxPath || params.mdxPath.length === 0) {
     const ogTitle = 'Tiles Book: Privacy technology for everyone!'
+    // Use absolute title to bypass template since ogTitle already includes "Tiles Book: "
     return {
       ...metadata,
-      title: ogTitle,
+      title: { absolute: ogTitle },
       openGraph: {
         ...metadata.openGraph,
         title: ogTitle,
@@ -33,7 +34,8 @@ export async function generateMetadata(props: {
     ? metadata.title 
     : metadata.title?.absolute || metadata.title?.default || ''
   
-  // Remove "Tiles Book: " prefix if it already exists (from layout template)
+  // Remove "Tiles Book: " prefix if it already exists (to prevent double prefixing)
+  // This can happen if the metadata already includes the prefix
   if (pageTitle.startsWith('Tiles Book: ')) {
     pageTitle = pageTitle.replace(/^Tiles Book: /, '')
   }
@@ -41,8 +43,14 @@ export async function generateMetadata(props: {
   // Format Open Graph title as "Tiles Book: <page title>"
   const ogTitle = pageTitle ? `Tiles Book: ${pageTitle}` : 'Tiles Book'
   
+  // Return the cleaned title (without prefix) so the layout template can add it
+  // The layout template is 'Tiles Book: %s', so it will add the prefix automatically
+  // Use absolute title to bypass template if pageTitle is empty (to avoid "Tiles Book: Tiles Book")
   return {
     ...metadata,
+    title: pageTitle 
+      ? pageTitle  // Let template add "Tiles Book: " prefix
+      : { absolute: 'Tiles Book' },  // Bypass template to avoid double prefix
     openGraph: {
       ...metadata.openGraph,
       title: ogTitle,
