@@ -45,7 +45,10 @@ export default async function Page() {
             {/* Title & Subtitle */}
             <div className="space-y-3 text-center lg:space-y-4">
               <h1 className="font-sans text-4xl font-bold tracking-tight text-black lg:text-6xl">
-                Tiles
+                <span className="relative inline-block italic -skew-x-6 font-semibold tracking-[0.01em]">
+                  Tiles
+                  <span className="pointer-events-none absolute -bottom-2 left-1/2 h-[3px] w-12 -translate-x-1/2 rounded-full bg-black/15 lg:w-16" />
+                </span>
               </h1>
               <p className="text-base text-black/60 lg:text-xl max-w-lg mx-auto">
                 Your private AI assistant for everyday use
