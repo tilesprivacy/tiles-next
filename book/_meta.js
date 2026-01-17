@@ -5,8 +5,8 @@ export default {
       copyPageButton: true,
     },
   },
-  cli: {
-    title: "CLI",
+  usage: {
+    title: "Usage Guide",
     theme: {
       copyPageButton: true,
     },

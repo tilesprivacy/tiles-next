@@ -5,8 +5,8 @@
       "copyPage": true
     }
   },
-  "cli": {
-    "title": "CLI",
+  "usage": {
+    "title": "Usage Guide",
     "theme": {
       "copyPage": true
     }

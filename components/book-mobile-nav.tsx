@@ -16,9 +16,9 @@ const bookPages: BookPage[] = [
   },
   {
     number: '02',
-    title: 'CLI',
+    title: 'Usage Guide',
     description: 'Command-line interface reference for Tiles CLI commands and usage examples.',
-    href: '/book/cli',
+    href: '/book/usage',
   },
   {
     number: '03',
