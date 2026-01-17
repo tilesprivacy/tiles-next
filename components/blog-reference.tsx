@@ -165,7 +165,7 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
       {/* Superscript - clickable on mobile, static on desktop */}
       <sup
         ref={supRef}
-        className="text-black/40 hover:text-black/50 lg:hover:text-black/40 cursor-pointer lg:cursor-default font-normal text-[0.7em] ml-[0.15em] mr-[0.15em] transition-colors duration-150"
+        className="text-black/40 dark:text-white/40 hover:text-black/50 dark:hover:text-white/50 lg:hover:text-black/40 lg:dark:hover:text-white/40 cursor-pointer lg:cursor-default font-normal text-[0.7em] ml-[0.15em] mr-[0.15em] transition-colors duration-150"
         onClick={toggleExpanded}
       >
         {id}
@@ -173,8 +173,8 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
 
       {/* Mobile: Expandable reference below text */}
       {isExpanded && (
-        <span className="block mt-4 mb-4 text-sm text-black leading-relaxed lg:hidden">
-          <sup className="text-black/50 align-super mr-1.5">{id}</sup>
+        <span className="block mt-4 mb-4 text-sm text-black/70 dark:text-white/70 leading-relaxed lg:hidden">
+          <sup className="text-black/50 dark:text-white/50 align-super mr-1.5">{id}</sup>
           {children}
         </span>
       )}
@@ -195,14 +195,14 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
                   }, 0)
                 }
               }}
-              className="hidden lg:block absolute left-full pointer-events-auto text-black leading-relaxed ml-12 xl:ml-16 2xl:ml-20 w-64 lg:w-72 xl:w-80 2xl:w-96 text-xs lg:text-sm xl:text-base"
+              className="hidden lg:block absolute left-full pointer-events-auto text-black/70 dark:text-white/70 leading-relaxed ml-12 xl:ml-16 2xl:ml-20 w-64 lg:w-72 xl:w-80 2xl:w-96 text-xs lg:text-sm xl:text-base"
               style={{
                 top: `${topPosition}px`
               }}
               data-ref-sidebar-id={id}
             >
               <div className="pr-6 xl:pr-8">
-                <sup className="text-black/50 align-super mr-1.5">{id}</sup>
+                <sup className="text-black/50 dark:text-white/50 align-super mr-1.5">{id}</sup>
                 {children}
               </div>
             </div>,

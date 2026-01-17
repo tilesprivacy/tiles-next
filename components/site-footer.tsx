@@ -128,10 +128,8 @@ export function SiteFooter() {
         <div className={`flex flex-row items-center justify-between gap-2 ${isDarkFooter ? `border-t ${borderColor}` : ''} pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
           <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
           
-          {/* Theme Switcher - Desktop only */}
-          <div className="hidden lg:block">
-            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
-          </div>
+          {/* Theme Switcher - visible on all screens */}
+          <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
           
           <a
             href="https://status.tiles.run/"

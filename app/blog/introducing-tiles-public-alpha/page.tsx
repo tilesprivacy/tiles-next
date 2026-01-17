@@ -8,36 +8,12 @@ import NewsletterForm from "@/components/newsletter-form"
 import { BlogReference } from "@/components/blog-reference"
 import { ReadingTime } from "@/components/reading-time"
 import { blogPosts } from "@/lib/blog-posts"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 
 export default function HowTilesWorksPage() {
   const post = blogPosts.find(p => p.slug === "introducing-tiles-public-alpha")
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
-  // Theme-aware colors
-  const bgColor = 'bg-background'
-  const textColor = isDark ? 'text-white' : 'text-black'
-  const textColorMuted = isDark ? 'text-white/50' : 'text-black/50'
-  const textColorBody = isDark ? 'text-white/70' : 'text-black/70'
-  const textColorSubtle = isDark ? 'text-white/40' : 'text-black/40'
-  const textColorLink = isDark ? 'text-white/60' : 'text-black/60'
-  const linkColor = isDark ? 'text-white hover:text-white/80' : 'text-black hover:text-black/80'
-  const borderColor = isDark ? 'border-white/10' : 'border-black/10'
-  const codeBg = isDark ? 'bg-white/5' : 'bg-black/5'
-  const dividerColor = isDark ? 'text-white/20' : 'text-black/20'
-  const referenceTextColor = isDark ? 'text-white/45 hover:text-white/60' : 'text-black/45 hover:text-black/60'
-  const referenceDecorationColor = isDark ? 'decoration-white/20 hover:decoration-white/30' : 'decoration-black/20 hover:decoration-black/30'
 
   return (
-    <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
+    <div className="relative flex min-h-screen flex-col bg-background">
       <SiteHeader themeAware />
 
       {/* Main Content */}
@@ -46,20 +22,20 @@ export default function HowTilesWorksPage() {
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
           <div className="mb-8 lg:mb-12">
-            <h1 className={`text-3xl font-semibold ${textColor} mb-4 lg:text-6xl lg:mb-5 tracking-tight`}>
+            <h1 className="text-3xl font-semibold text-black dark:text-white mb-4 lg:text-6xl lg:mb-5 tracking-tight">
               Introducing Tiles Public Alpha
             </h1>
-            <p className={`text-base ${textColorMuted} lg:text-xl mb-3 lg:mb-4`}>
+            <p className="text-base text-black/50 dark:text-white/50 lg:text-xl mb-3 lg:mb-4">
               Building an everyday AI assistant with privacy-first engineering at its core.
             </p>
             <div className="flex items-center gap-3 lg:gap-4">
-              <p className={`text-sm ${textColorSubtle} lg:text-lg`}>January 2, 2026</p>
+              <p className="text-sm text-black/40 dark:text-white/40 lg:text-lg">January 2, 2026</p>
               {post && (
                 <>
-                  <span className={dividerColor}>·</span>
+                  <span className="text-black/20 dark:text-white/20">·</span>
                   <ReadingTime 
                     content={post.content} 
-                    className={`text-sm ${textColorSubtle} lg:text-lg`}
+                    className="text-sm text-black/40 dark:text-white/40 lg:text-lg"
                   />
                 </>
               )}
@@ -82,7 +58,7 @@ export default function HowTilesWorksPage() {
             {/* Container for side references on desktop */}
             <div className="blog-reference-container hidden lg:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
-            <div className={`space-y-6 text-base leading-relaxed ${textColorBody} lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10`}>
+            <div className="space-y-6 text-base leading-relaxed text-black/70 dark:text-white/70 lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
               <p>
                 Today, we're releasing the public alpha of Tiles, our first step toward a privacy-first AI assistant built to run entirely on the user's device. Tiles brings together local-first models, personalized experiences, and verifiable privacy guarantees, so data remains under the user's control by default. We see identity and memory as inseparable parts of the same system, and Tiles is designed around that idea: an AI assistant that acts as a user-owned agent rather than a centralized service.
               </p>
@@ -94,20 +70,20 @@ export default function HowTilesWorksPage() {
                     href="https://docs.ollama.com/modelfile"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`${referenceTextColor} underline ${referenceDecorationColor} underline-offset-2 transition-colors`}
+                    className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 underline decoration-black/20 dark:decoration-white/20 hover:decoration-black/30 dark:hover:decoration-white/30 underline-offset-2 transition-colors"
                   >
                     Ollama Modelfile
                   </a>
-                  <span className={textColor}>{" "}is the blueprint to create and share customized models using Ollama.</span>
+                  <span className="text-black dark:text-white">{" "}is the blueprint to create and share customized models using Ollama.</span>
                 </BlogReference>
                 {" "}based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
                 collaboration with the community, establishing it as the standard for model customization.
               </p>
 
-              <hr className={borderColor + " my-10 lg:my-12"} />
+              <hr className="border-black/10 dark:border-white/10 my-10 lg:my-12" />
 
               <section>
-                <h2 className={`text-2xl font-semibold ${textColor} mb-6 lg:text-4xl lg:mb-8 tracking-tight`}>
+                <h2 className="text-2xl font-semibold text-black dark:text-white mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   Philosophy
                 </h2>
 
@@ -118,30 +94,30 @@ export default function HowTilesWorksPage() {
                 <p className="mb-6 lg:mb-8">
                   The project is defined by four interdependent design choices:
                   <BlogReference id={2}>
-                    <span className={textColor}>From </span>
+                    <span className="text-black dark:text-white">From </span>
                     <a
                       href="https://newsletter.squishy.computer/p/decentralizability"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${referenceTextColor} underline ${referenceDecorationColor} underline-offset-2 transition-colors`}
+                      className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 underline decoration-black/20 dark:decoration-white/20 hover:decoration-black/30 dark:hover:decoration-white/30 underline-offset-2 transition-colors"
                     >
                       Decentralizability
                     </a>
-                    <span className={textColor}> (Gordon Brander): Immutable data, universal IDs, user-controlled keys… and just using HTTP. I think this is probably minimum viable decentralizability.</span>
+                    <span className="text-black dark:text-white"> (Gordon Brander): Immutable data, universal IDs, user-controlled keys… and just using HTTP. I think this is probably minimum viable decentralizability.</span>
                   </BlogReference>
                  
                 </p>
 
                 <ol className="list-decimal list-inside space-y-5 lg:space-y-7 ml-4">
                   <li>
-                    <strong>Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
+                    <strong className="text-black dark:text-white">Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
                     device keychain and cannot access the registry by identity alone.
                     <BlogReference id={3}>
                       <a
                         href="https://keybase.io/blog/keybase-new-key-model"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`${referenceTextColor} underline ${referenceDecorationColor} underline-offset-2 transition-colors`}
+                        className="text-black/45 dark:text-white/45 hover:text-black/60 dark:hover:text-white/60 underline decoration-black/20 dark:decoration-white/20 hover:decoration-black/30 dark:hover:decoration-white/30 underline-offset-2 transition-colors"
                       >
                         Keybase's New Key Model
                       </a>
@@ -150,15 +126,15 @@ export default function HowTilesWorksPage() {
                     allowing third-party agent access under user-defined policies.
                   </li>
                   <li>
-                    <strong>Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring
+                    <strong className="text-black dark:text-white">Immutable model builds:</strong> Every build is version-locked and reproducible, ensuring
                     consistency and reliability across updates and platforms.
                   </li>
                   <li>
-                    <strong>Content-hashed model layers:</strong> Models are stored and referenced by cryptographic
+                    <strong className="text-black dark:text-white">Content-hashed model layers:</strong> Models are stored and referenced by cryptographic
                     hashes of their layers, guaranteeing integrity and enabling efficient deduplication and sharing.
                   </li>
                   <li>
-                    <strong>Verifiable transparency and attestations:</strong> Every signing and build event is logged
+                    <strong className="text-black dark:text-white">Verifiable transparency and attestations:</strong> Every signing and build event is logged
                     in an append-only transparency log, producing cryptographic attestations that can be independently
                     verified. This ensures accountability, prevents hidden modifications, and provides an auditable
                     history of model provenance across devices and registries.
@@ -166,10 +142,10 @@ export default function HowTilesWorksPage() {
                 </ol>
               </section>
 
-              <hr className={borderColor + " my-10 lg:my-12"} />
+              <hr className="border-black/10 dark:border-white/10 my-10 lg:my-12" />
 
               <section>
-                <h2 className={`text-2xl font-semibold ${textColor} mb-6 lg:text-4xl lg:mb-8 tracking-tight`}>
+                <h2 className="text-2xl font-semibold text-black dark:text-white mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   Implementation
                 </h2>
 
@@ -179,7 +155,7 @@ export default function HowTilesWorksPage() {
                     href="https://venvstacks.lmstudio.ai/overview/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
+                    className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
                   >
                     venvstacks
                     <svg
@@ -207,12 +183,12 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-6 lg:mb-8">
-                  We also offer an Insiders build that includes experimental features, including our AI memory capabilities powered by fine-tuned memory models that manage context and memories locally on-device with hyperlinked markdown files. Currently, we use{" "}
+                  We also offer an Insiders channel that includes experimental features, including our AI memory capabilities powered by fine-tuned memory models that manage context and memories locally on-device with hyperlinked markdown files. Currently, we use{" "}
                   <a
                     href="https://huggingface.co/driaforall/mem-agent"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
+                    className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
                   >
                     mem-agent
                     <svg
@@ -231,7 +207,7 @@ export default function HowTilesWorksPage() {
                     href="https://dria.co/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
+                    className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
                   >
                     Dria
                     <svg
@@ -246,7 +222,7 @@ export default function HowTilesWorksPage() {
                     </svg>
                   </a>
                   , based on{" "}
-                  <code className={`rounded ${codeBg} px-1.5 py-0.5 font-mono text-sm`}>qwen3-4B-thinking-2507</code>),
+                  <code className="rounded bg-black/5 dark:bg-white/5 px-1.5 py-0.5 font-mono text-sm text-black dark:text-white">qwen3-4B-thinking-2507</code>),
                   and are in the process of training our initial in-house memory models.
                 </p>
 
@@ -258,10 +234,10 @@ export default function HowTilesWorksPage() {
                 </p>
               </section>
 
-              <hr className={borderColor + " my-10 lg:my-12"} />
+              <hr className="border-black/10 dark:border-white/10 my-10 lg:my-12" />
 
               <section>
-                <h2 className={`text-2xl font-semibold ${textColor} mb-6 lg:text-4xl lg:mb-8 tracking-tight`}>
+                <h2 className="text-2xl font-semibold text-black dark:text-white mb-6 lg:text-4xl lg:mb-8 tracking-tight">
                   Looking forward
                 </h2>
 
@@ -272,18 +248,18 @@ export default function HowTilesWorksPage() {
 
                 <ul className="list-disc space-y-4 pl-6 mb-6 lg:mb-8">
                   <li>
-                    <strong>Memory extensions:</strong> Add support for LoRA-based memory extensions so individuals and
+                    <strong className="text-black dark:text-white">Memory extensions:</strong> Add support for LoRA-based memory extensions so individuals and
                     organizations can bring their own data and shape the assistant's behavior and tone on top of the
                     base memory model.
                   </li>
                   <li>
-                    <strong>Sync:</strong> Build a reliable, peer-to-peer sync layer using{" "}
+                    <strong className="text-black dark:text-white">Sync:</strong> Build a reliable, peer-to-peer sync layer using{" "}
                     <a
                       href="https://www.iroh.computer/"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
-                  >
+                      className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
+                    >
                       Iroh
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -299,13 +275,13 @@ export default function HowTilesWorksPage() {
                     for private, device-to-device state sharing.
                   </li>
                   <li>
-                    <strong>Identity:</strong> Ship a portable identity system using{" "}
+                    <strong className="text-black dark:text-white">Identity:</strong> Ship a portable identity system using{" "}
                     <a
                       href="https://atproto.com/specs/did"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
-                  >
+                      className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
+                    >
                       AT Protocol DIDs
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -321,13 +297,13 @@ export default function HowTilesWorksPage() {
                     , designed for device-anchored trust.
                   </li>
                   <li>
-                    <strong>Modelfile SDK:</strong> Work with the{" "}
+                    <strong className="text-black dark:text-white">Modelfile SDK:</strong> Work with the{" "}
                     <a
                       href="https://darkshapes.org/"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
-                  >
+                      className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
+                    >
                       Darkshapes
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -345,7 +321,7 @@ export default function HowTilesWorksPage() {
                       href="https://huggingface.co/darkshapes/MIR_"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-1 ${linkColor} underline`}
+                      className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
                     >
                       MIR
                       <svg
@@ -364,7 +340,7 @@ export default function HowTilesWorksPage() {
                       href="https://dspy.ai/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-1 ${linkColor} underline`}
+                      className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
                     >
                       DSPy
                       <svg
@@ -381,14 +357,14 @@ export default function HowTilesWorksPage() {
                     for prompt optimization in our Modelfile implementation.
                   </li>
                   <li>
-                    <strong>Registry:</strong> Continue supporting Hugging Face, while designing a
+                    <strong className="text-black dark:text-white">Registry:</strong> Continue supporting Hugging Face, while designing a
                     decentralized registry for versioned, composable model layers using the open-source{" "}
                     <a
                       href="https://github.com/huggingface/xet-core"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
-                  >
+                      className="inline-flex items-center gap-1 text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
+                    >
                       xet-core
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -404,7 +380,7 @@ export default function HowTilesWorksPage() {
                     client tech.
                   </li>
                   <li>
-                    <strong>Research roadmap:</strong> As part of our research on private software personalization
+                    <strong className="text-black dark:text-white">Research roadmap:</strong> As part of our research on private software personalization
                     infrastructure, we are investigating sparse memory finetuning, text diffusion models, Trusted
                     Execution Environments (TEEs), and Per-Layer Embeddings (PLE) with offloading to flash storage.
                   </li>
@@ -413,7 +389,7 @@ export default function HowTilesWorksPage() {
                 <p>
                   We are seeking design partners for training workloads that align with our goal of ensuring a
                   verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
-                  <a href="mailto:hello@tiles.run" className={`${linkColor} underline`}>
+                  <a href="mailto:hello@tiles.run" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
                     hello@tiles.run
                   </a>
                   .
@@ -424,12 +400,12 @@ export default function HowTilesWorksPage() {
 
           {/* Blog Footer Text */}
           <div className="mt-16 lg:mt-20">
-            <div className={`space-y-2 text-xs ${textColorLink} lg:space-y-3 lg:text-sm mb-8 lg:mb-10`}>
+            <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
               <p>
                 You're reading the{" "}
                 <a
                   href="https://tiles.run"
-                  className={`${linkColor} underline`}
+                  className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline"
                 >
                   Tiles
                 </a>{" "}
@@ -440,14 +416,14 @@ export default function HowTilesWorksPage() {
               </p>
               <p>
                 There are{" "}
-                <Link href="/blog" className={`${linkColor} underline`}>
+                <Link href="/blog" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
                   more posts
                 </Link>
                 .
               </p>
               <p>
                 When you're done, you can{" "}
-                <Link href="/download" className={`${linkColor} underline`}>
+                <Link href="/download" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
                   install Tiles
                 </Link>
                 .
@@ -456,11 +432,11 @@ export default function HowTilesWorksPage() {
           </div>
 
           {/* Newsletter Subscription Form */}
-          <div className={`pt-12 lg:pt-16 border-t ${borderColor}`}>
+          <div className="pt-12 lg:pt-16 border-t border-black/10 dark:border-white/10">
             <div className="space-y-4 lg:space-y-5">
               <div>
-                <h3 className={`text-lg font-semibold ${textColor} mb-2 lg:text-xl lg:mb-3`}>Stay updated</h3>
-                <p className={`text-sm ${isDark ? 'text-white/60' : 'text-black/60'} lg:text-base`}>
+                <h3 className="text-lg font-semibold text-black dark:text-white mb-2 lg:text-xl lg:mb-3">Stay updated</h3>
+                <p className="text-sm text-black/60 dark:text-white/60 lg:text-base">
                   Get notified when we publish new posts about privacy and personalization.
                 </p>
               </div>

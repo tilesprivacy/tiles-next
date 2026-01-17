@@ -3,8 +3,6 @@
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 import NewsletterForm from "@/components/newsletter-form"
 
 interface BlogPost {
@@ -34,26 +32,8 @@ function formatDate(date: Date): string {
 }
 
 export function BlogListingContent({ posts }: BlogListingContentProps) {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
-  // Theme-aware colors
-  const bgColor = 'bg-background'
-  const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-white/50' : 'text-black/50'
-  const textColorBody = isDark ? 'text-white/70' : 'text-black/70'
-  const textColorSubtle = isDark ? 'text-white/40' : 'text-black/40'
-  const textColorHover = isDark ? 'group-hover:text-white/80' : 'group-hover:text-black/80'
-  const borderColor = isDark ? 'border-white/10' : 'border-black/10'
-
   return (
-    <div className={`relative flex min-h-screen flex-col ${bgColor} lg:overflow-visible`}>
+    <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
       <SiteHeader themeAware />
 
       {/* Main Content */}
@@ -62,8 +42,8 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
         <div className="w-full max-w-2xl px-4 pt-20 pb-8 lg:px-12 lg:pt-24 lg:pb-12">
           {/* Blog Title */}
           <div className="text-center">
-            <h1 className={`text-4xl font-bold ${textColor} lg:text-6xl tracking-tight mb-5 lg:mb-7`}>The Tiles Blog</h1>
-            <p className={`text-base ${textColorMuted} lg:text-xl`}>Privacy technology for everyone!</p>
+            <h1 className="text-4xl font-bold text-black dark:text-white lg:text-6xl tracking-tight mb-5 lg:mb-7">The Tiles Blog</h1>
+            <p className="text-base text-black/50 dark:text-white/50 lg:text-xl">Privacy technology for everyone!</p>
           </div>
         </div>
 
@@ -76,23 +56,23 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
                 href={`/blog/${post.slug}`} 
                 className="block group"
               >
-                <h2 className={`text-2xl font-bold ${textColor} mb-3 ${textColorHover} lg:text-3xl lg:mb-4 tracking-tight`}>
+                <h2 className="text-2xl font-bold text-black dark:text-white mb-3 group-hover:text-black/80 dark:group-hover:text-white/80 lg:text-3xl lg:mb-4 tracking-tight">
                   {post.title}
                 </h2>
-                <p className={`text-sm ${textColorBody} mb-3 lg:text-base lg:mb-4 leading-relaxed`}>{post.description}</p>
+                <p className="text-sm text-black/70 dark:text-white/70 mb-3 lg:text-base lg:mb-4 leading-relaxed">{post.description}</p>
                 <div className="flex items-center gap-3 lg:gap-4">
-                  <p className={`text-xs ${textColorSubtle} lg:text-sm`}>{formatDate(post.date)}</p>
+                  <p className="text-xs text-black/40 dark:text-white/40 lg:text-sm">{formatDate(post.date)}</p>
                 </div>
               </Link>
             ))}
           </div>
 
           {/* Newsletter Subscription Section */}
-          <div className={`pt-16 lg:pt-20 border-t ${borderColor}`}>
+          <div className="pt-16 lg:pt-20 border-t border-black/10 dark:border-white/10">
             <div className="space-y-6 lg:space-y-8">
               <div>
-                <h3 className={`text-xl font-semibold ${textColor} mb-4 lg:text-2xl lg:mb-5 tracking-tight`}>Stay updated</h3>
-                <p className={`text-sm ${isDark ? 'text-white/60' : 'text-black/60'} lg:text-base`}>
+                <h3 className="text-xl font-semibold text-black dark:text-white mb-4 lg:text-2xl lg:mb-5 tracking-tight">Stay updated</h3>
+                <p className="text-sm text-black/60 dark:text-white/60 lg:text-base">
                   Get notified when we publish new posts about privacy and personalization.
                 </p>
               </div>

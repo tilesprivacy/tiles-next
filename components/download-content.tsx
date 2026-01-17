@@ -87,7 +87,7 @@ export function DownloadContent() {
         <div className="flex w-full lg:w-full flex-col items-center justify-start pt-36 pb-28 lg:justify-center lg:py-32 px-6 lg:px-12">
           <div className="flex w-full max-w-md flex-col gap-14 text-left lg:max-w-xl lg:gap-20">
             {/* Title */}
-            <div className="space-y-4 pt-10 pb-8 lg:pt-0 lg:pb-0">
+            <div className="space-y-4 pt-16 pb-8 lg:pt-8 lg:pb-0">
               <h1 className={`font-sans text-3xl font-bold leading-tight tracking-tight ${textColor} sm:text-4xl lg:text-5xl`}>
                 You're about to
                 <br />
