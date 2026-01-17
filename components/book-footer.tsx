@@ -81,8 +81,8 @@ export function BookFooter() {
           <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
             
-            {/* Theme Switcher placeholder - Desktop only */}
-            <div className="hidden lg:block">
+            {/* Theme Switcher placeholder */}
+            <div>
               <ThemeSwitcher variant="dark" size="sm" />
             </div>
             
@@ -195,8 +195,8 @@ export function BookFooter() {
         <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs">
           <p className={`${copyrightClasses} whitespace-nowrap`}>© 2026 Tiles Privacy</p>
           
-          {/* Theme Switcher - Desktop only */}
-          <div className="hidden lg:block">
+          {/* Theme Switcher */}
+          <div>
             <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
           </div>
           
