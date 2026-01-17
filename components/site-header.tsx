@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect, useRef } from "react"
 import { useTheme } from 'next-themes'
+import { usePathname } from 'next/navigation'
 import { MobileMenu } from "./mobile-menu"
 
 interface SiteHeaderProps {
@@ -18,6 +19,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [mounted, setMounted] = useState(false)
   const resourcesButtonRef = useRef<HTMLButtonElement | null>(null)
   const resourcesPanelRef = useRef<HTMLDivElement | null>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     setMounted(true)
@@ -41,8 +43,12 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const currentTheme = themeAware ? (resolvedTheme || (theme === 'system' ? systemTheme : theme)) : 'light'
   const isDark = themeAware && currentTheme === 'dark'
 
+  // Check if we're on a book page
+  const isBookPage = pathname?.startsWith('/book')
+
   // Use appropriate logo based on theme
-  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
+  // Use dark.jpeg for dark theme on all pages except /book routes
+  const logoSrc = (mounted && isDark) ? (isBookPage ? '/grey.png' : '/dark.jpeg') : '/lighticon.png'
 
   // Use appropriate apple logo based on theme
   const appleLogoSrc = themeAware
