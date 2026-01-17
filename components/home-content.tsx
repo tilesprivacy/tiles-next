@@ -22,27 +22,13 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Theme-aware colors
-  const bgColor = 'bg-background'
-  const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-white/60' : 'text-black/60'
-  const textColorSubtle = isDark ? 'text-white/40' : 'text-black/40'
-  const cardBg = isDark ? 'bg-[#151515]' : 'bg-[#F8F8F8]'
-  const cardRing = isDark ? 'ring-white/10' : 'ring-black/5'
-  const badgeBg = isDark ? 'bg-[#121212]' : 'bg-white'
-  const badgeRing = isDark ? 'ring-white/10' : 'ring-black/10'
-  const buttonBg = isDark ? 'bg-white' : 'bg-black'
-  const buttonText = isDark ? 'text-black' : 'text-white'
-  const buttonHover = isDark ? 'hover:bg-white/90' : 'hover:bg-black/90'
-  const appleLogoSrc = isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
-  const dotBg = isDark ? 'bg-white/60' : 'bg-black/60'
-  const featureBadgeRing = isDark ? 'ring-white/10' : 'ring-black/10'
-  const featureBadgeText = isDark ? 'text-white/50' : 'text-black/50'
   // Use grey logo on dark background, cream/light logo on light background
   const logoSrc = isDark ? '/grey.png' : '/cream.png'
+  // Apple logo: black for white button (dark mode), white for black button (light mode)
+  const appleLogoSrc = isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
 
   return (
-    <div className={`flex min-h-[100dvh] flex-col ${bgColor}`}>
+    <div className="flex min-h-[100dvh] flex-col bg-background">
       <SiteHeader themeAware />
 
       {/* Main Content - properly spaced below fixed header */}
@@ -53,7 +39,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
           <div className="flex flex-col items-center gap-8 mb-12 lg:mb-16">
             {/* Logo with Version badge */}
             <div className="relative">
-              <div className={`relative flex items-center justify-center rounded-3xl ${cardBg} shadow-sm ring-1 ${cardRing} h-24 w-24 lg:h-32 lg:w-32`}>
+              <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#151515] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-24 w-24 lg:h-32 lg:w-32">
                 <Image
                   src={logoSrc}
                   alt="Tiles Logo"
@@ -62,17 +48,17 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   className="h-14 w-14 lg:h-20 lg:w-20"
                 />
               </div>
-              <span className={`absolute -right-2 -top-2 rounded-full ${badgeBg} px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide ${textColor} shadow-sm ring-1 ${badgeRing} lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs`}>
+              <span className="absolute -right-2 -top-2 rounded-full bg-white dark:bg-[#121212] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-foreground shadow-sm ring-1 ring-black/10 dark:ring-white/10 lg:-right-3 lg:-top-3 lg:px-3 lg:py-1.5 lg:text-xs">
                 {latestVersion}
               </span>
             </div>
 
             {/* Title & Subtitle */}
             <div className="space-y-3 text-center lg:space-y-4">
-              <h1 className={`font-sans text-3xl font-bold tracking-tight ${textColor} lg:text-5xl`}>
+              <h1 className="font-sans text-3xl font-bold tracking-tight text-foreground lg:text-5xl">
                 Tiles
               </h1>
-              <p className={`text-base ${textColorMuted} lg:text-xl max-w-lg mx-auto`}>
+              <p className="text-base text-black/60 dark:text-white/60 lg:text-xl max-w-lg mx-auto">
                 Your private AI assistant for everyday use
               </p>
             </div>
@@ -81,7 +67,8 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             <div className="flex flex-col items-center gap-3">
               <Button
                 asChild
-                className={`group rounded-full ${buttonBg} px-6 py-5 text-sm font-medium ${buttonText} transition-all duration-300 hover:scale-105 ${buttonHover} hover:shadow-lg active:scale-95 lg:px-8 lg:py-6 lg:text-base`}
+                variant="ghost"
+                className="group rounded-full bg-black dark:bg-white px-6 py-5 text-sm font-medium text-white dark:text-black transition-all duration-300 hover:scale-105 hover:bg-black/90 dark:hover:bg-white/90 hover:shadow-lg active:scale-95 lg:px-8 lg:py-6 lg:text-base"
               >
                 <Link href="/download" className="flex items-center gap-2.5">
                   <Image
@@ -106,7 +93,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   </svg>
                 </Link>
               </Button>
-              <p className={`text-xs ${textColorSubtle}`}>
+              <p className="text-xs text-black/40 dark:text-white/40">
                 for macOS 14+ with Apple Silicon (M1+).
               </p>
             </div>
@@ -117,10 +104,10 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
               {/* Feature 1 */}
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
-                <div className={`flex-shrink-0 w-2 h-2 rounded-full ${dotBg} mt-1.5 lg:hidden`}></div>
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 dark:bg-white/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
-                  <h3 className={`text-sm lg:text-base font-semibold ${textColor} mb-1.5 lg:mb-3`}>Built for Your Machine</h3>
-                  <p className={`text-sm lg:text-base ${textColorMuted} leading-relaxed lg:mx-auto`}>
+                  <h3 className="text-sm lg:text-base font-semibold text-foreground mb-1.5 lg:mb-3">Built for Your Machine</h3>
+                  <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed lg:mx-auto">
                     An opinionated package of prompt, tools, and on-device models optimized for your hardware.
                   </p>
                 </div>
@@ -128,10 +115,10 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
               {/* Feature 2 */}
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
-                <div className={`flex-shrink-0 w-2 h-2 rounded-full ${dotBg} mt-1.5 lg:hidden`}></div>
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 dark:bg-white/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
-                  <h3 className={`text-sm lg:text-base font-semibold ${textColor} mb-1.5 lg:mb-3`}>Code Interpreter</h3>
-                  <p className={`text-sm lg:text-base ${textColorMuted} leading-relaxed lg:mx-auto`}>
+                  <h3 className="text-sm lg:text-base font-semibold text-foreground mb-1.5 lg:mb-3">Code Interpreter</h3>
+                  <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed lg:mx-auto">
                     Execute Python code and analyze data in real-time conversations.
                   </p>
                 </div>
@@ -139,15 +126,15 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
               {/* Feature 3 */}
               <div className="flex items-start gap-3 lg:flex-col lg:items-center lg:gap-4">
-                <div className={`flex-shrink-0 w-2 h-2 rounded-full ${dotBg} mt-1.5 lg:hidden`}></div>
+                <div className="flex-shrink-0 w-2 h-2 rounded-full bg-black/60 dark:bg-white/60 mt-1.5 lg:hidden"></div>
                 <div className="flex-1 lg:flex-none lg:text-center">
                   <div className="flex items-center gap-2 flex-wrap mb-1.5 lg:mb-3 lg:justify-center">
-                    <h3 className={`text-sm lg:text-base font-semibold ${textColor}`}>AI Memory</h3>
-                    <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide ${featureBadgeText} ring-1 ${featureBadgeRing} bg-transparent font-mono`}>
+                    <h3 className="text-sm lg:text-base font-semibold text-foreground">AI Memory</h3>
+                    <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-white/50 ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
                       INSIDERS
                     </span>
                   </div>
-                  <p className={`text-sm lg:text-base ${textColorMuted} leading-relaxed lg:mx-auto`}>
+                  <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed lg:mx-auto">
                     Personalized assistance that learns and remembers your preferences.
                   </p>
                 </div>
