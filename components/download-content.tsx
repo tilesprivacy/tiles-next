@@ -147,25 +147,7 @@ export function DownloadContent() {
               </div>
 
               <div className={`pt-10 text-[11px] ${textColorSubtle} lg:pt-16 lg:text-sm`}>
-                We also offer an Insiders build for early adopters. It includes the latest code changes and experimental features, such as offline memory models, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently.{" "}
-                <a
-                  href="https://github.com/tilesprivacy/tiles/issues/51"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1 font-medium ${textColorLink} transition-colors`}
-                >
-                  Track the issue here
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-2.5 w-2.5"
-                  >
-                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
+                We also offer an Insiders build for early adopters. It includes the latest code changes and experimental features, such as offline memory models, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently.
               </div>
             </div>
           </div>
