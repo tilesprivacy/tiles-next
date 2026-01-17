@@ -96,7 +96,7 @@ export default async function Page() {
                 <div className="flex-1 lg:flex-none lg:text-center">
                   <h3 className="text-sm lg:text-base font-semibold text-black mb-1.5 lg:mb-3">Built for Your Machine</h3>
                   <p className="text-sm lg:text-base text-black/60 leading-relaxed lg:mx-auto">
-                    An opinionated package of prompt, tools, and model optimized for your hardware.
+                    An opinionated package of prompt, tools, and on device models optimized for your hardware.
                   </p>
                 </div>
               </div>
