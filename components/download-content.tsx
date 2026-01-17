@@ -84,10 +84,10 @@ export function DownloadContent() {
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col lg:flex-row min-h-0">
         {/* Left Side - Installation Instructions */}
-        <div className="flex w-full lg:w-full flex-col items-center justify-start pt-28 pb-12 lg:justify-center lg:py-12 px-6 lg:px-12">
-          <div className="flex w-full max-w-md flex-col gap-8 text-left lg:max-w-xl lg:gap-10">
+        <div className="flex w-full lg:w-full flex-col items-center justify-start pt-36 pb-28 lg:justify-center lg:py-32 px-6 lg:px-12">
+          <div className="flex w-full max-w-md flex-col gap-14 text-left lg:max-w-xl lg:gap-20">
             {/* Title */}
-            <div className="space-y-1 pt-6 pb-4 lg:pt-0 lg:pb-0">
+            <div className="space-y-4 pt-10 pb-8 lg:pt-0 lg:pb-0">
               <h1 className={`font-sans text-3xl font-bold leading-tight tracking-tight ${textColor} sm:text-4xl lg:text-5xl`}>
                 You're about to
                 <br />
@@ -96,17 +96,17 @@ export function DownloadContent() {
             </div>
 
             {/* Install Section */}
-            <div className="space-y-2 lg:space-y-3">
+            <div className="space-y-6 lg:space-y-8">
               <p className={`text-sm ${textColorMuted} sm:text-base lg:text-lg`}>Install and run:</p>
 
               {/* Code Blocks */}
-              <div className="flex flex-col items-start gap-2.5 lg:gap-3">
+              <div className="flex flex-col items-start gap-4 lg:gap-5">
                 <CodeBlock code="curl -fsSL https://tiles.run/install.sh | sh" />
                 <CodeBlock code="tiles run" />
               </div>
 
               {/* Footer Links */}
-              <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs ${textColorLink} pt-1.5 lg:pt-2 lg:gap-3 lg:text-sm`}>
+              <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs ${textColorLink} pt-4 lg:pt-6 lg:gap-3 lg:text-sm`}>
                 <a
                   href="https://tiles.run/install.sh"
                   target="_blank"
@@ -146,7 +146,7 @@ export function DownloadContent() {
                 </a>
               </div>
 
-              <div className={`pt-4 text-[11px] ${textColorSubtle} lg:pt-8 lg:text-sm`}>
+              <div className={`pt-10 text-[11px] ${textColorSubtle} lg:pt-16 lg:text-sm`}>
                 We also offer an Insiders build for early adopters. It includes the latest code changes and experimental features, such as offline memory models, and may occasionally be unstable. The Insiders build installs alongside the regular build, allowing you to use either independently.{" "}
                 <a
                   href="https://github.com/tilesprivacy/tiles/issues/51"

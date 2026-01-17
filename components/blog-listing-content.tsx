@@ -57,29 +57,29 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
       <SiteHeader themeAware />
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-10 pb-20 lg:px-6 lg:pt-20 lg:pb-16 gap-8 lg:gap-16">
+      <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-28 lg:px-6 lg:pt-28 lg:pb-24 gap-12 lg:gap-20">
         {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-2xl px-4 pt-16 pb-6 lg:px-12 lg:pt-16 lg:pb-8">
+        <div className="w-full max-w-2xl px-4 pt-20 pb-8 lg:px-12 lg:pt-24 lg:pb-12">
           {/* Blog Title */}
           <div className="text-center">
-            <h1 className={`text-3xl font-semibold ${textColor} lg:text-5xl tracking-tight mb-4 lg:mb-5`}>The Tiles Blog</h1>
+            <h1 className={`text-4xl font-bold ${textColor} lg:text-6xl tracking-tight mb-5 lg:mb-7`}>The Tiles Blog</h1>
             <p className={`text-base ${textColorMuted} lg:text-xl`}>Privacy technology for everyone!</p>
           </div>
         </div>
 
         {/* Bottom Card - Blog Posts List and Carousel */}
-        <div className="w-full max-w-2xl px-4 pt-8 pb-2 lg:px-12 lg:pt-12 lg:pb-8 flex-1 space-y-8 lg:space-y-12">
-          <div className="space-y-8 lg:space-y-12">
+        <div className="w-full max-w-2xl px-4 pt-10 pb-4 lg:px-12 lg:pt-16 lg:pb-10 flex-1 space-y-12 lg:space-y-16">
+          <div className="space-y-12 lg:space-y-16">
             {posts.map((post) => (
               <Link 
                 key={post.slug} 
                 href={`/blog/${post.slug}`} 
                 className="block group"
               >
-                <h2 className={`text-xl font-bold ${textColor} mb-2 ${textColorHover} lg:text-2xl lg:mb-3 tracking-tight`}>
+                <h2 className={`text-2xl font-bold ${textColor} mb-3 ${textColorHover} lg:text-3xl lg:mb-4 tracking-tight`}>
                   {post.title}
                 </h2>
-                <p className={`text-sm ${textColorBody} mb-2 lg:text-base lg:mb-3 leading-relaxed`}>{post.description}</p>
+                <p className={`text-sm ${textColorBody} mb-3 lg:text-base lg:mb-4 leading-relaxed`}>{post.description}</p>
                 <div className="flex items-center gap-3 lg:gap-4">
                   <p className={`text-xs ${textColorSubtle} lg:text-sm`}>{formatDate(post.date)}</p>
                 </div>
@@ -88,10 +88,10 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
           </div>
 
           {/* Newsletter Subscription Section */}
-          <div className={`pt-12 lg:pt-16 border-t ${borderColor}`}>
-            <div className="space-y-4 lg:space-y-5">
+          <div className={`pt-16 lg:pt-20 border-t ${borderColor}`}>
+            <div className="space-y-6 lg:space-y-8">
               <div>
-                <h3 className={`text-base font-semibold ${textColor} mb-2 lg:text-lg lg:mb-3`}>Stay updated</h3>
+                <h3 className={`text-xl font-semibold ${textColor} mb-4 lg:text-2xl lg:mb-5 tracking-tight`}>Stay updated</h3>
                 <p className={`text-sm ${isDark ? 'text-white/60' : 'text-black/60'} lg:text-base`}>
                   Get notified when we publish new posts about privacy and personalization.
                 </p>

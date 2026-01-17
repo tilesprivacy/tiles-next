@@ -5,6 +5,7 @@ import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { ThemeSwitcher } from "@/components/theme-switcher"
 
 export function BookFooter() {
   const { theme, systemTheme, resolvedTheme } = useTheme()
@@ -27,24 +28,23 @@ export function BookFooter() {
     : "relative z-20 shrink-0 h-[14dvh] border-t border-black/5 bg-white px-4 sm:px-6 overflow-hidden"
 
   const linkClasses = footerIsDark
-    ? "text-white transition-colors hover:text-white/70"
-    : "text-black transition-colors hover:text-black/70"
+    ? "text-white dark:text-white transition-colors hover:text-white/70"
+    : "!text-black dark:!text-black transition-colors hover:text-black/70"
 
   const iconClasses = footerIsDark
-    ? "h-4 w-4 text-white transition-colors"
-    : "h-4 w-4 text-black transition-colors"
+    ? "h-4 w-4 text-white dark:text-white transition-colors"
+    : "h-4 w-4 !text-black dark:!text-black transition-colors"
 
   const copyrightClasses = footerIsDark
-    ? "text-xs text-white"
-    : "text-xs text-black"
+    ? "text-xs text-white dark:text-white"
+    : "text-xs !text-black dark:!text-black"
 
   const statusLinkClasses = footerIsDark
-    ? "text-xs text-white transition-colors hover:text-white/70"
-    : "text-xs text-black transition-colors hover:text-black/70"
+    ? "text-xs text-white dark:text-white transition-colors hover:text-white/70"
+    : "text-xs !text-black dark:!text-black transition-colors hover:text-black/70"
 
-  const borderClasses = footerIsDark
-    ? "border-white/5"
-    : "border-black/5"
+  // Theme switcher variant - based on footer color (not page theme)
+  const themeSwitcherVariant = footerIsDark ? 'dark' : 'light'
 
   // Icon hover colors - keep brand colors but adjust base
   const iconHoverClasses = {
@@ -78,8 +78,14 @@ export function BookFooter() {
               {/* Placeholder for icons */}
             </div>
           </div>
-          <div className="flex flex-row items-center justify-between gap-2 border-t border-white/5 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white">
+          <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
+            
+            {/* Theme Switcher placeholder - Desktop only */}
+            <div className="hidden lg:block">
+              <ThemeSwitcher variant="dark" size="sm" />
+            </div>
+            
             <a
               href="https://status.tiles.run/"
               target="_blank"
@@ -127,7 +133,7 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="X (Twitter)"
             >
-              <FaXTwitter className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.twitter}`} />
+              <FaXTwitter className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.twitter}`} />
             </a>
             <a
               href="https://bsky.app/profile/tiles.run"
@@ -136,7 +142,7 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="Bluesky"
             >
-              <FaBluesky className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.bluesky}`} />
+              <FaBluesky className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.bluesky}`} />
             </a>
             <a
               href="https://www.instagram.com/tilesprivacy"
@@ -145,7 +151,7 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="Instagram"
             >
-              <FaInstagram className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.instagram}`} />
+              <FaInstagram className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.instagram}`} />
             </a>
             <a
               href="https://go.tiles.run/discord"
@@ -154,7 +160,7 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="Discord"
             >
-              <FaDiscord className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.discord}`} />
+              <FaDiscord className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.discord}`} />
             </a>
             <a
               href="https://github.com/tilesprivacy"
@@ -163,7 +169,7 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="GitHub"
             >
-              <FaGithub className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.github}`} />
+              <FaGithub className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.github}`} />
             </a>
             <a
               href="https://huggingface.co/tilesprivacy"
@@ -172,7 +178,7 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="Hugging Face"
             >
-              <SiHuggingface className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.huggingface}`} />
+              <SiHuggingface className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.huggingface}`} />
             </a>
             <a
               href="/api/rss"
@@ -181,13 +187,19 @@ export function BookFooter() {
               className="group inline-flex items-center justify-center"
               aria-label="RSS Feed"
             >
-              <FaRss className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white' : 'text-black'} transition-colors ${iconHoverClasses.rss}`} />
+              <FaRss className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.rss}`} />
             </a>
           </div>
         </div>
 
-        <div className={`flex flex-row items-center justify-between gap-2 border-t ${borderClasses} pt-1.5 sm:pt-2 text-[10px] sm:text-xs`}>
+        <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs">
           <p className={`${copyrightClasses} whitespace-nowrap`}>© 2026 Tiles Privacy</p>
+          
+          {/* Theme Switcher - Desktop only */}
+          <div className="hidden lg:block">
+            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
+          </div>
+          
           <a
             href="https://status.tiles.run/"
             target="_blank"

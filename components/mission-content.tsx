@@ -211,7 +211,7 @@ export function MissionContent() {
                 </a>
                 ), an independent researcher and technologist, Tiles is
                 built for privacy conscious users who want intelligence without renting their memory to centralized
-                providers. Our first product is a private AI assistant for everyday use, and an SDK that lets developers customize local models and agent experiences within Tiles.
+                providers. Our first product is a private AI assistant for everyday use, and a Modelfile based SDK that lets developers customize local models and agent experiences within Tiles.
               </p>
             </div>
           </div>

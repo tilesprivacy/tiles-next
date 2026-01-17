@@ -167,7 +167,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
       {isResourcesOpen && (
         <div
           ref={resourcesPanelRef}
-          className={`fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background' : 'bg-white'}`}
+          className={`fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background ring-1 ring-black/5 dark:ring-white/10' : 'bg-white ring-1 ring-black/5'}`}
         >
           <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
