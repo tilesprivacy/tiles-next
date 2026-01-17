@@ -32,10 +32,10 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
       <SiteHeader themeAware />
 
       {/* Main Content - flows naturally from top */}
-      <main className="px-6 pt-28 pb-24 lg:px-12 lg:pt-36 lg:pb-32">
+      <main className="px-6 pt-32 pb-32 lg:px-12 lg:pt-44 lg:pb-40">
         <div className="w-full max-w-4xl mx-auto">
           {/* Hero Section */}
-          <div className="flex flex-col items-center lg:items-start gap-6 lg:gap-8 mb-12 lg:mb-20">
+          <div className="flex flex-col items-center lg:items-start gap-8 lg:gap-10 mb-20 lg:mb-32">
             {/* Logo with Version badge */}
             <div className="relative w-fit">
               <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#151515] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-20 w-20 lg:h-24 lg:w-24">
@@ -53,7 +53,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* Title & Subtitle */}
-            <div className="space-y-3 lg:space-y-5 text-center lg:text-left">
+            <div className="space-y-4 lg:space-y-6 text-center lg:text-left">
               <h1 className="font-sans text-4xl font-bold tracking-tight text-foreground lg:text-6xl">
                 Tiles
               </h1>
@@ -63,7 +63,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* CTA Button */}
-            <div className="flex flex-col items-center lg:items-start gap-3 pt-2">
+            <div className="flex flex-col items-center lg:items-start gap-4 pt-4 lg:pt-6">
               <Button
                 asChild
                 variant="ghost"
@@ -99,9 +99,9 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
           </div>
 
           {/* Features Section */}
-          <div className="flex flex-col gap-6 lg:grid lg:grid-cols-3 lg:gap-12">
+          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-3 lg:gap-16">
             {/* Feature 1 */}
-            <div className="space-y-2">
+            <div className="space-y-3 lg:space-y-4">
               <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
               <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
                 An opinionated package of prompt, tools, and on-device models optimized for your hardware.
@@ -109,7 +109,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* Feature 2 */}
-            <div className="space-y-2">
+            <div className="space-y-3 lg:space-y-4">
               <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
               <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
                 Execute Python code and analyze data in real-time conversations.
@@ -117,7 +117,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* Feature 3 */}
-            <div className="space-y-2">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
                 <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-white/50 ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
