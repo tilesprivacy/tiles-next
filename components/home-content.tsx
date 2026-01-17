@@ -35,7 +35,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
       <main className="px-6 pt-28 pb-24 lg:px-12 lg:pt-36 lg:pb-32">
         <div className="w-full max-w-4xl mx-auto">
           {/* Hero Section */}
-          <div className="flex flex-col gap-8 mb-16 lg:mb-20">
+          <div className="flex flex-col items-center lg:items-start gap-6 lg:gap-8 mb-12 lg:mb-20">
             {/* Logo with Version badge */}
             <div className="relative w-fit">
               <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#151515] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-20 w-20 lg:h-24 lg:w-24">
@@ -53,21 +53,21 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* Title & Subtitle */}
-            <div className="space-y-4 lg:space-y-5">
+            <div className="space-y-3 lg:space-y-5 text-center lg:text-left">
               <h1 className="font-sans text-4xl font-bold tracking-tight text-foreground lg:text-6xl">
                 Tiles
               </h1>
-              <p className="text-lg text-black/60 dark:text-white/60 lg:text-xl max-w-xl">
+              <p className="text-base text-black/60 dark:text-white/60 lg:text-xl max-w-xl leading-relaxed">
                 Your private AI assistant for everyday use
               </p>
             </div>
 
             {/* CTA Button */}
-            <div className="flex flex-col items-start gap-3">
+            <div className="flex flex-col items-center lg:items-start gap-3 pt-2">
               <Button
                 asChild
                 variant="ghost"
-                className="group rounded-full bg-black dark:bg-white px-6 py-5 text-sm font-medium text-white dark:text-black transition-all duration-300 hover:bg-black/90 dark:hover:bg-white/90 lg:px-8 lg:py-6 lg:text-base"
+                className="group rounded-full bg-black dark:bg-white px-6 py-5 text-sm font-medium text-white dark:text-black transition-all duration-300 hover:bg-black/90 dark:hover:bg-white/90 hover:shadow-lg hover:shadow-black/20 dark:hover:shadow-white/20 lg:px-8 lg:py-6 lg:text-base"
               >
                 <Link href="/download" className="flex items-center gap-2.5">
                   <Image
@@ -75,14 +75,14 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-4 w-auto lg:h-5"
+                    className="h-4 w-auto lg:h-5 transition-transform duration-300 group-hover:scale-110"
                   />
                   <span>Download for Mac</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className="h-4 w-4 lg:h-5 lg:w-5"
+                    className="h-4 w-4 lg:h-5 lg:w-5 transition-transform duration-300 group-hover:translate-x-1"
                   >
                     <path
                       fillRule="evenodd"
@@ -99,39 +99,34 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
           </div>
 
           {/* Features Section */}
-          <div className="space-y-8 lg:space-y-10">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-black/40 dark:text-white/40">
-              Features
-            </h2>
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-              {/* Feature 1 */}
-              <div className="space-y-2">
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
-                <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
-                  An opinionated package of prompt, tools, and on-device models optimized for your hardware.
-                </p>
-              </div>
+          <div className="flex flex-col gap-6 lg:grid lg:grid-cols-3 lg:gap-12">
+            {/* Feature 1 */}
+            <div className="space-y-2">
+              <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
+              <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
+                An opinionated package of prompt, tools, and on-device models optimized for your hardware.
+              </p>
+            </div>
 
-              {/* Feature 2 */}
-              <div className="space-y-2">
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
-                <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
-                  Execute Python code and analyze data in real-time conversations.
-                </p>
-              </div>
+            {/* Feature 2 */}
+            <div className="space-y-2">
+              <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
+              <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
+                Execute Python code and analyze data in real-time conversations.
+              </p>
+            </div>
 
-              {/* Feature 3 */}
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
-                  <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-white/50 ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
-                    INSIDERS
-                  </span>
-                </div>
-                <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
-                  Personalized assistance that learns and remembers your preferences.
-                </p>
+            {/* Feature 3 */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
+                <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-white/50 ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
+                  INSIDERS
+                </span>
               </div>
+              <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
+                Personalized assistance that learns and remembers your preferences.
+              </p>
             </div>
           </div>
         </div>
