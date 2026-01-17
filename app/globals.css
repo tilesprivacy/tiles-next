@@ -133,30 +133,43 @@
 /* Book section buttons in dark mode - ensure proper contrast */
 .dark [data-book-section] header a.bg-foreground,
 .dark [data-book-section] header button.bg-foreground,
-.dark [data-book-section] header [class*="bg-foreground"] {
-  background-color: #E6E6E6 !important;
-  color: #121212 !important;
+.dark [data-book-section] header [class*="bg-foreground"],
+.dark [data-book-section] header a.bg-white,
+.dark [data-book-section] header button.bg-white,
+.dark [data-book-section] header [class*="bg-white"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
 }
 
 .dark [data-book-section] header a.bg-foreground span,
 .dark [data-book-section] header button.bg-foreground span,
-.dark [data-book-section] header [class*="bg-foreground"] span {
-  color: #121212 !important;
+.dark [data-book-section] header [class*="bg-foreground"] span,
+.dark [data-book-section] header a.bg-white span,
+.dark [data-book-section] header button.bg-white span,
+.dark [data-book-section] header [class*="bg-white"] span {
+  color: #000000 !important;
 }
 
 .dark [data-book-section] header a.bg-foreground svg,
 .dark [data-book-section] header button.bg-foreground svg,
-.dark [data-book-section] header [class*="bg-foreground"] svg {
-  fill: #121212 !important;
+.dark [data-book-section] header [class*="bg-foreground"] svg,
+.dark [data-book-section] header a.bg-white svg,
+.dark [data-book-section] header button.bg-white svg,
+.dark [data-book-section] header [class*="bg-white"] svg {
+  fill: #000000 !important;
 }
 
 /* Mobile menu buttons in dark mode - ensure proper contrast for book section */
 .dark [data-book-section] button.bg-foreground,
 .dark [data-book-section] button[class*="bg-foreground"],
 .dark [data-book-section] a.bg-foreground,
-.dark [data-book-section] a[class*="bg-foreground"] {
-  background-color: #E6E6E6 !important;
-  color: #121212 !important;
+.dark [data-book-section] a[class*="bg-foreground"],
+.dark [data-book-section] button.bg-white,
+.dark [data-book-section] button[class*="bg-white"],
+.dark [data-book-section] a.bg-white,
+.dark [data-book-section] a[class*="bg-white"] {
+  background-color: #ffffff !important;
+  color: #000000 !important;
 }
 
 .dark [data-book-section] button.bg-foreground a,
@@ -164,16 +177,26 @@
 .dark [data-book-section] button.bg-foreground span,
 .dark [data-book-section] button[class*="bg-foreground"] span,
 .dark [data-book-section] a.bg-foreground span,
-.dark [data-book-section] a[class*="bg-foreground"] span {
-  color: #121212 !important;
+.dark [data-book-section] a[class*="bg-foreground"] span,
+.dark [data-book-section] button.bg-white a,
+.dark [data-book-section] button[class*="bg-white"] a,
+.dark [data-book-section] button.bg-white span,
+.dark [data-book-section] button[class*="bg-white"] span,
+.dark [data-book-section] a.bg-white span,
+.dark [data-book-section] a[class*="bg-white"] span {
+  color: #000000 !important;
 }
 
 .dark [data-book-section] button.bg-foreground svg,
 .dark [data-book-section] button[class*="bg-foreground"] svg,
 .dark [data-book-section] a.bg-foreground svg,
-.dark [data-book-section] a[class*="bg-foreground"] svg {
-  fill: #121212 !important;
-  color: #121212 !important;
+.dark [data-book-section] a[class*="bg-foreground"] svg,
+.dark [data-book-section] button.bg-white svg,
+.dark [data-book-section] button[class*="bg-white"] svg,
+.dark [data-book-section] a.bg-white svg,
+.dark [data-book-section] a[class*="bg-white"] svg {
+  fill: #000000 !important;
+  color: #000000 !important;
 }
 
 /* Book footer - preserve explicit text colors (footer inverts theme) */

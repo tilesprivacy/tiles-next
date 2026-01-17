@@ -11,7 +11,7 @@ interface SiteHeaderProps {
   themeAware?: boolean
 }
 
-function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
+function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
   const { theme, systemTheme, resolvedTheme } = useTheme()
@@ -53,9 +53,10 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
   const headerBg = themeAware ? 'bg-background' : 'bg-white'
   const textColor = themeAware ? 'text-foreground' : 'text-black'
   const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
-  const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
-  const buttonText = themeAware ? 'text-background' : 'text-white'
-  const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
+  // Buttons: black bg in light mode, white bg in dark mode
+  const buttonBg = themeAware ? (isDark ? 'bg-white' : 'bg-black') : 'bg-black'
+  const buttonText = themeAware ? (isDark ? 'text-black' : 'text-white') : 'text-white'
+  const buttonHover = themeAware ? (isDark ? 'hover:bg-white/90' : 'hover:bg-black/90') : 'hover:bg-black/90'
   const hamburgerColor = themeAware ? 'bg-foreground' : 'bg-black'
 
   return (
@@ -158,8 +159,7 @@ function SiteHeaderContent({ themeAware = false }: SiteHeaderProps) {
       {isResourcesOpen && (
         <div
           ref={resourcesPanelRef}
-          className="fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl"
-          style={themeAware ? { backgroundColor: '#121212' } : { backgroundColor: '#ffffff' }}
+          className={`fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background' : 'bg-white'}`}
         >
           <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">

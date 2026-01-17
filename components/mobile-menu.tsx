@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import { useTheme } from 'next-themes'
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
+import { ThemeSwitcher } from "@/components/theme-switcher"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -39,22 +40,20 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
   const textColor = themeAware ? 'text-foreground' : 'text-black'
   const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
-  const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
-  // In dark mode, buttons have light background (foreground), so use black text
-  // In light mode, buttons have dark background (foreground), so use white text
-  const buttonText = themeAware 
-    ? (isDark ? 'text-[#121212]' : 'text-white')
-    : 'text-white'
-  const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
+  // Buttons: black bg in light mode, white bg in dark mode
+  const buttonBg = themeAware ? (isDark ? 'bg-white' : 'bg-black') : 'bg-black'
+  const buttonText = themeAware ? (isDark ? 'text-black' : 'text-white') : 'text-white'
+  const buttonHover = themeAware ? (isDark ? 'hover:bg-white/90' : 'hover:bg-black/90') : 'hover:bg-black/90'
   
   // Social icon colors - theme-aware
-  const iconBaseColor = themeAware ? 'text-foreground/40' : 'text-black/40'
+  // In dark theme: fully white icons, in light theme: black/40
+  const iconBaseColor = themeAware ? (isDark ? 'text-white' : 'text-black/40') : 'text-black/40'
   const iconHoverColors = {
-    twitter: themeAware ? 'group-hover:text-foreground/70' : 'group-hover:text-black/70',
+    twitter: themeAware ? (isDark ? 'group-hover:text-white/70' : 'group-hover:text-black/70') : 'group-hover:text-black/70',
     bluesky: 'group-hover:text-[#0085FF]',
     instagram: 'group-hover:text-[#E4405F]',
     discord: 'group-hover:text-[#5865F2]',
-    github: themeAware ? 'group-hover:text-foreground/70' : 'group-hover:text-black/70',
+    github: themeAware ? (isDark ? 'group-hover:text-white/70' : 'group-hover:text-black/70') : 'group-hover:text-black/70',
     huggingface: 'group-hover:text-[#FFD21E]',
     rss: 'group-hover:text-orange-500',
   }
@@ -279,8 +278,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
             </div>
           </nav>
 
-          {/* Spacer to push social icons to bottom half */}
+          {/* Spacer to push content to bottom half */}
           <div className="flex-1" />
+
+          {/* Theme Switcher - positioned above social icons */}
+          <div className="px-4 pb-6">
+            <ThemeSwitcher variant={themeAware ? 'auto' : 'light'} size="md" />
+          </div>
 
           {/* Social Icons - positioned in bottom half */}
           <div className="flex items-center gap-4 px-4 pb-8">

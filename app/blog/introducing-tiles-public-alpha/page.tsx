@@ -1,44 +1,44 @@
+'use client'
+
 import Link from "next/link"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import type { Metadata } from "next"
 import NewsletterForm from "@/components/newsletter-form"
 import { BlogReference } from "@/components/blog-reference"
 import { ReadingTime } from "@/components/reading-time"
 import { blogPosts } from "@/lib/blog-posts"
-
-export const metadata: Metadata = {
-  title: "Introducing Tiles Public Alpha",
-  description: "Building an everyday AI assistant with privacy-first engineering at its core.",
-  openGraph: {
-    title: "Introducing Tiles Public Alpha",
-    description: "Building an everyday AI assistant with privacy-first engineering at its core.",
-    type: "article",
-    publishedTime: "2026-01-02",
-    images: [
-      {
-        url: "/kingston.webp",
-        width: 1200,
-        height: 600,
-        alt: "Cover image for Introducing Tiles Alpha",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Introducing Tiles Public Alpha",
-    description: "Building an everyday AI assistant with privacy-first engineering at its core.",
-    images: ["/kingston.webp"],
-  },
-}
+import { useTheme } from 'next-themes'
+import { useEffect, useState } from 'react'
 
 export default function HowTilesWorksPage() {
   const post = blogPosts.find(p => p.slug === "introducing-tiles-public-alpha")
-  
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const isDark = mounted && resolvedTheme === 'dark'
+
+  // Theme-aware colors
+  const bgColor = 'bg-background'
+  const textColor = isDark ? 'text-white' : 'text-black'
+  const textColorMuted = isDark ? 'text-white/50' : 'text-black/50'
+  const textColorBody = isDark ? 'text-white/70' : 'text-black/70'
+  const textColorSubtle = isDark ? 'text-white/40' : 'text-black/40'
+  const textColorLink = isDark ? 'text-white/60' : 'text-black/60'
+  const linkColor = isDark ? 'text-white hover:text-white/80' : 'text-black hover:text-black/80'
+  const borderColor = isDark ? 'border-white/10' : 'border-black/10'
+  const codeBg = isDark ? 'bg-white/5' : 'bg-black/5'
+  const dividerColor = isDark ? 'text-white/20' : 'text-black/20'
+  const referenceTextColor = isDark ? 'text-white/45 hover:text-white/60' : 'text-black/45 hover:text-black/60'
+  const referenceDecorationColor = isDark ? 'decoration-white/20 hover:decoration-white/30' : 'decoration-black/20 hover:decoration-black/30'
+
   return (
-    <div className="relative flex min-h-screen flex-col bg-white">
-      <SiteHeader />
+    <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
+      <SiteHeader themeAware />
 
       {/* Main Content */}
       <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-20 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
@@ -46,20 +46,20 @@ export default function HowTilesWorksPage() {
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
           <div className="mb-8 lg:mb-12">
-            <h1 className="text-3xl font-semibold text-black mb-4 lg:text-6xl lg:mb-5 tracking-tight">
+            <h1 className={`text-3xl font-semibold ${textColor} mb-4 lg:text-6xl lg:mb-5 tracking-tight`}>
               Introducing Tiles Public Alpha
             </h1>
-            <p className="text-base text-black/50 lg:text-xl mb-3 lg:mb-4">
+            <p className={`text-base ${textColorMuted} lg:text-xl mb-3 lg:mb-4`}>
               Building an everyday AI assistant with privacy-first engineering at its core.
             </p>
             <div className="flex items-center gap-3 lg:gap-4">
-              <p className="text-sm text-black/40 lg:text-lg">January 2, 2026</p>
+              <p className={`text-sm ${textColorSubtle} lg:text-lg`}>January 2, 2026</p>
               {post && (
                 <>
-                  <span className="text-black/20">·</span>
+                  <span className={dividerColor}>·</span>
                   <ReadingTime 
                     content={post.content} 
-                    className="text-sm text-black/40 lg:text-lg"
+                    className={`text-sm ${textColorSubtle} lg:text-lg`}
                   />
                 </>
               )}
@@ -82,7 +82,7 @@ export default function HowTilesWorksPage() {
             {/* Container for side references on desktop */}
             <div className="blog-reference-container hidden lg:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
-            <div className="space-y-6 text-base leading-relaxed text-black/70 lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
+            <div className={`space-y-6 text-base leading-relaxed ${textColorBody} lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10`}>
               <p>
                 Today, we're releasing the public alpha of Tiles, our first step toward a privacy-first AI assistant built to run entirely on the user's device. Tiles brings together local-first models, personalized experiences, and verifiable privacy guarantees, so data remains under the user's control by default. We see identity and memory as inseparable parts of the same system, and Tiles is designed around that idea: an AI assistant that acts as a user-owned agent rather than a centralized service.
               </p>
@@ -94,20 +94,20 @@ export default function HowTilesWorksPage() {
                     href="https://docs.ollama.com/modelfile"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-black/45 hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                    className={`${referenceTextColor} underline ${referenceDecorationColor} underline-offset-2 transition-colors`}
                   >
                     Ollama Modelfile
                   </a>
-                  <span className="text-black">{" "}is the blueprint to create and share customized models using Ollama.</span>
+                  <span className={textColor}>{" "}is the blueprint to create and share customized models using Ollama.</span>
                 </BlogReference>
                 {" "}based SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in
                 collaboration with the community, establishing it as the standard for model customization.
               </p>
 
-              <hr className="border-black/10 my-10 lg:my-12" />
+              <hr className={borderColor + " my-10 lg:my-12"} />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
+                <h2 className={`text-2xl font-semibold ${textColor} mb-6 lg:text-4xl lg:mb-8 tracking-tight`}>
                   Philosophy
                 </h2>
 
@@ -118,16 +118,16 @@ export default function HowTilesWorksPage() {
                 <p className="mb-6 lg:mb-8">
                   The project is defined by four interdependent design choices:
                   <BlogReference id={2}>
-                    <span className="text-black">From </span>
+                    <span className={textColor}>From </span>
                     <a
                       href="https://newsletter.squishy.computer/p/decentralizability"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-black/45 hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                      className={`${referenceTextColor} underline ${referenceDecorationColor} underline-offset-2 transition-colors`}
                     >
                       Decentralizability
                     </a>
-                    <span className="text-black"> (Gordon Brander): Immutable data, universal IDs, user-controlled keys… and just using HTTP. I think this is probably minimum viable decentralizability.</span>
+                    <span className={textColor}> (Gordon Brander): Immutable data, universal IDs, user-controlled keys… and just using HTTP. I think this is probably minimum viable decentralizability.</span>
                   </BlogReference>
                  
                 </p>
@@ -141,7 +141,7 @@ export default function HowTilesWorksPage() {
                         href="https://keybase.io/blog/keybase-new-key-model"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-black/45 hover:text-black/60 underline decoration-black/20 hover:decoration-black/30 underline-offset-2 transition-colors"
+                        className={`${referenceTextColor} underline ${referenceDecorationColor} underline-offset-2 transition-colors`}
                       >
                         Keybase's New Key Model
                       </a>
@@ -166,10 +166,10 @@ export default function HowTilesWorksPage() {
                 </ol>
               </section>
 
-              <hr className="border-black/10 my-10 lg:my-12" />
+              <hr className={borderColor + " my-10 lg:my-12"} />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
+                <h2 className={`text-2xl font-semibold ${textColor} mb-6 lg:text-4xl lg:mb-8 tracking-tight`}>
                   Implementation
                 </h2>
 
@@ -179,7 +179,7 @@ export default function HowTilesWorksPage() {
                     href="https://venvstacks.lmstudio.ai/overview/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                     venvstacks
                     <svg
@@ -212,7 +212,7 @@ export default function HowTilesWorksPage() {
                     href="https://huggingface.co/driaforall/mem-agent"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                     mem-agent
                     <svg
@@ -231,7 +231,7 @@ export default function HowTilesWorksPage() {
                     href="https://dria.co/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                     Dria
                     <svg
@@ -246,7 +246,7 @@ export default function HowTilesWorksPage() {
                     </svg>
                   </a>
                   , based on{" "}
-                  <code className="rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm">qwen3-4B-thinking-2507</code>),
+                  <code className={`rounded ${codeBg} px-1.5 py-0.5 font-mono text-sm`}>qwen3-4B-thinking-2507</code>),
                   and are in the process of training our initial in-house memory models.
                 </p>
 
@@ -258,10 +258,10 @@ export default function HowTilesWorksPage() {
                 </p>
               </section>
 
-              <hr className="border-black/10 my-10 lg:my-12" />
+              <hr className={borderColor + " my-10 lg:my-12"} />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black mb-6 lg:text-4xl lg:mb-8 tracking-tight">
+                <h2 className={`text-2xl font-semibold ${textColor} mb-6 lg:text-4xl lg:mb-8 tracking-tight`}>
                   Looking forward
                 </h2>
 
@@ -282,7 +282,7 @@ export default function HowTilesWorksPage() {
                       href="https://www.iroh.computer/"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                       Iroh
                       <svg
@@ -304,7 +304,7 @@ export default function HowTilesWorksPage() {
                       href="https://atproto.com/specs/did"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                       AT Protocol DIDs
                       <svg
@@ -326,7 +326,7 @@ export default function HowTilesWorksPage() {
                       href="https://darkshapes.org/"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                       Darkshapes
                       <svg
@@ -345,7 +345,7 @@ export default function HowTilesWorksPage() {
                       href="https://huggingface.co/darkshapes/MIR_"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                      className={`inline-flex items-center gap-1 ${linkColor} underline`}
                     >
                       MIR
                       <svg
@@ -364,7 +364,7 @@ export default function HowTilesWorksPage() {
                       href="https://dspy.ai/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                      className={`inline-flex items-center gap-1 ${linkColor} underline`}
                     >
                       DSPy
                       <svg
@@ -387,7 +387,7 @@ export default function HowTilesWorksPage() {
                       href="https://github.com/huggingface/xet-core"
                       target="_blank"
                       rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-black hover:text-black/80 underline"
+                    className={`inline-flex items-center gap-1 ${linkColor} underline`}
                   >
                       xet-core
                       <svg
@@ -413,7 +413,7 @@ export default function HowTilesWorksPage() {
                 <p>
                   We are seeking design partners for training workloads that align with our goal of ensuring a
                   verifiable privacy perimeter. If you're interested, please reach out to us at{" "}
-                  <a href="mailto:hello@tiles.run" className="text-black hover:text-black/80 underline">
+                  <a href="mailto:hello@tiles.run" className={`${linkColor} underline`}>
                     hello@tiles.run
                   </a>
                   .
@@ -424,12 +424,12 @@ export default function HowTilesWorksPage() {
 
           {/* Blog Footer Text */}
           <div className="mt-16 lg:mt-20">
-            <div className="space-y-2 text-xs text-black/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
+            <div className={`space-y-2 text-xs ${textColorLink} lg:space-y-3 lg:text-sm mb-8 lg:mb-10`}>
               <p>
                 You're reading the{" "}
                 <a
                   href="https://tiles.run"
-                  className="text-black hover:text-black/80 underline"
+                  className={`${linkColor} underline`}
                 >
                   Tiles
                 </a>{" "}
@@ -440,14 +440,14 @@ export default function HowTilesWorksPage() {
               </p>
               <p>
                 There are{" "}
-                <Link href="/blog" className="text-black hover:text-black/80 underline">
+                <Link href="/blog" className={`${linkColor} underline`}>
                   more posts
                 </Link>
                 .
               </p>
               <p>
                 When you're done, you can{" "}
-                <Link href="/download" className="text-black hover:text-black/80 underline">
+                <Link href="/download" className={`${linkColor} underline`}>
                   install Tiles
                 </Link>
                 .
@@ -456,11 +456,11 @@ export default function HowTilesWorksPage() {
           </div>
 
           {/* Newsletter Subscription Form */}
-          <div className="pt-12 lg:pt-16 border-t border-black/10">
+          <div className={`pt-12 lg:pt-16 border-t ${borderColor}`}>
             <div className="space-y-4 lg:space-y-5">
               <div>
-                <h3 className="text-lg font-semibold text-black mb-2 lg:text-xl lg:mb-3">Stay updated</h3>
-                <p className="text-sm text-black/60 lg:text-base">
+                <h3 className={`text-lg font-semibold ${textColor} mb-2 lg:text-xl lg:mb-3`}>Stay updated</h3>
+                <p className={`text-sm ${isDark ? 'text-white/60' : 'text-black/60'} lg:text-base`}>
                   Get notified when we publish new posts about privacy and personalization.
                 </p>
               </div>
