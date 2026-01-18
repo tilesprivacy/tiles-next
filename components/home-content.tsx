@@ -35,7 +35,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
       <main className="px-6 pt-32 pb-32 lg:px-12 lg:pt-44 lg:pb-40">
         <div className="w-full max-w-4xl mx-auto">
           {/* Hero Section */}
-          <div className="flex flex-col items-center lg:items-start gap-8 lg:gap-10 mb-20 lg:mb-32">
+          <div className="flex flex-col items-center gap-8 lg:gap-10 mb-20 lg:mb-32">
             {/* Logo with Version badge */}
             <div className="relative w-fit">
               <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#151515] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-20 w-20 lg:h-24 lg:w-24">
@@ -53,7 +53,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* Title & Subtitle */}
-            <div className="space-y-4 lg:space-y-6 text-center lg:text-left">
+            <div className="space-y-4 lg:space-y-6 text-center">
               <h1 className="font-sans text-4xl font-bold tracking-tight text-foreground lg:text-6xl">
                 Tiles
               </h1>
@@ -63,7 +63,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
 
             {/* CTA Button */}
-            <div className="flex flex-col items-center lg:items-start gap-4 pt-4 lg:pt-6">
+            <div className="flex flex-col items-center gap-4 pt-4 lg:pt-6">
               <Button
                 asChild
                 variant="ghost"
