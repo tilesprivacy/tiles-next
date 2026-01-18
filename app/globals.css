@@ -221,8 +221,14 @@
   color: rgba(0, 0, 0, 0.7) !important;
 }
 
-.dark [data-book-section] footer.bg-white svg {
+/* Only target social icon SVGs in footer links, not theme switcher buttons */
+.dark [data-book-section] footer.bg-white a svg {
   color: #000000 !important;
+}
+
+/* Theme switcher in light footer (dark mode page) - active buttons need white icons */
+.dark [data-book-section] footer.bg-white button.bg-black svg {
+  color: #ffffff !important;
 }
 
 @theme inline {
