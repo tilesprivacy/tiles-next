@@ -46,7 +46,7 @@ export function BookHeader() {
                 height={20}
                 className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
               />
-              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download for macOS</span>
             </Link>
           </Button>
           <Button

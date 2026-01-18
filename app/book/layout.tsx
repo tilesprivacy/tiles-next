@@ -5,6 +5,8 @@ import 'nextra-theme-docs/style.css'
 import { SiteHeader } from '@/components/site-header'
 import { BookFooter } from '@/components/book-footer'
 import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
+import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
+import { BookDatestampMover } from '@/components/book-datestamp-mover'
 
 export const metadata = {
   title: {
@@ -106,7 +108,9 @@ export default async function BookLayout({
     <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
       <SiteHeader themeAware />
       <BookBreadcrumbLink />
+      <BookDatestampMover />
       <div className="pt-16 lg:pt-24">
+        <BookMobileBreadcrumb />
         <Layout
           pageMap={finalPageMap}
           docsRepositoryBase="https://github.com/tilesprivacy/tiles-next/tree/main/book"

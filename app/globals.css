@@ -304,6 +304,91 @@
   @apply text-black/80 dark:text-white/80;
 }
 
+/* Code block copy/word-wrap buttons - matching download page script box style */
+/* Solid backgrounds that match code block container, no blur */
+[data-book-section] .nextra-code pre > div:first-child,
+[data-book-section] pre.group > div:first-child {
+  opacity: 1 !important;
+}
+
+/* Ensure code content doesn't overlap with buttons - add padding-right */
+[data-book-section] .nextra-code pre,
+[data-book-section] pre.group {
+  padding-right: 3rem !important;
+}
+
+[data-book-section] .nextra-code pre code,
+[data-book-section] pre.group code {
+  padding-right: 0 !important;
+}
+
+[data-book-section] .nextra-code pre > div:first-child button,
+[data-book-section] pre.group > div:first-child button,
+[data-book-section] .nextra-code button[title="Copy code"],
+[data-book-section] .nextra-code button:has(.nextra-copy-icon),
+[data-book-section] pre button[title="Copy code"],
+[data-book-section] pre button:has(.nextra-copy-icon),
+[data-book-section] pre button:has(svg) {
+  background-color: #f5f5f5 !important;
+  border: none !important;
+  border-radius: 0.25rem !important;
+  padding: 0.25rem !important;
+  opacity: 1 !important;
+  transition: background-color 0.15s ease !important;
+}
+
+[data-book-section] .nextra-code pre > div:first-child button:hover,
+[data-book-section] pre.group > div:first-child button:hover,
+[data-book-section] .nextra-code button[title="Copy code"]:hover,
+[data-book-section] pre button[title="Copy code"]:hover,
+[data-book-section] pre button:has(svg):hover {
+  background-color: #e5e5e5 !important;
+}
+
+/* Dark mode code block buttons */
+.dark [data-book-section] .nextra-code pre > div:first-child button,
+.dark [data-book-section] pre.group > div:first-child button,
+.dark [data-book-section] .nextra-code button[title="Copy code"],
+.dark [data-book-section] .nextra-code button:has(.nextra-copy-icon),
+.dark [data-book-section] pre button[title="Copy code"],
+.dark [data-book-section] pre button:has(.nextra-copy-icon),
+.dark [data-book-section] pre button:has(svg) {
+  background-color: #1a1a1a !important;
+  border: none !important;
+  color: #E6E6E6 !important;
+  opacity: 1 !important;
+}
+
+.dark [data-book-section] .nextra-code pre > div:first-child button:hover,
+.dark [data-book-section] pre.group > div:first-child button:hover,
+.dark [data-book-section] .nextra-code button[title="Copy code"]:hover,
+.dark [data-book-section] pre button[title="Copy code"]:hover,
+.dark [data-book-section] pre button:has(svg):hover {
+  background-color: #252525 !important;
+}
+
+/* Button icons - matching download page colors */
+[data-book-section] .nextra-copy-icon,
+[data-book-section] pre button svg {
+  color: rgba(0, 0, 0, 0.5) !important;
+  transition: color 0.15s ease !important;
+}
+
+[data-book-section] pre button:hover svg,
+[data-book-section] pre button:hover .nextra-copy-icon {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.dark [data-book-section] .nextra-copy-icon,
+.dark [data-book-section] pre button svg {
+  color: #8A8A8A !important;
+}
+
+.dark [data-book-section] pre button:hover svg,
+.dark [data-book-section] pre button:hover .nextra-copy-icon {
+  color: #E6E6E6 !important;
+}
+
 /* External link indicator for non-tiles.run links in book section */
 /* Ensure external links wrap properly and icon stays aligned */
 [data-book-section] a.external-link {
@@ -421,6 +506,128 @@
   height: auto !important;
   min-width: 0 !important;
   min-height: 0 !important;
+}
+
+/* Mobile: Position elements in order: title → datestamp → copy button → content */
+@media (max-width: 1023px) {
+  /* Make article a flex container for reordering children */
+  [data-book-section] article {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  /* Main content uses display:contents so its children participate in article's flex */
+  [data-book-section] article > main,
+  [data-book-section] article main[data-pagefind-body] {
+    display: contents !important;
+  }
+  
+  /* Hidden elements like breadcrumb come first */
+  [data-book-section] article > nav,
+  [data-book-section] article > div:first-child:not(:has(button)) {
+    order: 0 !important;
+  }
+  
+  /* h1 title comes first in visible order */
+  [data-book-section] article h1:first-of-type {
+    order: 1 !important;
+    margin-bottom: 0.5rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  
+  /* Datestamp comes second, right after title */
+  /* Target our custom book-date-stamp class and Nextra's lastUpdated */
+  [data-book-section] article time.book-date-stamp,
+  [data-book-section] article .book-date-stamp,
+  [data-book-section] article main time.book-date-stamp,
+  [data-book-section] article main .book-date-stamp,
+  [data-book-section] article time,
+  [data-book-section] article main time,
+  [data-book-section] article div.x\:mt-12.x\:mb-8,
+  [data-book-section] article div[class*="x:mt-12"][class*="x:mb-8"],
+  [data-book-section] article > div:has(time) {
+    order: 2 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin: 0 0 0.75rem 0 !important;
+    font-size: 0.8125rem !important;
+    color: #8A8A8A !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+  
+  /* Ensure time element inside datestamp div is single line */
+  [data-book-section] article > div:has(time) time,
+  [data-book-section] article div.x\:mt-12.x\:mb-8 time,
+  [data-book-section] article div[class*="x:mt-12"][class*="x:mb-8"] time {
+    white-space: nowrap !important;
+    display: inline !important;
+  }
+  
+  /* Ensure dark mode timestamp is visible */
+  .dark [data-book-section] article time.book-date-stamp,
+  .dark [data-book-section] article .book-date-stamp,
+  .dark [data-book-section] article div.x\:mt-12.x\:mb-8,
+  .dark [data-book-section] article div[class*="x:mt-12"][class*="x:mb-8"] {
+    color: #8A8A8A !important;
+  }
+  
+  /* Copy button comes third, after datestamp */
+  [data-book-section] article div.nextra-border.x\:float-end,
+  [data-book-section] article div[class*="nextra-border"][class*="float-end"],
+  [data-book-section] article > div:has(button[name*="Copy page"]),
+  [data-book-section] article > div:has(button[aria-label*="Copy page"]) {
+    order: 3 !important;
+    float: none !important;
+    display: flex !important;
+    width: fit-content !important;
+    margin: 0 0 1.5rem 0 !important;
+  }
+  
+  /* All other content from main comes after copy button */
+  [data-book-section] article main > *:not(h1:first-of-type):not(time),
+  [data-book-section] article main p,
+  [data-book-section] article main ul,
+  [data-book-section] article main ol,
+  [data-book-section] article main pre,
+  [data-book-section] article main blockquote,
+  [data-book-section] article main h2,
+  [data-book-section] article main h3,
+  [data-book-section] article main h4,
+  [data-book-section] article main > div:not(:has(time)) {
+    order: 4 !important;
+  }
+}
+
+/* Desktop: Style datestamp when moved below title by JS */
+@media (min-width: 1024px) {
+  /* Datestamp styling after JS moves it below h1 */
+  [data-book-section] article main > div:has(time),
+  [data-book-section] article main div:has(> time) {
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+    font-size: 0.875rem !important;
+    color: #8A8A8A !important;
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Override text-end alignment on the time element */
+  [data-book-section] article main div:has(time) time {
+    text-align: left !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Dark mode datestamp */
+  .dark [data-book-section] article main > div:has(time),
+  .dark [data-book-section] article main div:has(> time) {
+    color: #8A8A8A !important;
+  }
 }
 
 /* Ensure all buttons in article header are visible */

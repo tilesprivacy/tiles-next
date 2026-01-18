@@ -81,7 +81,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     height={20}
                     className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 hidden dark:block"
                   />
-                  <span>Download for Mac</span>
+                  <span>Download for macOS</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"

@@ -2,43 +2,50 @@
   "index": {
     "title": "Tiles Book",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "usage": {
     "title": "Usage Guide",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "models": {
     "title": "Models",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "memory": {
     "title": "Memory",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "modelfile": {
     "title": "Modelfile",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "mir": {
     "title": "MIR Extension",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "resources": {
     "title": "Resources",
     "theme": {
-      "copyPage": true
+      "copyPage": true,
+      "timestamp": true
     }
   },
   "blog": {

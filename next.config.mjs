@@ -2,6 +2,8 @@ import nextra from 'nextra'
 
 const withNextra = nextra({
   contentDirBasePath: '/book',
+  // Enable git timestamp for last updated dates
+  defaultShowCopyCode: true,
 })
 
 /** @type {import('next').NextConfig} */
