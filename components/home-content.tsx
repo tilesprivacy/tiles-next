@@ -1,32 +1,14 @@
-'use client'
-
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 
 interface HomeContentProps {
   latestVersion: string
 }
 
 export function HomeContent({ latestVersion }: HomeContentProps) {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
-  // Use pad logo on dark background, cream/light logo on light background
-  const logoSrc = isDark ? '/pad.png' : '/cream.png'
-  // Apple logo: black for white button (dark mode), white for black button (light mode)
-  const appleLogoSrc = isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
-
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader themeAware />
@@ -39,13 +21,26 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             {/* Logo with Version badge */}
             <div className="relative w-fit">
               <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#1a1a1a] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-20 w-20 lg:h-24 lg:w-24">
+                {/* Light mode logo */}
                 <Image
-                  src={logoSrc}
+                  src="/cream.png"
                   alt="Tiles Logo"
                   width={112}
                   height={112}
-                  className="h-12 w-12 lg:h-14 lg:w-14"
+                  className="h-12 w-12 lg:h-14 lg:w-14 dark:hidden"
                 />
+                {/* Dark mode logo */}
+                <div className="relative hidden dark:block">
+                  <Image
+                    src="/padded.png"
+                    alt="Tiles Logo"
+                    width={112}
+                    height={112}
+                    className="h-12 w-12 lg:h-14 lg:w-14"
+                  />
+                  {/* Overlay to hide white edges */}
+                  <div className="absolute inset-0 pointer-events-none ring-[3px] ring-inset ring-[#1a1a1a]" />
+                </div>
               </div>
               <span className="absolute -right-2 -top-2 rounded-full bg-white dark:bg-[#1a1a1a] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-foreground shadow-sm ring-1 ring-black/10 dark:ring-white/10 lg:-right-3 lg:-top-3 lg:px-2.5 lg:py-1 lg:text-xs">
                 {latestVersion}
@@ -70,12 +65,21 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 className="group rounded-full bg-black dark:bg-white px-6 py-5 text-sm font-medium text-white dark:text-black transition-all duration-300 hover:bg-black/90 dark:hover:bg-white/90 hover:shadow-lg hover:shadow-black/20 dark:hover:shadow-white/20 lg:px-8 lg:py-6 lg:text-base"
               >
                 <Link href="/download" className="flex items-center gap-2.5">
+                  {/* Light mode: white Apple logo (on black button) */}
                   <Image
-                    src={appleLogoSrc}
+                    src="/apple-logo-white.svg"
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-4 w-auto lg:h-5 transition-transform duration-300 group-hover:scale-110"
+                    className="h-4 w-auto lg:h-5 transition-transform duration-300 group-hover:scale-110 dark:hidden"
+                  />
+                  {/* Dark mode: black Apple logo (on white button) */}
+                  <Image
+                    src="/apple-logo.svg"
+                    alt="Apple"
+                    width={16}
+                    height={20}
+                    className="h-4 w-auto lg:h-5 transition-transform duration-300 group-hover:scale-110 hidden dark:block"
                   />
                   <span>Download for Mac</span>
                   <svg
