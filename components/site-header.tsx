@@ -4,8 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useState, useEffect, useRef } from "react"
-import { useTheme } from 'next-themes'
-import { usePathname } from 'next/navigation'
 import { MobileMenu } from "./mobile-menu"
 
 interface SiteHeaderProps {
@@ -15,15 +13,8 @@ interface SiteHeaderProps {
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
-  const { theme, systemTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
   const resourcesButtonRef = useRef<HTMLButtonElement | null>(null)
   const resourcesPanelRef = useRef<HTMLDivElement | null>(null)
-  const pathname = usePathname()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -38,22 +29,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
     document.addEventListener('click', handleClickOutside)
     return () => document.removeEventListener('click', handleClickOutside)
   }, [isResourcesOpen])
-
-  // Only use theme detection if themeAware is true
-  const currentTheme = themeAware ? (resolvedTheme || (theme === 'system' ? systemTheme : theme)) : 'light'
-  const isDark = themeAware && currentTheme === 'dark'
-
-  // Check if we're on a book page
-  const isBookPage = pathname?.startsWith('/book')
-
-  // Use appropriate logo based on theme
-  // Use grey.png for dark theme on all pages (same as book page)
-  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
-
-  // Use appropriate apple logo based on theme
-  const appleLogoSrc = themeAware
-    ? (mounted && isDark ? '/apple-logo.svg' : '/apple-logo-white.svg')
-    : '/apple-logo-white.svg'
 
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const headerBg = themeAware ? 'bg-background' : 'bg-white'
@@ -71,7 +46,16 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         {/* Left side: Logo and Desktop Nav Links */}
         <div className="flex items-center gap-8 shrink-0">
           <Link href="/" className="transition-colors hover:opacity-70">
-            <Image src={logoSrc} alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12" />
+            {themeAware ? (
+              <>
+                {/* Light mode logo */}
+                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 dark:hidden" />
+                {/* Dark mode logo */}
+                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 hidden dark:block" />
+              </>
+            ) : (
+              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12" />
+            )}
           </Link>
 
           {/* Desktop Navigation Links */}
@@ -117,14 +101,35 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
               href="/download"
               className="group flex items-center gap-1.5 lg:gap-2"
             >
-              <Image
-                src={appleLogoSrc}
-                alt="Apple"
-                width={16}
-                height={20}
-                className="h-3.5 w-auto transition-transform duration-300 will-change-transform group-hover:scale-110 lg:h-4"
-              />
-              <span className="transition-all duration-300 will-change-transform group-hover:scale-105 group-active:scale-105">Download</span>
+              {themeAware ? (
+                <>
+                  {/* Light mode: white Apple logo (on black button) */}
+                  <Image
+                    src="/apple-logo-white.svg"
+                    alt="Apple"
+                    width={16}
+                    height={20}
+                    className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 dark:hidden"
+                  />
+                  {/* Dark mode: black Apple logo (on white button) */}
+                  <Image
+                    src="/apple-logo.svg"
+                    alt="Apple"
+                    width={16}
+                    height={20}
+                    className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
+                  />
+                </>
+              ) : (
+                <Image
+                  src="/apple-logo-white.svg"
+                  alt="Apple"
+                  width={16}
+                  height={20}
+                  className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4"
+                />
+              )}
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
             </Link>
           </Button>
           <Button
@@ -141,11 +146,11 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
+                className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
-              <span className="transition-all duration-300 will-change-transform group-hover:scale-105 group-active:scale-105">Sponsor</span>
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Sponsor</span>
             </a>
           </Button>
 

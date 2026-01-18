@@ -3,30 +3,11 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { MobileMenu } from "./mobile-menu"
 
 export function BookHeader() {
-  const { theme, systemTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Use resolvedTheme if available, otherwise determine from theme/systemTheme
-  const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
-  const isDark = currentTheme === 'dark'
-  
-  // Use grey.png for dark theme, lighticon.png for light theme
-  // Default to lighticon.png during SSR to avoid hydration mismatch
-  const logoSrc = mounted && isDark ? '/grey.png' : '/lighticon.png'
-  
-  // Use dark apple logo for dark theme (button bg is light), white logo for light theme (button bg is dark)
-  // Default to white logo during SSR to avoid hydration mismatch
-  const appleLogoSrc = mounted && isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
 
   return (
     <>
@@ -34,7 +15,10 @@ export function BookHeader() {
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/" className="transition-colors hover:opacity-70">
-            <Image src={logoSrc} alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12" />
+            {/* Light mode logo */}
+            <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 dark:hidden" />
+            {/* Dark mode logo */}
+            <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 hidden dark:block" />
           </Link>
         </div>
 
@@ -46,14 +30,23 @@ export function BookHeader() {
             className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
+              {/* Light mode: white Apple logo (on black button) */}
               <Image
-                src={appleLogoSrc}
+                src="/apple-logo-white.svg"
                 alt="Apple"
                 width={16}
                 height={20}
-                className="h-3.5 w-auto transition-transform duration-300 will-change-transform group-hover:scale-110 lg:h-4"
+                className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 dark:hidden"
               />
-              <span className="transition-all duration-300 will-change-transform group-hover:scale-105 group-active:scale-105">Download</span>
+              {/* Dark mode: black Apple logo (on white button) */}
+              <Image
+                src="/apple-logo.svg"
+                alt="Apple"
+                width={16}
+                height={20}
+                className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
+              />
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
             </Link>
           </Button>
           <Button
@@ -69,11 +62,11 @@ export function BookHeader() {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 fill-background transition-all duration-300 will-change-transform group-hover:scale-110 group-hover:fill-background/70 group-active:scale-110 lg:h-4 lg:w-4"
+                className="h-3.5 w-3.5 fill-background transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-hover:fill-background/70 group-active:scale-110 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
-              <span className="transition-all duration-300 will-change-transform group-hover:scale-105 group-active:scale-105">Sponsor</span>
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Sponsor</span>
             </a>
           </Button>
 

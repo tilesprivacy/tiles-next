@@ -71,7 +71,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform group-hover:scale-110 dark:hidden"
+                    className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 dark:hidden"
                   />
                   {/* Dark mode: black Apple logo (on white button) */}
                   <Image
@@ -79,7 +79,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform group-hover:scale-110 hidden dark:block"
+                    className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 hidden dark:block"
                   />
                   <span>Download for Mac</span>
                   <svg

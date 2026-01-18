@@ -4,7 +4,6 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
-import { useTheme } from 'next-themes'
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { ThemeSwitcher } from "@/components/theme-switcher"
@@ -16,26 +15,7 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuProps) {
-  const { theme, systemTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
   const [isResourcesExpanded, setIsResourcesExpanded] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Only use theme detection if themeAware is true
-  const currentTheme = themeAware ? (resolvedTheme || (theme === 'system' ? systemTheme : theme)) : 'light'
-  const isDark = themeAware && currentTheme === 'dark'
-
-  // Use appropriate logo based on theme
-  // Use grey.png for dark theme (same as book page)
-  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
-
-  // Use appropriate apple logo based on theme
-  const appleLogoSrc = themeAware
-    ? (mounted && isDark ? '/apple-logo.svg' : '/apple-logo-white.svg')
-    : '/apple-logo-white.svg'
 
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
@@ -93,7 +73,16 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
         <div className={`flex items-center justify-between px-4 pb-3 pt-4 ${menuBg} shrink-0`}>
           {/* Logo */}
           <Link href="/" onClick={onClose} className="transition-colors hover:opacity-70">
-            <Image src={logoSrc} alt="Tiles" width={48} height={48} className="h-10 w-10" />
+            {themeAware ? (
+              <>
+                {/* Light mode logo */}
+                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 dark:hidden" />
+                {/* Dark mode logo */}
+                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-10 w-10 hidden dark:block" />
+              </>
+            ) : (
+              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10" />
+            )}
           </Link>
 
           {/* Right side: Buttons and Close button */}
@@ -109,14 +98,35 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                 onClick={onClose}
                 className="group flex items-center gap-1.5"
               >
-                <Image
-                  src={appleLogoSrc}
-                  alt="Apple"
-                  width={16}
-                  height={20}
-                  className="h-3.5 w-auto transition-transform duration-300 will-change-transform group-hover:scale-110"
-                />
-                <span className="transition-all duration-300 will-change-transform group-hover:scale-105 group-active:scale-105">Download</span>
+                {themeAware ? (
+                  <>
+                    {/* Light mode: white Apple logo (on black button) */}
+                    <Image
+                      src="/apple-logo-white.svg"
+                      alt="Apple"
+                      width={16}
+                      height={20}
+                      className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 dark:hidden"
+                    />
+                    {/* Dark mode: black Apple logo (on white button) */}
+                    <Image
+                      src="/apple-logo.svg"
+                      alt="Apple"
+                      width={16}
+                      height={20}
+                      className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 hidden dark:block"
+                    />
+                  </>
+                ) : (
+                  <Image
+                    src="/apple-logo-white.svg"
+                    alt="Apple"
+                    width={16}
+                    height={20}
+                    className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110"
+                  />
+                )}
+                <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
               </Link>
             </Button>
 
@@ -135,11 +145,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform group-hover:scale-110 group-active:scale-110"
+                  className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110"
                 >
                   <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
-                <span className="transition-all duration-300 will-change-transform group-hover:scale-105 group-active:scale-105">Sponsor</span>
+                <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Sponsor</span>
               </a>
             </Button>
 
