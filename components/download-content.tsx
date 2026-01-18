@@ -15,16 +15,16 @@ export function DownloadContent() {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Theme-aware colors
+  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-white/70' : 'text-black/70'
-  const textColorSubtle = isDark ? 'text-white/50' : 'text-black/50'
-  const textColorLink = isDark ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'
+  const textColorMuted = isDark ? 'text-[#B3B3B3]' : 'text-black/70'
+  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-black/50'
+  const textColorLink = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/60 hover:text-black'
   const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
-  const codeText = isDark ? 'text-white/80' : 'text-black/80'
+  const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
   const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
-  const copyIconColor = isDark ? 'text-white/50 hover:text-white/80' : 'text-black/50 hover:text-black/80'
+  const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
 
   const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean }) => {
     const [copied, setCopied] = useState(false)

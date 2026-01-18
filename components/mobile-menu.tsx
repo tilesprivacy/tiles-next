@@ -29,7 +29,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   const isDark = themeAware && currentTheme === 'dark'
 
   // Use appropriate logo based on theme
-  const logoSrc = (mounted && isDark) ? '/dark.jpeg' : '/lighticon.png'
+  // Use grey.png for dark theme (same as book page)
+  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
 
   // Use appropriate apple logo based on theme
   const appleLogoSrc = themeAware
@@ -45,14 +46,14 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
   const buttonText = themeAware ? 'text-white dark:text-black' : 'text-white'
   const buttonHover = themeAware ? 'hover:bg-black/90 dark:hover:bg-white/90' : 'hover:bg-black/90'
   
-  // Social icon colors - theme-aware using dark: utilities
-  const iconBaseColor = themeAware ? 'text-black/40 dark:text-white' : 'text-black/40'
+  // Social icon colors - theme-aware using dark: utilities (matching book dark theme)
+  const iconBaseColor = themeAware ? 'text-black/40 dark:text-[#B3B3B3]' : 'text-black/40'
   const iconHoverColors = {
-    twitter: themeAware ? 'group-hover:text-black/70 dark:group-hover:text-white/70' : 'group-hover:text-black/70',
+    twitter: themeAware ? 'group-hover:text-black/70 dark:group-hover:text-[#E6E6E6]' : 'group-hover:text-black/70',
     bluesky: 'group-hover:text-[#0085FF]',
     instagram: 'group-hover:text-[#E4405F]',
     discord: 'group-hover:text-[#5865F2]',
-    github: themeAware ? 'group-hover:text-black/70 dark:group-hover:text-white/70' : 'group-hover:text-black/70',
+    github: themeAware ? 'group-hover:text-black/70 dark:group-hover:text-[#E6E6E6]' : 'group-hover:text-black/70',
     huggingface: 'group-hover:text-[#FFD21E]',
     rss: 'group-hover:text-orange-500',
   }

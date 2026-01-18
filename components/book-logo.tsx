@@ -37,7 +37,7 @@ export function BookLogo() {
   return (
     <div className="flex items-center gap-2 sm:gap-3">
       <Image
-        src={isDark ? '/dark.jpeg' : '/light.png'}
+        src={isDark ? '/grey.png' : '/light.png'}
         alt="Tiles"
         width={120}
         height={40}

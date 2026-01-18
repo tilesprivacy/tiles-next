@@ -19,9 +19,9 @@ export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Theme-aware colors
+  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
-  const textColorBody = isDark ? 'text-white/80' : 'text-black/80'
+  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-black/80'
 
   return (
     <div className={`flex min-h-[100dvh] flex-col ${bgColor}`}>
@@ -29,10 +29,10 @@ export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
       <main 
         className="legal-page-content flex-1 flex flex-col items-start justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-32 lg:pb-32 lg:pt-40 w-full max-w-3xl mx-auto"
         style={{
-          '--legal-text-color': isDark ? 'rgb(255 255 255)' : 'rgb(0 0 0)',
-          '--legal-text-body': isDark ? 'rgb(255 255 255 / 0.8)' : 'rgb(0 0 0 / 0.8)',
-          '--legal-text-subtle': isDark ? 'rgb(255 255 255 / 0.6)' : 'rgb(0 0 0 / 0.6)',
-          '--legal-text-muted': isDark ? 'rgb(255 255 255 / 0.7)' : 'rgb(0 0 0 / 0.7)',
+          '--legal-text-color': isDark ? '#E6E6E6' : 'rgb(0 0 0)',
+          '--legal-text-body': isDark ? '#B3B3B3' : 'rgb(0 0 0 / 0.8)',
+          '--legal-text-subtle': isDark ? '#8A8A8A' : 'rgb(0 0 0 / 0.6)',
+          '--legal-text-muted': isDark ? '#B3B3B3' : 'rgb(0 0 0 / 0.7)',
         } as React.CSSProperties}
       >
         <div className={`w-full space-y-6 sm:space-y-8 text-sm leading-relaxed ${textColorBody} sm:text-base lg:text-lg lg:leading-relaxed
@@ -43,7 +43,7 @@ export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
           [&_.contact-info]:text-xs [&_.contact-info]:sm:text-sm
         `}
         style={{
-          color: isDark ? 'rgb(255 255 255 / 0.8)' : 'rgb(0 0 0 / 0.8)',
+          color: isDark ? '#B3B3B3' : 'rgb(0 0 0 / 0.8)',
         }}
         >
           {children}

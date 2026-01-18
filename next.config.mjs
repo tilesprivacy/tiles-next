@@ -9,6 +9,8 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Transpile nextra packages to fix Turbopack ESM issues
+  transpilePackages: ['nextra', 'nextra-theme-docs'],
   images: {
     // Enable Next.js image optimization
     // Images will be automatically optimized, lazy-loaded, and served in modern formats

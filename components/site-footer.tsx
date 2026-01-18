@@ -18,13 +18,13 @@ export function SiteFooter() {
   // Reversed theme: dark footer when light mode, light footer when dark mode
   const isDarkFooter = !mounted || resolvedTheme === 'light'
 
-  // Footer colors - reversed from page theme
+  // Footer colors - reversed from page theme (matching book dark theme colors)
   const footerBg = isDarkFooter ? 'bg-black' : 'bg-white'
-  const borderColor = isDarkFooter ? 'border-white/5' : 'border-black/10'
-  const textColor = isDarkFooter ? 'text-white' : 'text-black'
-  const textColorHover = isDarkFooter ? 'hover:text-white/60' : 'hover:text-black/60'
-  const iconHoverTwitter = isDarkFooter ? 'group-hover:text-white/70' : 'group-hover:text-black/70'
-  const iconHoverGithub = isDarkFooter ? 'group-hover:text-white/70' : 'group-hover:text-black/70'
+  const borderColor = isDarkFooter ? 'border-[#2a2a2a]' : 'border-black/10'
+  const textColor = isDarkFooter ? 'text-[#E6E6E6]' : 'text-black'
+  const textColorHover = isDarkFooter ? 'hover:text-[#B3B3B3]' : 'hover:text-black/60'
+  const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#B3B3B3]' : 'group-hover:text-black/70'
+  const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#B3B3B3]' : 'group-hover:text-black/70'
 
   // Theme switcher variant - opposite of page theme since footer is reversed
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'

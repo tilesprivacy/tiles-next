@@ -101,14 +101,14 @@ export function MissionContent() {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Theme-aware colors
+  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-white/80' : 'text-black/80'
-  const textColorSubtle = isDark ? 'text-white/50' : 'text-black/50'
-  const textColorBody = isDark ? 'text-white/80' : 'text-black/80'
-  const linkColor = isDark ? 'text-white hover:text-white/70' : 'text-black hover:text-black/70'
-  const linkColorMuted = isDark ? 'text-white/60 hover:text-white' : 'text-black/60 hover:text-black'
+  const textColorMuted = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
+  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-black/50'
+  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-black/80'
+  const linkColor = isDark ? 'text-[#E6E6E6] hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'
+  const linkColorMuted = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/60 hover:text-black'
 
   // Person component with links
   function renderDisplayName(name: string) {

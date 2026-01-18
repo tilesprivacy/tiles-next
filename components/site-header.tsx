@@ -47,8 +47,8 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const isBookPage = pathname?.startsWith('/book')
 
   // Use appropriate logo based on theme
-  // Use dark.jpeg for dark theme on all pages except /book routes
-  const logoSrc = (mounted && isDark) ? (isBookPage ? '/grey.png' : '/dark.jpeg') : '/lighticon.png'
+  // Use grey.png for dark theme on all pages (same as book page)
+  const logoSrc = (mounted && isDark) ? '/grey.png' : '/lighticon.png'
 
   // Use appropriate apple logo based on theme
   const appleLogoSrc = themeAware
@@ -167,13 +167,13 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
       {isResourcesOpen && (
         <div
           ref={resourcesPanelRef}
-          className={`fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background ring-1 ring-black/5 dark:ring-white/10' : 'bg-white ring-1 ring-black/5'}`}
+          className={`fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background ring-1 ring-black/5 dark:ring-[#2a2a2a]' : 'bg-white ring-1 ring-black/5'}`}
         >
           <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
               {/* Left side: Heading */}
               <div>
-                <h3 className={`text-xl lg:text-2xl font-medium ${themeAware ? 'text-foreground/80' : 'text-black/80'}`}>
+                <h3 className={`text-xl lg:text-2xl font-medium ${themeAware ? 'text-black/80 dark:text-[#B3B3B3]' : 'text-black/80'}`}>
                   Everything you need to learn about Tiles, track progress, and contribute
                 </h3>
               </div>
@@ -184,7 +184,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                   href="https://github.com/orgs/tilesprivacy/projects/4"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-foreground/70' : 'text-black hover:text-black/70'} transition-colors group`}
+                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-black/70 dark:hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'} transition-colors group`}
                 >
                   <span className="inline-flex items-center gap-1">
                     Roadmap
@@ -194,7 +194,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.5"
-                      className={`h-3 w-3 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
+                      className={`h-3 w-3 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-colors group-hover:text-current`}
                     >
                       <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -203,7 +203,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className={`h-4 w-4 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
+                    className={`h-4 w-4 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
                   >
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>
@@ -212,7 +212,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                   href="https://github.com/orgs/tilesprivacy/discussions/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-foreground/70' : 'text-black hover:text-black/70'} transition-colors group`}
+                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-black/70 dark:hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'} transition-colors group`}
                 >
                   <span className="inline-flex items-center gap-1">
                     RFCs
@@ -222,7 +222,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="1.5"
-                      className={`h-3 w-3 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
+                      className={`h-3 w-3 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-colors group-hover:text-current`}
                     >
                       <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -231,21 +231,21 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className={`h-4 w-4 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
+                    className={`h-4 w-4 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
                   >
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>
                 </a>
                 <Link
                   href="/book"
-                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-foreground/70' : 'text-black hover:text-black/70'} transition-colors group`}
+                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-black/70 dark:hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'} transition-colors group`}
                 >
                   <span>Book</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                     fill="currentColor"
-                    className={`h-4 w-4 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
+                    className={`h-4 w-4 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
                   >
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>

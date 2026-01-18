@@ -22,8 +22,8 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Use grey logo on dark background, cream/light logo on light background
-  const logoSrc = isDark ? '/grey.png' : '/cream.png'
+  // Use pad logo on dark background, cream/light logo on light background
+  const logoSrc = isDark ? '/pad.png' : '/cream.png'
   // Apple logo: black for white button (dark mode), white for black button (light mode)
   const appleLogoSrc = isDark ? '/apple-logo.svg' : '/apple-logo-white.svg'
 
@@ -38,7 +38,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
           <div className="flex flex-col items-center gap-8 lg:gap-10 mb-20 lg:mb-32">
             {/* Logo with Version badge */}
             <div className="relative w-fit">
-              <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#151515] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-20 w-20 lg:h-24 lg:w-24">
+              <div className="relative flex items-center justify-center rounded-3xl bg-[#F8F8F8] dark:bg-[#1a1a1a] shadow-sm ring-1 ring-black/5 dark:ring-white/10 h-20 w-20 lg:h-24 lg:w-24">
                 <Image
                   src={logoSrc}
                   alt="Tiles Logo"
@@ -47,7 +47,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   className="h-12 w-12 lg:h-14 lg:w-14"
                 />
               </div>
-              <span className="absolute -right-2 -top-2 rounded-full bg-white dark:bg-[#121212] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-foreground shadow-sm ring-1 ring-black/10 dark:ring-white/10 lg:-right-3 lg:-top-3 lg:px-2.5 lg:py-1 lg:text-xs">
+              <span className="absolute -right-2 -top-2 rounded-full bg-white dark:bg-[#1a1a1a] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-foreground shadow-sm ring-1 ring-black/10 dark:ring-white/10 lg:-right-3 lg:-top-3 lg:px-2.5 lg:py-1 lg:text-xs">
                 {latestVersion}
               </span>
             </div>
@@ -57,7 +57,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
               <h1 className="font-sans text-4xl font-bold tracking-tight text-foreground lg:text-6xl">
                 Tiles
               </h1>
-              <p className="text-base text-black/60 dark:text-white/60 lg:text-xl max-w-xl leading-relaxed">
+              <p className="text-base text-black/60 dark:text-[#B3B3B3] lg:text-xl max-w-xl leading-relaxed">
                 Your private AI assistant for everyday use
               </p>
             </div>
@@ -92,7 +92,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   </svg>
                 </Link>
               </Button>
-              <p className="text-xs text-black/40 dark:text-white/40">
+              <p className="text-xs text-black/40 dark:text-[#8A8A8A]">
                 for macOS 14+ with Apple Silicon (M1+).
               </p>
             </div>
@@ -103,7 +103,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             {/* Feature 1 */}
             <div className="space-y-3 lg:space-y-4">
               <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
-              <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 An opinionated package of prompt, tools, and on-device models optimized for your hardware.
               </p>
             </div>
@@ -111,7 +111,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             {/* Feature 2 */}
             <div className="space-y-3 lg:space-y-4">
               <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
-              <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Execute Python code and analyze data in real-time conversations.
               </p>
             </div>
@@ -120,11 +120,11 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-white/50 ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
+                <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-[#8A8A8A] ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
                   INSIDERS
                 </span>
               </div>
-              <p className="text-sm lg:text-base text-black/60 dark:text-white/60 leading-relaxed">
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Personalized assistance that learns and remembers your preferences.
               </p>
             </div>
