@@ -124,31 +124,12 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom section - copyright, theme switcher, and status */}
+        {/* Bottom section - copyright and theme switcher */}
         <div className={`flex flex-row items-center justify-between gap-2 ${isDarkFooter ? `border-t ${borderColor}` : ''} pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
           <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
           
           {/* Theme Switcher - visible on all screens */}
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
-          
-          <a
-            href="https://status.tiles.run/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-1 transition-colors ${textColorHover} whitespace-nowrap`}
-          >
-            Status
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="h-2.5 w-2.5"
-            >
-              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
         </div>
       </div>
     </footer>

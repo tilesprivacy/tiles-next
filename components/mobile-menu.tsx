@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
-import { ThemeSwitcher } from "@/components/theme-switcher"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -292,11 +291,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
 
           {/* Spacer to push content to bottom half */}
           <div className="flex-1" />
-
-          {/* Theme Switcher - positioned above social icons */}
-          <div className="px-4 pb-6">
-            <ThemeSwitcher variant={themeAware ? 'auto' : 'light'} size="md" />
-          </div>
 
           {/* Social Icons - positioned in bottom half */}
           <div className="flex items-center gap-4 px-4 pb-8">
