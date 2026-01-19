@@ -1,8 +1,6 @@
 {
   "index": {
     "title": "Tiles Book",
-    "type": "page",
-    "display": "hidden",
     "theme": {
       "copyPage": true,
       "timestamp": true
@@ -22,6 +20,13 @@
       "timestamp": true
     }
   },
+  "memory": {
+    "title": "Memory",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "modelfile": {
     "title": "Modelfile",
     "theme": {
@@ -36,13 +41,6 @@
       "timestamp": true
     }
   },
-  "memory": {
-    "title": "Memory",
-    "theme": {
-      "copyPage": true,
-      "timestamp": true
-    }
-  },
   "resources": {
     "title": "Resources",
     "theme": {
@@ -50,8 +48,17 @@
       "timestamp": true
     }
   },
+  "blog": {
+    "title": "Blog",
+    "type": "page",
+    "href": "https://www.blog.tiles.run/",
+    "newWindow": true,
+    "theme": {
+      "copyPage": true
+    }
+  },
   "contact": {
-    "title": "Tiles ↗",
+    "title": "Tiles",
     "type": "page",
     "href": "https://tiles.run/",
     "newWindow": true,
@@ -60,3 +67,4 @@
     }
   }
 }
+

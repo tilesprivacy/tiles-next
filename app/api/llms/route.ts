@@ -17,10 +17,11 @@ function stripHtml(html: string): string {
     .trim()
 }
 
-// Helper to read MDX file content
+// Helper to read MDX file content from the book
 function readMdxFile(relativePath: string): string {
   try {
-    const filePath = path.join(process.cwd(), 'book', 'content', relativePath)
+    // Book content lives in the `content` directory, mounted at `/book`
+    const filePath = path.join(process.cwd(), 'content', relativePath)
     const content = fs.readFileSync(filePath, 'utf-8')
     // Remove frontmatter
     return content.replace(/^---[\s\S]*?---\n/, '').trim()

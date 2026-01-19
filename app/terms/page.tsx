@@ -1,13 +1,14 @@
 'use client'
 
 import { LegalPageWrapper } from "@/components/legal-page-wrapper"
+import { LEGAL_LAST_UPDATED } from "@/lib/legal-last-updated"
 
 export default function TermsPage() {
   return (
     <LegalPageWrapper>
       <div className="space-y-4">
         <h1>Terms of Use</h1>
-        <p className="last-updated">Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        <p className="last-updated">Last updated: {LEGAL_LAST_UPDATED.terms}</p>
       </div>
 
       <div className="space-y-4">

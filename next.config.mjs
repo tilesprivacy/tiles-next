@@ -1,7 +1,9 @@
 import nextra from 'nextra'
 
 const withNextra = nextra({
-  contentDirBasePath: '/book/content',
+  // Mount the book content at `/book` in the URL space
+  // Nextra will use the default `content` directory on disk
+  contentDirBasePath: '/book',
   // Enable git timestamp for last updated dates
   defaultShowCopyCode: true,
 })
