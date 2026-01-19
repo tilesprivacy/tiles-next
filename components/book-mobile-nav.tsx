@@ -10,9 +10,9 @@ interface BookPage {
 const bookPages: BookPage[] = [
   {
     number: '01',
-    title: 'Usage Guide',
+    title: 'Manual',
     description: 'Command-line interface reference for Tiles CLI commands and usage examples.',
-    href: '/book/usage',
+    href: '/book/manual',
   },
   {
     number: '02',

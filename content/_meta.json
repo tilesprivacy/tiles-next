@@ -6,8 +6,8 @@
       "timestamp": true
     }
   },
-  "usage": {
-    "title": "Usage Guide",
+  "manual": {
+    "title": "Manual",
     "theme": {
       "copyPage": true,
       "timestamp": true
