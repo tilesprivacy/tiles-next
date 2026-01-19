@@ -3,13 +3,27 @@ title: "Memory"
 description: "Reference documentation for memory models bundled with Tiles"
 ---
 
+import Image from 'next/image'
+
 # Memory
 
-This memory setup is part of the Tiles Insiders channel and is experimental in nature.
+This memory setup is part of the Tiles Insiders channel and is experimental. Our long term goal is to solve memory in pursuit of software personalization through decentralized memory networks. We plan to use parametric approaches similar to those described in the [Memory Layers at Scale](https://arxiv.org/abs/2412.09764) paper by the FAIR research team at Meta.
 
-## Insiders
+## Memory Models
 
-Tiles bundles a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on `qwen3-4B-thinking-2507`, and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', marginTop: '1rem', marginBottom: '1.5rem' }}>
+  <span style={{ 
+    padding: '0.25rem 0.75rem', 
+    borderRadius: '6px', 
+    fontSize: '0.75rem', 
+    fontWeight: '600', 
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px'
+  }} className="bg-[#E8D5F2] text-[#6B2E99] dark:bg-[#3A2A4A] dark:text-[#D4C5E8]">Research Prototype</span>
+  <span style={{ fontSize: '0.875rem', color: 'var(--nextra-primary-500, #888)' }}>January 2026 - Present</span>
+</div>
+
+Our first Insiders experiment explores bundling a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on `qwen3-4B-thinking-2507`, and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
 
 These models use a human-readable external memory stored as Markdown, along with learned policies trained via reinforcement learning on synthetically generated data. These policies decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.
 
@@ -18,6 +32,41 @@ These models use a human-readable external memory stored as Markdown, along with
 The agent works with Obsidian-like directories of Markdown files as its knowledge base. These files are both human-readable and hyperlinked. The core protocol is defined in a single system prompt. The source is available [here](https://github.com/firstbatchxyz/mem-agent-mcp/blob/main/agent/system_prompt.txt).
 
 Dria trained a fine-tuned model so the agent strictly adheres to the enforced prompt format.
+
+<div style={{ 
+  display: 'grid', 
+  gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+  gap: '2rem', 
+  margin: '2rem 0'
+}}>
+  <figure style={{ margin: 0 }}>
+    <Image src="/text.png" alt="Model generated Obsidian format Markdown file" width={420} height={315} style={{ borderRadius: '8px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
+    <figcaption style={{
+      marginTop: '0.75rem',
+      fontSize: '0.875rem',
+      lineHeight: '1.4',
+      color: 'var(--nextra-text-color-secondary, #666)',
+      textAlign: 'center',
+      fontStyle: 'italic'
+    }}>
+      Model generated Obsidian format Markdown file
+    </figcaption>
+  </figure>
+
+  <figure style={{ margin: 0 }}>
+    <Image src="/foldergraph.png" alt="Test user folder structure and the resulting knowledge graph" width={420} height={315} style={{ borderRadius: '8px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
+    <figcaption style={{
+      marginTop: '0.75rem',
+      fontSize: '0.875rem',
+      lineHeight: '1.4',
+      color: 'var(--nextra-text-color-secondary, #666)',
+      textAlign: 'center',
+      fontStyle: 'italic'
+    }}>
+      Test user folder structure and the resulting knowledge graph
+    </figcaption>
+  </figure>
+</div>
 
 ### Response Structure
 
@@ -30,8 +79,6 @@ The model's response is split into three structured sections:
 ### Execution
 
 The Python block is executed in a sandbox, and its results are returned as `<result>` tags. This is how the agent forms its reasoning to action loop.
-
-import Image from 'next/image'
 
 <figure style={{ maxWidth: '420px', margin: '1.5rem 0' }}>
   <Image src="/loop.jpg" alt="Reasoning to action loop" width={420} height={315} style={{ borderRadius: '8px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
