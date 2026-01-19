@@ -7,6 +7,10 @@ description: "Command-line interface reference for Tiles"
 
 This page is just a sampler. Download the Tiles CLI and use the built-in help.
 
+## Tiles
+
+Commands in this section are meant for regular users.
+
 ### CLI Commands
 
 ```bash
@@ -37,3 +41,80 @@ tiles memory set-path ~/.tiles/memory
 tiles server start
 ```
 
+## Tilekit
+
+Commands in this section are meant for developers.
+
+### CLI Commands
+
+```bash
+tiles optimize <MODELFILE_PATH> [--data <path>] [--model <provider:model-name>]  # Optimize SYSTEM prompt in Modelfile
+```
+
+### Examples
+
+```bash
+# Optimize SYSTEM prompt in a Modelfile
+tiles optimize path/to/your.Modelfile
+
+# Optimize with custom training data
+tiles optimize my.Modelfile --data training-data.json
+
+# Optimize using a specific model
+tiles optimize my.Modelfile --model anthropic:claude-3-5-sonnet-20240620
+```
+
+### Optimize Command Details
+
+The `tiles optimize` command refines the `SYSTEM` prompt in your Modelfile automatically using DSRs (dspy-rs) and the COPRO optimizer.
+
+**Basic Usage:**
+
+```bash
+tiles optimize path/to/your.Modelfile
+```
+
+By default, this will:
+- Generate 5 synthetic examples automatically if you do not provide your own training data
+- Use `openai:gpt-4o-mini` as the optimization model
+- Update your Modelfile in-place with the improved `SYSTEM` prompt
+
+**Options:**
+
+- `--data <path>` - Provide your own training data as a JSON file
+- `--model <provider:model-name>` - Specify a different model to use for optimization
+
+**Requirements:**
+
+Your Modelfile must contain a starting `SYSTEM` prompt, so the optimizer knows what it should build upon.
+
+**Training Data Format:**
+
+If supplying your own data, use JSON structured like this:
+
+```json
+[
+  {
+    "input": "User query here",
+    "output": "Expected AI response here"
+  }
+]
+```
+
+**Example:**
+
+Let's say you have a Modelfile:
+
+```text
+FROM llama3
+SYSTEM "You are a helpful assistant."
+```
+
+To optimize its `SYSTEM` prompt using Claude:
+
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...
+tiles optimize my.Modelfile --model anthropic:claude-3-5-sonnet-20240620
+```
+
+This will rewrite the `SYSTEM` line with a more effective version based on the optimization process.

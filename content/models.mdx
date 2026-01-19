@@ -11,3 +11,14 @@ For Beta builds, we have selected [gpt-oss-20b](https://openai.com/index/introdu
 
 This setup requires 16 GB of unified memory to run optimally and should not pose an adoption issue, as all Macs sold from mid-2025 onward ship with 16 GB of base memory.
 
+## Prompt Optimization
+
+We use DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/)) into the tiles CLI to automatically optimize SYSTEM prompts in Modelfiles.
+
+### Technical Details
+
+- Uses dspy-rs v0.7.3 under the hood
+- Runs COPRO (Coordinate Prompt Optimization) with breadth=5, depth=2
+- Evaluates prompts with a multi-factor heuristic (length, structure, persona) that doesn't incur extra API costs
+
+The optimization process typically takes a few minutes depending on the model and dataset size.
