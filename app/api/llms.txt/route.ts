@@ -20,7 +20,7 @@ function stripHtml(html: string): string {
 // Helper to read MDX file content
 function readMdxFile(relativePath: string): string {
   try {
-    const filePath = path.join(process.cwd(), 'content', relativePath)
+    const filePath = path.join(process.cwd(), 'book', 'content', relativePath)
     const content = fs.readFileSync(filePath, 'utf-8')
     // Remove frontmatter
     return content.replace(/^---[\s\S]*?---\n/, '').trim()

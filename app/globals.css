@@ -111,13 +111,58 @@
   color: #E6E6E6 !important;
 }
 
-.dark [data-book-section] aside a {
-  color: #B3B3B3 !important;
+/* Right sidebar "On this Page" TOC navigation - white and bold links matching header style */
+/* Target the right sidebar TOC (not the left sidebar navigation) */
+[data-book-section] article > aside a,
+[data-book-section] article aside a,
+[data-book-section] aside[class*="toc"] a,
+[data-book-section] aside[class*="TOC"] a,
+[data-book-section] aside nav[class*="toc"] a,
+[data-book-section] aside nav[class*="TOC"] a {
+  color: #000000 !important;
+  font-weight: 700 !important;
 }
 
-.dark [data-book-section] aside a:hover,
-.dark [data-book-section] aside a[aria-current="page"] {
+[data-book-section] article > aside a:hover,
+[data-book-section] article aside a:hover,
+[data-book-section] aside[class*="toc"] a:hover,
+[data-book-section] aside[class*="TOC"] a:hover,
+[data-book-section] aside nav[class*="toc"] a:hover,
+[data-book-section] aside nav[class*="TOC"] a:hover,
+[data-book-section] article > aside a[aria-current="page"],
+[data-book-section] article aside a[aria-current="page"],
+[data-book-section] aside[class*="toc"] a[aria-current="page"],
+[data-book-section] aside[class*="TOC"] a[aria-current="page"],
+[data-book-section] aside nav[class*="toc"] a[aria-current="page"],
+[data-book-section] aside nav[class*="TOC"] a[aria-current="page"] {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.dark [data-book-section] article > aside a,
+.dark [data-book-section] article aside a,
+.dark [data-book-section] aside[class*="toc"] a,
+.dark [data-book-section] aside[class*="TOC"] a,
+.dark [data-book-section] aside nav[class*="toc"] a,
+.dark [data-book-section] aside nav[class*="TOC"] a {
   color: #E6E6E6 !important;
+  font-weight: 700 !important;
+}
+
+.dark [data-book-section] article > aside a:hover,
+.dark [data-book-section] article aside a:hover,
+.dark [data-book-section] aside[class*="toc"] a:hover,
+.dark [data-book-section] aside[class*="TOC"] a:hover,
+.dark [data-book-section] aside nav[class*="toc"] a:hover,
+.dark [data-book-section] aside nav[class*="TOC"] a:hover,
+.dark [data-book-section] article > aside a[aria-current="page"],
+.dark [data-book-section] article aside a[aria-current="page"],
+.dark [data-book-section] aside[class*="toc"] a[aria-current="page"],
+.dark [data-book-section] aside[class*="TOC"] a[aria-current="page"],
+.dark [data-book-section] aside nav[class*="toc"] a[aria-current="page"],
+.dark [data-book-section] aside nav[class*="TOC"] a[aria-current="page"] {
+  color: #E6E6E6 !important;
+  font-weight: 700 !important;
 }
 
 /* Muted text in dark mode */
@@ -703,10 +748,30 @@
 }
 
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
+/* Left sidebar navigation - white prominent background like "On this Page" */
 @media (min-width: 1024px) {
   [data-book-section] aside {
     display: flex !important;
     flex-direction: column !important;
+    background-color: #ffffff !important;
+  }
+  
+  /* Dark mode - keep dark background */
+  .dark [data-book-section] aside {
+    background-color: #121212 !important;
+  }
+  
+  /* Ensure sidebar navigation links and content have proper contrast on white background */
+  [data-book-section] aside nav,
+  [data-book-section] aside > nav,
+  [data-book-section] aside [class*="nextra-sidebar"] {
+    background-color: #ffffff !important;
+  }
+  
+  .dark [data-book-section] aside nav,
+  .dark [data-book-section] aside > nav,
+  .dark [data-book-section] aside [class*="nextra-sidebar"] {
+    background-color: #121212 !important;
   }
 }
 

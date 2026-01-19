@@ -65,15 +65,66 @@ export default async function BookLayout({
   // Filter the pageMap to only include book-related content
   const filteredPageMap = filterPageMap(pageMap)
 
+  // Transform routes to remove /content segment from /book/content/* paths
+  const transformRoutes = (items: typeof pageMap): typeof pageMap => {
+    return items.map((item) => {
+      const transformedItem = { ...item }
+      
+      // Transform route property if it exists
+      if ('route' in item) {
+        const route = item.route
+        if (typeof route === 'string' && route.startsWith('/book/content')) {
+          // Replace /book/content with /book, preserving any remaining path
+          // Handle /book/content -> /book and /book/content/models -> /book/models
+          let newRoute: string
+          if (route === '/book/content' || route === '/book/content/') {
+            newRoute = '/book'
+          } else {
+            // Replace /book/content/ with /book/ in the path
+            newRoute = route.replace(/^\/book\/content\//, '/book/').replace(/^\/book\/content$/, '/book')
+          }
+          (transformedItem as any).route = newRoute
+        }
+      }
+      
+      // Recursively transform children
+      if ('children' in item && Array.isArray(item.children)) {
+        (transformedItem as any).children = transformRoutes(item.children as typeof pageMap)
+      }
+      
+      return transformedItem
+    })
+  }
+
+  const transformedPageMap = transformRoutes(filteredPageMap)
+
   // Flatten the "book" folder if it exists - extract its children to the top level
-  const flattenedPageMap = filteredPageMap.flatMap((item) => {
+  // Also flatten "content" folder if it's under "book"
+  const flattenedPageMap = transformedPageMap.flatMap((item) => {
     // If this is a folder named "book" or has route "/book", extract its children
     if ('children' in item && Array.isArray(item.children)) {
       const name = 'name' in item ? item.name : ''
       const route = 'route' in item ? item.route : ''
 
       if (name === 'book' || route === '/book') {
+        // Check if there's a "content" child that needs to be flattened
+        const contentChild = item.children.find((child: any) => {
+          const childName = 'name' in child ? child.name : ''
+          const childRoute = 'route' in child ? child.route : ''
+          return childName === 'content' || childRoute === '/book/content'
+        })
+        
+        if (contentChild && 'children' in contentChild && Array.isArray(contentChild.children)) {
+          // Return the content's children directly
+          return contentChild.children as typeof pageMap
+        }
+        
         // Return the children directly instead of the folder
+        return item.children as typeof pageMap
+      }
+      
+      // If this is a "content" folder under book, flatten it
+      if ((name === 'content' || route?.toString().includes('/book/content')) && 'children' in item) {
         return item.children as typeof pageMap
       }
     }
@@ -113,7 +164,7 @@ export default async function BookLayout({
         <BookMobileBreadcrumb />
         <Layout
           pageMap={finalPageMap}
-          docsRepositoryBase="https://github.com/tilesprivacy/tiles-next/tree/main/book"
+          docsRepositoryBase="https://github.com/tilesprivacy/tiles-next/tree/main"
           navigation={false}
         >
           {children}
