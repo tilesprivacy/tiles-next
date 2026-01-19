@@ -434,6 +434,123 @@
   color: #E6E6E6 !important;
 }
 
+/* Syntax highlighting tokens in dark mode - Shiki/Nextra */
+/* Shiki uses CSS variables like --shiki-light and --shiki-dark in inline styles */
+/* Nextra's CSS uses color: var(--shiki-dark) but we need to ensure it works in our dark mode */
+
+/* Force Nextra's .nextra-code span to use dark mode color variable */
+.dark [data-book-section] .nextra-code span {
+  color: var(--shiki-dark, #E6E6E6) !important;
+}
+
+/* Also target pre code spans directly */
+.dark [data-book-section] pre code span[style*="--shiki"],
+.dark [data-book-section] pre code span[style*="shiki"] {
+  color: var(--shiki-dark, #E6E6E6) !important;
+}
+
+/* Base token styles - override inline styles */
+.dark [data-book-section] pre code .token,
+.dark [data-book-section] pre code span[class*="token"],
+.dark [data-book-section] pre.shiki .token,
+.dark [data-book-section] pre.shiki span[class*="token"],
+.dark [data-book-section] .nextra-code pre code .token,
+.dark [data-book-section] .nextra-code pre code span[class*="token"] {
+  color: #E6E6E6 !important;
+}
+
+/* Keywords - blue-ish (override inline styles) */
+.dark [data-book-section] pre code .token.keyword,
+.dark [data-book-section] pre code .token.selector-tag,
+.dark [data-book-section] pre code .token.doctag,
+.dark [data-book-section] pre code .token.type,
+.dark [data-book-section] pre.shiki .token.keyword,
+.dark [data-book-section] .nextra-code pre code .token.keyword {
+  color: #569CD6 !important;
+}
+
+/* Strings - orange/red-ish */
+.dark [data-book-section] pre code .token.string,
+.dark [data-book-section] pre code .token.char,
+.dark [data-book-section] pre code .token.attr-value,
+.dark [data-book-section] pre.shiki .token.string,
+.dark [data-book-section] .nextra-code pre code .token.string {
+  color: #CE9178 !important;
+}
+
+/* Comments - green-ish */
+.dark [data-book-section] pre code .token.comment,
+.dark [data-book-section] pre code .token.prolog,
+.dark [data-book-section] pre code .token.cdata,
+.dark [data-book-section] pre.shiki .token.comment,
+.dark [data-book-section] .nextra-code pre code .token.comment {
+  color: #6A9955 !important;
+  font-style: italic !important;
+}
+
+/* Functions and class names - yellow-ish */
+.dark [data-book-section] pre code .token.function,
+.dark [data-book-section] pre code .token.class-name,
+.dark [data-book-section] pre.shiki .token.function,
+.dark [data-book-section] .nextra-code pre code .token.function {
+  color: #DCDCAA !important;
+}
+
+/* Numbers - light green */
+.dark [data-book-section] pre code .token.number,
+.dark [data-book-section] pre code .token.constant,
+.dark [data-book-section] pre.shiki .token.number,
+.dark [data-book-section] .nextra-code pre code .token.number {
+  color: #B5CEA8 !important;
+}
+
+/* Operators and punctuation - light gray */
+.dark [data-book-section] pre code .token.operator,
+.dark [data-book-section] pre code .token.punctuation,
+.dark [data-book-section] pre.shiki .token.operator,
+.dark [data-book-section] .nextra-code pre code .token.operator {
+  color: #D4D4D4 !important;
+}
+
+/* Properties and variables - light blue */
+.dark [data-book-section] pre code .token.property,
+.dark [data-book-section] pre code .token.variable,
+.dark [data-book-section] pre code .token.attr-name,
+.dark [data-book-section] pre.shiki .token.property,
+.dark [data-book-section] .nextra-code pre code .token.property {
+  color: #9CDCFE !important;
+}
+
+/* Tag names - blue */
+.dark [data-book-section] pre code .token.tag,
+.dark [data-book-section] pre.shiki .token.tag,
+.dark [data-book-section] .nextra-code pre code .token.tag {
+  color: #569CD6 !important;
+}
+
+/* Regex - orange */
+.dark [data-book-section] pre code .token.regex,
+.dark [data-book-section] pre code .token.important,
+.dark [data-book-section] pre.shiki .token.regex,
+.dark [data-book-section] .nextra-code pre code .token.regex {
+  color: #D16969 !important;
+}
+
+/* Built-in functions - light blue */
+.dark [data-book-section] pre code .token.builtin,
+.dark [data-book-section] pre.shiki .token.builtin,
+.dark [data-book-section] .nextra-code pre code .token.builtin {
+  color: #4EC9B0 !important;
+}
+
+/* Boolean and null - blue */
+.dark [data-book-section] pre code .token.boolean,
+.dark [data-book-section] pre code .token.null,
+.dark [data-book-section] pre.shiki .token.boolean,
+.dark [data-book-section] .nextra-code pre code .token.boolean {
+  color: #569CD6 !important;
+}
+
 /* External link indicator for non-tiles.run links in book section */
 /* Ensure external links wrap properly and icon stays aligned */
 [data-book-section] a.external-link {

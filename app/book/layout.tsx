@@ -7,6 +7,7 @@ import { BookFooter } from '@/components/book-footer'
 import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
 import { BookDatestampMover } from '@/components/book-datestamp-mover'
+import { BookCodeHighlightFix } from '@/components/book-code-highlight-fix'
 
 export const metadata = {
   title: {
@@ -160,6 +161,7 @@ export default async function BookLayout({
       <SiteHeader themeAware />
       <BookBreadcrumbLink />
       <BookDatestampMover />
+      <BookCodeHighlightFix />
       <div className="pt-16 lg:pt-24">
         <BookMobileBreadcrumb />
         <Layout
