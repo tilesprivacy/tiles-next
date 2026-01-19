@@ -29,7 +29,7 @@ const bookPages: BookPage[] = [
   {
     number: '04',
     title: 'Memory',
-    description: 'Reference documentation for memory models bundled with Tiles for on-device context and memory management.',
+    description: 'Our work on memory model research for on-device context and memory management.',
     href: '/book/memory',
   },
   {

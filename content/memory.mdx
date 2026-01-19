@@ -1,9 +1,9 @@
 ---
 title: "Memory"
-description: "Reference documentation for memory models bundled with Tiles"
+description: "Our work on memory model research for on-device context and memory management."
 ---
 
-import Image from 'next/image'
+import { ClickableImage as Image } from '@/components/clickable-image'
 
 # Memory
 
@@ -80,12 +80,49 @@ The model's response is split into three structured sections:
 
 The Python block is executed in a sandbox, and its results are returned as `<result>` tags. This is how the agent forms its reasoning to action loop.
 
-<figure style={{ maxWidth: '420px', margin: '1.5rem 0' }}>
-  <Image src="/loop.jpg" alt="Reasoning to action loop" width={420} height={315} style={{ borderRadius: '8px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
-</figure>
+**Pattern 1: When interacting with memory**
+
+```
+<think>
+[Your reasoning here]
+</think>
+<python>
+[Your Python code here]
+</python>
+```
+
+**Pattern 2: When NOT interacting with memory**
+
+```
+<think>
+[Your reasoning here]
+</think>
+<python></python>
+<reply>
+[Your response to the user]
+</reply>
+```
 
 Tiles executes the generated Python code in a sandbox. The code calls tools such as `create_file`, `update_file`, and others mentioned above. These tools are plain Python functions.
 
-<figure style={{ maxWidth: '420px', margin: '1.5rem 0' }}>
-  <Image src="/python.jpg" alt="Python tools" width={420} height={315} style={{ borderRadius: '8px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
-</figure>
+```python
+def create_file(file_path: str, content: str = "") -> bool:
+    """
+    Create a new file in the memory with the given content (if any).
+    First create a temporary file with the given content, check if
+    the size limits are respected, if so, move the temporary file to
+    the final destination.
+
+    Args:
+        file_path: The path to the file.
+        content: The content of the file.
+
+    Returns:
+        True if the file was created successfully, False otherwise.
+    """
+    temp_file_path = None
+    try:
+        # Create parent directories if they don't exist
+        parent_dir = os.path.dirname(file_path)
+        if parent_dir and not os.path.exists(parent_dir):
+```
