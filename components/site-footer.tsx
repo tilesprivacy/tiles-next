@@ -125,7 +125,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom section - copyright and theme switcher */}
-        <div className={`flex flex-row items-center justify-between gap-2 ${isDarkFooter ? `border-t ${borderColor}` : ''} pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
+        <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
           <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
           
           {/* Theme Switcher - visible on all screens */}
