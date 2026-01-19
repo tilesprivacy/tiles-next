@@ -185,6 +185,20 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
 
               {/* Right side: Links */}
               <div className="space-y-2">
+                <Link
+                  href="/book"
+                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-black/70 dark:hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'} transition-colors group`}
+                >
+                  <span>Book</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    className={`h-4 w-4 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
+                  >
+                    <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                  </svg>
+                </Link>
                 <a
                   href="https://github.com/orgs/tilesprivacy/projects/4"
                   target="_blank"
@@ -241,20 +255,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>
                 </a>
-                <Link
-                  href="/book"
-                  className={`flex items-center justify-between py-2.5 text-base font-medium ${themeAware ? 'text-foreground hover:text-black/70 dark:hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'} transition-colors group`}
-                >
-                  <span>Book</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    className={`h-4 w-4 ${themeAware ? 'text-black/40 dark:text-[#8A8A8A]' : 'text-black/40'} transition-all group-hover:opacity-100 group-hover:translate-x-0.5`}
-                  >
-                    <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                  </svg>
-                </Link>
               </div>
             </div>
           </div>
