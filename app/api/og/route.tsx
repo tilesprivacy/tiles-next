@@ -6,11 +6,11 @@ export async function GET(request: Request) {
   // Get the base URL from the request
   const url = new URL(request.url)
   const baseUrl = `${url.protocol}//${url.host}`
-  
-  // Fetch the logo image and convert to base64
+
+  // Fetch the logo image as an ArrayBuffer that can be used directly by next/og.
+  // Avoid Node.js-specific Buffer APIs since this route runs in the Edge runtime.
   const logoResponse = await fetch(`${baseUrl}/logo.png`)
   const logoArrayBuffer = await logoResponse.arrayBuffer()
-  const logoBase64 = `data:image/png;base64,${Buffer.from(logoArrayBuffer).toString('base64')}`
 
   return new ImageResponse(
     <div
@@ -26,7 +26,13 @@ export async function GET(request: Request) {
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={logoBase64} width={240} height={240} style={{ marginBottom: 48 }} alt="Tiles Logo" />
+      <img
+        src={logoArrayBuffer as any}
+        width={240}
+        height={240}
+        style={{ marginBottom: 48 }}
+        alt="Tiles Logo"
+      />
       <div
         style={{
           color: "#000000",

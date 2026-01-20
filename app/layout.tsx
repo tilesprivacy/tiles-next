@@ -9,6 +9,7 @@ const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tiles.run"),
   title: "Tiles",
   description: "Your private AI assistant for everyday use",
   generator: "v0.app",
