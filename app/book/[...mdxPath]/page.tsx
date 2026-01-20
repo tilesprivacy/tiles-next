@@ -34,10 +34,19 @@ export async function generateMetadata(props: {
     openGraph: {
       ...metadata.openGraph,
       title: ogTitle,
+      images: [
+        {
+          url: '/api/og',
+          width: 1200,
+          height: 630,
+          alt: ogTitle,
+        },
+      ],
     },
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
+      images: ['/api/og'],
     },
   }
 }

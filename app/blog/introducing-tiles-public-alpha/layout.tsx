@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     publishedTime: "2026-01-02",
     images: [
       {
-        url: "/kingston.webp",
+        url: "/api/og",
         width: 1200,
-        height: 600,
-        alt: "Cover image for Introducing Tiles Alpha",
+        height: 630,
+        alt: "Tiles - Your private AI assistant for everyday use",
       },
     ],
   },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Introducing Tiles Public Alpha",
     description: "Building an everyday AI assistant with privacy-first engineering at its core.",
-    images: ["/kingston.webp"],
+    images: ["/api/og"],
   },
 }
 

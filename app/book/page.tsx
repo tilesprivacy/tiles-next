@@ -18,11 +18,20 @@ export async function generateMetadata() {
       ...metadata.openGraph,
       title: ogTitle,
       description,
+      images: [
+        {
+          url: '/api/og',
+          width: 1200,
+          height: 630,
+          alt: 'Tiles Book: Privacy technology for everyone!',
+        },
+      ],
     },
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
       description,
+      images: ['/api/og'],
     },
   }
 }
