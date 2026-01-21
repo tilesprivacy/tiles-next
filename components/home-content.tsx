@@ -125,7 +125,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
               <div className="flex items-center gap-2 flex-wrap">
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
                 <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-[#8A8A8A] ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
-                  INSIDERS
+                  EXPERIMENTAL
                 </span>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">

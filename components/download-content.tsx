@@ -145,10 +145,6 @@ export function DownloadContent() {
                   </svg>
                 </a>
               </div>
-
-              <div className={`pt-10 text-[11px] ${textColorSubtle} lg:pt-16 lg:text-sm`}>
-                We also offer an Insiders channel for early adopters. It provides access to the latest code changes and experimental features, such as offline memory models, and is often unstable. The Insiders channel installs alongside the regular channel, allowing you to use either independently.
-              </div>
             </div>
           </div>
         </div>
