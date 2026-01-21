@@ -69,6 +69,74 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const bulletBgLight = isDark ? 'bg-[#5a5a5a]' : 'bg-gray-300'
   const errorBg = isDark ? 'bg-red-900/30' : 'bg-red-50'
   const errorText = isDark ? 'text-red-400' : 'text-red-600'
+  const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
+  const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
+  const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
+  const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
+
+  const CodeBlock = ({ code, version }: { code: string; version: string }) => {
+    const [copied, setCopied] = useState(false)
+
+    const handleCopy = async () => {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+
+    return (
+      <div className="mt-4">
+        <div className={`flex items-start rounded-xl ${codeBg} max-w-full overflow-hidden`}>
+          <div className="flex-1 min-w-0 px-4 py-2.5">
+            <code className={`font-mono ${codeText} text-sm break-all`}>
+              {code}
+            </code>
+          </div>
+          <button
+            onClick={handleCopy}
+            className={`flex-shrink-0 flex items-center justify-center ${copyButtonBg} rounded-r-xl transition-colors px-3 py-2.5`}
+            aria-label="Copy to clipboard"
+            title={copied ? "Copied!" : "Copy to clipboard"}
+          >
+            {copied ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className="h-4 w-4 text-green-600"
+              >
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className={`h-4 w-4 ${copyIconColor} transition-colors`}
+              >
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+              </svg>
+            )}
+          </button>
+        </div>
+        <div className={`mt-2 flex items-center gap-1 text-xs ${linkColor}`}>
+          <a
+            href={`https://github.com/tilesprivacy/tiles/blob/${version}/scripts/install.sh`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-0.5 transition-colors"
+          >
+            View script source
+            <ExternalLinkIcon />
+          </a>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
@@ -158,6 +226,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           ))}
                         </ul>
                       )}
+                      <CodeBlock code={`curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`} version={release.version} />
                     </div>
 
                     {/* Desktop layout */}
@@ -240,6 +309,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             ))}
                           </ul>
                         )}
+                        <CodeBlock code={`curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`} version={release.version} />
                       </div>
                     </div>
                   </div>

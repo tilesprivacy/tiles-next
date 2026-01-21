@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/api/og",
+        url: "https://tiles.run/api/og",
         width: 1200,
         height: 630,
         alt: "Tiles Changelog",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Changelog",
     description: "All notable changes and releases for Tiles.",
-    images: ["/api/og"],
+    images: ["https://tiles.run/api/og"],
   },
 }
 

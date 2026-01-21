@@ -41,48 +41,50 @@ export async function fetchReleases(): Promise<Release[]> {
 
   const data = await res.json()
 
-  return data.map((release: any) => {
-    const body = release.body || ""
-    const changes = extractChanges(body)
-    const version = release.tag_name
+  return data
+    .filter((release: any) => !release.prerelease)
+    .map((release: any) => {
+      const body = release.body || ""
+      const changes = extractChanges(body)
+      const version = release.tag_name
 
-    // Use custom changes if available (overrides), otherwise use extracted changes
-    let finalChanges = customChanges[version] || changes
+      // Use custom changes if available (overrides), otherwise use extracted changes
+      let finalChanges = customChanges[version] || changes
 
-    // Replace last bullet point if specified
-    if (replaceLastChange[version] && finalChanges.length > 0) {
-      finalChanges = [
-        ...finalChanges.slice(0, -1),
-        { text: replaceLastChange[version] },
-      ]
-    }
+      // Replace last bullet point if specified
+      if (replaceLastChange[version] && finalChanges.length > 0) {
+        finalChanges = [
+          ...finalChanges.slice(0, -1),
+          { text: replaceLastChange[version] },
+        ]
+      }
 
-    // Append additional changes if specified (for supplements)
-    if (additionalChanges[version]) {
-      finalChanges = [...finalChanges, ...additionalChanges[version]]
-    }
+      // Append additional changes if specified (for supplements)
+      if (additionalChanges[version]) {
+        finalChanges = [...finalChanges, ...additionalChanges[version]]
+      }
 
-    // Remove trailing periods from all bullet points and sub-items
-    finalChanges = finalChanges.map((change) => ({
-      ...change,
-      text: change.text.replace(/\.$/, ""),
-      subItems: change.subItems?.map((sub) => sub.replace(/\.$/, "")),
-    }))
+      // Remove trailing periods from all bullet points and sub-items
+      finalChanges = finalChanges.map((change) => ({
+        ...change,
+        text: change.text.replace(/\.$/, ""),
+        subItems: change.subItems?.map((sub) => sub.replace(/\.$/, "")),
+      }))
 
-    return {
-      version,
-      date: new Date(release.published_at).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      }),
-      title: release.name || release.tag_name,
-      changes: finalChanges,
-      isPrerelease: release.prerelease,
-      githubUrl: release.html_url,
-      compareUrl: extractCompareUrl(body),
-    }
-  })
+      return {
+        version,
+        date: new Date(release.published_at).toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        }),
+        title: release.name || release.tag_name,
+        changes: finalChanges,
+        isPrerelease: release.prerelease,
+        githubUrl: release.html_url,
+        compareUrl: extractCompareUrl(body),
+      }
+    })
 }
 
 function extractChanges(body: string): ChangeItem[] {
