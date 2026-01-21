@@ -20,7 +20,7 @@ export async function generateMetadata() {
       description,
       images: [
         {
-          url: '/og-image.jpg',
+          url: '/api/og',
           width: 1200,
           height: 630,
           alt: 'Tiles Book: Privacy technology for everyone!',
@@ -31,7 +31,7 @@ export async function generateMetadata() {
       ...metadata.twitter,
       title: ogTitle,
       description,
-      images: ['/og-image.jpg'],
+      images: ['/api/og'],
     },
   }
 }

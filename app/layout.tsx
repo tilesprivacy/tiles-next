@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description: "Your private AI assistant for everyday use",
     images: [
       {
-        url: "https://www.tiles.run/og-image.jpg",
+        url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
         alt: "Tiles - Your private AI assistant for everyday use",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles",
     description: "Your private AI assistant for everyday use",
-    images: ["https://www.tiles.run/og-image.jpg"],
+    images: ["https://www.tiles.run/api/og"],
   },
 }
 

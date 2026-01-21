@@ -36,7 +36,7 @@ export async function generateMetadata(props: {
       title: ogTitle,
       images: [
         {
-          url: '/og-image.jpg',
+          url: '/api/og',
           width: 1200,
           height: 630,
           alt: ogTitle,
@@ -46,7 +46,7 @@ export async function generateMetadata(props: {
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
-      images: ['/og-image.jpg'],
+      images: ['/api/og'],
     },
   }
 }

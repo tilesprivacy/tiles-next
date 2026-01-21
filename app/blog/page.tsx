@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/og-image.jpg",
+        url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
         alt: "Tiles Blog: Privacy technology for everyone!",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Blog: Privacy technology for everyone!",
     description: "We're building open source privacy technology for personalized software experiences.",
-    images: ["https://www.tiles.run/og-image.jpg"],
+    images: ["https://www.tiles.run/api/og"],
   },
 }
 
