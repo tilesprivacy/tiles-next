@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://tiles.run/api/og",
+        url: "https://www.tiles.run/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Tiles Terms of Use",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Terms of Use",
     description: "Read our Terms of Service and how it relates to you.",
-    images: ["https://tiles.run/api/og"],
+    images: ["https://www.tiles.run/og-image.jpg"],
   },
 }
 

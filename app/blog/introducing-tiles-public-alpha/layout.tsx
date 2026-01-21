@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     publishedTime: "2026-01-02",
     images: [
       {
-        url: "https://tiles.run/api/og",
+        url: "https://www.tiles.run/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Tiles - Your private AI assistant for everyday use",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Introducing Tiles Public Alpha",
     description: "Building an everyday AI assistant with privacy-first engineering at its core.",
-    images: ["https://tiles.run/api/og"],
+    images: ["https://www.tiles.run/og-image.jpg"],
   },
 }
 

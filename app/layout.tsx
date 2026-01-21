@@ -9,7 +9,7 @@ const geist = Geist({ subsets: ["latin"] })
 const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tiles.run"),
+  metadataBase: new URL("https://www.tiles.run"),
   title: "Tiles",
   description: "Your private AI assistant for everyday use",
   generator: "v0.app",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description: "Your private AI assistant for everyday use",
     images: [
       {
-        url: "https://tiles.run/api/og",
+        url: "https://www.tiles.run/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "Tiles - Your private AI assistant for everyday use",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles",
     description: "Your private AI assistant for everyday use",
-    images: ["https://tiles.run/api/og"],
+    images: ["https://www.tiles.run/og-image.jpg"],
   },
 }
 
