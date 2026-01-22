@@ -29,9 +29,9 @@ export function BookMobileBreadcrumb() {
   }
 
   return (
-    <nav 
-      aria-label="Breadcrumb" 
-      className="book-mobile-breadcrumb lg:hidden px-4 pt-4 pb-2"
+    <nav
+      aria-label="Breadcrumb"
+      className="book-mobile-breadcrumb lg:hidden mt-3 px-4 pt-4 pb-2"
     >
       <ol className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
         <li>
