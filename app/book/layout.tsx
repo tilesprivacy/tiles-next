@@ -115,7 +115,7 @@ export default async function BookLayout({
       <BookBreadcrumbLink />
       <BookDatestampMover />
       <BookCodeHighlightFix />
-      <div className="pt-16 lg:pt-24">
+      <div className="pt-20 lg:pt-28">
         <BookMobileBreadcrumb />
         <Layout
           pageMap={finalPageMap}

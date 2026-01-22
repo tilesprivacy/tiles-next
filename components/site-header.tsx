@@ -13,8 +13,22 @@ interface SiteHeaderProps {
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isResourcesOpen, setIsResourcesOpen] = useState(false)
+  const [isBannerVisible, setIsBannerVisible] = useState(false)
   const resourcesButtonRef = useRef<HTMLButtonElement | null>(null)
   const resourcesPanelRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const dismissed = window.localStorage.getItem("tilesBannerDismissed")
+    setIsBannerVisible(dismissed !== "true")
+  }, [])
+
+  const handleDismissBanner = () => {
+    setIsBannerVisible(false)
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("tilesBannerDismissed", "true")
+    }
+  }
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -42,7 +56,36 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
 
   return (
     <>
-      <header className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 ${headerBg}`}>
+      {isBannerVisible && (
+        <div
+          className={`fixed inset-x-0 top-0 z-50 flex h-8 items-center justify-center px-4 text-[11px] shadow-sm ring-1 ring-black/5 lg:h-9 lg:text-xs dark:ring-white/5 ${
+            themeAware ? "bg-background text-foreground" : "bg-white text-black"
+          }`}
+        >
+          <div className="flex w-full max-w-7xl items-center justify-between px-2">
+            <div className="w-5" aria-hidden="true" />
+            <Link
+              href="/blog/introducing-tiles-public-alpha"
+              className="inline-flex items-center gap-2 text-black/70 dark:text-[#B3B3B3] transition-colors hover:text-black/90 dark:hover:text-[#E6E6E6]"
+            >
+              <span>Introducing Tiles Public Alpha</span>
+              <span aria-hidden="true" className="text-[12px] leading-none">→</span>
+            </Link>
+            <button
+              type="button"
+              onClick={handleDismissBanner}
+              className="inline-flex h-5 w-5 items-center justify-center rounded-full text-black/50 transition-colors hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]"
+              aria-label="Dismiss banner"
+            >
+              <span aria-hidden="true" className="text-[12px] leading-none">×</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      <header
+        className={`fixed inset-x-0 ${isBannerVisible ? "top-8 lg:top-9" : "top-0"} z-40 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 ${headerBg}`}
+      >
         {/* Left side: Logo and Desktop Nav Links */}
         <div className="flex items-center gap-8 shrink-0">
           <Link href="/" className="transition-colors hover:opacity-70">
@@ -172,7 +215,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
       {isResourcesOpen && (
         <div
           ref={resourcesPanelRef}
-          className={`fixed inset-x-0 top-[72px] lg:top-[88px] z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background ring-1 ring-black/5 dark:ring-[#2a2a2a]' : 'bg-white ring-1 ring-black/5'}`}
+          className={`fixed inset-x-0 ${isBannerVisible ? "top-[104px] lg:top-[124px]" : "top-[72px] lg:top-[88px]"} z-30 shadow-sm rounded-b-2xl ${themeAware ? 'bg-background ring-1 ring-black/5 dark:ring-[#2a2a2a]' : 'bg-white ring-1 ring-black/5'}`}
         >
           <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-14">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">

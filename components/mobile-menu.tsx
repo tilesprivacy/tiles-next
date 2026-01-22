@@ -66,7 +66,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
     <>
       {/* Full screen overlay - higher z-index than header */}
       <div
-        className={`fixed inset-0 ${menuBg} z-[50] lg:hidden flex flex-col`}
+        className={`fixed inset-x-0 bottom-0 top-8 h-[calc(100%-2rem)] ${menuBg} z-[40] lg:hidden flex flex-col`}
       >
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between px-4 pb-3 pt-4 ${menuBg} shrink-0`}>
