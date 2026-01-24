@@ -17,7 +17,7 @@ export default function HowTilesWorksPage() {
       <SiteHeader themeAware />
 
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-24 pb-20 lg:px-6 lg:pt-24 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
+      <main className="flex flex-1 flex-col items-center px-4 pt-32 pb-20 lg:px-6 lg:pt-32 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
         {/* Bottom Card - Blog Post Content */}
         <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
           {/* Blog Title */}
