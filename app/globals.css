@@ -866,11 +866,38 @@
 
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
 /* Left sidebar navigation - white prominent background like "On this Page" */
+ [data-book-section] {
+  --book-top-offset: 7rem;
+ }
+
 @media (min-width: 1024px) {
+  [data-book-section] {
+    --book-top-offset: 8rem;
+  }
+
   [data-book-section] aside {
     display: flex !important;
     flex-direction: column !important;
     background-color: #ffffff !important;
+  }
+
+  /* Keep the left navigation sidebar fixed like the right TOC */
+  [data-book-section] aside.nextra-sidebar,
+  [data-book-section] .nextra-sidebar {
+    position: sticky !important;
+    top: var(--book-top-offset) !important;
+    bottom: 14dvh !important;
+    height: calc(100dvh - var(--book-top-offset) - 14dvh) !important;
+    align-self: flex-start !important;
+    overflow: hidden !important;
+  }
+
+  /* Make the sidebar menu itself scroll, not the whole sidebar */
+  [data-book-section] .nextra-sidebar .nextra-scrollbar {
+    max-height: calc(100dvh - var(--book-top-offset) - 14dvh) !important;
+    overflow-y: auto !important;
+    padding-top: 0.5rem !important;
+    scroll-padding-top: 0.5rem !important;
   }
   
   /* Dark mode - keep dark background */
