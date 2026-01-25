@@ -14,7 +14,6 @@ interface MobileMenuProps {
 }
 
 export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuProps) {
-  const [isResourcesExpanded, setIsResourcesExpanded] = useState(false)
 
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
@@ -191,102 +190,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
             >
               Blog
             </Link>
-
-            {/* Resources Expandable Section */}
-            <div>
-              <button
-                onClick={() => setIsResourcesExpanded(!isResourcesExpanded)}
-                className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} w-full text-left flex items-center justify-between`}
-              >
-                <span>Resources</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  className={`h-5 w-5 transition-transform duration-200 ${isResourcesExpanded ? 'rotate-180' : ''}`}
-                >
-                  <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
-                </svg>
-              </button>
-
-              {isResourcesExpanded && (
-                <div className="pl-4">
-                  <Link
-                    href="/book"
-                    onClick={onClose}
-                    className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
-                  >
-                    <span>Book</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
-                  <a
-                    href="https://github.com/orgs/tilesprivacy/projects/4"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={onClose}
-                    className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
-                  >
-                    <span className="inline-flex items-center gap-1">
-                      Roadmap
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className={`h-3.5 w-3.5 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                  <a
-                    href="https://github.com/orgs/tilesprivacy/discussions/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={onClose}
-                    className={`text-lg font-medium ${textColor} py-3 px-4 transition-colors ${textColorHover} flex items-center justify-between`}
-                  >
-                    <span className="inline-flex items-center gap-1">
-                      RFCs
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className={`h-3.5 w-3.5 ${themeAware ? 'text-foreground/40' : 'text-black/40'} transition-colors group-hover:text-current`}
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
-                    >
-                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                </div>
-              )}
-            </div>
+            <Link
+              href="/book"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+            >
+              Book
+            </Link>
           </nav>
 
           {/* Spacer to push content to bottom half */}

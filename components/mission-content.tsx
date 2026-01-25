@@ -5,6 +5,7 @@ import { SiteHeader } from "@/components/site-header"
 import { FaBluesky, FaRedditAlien } from "react-icons/fa6"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import Link from "next/link"
 
 // Helper function to get icon type from URL
 function getIconType(url: string): "website" | "twitter" | "github" | "bluesky" | "reddit" {
@@ -212,6 +213,13 @@ export function MissionContent() {
                 ), an independent researcher and technologist, Tiles is
                 built for privacy conscious users who want intelligence without renting their memory to centralized
                 providers. Our first product is a private AI assistant for everyday use, and a Modelfile based SDK that lets developers customize local models and agent experiences within Tiles.
+              </p>
+
+              <p>
+                Want to contribute?{" "}
+                <Link href="/book/community" className={`${linkColor} underline`}>
+                  See how you can make Tiles better.
+                </Link>
               </p>
             </div>
           </div>

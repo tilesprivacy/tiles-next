@@ -41,6 +41,13 @@
       "timestamp": true
     }
   },
+  "community": {
+    "title": "Community",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "resources": {
     "title": "Resources",
     "theme": {

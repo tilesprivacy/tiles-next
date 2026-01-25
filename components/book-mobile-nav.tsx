@@ -40,6 +40,12 @@ const bookPages: BookPage[] = [
   },
   {
     number: '06',
+    title: 'Community',
+    description: 'See how you can make Tiles better.',
+    href: '/book/community',
+  },
+  {
+    number: '07',
     title: 'Resources',
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',

@@ -145,6 +145,18 @@ export function DownloadContent() {
                   </svg>
                 </a>
               </div>
+
+              {/* Older Versions Note */}
+              <p className={`text-xs ${textColorMuted} sm:text-sm lg:text-base`}>
+                Want to check out older versions? You can find installation scripts for previous releases on the{" "}
+                <a
+                  href="/changelog"
+                  className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                >
+                  changelog page
+                </a>
+                .
+              </p>
             </div>
           </div>
         </div>

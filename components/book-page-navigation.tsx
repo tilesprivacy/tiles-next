@@ -18,6 +18,7 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/memory', title: 'Memory' },
   { route: '/book/modelfile', title: 'Modelfile' },
   { route: '/book/mir', title: 'MIR Extension' },
+  { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
 ]
 
