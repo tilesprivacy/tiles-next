@@ -73,8 +73,6 @@ const people = {
     { name: "Anandu Pavanan @madclaws", links: ["https://github.com/madclaws"] },
   ],
   contributorsCommunity: [
-    { name: "Kshitij Taneja @kshitijgetsac", links: ["https://github.com/kshitijgetsac"] },
-    { name: "Musaab Khan @bxff", links: ["https://github.com/bxff", "https://www.reddit.com/user/sdexca/"] },
   ],
   sponsorsActive: [
     { name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
@@ -232,14 +230,6 @@ export function MissionContent() {
                     <h3 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Core</h3>
                     <div className="space-y-1 sm:space-y-1.5">
                       {people.contributorsCore.map((person) => (
-                        <Person key={person.name} name={person.name} links={person.links} />
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Community</h3>
-                    <div className="space-y-1 sm:space-y-1.5">
-                      {people.contributorsCommunity.map((person) => (
                         <Person key={person.name} name={person.name} links={person.links} />
                       ))}
                     </div>

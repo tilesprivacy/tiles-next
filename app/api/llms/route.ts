@@ -86,7 +86,7 @@ export async function GET(request: Request) {
   sections.push('Founded by Ankesh Bharti (@feynon), an independent researcher and technologist, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is a private AI assistant with offline memory, and an SDK that lets developers customize local models and agent experiences within Tiles.')
   sections.push('')
   sections.push('Contributors:')
-  sections.push('Ankesh Bharti, Anandu Pavanan, Kshitij Taneja')
+  sections.push('Ankesh Bharti, Anandu Pavanan')
   sections.push('')
   sections.push('Sponsors:')
   sections.push('Active: Luke Hubbard, Dietrich Ayala, Xi Zhang, Hugo Duprez, Utkarsh Saxena')
