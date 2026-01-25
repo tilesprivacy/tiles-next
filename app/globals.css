@@ -886,18 +886,25 @@
   [data-book-section] .nextra-sidebar {
     position: sticky !important;
     top: var(--book-top-offset) !important;
-    bottom: 14dvh !important;
-    height: calc(100dvh - var(--book-top-offset) - 14dvh) !important;
+    bottom: 0 !important;
+    height: calc(100dvh - var(--book-top-offset)) !important;
     align-self: flex-start !important;
     overflow: hidden !important;
   }
 
   /* Make the sidebar menu itself scroll, not the whole sidebar */
   [data-book-section] .nextra-sidebar .nextra-scrollbar {
-    max-height: calc(100dvh - var(--book-top-offset) - 14dvh) !important;
+    max-height: calc(100dvh - var(--book-top-offset)) !important;
     overflow-y: auto !important;
     padding-top: 0.5rem !important;
     scroll-padding-top: 0.5rem !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+  }
+
+  /* Keep the sidebar footer (theme switcher) pinned to the bottom */
+  [data-book-section] .nextra-sidebar-footer {
+    margin-top: auto !important;
   }
   
   /* Dark mode - keep dark background */
