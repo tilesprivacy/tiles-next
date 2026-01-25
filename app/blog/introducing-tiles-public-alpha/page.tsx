@@ -3,7 +3,6 @@
 import Link from "next/link"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import NewsletterForm from "@/components/newsletter-form"
 import { BlogReference } from "@/components/blog-reference"
 import { ReadingTime } from "@/components/reading-time"
@@ -14,8 +13,6 @@ export default function HowTilesWorksPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
-      <SiteHeader themeAware />
-
       {/* Main Content */}
       <main className="flex flex-1 flex-col items-center px-4 pt-32 pb-20 lg:px-6 lg:pt-32 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
         {/* Bottom Card - Blog Post Content */}

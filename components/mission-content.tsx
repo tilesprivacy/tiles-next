@@ -1,7 +1,6 @@
 'use client'
 
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import { FaBluesky, FaRedditAlien } from "react-icons/fa6"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -151,8 +150,6 @@ export function MissionContent() {
 
   return (
     <div className={`relative flex min-h-screen flex-col ${bgColor} lg:overflow-visible`}>
-      <SiteHeader themeAware />
-
       <div className="flex flex-1 flex-col pt-16 lg:pt-24 lg:pb-24">
         {/* Content */}
         <main className="flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">

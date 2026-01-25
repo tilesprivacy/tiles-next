@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import { useTheme } from 'next-themes'
 
 export function DownloadContent() {
@@ -79,8 +78,6 @@ export function DownloadContent() {
 
   return (
     <div className={`relative flex min-h-[100dvh] flex-col ${bgColor}`}>
-      <SiteHeader themeAware />
-
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col lg:flex-row min-h-0">
         {/* Left Side - Installation Instructions */}

@@ -1,7 +1,6 @@
 'use client'
 
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import { useTheme } from 'next-themes'
 import { useEffect, useState, ReactNode } from 'react'
 
@@ -25,7 +24,6 @@ export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
 
   return (
     <div className={`flex min-h-[100dvh] flex-col ${bgColor}`}>
-      <SiteHeader themeAware />
       <main 
         className="legal-page-content flex-1 flex flex-col items-start justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-32 lg:pb-32 lg:pt-40 w-full max-w-3xl mx-auto"
         style={{

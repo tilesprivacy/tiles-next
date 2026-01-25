@@ -2,7 +2,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 
 interface HomeContentProps {
   latestVersion: string
@@ -11,7 +10,6 @@ interface HomeContentProps {
 export function HomeContent({ latestVersion }: HomeContentProps) {
   return (
     <div className="min-h-screen bg-background">
-      <SiteHeader themeAware />
 
       {/* Main Content - flows naturally from top */}
       <main className="px-6 pt-32 pb-32 lg:px-12 lg:pt-44 lg:pb-40">

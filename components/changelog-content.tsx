@@ -1,7 +1,6 @@
 'use client'
 
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
@@ -140,8 +139,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
   return (
     <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
-      <SiteHeader themeAware />
-
       <main className="flex-1 px-4 pb-16 pt-32 lg:px-8 lg:pt-32">
         <div className="mx-auto max-w-3xl">
           <h1 className={`mb-4 text-3xl font-bold tracking-tight ${textColor} lg:mb-5 lg:text-5xl`}>

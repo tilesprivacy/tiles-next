@@ -329,6 +329,98 @@
   }
 }
 
+/* Performance optimizations to prevent layout shift and flicker */
+@layer base {
+  /* Ensure smooth page transitions */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Prevent layout shift during navigation */
+  body {
+    min-height: 100dvh;
+  }
+
+  /* Optimize rendering for fixed header - prevent flicker during navigation */
+  header {
+    contain: layout paint;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure header remains stable during page transitions */
+  header * {
+    backface-visibility: hidden;
+  }
+
+  /* Prevent layout shift from images */
+  img {
+    content-visibility: auto;
+  }
+
+  /* Optimize navigation links for smooth transitions */
+  a {
+    text-decoration-skip-ink: auto;
+  }
+}
+
+/* View Transitions API support for smooth navigation */
+@supports (view-transition-name: none) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.15s;
+    animation-timing-function: ease-in-out;
+  }
+
+  /* Prevent cross-fade flicker - use quick fade transition */
+  ::view-transition-old(root) {
+    animation-name: fade-out-quick;
+  }
+
+  ::view-transition-new(root) {
+    animation-name: fade-in-quick;
+  }
+
+  @keyframes fade-out-quick {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-in-quick {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
 /* Book section link styling - black with underline */
 /* Target all links in book section main content area (excluding sidebar) */
 [data-book-section] main a,

@@ -2,7 +2,6 @@
 
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
-import { SiteHeader } from "@/components/site-header"
 import NewsletterForm from "@/components/newsletter-form"
 
 interface BlogPost {
@@ -34,8 +33,6 @@ function formatDate(date: Date): string {
 export function BlogListingContent({ posts }: BlogListingContentProps) {
   return (
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
-      <SiteHeader themeAware />
-
       {/* Main Content */}
       <main className="flex flex-1 flex-col items-center px-4 pt-16 pb-28 lg:px-6 lg:pt-28 lg:pb-24 gap-12 lg:gap-20">
         {/* Top Card - Logo and Title */}

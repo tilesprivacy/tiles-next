@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { Layout } from 'nextra-theme-docs'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
-import { SiteHeader } from '@/components/site-header'
 import { BookFooter } from '@/components/book-footer'
 import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
@@ -111,7 +110,6 @@ export default async function BookLayout({
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
-      <SiteHeader themeAware />
       <BookBreadcrumbLink />
       <BookDatestampMover />
       <BookCodeHighlightFix />
