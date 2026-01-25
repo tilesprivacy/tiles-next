@@ -2,23 +2,14 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { useTheme } from 'next-themes'
 
 export default function NewsletterForm() {
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -73,13 +64,13 @@ export default function NewsletterForm() {
   }
 
   // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
-  const inputBg = isDark ? '!bg-[#1a1a1a]' : '!bg-white'
-  const inputText = isDark ? '!text-[#E6E6E6]' : '!text-black'
-  const inputPlaceholder = isDark ? 'placeholder:!text-[#8A8A8A]' : 'placeholder:!text-black/50'
-  const buttonBg = isDark ? 'bg-white' : 'bg-black'
-  const buttonText = isDark ? 'text-black' : 'text-white'
-  const buttonHover = isDark ? 'hover:bg-white/90' : 'hover:bg-black/90'
-  const messageColor = isDark ? 'text-[#B3B3B3]' : 'text-black/60'
+  const inputBg = '!bg-white dark:!bg-[#1a1a1a]'
+  const inputText = '!text-black dark:!text-[#E6E6E6]'
+  const inputPlaceholder = 'placeholder:!text-black/50 dark:placeholder:!text-[#8A8A8A]'
+  const buttonBg = 'bg-black dark:bg-white'
+  const buttonText = 'text-white dark:text-black'
+  const buttonHover = 'hover:bg-black/90 dark:hover:bg-white/90'
+  const messageColor = 'text-black/60 dark:text-[#B3B3B3]'
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-sm">

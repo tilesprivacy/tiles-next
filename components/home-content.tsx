@@ -28,6 +28,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   width={112}
                   height={112}
                   className="h-12 w-12 lg:h-14 lg:w-14 dark:hidden"
+                  priority
                 />
                 {/* Dark mode logo */}
                 <div className="relative hidden dark:block">
@@ -37,6 +38,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     width={112}
                     height={112}
                     className="h-12 w-12 lg:h-14 lg:w-14"
+                    priority
                   />
                   {/* Overlay to hide white edges */}
                   <div className="absolute inset-0 pointer-events-none ring-[3px] ring-inset ring-[#1a1a1a]" />
@@ -72,6 +74,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     width={16}
                     height={20}
                     className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 dark:hidden"
+                    priority
                   />
                   {/* Dark mode: black Apple logo (on white button) */}
                   <Image
@@ -80,6 +83,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                     width={16}
                     height={20}
                     className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 hidden dark:block"
+                    priority
                   />
                   <span>Download for macOS</span>
                   <svg

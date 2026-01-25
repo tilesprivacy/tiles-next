@@ -75,12 +75,12 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 dark:hidden" />
+                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 dark:hidden" priority />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 hidden dark:block" />
+                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 hidden dark:block" priority />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12" />
+              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12" priority />
             )}
           </Link>
 
@@ -122,6 +122,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                     width={16}
                     height={20}
                     className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 dark:hidden"
+                    priority
                   />
                   {/* Dark mode: black Apple logo (on white button) */}
                   <Image
@@ -130,6 +131,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                     width={16}
                     height={20}
                     className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
+                    priority
                   />
                 </>
               ) : (
@@ -139,6 +141,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                   width={16}
                   height={20}
                   className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4"
+                  priority
                 />
               )}
               <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>

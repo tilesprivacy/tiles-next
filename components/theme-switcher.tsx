@@ -1,7 +1,6 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 
 interface ThemeSwitcherProps {
   variant?: 'light' | 'dark' | 'auto'
@@ -10,17 +9,9 @@ interface ThemeSwitcherProps {
 
 export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherProps) {
   const { theme, setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return null
-  }
-
-  const isDark = resolvedTheme === 'dark'
+  const currentTheme = resolvedTheme ?? (theme === 'system' ? 'light' : theme) ?? 'light'
+  const isDark = currentTheme === 'dark'
   
   // Determine colors based on variant
   const isLightVariant = variant === 'light' || (variant === 'auto' && !isDark)
@@ -37,11 +28,14 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
   const iconSize = size === 'sm' ? 'h-3 w-3' : 'h-3.5 w-3.5'
 
   return (
-    <div className={`inline-flex items-center rounded-full ${bgColor} p-0.5`}>
+    <div
+      className={`inline-flex items-center rounded-full ${bgColor} p-0.5`}
+      suppressHydrationWarning
+    >
       <button
         onClick={() => setTheme('light')}
         className={`inline-flex items-center ${sizeClasses} rounded-full font-medium transition-all duration-200 ${
-          resolvedTheme === 'light' 
+          currentTheme === 'light' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`
         }`}
@@ -59,7 +53,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
       <button
         onClick={() => setTheme('dark')}
         className={`inline-flex items-center ${sizeClasses} rounded-full font-medium transition-all duration-200 ${
-          resolvedTheme === 'dark' 
+          currentTheme === 'dark' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`
         }`}

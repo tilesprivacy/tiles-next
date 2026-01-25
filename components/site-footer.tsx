@@ -1,33 +1,18 @@
-'use client'
+"use client"
 
 import Link from "next/link"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
 export function SiteFooter() {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  // Reversed theme: dark footer when light mode, light footer when dark mode
-  const isDarkFooter = !mounted || resolvedTheme === 'light'
-
   // Footer colors - reversed from page theme (matching book dark theme colors)
-  const footerBg = isDarkFooter ? 'bg-black' : 'bg-white'
-  const borderColor = isDarkFooter ? 'border-[#2a2a2a]' : 'border-black/10'
-  const textColor = isDarkFooter ? 'text-[#E6E6E6]' : 'text-black'
-  const textColorHover = isDarkFooter ? 'hover:text-[#B3B3B3]' : 'hover:text-black/60'
-  const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#B3B3B3]' : 'group-hover:text-black/70'
-  const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#B3B3B3]' : 'group-hover:text-black/70'
-
-  // Theme switcher variant - opposite of page theme since footer is reversed
-  const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
+  const footerBg = 'bg-black dark:bg-white'
+  const borderColor = 'border-[#2a2a2a] dark:border-black/10'
+  const textColor = 'text-[#E6E6E6] dark:text-black'
+  const textColorHover = 'hover:text-[#B3B3B3] dark:hover:text-black/60'
+  const iconHoverTwitter = 'group-hover:text-[#B3B3B3] dark:group-hover:text-black/70'
+  const iconHoverGithub = 'group-hover:text-[#B3B3B3] dark:group-hover:text-black/70'
 
   return (
     <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-4 sm:px-6 py-6 sm:py-8 lg:py-10`}>
@@ -129,7 +114,12 @@ export function SiteFooter() {
           <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
           
           {/* Theme Switcher - visible on all screens */}
-          <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
+          <div className="block dark:hidden">
+            <ThemeSwitcher variant="dark" size="sm" />
+          </div>
+          <div className="hidden dark:block">
+            <ThemeSwitcher variant="light" size="sm" />
+          </div>
         </div>
       </div>
     </footer>

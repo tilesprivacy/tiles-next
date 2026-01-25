@@ -1,10 +1,8 @@
-'use client'
+"use client"
 
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
 import { FaBluesky, FaRedditAlien } from "react-icons/fa6"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 import Link from "next/link"
 
 // Helper function to get icon type from URL
@@ -93,23 +91,14 @@ const people = {
 }
 
 export function MissionContent() {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
   // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
-  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-black/50'
-  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-black/80'
-  const linkColor = isDark ? 'text-[#E6E6E6] hover:text-[#B3B3B3]' : 'text-black hover:text-black/70'
-  const linkColorMuted = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/60 hover:text-black'
+  const textColorMuted = 'text-black/80 dark:text-[#E6E6E6]'
+  const textColorSubtle = 'text-black/50 dark:text-[#8A8A8A]'
+  const textColorBody = 'text-black/80 dark:text-[#B3B3B3]'
+  const linkColor = 'text-black hover:text-black/70 dark:text-[#E6E6E6] dark:hover:text-[#B3B3B3]'
+  const linkColorMuted = 'text-black/60 hover:text-black dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]'
 
   // Person component with links
   function renderDisplayName(name: string) {
