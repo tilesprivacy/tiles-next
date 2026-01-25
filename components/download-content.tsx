@@ -1,30 +1,19 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { useTheme } from 'next-themes'
 
 export function DownloadContent() {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
   // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-[#B3B3B3]' : 'text-black/70'
-  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-black/50'
-  const textColorLink = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/60 hover:text-black'
-  const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
-  const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
-  const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
-  const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
+  const textColorMuted = 'text-black/70 dark:text-[#B3B3B3]'
+  const textColorLink = 'text-black/60 hover:text-black dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]'
+  const codeBg = 'bg-[#f5f5f5] dark:bg-[#1a1a1a]'
+  const codeText = 'text-black/80 dark:text-[#E6E6E6]'
+  const copyButtonBg = 'bg-[#f5f5f5] hover:bg-[#e5e5e5] dark:bg-[#1a1a1a] dark:hover:bg-[#252525]'
+  const copyIconColor = 'text-black/50 hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]'
 
   const CodeBlock = ({ code, compact = false }: { code: string; compact?: boolean }) => {
     const [copied, setCopied] = useState(false)

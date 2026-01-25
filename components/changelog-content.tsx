@@ -2,8 +2,7 @@
 
 import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface Change {
   text: string
@@ -41,38 +40,29 @@ const ExternalLinkIcon = () => (
 )
 
 export function ChangelogContent({ releases, error }: ChangelogContentProps) {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
   // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-[#B3B3B3]' : 'text-black/60'
-  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-gray-400'
-  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-gray-600'
-  const textColorBodyLight = isDark ? 'text-[#8A8A8A]' : 'text-gray-500'
-  const textColorHeading = isDark ? 'text-[#E6E6E6]' : 'text-gray-900'
-  const linkColor = isDark ? 'text-[#B3B3B3] hover:text-[#E6E6E6]' : 'text-gray-700 hover:text-gray-900'
-  const badgeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-gray-100'
-  const badgeText = isDark ? 'text-[#B3B3B3]' : 'text-gray-700'
-  const badgeTextLight = isDark ? 'text-[#8A8A8A]' : 'text-gray-600'
-  const timelineBg = isDark ? 'bg-[#2a2a2a]' : 'bg-gray-200'
-  const dotBg = isDark ? 'bg-[#E6E6E6]' : 'bg-black'
-  const dotRing = isDark ? 'ring-[#121212]' : 'ring-white'
-  const bulletBg = isDark ? 'bg-[#8A8A8A]' : 'bg-gray-400'
-  const bulletBgLight = isDark ? 'bg-[#5a5a5a]' : 'bg-gray-300'
-  const errorBg = isDark ? 'bg-red-900/30' : 'bg-red-50'
-  const errorText = isDark ? 'text-red-400' : 'text-red-600'
-  const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
-  const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
-  const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
-  const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
+  const textColorMuted = 'text-black/60 dark:text-[#B3B3B3]'
+  const textColorSubtle = 'text-gray-400 dark:text-[#8A8A8A]'
+  const textColorBody = 'text-gray-600 dark:text-[#B3B3B3]'
+  const textColorBodyLight = 'text-gray-500 dark:text-[#8A8A8A]'
+  const textColorHeading = 'text-gray-900 dark:text-[#E6E6E6]'
+  const linkColor = 'text-gray-700 hover:text-gray-900 dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6]'
+  const badgeBg = 'bg-gray-100 dark:bg-[#1a1a1a]'
+  const badgeText = 'text-gray-700 dark:text-[#B3B3B3]'
+  const badgeTextLight = 'text-gray-600 dark:text-[#8A8A8A]'
+  const timelineBg = 'bg-gray-200 dark:bg-[#2a2a2a]'
+  const dotBg = 'bg-black dark:bg-[#E6E6E6]'
+  const dotRing = 'ring-white dark:ring-[#121212]'
+  const bulletBg = 'bg-gray-400 dark:bg-[#8A8A8A]'
+  const bulletBgLight = 'bg-gray-300 dark:bg-[#5a5a5a]'
+  const errorBg = 'bg-red-50 dark:bg-red-900/30'
+  const errorText = 'text-red-600 dark:text-red-400'
+  const codeBg = 'bg-[#f5f5f5] dark:bg-[#1a1a1a]'
+  const codeText = 'text-black/80 dark:text-[#E6E6E6]'
+  const copyButtonBg = 'bg-[#f5f5f5] hover:bg-[#e5e5e5] dark:bg-[#1a1a1a] dark:hover:bg-[#252525]'
+  const copyIconColor = 'text-black/50 hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]'
 
   const CodeBlock = ({ code, version }: { code: string; version: string }) => {
     const [copied, setCopied] = useState(false)
