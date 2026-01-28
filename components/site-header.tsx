@@ -3,39 +3,33 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useState, useEffect } from "react"
+import { memo, useCallback, useEffect, useState } from "react"
 import { MobileMenu } from "./mobile-menu"
 
 interface SiteHeaderProps {
   themeAware?: boolean
 }
 
-function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isBannerVisible, setIsBannerVisible] = useState(false)
-
-  useEffect(() => {
-    if (typeof window === "undefined") return
-    const dismissed = window.localStorage.getItem("tilesBannerDismissed")
-    setIsBannerVisible(dismissed !== "true")
-  }, [])
-
-  const handleDismissBanner = () => {
-    setIsBannerVisible(false)
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem("tilesBannerDismissed", "true")
-    }
-  }
-
+const SiteHeaderChrome = memo(function SiteHeaderChrome({
+  themeAware,
+  isBannerVisible,
+  onDismissBanner,
+  onOpenMenu,
+}: {
+  themeAware: boolean
+  isBannerVisible: boolean
+  onDismissBanner: () => void
+  onOpenMenu: () => void
+}) {
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
-  const headerBg = themeAware ? 'bg-background' : 'bg-white'
-  const textColor = themeAware ? 'text-foreground' : 'text-black'
-  const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
+  const headerBg = themeAware ? "bg-background" : "bg-white"
+  const textColor = themeAware ? "text-foreground" : "text-black"
+  const textColorHover = themeAware ? "hover:text-foreground/70" : "hover:text-black/70"
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
-  const buttonBg = themeAware ? 'bg-black dark:bg-white' : 'bg-black'
-  const buttonText = themeAware ? 'text-white dark:text-black' : 'text-white'
-  const buttonHover = themeAware ? 'hover:bg-black/90 dark:hover:bg-white/90' : 'hover:bg-black/90'
-  const hamburgerColor = themeAware ? 'bg-foreground' : 'bg-black'
+  const buttonBg = themeAware ? "bg-black dark:bg-white" : "bg-black"
+  const buttonText = themeAware ? "text-white dark:text-black" : "text-white"
+  const buttonHover = themeAware ? "hover:bg-black/90 dark:hover:bg-white/90" : "hover:bg-black/90"
+  const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
 
   return (
     <>
@@ -52,15 +46,19 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
               className="inline-flex items-center gap-2 text-black/70 dark:text-[#B3B3B3] transition-colors hover:text-black/90 dark:hover:text-[#E6E6E6]"
             >
               <span>Introducing Tiles Public Alpha</span>
-              <span aria-hidden="true" className="text-[12px] leading-none">→</span>
+              <span aria-hidden="true" className="text-[12px] leading-none">
+                →
+              </span>
             </Link>
             <button
               type="button"
-              onClick={handleDismissBanner}
+              onClick={onDismissBanner}
               className="inline-flex h-5 w-5 items-center justify-center rounded-full text-black/50 transition-colors hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]"
               aria-label="Dismiss banner"
             >
-              <span aria-hidden="true" className="text-[12px] leading-none">×</span>
+              <span aria-hidden="true" className="text-[12px] leading-none">
+                ×
+              </span>
             </button>
           </div>
         </div>
@@ -109,10 +107,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
             variant="ghost"
             className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} lg:h-10 lg:px-4 lg:text-sm`}
           >
-            <Link
-              href="/download"
-              className="group flex items-center gap-1.5 lg:gap-2"
-            >
+            <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
               {themeAware ? (
                 <>
                   {/* Light mode: white Apple logo (on black button) */}
@@ -141,7 +136,9 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
                   className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4"
                 />
               )}
-              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                Download
+              </span>
             </Link>
           </Button>
           <Button
@@ -162,13 +159,15 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
-              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Sponsor</span>
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                Sponsor
+              </span>
             </a>
           </Button>
 
           {/* Hamburger Menu Button - Mobile Only */}
           <button
-            onClick={() => setIsMenuOpen(true)}
+            onClick={onOpenMenu}
             className="lg:hidden ml-2 flex flex-col justify-center items-center w-5 h-5 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none"
             aria-label="Open navigation menu"
             type="button"
@@ -179,9 +178,46 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
           </button>
         </div>
       </header>
+    </>
+  )
+})
+
+function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isBannerVisible, setIsBannerVisible] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const dismissed = window.localStorage.getItem("tilesBannerDismissed")
+    setIsBannerVisible(dismissed !== "true")
+  }, [])
+
+  const handleDismissBanner = useCallback(() => {
+    setIsBannerVisible(false)
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("tilesBannerDismissed", "true")
+    }
+  }, [])
+
+  const openMenu = useCallback(() => setIsMenuOpen(true), [])
+  const closeMenu = useCallback(() => setIsMenuOpen(false), [])
+
+  return (
+    <>
+      <SiteHeaderChrome
+        themeAware={themeAware}
+        isBannerVisible={isBannerVisible}
+        onDismissBanner={handleDismissBanner}
+        onOpenMenu={openMenu}
+      />
 
       {/* Mobile Menu */}
-      <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} themeAware={themeAware} />
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
+        themeAware={themeAware}
+        hasBanner={isBannerVisible}
+      />
     </>
   )
 }

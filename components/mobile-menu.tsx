@@ -11,9 +11,10 @@ interface MobileMenuProps {
   isOpen: boolean
   onClose: () => void
   themeAware?: boolean
+  hasBanner?: boolean
 }
 
-export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = false }: MobileMenuProps) {
 
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
@@ -36,15 +37,43 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
     rss: 'group-hover:text-orange-500',
   }
 
-  // Prevent body scroll when menu is open
+  // Prevent body scroll when menu is open (iOS Safari needs position:fixed to fully lock)
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+    if (typeof window === "undefined") return
+
+    const body = document.body
+    const html = document.documentElement
+
+    if (!isOpen) return
+
+    const scrollY = window.scrollY || window.pageYOffset
+    const prev = {
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyLeft: body.style.left,
+      bodyRight: body.style.right,
+      bodyWidth: body.style.width,
+      htmlOverflow: html.style.overflow,
     }
+
+    html.style.overflow = "hidden"
+    body.style.overflow = "hidden"
+    body.style.position = "fixed"
+    body.style.top = `-${scrollY}px`
+    body.style.left = "0"
+    body.style.right = "0"
+    body.style.width = "100%"
+
     return () => {
-      document.body.style.overflow = ''
+      html.style.overflow = prev.htmlOverflow
+      body.style.overflow = prev.bodyOverflow
+      body.style.position = prev.bodyPosition
+      body.style.top = prev.bodyTop
+      body.style.left = prev.bodyLeft
+      body.style.right = prev.bodyRight
+      body.style.width = prev.bodyWidth
+      window.scrollTo(0, scrollY)
     }
   }, [isOpen])
 
@@ -61,14 +90,16 @@ export function MobileMenu({ isOpen, onClose, themeAware = false }: MobileMenuPr
 
   if (!isOpen) return null
 
+  const topOffsetClass = hasBanner ? "top-8" : "top-0"
+
   return (
     <>
       {/* Full screen overlay - higher z-index than header */}
       <div
-        className={`fixed inset-x-0 bottom-0 top-8 h-[calc(100%-2rem)] ${menuBg} z-[40] lg:hidden flex flex-col`}
+        className={`fixed inset-x-0 bottom-0 ${topOffsetClass} ${menuBg} z-[60] lg:hidden flex flex-col overscroll-contain`}
       >
         {/* Header section with logo and buttons */}
-        <div className={`flex items-center justify-between px-4 pb-3 pt-4 ${menuBg} shrink-0`}>
+        <div className={`flex items-center justify-between px-4 pb-3 pt-[calc(env(safe-area-inset-top)+1rem)] ${menuBg} shrink-0`}>
           {/* Logo */}
           <Link href="/" onClick={onClose} className="transition-colors hover:opacity-70">
             {themeAware ? (
