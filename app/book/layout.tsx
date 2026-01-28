@@ -14,7 +14,7 @@ export const metadata = {
     default: 'Tiles Book: Privacy technology for everyone!',
   },
   description:
-    'Technical documentation covering Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.',
+    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.',
 }
 
 export default async function BookLayout({

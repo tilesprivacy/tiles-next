@@ -8,7 +8,7 @@ export async function generateMetadata() {
 
   const ogTitle = 'Tiles Book: Privacy technology for everyone!'
   const description =
-    'Technical documentation covering Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.'
+    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.'
   // Use absolute title to bypass template since ogTitle already includes "Tiles Book: "
   return {
     ...metadata,

@@ -11,7 +11,7 @@ const bookPages: BookPage[] = [
   {
     number: '01',
     title: 'Manual',
-    description: 'Command-line interface reference for Tiles CLI commands and usage examples.',
+    description: 'Command-line interface reference for Tiles and Tilekit, with usage examples',
     href: '/book/manual',
   },
   {
