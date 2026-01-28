@@ -7,14 +7,20 @@ export default function PrivacyPage() {
   return (
     <LegalPageWrapper>
       <div className="space-y-4">
-        <h1>Privacy Policy</h1>
+        <h1>Tiles Privacy Policy</h1>
         <p className="last-updated">Last updated: {LEGAL_LAST_UPDATED.privacy}</p>
+      </div>
+
+      <div className="space-y-4">
+        <p>
+          Tiles Privacy is a private, local‑first AI assistant. This policy explains how Tiles Privacy handles your data across the desktop app and this website.
+        </p>
       </div>
 
       <div className="space-y-4">
         <h2>Your Data Stays Local</h2>
         <p>
-          Tiles operates entirely on your device. All data, including your memory, preferences, and usage patterns, remains on your local machine. We do not have access to your data, and we do not collect it.
+          Tiles Privacy operates entirely on your device. All data, including your memory, preferences, and usage patterns, remains on your local machine. We do not have access to your data, and we do not collect it.
         </p>
       </div>
 

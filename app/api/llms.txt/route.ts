@@ -75,6 +75,20 @@ export async function GET(request: Request) {
   sections.push('='.repeat(80))
   sections.push('')
 
+  // Privacy Policy
+  sections.push(`## Privacy Policy (${baseUrl}/privacy)`)
+  sections.push('')
+  sections.push('Tiles Privacy Policy')
+  sections.push('')
+  sections.push('Tiles Privacy is a private, local-first AI assistant. All memory, preferences, and usage patterns stay on the user’s own device. The Tiles desktop app does not collect, store, or transmit personal data to Tiles servers.')
+  sections.push('')
+  sections.push('The website tiles.run uses only minimal, standard web tooling for basic functionality and does not rely on third-party analytics or advertising trackers. There is no cross-site tracking or behavioral profiling.')
+  sections.push('')
+  sections.push('For privacy questions, users can reach the Tiles Privacy team via GitHub (https://github.com/tilesprivacy) or Discord (https://go.tiles.run/discord).')
+  sections.push('')
+  sections.push('='.repeat(80))
+  sections.push('')
+
   // Mission Page
   sections.push(`## Mission (${baseUrl}/mission)`)
   sections.push('')
