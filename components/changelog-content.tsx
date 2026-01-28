@@ -139,7 +139,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
   return (
     <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
-      <main className="flex-1 px-4 pb-16 pt-32 lg:px-8 lg:pt-32">
+      <main className="flex-1 px-4 pb-16 pt-32 lg:px-8 lg:pt-44">
         <div className="mx-auto max-w-3xl">
           <h1 className={`mb-4 text-3xl font-bold tracking-tight ${textColor} lg:mb-5 lg:text-5xl`}>
             Changelog
