@@ -55,13 +55,13 @@ tiles optimize <MODELFILE_PATH> [--data <path>] [--model <provider:model-name>] 
 
 ```bash
 # Optimize SYSTEM prompt in a Modelfile
-tiles optimize path/to/your.Modelfile
+tiles optimize path/to/Modelfile
 
 # Optimize with custom training data
-tiles optimize my.Modelfile --data training-data.json
+tiles optimize ./Modelfile --data training-data.json
 
 # Optimize using a specific model
-tiles optimize my.Modelfile --model anthropic:claude-3-5-sonnet-20240620
+tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
 ```
 
 ### Optimize Command Details
@@ -71,7 +71,7 @@ The `tiles optimize` command refines the `SYSTEM` prompt in your Modelfile autom
 **Basic Usage:**
 
 ```bash
-tiles optimize path/to/your.Modelfile
+tiles optimize path/to/Modelfile
 ```
 
 By default, this will:
@@ -114,7 +114,7 @@ To optimize its `SYSTEM` prompt using Claude:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
-tiles optimize my.Modelfile --model anthropic:claude-3-5-sonnet-20240620
+tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
 ```
 
 This will rewrite the `SYSTEM` line with a more effective version based on the optimization process.
