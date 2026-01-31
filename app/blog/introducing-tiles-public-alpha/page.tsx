@@ -147,7 +147,16 @@ export default function HowTilesWorksPage() {
                 </p>
 
                 <p className="mb-6 lg:mb-8">
-                  We support gpt-oss-20b and provide an opinionated package of prompts, tools, and on-device models optimized for your hardware. Tiles also includes a built-in code interpreter for executing Python functions. We use{" "}
+                  We support{" "}
+                  <a
+                    href="https://openai.com/index/introducing-gpt-oss/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded bg-black/5 dark:bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-sm text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline"
+                  >
+                    gpt-oss-20b
+                  </a>{" "}
+                  and provide an opinionated package of prompts, tools, and on-device models optimized for your hardware. Tiles also includes a built-in code interpreter for executing Python functions. We use{" "}
                   <a
                     href="https://venvstacks.lmstudio.ai/overview/"
                     target="_blank"
