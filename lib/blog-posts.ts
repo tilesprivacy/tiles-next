@@ -20,8 +20,6 @@ export const blogPosts: BlogPost[] = [
 
 <h2>Philosophy</h2>
 
-<p>Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.</p>
-
 <p>The project is defined by four interdependent design choices<a href="#ref-2">²</a>:</p>
 
 <ol>

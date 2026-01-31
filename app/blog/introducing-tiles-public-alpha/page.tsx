@@ -85,10 +85,6 @@ export default function HowTilesWorksPage() {
                 </h2>
 
                 <p className="mb-6 lg:mb-8">
-                  Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.
-                </p>
-
-                <p className="mb-6 lg:mb-8">
                   The project is defined by four interdependent design choices:
                   <BlogReference id={2}>
                     <span className="text-black dark:text-[#E6E6E6]">From </span>
@@ -147,7 +143,11 @@ export default function HowTilesWorksPage() {
                 </h2>
 
                 <p className="mb-6 lg:mb-8">
-                  In our regular Tiles builds, we support running fully offline models, models pulled directly from the Hugging Face registry, and a built-in code interpreter for executing Python functions. We use{" "}
+                  Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.
+                </p>
+
+                <p className="mb-6 lg:mb-8">
+                  We support gpt-oss-20b and provide an opinionated package of prompts, tools, and on-device models optimized for your hardware. Tiles also includes a built-in code interpreter for executing Python functions. We use{" "}
                   <a
                     href="https://venvstacks.lmstudio.ai/overview/"
                     target="_blank"
@@ -166,7 +166,7 @@ export default function HowTilesWorksPage() {
                       <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>
-                  , layered Python virtual environments, to ensure Tiles does not interfere with system dependencies and remains portable across platforms.
+                  , layered Python virtual environments, to keep Tiles isolated from system dependencies and portable across platforms.
                 </p>
 
                 <div className="my-8 lg:my-12">
@@ -180,14 +180,14 @@ export default function HowTilesWorksPage() {
                 </div>
 
                 <p className="mb-6 lg:mb-8">
-                  We also offer an Insiders channel that includes experimental features, including our AI memory capabilities powered by fine-tuned memory models that manage context and memories locally on-device with hyperlinked markdown files. Currently, we use{" "}
+                  We are also working toward memory capabilities powered by fine tuned models that manage context and memory locally on device using hyperlinked Markdown files. This is currently behind an experimental flag. We use the{" "}
                   <a
                     href="https://huggingface.co/driaforall/mem-agent"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1 text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline"
                   >
-                    mem-agent
+                    mem agent
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 12 12"
@@ -199,7 +199,7 @@ export default function HowTilesWorksPage() {
                       <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </a>{" "}
-                  model (from{" "}
+                  model from{" "}
                   <a
                     href="https://dria.co/"
                     target="_blank"
@@ -219,8 +219,7 @@ export default function HowTilesWorksPage() {
                     </svg>
                   </a>
                   , based on{" "}
-                  <code className="rounded bg-black/5 dark:bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-sm text-black dark:text-[#E6E6E6]">qwen3-4B-thinking-2507</code>),
-                  and are in the process of training our initial in-house memory models.
+                  <code className="rounded bg-black/5 dark:bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-sm text-black dark:text-[#E6E6E6]">qwen3 4B thinking 2507</code>, and are in the process of training our initial in house memory model.
                 </p>
 
                 <p className="mb-6 lg:mb-8">
