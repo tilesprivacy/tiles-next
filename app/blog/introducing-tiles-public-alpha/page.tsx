@@ -228,7 +228,7 @@ export default function HowTilesWorksPage() {
                     </svg>
                   </a>
                   , based on{" "}
-                  <code className="rounded bg-black/5 dark:bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-sm text-black dark:text-[#E6E6E6]">qwen3 4B thinking 2507</code>, and are in the process of training our initial in house memory model.
+                  <code className="rounded bg-black/5 dark:bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-sm text-black dark:text-[#E6E6E6]">qwen3-4B-thinking-2507</code>, and are in the process of training our initial in house memory model.
                 </p>
 
                 <p className="mb-6 lg:mb-8">
@@ -302,7 +302,7 @@ export default function HowTilesWorksPage() {
                     , designed for device-anchored trust.
                   </li>
                   <li>
-                    <strong className="text-black dark:text-[#E6E6E6]">Modelfile SDK:</strong> Work with the{" "}
+                    <strong className="text-black dark:text-[#E6E6E6]">MIR in Modelfile:</strong> Work with the{" "}
                     <a
                       href="https://darkshapes.org/"
                       target="_blank"
@@ -340,26 +340,7 @@ export default function HowTilesWorksPage() {
                         <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
                     </a>{" "}
-                    (Machine Intelligence Resource) naming scheme and integrate{" "}
-                    <a
-                      href="https://dspy.ai/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline"
-                    >
-                      DSPy
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 12 12"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-2.5 w-2.5"
-                      >
-                        <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </a>{" "}
-                    for prompt optimization in our Modelfile implementation.
+                    (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
                   </li>
                   <li>
                     <strong className="text-black dark:text-[#E6E6E6]">Registry:</strong> Continue supporting Hugging Face, while designing a

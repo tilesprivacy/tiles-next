@@ -60,7 +60,7 @@ export const blogPosts: BlogPost[] = [
     <strong>Identity:</strong> Ship a portable identity system using <a href="https://atproto.com/specs/did" target="_blank" rel="noopener noreferrer">AT Protocol DIDs</a>, designed for device-anchored trust.
   </li>
   <li>
-    <strong>Modelfile SDK:</strong> Work with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer">MIR</a> (Machine Intelligence Resource) naming scheme and integrate <a href="https://dspy.ai/" target="_blank" rel="noopener noreferrer">DSPy</a> for prompt optimization in our Modelfile implementation.
+    <strong>MIR in Modelfile:</strong> Work with the <a href="https://darkshapes.org/" target="_blank" rel="noopener noreferrer">Darkshapes</a> team to support the <a href="https://huggingface.co/darkshapes/MIR_" target="_blank" rel="noopener noreferrer">MIR</a> (Machine Intelligence Resource) naming scheme in our Modelfile implementation.
   </li>
   <li>
     <strong>Registry:</strong> Continue supporting Hugging Face, while designing a decentralized registry for versioned, composable model layers using the open-source <a href="https://github.com/huggingface/xet-core" target="_blank" rel="noopener noreferrer">xet-core</a> client tech.
