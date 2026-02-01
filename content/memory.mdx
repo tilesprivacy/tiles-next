@@ -25,7 +25,7 @@ Our long term goal is to solve memory in pursuit of software personalization thr
   <span style={{ fontSize: '0.875rem', color: 'var(--nextra-primary-500, #888)' }}>January 2026 - Present</span>
 </div>
 
-Our first experiment explores bundling a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on `qwen3-4B-thinking-2507`, and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
+Our first experiment explores bundling a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on [`qwen3-4B-thinking-2507`](https://github.com/QwenLM/Qwen3?tab=readme-ov-file#qwen3-2507), and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
 
 These models use a human-readable external memory stored as Markdown, along with learned policies trained via reinforcement learning on synthetically generated data. These policies decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.
 
