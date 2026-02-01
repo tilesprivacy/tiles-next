@@ -43,3 +43,13 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 ### Static File (if present)
 - If a static `public/llms.txt` file exists, it should be **removed** or **ignored** in favor of the dynamic endpoint.
 - The dynamic endpoint at `/llms.txt` (via rewrite from `/api/llms`) is the source of truth.
+
+## Hero Wireframe Image (Next.js Image)
+
+### Implementation
+- The hero MacBook wireframe is served as **WebP** (`public/wireframe.webp`) for fast first load. The source asset is the large SVG at `public/wireframe.svg` (embedded PNG); `wireframe.webp` is generated from it.
+- The hero uses **Next.js `<Image>`** with `src="/wireframe.webp"`, `priority` (for LCP), and fixed dimensions (800×600) for layout stability.
+
+### Regenerating the WebP
+- If you change `public/wireframe.svg`, run: `npm run generate:wireframe`
+- This overwrites `public/wireframe.webp`.

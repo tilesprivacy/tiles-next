@@ -4,7 +4,6 @@ import { Cpu, Code2, Package, Brain, FileCode } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
-import { WIREFRAME_BLUR_DATA_URL } from "@/lib/wireframe-blur"
 
 interface HomeContentProps {
   latestVersion: string
@@ -94,8 +93,6 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   height={600}
                   className="w-full h-auto"
                   priority
-                  placeholder="blur"
-                  blurDataURL={WIREFRAME_BLUR_DATA_URL}
                 />
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                   <Image
