@@ -96,10 +96,9 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   </svg>
                 </Link>
               </Button>
-              <p className="text-xs text-black/40 dark:text-[#8A8A8A]">
-                For macOS 14+ on Apple Silicon Macs (M1 or newer).
-                <br />
-                Recommended: 16 GB unified memory or more.
+              <p className="text-center text-xs leading-relaxed text-muted-foreground max-w-[18rem] mx-auto">
+                <span className="block">For macOS 14+ on Apple Silicon Macs (M1 or newer).</span>
+                <span className="block">Recommended: 16 GB unified memory or more.</span>
               </p>
             </div>
           </div>
