@@ -4,6 +4,7 @@ import { Cpu, Code2, Package, Brain, FileCode } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
+import { WIREFRAME_BLUR_DATA_URL } from "@/lib/wireframe-blur"
 
 interface HomeContentProps {
   latestVersion: string
@@ -87,12 +88,14 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             <div className="w-full flex items-center justify-center">
               <div className="relative w-full max-w-xl">
                 <Image
-                  src="/wireframe.svg"
+                  src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
                   width={800}
                   height={600}
                   className="w-full h-auto"
                   priority
+                  placeholder="blur"
+                  blurDataURL={WIREFRAME_BLUR_DATA_URL}
                 />
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                   <Image
@@ -182,7 +185,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Modelfile SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Customize local models and agent experiences within Tiles. Backward compatible with Ollama&apos;s Modelfile spec, with support for the Open Responses API.
+                Customize local models and agent experiences within Tiles. Built in Rust, backward compatible with Ollama&apos;s Modelfile spec, with support for the Open Responses API.
               </p>
             </div>
           </div>
