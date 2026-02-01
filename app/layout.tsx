@@ -20,7 +20,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
   title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
-  description: "Tiles Privacy is your private and secure AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
+  description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project.",
   generator: "v0.app",
   icons: {
     icon: "/logo.png",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
-    description: "Tiles Privacy is your private and secure AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
+    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project.",
     images: [
       {
         url: "https://www.tiles.run/api/og",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
-    description: "Tiles Privacy is your private and secure AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
+    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project.",
     images: ["https://www.tiles.run/api/og"],
   },
 }

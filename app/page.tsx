@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Tiles: Your private and secure AI assistant for everyday use",
   openGraph: {
     title: "Tiles",
-    description: "Your private and secure AI assistant for everyday use",
+    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project.",
     images: [
       {
         url: "https://www.tiles.run/api/og",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles",
-    description: "Your private and secure AI assistant for everyday use",
+    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project.",
     images: ["https://www.tiles.run/api/og"],
   },
 }
