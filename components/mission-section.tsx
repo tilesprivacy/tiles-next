@@ -145,7 +145,7 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
 
   const content = (
     <>
-      <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl text-justify">
+      <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl">
         <h2 className={`text-3xl font-bold text-left ${textColor} mb-6 sm:mb-8 md:mb-10 lg:mb-12 lg:text-5xl`}>{title}</h2>
         <div className={`space-y-4 sm:space-y-6 text-sm leading-relaxed ${textColorBody} sm:text-base md:space-y-6 lg:space-y-8 lg:text-lg lg:leading-relaxed`}>
           <p className={`text-base font-medium ${textColor} lg:text-xl`}>
@@ -232,7 +232,7 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
             <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-3 sm:mb-4 lg:text-xl`}>Sponsors</h3>
             <div className="space-y-3 sm:space-y-4">
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Active</h4>
+                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Current</h4>
                 <div className="space-y-1 sm:space-y-1.5">
                   {people.sponsorsActive.map((person) => (
                     <Person key={person.name} name={person.name} links={person.links} />
@@ -256,7 +256,7 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
 
   if (compact) {
     return (
-      <section className="mt-20 lg:mt-32 pt-16 lg:pt-24 border-t border-black/10 dark:border-white/10 px-6 lg:px-12">
+      <section className="mt-20 lg:mt-32 pt-16 lg:pt-24 border-t border-black/10 dark:border-white/10">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 w-full max-w-7xl mx-auto">
           {content}
         </div>
