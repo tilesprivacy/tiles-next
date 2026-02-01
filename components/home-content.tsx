@@ -170,7 +170,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Modelfile SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Backward compatible with Ollama&apos;s Modelfile specification, with developer focused extensions and support for the Open Responses API.
+                Customize local models and agent experiences within Tiles. Backward compatible with Ollama&apos;s Modelfile spec, with support for the Open Responses API.
               </p>
             </div>
           </div>
