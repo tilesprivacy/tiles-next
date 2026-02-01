@@ -5,11 +5,7 @@ import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 
-interface HomeContentProps {
-  latestVersion: string
-}
-
-export function HomeContent({ latestVersion }: HomeContentProps) {
+export function HomeContent() {
   return (
     <div className="min-h-screen bg-background">
 
@@ -20,12 +16,8 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16 mb-14 lg:mb-20 items-center">
             {/* Left Pane - Content */}
             <div className="flex flex-col gap-8 lg:gap-10">
-              {/* Version Badge */}
-              <div className="w-fit">
-                <span className="rounded-full bg-white dark:bg-[#1a1a1a] px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-foreground shadow-sm ring-1 ring-black/10 dark:ring-white/10 lg:px-2.5 lg:py-1 lg:text-xs">
-                  {latestVersion}
-                </span>
-              </div>
+              {/* Spacer to preserve top whitespace (version badge removed) */}
+              <div className="h-5 lg:h-6 w-fit" aria-hidden="true" />
 
               {/* Title & Subtitle */}
               <div className="space-y-4 lg:space-y-6">
@@ -77,8 +69,12 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                   </Link>
                 </Button>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
-                  <span className="block">For macOS 14+ on Apple Silicon Macs (M1 or newer).</span>
-                  <span className="block">Recommended: 16 GB unified memory or more.</span>
+                  <span className="block">
+                    <span className="inline-flex shrink-0 align-middle rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#7c7ca8] border-[#7c7ca8]/60 bg-[#7c7ca8]/15 dark:text-[#a5a5c4] dark:border-[#a5a5c4]/50 dark:bg-[#a5a5c4]/20 mr-1.5">
+                      Alpha
+                    </span>
+                    for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
+                  </span>
                 </p>
               </div>
             </div>
