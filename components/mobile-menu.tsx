@@ -201,13 +201,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
             <a
-              href="https://github.com/orgs/tilesprivacy/projects/4"
+              href="https://github.com/tilesprivacy/tiles"
               target="_blank"
               rel="noopener noreferrer"
               onClick={onClose}
               className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-2`}
             >
-              Roadmap
+              Source
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 12 12"

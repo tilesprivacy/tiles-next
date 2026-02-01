@@ -88,12 +88,12 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6">
             <a
-              href="https://github.com/orgs/tilesprivacy/projects/4"
+              href="https://github.com/tilesprivacy/tiles"
               target="_blank"
               rel="noopener noreferrer"
               className={`text-base font-medium ${textColor} transition-colors ${textColorHover} inline-flex items-center gap-1`}
             >
-              Roadmap
+              Source
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 12 12"
