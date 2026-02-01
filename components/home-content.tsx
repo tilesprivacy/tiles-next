@@ -142,19 +142,6 @@ export function HomeContent() {
             <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
-                  <Package className="h-4 w-4" strokeWidth={1.75} />
-                </span>
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
-              </div>
-              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Bundled dependencies that run without being installed on your system, for secure and air-gapped installations.
-              </p>
-            </div>
-
-            {/* Feature 4 */}
-            <div className="space-y-3 lg:space-y-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Brain className="h-4 w-4" strokeWidth={1.75} />
                 </span>
                 <div className="flex items-center gap-2 flex-wrap min-w-0">
@@ -166,6 +153,19 @@ export function HomeContent() {
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Personalized assistance that learns and remembers your preferences.
+              </p>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="space-y-3 lg:space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <Package className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
+              </div>
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
+                Bundled dependencies that run without being installed on your system, for secure and air-gapped installations.
               </p>
             </div>
 
