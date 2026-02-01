@@ -39,10 +39,6 @@ export function BookFooter() {
     ? "text-xs text-white dark:text-white"
     : "text-xs !text-black dark:!text-black"
 
-  const statusLinkClasses = footerIsDark
-    ? "text-xs text-white dark:text-white transition-colors hover:text-white/70"
-    : "text-xs !text-black dark:!text-black transition-colors hover:text-black/70"
-
   // Theme switcher variant - based on footer color (not page theme)
   const themeSwitcherVariant = footerIsDark ? 'dark' : 'light'
 
@@ -80,30 +76,7 @@ export function BookFooter() {
           </div>
           <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
-            
-            {/* Theme Switcher placeholder */}
-            <div>
-              <ThemeSwitcher variant="dark" size="sm" />
-            </div>
-            
-            <a
-              href="https://status.tiles.run/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-white/70 whitespace-nowrap"
-            >
-              Status
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="h-2.5 w-2.5"
-              >
-                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
+            <ThemeSwitcher variant="dark" size="sm" />
           </div>
         </div>
       </footer>
@@ -192,32 +165,9 @@ export function BookFooter() {
           </div>
         </div>
 
-        <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs">
-          <p className={`${copyrightClasses} whitespace-nowrap`}>© 2026 Tiles Privacy</p>
-          
-          {/* Theme Switcher */}
-          <div>
-            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
-          </div>
-          
-          <a
-            href="https://status.tiles.run/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${statusLinkClasses} inline-flex items-center gap-1 whitespace-nowrap`}
-          >
-            Status
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="h-2.5 w-2.5"
-            >
-              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+        <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${copyrightClasses}`}>
+          <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
+          <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
         </div>
       </div>
     </footer>
