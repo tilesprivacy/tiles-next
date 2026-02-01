@@ -17,7 +17,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
       <main className="px-6 py-20 lg:px-12 lg:py-28">
         <div className="w-full max-w-6xl mx-auto">
           {/* Hero Section - Two Pane Layout */}
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16 mb-20 lg:mb-28 items-center">
+          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16 mb-14 lg:mb-20 items-center">
             {/* Left Pane - Content */}
             <div className="flex flex-col gap-8 lg:gap-10">
               {/* Version Badge */}
@@ -114,8 +114,8 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
           </div>
 
-          {/* Features Section */}
-          <div className="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:gap-16 max-w-4xl mx-auto mt-20 lg:mt-28">
+          {/* Features Section - same width as hero, tighter spacing for continuous flow */}
+          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 pt-14 lg:pt-20">
             {/* Feature 1 */}
             <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
@@ -186,9 +186,9 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
               </p>
             </div>
           </div>
-        </div>
 
-        <MissionSection title="Get to know Tiles Privacy" compact />
+          <MissionSection title="Get to know Tiles Privacy" compact />
+        </div>
       </main>
 
       <SiteFooter />

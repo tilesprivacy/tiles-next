@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from 'next-themes'
+import { FaBook, FaDiscord } from "react-icons/fa6"
 
 export function DownloadContent() {
   const { resolvedTheme } = useTheme()
@@ -154,6 +155,51 @@ export function DownloadContent() {
                 </a>
                 .
               </p>
+            </div>
+
+            {/* Manual, Join Discord - same flow as install */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+              {/* Manual */}
+              <div className="flex flex-col gap-4">
+                <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
+                  <FaBook className="h-5 w-5" />
+                </div>
+                <h2 className={`font-sans text-base font-medium tracking-tight ${textColor}`}>
+                  Manual
+                </h2>
+                <p className={`text-sm sm:text-base ${textColorMuted} leading-relaxed`}>
+                  Need usage instructions? Check out the{" "}
+                  <a
+                    href="https://tiles.run/book/manual"
+                    className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                  >
+                    Manual
+                  </a>
+                  {" "}in the Tiles book for how to use Tiles.
+                </p>
+              </div>
+
+              {/* Join Discord */}
+              <div className="flex flex-col gap-4">
+                <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
+                  <FaDiscord className="h-5 w-5" />
+                </div>
+                <h2 className={`font-sans text-base font-medium tracking-tight ${textColor}`}>
+                  Join Discord
+                </h2>
+                <p className={`text-sm sm:text-base ${textColorMuted} leading-relaxed`}>
+                  Chat with the team and other users, get help, and share feedback.{" "}
+                  <a
+                    href="https://go.tiles.run/discord"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                  >
+                    Join our Discord server
+                  </a>
+                  .
+                </p>
+              </div>
             </div>
           </div>
         </div>

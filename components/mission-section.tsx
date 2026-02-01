@@ -256,8 +256,8 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
 
   if (compact) {
     return (
-      <section className="mt-20 lg:mt-28 pt-12 lg:pt-16 border-t border-black/10 dark:border-white/10">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 w-full max-w-6xl mx-auto">
+      <section className="w-full mt-14 lg:mt-20 border-t border-black/[0.06] dark:border-white/[0.06] pt-20 lg:pt-28 pb-20 lg:pb-28">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-start gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 w-full">
           {content}
         </div>
       </section>
