@@ -97,7 +97,9 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 </Link>
               </Button>
               <p className="text-xs text-black/40 dark:text-[#8A8A8A]">
-                for macOS 14+ with Apple Silicon (M1+), 16 GB unified memory recommended.
+                For macOS 14+ on Apple Silicon Macs (M1 or newer).
+                <br />
+                Recommended: 16 GB unified memory or more.
               </p>
             </div>
           </div>
