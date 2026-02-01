@@ -97,7 +97,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 </Link>
               </Button>
               <p className="text-xs text-black/40 dark:text-[#8A8A8A]">
-                for macOS 14+ with Apple Silicon (M1+).
+                for macOS 14+ with Apple Silicon (M1+), 16 GB unified memory recommended.
               </p>
             </div>
           </div>
@@ -139,7 +139,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Bundled dependencies that run without being installed on your system, enabling private and air-gapped installations.
+                Bundled dependencies that run without being installed on your system, for secure and air-gapped installations.
               </p>
             </div>
 

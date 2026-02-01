@@ -70,7 +70,7 @@ export async function GET(request: Request) {
   sections.push('Tiles')
   sections.push('Your private and secure AI assistant for everyday use')
   sections.push('')
-  sections.push('Tiles is a private and secure AI assistant for everyday use. Download Tiles for macOS 14+ with Apple Silicon (M1+).')
+  sections.push('Tiles is a private and secure AI assistant for everyday use. Download Tiles for macOS 14+ with Apple Silicon (M1+), 16 GB unified memory recommended.')
   sections.push('')
   sections.push('='.repeat(80))
   sections.push('')
