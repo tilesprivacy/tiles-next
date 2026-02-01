@@ -5,9 +5,14 @@ description: "Machine Intelligence Resource naming schema extension for AIGC/ML 
 
 # MIR Extension
 
-> **Note:** This feature is a work in progress and is not currently shipped.
+<div className="my-6 flex justify-start">
+  <div className="rounded bg-black p-3 inline-block dark:bg-black bg-neutral-100">
+    <img src="/mir300_light.png" alt="MIR" className="h-[90px] w-auto dark:hidden" />
+    <img src="/mir300_dark.png" alt="MIR" className="h-[90px] w-auto hidden dark:block" />
+  </div>
+</div>
 
-Based on specs defined by Darkshapes' [MIR](https://huggingface.co/darkshapes/MIR_) (Machine Intelligence Resource), a naming schema for AIGC/ML work, and Ollama's [Modelfile](https://docs.ollama.com/modelfile), the blueprint to create and share models. Our implementation adds an additional MIR directive as a classification format that improves accessibility and reproducibility across the AI community:
+Based on specs defined by Darkshapes' [MIR](https://huggingface.co/darkshapes/MIR_) (Machine Intelligence Resource), a naming schema for AIGC/ML work, and Ollama's [Modelfile](https://docs.ollama.com/modelfile), the blueprint to create and share models. We are working on an implementation that introduces an additional MIR directive as a classification format, improving accessibility and reproducibility across the AI community and enabling practical chaining of models based on the prompt's intent.
 
 ```bash
 # Base model (required)
