@@ -7,18 +7,6 @@ description: "Our approach to model selection and optimization"
 
 Our approach to model selection is to use the most suitable model for each task, within the constraints of the supported hardware. Currently, Tiles is designed to handle everyday tasks, with plans to expand into more domain-specific use cases over time. We provide a carefully tested combination of system prompts, tools, and models, so users do not need to manage model selection or scaffolding themselves.
 
-For Beta builds, we have selected gpt-oss-20b as the primary model for everyday tasks and expose it through the Open Responses API. Its Mixture of Experts architecture activates only around 4B parameters at inference time out of a total 21B, making it a strong balance between quality and efficiency.
+For Beta builds, we have selected `gpt-oss-20b` as the primary model for everyday tasks and expose it through the Open Responses API. Its Mixture of Experts architecture activates only around 4B parameters at inference time out of a total 21B, making it a strong balance between quality and efficiency.
 
 This setup requires 16 GB of unified memory to run optimally and should not pose an adoption issue, as all Macs sold from mid-2025 onward ship with 16 GB of base memory.
-
-## Prompt Optimization
-
-We use DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/) built into the Tiles CLI to automatically optimize system prompts in Modelfiles.
-
-### Technical Details
-
-- Uses dspy-rs v0.7.3 under the hood
-- Runs COPRO (Coordinate Prompt Optimization) with breadth=5, depth=2
-- Evaluates prompts with a multi-factor heuristic (length, structure, persona) that doesn't incur extra API costs
-
-The optimization process typically takes a few minutes, depending on the model and dataset size. If no dataset is provided, it generates synthetic data by default using `openai:gpt-4o-mini` as the optimizer model.
