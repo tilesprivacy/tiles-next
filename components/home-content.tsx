@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Cpu, Code2, Package, Brain, FileCode } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
@@ -105,7 +106,12 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
           <div className="flex flex-col gap-10 lg:grid lg:grid-cols-2 lg:gap-16">
             {/* Feature 1 */}
             <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <Cpu className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
+              </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 An opinionated package of prompt, tools, and on-device models optimized for your hardware.
               </p>
@@ -113,7 +119,12 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
             {/* Feature 2 */}
             <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <Code2 className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
+              </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Execute Python code and analyze data in real-time conversations.
               </p>
@@ -121,7 +132,12 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
             {/* Feature 3 */}
             <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <Package className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
+              </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Bundled dependencies that run without being installed on your system, enabling private and air-gapped installations.
               </p>
@@ -129,11 +145,16 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
             {/* Feature 4 */}
             <div className="space-y-3 lg:space-y-4">
-              <div className="flex items-center gap-2 flex-wrap">
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-[#8A8A8A] ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
-                  EXPERIMENTAL
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <Brain className="h-4 w-4" strokeWidth={1.75} />
                 </span>
+                <div className="flex items-center gap-2 flex-wrap min-w-0">
+                  <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
+                  <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-[#8A8A8A] ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
+                    EXPERIMENTAL
+                  </span>
+                </div>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Personalized assistance that learns and remembers your preferences.
@@ -142,7 +163,12 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
 
             {/* Feature 5 */}
             <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-semibold text-foreground">Modelfile SDK</h3>
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <FileCode className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Modelfile SDK</h3>
+              </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Backward compatible with Ollama&apos;s Modelfile specification, with developer focused extensions and support for the Open Responses API.
               </p>
