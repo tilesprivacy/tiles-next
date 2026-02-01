@@ -30,8 +30,8 @@ export function SiteFooter() {
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
 
   return (
-    <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-4 sm:px-6 py-6 sm:py-8 lg:py-10`}>
-      <div className="mx-auto max-w-7xl flex flex-col gap-4 sm:gap-5 lg:gap-6">
+    <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-8 lg:py-10`}>
+      <div className="mx-auto max-w-6xl flex flex-col gap-4 sm:gap-5 lg:gap-6">
         {/* Main content - consistent layout on mobile and desktop */}
         <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
           {/* Links - left aligned on all screens */}
