@@ -17,7 +17,7 @@ export async function GET(request: Request) {
   const origin = url.origin
 
   const title = "Tiles"
-  const tagline = "Your private AI assistant for everyday use"
+  const tagline = "Your private and secure AI assistant for everyday use"
 
   // Fetch the logo image and convert to base64 for edge runtime
   const logoResponse = await fetch(`${origin}/logo.png`)

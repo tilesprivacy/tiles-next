@@ -96,7 +96,7 @@ export function BlogPostContent({
                 blog.
               </p>
               <p>
-              Tiles is a private AI assistant for everyday use.
+              Tiles is a private and secure AI assistant for everyday use.
               </p>
               <p>
                 There are{" "}

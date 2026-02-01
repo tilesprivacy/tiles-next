@@ -19,30 +19,30 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
-  title: "Tiles Privacy – Your private AI assistant for everyday use",
-  description: "Tiles Privacy is your private AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
+  title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
+  description: "Tiles Privacy is your private and secure AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
   generator: "v0.app",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
   },
   openGraph: {
-    title: "Tiles Privacy – Your private AI assistant for everyday use",
-    description: "Tiles Privacy is your private AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
+    title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
+    description: "Tiles Privacy is your private and secure AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
     images: [
       {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles Privacy – Your private AI assistant for everyday use",
+        alt: "Tiles Privacy – Your private and secure AI assistant for everyday use",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles Privacy – Your private AI assistant for everyday use",
-    description: "Tiles Privacy is your private AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
+    title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
+    description: "Tiles Privacy is your private and secure AI assistant for everyday use. Keep your memory, notes, and workflows private on your own device.",
     images: ["https://www.tiles.run/api/og"],
   },
 }

@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
+import { MissionSection } from "@/components/mission-section"
 
 interface HomeContentProps {
   latestVersion: string
@@ -51,7 +52,7 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
                 Tiles
               </h1>
               <p className="text-base text-black/60 dark:text-[#B3B3B3] lg:text-xl max-w-xl leading-relaxed">
-                Your private AI assistant for everyday use
+                Your private and secure AI assistant for everyday use. Developed as an independent open source project.
               </p>
             </div>
 
@@ -132,6 +133,8 @@ export function HomeContent({ latestVersion }: HomeContentProps) {
             </div>
           </div>
         </div>
+
+        <MissionSection title="Get to know Tiles Privacy" compact />
       </main>
 
       <SiteFooter />

@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button"
 import { memo, useCallback, useEffect, useState } from "react"
 import { MobileMenu } from "./mobile-menu"
 
+/** Set to true to show the top banner (e.g. for announcements). */
+const BANNER_ENABLED = false
+
 interface SiteHeaderProps {
   themeAware?: boolean
 }
@@ -84,9 +87,25 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6">
-            <Link href="/mission" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Mission
-            </Link>
+            <a
+              href="https://github.com/orgs/tilesprivacy/projects/4"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`text-base font-medium ${textColor} transition-colors ${textColorHover} inline-flex items-center gap-1`}
+            >
+              Roadmap
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="h-3 w-3 shrink-0"
+                aria-hidden
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
             <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
               Changelog
             </Link>
@@ -187,7 +206,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isBannerVisible, setIsBannerVisible] = useState(false)
 
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined" || !BANNER_ENABLED) return
     const dismissed = window.localStorage.getItem("tilesBannerDismissed")
     setIsBannerVisible(dismissed !== "true")
   }, [])

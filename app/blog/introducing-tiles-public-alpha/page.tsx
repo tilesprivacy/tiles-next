@@ -181,7 +181,7 @@ export default function HowTilesWorksPage() {
                 <div className="my-8 lg:my-12">
                   <Image
                     src="/newtilescli.png"
-                    alt="Tiles CLI - Your private AI assistant running locally"
+                    alt="Tiles CLI - Your private and secure AI assistant running locally"
                     width={1200}
                     height={600}
                     className="w-full h-auto rounded-lg"
@@ -398,7 +398,7 @@ export default function HowTilesWorksPage() {
                 blog.
               </p>
               <p>
-              Tiles is a private AI assistant for everyday use.
+              Tiles is a private and secure AI assistant for everyday use.
               </p>
               <p>
                 There are{" "}
