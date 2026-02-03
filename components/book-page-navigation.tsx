@@ -59,40 +59,63 @@ export function BookPageNavigation() {
   }
 
   return (
-    <nav data-book-navigation className="flex mt-12 justify-between gap-4 border-t border-foreground/10 pt-8 mx-4 lg:mx-0 lg:mt-16 lg:pt-12">
-      {prevPage ? (
-        <Link
-          href={prevPage.route}
-          className="group flex items-center gap-2 transition-all lg:gap-3"
-        >
-          <ChevronLeft className="h-5 w-5 shrink-0 text-foreground/60 transition-colors group-hover:text-foreground lg:h-6 lg:w-6" />
-          <div className="flex flex-col gap-1">
-            <span className="text-xs font-medium text-foreground/60 lg:text-sm">Previous</span>
-            <span className="text-sm font-semibold text-foreground transition-colors group-hover:text-foreground/80 lg:text-base">
-              {prevPage.title}
-            </span>
+    <nav
+      data-book-navigation
+      className="mt-12 mx-4 lg:mx-0 lg:mt-16"
+    >
+      {/* Outer Gray Pill */}
+      <div className="flex items-center gap-3 lg:gap-4 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded-[1.75rem] pl-5 pr-2 py-2 lg:pl-7 lg:pr-2.5 lg:py-2.5">
+        {/* Previous Button - On Gray Background */}
+        {prevPage ? (
+          <Link
+            href={prevPage.route}
+            className="group flex items-center gap-1.5 lg:gap-2 text-muted-foreground hover:text-foreground transition-colors no-underline hover:no-underline"
+            style={{ textDecoration: 'none' }}
+          >
+            <ChevronLeft className="h-4 w-4 lg:h-5 lg:w-5 shrink-0" />
+            <span className="text-sm lg:text-base font-normal">Previous</span>
+          </Link>
+        ) : (
+          <div className="flex items-center gap-1.5 lg:gap-2 text-muted-foreground/50">
+            <ChevronLeft className="h-4 w-4 lg:h-5 lg:w-5 shrink-0" />
+            <span className="text-sm lg:text-base font-normal">Previous</span>
           </div>
-        </Link>
-      ) : (
-        <div />
-      )}
-      
-      {nextPage ? (
-        <Link
-          href={nextPage.route}
-          className="group flex items-center justify-end gap-2 text-right transition-all lg:gap-3"
-        >
-          <div className="flex flex-col gap-1">
-            <span className="text-xs font-medium text-foreground/60 lg:text-sm">Next</span>
-            <span className="text-sm font-semibold text-foreground transition-colors group-hover:text-foreground/80 lg:text-base">
+        )}
+
+        {/* Inner White Pill - Contains Page Title and Navigation Button */}
+        <div className="flex-1 flex items-center justify-end gap-4 lg:gap-6 bg-background rounded-[1.75rem] pl-4 pr-5 py-3.5 lg:pl-6 lg:pr-7 lg:py-4">
+          {/* Show Next Page Title if exists, otherwise show Previous Page Title */}
+          {nextPage ? (
+            <span className="text-base lg:text-lg font-semibold text-foreground">
               {nextPage.title}
             </span>
-          </div>
-          <ChevronRight className="h-5 w-5 shrink-0 text-foreground/60 transition-colors group-hover:text-foreground lg:h-6 lg:w-6" />
-        </Link>
-      ) : (
-        <div />
-      )}
+          ) : prevPage ? (
+            <span className="text-base lg:text-lg font-semibold text-foreground mr-auto">
+              {prevPage.title}
+            </span>
+          ) : null}
+
+          {/* Vertical Separator */}
+          {nextPage && <div className="h-6 lg:h-7 w-px bg-border"></div>}
+
+          {/* Next Button */}
+          {nextPage ? (
+            <Link
+              href={nextPage.route}
+              className="group flex items-center gap-1.5 lg:gap-2 text-muted-foreground hover:text-foreground transition-colors no-underline hover:no-underline"
+              style={{ textDecoration: 'none' }}
+            >
+              <span className="text-sm lg:text-base font-normal">Next</span>
+              <ChevronRight className="h-4 w-4 lg:h-5 lg:w-5 shrink-0" />
+            </Link>
+          ) : (
+            <div className="flex items-center gap-1.5 lg:gap-2 text-muted-foreground/50">
+              <span className="text-sm lg:text-base font-normal">Next</span>
+              <ChevronRight className="h-4 w-4 lg:h-5 lg:w-5 shrink-0" />
+            </div>
+          )}
+        </div>
+      </div>
     </nav>
   )
 }
