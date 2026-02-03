@@ -175,7 +175,7 @@ export function DownloadContent() {
                   >
                     Manual
                   </a>
-                  {" "}in the Tiles book for how to use Tiles.
+                  {" "}in the book for step by step guidance.
                 </p>
               </div>
 
