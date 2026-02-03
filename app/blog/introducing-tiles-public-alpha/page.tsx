@@ -6,10 +6,30 @@ import { SiteFooter } from "@/components/site-footer"
 import NewsletterForm from "@/components/newsletter-form"
 import { BlogReference } from "@/components/blog-reference"
 import { ReadingTime } from "@/components/reading-time"
+import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-icons/fa6"
+import { useEffect, useMemo, useState } from "react"
 import { blogPosts } from "@/lib/blog-posts"
 
 export default function HowTilesWorksPage() {
   const post = blogPosts.find(p => p.slug === "introducing-tiles-public-alpha")
+  const [shareUrl, setShareUrl] = useState<string | null>(null)
+
+  useEffect(() => {
+    setShareUrl(window.location.href)
+  }, [])
+
+  const shareText = useMemo(() => {
+    if (!shareUrl) return ''
+    return encodeURIComponent(`Introducing Tiles Public Alpha ${shareUrl}`)
+  }, [shareUrl])
+
+  const shareUrlEncoded = useMemo(() => {
+    if (!shareUrl) return ''
+    return encodeURIComponent(shareUrl)
+  }, [shareUrl])
+
+  const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
+  const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -37,6 +57,61 @@ export default function HowTilesWorksPage() {
                 </>
               )}
             </div>
+            {shareUrl && (
+              <div className="mt-5 flex items-center gap-4">
+                <a
+                  href={`https://twitter.com/intent/tweet?text=${shareText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Share on X"
+                  className="inline-flex items-center justify-center"
+                >
+                  <FaXTwitter className={shareIconClass} />
+                </a>
+                <a
+                  href={`https://bsky.app/intent/compose?text=${shareText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Share on Bluesky"
+                  className="inline-flex items-center justify-center"
+                >
+                  <FaBluesky className={shareIconClass} />
+                </a>
+                <a
+                  href={`https://mastodon.social/share?text=${shareText}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Share on Mastodon"
+                  className="inline-flex items-center justify-center"
+                >
+                  <FaMastodon className={shareIconClass} />
+                </a>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrlEncoded}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Share on LinkedIn"
+                  className="inline-flex items-center justify-center"
+                >
+                  <FaLinkedinIn className={shareIconClass} />
+                </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!shareUrl) return
+                    if (navigator?.clipboard?.writeText) {
+                      navigator.clipboard.writeText(shareUrl)
+                      return
+                    }
+                    window.open(shareUrl, '_blank', 'noopener,noreferrer')
+                  }}
+                  aria-label="Copy link"
+                  className="inline-flex items-center justify-center"
+                >
+                  <FaLink className={copyIconClass} />
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Cover Image */}
