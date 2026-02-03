@@ -13,6 +13,7 @@ import { blogPosts } from "@/lib/blog-posts"
 export default function HowTilesWorksPage() {
   const post = blogPosts.find(p => p.slug === "introducing-tiles-public-alpha")
   const [shareUrl, setShareUrl] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setShareUrl(window.location.href)
@@ -20,7 +21,7 @@ export default function HowTilesWorksPage() {
 
   const shareText = useMemo(() => {
     if (!shareUrl) return ''
-    return encodeURIComponent(`Introducing Tiles Public Alpha ${shareUrl}`)
+    return encodeURIComponent(`Introducing Tiles Public Alpha: ${shareUrl}`)
   }, [shareUrl])
 
   const shareUrlEncoded = useMemo(() => {
@@ -30,6 +31,7 @@ export default function HowTilesWorksPage() {
 
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
+  const copyLabelClass = "text-[11px] text-black/50 dark:text-[#8A8A8A] lg:text-xs"
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -101,6 +103,8 @@ export default function HowTilesWorksPage() {
                     if (!shareUrl) return
                     if (navigator?.clipboard?.writeText) {
                       navigator.clipboard.writeText(shareUrl)
+                      setCopied(true)
+                      window.setTimeout(() => setCopied(false), 1400)
                       return
                     }
                     window.open(shareUrl, '_blank', 'noopener,noreferrer')
@@ -110,6 +114,9 @@ export default function HowTilesWorksPage() {
                 >
                   <FaLink className={copyIconClass} />
                 </button>
+                <span className={copyLabelClass}>
+                  {copied ? 'Copied' : 'Copy link'}
+                </span>
               </div>
             )}
           </div>

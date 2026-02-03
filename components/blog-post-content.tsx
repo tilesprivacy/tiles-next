@@ -29,6 +29,7 @@ export function BlogPostContent({
   children 
 }: BlogPostContentProps) {
   const [shareUrl, setShareUrl] = useState<string | null>(null)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     setShareUrl(window.location.href)
@@ -36,7 +37,7 @@ export function BlogPostContent({
 
   const shareText = useMemo(() => {
     if (!shareUrl) return ''
-    return encodeURIComponent(`${title} ${shareUrl}`)
+    return encodeURIComponent(`${title}: ${shareUrl}`)
   }, [title, shareUrl])
 
   const shareUrlEncoded = useMemo(() => {
@@ -46,6 +47,7 @@ export function BlogPostContent({
 
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
+  const copyLabelClass = "text-[11px] text-black/50 dark:text-white/50 lg:text-xs"
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -113,6 +115,8 @@ export function BlogPostContent({
                     if (!shareUrl) return
                     if (navigator?.clipboard?.writeText) {
                       navigator.clipboard.writeText(shareUrl)
+                      setCopied(true)
+                      window.setTimeout(() => setCopied(false), 1400)
                       return
                     }
                     window.open(shareUrl, '_blank', 'noopener,noreferrer')
@@ -122,6 +126,9 @@ export function BlogPostContent({
                 >
                   <FaLink className={copyIconClass} />
                 </button>
+                <span className={copyLabelClass}>
+                  {copied ? 'Copied' : 'Copy link'}
+                </span>
               </div>
             )}
           </div>
