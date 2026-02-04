@@ -38,7 +38,7 @@ const customChanges: Record<string, ChangeItem[]> = {
     {
       text: "Added support for gpt-oss-20b in interactive chat",
       subItems: [
-        "gpt-oss is supported and used as the default model for non-memory chat"
+        "gpt-oss-20b is supported and used as the default model for non-memory chat"
       ]
     },
     {
