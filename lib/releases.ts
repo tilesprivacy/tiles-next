@@ -14,7 +14,50 @@ export interface Release {
 }
 
 // Custom changes to supplement or override GitHub release data
-const customChanges: Record<string, ChangeItem[]> = {}
+const customChanges: Record<string, ChangeItem[]> = {
+  "0.4.0": [
+    {
+      text: "Added `optimize` subcommand for automatic SYSTEM prompt optimization using DSRs",
+      subItems: [
+        "`tiles optimize <Modelfile>` updates the Modelfile's system prompt",
+        "Requires `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc."
+      ]
+    },
+    {
+      text: "Implemented a portable Python runtime in the installer",
+      subItems: [
+        "Tiles can now be installed without any system Python or other system dependencies"
+      ]
+    },
+    {
+      text: "Packed default Modelfiles and now read the system prompt from the Modelfile",
+      subItems: [
+        "Default Modelfiles are bundled directly with the Tiles installer"
+      ]
+    },
+    {
+      text: "Added support for gpt-oss in interactive chat",
+      subItems: [
+        "gpt-oss is supported and used as the default model for non-memory chat"
+      ]
+    },
+    {
+      text: "Added basic support for the Open Responses API (`/v1/responses`) and REST endpoints"
+    },
+    {
+      text: "Added token metrics for model responses in the REPL"
+    },
+    {
+      text: "Added the `-m` flag to `tiles run` to execute Tiles in memory mode",
+      subItems: [
+        "This is an experimental feature"
+      ]
+    },
+    {
+      text: "Tilekit 0.2.0: Integrated DSRs for automatic SYSTEM prompt optimization"
+    }
+  ]
+}
 
 // Additional changes to append to existing changes (for supplements, not overrides)
 const additionalChanges: Record<string, ChangeItem[]> = {}
@@ -28,7 +71,7 @@ export async function fetchReleases(): Promise<Release[]> {
   const res = await fetch(
     "https://api.github.com/repos/tilesprivacy/tiles/releases",
     {
-      next: { revalidate: 3600 },
+      cache: 'no-store',
       headers: {
         Accept: "application/vnd.github+json",
       },
@@ -65,9 +108,10 @@ export async function fetchReleases(): Promise<Release[]> {
       }
 
       // Remove trailing periods from all bullet points and sub-items
+      // Also fix any typos
       finalChanges = finalChanges.map((change) => ({
         ...change,
-        text: change.text.replace(/\.$/, ""),
+        text: change.text.replace(/\.$/, "").replace(/enoints/g, "endpoints"),
         subItems: change.subItems?.map((sub) => sub.replace(/\.$/, "")),
       }))
 
@@ -146,7 +190,7 @@ function extractChanges(body: string): ChangeItem[] {
     changes.push(currentChange)
   }
 
-  return changes.slice(0, 6)
+  return changes
 }
 
 function extractCompareUrl(body: string): string | undefined {
