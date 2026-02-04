@@ -109,14 +109,14 @@ export default function HowTilesWorksPage() {
                     }
                     window.open(shareUrl, '_blank', 'noopener,noreferrer')
                   }}
-                  aria-label="Copy link"
-                  className="inline-flex items-center justify-center"
+                  aria-label={copied ? "Copied to clipboard!" : "Copy URL"}
+                  className="inline-flex items-center gap-1.5 cursor-pointer"
                 >
                   <FaLink className={copyIconClass} />
+                  <span className={copyLabelClass}>
+                    {copied ? 'Copied to clipboard!' : 'Copy URL'}
+                  </span>
                 </button>
-                <span className={copyLabelClass}>
-                  {copied ? 'Copied' : 'Copy link'}
-                </span>
               </div>
             )}
           </div>

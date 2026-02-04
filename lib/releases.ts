@@ -23,7 +23,7 @@ const customChanges: Record<string, ChangeItem[]> = {
       ]
     },
     {
-      text: "Packed default Modelfiles and now read the system prompt from the Modelfile",
+      text: "Bundled default Modelfiles and now read the system prompt directly from the Modelfile",
       subItems: [
         "Default Modelfiles are bundled directly with the Tiles installer"
       ]
