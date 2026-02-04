@@ -17,13 +17,6 @@ export interface Release {
 const customChanges: Record<string, ChangeItem[]> = {
   "0.4.0": [
     {
-      text: "Added `optimize` subcommand for automatic SYSTEM prompt optimization using DSRs",
-      subItems: [
-        "`tiles optimize <Modelfile>` updates the Modelfile's system prompt",
-        "Requires `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, etc."
-      ]
-    },
-    {
       text: "Implemented a portable Python runtime in the installer",
       subItems: [
         "Tiles can now be installed without any system Python or other system dependencies"
@@ -54,7 +47,10 @@ const customChanges: Record<string, ChangeItem[]> = {
       ]
     },
     {
-      text: "Tilekit 0.2.0: Integrated DSRs for automatic SYSTEM prompt optimization"
+      text: "Tilekit 0.2.0: Added the `optimize` subcommand for automatic SYSTEM prompt optimization using DSRs",
+      subItems: [
+        "`tiles optimize <Modelfile>` updates the Modelfile's system prompt using server based LLMs as optimizer models"
+      ]
     }
   ]
 }

@@ -39,6 +39,27 @@ const ExternalLinkIcon = () => (
   </svg>
 )
 
+// Helper function to render text with inline code
+const renderTextWithCode = (text: string, isDark: boolean) => {
+  const parts = text.split(/(`[^`]+`)/)
+  return parts.map((part, index) => {
+    if (part.startsWith('`') && part.endsWith('`')) {
+      const code = part.slice(1, -1)
+      return (
+        <code
+          key={index}
+          className={`px-1.5 py-0.5 rounded text-sm font-mono ${
+            isDark ? 'bg-[#1a1a1a] text-[#E6E6E6]' : 'bg-gray-100 text-gray-800'
+          }`}
+        >
+          {code}
+        </code>
+      )
+    }
+    return part
+  })
+}
+
 export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -207,14 +228,14 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             <li key={i}>
                               <div className="flex items-start gap-2">
                                 <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                <span>{change.text}</span>
+                                <span>{renderTextWithCode(change.text, isDark)}</span>
                               </div>
                               {change.subItems && change.subItems.length > 0 && (
                                 <ul className="ml-4 mt-1 space-y-1">
                                   {change.subItems.map((subItem, j) => (
                                     <li key={j} className="flex items-start gap-2">
                                       <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                      <span className={textColorBodyLight}>{subItem}</span>
+                                      <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
                                     </li>
                                   ))}
                                 </ul>
@@ -290,14 +311,14 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                               <li key={i}>
                                 <div className="flex items-start gap-2">
                                   <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                  <span>{change.text}</span>
+                                  <span>{renderTextWithCode(change.text, isDark)}</span>
                                 </div>
                                 {change.subItems && change.subItems.length > 0 && (
                                   <ul className="ml-4 mt-1 space-y-1">
                                     {change.subItems.map((subItem, j) => (
                                       <li key={j} className="flex items-start gap-2">
                                         <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                        <span className={textColorBodyLight}>{subItem}</span>
+                                        <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
                                       </li>
                                     ))}
                                   </ul>
