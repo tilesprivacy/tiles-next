@@ -111,9 +111,9 @@ export function HomeContent() {
           </div>
 
           {/* Features Section - same width as hero, tighter spacing for continuous flow */}
-          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 pt-14 lg:pt-20 will-change-[transform] transform-gpu">
+          <div className="flex flex-col gap-10 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 pt-14 lg:pt-20">
             {/* Feature 1 */}
-            <div className="space-y-3 lg:space-y-4 [contain:layout_style_paint] transform-gpu">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Cpu className="h-4 w-4" strokeWidth={1.75} />
@@ -126,7 +126,7 @@ export function HomeContent() {
             </div>
 
             {/* Feature 2 */}
-            <div className="space-y-3 lg:space-y-4 [contain:layout_style_paint] transform-gpu">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Code2 className="h-4 w-4" strokeWidth={1.75} />
@@ -139,7 +139,7 @@ export function HomeContent() {
             </div>
 
             {/* Feature 3 */}
-            <div className="space-y-3 lg:space-y-4 [contain:layout_style_paint] transform-gpu">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Brain className="h-4 w-4" strokeWidth={1.75} />
@@ -157,7 +157,7 @@ export function HomeContent() {
             </div>
 
             {/* Feature 4 */}
-            <div className="space-y-3 lg:space-y-4 [contain:layout_style_paint] transform-gpu">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Package className="h-4 w-4" strokeWidth={1.75} />
@@ -170,7 +170,7 @@ export function HomeContent() {
             </div>
 
             {/* Feature 5 */}
-            <div className="space-y-3 lg:space-y-4 [contain:layout_style_paint] transform-gpu">
+            <div className="space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <FileCode className="h-4 w-4" strokeWidth={1.75} />
