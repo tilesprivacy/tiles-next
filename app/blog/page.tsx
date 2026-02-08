@@ -33,6 +33,8 @@ export default function BlogPage() {
     title: post.title,
     description: post.description,
     date: post.date,
+    coverImage: post.coverImage ?? "/og-image.jpg",
+    coverAlt: post.coverAlt ?? post.title,
   }))
 
   return <BlogListingContent posts={serializedPosts} />

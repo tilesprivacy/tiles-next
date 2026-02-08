@@ -2,12 +2,19 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useId } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useTheme } from 'next-themes'
+import { cn } from "@/lib/utils"
 
-export default function NewsletterForm() {
+interface NewsletterFormProps {
+  surface?: "auto" | "light" | "dark"
+  className?: string
+}
+
+export default function NewsletterForm({ surface = "auto", className }: NewsletterFormProps) {
+  const emailInputId = useId()
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
@@ -18,7 +25,7 @@ export default function NewsletterForm() {
     setMounted(true)
   }, [])
 
-  const isDark = mounted && resolvedTheme === 'dark'
+  const isDark = surface === "auto" ? mounted && resolvedTheme === "dark" : surface === "dark"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -72,39 +79,61 @@ export default function NewsletterForm() {
     }
   }
 
-  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
-  const inputBg = isDark ? '!bg-[#1a1a1a]' : '!bg-white'
-  const inputText = isDark ? '!text-[#E6E6E6]' : '!text-black'
-  const inputPlaceholder = isDark ? 'placeholder:!text-[#8A8A8A]' : 'placeholder:!text-black/50'
-  const buttonBg = isDark ? 'bg-white' : 'bg-black'
-  const buttonText = isDark ? 'text-black' : 'text-white'
-  const buttonHover = isDark ? 'hover:bg-white/90' : 'hover:bg-black/90'
-  const messageColor = isDark ? 'text-[#B3B3B3]' : 'text-black/60'
+  const inputClasses = isDark
+    ? "!h-10 !bg-[#151515] !border-[#303030] !text-[#E6E6E6] placeholder:!text-[#8A8A8A] focus-visible:!ring-white/20 focus-visible:!border-white/25"
+    : "!h-10 !bg-white !border-black/15 !text-black placeholder:!text-black/45 focus-visible:!ring-black/10 focus-visible:!border-black/25"
+
+  const buttonClasses = isDark
+    ? "!h-10 !bg-white !text-black hover:!bg-[#F2F2F2] focus-visible:!ring-white/30"
+    : "!h-10 !bg-black !text-white hover:!bg-black/90 focus-visible:!ring-black/20"
+
+  const messageClasses =
+    status === "error"
+      ? isDark
+        ? "text-red-300"
+        : "text-red-700"
+      : isDark
+        ? "text-[#B3B3B3]"
+        : "text-black/65"
 
   return (
-    <form onSubmit={handleSubmit} className="w-full max-w-sm">
-      <div className="space-y-3">
-        <div className="flex gap-2">
+    <form onSubmit={handleSubmit} className={cn("w-full", className)}>
+      <div className="space-y-2.5">
+        <label htmlFor={emailInputId} className="sr-only">
+          Email address
+        </label>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           <Input
+            id={emailInputId}
             type="email"
+            autoComplete="email"
+            inputMode="email"
             placeholder="your@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={status === "loading"}
-            className={`text-sm ${inputBg} ${inputText} ${inputPlaceholder} selection:!bg-blue-500 selection:!text-white`}
+            className={cn(
+              "text-sm selection:!bg-blue-500 selection:!text-white",
+              inputClasses,
+            )}
           />
           <Button
             type="submit"
             disabled={status === "loading" || status === "success"}
-            className={`h-9 rounded-md ${buttonBg} px-4 text-xs font-medium ${buttonText} ${buttonHover} disabled:opacity-50 lg:h-9 lg:px-4 lg:text-sm`}
+            className={cn(
+              "w-full rounded-md px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
+              buttonClasses,
+            )}
           >
             {status === "loading" ? "Subscribing..." : status === "success" ? "Done!" : "Subscribe"}
           </Button>
         </div>
         {message && (
           <p
-            className={`text-xs leading-relaxed ${messageColor}`}
+            role="status"
+            aria-live="polite"
+            className={cn("text-xs leading-relaxed", messageClasses)}
           >
             {message}
           </p>

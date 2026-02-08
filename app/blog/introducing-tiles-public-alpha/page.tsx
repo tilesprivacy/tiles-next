@@ -3,8 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
-import NewsletterForm from "@/components/newsletter-form"
 import { BlogReference } from "@/components/blog-reference"
+import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
 import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-icons/fa6"
 import { useEffect, useMemo, useState } from "react"
@@ -36,11 +36,11 @@ export default function HowTilesWorksPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-4 pt-32 pb-20 lg:px-6 lg:pt-32 lg:pb-24 gap-6 lg:gap-12 overflow-x-hidden">
+      <main className="flex flex-1 flex-col items-center px-6 pt-32 pb-20 sm:px-8 lg:px-10 lg:pt-32 lg:pb-24 xl:px-12 gap-6 lg:gap-12 overflow-x-hidden">
         {/* Bottom Card - Blog Post Content */}
-        <div className="w-full max-w-2xl px-4 py-6 lg:px-16 lg:py-16 relative">
+        <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
           {/* Blog Title */}
-          <div className="mb-8 lg:mb-12">
+          <div className="mb-8 lg:mb-12 lg:max-w-[44rem] lg:mx-auto">
             <h1 className="text-3xl font-semibold text-black dark:text-[#E6E6E6] mb-4 lg:text-6xl lg:mb-5 tracking-tight">
               Introducing Tiles Public Alpha
             </h1>
@@ -122,7 +122,7 @@ export default function HowTilesWorksPage() {
           </div>
 
           {/* Cover Image */}
-          <div className="mb-8 lg:mb-16">
+          <div className="mb-8 lg:mb-16 lg:max-w-[44rem] lg:mx-auto">
             <Image
               src="/kingston.webp"
               alt="Cover image for Introducing Tiles Public Alpha"
@@ -132,12 +132,17 @@ export default function HowTilesWorksPage() {
             />
           </div>
 
-          {/* Blog Content */}
-          <article className="blog-article-container relative">
-            {/* Container for side references on desktop */}
-            <div className="blog-reference-container hidden lg:block absolute left-0 top-0 w-full h-full pointer-events-none" />
+          {/* Blog Content + TOC + References lanes */}
+          <div className="xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
+            <aside className="hidden xl:block">
+              <BlogTableOfContents />
+            </aside>
 
-            <div className="space-y-6 text-base leading-relaxed text-black/70 dark:text-[#B3B3B3] lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
+            <article className="blog-article-container relative mx-auto max-w-[44rem] xl:mx-0 xl:max-w-none">
+              {/* Container for side references on desktop */}
+              <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
+
+              <div className="blog-article-content space-y-6 text-base leading-relaxed text-black/70 dark:text-[#B3B3B3] lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
               <p>
                 Today, we're releasing the public alpha of Tiles, our first step toward a privacy-first AI assistant built to run entirely on the user's device. Tiles brings together local-first models, personalized experiences, and verifiable privacy guarantees, so data remains under the user's control by default. We see identity and memory as inseparable parts of the same system, and Tiles is designed around that idea: an AI assistant that acts as a user-owned agent rather than a centralized service.
               </p>
@@ -463,11 +468,14 @@ export default function HowTilesWorksPage() {
                   .
                 </p>
               </section>
-            </div>
-          </article>
+              </div>
+            </article>
+
+            <div className="hidden xl:block" aria-hidden="true" />
+          </div>
 
           {/* Blog Footer Text */}
-          <div className="mt-16 lg:mt-20">
+          <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
             <div className="space-y-2 text-xs text-black/60 dark:text-[#8A8A8A] lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
               <p>
                 You're reading the{" "}
@@ -499,18 +507,6 @@ export default function HowTilesWorksPage() {
             </div>
           </div>
 
-          {/* Newsletter Subscription Form */}
-          <div className="pt-12 lg:pt-16 border-t border-black/10 dark:border-[#2a2a2a]">
-            <div className="space-y-4 lg:space-y-5">
-              <div>
-                <h3 className="text-lg font-semibold text-black dark:text-[#E6E6E6] mb-2 lg:text-xl lg:mb-3">Stay updated</h3>
-                <p className="text-sm text-black/60 dark:text-[#B3B3B3] lg:text-base">
-                  Get notified when we publish new posts about privacy and personalization.
-                </p>
-              </div>
-              <NewsletterForm />
-            </div>
-          </div>
         </div>
       </main>
 

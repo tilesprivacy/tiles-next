@@ -6,6 +6,7 @@ import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { ThemeSwitcher } from "@/components/theme-switcher"
+import NewsletterForm from "@/components/newsletter-form"
 
 export function SiteFooter() {
   const { resolvedTheme } = useTheme()
@@ -28,14 +29,36 @@ export function SiteFooter() {
 
   // Theme switcher variant - opposite of page theme since footer is reversed
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
+  const newsletterDescriptionColor = isDarkFooter ? 'text-[#B3B3B3]' : 'text-black/60'
+  const newsletterHeadingColor = isDarkFooter ? '!text-[#E6E6E6]' : '!text-black'
 
   return (
     <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-8 lg:py-10`}>
-      <div className="mx-auto max-w-6xl flex flex-col gap-4 sm:gap-5 lg:gap-6">
+      <div className="mx-auto max-w-6xl flex flex-col gap-8 lg:gap-10">
+        <section className={`grid gap-6 border-b pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-10 lg:pb-10 ${borderColor}`}>
+          <div className="max-w-xl space-y-2">
+            <h3 className={`text-lg font-semibold tracking-tight lg:text-xl ${newsletterHeadingColor}`}>
+              Stay updated
+            </h3>
+            <p className={`text-sm leading-relaxed lg:text-base ${newsletterDescriptionColor}`}>
+              Get notified when we publish new posts about privacy and personalization.
+            </p>
+            <p className={`text-xs ${newsletterDescriptionColor}`}>
+              No spam. Unsubscribe anytime.
+            </p>
+          </div>
+          <div className="w-full">
+            <NewsletterForm
+              surface={isDarkFooter ? "dark" : "light"}
+              className="w-full"
+            />
+          </div>
+        </section>
+
         {/* Main content - consistent layout on mobile and desktop */}
-        <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
           {/* Links - left aligned on all screens */}
-          <nav className="flex items-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm flex-shrink-0">
+          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs sm:gap-4 sm:text-sm md:gap-6">
             <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
               Subprocessors
             </Link>
@@ -48,7 +71,7 @@ export function SiteFooter() {
           </nav>
 
           {/* Social icons - right aligned on all screens */}
-          <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 mt-1 sm:mt-1.5">
             <a
               href="https://x.com/tilesprivacy"
               target="_blank"
@@ -127,7 +150,7 @@ export function SiteFooter() {
         {/* Bottom section - copyright and theme switcher */}
         <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
           <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
-          
+
           {/* Theme Switcher - visible on all screens */}
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
         </div>

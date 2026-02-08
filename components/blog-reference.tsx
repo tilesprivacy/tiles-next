@@ -173,7 +173,7 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
 
       {/* Mobile: Expandable reference below text */}
       {isExpanded && (
-        <span className="block mt-4 mb-4 text-sm text-black/70 dark:text-[#B3B3B3] leading-relaxed lg:hidden">
+        <span className="block mt-4 mb-4 text-sm text-black/70 dark:text-[#B3B3B3] leading-relaxed xl:hidden">
           <sup className="text-black/50 dark:text-[#8A8A8A] align-super mr-1.5">{id}</sup>
           {children}
         </span>
@@ -195,7 +195,7 @@ export function BlogReference({ id, children }: BlogReferenceProps) {
                   }, 0)
                 }
               }}
-              className="hidden lg:block absolute left-full pointer-events-auto text-black/70 dark:text-[#B3B3B3] leading-relaxed ml-12 xl:ml-16 2xl:ml-20 w-64 lg:w-72 xl:w-80 2xl:w-96 text-xs lg:text-sm xl:text-base"
+              className="hidden xl:block absolute left-full pointer-events-auto text-black/70 dark:text-[#B3B3B3] leading-relaxed ml-8 2xl:ml-10 w-56 2xl:w-64 text-xs 2xl:text-sm"
               style={{
                 top: `${topPosition}px`
               }}
