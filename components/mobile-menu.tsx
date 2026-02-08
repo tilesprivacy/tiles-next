@@ -55,6 +55,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
       bodyRight: body.style.right,
       bodyWidth: body.style.width,
       htmlOverflow: html.style.overflow,
+      htmlScrollBehavior: html.style.scrollBehavior,
     }
 
     html.style.overflow = "hidden"
@@ -73,7 +74,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
       body.style.left = prev.bodyLeft
       body.style.right = prev.bodyRight
       body.style.width = prev.bodyWidth
-      window.scrollTo(0, scrollY)
+      // Force immediate scroll restoration so close does not animate/jump.
+      html.style.scrollBehavior = "auto"
+      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" })
+      requestAnimationFrame(() => {
+        html.style.scrollBehavior = prev.htmlScrollBehavior
+      })
     }
   }, [isOpen])
 
