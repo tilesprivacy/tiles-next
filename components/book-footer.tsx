@@ -69,6 +69,25 @@ export function BookFooter() {
               <Link href="/privacy" className="text-white transition-colors hover:text-white/70 whitespace-nowrap">
                 Privacy
               </Link>
+              <a
+                href="https://status.tiles.run"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white transition-colors hover:text-white/70 whitespace-nowrap inline-flex items-center gap-1"
+              >
+                Status
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="h-2.5 w-2.5 shrink-0"
+                  aria-hidden
+                >
+                  <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
             </nav>
             <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
               {/* Placeholder for icons */}
@@ -97,6 +116,25 @@ export function BookFooter() {
             <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
               Privacy
             </Link>
+            <a
+              href="https://status.tiles.run"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${linkClasses} whitespace-nowrap inline-flex items-center gap-1`}
+            >
+              Status
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="h-2.5 w-2.5 shrink-0"
+                aria-hidden
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </nav>
           <div className="flex items-center gap-2 sm:gap-3 lg:gap-4 flex-shrink-0 mt-1 sm:mt-1.5">
             <a

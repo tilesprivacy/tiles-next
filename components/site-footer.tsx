@@ -68,6 +68,25 @@ export function SiteFooter() {
             <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
               Privacy
             </Link>
+            <a
+              href="https://status.tiles.run"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap inline-flex items-center gap-1`}
+            >
+              Status
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="h-2.5 w-2.5 shrink-0"
+                aria-hidden
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
           </nav>
 
           {/* Social icons - right aligned on all screens */}
