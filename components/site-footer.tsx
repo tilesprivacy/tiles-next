@@ -168,7 +168,7 @@ export function SiteFooter() {
 
         {/* Bottom section - copyright and theme switcher */}
         <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
-          <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
+          <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors</p>
 
           {/* Theme Switcher - visible on all screens */}
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />

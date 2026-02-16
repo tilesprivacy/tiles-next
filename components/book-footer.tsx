@@ -94,7 +94,7 @@ export function BookFooter() {
             </div>
           </div>
           <div className="flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white">
-            <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
+            <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors</p>
             <ThemeSwitcher variant="dark" size="sm" />
           </div>
         </div>
@@ -204,7 +204,7 @@ export function BookFooter() {
         </div>
 
         <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${copyrightClasses}`}>
-          <p className="whitespace-nowrap">© 2026 Tiles Privacy</p>
+          <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors</p>
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
         </div>
       </div>
