@@ -41,7 +41,7 @@ export function SiteFooter() {
               Stay updated
             </h3>
             <p className={`text-sm leading-relaxed lg:text-base ${newsletterDescriptionColor}`}>
-              Get notified when we publish new posts about privacy and personalization.
+              Get updates on product releases, privacy research, and engineering.
             </p>
             <p className={`text-xs ${newsletterDescriptionColor}`}>
               No spam. Unsubscribe anytime.
