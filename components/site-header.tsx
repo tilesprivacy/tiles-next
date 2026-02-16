@@ -68,7 +68,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       )}
 
       <header
-        className={`fixed inset-x-0 ${isBannerVisible ? "top-8 lg:top-9" : "top-0"} z-40 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 ${headerBg}`}
+        className={`fixed inset-x-0 ${isBannerVisible ? "top-8 lg:top-9" : "top-0"} z-40 flex items-center justify-between px-3 pb-2.5 pt-3 sm:px-4 sm:pb-3 sm:pt-4 lg:px-6 lg:pb-4 lg:pt-6 ${headerBg}`}
       >
         {/* Left side: Logo and Desktop Nav Links */}
         <div className="flex items-center gap-8 shrink-0">
@@ -76,12 +76,12 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 dark:hidden" />
+                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:hidden" />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12 hidden dark:block" />
+                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 hidden dark:block" />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-10 w-10 lg:h-12 lg:w-12" />
+              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
             )}
           </Link>
 
@@ -119,12 +119,12 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         </div>
 
         {/* Right side: Buttons and Hamburger */}
-        <div className="flex items-center gap-2 whitespace-nowrap lg:gap-3 shrink-0">
+        <div className="flex items-center gap-1 sm:gap-2 whitespace-nowrap lg:gap-3 shrink-0">
           {/* Buttons */}
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} lg:h-10 lg:px-4 lg:text-sm`}
+            className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2.5 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs lg:h-10 lg:px-4 lg:text-sm`}
           >
             <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
               {themeAware ? (
@@ -135,7 +135,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 dark:hidden"
+                    className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 lg:h-4 dark:hidden"
                   />
                   {/* Dark mode: black Apple logo (on white button) */}
                   <Image
@@ -143,7 +143,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                     alt="Apple"
                     width={16}
                     height={20}
-                    className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
+                    className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 lg:h-4 hidden dark:block"
                   />
                 </>
               ) : (
@@ -152,7 +152,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   alt="Apple"
                   width={16}
                   height={20}
-                  className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4"
+                  className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 lg:h-4"
                 />
               )}
               <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
@@ -163,7 +163,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} lg:h-10 lg:px-4 lg:text-sm`}
+            className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs lg:h-10 lg:px-4 lg:text-sm`}
           >
             <a
               href="https://github.com/sponsors/tilesprivacy"
@@ -174,11 +174,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 lg:h-4 lg:w-4"
+                className="h-3 w-3 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
-              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+              <span className="hidden min-[360px]:inline transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
                 Sponsor
               </span>
             </a>
