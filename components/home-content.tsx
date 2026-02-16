@@ -79,12 +79,12 @@ export function HomeContent() {
                   </button>
                 </div>
                 <p className="text-xs lg:text-sm text-black/60 dark:text-[#B3B3B3]">
-                  paste this in terminal, or{" "}
+                  Paste this in your terminal, or{" "}
                   <Link
-                    href="/download"
+                    href="https://www.tiles.run/changelog"
                     className="underline underline-offset-2 hover:text-black dark:hover:text-[#E6E6E6] transition-colors"
                   >
-                    download Tiles
+                    install another version
                   </Link>
                 </p>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
