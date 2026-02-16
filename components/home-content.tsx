@@ -1,26 +1,35 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
+import { useState } from "react"
 import { Cpu, Code2, Package, Brain, FileCode } from "lucide-react"
-import { Button } from "@/components/ui/button"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 
 export function HomeContent() {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText("curl -fsSL https://tiles.run/install.sh | sh")
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
   return (
     <div className="min-h-screen bg-background">
 
-      {/* Main Content - consistent section spacing (20/28) */}
-      <main className="px-6 py-20 lg:px-12 lg:py-28">
+      {/* Main Content - consistent section spacing (20/28); mobile top matches rest of page */}
+      <main className="px-6 pt-20 pb-20 lg:px-12 lg:pt-28 lg:pb-28">
         <div className="w-full max-w-6xl mx-auto">
           {/* Hero Section - Two Pane Layout */}
           <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16 mb-14 lg:mb-20 items-center">
             {/* Left Pane - Content */}
-            <div className="flex flex-col gap-8 lg:gap-10">
-              {/* Spacer to preserve top whitespace (version badge removed) */}
-              <div className="h-5 lg:h-6 w-fit" aria-hidden="true" />
+            <div className="flex flex-col gap-10 lg:gap-10">
+              {/* Spacer for top whitespace on desktop only; mobile uses main pt-20 for consistency */}
+              <div className="h-0 lg:h-6 w-fit" aria-hidden="true" />
 
               {/* Title & Subtitle */}
-              <div className="space-y-4 lg:space-y-6">
+              <div className="space-y-6 lg:space-y-6">
                 <h1 className="font-sans text-4xl font-bold tracking-tight text-foreground lg:text-6xl leading-[1.08]">
                   Tiles
                 </h1>
@@ -29,45 +38,55 @@ export function HomeContent() {
                 </p>
               </div>
 
-              {/* CTA Button */}
-              <div className="flex flex-col gap-4">
-                <Button
-                  asChild
-                  variant="ghost"
-                  className="group rounded-full bg-black dark:bg-white px-6 py-5 text-sm font-medium text-white dark:text-black transition-all duration-300 hover:bg-black/90 dark:hover:bg-white/90 hover:shadow-lg hover:shadow-black/20 dark:hover:shadow-white/20 lg:px-8 lg:py-6 lg:text-base w-fit"
-                >
-                  <Link href="/download" className="flex items-center gap-2.5">
-                    {/* Light mode: white Apple logo (on black button) */}
-                    <Image
-                      src="/apple-logo-white.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 dark:hidden"
-                    />
-                    {/* Dark mode: black Apple logo (on white button) */}
-                    <Image
-                      src="/apple-logo.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="h-4 w-auto lg:h-5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 hidden dark:block"
-                    />
-                    <span>Download for macOS</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4 lg:h-5 lg:w-5 transition-transform duration-300 group-hover:translate-x-1"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+              {/* Install Command Block */}
+              <div className="flex flex-col gap-4 lg:gap-3 w-full">
+                <div className="flex items-center rounded-xl bg-[#f5f5f5] dark:bg-[#1a1a1a] border border-[#e5e5e5] dark:border-[#2a2a2a] w-full overflow-hidden">
+                  <div className="overflow-x-auto px-3 py-2.5 lg:px-5 lg:py-3.5 flex-1 min-w-0">
+                    <code className="font-mono text-xs lg:text-base text-black/80 dark:text-[#E6E6E6] whitespace-nowrap">
+                      curl -fsSL https://tiles.run/install.sh | sh
+                    </code>
+                  </div>
+                  <button
+                    onClick={handleCopy}
+                    className="flex-shrink-0 flex items-center justify-center bg-[#f5f5f5] dark:bg-[#1a1a1a] hover:bg-[#e5e5e5] dark:hover:bg-[#252525] rounded-r-xl transition-colors px-2.5 py-2.5 lg:px-4 lg:py-3.5 touch-manipulation"
+                    aria-label="Copy to clipboard"
+                    title={copied ? "Copied!" : "Copy to clipboard"}
+                  >
+                    {copied ? (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="h-3.5 w-3.5 text-green-600 lg:h-[18px] lg:w-[18px]"
+                      >
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A] hover:text-black/80 dark:hover:text-[#E6E6E6] transition-colors lg:h-[18px] lg:w-[18px]"
+                      >
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+                <p className="text-xs lg:text-sm text-black/60 dark:text-[#B3B3B3]">
+                  paste this in terminal, or{" "}
+                  <Link
+                    href="/download"
+                    className="underline underline-offset-2 hover:text-black dark:hover:text-[#E6E6E6] transition-colors"
+                  >
+                    download Tiles
                   </Link>
-                </Button>
+                </p>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
                   <span className="block">
                     <span className="inline-flex shrink-0 align-middle rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#7c7ca8] border-[#7c7ca8]/60 bg-[#7c7ca8]/15 dark:text-[#a5a5c4] dark:border-[#a5a5c4]/50 dark:bg-[#a5a5c4]/20 mr-1.5">

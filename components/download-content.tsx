@@ -95,21 +95,30 @@ export function DownloadContent() {
 
             {/* Install Section */}
             <div className="space-y-6 lg:space-y-8">
-              <p className={`text-sm ${textColorMuted} sm:text-base lg:text-lg`}>Install and run:</p>
+              <p className={`text-sm ${textColorMuted} sm:text-base lg:text-lg`}>Paste this in terminal:</p>
 
-              {/* Code Blocks */}
+              {/* Code Block */}
               <div className="flex flex-col items-start gap-4 lg:gap-5">
                 <CodeBlock code="curl -fsSL https://tiles.run/install.sh | sh" />
-                <CodeBlock code="tiles run" />
               </div>
 
+              {/* Alpha Badge and Requirements */}
+              <p className={`text-xs leading-relaxed ${textColorMuted} max-w-[20rem]`}>
+                <span className="block">
+                  <span className="inline-flex shrink-0 align-middle rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#7c7ca8] border-[#7c7ca8]/60 bg-[#7c7ca8]/15 dark:text-[#a5a5c4] dark:border-[#a5a5c4]/50 dark:bg-[#a5a5c4]/20 mr-1.5">
+                    Alpha
+                  </span>
+                  for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
+                </span>
+              </p>
+
               {/* Footer Links */}
-              <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs ${textColorLink} pt-4 lg:pt-6 lg:gap-3 lg:text-sm`}>
+              <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs ${isDark ? 'text-[#8A8A8A]' : 'text-black/60'} pt-4 lg:pt-6 lg:gap-3 lg:text-sm`}>
                 <a
                   href="https://tiles.run/install.sh"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 transition-colors"
+                  className={`inline-flex items-center gap-1 transition-colors ${isDark ? 'hover:text-[#E6E6E6]' : 'hover:text-black'}`}
                 >
                   View script source
                   <svg
@@ -128,9 +137,9 @@ export function DownloadContent() {
                   href="https://github.com/tilesprivacy/tiles/blob/main/HACKING.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 transition-colors"
+                  className={`inline-flex items-center gap-1 transition-colors ${isDark ? 'hover:text-[#E6E6E6]' : 'hover:text-black'}`}
                 >
-                  Manual install instructions
+                  Build from source
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 12 12"
