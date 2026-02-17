@@ -63,25 +63,25 @@ export function BlogPostContent({
         <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
           {/* Blog Title */}
           <div className="mb-8 lg:mb-12 lg:max-w-[44rem] lg:mx-auto">
-            <h1 className="text-3xl font-semibold text-black dark:text-white mb-4 lg:text-6xl lg:mb-5 tracking-tight">
+            <h1 className="text-3xl font-semibold text-black dark:text-white mb-4 lg:text-5xl lg:mb-4 tracking-tight">
               {title}
             </h1>
-            <p className="text-base text-black/50 dark:text-white/50 lg:text-xl mb-3 lg:mb-4">
+            <p className="text-base text-black/50 dark:text-white/50 lg:text-lg mb-3 lg:mb-3">
               {description}
             </p>
             <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:gap-4">
               <div className="flex items-center gap-3">
-                <p className="text-sm text-black/40 dark:text-white/40 lg:text-lg">{date}</p>
+                <p className="text-sm text-black/40 dark:text-white/40 lg:text-base">{date}</p>
                 <span className="text-black/20 dark:text-white/20">·</span>
                 <ReadingTime 
                   content={content} 
-                  className="text-sm text-black/40 dark:text-white/40 lg:text-lg"
+                  className="text-sm text-black/40 dark:text-white/40 lg:text-base"
                 />
               </div>
               {author && (
                 <div className="flex items-center gap-2">
                   <span className="hidden text-black/20 dark:text-white/20 lg:inline">·</span>
-                  <span className="text-sm text-black/40 dark:text-white/40 lg:text-lg">
+                  <span className="text-sm text-black/40 dark:text-white/40 lg:text-base">
                     By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
                   </span>
                   <SocialLinks
@@ -177,16 +177,18 @@ export function BlogPostContent({
               {/* Container for side references on desktop */}
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
-              <div className="blog-article-content space-y-6 text-base leading-relaxed text-black/70 dark:text-white/70 lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10 
-                [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-black dark:[&_h2]:text-white [&_h2]:mb-6 lg:[&_h2]:text-4xl lg:[&_h2]:mb-8 [&_h2]:tracking-tight
-                [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-black dark:[&_h3]:text-white [&_h3]:mb-4 lg:[&_h3]:text-2xl lg:[&_h3]:mb-6
-                [&_hr]:border-black/10 dark:[&_hr]:border-white/10 [&_hr]:my-10 lg:[&_hr]:my-12
+              <div className="blog-article-content space-y-4 text-base leading-7 text-black/70 dark:text-white/70 lg:space-y-6 lg:text-[1.03rem] lg:leading-7 relative z-10
+                [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-black dark:[&_h2]:text-white [&_h2]:mb-4 lg:[&_h2]:text-2xl lg:[&_h2]:mb-5 [&_h2]:tracking-tight
+                [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-black dark:[&_h3]:text-white [&_h3]:mb-3 lg:[&_h3]:text-xl lg:[&_h3]:mb-4
+                [&_hr]:border-black/10 dark:[&_hr]:border-white/10 [&_hr]:my-8 lg:[&_hr]:my-10
                 [&_strong]:font-semibold [&_strong]:text-black dark:[&_strong]:text-white
                 [&_a]:text-black dark:[&_a]:text-white [&_a]:hover:text-black/80 dark:[&_a]:hover:text-white/80 [&_a]:underline
                 [&_code]:rounded [&_code]:bg-black/5 dark:[&_code]:bg-white/5 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_code]:text-black dark:[&_code]:text-white
-                [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:space-y-5 lg:[&_ol]:space-y-7 [&_ol]:ml-4
-                [&_ul]:list-disc [&_ul]:space-y-4 [&_ul]:pl-6
-                [&_li]:mb-6 lg:[&_li]:mb-8
+                [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_pre]:rounded-lg [&_pre]:bg-black/5 dark:[&_pre]:bg-white/5 [&_pre]:p-4
+                [&_pre_code]:whitespace-pre-wrap [&_pre_code]:break-all [&_pre_code]:bg-transparent [&_pre_code]:p-0
+                [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:space-y-3 lg:[&_ol]:space-y-4 [&_ol]:ml-4
+                [&_ul]:list-disc [&_ul]:space-y-2.5 [&_ul]:pl-6
+                [&_li]:mb-3 lg:[&_li]:mb-4
               ">
                 {children}
               </div>

@@ -44,21 +44,21 @@ export default function HowTilesWorksPage() {
         <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
           {/* Blog Title */}
           <div className="mb-8 lg:mb-12 lg:max-w-[44rem] lg:mx-auto">
-            <h1 className="text-3xl font-semibold text-black dark:text-[#E6E6E6] mb-4 lg:text-6xl lg:mb-5 tracking-tight">
+            <h1 className="text-3xl font-semibold text-black dark:text-[#E6E6E6] mb-4 lg:text-5xl lg:mb-4 tracking-tight">
               Introducing Tiles Public Alpha
             </h1>
-            <p className="text-base text-black/50 dark:text-[#8A8A8A] lg:text-xl mb-3 lg:mb-4">
+            <p className="text-base text-black/50 dark:text-[#8A8A8A] lg:text-lg mb-3 lg:mb-3">
               Building an everyday AI assistant with privacy-first engineering at its core.
             </p>
             <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:gap-4">
               <div className="flex items-center gap-3">
-                <p className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">January 2, 2026</p>
+                <p className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-base">January 2, 2026</p>
                 {post && (
                   <>
                     <span className="text-black/20 dark:text-[#5a5a5a]">·</span>
                     <ReadingTime 
                       content={post.content} 
-                      className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg"
+                      className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-base"
                     />
                   </>
                 )}
@@ -66,7 +66,7 @@ export default function HowTilesWorksPage() {
               {author && (
                 <div className="flex items-center gap-2">
                   <span className="hidden text-black/20 dark:text-[#5a5a5a] lg:inline">·</span>
-                  <span className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">
+                  <span className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-base">
                     By <span className="text-black/60 dark:text-[#B3B3B3]">{author.name.replace(/\s@[^ ]+$/, "")}</span>
                   </span>
                   <SocialLinks
@@ -162,12 +162,12 @@ export default function HowTilesWorksPage() {
               {/* Container for side references on desktop */}
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
-              <div className="blog-article-content space-y-6 text-base leading-relaxed text-black/70 dark:text-[#B3B3B3] lg:space-y-10 lg:text-xl lg:leading-relaxed relative z-10">
+              <div className="blog-article-content space-y-4 text-base leading-7 text-black/70 dark:text-[#B3B3B3] lg:space-y-6 lg:text-[1.03rem] lg:leading-7 relative z-10">
               <p>
                 Today, we're releasing the public alpha of Tiles, our first step toward a privacy-first AI assistant built to run entirely on the user's device. Tiles brings together local-first models, personalized experiences, and verifiable privacy guarantees, so data remains under the user's control by default. We see identity and memory as inseparable parts of the same system, and Tiles is designed around that idea: an AI assistant that acts as a user-owned agent rather than a centralized service.
               </p>
 
-              <p className="mb-6 lg:mb-8">
+              <p className="mb-4 lg:mb-5">
                 Our first alpha is a CLI assistant app for Apple Silicon devices, and a Modelfile
                 <BlogReference id={1}>
                   <a
@@ -184,14 +184,14 @@ export default function HowTilesWorksPage() {
                 collaboration with the community, establishing it as the standard for model customization.
               </p>
 
-              <hr className="border-black/10 dark:border-[#2a2a2a] my-10 lg:my-12" />
+              <hr className="border-black/10 dark:border-[#2a2a2a] my-8 lg:my-10" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black dark:text-[#E6E6E6] mb-6 lg:text-4xl lg:mb-8 tracking-tight">
+                <h2 className="text-xl font-semibold text-black dark:text-[#E6E6E6] mb-4 lg:text-2xl lg:mb-5 tracking-tight">
                   Philosophy
                 </h2>
 
-                <p className="mb-6 lg:mb-8">
+                <p className="mb-4 lg:mb-5">
                   The project is defined by four interdependent design choices:
                   <BlogReference id={2}>
                     <span className="text-black dark:text-[#E6E6E6]">From </span>
@@ -208,7 +208,7 @@ export default function HowTilesWorksPage() {
                  
                 </p>
 
-                <ol className="list-decimal list-inside space-y-5 lg:space-y-7 ml-4">
+                <ol className="list-decimal list-inside space-y-3 lg:space-y-4 ml-4">
                   <li>
                     <strong className="text-black dark:text-[#E6E6E6]">Device-anchored identity with keyless ops:</strong> Clients are provisioned through the
                     device keychain and cannot access the registry by identity alone.
@@ -242,18 +242,18 @@ export default function HowTilesWorksPage() {
                 </ol>
               </section>
 
-              <hr className="border-black/10 dark:border-[#2a2a2a] my-10 lg:my-12" />
+              <hr className="border-black/10 dark:border-[#2a2a2a] my-8 lg:my-10" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black dark:text-[#E6E6E6] mb-6 lg:text-4xl lg:mb-8 tracking-tight">
+                <h2 className="text-xl font-semibold text-black dark:text-[#E6E6E6] mb-4 lg:text-2xl lg:mb-5 tracking-tight">
                   Implementation
                 </h2>
 
-                <p className="mb-6 lg:mb-8">
+                <p className="mb-4 lg:mb-5">
                   Our goal with Tiles is to co-design fine-tuned models and the underlying ML infrastructure to maximize efficiency for local and offline inference and training.
                 </p>
 
-                <p className="mb-6 lg:mb-8">
+                <p className="mb-4 lg:mb-5">
                   We support{" "}
                   <a
                     href="https://openai.com/index/introducing-gpt-oss/"
@@ -295,7 +295,7 @@ export default function HowTilesWorksPage() {
                   />
                 </div>
 
-                <p className="mb-6 lg:mb-8">
+                <p className="mb-4 lg:mb-5">
                   We are also working toward memory capabilities powered by fine tuned models that manage context and memory locally on device using hyperlinked Markdown files. This is currently behind an experimental flag. We use the{" "}
                   <a
                     href="https://huggingface.co/driaforall/mem-agent"
@@ -338,7 +338,7 @@ export default function HowTilesWorksPage() {
                   <code className="rounded bg-black/5 dark:bg-[#1a1a1a] px-1.5 py-0.5 font-mono text-sm text-black dark:text-[#E6E6E6]">qwen3-4B-thinking-2507</code>, and are in the process of training our initial in house memory model.
                 </p>
 
-                <p className="mb-6 lg:mb-8">
+                <p className="mb-4 lg:mb-5">
                   These models utilize a human-readable external memory stored as markdown, and learned policies
                   (trained via reinforcement learning on synthetically generated data) to decide when to call Python
                   functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine
@@ -346,19 +346,19 @@ export default function HowTilesWorksPage() {
                 </p>
               </section>
 
-              <hr className="border-black/10 dark:border-[#2a2a2a] my-10 lg:my-12" />
+              <hr className="border-black/10 dark:border-[#2a2a2a] my-8 lg:my-10" />
 
               <section>
-                <h2 className="text-2xl font-semibold text-black dark:text-[#E6E6E6] mb-6 lg:text-4xl lg:mb-8 tracking-tight">
+                <h2 className="text-xl font-semibold text-black dark:text-[#E6E6E6] mb-4 lg:text-2xl lg:mb-5 tracking-tight">
                   Looking forward
                 </h2>
 
-                <p className="mb-6 lg:mb-8">
+                <p className="mb-4 lg:mb-5">
                   We're building the next layer of private personalization: customizable memory, private sync,
                   verifiable identity, and a more open model ecosystem.
                 </p>
 
-                <ul className="list-disc space-y-4 pl-6 mb-6 lg:mb-8">
+                <ul className="list-disc space-y-2.5 pl-6 mb-4 lg:mb-5">
                   <li>
                     <strong className="text-black dark:text-[#E6E6E6]">Memory extensions:</strong> Add support for LoRA-based memory extensions so individuals and
                     organizations can bring their own data and shape the assistant's behavior and tone on top of the
