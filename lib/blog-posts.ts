@@ -3,6 +3,8 @@ export interface BlogPost {
   title: string
   description: string
   date: Date
+  /** Person ID from `lib/people.ts` (sourced from homepage identities). */
+  author?: string
   coverImage?: string
   coverAlt?: string
   content: string // Full HTML content for RSS feed
@@ -14,6 +16,7 @@ export const blogPosts: BlogPost[] = [
     title: "Introducing Tiles Public Alpha",
     description: "Announcing Tiles Public Alpha: our first release of a privacy-first AI assistant with local models, a CLI app for Apple Silicon, and a Modelfile-based SDK for developers.",
     date: new Date("2026-01-02"),
+    author: "ankesh-bharti",
     coverImage: "/kingston.webp",
     coverAlt: "Cover image for Introducing Tiles Public Alpha",
     content: `<img src="/kingston.webp" alt="Cover image for Introducing Tiles Public Alpha" style="width: 100%; height: auto; margin-bottom: 2rem;" />

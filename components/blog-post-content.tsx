@@ -8,11 +8,15 @@ import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-i
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
+import { getPersonById } from "@/lib/people"
+import { SocialLinks } from "@/components/social-links"
 
 interface BlogPostContentProps {
   title: string
   description: string
   date: string
+  /** Person ID from `lib/people.ts` */
+  authorId?: string
   coverImage: string
   coverAlt: string
   content: string
@@ -23,6 +27,7 @@ export function BlogPostContent({
   title, 
   description, 
   date, 
+  authorId,
   coverImage, 
   coverAlt, 
   content,
@@ -30,6 +35,7 @@ export function BlogPostContent({
 }: BlogPostContentProps) {
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const author = authorId ? getPersonById(authorId) : null
 
   useEffect(() => {
     setShareUrl(window.location.href)
@@ -70,6 +76,23 @@ export function BlogPostContent({
                 content={content} 
                 className="text-sm text-black/40 dark:text-white/40 lg:text-lg"
               />
+              {author && (
+                <>
+                  <span className="text-black/20 dark:text-white/20">·</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-black/40 dark:text-white/40 lg:text-lg">
+                      By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                    </span>
+                    <SocialLinks
+                      name={author.name}
+                      links={author.links}
+                      className="flex items-center gap-1.5"
+                      linkClassName="text-black/40 hover:text-black/65 dark:text-white/40 dark:hover:text-white/70 transition-colors"
+                      iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
+                    />
+                  </div>
+                </>
+              )}
             </div>
             {shareUrl && (
               <div className="mt-5 flex items-center gap-4">

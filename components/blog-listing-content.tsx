@@ -4,12 +4,14 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
+import { getPersonById } from "@/lib/people"
 
 interface BlogPost {
   slug: string
   title: string
   description: string
   date: Date
+  author?: string
   coverImage?: string
   coverAlt?: string
 }
@@ -43,12 +45,23 @@ function getPostImage(post: BlogPost): { src: string; alt: string } {
 function BlogPostEntry({ post }: { post: BlogPost }) {
   const image = getPostImage(post)
   const [imageSrc, setImageSrc] = useState(image.src)
+  const author = post.author ? getPersonById(post.author) : null
 
   return (
     <Link href={`/blog/${post.slug}`} className="group block">
       <article className="grid grid-cols-[minmax(0,1fr)_6.5rem] items-start gap-4 py-6 sm:grid-cols-[minmax(0,1fr)_9.5rem] sm:gap-6 sm:py-9 lg:grid-cols-[minmax(0,1fr)_11rem]">
         <div className="space-y-3 sm:space-y-4">
-          <p className="text-xs text-black/45 dark:text-white/45 lg:text-sm">{formatDate(post.date)}</p>
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-black/45 dark:text-white/45 lg:text-sm">
+            <span>{formatDate(post.date)}</span>
+            {author && (
+              <>
+                <span className="text-black/25 dark:text-white/25">·</span>
+                <span>
+                  By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                </span>
+              </>
+            )}
+          </div>
 
           <h2 className="text-xl font-semibold tracking-tight text-black transition-colors group-hover:text-black/75 dark:text-white dark:group-hover:text-white/80 sm:text-2xl lg:text-3xl">
             {post.title}

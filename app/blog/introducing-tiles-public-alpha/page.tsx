@@ -9,9 +9,12 @@ import { ReadingTime } from "@/components/reading-time"
 import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-icons/fa6"
 import { useEffect, useMemo, useState } from "react"
 import { blogPosts } from "@/lib/blog-posts"
+import { getPersonById } from "@/lib/people"
+import { SocialLinks } from "@/components/social-links"
 
 export default function HowTilesWorksPage() {
   const post = blogPosts.find(p => p.slug === "introducing-tiles-public-alpha")
+  const author = post?.author ? getPersonById(post.author) : null
   const [shareUrl, setShareUrl] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
@@ -56,6 +59,23 @@ export default function HowTilesWorksPage() {
                     content={post.content} 
                     className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg"
                   />
+                </>
+              )}
+              {author && (
+                <>
+                  <span className="text-black/20 dark:text-[#5a5a5a]">·</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">
+                      By <span className="text-black/60 dark:text-[#B3B3B3]">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                    </span>
+                    <SocialLinks
+                      name={author.name}
+                      links={author.links}
+                      className="flex items-center gap-1.5"
+                      linkClassName="text-black/35 hover:text-black/60 dark:text-[#8A8A8A] dark:hover:text-[#B3B3B3] transition-colors"
+                      iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
+                    />
+                  </div>
                 </>
               )}
             </div>
