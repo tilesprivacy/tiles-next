@@ -1,11 +1,13 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Move Along, Python",
+  title: "Move Along, Python | Tiles Blog",
   description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
   openGraph: {
-    title: "Move Along, Python",
+    title: "Move Along, Python | Tiles Blog",
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
+    url: "https://www.tiles.run/blog/move-along-python",
+    siteName: "Tiles Privacy",
     type: "article",
     publishedTime: "2026-02-17",
     images: [
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Move Along, Python",
+    title: "Move Along, Python | Tiles Blog",
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
     images: ["https://www.tiles.run/api/og"],
   },

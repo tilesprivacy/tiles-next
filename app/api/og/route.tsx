@@ -12,12 +12,29 @@ export const size = {
 
 export const contentType = "image/png"
 
+async function loadGoogleFont(font: string, text: string) {
+  const url = `https://fonts.googleapis.com/css2?family=${font}:wght@400;600;700&text=${encodeURIComponent(text)}`
+  const css = await (await fetch(url)).text()
+  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
+
+  if (!resource) {
+    throw new Error(`Failed to load ${font} font CSS`)
+  }
+
+  const response = await fetch(resource[1])
+  if (!response.ok) {
+    throw new Error(`Failed to load ${font} font file`)
+  }
+
+  return response.arrayBuffer()
+}
+
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
 
-  const title = "Tiles"
-  const tagline = "Your private and secure AI assistant for everyday use"
+  const tagline = "Your private and secure AI assistant for everyday use."
+  const fontText = tagline
 
   // Fetch the logo image and convert to base64 for edge runtime
   const logoResponse = await fetch(`${origin}/logo.png`)
@@ -39,6 +56,7 @@ export async function GET(request: Request) {
   }
   const logoBase64 = btoa(binary)
   const logoDataUrl = `data:image/png;base64,${logoBase64}`
+  const geistFontData = await loadGoogleFont("Geist", fontText)
 
   return new ImageResponse(
     (
@@ -61,6 +79,7 @@ export async function GET(request: Request) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            flexDirection: "column",
           }}
         >
           <img
@@ -72,12 +91,42 @@ export async function GET(request: Request) {
               objectFit: "contain",
             }}
           />
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 24,
+              textAlign: "center",
+            }}
+          >
+            <div
+              style={{
+                fontSize: 32,
+                fontWeight: 400,
+                lineHeight: 1.25,
+                color: "#1A1A1A",
+                maxWidth: 900,
+              }}
+            >
+              {tagline}
+            </div>
+          </div>
         </div>
       </div>
     ),
     {
       width: size.width,
       height: size.height,
+      fonts: [
+        {
+          name: "Geist",
+          data: geistFontData,
+          style: "normal",
+          weight: 400,
+        },
+      ],
     },
   )
 }

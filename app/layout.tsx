@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
     description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project.",
+    url: "https://www.tiles.run",
+    siteName: "Tiles Privacy",
     images: [
       {
         url: "https://www.tiles.run/api/og",
