@@ -35,7 +35,9 @@ export default function MoveAlongPythonPage() {
         <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">
           Tiles
         </a>
-        , a private and secure AI assistant for everyday use.
+        , a private and secure AI assistant for everyday use. To ensure its Python model server starts predictably on
+        any machine, the runtime and dependencies must be deterministic and portable. This post walks through how we
+        achieve that with layered venvstacks.
       </p>
 
       <h2>The Python Problem</h2>
@@ -77,7 +79,11 @@ export default function MoveAlongPythonPage() {
         <a href="https://lmstudio.ai/blog/venvstacks" target="_blank" rel="noopener noreferrer">
           venvstacks
         </a>{" "}
-        by LM Studio to achieve this.
+        by{" "}
+        <a href="https://lmstudio.ai" target="_blank" rel="noopener noreferrer">
+          LM Studio
+        </a>{" "}
+        to achieve this.
       </p>
 
       <p>Venvstacks allows us to build a layered Python environment with three layers:</p>
