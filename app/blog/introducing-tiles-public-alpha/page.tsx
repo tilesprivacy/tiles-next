@@ -50,33 +50,33 @@ export default function HowTilesWorksPage() {
             <p className="text-base text-black/50 dark:text-[#8A8A8A] lg:text-xl mb-3 lg:mb-4">
               Building an everyday AI assistant with privacy-first engineering at its core.
             </p>
-            <div className="flex items-center gap-3 lg:gap-4">
-              <p className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">January 2, 2026</p>
-              {post && (
-                <>
-                  <span className="text-black/20 dark:text-[#5a5a5a]">·</span>
-                  <ReadingTime 
-                    content={post.content} 
-                    className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg"
-                  />
-                </>
-              )}
-              {author && (
-                <>
-                  <span className="text-black/20 dark:text-[#5a5a5a]">·</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">
-                      By <span className="text-black/60 dark:text-[#B3B3B3]">{author.name.replace(/\s@[^ ]+$/, "")}</span>
-                    </span>
-                    <SocialLinks
-                      name={author.name}
-                      links={author.links}
-                      className="flex items-center gap-1.5"
-                      linkClassName="text-black/35 hover:text-black/60 dark:text-[#8A8A8A] dark:hover:text-[#B3B3B3] transition-colors"
-                      iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
+            <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:gap-4">
+              <div className="flex items-center gap-3">
+                <p className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">January 2, 2026</p>
+                {post && (
+                  <>
+                    <span className="text-black/20 dark:text-[#5a5a5a]">·</span>
+                    <ReadingTime 
+                      content={post.content} 
+                      className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg"
                     />
-                  </div>
-                </>
+                  </>
+                )}
+              </div>
+              {author && (
+                <div className="flex items-center gap-2">
+                  <span className="hidden text-black/20 dark:text-[#5a5a5a] lg:inline">·</span>
+                  <span className="text-sm text-black/40 dark:text-[#8A8A8A] lg:text-lg">
+                    By <span className="text-black/60 dark:text-[#B3B3B3]">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                  </span>
+                  <SocialLinks
+                    name={author.name}
+                    links={author.links}
+                    className="flex items-center gap-1.5"
+                    linkClassName="text-black/35 hover:text-black/60 dark:text-[#8A8A8A] dark:hover:text-[#B3B3B3] transition-colors"
+                    iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
+                  />
+                </div>
               )}
             </div>
             {shareUrl && (

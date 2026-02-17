@@ -69,29 +69,29 @@ export function BlogPostContent({
             <p className="text-base text-black/50 dark:text-white/50 lg:text-xl mb-3 lg:mb-4">
               {description}
             </p>
-            <div className="flex items-center gap-3 lg:gap-4">
-              <p className="text-sm text-black/40 dark:text-white/40 lg:text-lg">{date}</p>
-              <span className="text-black/20 dark:text-white/20">·</span>
-              <ReadingTime 
-                content={content} 
-                className="text-sm text-black/40 dark:text-white/40 lg:text-lg"
-              />
+            <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:gap-4">
+              <div className="flex items-center gap-3">
+                <p className="text-sm text-black/40 dark:text-white/40 lg:text-lg">{date}</p>
+                <span className="text-black/20 dark:text-white/20">·</span>
+                <ReadingTime 
+                  content={content} 
+                  className="text-sm text-black/40 dark:text-white/40 lg:text-lg"
+                />
+              </div>
               {author && (
-                <>
-                  <span className="text-black/20 dark:text-white/20">·</span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-black/40 dark:text-white/40 lg:text-lg">
-                      By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
-                    </span>
-                    <SocialLinks
-                      name={author.name}
-                      links={author.links}
-                      className="flex items-center gap-1.5"
-                      linkClassName="text-black/40 hover:text-black/65 dark:text-white/40 dark:hover:text-white/70 transition-colors"
-                      iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
-                    />
-                  </div>
-                </>
+                <div className="flex items-center gap-2">
+                  <span className="hidden text-black/20 dark:text-white/20 lg:inline">·</span>
+                  <span className="text-sm text-black/40 dark:text-white/40 lg:text-lg">
+                    By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                  </span>
+                  <SocialLinks
+                    name={author.name}
+                    links={author.links}
+                    className="flex items-center gap-1.5"
+                    linkClassName="text-black/40 hover:text-black/65 dark:text-white/40 dark:hover:text-white/70 transition-colors"
+                    iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
+                  />
+                </div>
               )}
             </div>
             {shareUrl && (
