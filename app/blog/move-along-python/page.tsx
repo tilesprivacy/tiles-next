@@ -41,7 +41,7 @@ export default function MoveAlongPythonPage() {
       <h2>The Python Problem</h2>
 
       <p>
-        Right now, we have a polyglot architecture where the control pane and CLI are written in Rust, while local
+        Right now, we have a polyglot architecture where the control plane and CLI are written in Rust, while local
         model inference runs through a Python server as a daemon. Ideally, when we ship Tiles, we should also ship the
         required artifacts needed to run Python on the user’s system.
       </p>
@@ -112,6 +112,7 @@ export default function MoveAlongPythonPage() {
         defined in <code>frameworks</code>, as well as the same Python runtime defined in <code>runtimes</code>.
       </p>
 
+      <h2>How venvstacks is used in Tiles</h2>
       <p>
         We define everything inside a <code>venvstacks.toml</code> file. Here is the{" "}
         <a
