@@ -61,7 +61,6 @@ export async function GET(request: Request) {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            marginBottom: 48,
           }}
         >
           <img
@@ -73,22 +72,6 @@ export async function GET(request: Request) {
               objectFit: "contain",
             }}
           />
-        </div>
-
-        {/* Tagline */}
-        <div
-          style={{
-            fontSize: 40,
-            fontWeight: 400,
-            letterSpacing: 0,
-            textAlign: "center",
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {tagline}
         </div>
       </div>
     ),

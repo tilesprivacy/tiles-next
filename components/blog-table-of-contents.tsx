@@ -27,6 +27,7 @@ export function BlogTableOfContents({
 }: BlogTableOfContentsProps) {
   const [items, setItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
+  const [stickyTop, setStickyTop] = useState<number>(112)
 
   const getScrollOffset = useCallback(() => {
     const header = document.querySelector('header.fixed.inset-x-0') as HTMLElement | null
@@ -87,32 +88,40 @@ export function BlogTableOfContents({
       return { id: heading.id, text, level }
     })
 
-    setItems(tocItems)
-    setActiveId((current) => current || tocItems[0]?.id || '')
+    const getActiveIdFromScroll = () => {
+      const offset = getScrollOffset()
+      const scrollAnchor = window.scrollY + offset + 1
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              Math.abs(a.boundingClientRect.top) - Math.abs(b.boundingClientRect.top),
-          )[0]
-
-        if (visible?.target?.id) {
-          setActiveId(visible.target.id)
+      let nextActiveId = INTRO_ID
+      for (const heading of headings) {
+        const headingTop = window.scrollY + heading.getBoundingClientRect().top
+        if (headingTop <= scrollAnchor) {
+          nextActiveId = heading.id
+          continue
         }
-      },
-      {
-        rootMargin: '-20% 0px -65% 0px',
-        threshold: [0, 1],
-      },
-    )
+        break
+      }
 
-    headings.forEach((heading) => observer.observe(heading))
+      return nextActiveId
+    }
 
-    return () => observer.disconnect()
-  }, [contentSelector])
+    setItems(tocItems)
+    setActiveId((current) => current || getActiveIdFromScroll())
+
+    const syncActiveState = () => {
+      const nextActiveId = getActiveIdFromScroll()
+      setActiveId((current) => (current === nextActiveId ? current : nextActiveId))
+    }
+
+    syncActiveState()
+    window.addEventListener('scroll', syncActiveState, { passive: true })
+    window.addEventListener('resize', syncActiveState)
+
+    return () => {
+      window.removeEventListener('scroll', syncActiveState)
+      window.removeEventListener('resize', syncActiveState)
+    }
+  }, [contentSelector, getScrollOffset])
 
   useEffect(() => {
     const hashId = window.location.hash.replace('#', '')
@@ -125,18 +134,49 @@ export function BlogTableOfContents({
     return () => window.clearTimeout(timer)
   }, [items, scrollToId])
 
+  useEffect(() => {
+    const header = document.querySelector('header.fixed.inset-x-0') as HTMLElement | null
+    if (!header) return
+
+    const updateStickyTop = () => {
+      const headerHeight = header.getBoundingClientRect().height || 88
+      setStickyTop(Math.ceil(headerHeight + 16))
+    }
+
+    updateStickyTop()
+    window.addEventListener('resize', updateStickyTop)
+
+    const observer = new ResizeObserver(updateStickyTop)
+    observer.observe(header)
+
+    return () => {
+      window.removeEventListener('resize', updateStickyTop)
+      observer.disconnect()
+    }
+  }, [])
+
   if (items.length === 0) {
     return null
   }
 
+  const isIntroActive = activeId === INTRO_ID
+
   return (
     <nav
       aria-label="Table of contents"
-      className="sticky top-32 max-h-[calc(100dvh-9rem)] overflow-y-auto pr-4"
+      className="sticky overflow-y-auto pr-4"
+      style={{
+        top: `${stickyTop}px`,
+        maxHeight: `calc(100dvh - ${stickyTop + 16}px)`,
+      }}
     >
       <a
         href={`#${INTRO_ID}`}
-        className="mb-3 block text-sm font-medium text-black/55 transition-colors hover:text-black dark:text-white/55 dark:hover:text-white"
+        className={`mb-3 block text-sm font-medium transition-colors ${
+          isIntroActive
+            ? 'text-black dark:text-white'
+            : 'text-black/55 hover:text-black dark:text-white/55 dark:hover:text-white'
+        }`}
         onClick={(e) => {
           e.preventDefault()
           setActiveId(INTRO_ID)

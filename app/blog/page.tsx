@@ -27,16 +27,18 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
-  // Serialize the posts for the client component
-  const serializedPosts = blogPosts.map(post => ({
-    slug: post.slug,
-    title: post.title,
-    description: post.description,
-    date: post.date,
-    author: post.author,
-    coverImage: post.coverImage ?? "/og-image.jpg",
-    coverAlt: post.coverAlt ?? post.title,
-  }))
+  // Serialize and sort posts (latest first) for the client component
+  const serializedPosts = [...blogPosts]
+    .sort((a, b) => b.date.getTime() - a.date.getTime())
+    .map(post => ({
+      slug: post.slug,
+      title: post.title,
+      description: post.description,
+      date: post.date,
+      author: post.author,
+      coverImage: post.coverImage ?? "/og-image.jpg",
+      coverAlt: post.coverAlt ?? post.title,
+    }))
 
   return <BlogListingContent posts={serializedPosts} />
 }
