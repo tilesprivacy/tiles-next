@@ -6,10 +6,12 @@ import { BookMobileNav } from '@/components/book-mobile-nav'
 export async function generateMetadata() {
   const { metadata } = await importPage([])
 
-  const ogTitle = 'Tiles Book: Privacy technology for everyone!'
+  const canonicalTabTitle =
+    'Tiles Book: Technical documentation for the models, infrastructure, and cryptography powering Tiles.'
+  const ogTitle = canonicalTabTitle
   const description =
     'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.'
-  // Use absolute title to bypass template since ogTitle already includes "Tiles Book: "
+  // Use absolute title for the index page so it does not depend on a child heading.
   return {
     ...metadata,
     description,
@@ -23,7 +25,7 @@ export async function generateMetadata() {
           url: '/api/og',
           width: 1200,
           height: 630,
-          alt: 'Tiles Book: Privacy technology for everyone!',
+          alt: ogTitle,
         },
       ],
     },

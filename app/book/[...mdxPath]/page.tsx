@@ -16,18 +16,20 @@ export async function generateMetadata(props: {
       ? metadata.title
       : metadata.title?.absolute || metadata.title?.default || ''
 
-  // Remove "Tiles Book: " prefix if it already exists (to prevent double prefixing)
-  // This can happen if the metadata already includes the prefix
+  // Normalize legacy or pre-formatted titles so the layout template can apply
+  // a consistent "<heading> | Tiles Book" browser tab format.
   if (pageTitle.startsWith('Tiles Book: ')) {
     pageTitle = pageTitle.replace(/^Tiles Book: /, '')
   }
+  if (pageTitle.endsWith(' | Tiles Book')) {
+    pageTitle = pageTitle.replace(/\s\|\sTiles Book$/, '')
+  }
 
-  // Format Open Graph title as "Tiles Book: <page title>"
-  const ogTitle = pageTitle ? `Tiles Book: ${pageTitle}` : 'Tiles Book'
+  // Match blog post title structure: "<heading> | Tiles Book"
+  const ogTitle = pageTitle ? `${pageTitle} | Tiles Book` : 'Tiles Book'
 
-  // Return the cleaned title (without prefix) so the layout template can add it
-  // The layout template is 'Tiles Book: %s', so it will add the prefix automatically
-  // Use absolute title to bypass template if pageTitle is empty (to avoid "Tiles Book: Tiles Book")
+  // Return the cleaned title so the layout template appends " | Tiles Book".
+  // Use absolute title when empty to avoid an empty heading title.
   return {
     ...metadata,
     title: pageTitle ? pageTitle : { absolute: 'Tiles Book' },

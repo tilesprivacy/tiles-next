@@ -10,8 +10,8 @@ import { BookCodeHighlightFix } from '@/components/book-code-highlight-fix'
 
 export const metadata = {
   title: {
-    template: 'Tiles Book: %s',
-    default: 'Tiles Book: Privacy technology for everyone!',
+    template: '%s | Tiles Book',
+    default: 'Privacy technology for everyone! | Tiles Book',
   },
   description:
     'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.',
