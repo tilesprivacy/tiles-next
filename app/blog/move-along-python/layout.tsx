@@ -10,10 +10,10 @@ export const metadata: Metadata = {
     publishedTime: "2026-02-17",
     images: [
       {
-        url: "/og-plain.png",
+        url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Move Along, Python – deterministic, portable Python runtimes for Tiles using layered venvstacks",
+        alt: "Tiles - Your private and secure AI assistant for everyday use",
       },
     ],
   },
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Move Along, Python",
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
-    images: ["/og-plain.png"],
+    images: ["https://www.tiles.run/api/og"],
   },
 }
 
