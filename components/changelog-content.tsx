@@ -95,7 +95,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
   const sectionHeadingClass = `mb-3 text-xl font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-2xl`
   const paragraphClass = `text-base leading-7 ${textColorBody} lg:text-lg lg:leading-8`
-  const releaseBodyClass = `space-y-2.5 text-sm leading-6 ${textColorBody}`
+  const releaseBodyClass = `space-y-2.5 text-base leading-7 ${textColorBody} lg:text-lg lg:leading-8`
 
   const CodeBlock = ({ code, version }: { code: string; version: string }) => {
     const [copied, setCopied] = useState(false)
@@ -246,7 +246,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           href={release.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
+                          className={`inline-flex items-center gap-0.5 text-base font-medium capitalize ${linkColor} underline underline-offset-2`}
                         >
                           github
                           <ExternalLinkIcon />
@@ -256,7 +256,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             href={release.compareUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
+                            className={`inline-flex items-center gap-0.5 text-base font-medium capitalize ${linkColor} underline underline-offset-2`}
                           >
                             changelog
                             <ExternalLinkIcon />
@@ -328,7 +328,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             href={release.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
+                            className={`inline-flex items-center gap-0.5 text-base font-medium capitalize ${linkColor} underline underline-offset-2`}
                           >
                             github
                             <ExternalLinkIcon />
@@ -338,7 +338,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                               href={release.compareUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
+                              className={`inline-flex items-center gap-0.5 text-base font-medium capitalize ${linkColor} underline underline-offset-2`}
                             >
                               changelog
                               <ExternalLinkIcon />
