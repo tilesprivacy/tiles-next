@@ -55,17 +55,17 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
         throw new Error(errorMsg)
       }
 
+      const trimmedEmail = email.trim()
       setStatus("success")
       setMessage("Welcome! Check your email for confirmation.")
-      setSubscriberEmail(email.trim())
+      setSubscriberEmail(trimmedEmail)
       setSenderEmail(data.senderEmail || "")
-      setEmail("")
+      // Keep email in input - don't clear it so it persists
 
       setTimeout(() => {
         setStatus("idle")
         setMessage("")
-        setSubscriberEmail("")
-        setSenderEmail("")
+        // Keep subscriberEmail and senderEmail - only clear on page refresh
       }, 5000)
     } catch (error) {
       setStatus("error")
@@ -123,7 +123,14 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
               inputMode="email"
               placeholder="your@email.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                // Clear subscriberEmail and senderEmail when user starts typing a new email
+                if (subscriberEmail && e.target.value !== subscriberEmail) {
+                  setSubscriberEmail("")
+                  setSenderEmail("")
+                }
+              }}
               onKeyDown={handleKeyDown}
               disabled={status === "loading"}
               className={cn(
@@ -142,7 +149,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
               {status === "loading" ? "Subscribing..." : status === "success" ? "Done!" : "Subscribe"}
             </Button>
           </div>
-          {status === "success" && subscriberEmail && senderEmail && (
+          {subscriberEmail && senderEmail && (
             <div className="flex justify-center sm:justify-start">
               <sniper-link
                 recipient={subscriberEmail}
