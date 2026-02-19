@@ -10,10 +10,25 @@ const getResendClient = () => {
   return new Resend(apiKey)
 }
 
-// Get the sender email address from environment variable
-// Format: "Display Name <email@domain.com>" or "email@domain.com"
+const SENDER_NAME = "Tiles Privacy"
+
+// Default email when RESEND_FROM_EMAIL is not set (Resend onboarding address)
+const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
+
+// Get the sender email address (no display name) from environment variable.
+// RESEND_FROM_EMAIL can be "Display Name <email@domain.com>" or "email@domain.com".
+const getFromEmailAddress = (): string => {
+  const raw = process.env.RESEND_FROM_EMAIL
+  if (!raw?.trim()) return DEFAULT_FROM_EMAIL
+  const match = raw.trim().match(/<([^>]+)>/)
+  if (match) return match[1].trim()
+  return raw.trim()
+}
+
+// Build the Resend "from" value: always "Tiles Privacy <email@domain.com>"
+// per https://resend.com/docs/api-reference/emails/send-email
 const getFromEmail = (): string => {
-  return process.env.RESEND_FROM_EMAIL || "Blog <onboarding@resend.dev>"
+  return `${SENDER_NAME} <${getFromEmailAddress()}>`
 }
 
 // Extract email address from fromEmail string
