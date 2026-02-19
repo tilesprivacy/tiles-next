@@ -12,9 +12,18 @@ export const people = {
     {
       id: "ankesh-bharti",
       name: "Ankesh Bharti @feynon",
-      links: ["https://ankeshbharti.com", "https://x.com/feynon_", "https://bsky.app/profile/ankeshbharti.com"],
+      links: [
+        "https://ankeshbharti.com",
+        "https://x.com/feynon_",
+        "https://bsky.app/profile/ankeshbharti.com",
+        "https://github.com/feynon",
+      ],
     },
-    { id: "anandu-pavanan", name: "Anandu Pavanan @madclaws", links: ["https://github.com/madclaws"] },
+    {
+      id: "anandu-pavanan",
+      name: "Anandu Pavanan @madclaws",
+      links: ["https://github.com/madclaws", "https://bsky.app/profile/madcla.ws"],
+    },
   ],
   contributorsCommunity: [],
   sponsorsActive: [
@@ -52,4 +61,3 @@ export function getPersonById(id: string): PersonIdentity | null {
   }
   return null
 }
-
