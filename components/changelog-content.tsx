@@ -169,6 +169,41 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             All notable changes and releases for Tiles.
           </p>
 
+          {/* Status */}
+          <section className="mb-10 lg:mb-12">
+            <h2 className={`mb-3 text-xl font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-2xl`}>
+              Status
+            </h2>
+            <p className={`text-base leading-relaxed ${textColorBody} lg:text-lg`}>
+              Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration and frequent updates as the product evolves.
+            </p>
+          </section>
+
+          {/* What's next */}
+          <section className="mb-10 lg:mb-12">
+            <h2 className={`mb-3 text-xl font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-2xl`}>
+              What's next
+            </h2>
+            <ul className={`mb-4 list-disc space-y-1.5 pl-5 text-base leading-relaxed ${textColorBody} lg:text-lg`}>
+              <li>ATProto-based identity</li>
+              <li>Peer-to-peer encrypted sync</li>
+              <li>MCP and Skills support optimized for on-device use with progressive disclosure</li>
+              <li>MLS-based group chats</li>
+            </ul>
+            <p className={`mb-4 text-base leading-relaxed ${textColorBody} lg:text-lg`}>
+              If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
+            </p>
+            <a
+              href="https://github.com/orgs/tilesprivacy/discussions"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-base font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline`}
+            >
+              View the RFCs
+              <ExternalLinkIcon />
+            </a>
+          </section>
+
           {error ? (
             <div className={`rounded-lg ${errorBg} p-4 ${errorText}`}>{error}</div>
           ) : (

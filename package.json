@@ -7,7 +7,9 @@
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start",
-    "generate:wireframe": "node scripts/extract-wireframe.mjs"
+    "generate:wireframe": "node scripts/extract-wireframe.mjs",
+    "sync:email-preview": "node scripts/sync-email-preview.mjs",
+    "sync:email-preview:watch": "node scripts/sync-email-preview.mjs --watch"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
