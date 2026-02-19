@@ -64,8 +64,6 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
 
       setTimeout(() => {
         setStatus("idle")
-        setMessage("")
-        // Keep subscriberEmail and senderEmail - only clear on page refresh
       }, 5000)
     } catch (error) {
       setStatus("error")
