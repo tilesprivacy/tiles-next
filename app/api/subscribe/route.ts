@@ -189,7 +189,7 @@ export async function POST(request: NextRequest) {
                         </h2>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 32px 0; line-height: 1.6;">
-                          Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration and frequent updates as the product evolves.
+                          Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
                         </p>
                         
                         <h2 class="email-heading" style="color: #000000; font-size: 22px; font-weight: 600; margin: 0 0 12px 0; line-height: 1.3; letter-spacing: -0.02em;">
@@ -199,7 +199,7 @@ export async function POST(request: NextRequest) {
                         <ul class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 20px 0; line-height: 1.6; padding-left: 20px;">
                           <li style="margin-bottom: 6px;">ATProto-based identity</li>
                           <li style="margin-bottom: 6px;">Peer-to-peer encrypted sync</li>
-                          <li style="margin-bottom: 6px;">MCP and Skills support optimized for on-device use with progressive disclosure</li>
+                          <li style="margin-bottom: 6px;">MCP and Skills support optimized for on-device use</li>
                           <li style="margin-bottom: 6px;">MLS-based group chats</li>
                         </ul>
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 16px 0; line-height: 1.6;">
@@ -266,7 +266,13 @@ export async function POST(request: NextRequest) {
                     
                     <!-- Footer -->
                     <tr>
-                      <td class="email-border" style="padding-top: 40px; border-top: 1px solid #e5e5e5;">
+                      <td style="padding-top: 40px;">
+                        <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 20px 0; line-height: 1.6;">
+                          Don't hesitate to reply to this email anytime if you have feedback. Your feedback shapes what we build next.
+                        </p>
+                        <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 20px 0; line-height: 1.6;">
+                          Thanks for being an early user. More soon.
+                        </p>
                         <p class="email-body" style="color: #666666; font-size: 15px; margin: 0 0 6px 0; line-height: 1.5;">
                           Best regards,
                         </p>

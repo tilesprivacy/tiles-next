@@ -175,7 +175,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               Status
             </h2>
             <p className={`text-base leading-relaxed ${textColorBody} lg:text-lg`}>
-              Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration and frequent updates as the product evolves.
+              Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
             </p>
           </section>
 
@@ -187,7 +187,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <ul className={`mb-4 list-disc space-y-1.5 pl-5 text-base leading-relaxed ${textColorBody} lg:text-lg`}>
               <li>ATProto-based identity</li>
               <li>Peer-to-peer encrypted sync</li>
-              <li>MCP and Skills support optimized for on-device use with progressive disclosure</li>
+              <li>MCP and Skills support optimized for on-device use</li>
               <li>MLS-based group chats</li>
             </ul>
             <p className={`mb-4 text-base leading-relaxed ${textColorBody} lg:text-lg`}>
