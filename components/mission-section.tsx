@@ -42,7 +42,7 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
 
   function Person({ name, links }: { name: string; links: string[] }) {
     return (
-      <div className={`flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm ${textColorMuted} lg:text-base`}>
+      <div className={`flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm ${textColorMuted} lg:text-base leading-relaxed`}>
         <span>{renderDisplayName(name)}</span>
         <SocialLinks
           name={name}
@@ -127,11 +127,11 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
       <div className="w-full lg:w-auto lg:flex-shrink-0 mt-6 sm:mt-8 lg:mt-0">
         <div className="flex flex-col sm:flex-row lg:flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10">
           <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
-            <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-3 sm:mb-4 lg:text-xl`}>Contributors</h3>
-            <div className="space-y-3 sm:space-y-4">
+            <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-4 sm:mb-5 lg:text-xl`}>Contributors</h3>
+            <div className="space-y-4 sm:space-y-5">
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Core</h4>
-                <div className="space-y-1 sm:space-y-1.5">
+                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Core</h4>
+                <div className="space-y-2 sm:space-y-2.5">
                   {people.contributorsCore.map((person) => (
                     <Person key={person.name} name={person.name} links={person.links} />
                   ))}
@@ -141,19 +141,19 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
           </div>
 
           <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
-            <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-3 sm:mb-4 lg:text-xl`}>Sponsors</h3>
-            <div className="space-y-3 sm:space-y-4">
+            <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-4 sm:mb-5 lg:text-xl`}>Sponsors</h3>
+            <div className="space-y-4 sm:space-y-5">
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Current</h4>
-                <div className="space-y-1 sm:space-y-1.5">
+                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Current</h4>
+                <div className="space-y-2 sm:space-y-2.5">
                   {people.sponsorsActive.map((person) => (
                     <Person key={person.name} name={person.name} links={person.links} />
                   ))}
                 </div>
               </div>
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-1.5 sm:mb-2 lg:text-base`}>Past</h4>
-                <div className="space-y-1 sm:space-y-1.5">
+                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Past</h4>
+                <div className="space-y-2 sm:space-y-2.5">
                   {people.sponsorsPast.map((person) => (
                     <Person key={person.name} name={person.name} links={person.links} />
                   ))}
