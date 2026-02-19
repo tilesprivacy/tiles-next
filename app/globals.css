@@ -672,6 +672,79 @@
   white-space: normal;
 }
 
+/* Sniper Link custom styling to match Tiles branding */
+sniper-link::part(container) {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/* Light theme Sniper Link */
+form[data-theme="light"] sniper-link::part(button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background-color: white;
+  color: black;
+}
+
+form[data-theme="light"] sniper-link::part(button):hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.25);
+}
+
+form[data-theme="light"] sniper-link::part(text) {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: black;
+}
+
+/* Dark theme Sniper Link */
+form[data-theme="dark"] sniper-link::part(button) {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid #303030;
+  background-color: #151515;
+  color: #E6E6E6;
+}
+
+form[data-theme="dark"] sniper-link::part(button):hover {
+  background-color: #1f1f1f;
+  border-color: #404040;
+}
+
+form[data-theme="dark"] sniper-link::part(text) {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #E6E6E6;
+}
+
+/* Common Sniper Link styles */
+sniper-link::part(image) {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Hide Sniper Link when provider is not recognized */
+sniper-link[hidden] {
+  display: none !important;
+}
+
 /* Constrain main content column width for better readability */
 /* Target only the main element inside article (the text content), not sidebars or "On This Page" */
 [data-book-section] article > main,

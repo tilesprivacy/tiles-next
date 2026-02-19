@@ -2,11 +2,12 @@
 
 import type React from "react"
 
-import { useState, useEffect, useId } from "react"
+import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useTheme } from 'next-themes'
 import { cn } from "@/lib/utils"
+import Script from "next/script"
 
 interface NewsletterFormProps {
   surface?: "auto" | "light" | "dark"
@@ -14,10 +15,12 @@ interface NewsletterFormProps {
 }
 
 export default function NewsletterForm({ surface = "auto", className }: NewsletterFormProps) {
-  const emailInputId = useId()
+  const emailInputId = "newsletter-email-input"
   const [email, setEmail] = useState("")
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [message, setMessage] = useState("")
+  const [subscriberEmail, setSubscriberEmail] = useState("")
+  const [senderEmail, setSenderEmail] = useState("")
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -54,11 +57,15 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
 
       setStatus("success")
       setMessage("Welcome! Check your email for confirmation.")
+      setSubscriberEmail(email.trim())
+      setSenderEmail(data.senderEmail || "")
       setEmail("")
 
       setTimeout(() => {
         setStatus("idle")
         setMessage("")
+        setSubscriberEmail("")
+        setSenderEmail("")
       }, 5000)
     } catch (error) {
       setStatus("error")
@@ -97,48 +104,65 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
         : "text-black/65"
 
   return (
-    <form onSubmit={handleSubmit} className={cn("w-full", className)}>
-      <div className="space-y-2.5">
-        <label htmlFor={emailInputId} className="sr-only">
-          Email address
-        </label>
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-          <Input
-            id={emailInputId}
-            type="email"
-            autoComplete="email"
-            inputMode="email"
-            placeholder="your@email.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={status === "loading"}
-            className={cn(
-              "text-sm selection:!bg-blue-500 selection:!text-white",
-              inputClasses,
-            )}
-          />
-          <Button
-            type="submit"
-            disabled={status === "loading" || status === "success"}
-            className={cn(
-              "w-full rounded-md px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
-              buttonClasses,
-            )}
-          >
-            {status === "loading" ? "Subscribing..." : status === "success" ? "Done!" : "Subscribe"}
-          </Button>
+    <>
+      <Script src="https://sniperl.ink/v1/sniper-link.js" strategy="lazyOnload" />
+      <form 
+        onSubmit={handleSubmit} 
+        className={cn("w-full", className)}
+        data-theme={isDark ? "dark" : "light"}
+      >
+        <div className="space-y-2.5">
+          <label htmlFor={emailInputId} className="sr-only">
+            Email address
+          </label>
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <Input
+              id={emailInputId}
+              type="email"
+              autoComplete="email"
+              inputMode="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={handleKeyDown}
+              disabled={status === "loading"}
+              className={cn(
+                "text-sm selection:!bg-blue-500 selection:!text-white",
+                inputClasses,
+              )}
+            />
+            <Button
+              type="submit"
+              disabled={status === "loading" || status === "success"}
+              className={cn(
+                "w-full rounded-md px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
+                buttonClasses,
+              )}
+            >
+              {status === "loading" ? "Subscribing..." : status === "success" ? "Done!" : "Subscribe"}
+            </Button>
+          </div>
+          {status === "success" && subscriberEmail && senderEmail && (
+            <div className="flex justify-center sm:justify-start">
+              <sniper-link
+                recipient={subscriberEmail}
+                sender={senderEmail}
+                template="Open in {provider}"
+                className="sniper-link-wrapper"
+              />
+            </div>
+          )}
+          {message && (
+            <p
+              role="status"
+              aria-live="polite"
+              className={cn("text-xs leading-relaxed", messageClasses)}
+            >
+              {message}
+            </p>
+          )}
         </div>
-        {message && (
-          <p
-            role="status"
-            aria-live="polite"
-            className={cn("text-xs leading-relaxed", messageClasses)}
-          >
-            {message}
-          </p>
-        )}
-      </div>
-    </form>
+      </form>
+    </>
   )
 }

@@ -16,6 +16,16 @@ const getFromEmail = (): string => {
   return process.env.RESEND_FROM_EMAIL || "Blog <onboarding@resend.dev>"
 }
 
+// Extract email address from fromEmail string
+// Handles formats like "Display Name <email@domain.com>" or "email@domain.com"
+const extractEmailFromFromEmail = (fromEmail: string): string => {
+  const match = fromEmail.match(/<([^>]+)>/)
+  if (match) {
+    return match[1]
+  }
+  return fromEmail.trim()
+}
+
 // Email validation helper
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -155,12 +165,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Extract sender email for Sniper Link
+    const senderEmail = extractEmailFromFromEmail(fromEmail)
+
     // Success response
     return NextResponse.json(
       {
         success: true,
         message: "Successfully subscribed!",
         id: result.data?.id,
+        senderEmail, // Include sender email for Sniper Link
       },
       { status: 200 }
     )
