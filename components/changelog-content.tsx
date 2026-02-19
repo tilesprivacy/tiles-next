@@ -93,6 +93,9 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
   const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
   const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
+  const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
+  const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
+  const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
 
   const CodeBlock = ({ code, version }: { code: string; version: string }) => {
     const [copied, setCopied] = useState(false)
@@ -170,34 +173,34 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           </p>
 
           {/* Status */}
-          <section className="mb-10 lg:mb-12">
-            <h2 className={`mb-3 text-xl font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-2xl`}>
+          <section className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 lg:mb-12 lg:pb-12">
+            <h2 className={sectionHeadingClass}>
               Status
             </h2>
-            <p className={`text-base leading-relaxed ${textColorBody} lg:text-lg`}>
+            <p className={paragraphClass}>
               Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
             </p>
           </section>
 
           {/* What's next */}
-          <section className="mb-10 lg:mb-12">
-            <h2 className={`mb-3 text-xl font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-2xl`}>
+          <section className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 lg:mb-12 lg:pb-12">
+            <h2 className={sectionHeadingClass}>
               What's next
             </h2>
-            <ul className={`mb-4 list-disc space-y-1.5 pl-5 text-base leading-relaxed ${textColorBody} lg:text-lg`}>
+            <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>ATProto-based identity</li>
               <li>Peer-to-peer encrypted sync</li>
               <li>MCP and Skills support optimized for on-device use</li>
               <li>MLS-based group chats</li>
             </ul>
-            <p className={`mb-4 text-base leading-relaxed ${textColorBody} lg:text-lg`}>
+            <p className={`mb-5 ${paragraphClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
             </p>
             <a
               href="https://github.com/orgs/tilesprivacy/discussions"
               target="_blank"
               rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-base font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline`}
+              className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
             >
               View the RFCs
               <ExternalLinkIcon />
@@ -213,11 +216,14 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
               <div className="space-y-10 md:space-y-12">
                 {releases.map((release, index) => (
-                  <div key={release.version} className="relative">
+                  <div
+                    key={release.version}
+                    className="relative border-b border-black/5 pb-10 last:border-b-0 last:pb-0 dark:border-white/10"
+                  >
                     {/* Mobile layout */}
                     <div className="md:hidden">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className={`text-lg font-semibold ${textColor}`}>
+                      <div className="mb-3 flex items-center gap-3">
+                        <span className={`text-base font-semibold ${textColor} lg:text-lg`}>
                           {release.version}
                         </span>
                         {index === 0 && (
@@ -231,16 +237,16 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           </span>
                         )}
                       </div>
-                      <p className={`text-sm ${textColorSubtle} mb-2`}>{release.date}</p>
-                      <h2 className={`text-lg font-semibold ${textColorHeading} mb-3`}>
+                      <p className={`mb-2 text-sm ${textColorSubtle}`}>{release.date}</p>
+                      <h2 className={`mb-3 text-base font-semibold tracking-tight ${textColorHeading} lg:text-lg`}>
                         {release.title !== release.version ? release.title : `Alpha ${releases.length - index}`}
                       </h2>
-                      <div className="flex flex-wrap gap-3 mb-4">
+                      <div className="mb-4 flex flex-wrap gap-3">
                         <a
                           href={release.githubUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`text-sm font-medium ${linkColor} underline underline-offset-2 inline-flex items-center gap-0.5`}
+                          className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
                         >
                           github
                           <ExternalLinkIcon />
@@ -250,7 +256,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             href={release.compareUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`text-sm font-medium ${linkColor} underline underline-offset-2 inline-flex items-center gap-0.5`}
+                            className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
                           >
                             changelog
                             <ExternalLinkIcon />
@@ -258,7 +264,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         )}
                       </div>
                       {release.changes.length > 0 && (
-                        <ul className={`space-y-2 text-sm ${textColorBody}`}>
+                        <ul className={releaseBodyClass}>
                           {release.changes.map((change, i) => (
                             <li key={i}>
                               <div className="flex items-start gap-2">
@@ -266,7 +272,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                 <span>{renderTextWithCode(change.text, isDark)}</span>
                               </div>
                               {change.subItems && change.subItems.length > 0 && (
-                                <ul className="ml-4 mt-1 space-y-1">
+                                <ul className="ml-4 mt-1.5 space-y-1.5">
                                   {change.subItems.map((subItem, j) => (
                                     <li key={j} className="flex items-start gap-2">
                                       <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
@@ -286,7 +292,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                     <div className="hidden md:grid md:grid-cols-[100px_16px_1fr] md:gap-4">
                       {/* Left column: version and date */}
                       <div className="text-right">
-                        <span className={`text-lg font-semibold ${textColor}`}>
+                        <span className={`text-base font-semibold ${textColor} lg:text-lg`}>
                           {release.version}
                         </span>
                         <p className={`text-sm ${textColorSubtle}`}>{release.date}</p>
@@ -299,8 +305,8 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
                       {/* Right column: content */}
                       <div>
-                        <div className="flex items-center gap-3 mb-1">
-                          <h2 className={`text-xl font-semibold ${textColorHeading}`}>
+                        <div className="mb-2 flex items-center gap-3">
+                          <h2 className={`text-lg font-semibold tracking-tight ${textColorHeading}`}>
                             {release.title !== release.version
                               ? release.title
                               : `Alpha ${releases.length - index}`}
@@ -317,12 +323,12 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           )}
                         </div>
 
-                        <div className="flex flex-wrap gap-4 mb-4">
+                        <div className="mb-4 flex flex-wrap gap-4">
                           <a
                             href={release.githubUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className={`text-sm font-medium ${linkColor} underline underline-offset-2 inline-flex items-center gap-0.5`}
+                            className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
                           >
                             github
                             <ExternalLinkIcon />
@@ -332,7 +338,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                               href={release.compareUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className={`text-sm font-medium ${linkColor} underline underline-offset-2 inline-flex items-center gap-0.5`}
+                              className={`inline-flex items-center gap-0.5 text-sm font-medium capitalize ${linkColor} underline underline-offset-2`}
                             >
                               changelog
                               <ExternalLinkIcon />
@@ -341,7 +347,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         </div>
 
                         {release.changes.length > 0 && (
-                          <ul className={`space-y-2 text-sm ${textColorBody}`}>
+                          <ul className={releaseBodyClass}>
                             {release.changes.map((change, i) => (
                               <li key={i}>
                                 <div className="flex items-start gap-2">
@@ -349,7 +355,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                   <span>{renderTextWithCode(change.text, isDark)}</span>
                                 </div>
                                 {change.subItems && change.subItems.length > 0 && (
-                                  <ul className="ml-4 mt-1 space-y-1">
+                                  <ul className="ml-4 mt-1.5 space-y-1.5">
                                     {change.subItems.map((subItem, j) => (
                                       <li key={j} className="flex items-start gap-2">
                                         <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
