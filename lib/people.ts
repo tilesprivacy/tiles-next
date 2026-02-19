@@ -19,7 +19,11 @@ export const people = {
         "https://github.com/feynon",
       ],
     },
-    { id: "anandu-pavanan", name: "Anandu Pavanan @madclaws", links: ["https://github.com/madclaws"] },
+    {
+      id: "anandu-pavanan",
+      name: "Anandu Pavanan @madclaws",
+      links: ["https://github.com/madclaws", "https://bsky.app/profile/madcla.ws"],
+    },
   ],
   contributorsCommunity: [],
   sponsorsActive: [
