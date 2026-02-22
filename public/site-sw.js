@@ -101,6 +101,9 @@ self.addEventListener('fetch', (event) => {
         return response
       } catch {
         if (request.mode === 'navigate') {
+          const directFallback = await cache.match(url.pathname)
+          if (directFallback) return directFallback
+
           const fallback = await cache.match('/')
           if (fallback) return fallback
         }
