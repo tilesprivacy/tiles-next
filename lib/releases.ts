@@ -15,6 +15,19 @@ export interface Release {
 
 // Custom changes to supplement or override GitHub release data
 const customChanges: Record<string, ChangeItem[]> = {
+  "0.4.1": [
+    {
+      text: "Basic Identity system for Tiles",
+      subItems: [
+        "`tiles account` – shows the account details from toml",
+        "`tiles account create <nickname>` – creates root identity and adds nickname (optional)",
+        "`tiles account set-nickname` – set nickname to the root identity",
+      ],
+    },
+    {
+      text: "Updated CLI to add default `tiles` command",
+    },
+  ],
   "0.4.0": [
     {
       text: "Implemented a portable Python runtime in the installer",
@@ -58,19 +71,39 @@ const customChanges: Record<string, ChangeItem[]> = {
 // Additional changes to append to existing changes (for supplements, not overrides)
 const additionalChanges: Record<string, ChangeItem[]> = {}
 
+// Override release titles when GitHub release names are not user-facing labels
+const customTitles: Record<string, string> = {
+  "0.4.1": "Alpha 5",
+}
+
 // Versions where the last bullet point should be replaced
 const replaceLastChange: Record<string, string> = {
   "0.3.0": "Basic refactoring for implementing multiple inference runtimes",
 }
+
+function normalizeVersion(version: string): string {
+  return version.replace(/^v/, "")
+}
+
+const githubHeaders = {
+  Accept: "application/vnd.github+json",
+}
+
+const requiredVersions = Array.from(
+  new Set([
+    ...Object.keys(customChanges),
+    ...Object.keys(customTitles),
+    ...Object.keys(additionalChanges),
+    ...Object.keys(replaceLastChange),
+  ])
+)
 
 export async function fetchReleases(): Promise<Release[]> {
   const res = await fetch(
     "https://api.github.com/repos/tilesprivacy/tiles/releases",
     {
       cache: 'no-store',
-      headers: {
-        Accept: "application/vnd.github+json",
-      },
+      headers: githubHeaders,
     }
   )
 
@@ -78,29 +111,81 @@ export async function fetchReleases(): Promise<Release[]> {
     throw new Error("Failed to fetch releases")
   }
 
-  const data = await res.json()
+  let data = await res.json()
 
-  return data
+  const missingRequiredVersions = requiredVersions.filter(
+    (requiredVersion) =>
+      !data.some(
+        (release: any) =>
+          normalizeVersion(release.tag_name) === normalizeVersion(requiredVersion)
+      )
+  )
+
+  if (missingRequiredVersions.length > 0) {
+    const requiredReleases = await Promise.all(
+      missingRequiredVersions.map(async (requiredVersion) => {
+        const requiredRes = await fetch(
+          `https://api.github.com/repos/tilesprivacy/tiles/releases/tags/${requiredVersion}`,
+          {
+            cache: "no-store",
+            headers: githubHeaders,
+          }
+        )
+
+        if (!requiredRes.ok) {
+          return null
+        }
+
+        return requiredRes.json()
+      })
+    )
+
+    data = [...requiredReleases.filter(Boolean), ...data]
+  }
+
+  const uniqueByVersion = new Map<string, any>()
+  for (const release of data) {
+    const normalized = normalizeVersion(release.tag_name)
+    if (!uniqueByVersion.has(normalized)) {
+      uniqueByVersion.set(normalized, release)
+    }
+  }
+
+  const normalizedData = Array.from(uniqueByVersion.values()).sort(
+    (a, b) =>
+      new Date(b.published_at || b.created_at || 0).getTime() -
+      new Date(a.published_at || a.created_at || 0).getTime()
+  )
+
+  return normalizedData
     .filter((release: any) => !release.prerelease)
     .map((release: any) => {
       const body = release.body || ""
       const changes = extractChanges(body)
       const version = release.tag_name
+      const normalizedVersion = normalizeVersion(version)
 
       // Use custom changes if available (overrides), otherwise use extracted changes
-      let finalChanges = customChanges[version] || changes
+      let finalChanges =
+        customChanges[version] || customChanges[normalizedVersion] || changes
 
       // Replace last bullet point if specified
-      if (replaceLastChange[version] && finalChanges.length > 0) {
+      if (
+        (replaceLastChange[version] || replaceLastChange[normalizedVersion]) &&
+        finalChanges.length > 0
+      ) {
         finalChanges = [
           ...finalChanges.slice(0, -1),
-          { text: replaceLastChange[version] },
+          { text: replaceLastChange[version] || replaceLastChange[normalizedVersion] },
         ]
       }
 
       // Append additional changes if specified (for supplements)
-      if (additionalChanges[version]) {
-        finalChanges = [...finalChanges, ...additionalChanges[version]]
+      if (additionalChanges[version] || additionalChanges[normalizedVersion]) {
+        finalChanges = [
+          ...finalChanges,
+          ...(additionalChanges[version] || additionalChanges[normalizedVersion]),
+        ]
       }
 
       // Remove trailing periods from all bullet points and sub-items
@@ -118,7 +203,11 @@ export async function fetchReleases(): Promise<Release[]> {
           day: "numeric",
           year: "numeric",
         }),
-        title: release.name || release.tag_name,
+        title:
+          customTitles[version] ||
+          customTitles[normalizedVersion] ||
+          release.name ||
+          release.tag_name,
         changes: finalChanges,
         isPrerelease: release.prerelease,
         githubUrl: release.html_url,

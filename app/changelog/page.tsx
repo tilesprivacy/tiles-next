@@ -2,7 +2,7 @@ import { fetchReleases, Release } from "@/lib/releases"
 import { ChangelogContent } from "@/components/changelog-content"
 import type { Metadata } from "next"
 
-export const revalidate = 3600
+export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
   title: "Tiles Changelog",
