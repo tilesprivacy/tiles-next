@@ -94,6 +94,9 @@ export function HomeContent() {
                     </span>
                     for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
                   </span>
+                  <span className="block">
+                    iOS, Android, Linux, and Windows support coming later.
+                  </span>
                 </p>
               </div>
             </div>

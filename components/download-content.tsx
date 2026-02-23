@@ -110,48 +110,10 @@ export function DownloadContent() {
                   </span>
                   for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
                 </span>
+                <span className="block">
+                  iOS, Android, Linux, and Windows support coming later.
+                </span>
               </p>
-
-              {/* Footer Links */}
-              <div className={`flex flex-wrap items-center gap-x-2 gap-y-1 text-xs ${isDark ? 'text-[#8A8A8A]' : 'text-black/60'} pt-4 lg:pt-6 lg:gap-3 lg:text-sm`}>
-                <a
-                  href="https://tiles.run/install.sh"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1 transition-colors ${isDark ? 'hover:text-[#E6E6E6]' : 'hover:text-black'}`}
-                >
-                  View script source
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-2.5 w-2.5"
-                  >
-                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-                <span>•</span>
-                <a
-                  href="https://github.com/tilesprivacy/tiles/blob/main/HACKING.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`inline-flex items-center gap-1 transition-colors ${isDark ? 'hover:text-[#E6E6E6]' : 'hover:text-black'}`}
-                >
-                  Build from source
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 12 12"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-2.5 w-2.5"
-                  >
-                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </a>
-              </div>
 
               {/* Older Versions Note */}
               <p className={`text-xs ${textColorMuted} sm:text-sm lg:text-base`}>
