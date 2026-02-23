@@ -48,10 +48,14 @@ export function BookCopyLink() {
   const pathname = usePathname()
   const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null)
   const [viewportWidth, setViewportWidth] = useState(0)
+  const [headerBottom, setHeaderBottom] = useState(0)
   const [menuOpen, setMenuOpen] = useState(false)
 
   const style: CSSProperties | null = useMemo(() => {
     if (!anchorRect) return null
+    const safeTop = Math.max(0, headerBottom) + 8
+    // Hide the control as soon as its anchor reaches the top header zone.
+    if (anchorRect.top <= safeTop) return null
     const isMobile = viewportWidth > 0 && viewportWidth <= 1023
     const preferredLeft = anchorRect.left - 12
     const hasRoomOnLeft = preferredLeft >= 160
@@ -61,22 +65,22 @@ export function BookCopyLink() {
     if (!isMobile && hasRoomOnLeft) {
       return {
         position: 'fixed',
-        top: `${Math.max(0, anchorRect.top + anchorRect.height / 2)}px`,
+        top: `${Math.max(safeTop, anchorRect.top + anchorRect.height / 2)}px`,
         left: `${Math.max(8, preferredLeft)}px`,
         transform: 'translate(-100%, -50%)',
-        zIndex: 60,
+        zIndex: 30,
         pointerEvents: 'auto',
       }
     }
 
     return {
       position: 'fixed',
-      top: `${Math.max(0, anchorRect.bottom + 14)}px`,
+      top: `${Math.max(safeTop, anchorRect.bottom + 14)}px`,
       left: `${Math.max(8, anchorRect.left)}px`,
-      zIndex: 60,
+      zIndex: 30,
       pointerEvents: 'auto',
     }
-  }, [anchorRect, viewportWidth])
+  }, [anchorRect, headerBottom, viewportWidth])
 
   useEffect(() => {
     const isVisible = (el: Element | null) => {
@@ -152,6 +156,12 @@ export function BookCopyLink() {
         if (!copyPageContainer) {
           setAnchorRect(null)
           return
+        }
+        const header = document.querySelector('[data-book-section] header')
+        if (header instanceof HTMLElement) {
+          setHeaderBottom(header.getBoundingClientRect().bottom)
+        } else {
+          setHeaderBottom(0)
         }
         setViewportWidth(window.innerWidth)
         setAnchorRect(copyPageContainer.getBoundingClientRect())
