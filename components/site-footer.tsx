@@ -37,9 +37,20 @@ export function SiteFooter() {
       <div className="mx-auto max-w-6xl flex flex-col gap-8 lg:gap-10">
         <section className={`grid gap-6 border-b pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-10 lg:pb-10 ${borderColor}`}>
           <div className="max-w-xl space-y-2">
-            <h3 className={`text-lg font-semibold tracking-tight lg:text-xl ${newsletterHeadingColor}`}>
-              Stay updated
-            </h3>
+            <div className="flex items-center gap-2">
+              <h3 className={`text-lg font-semibold tracking-tight lg:text-xl ${newsletterHeadingColor}`}>
+                Stay updated
+              </h3>
+              <a
+                href="/api/rss"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center"
+                aria-label="RSS Feed for blog posts"
+              >
+                <FaRss className={`h-4 w-4 ${textColor} transition-colors group-hover:text-orange-500`} />
+              </a>
+            </div>
             <p className={`text-sm leading-relaxed lg:text-base ${newsletterDescriptionColor}`}>
               Get updates on product releases, privacy research, and engineering.
             </p>
