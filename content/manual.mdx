@@ -16,31 +16,49 @@ Commands in this section are intended for regular users. Most user-facing functi
 ### CLI Commands
 
 ```bash
-tiles run [MODELFILE_PATH]     # Run a model (uses default if path not provided)
-tiles run -r <count>           # Set max relay count for model communication (default: 10)
-tiles health                   # Check status of dependencies
-tiles memory set-path <path>   # Set the path for memory storage
-tiles server start             # Start the daemon server
-tiles server stop              # Stop the daemon server
+tiles                          # Onboarding and launching REPL
+tiles account create <nickname> # Create root identity (nickname optional)
+tiles account set-nickname     # Set nickname
+tiles account                  # Show account details
+tiles data set-path <path>     # Set data directory
+tiles run [MODELFILE_PATH]     # Run a model (default if not provided)
+tiles run -m                   # Run with experimental memory model
+tiles server start             # Start daemon server
+tiles server stop              # Stop daemon server
 ```
 
 ### Examples
 
 ```bash
-# Start chatting with the default model
+# Onboarding and launching REPL
+tiles
+
+# Create root identity (nickname optional)
+tiles account create alice
+
+# Set nickname
+tiles account set-nickname
+
+# Show account details
+tiles account
+
+# Set data directory
+tiles data set-path ~/.tiles/data
+
+# Run a model (default if not provided)
 tiles run
 
-# Run a specific Modelfile
+# Run a model from a specific Modelfile
 tiles run ./path/to/Modelfile
 
-# Check if all dependencies are properly installed
-tiles health
+# Run with experimental memory model
+tiles run -m
 
-# Configure memory storage location
-tiles memory set-path ~/.tiles/memory
-
-# Start the background server
+# Start daemon server
 tiles server start
+
+# Stop daemon server
+tiles server stop
 ```
 
 ## Tilekit
