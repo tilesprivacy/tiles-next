@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { memo, useCallback, useEffect, useState } from "react"
+import { FaGithub } from "react-icons/fa6"
 import { MobileMenu } from "./mobile-menu"
 
 /** Set to true to show the top banner (e.g. for announcements). */
@@ -33,6 +34,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const buttonText = themeAware ? "text-white dark:text-black" : "text-white"
   const buttonHover = themeAware ? "hover:bg-black/90 dark:hover:bg-white/90" : "hover:bg-black/90"
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
+  const sourceButtonClasses = themeAware
+    ? "bg-black/5 text-black hover:bg-black/10 dark:bg-white/10 dark:text-[#E6E6E6] dark:hover:bg-white/20"
+    : "bg-black/5 text-black hover:bg-black/10"
 
   return (
     <>
@@ -87,25 +91,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6">
-            <a
-              href="https://github.com/tilesprivacy/tiles"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`text-base font-medium ${textColor} transition-colors ${textColorHover} inline-flex items-center gap-1`}
-            >
-              Source
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="h-3 w-3 shrink-0"
-                aria-hidden
-              >
-                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
             <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
               Changelog
             </Link>
@@ -115,6 +100,16 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
               Book
             </Link>
+            <a
+              href="https://github.com/tilesprivacy/tiles"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Star on GitHub"
+              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${sourceButtonClasses}`}
+            >
+              <FaGithub className="h-4 w-4 shrink-0" aria-hidden />
+              <span>Star</span>
+            </a>
           </nav>
         </div>
 

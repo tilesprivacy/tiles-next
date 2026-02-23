@@ -208,26 +208,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
         <div className="flex-1 flex flex-col">
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
-            <a
-              href="https://github.com/tilesprivacy/tiles"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-2`}
-            >
-              Source
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 12 12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className="h-5 w-5 shrink-0"
-                aria-hidden
-              >
-                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
             <Link
               href="/changelog"
               onClick={onClose}
@@ -249,6 +229,17 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             >
               Book
             </Link>
+            <a
+              href="https://github.com/tilesprivacy/tiles"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={onClose}
+              aria-label="Star on GitHub"
+              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-3`}
+            >
+              <FaGithub className="h-5 w-5 shrink-0" aria-hidden />
+              <span>Star</span>
+            </a>
           </nav>
 
           {/* Spacer to push content to bottom half */}
