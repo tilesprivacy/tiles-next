@@ -218,6 +218,9 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <h2 className={sectionHeadingClass}>
               What's next
             </h2>
+            <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
+              H1 2026
+            </h3>
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>ATProto-based identity</li>
               <li>Peer-to-peer encrypted sync</li>
