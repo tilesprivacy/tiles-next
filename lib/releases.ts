@@ -11,6 +11,13 @@ export interface Release {
   isPrerelease: boolean
   githubUrl: string
   compareUrl?: string
+  tarballs: ReleaseTarball[]
+}
+
+export interface ReleaseTarball {
+  name: string
+  url: string
+  sizeBytes: number
 }
 
 // Custom changes to supplement or override GitHub release data
@@ -212,8 +219,23 @@ export async function fetchReleases(): Promise<Release[]> {
         isPrerelease: release.prerelease,
         githubUrl: release.html_url,
         compareUrl: extractCompareUrl(body),
+        tarballs: extractTarballs(release.assets),
       }
     })
+}
+
+function extractTarballs(assets: any[] | undefined): ReleaseTarball[] {
+  if (!Array.isArray(assets)) {
+    return []
+  }
+
+  return assets
+    .filter((asset) => typeof asset?.name === "string" && asset.name.endsWith(".tar.gz"))
+    .map((asset) => ({
+      name: asset.name,
+      url: asset.browser_download_url,
+      sizeBytes: asset.size,
+    }))
 }
 
 function extractChanges(body: string): ChangeItem[] {

@@ -1,23 +1,9 @@
 'use client'
 
 import { SiteFooter } from "@/components/site-footer"
+import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-
-interface Change {
-  text: string
-  subItems?: string[]
-}
-
-interface Release {
-  version: string
-  title: string
-  date: string
-  githubUrl: string
-  compareUrl?: string
-  isPrerelease: boolean
-  changes: Change[]
-}
 
 interface ChangelogContentProps {
   releases: Release[]
@@ -60,6 +46,24 @@ const renderTextWithCode = (text: string, isDark: boolean) => {
   })
 }
 
+const formatBinarySize = (sizeBytes: number) => {
+  if (!Number.isFinite(sizeBytes) || sizeBytes < 0) {
+    return "Unknown size"
+  }
+
+  const units = ["B", "KiB", "MiB", "GiB", "TiB"]
+  let value = sizeBytes
+  let unitIndex = 0
+
+  while (value >= 1024 && unitIndex < units.length - 1) {
+    value /= 1024
+    unitIndex++
+  }
+
+  const precision = unitIndex === 0 ? 0 : value >= 10 ? 1 : 2
+  return `${value.toFixed(precision)} ${units[unitIndex]}`
+}
+
 export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -96,6 +100,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
   const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
   const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
+  const tarballMetaClass = `text-xs ${textColorBodyLight} lg:text-sm`
 
   const CodeBlock = ({ code, version }: { code: string; version: string }) => {
     const [copied, setCopied] = useState(false)
@@ -157,6 +162,32 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <ExternalLinkIcon />
           </a>
         </div>
+      </div>
+    )
+  }
+
+  const TarballList = ({ release }: { release: Release }) => {
+    if (release.tarballs.length === 0) {
+      return null
+    }
+
+    return (
+      <div className={`mb-4 space-y-1 ${tarballMetaClass}`}>
+        {release.tarballs.map((tarball) => (
+          <div key={tarball.name} className="flex flex-wrap items-center gap-x-2">
+            <span>Tarball:</span>
+            <a
+              href={tarball.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+            >
+              {tarball.name}
+              <ExternalLinkIcon />
+            </a>
+            <span>({formatBinarySize(tarball.sizeBytes)})</span>
+          </div>
+        ))}
       </div>
     )
   }
@@ -263,6 +294,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           </a>
                         )}
                       </div>
+                      <TarballList release={release} />
                       {release.changes.length > 0 && (
                         <ul className={releaseBodyClass}>
                           {release.changes.map((change, i) => (
@@ -345,6 +377,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             </a>
                           )}
                         </div>
+                        <TarballList release={release} />
 
                         {release.changes.length > 0 && (
                           <ul className={releaseBodyClass}>
