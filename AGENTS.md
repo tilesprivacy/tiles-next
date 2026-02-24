@@ -53,3 +53,17 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 ### Regenerating the WebP
 - If you change `public/wireframe.svg`, run: `npm run generate:wireframe`
 - This overwrites `public/wireframe.webp`.
+
+## Cursor Cloud specific instructions
+
+### Service overview
+- **Single service**: Next.js 16 website (Tiles Privacy marketing/docs site). No database, no Docker.
+- Dev server: `pnpm dev` → `http://localhost:3000`
+- Build: `pnpm build` (runs `next build` + Pagefind indexing)
+- Lint: `pnpm lint` (note: ESLint is referenced but not installed as a dependency and no config file exists; this command will fail)
+
+### Gotchas
+- **pnpm build scripts**: `@tailwindcss/oxide` and `sharp` require build-script approval. The `pnpm.onlyBuiltDependencies` field in `package.json` handles this non-interactively. If you see "Ignored build scripts" warnings after `pnpm install`, ensure that field is present.
+- **TypeScript version**: The lockfile pins TypeScript 5.0.2, which triggers peer-dependency warnings from `nextra`/`@shikijs/twoslash` (wants >=5.5). Build still succeeds because `ignoreBuildErrors: true` is set in `next.config.mjs`.
+- **No external services needed**: The Resend email API (`RESEND_API_KEY`) is optional and only used by the `/api/subscribe` newsletter endpoint. The site works fully without it.
+- **Pagefind search**: Only available after a full `pnpm build`; not active during `pnpm dev`.
