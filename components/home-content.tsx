@@ -195,7 +195,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Tilekit SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Customize local models and agent experiences within Tiles. Built in Rust, with support for the Modelfile spec and the Open Responses API.
+                Customize local models and agent experiences within Tiles. Built in Rust, with support for Modelfile spec and Open Responses API.
               </p>
             </div>
 
