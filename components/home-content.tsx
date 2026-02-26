@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { Cpu, Code2, Package, Brain, FileCode } from "lucide-react"
+import { Cpu, Code2, Package, Brain, FileCode, KeyRound } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 
@@ -151,6 +151,19 @@ export function HomeContent() {
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <KeyRound className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Local-First Identity</h3>
+              </div>
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
+                DID-based accounts created on-device, secured by public-key cryptography.
+              </p>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Code2 className="h-4 w-4" strokeWidth={1.75} />
                 </span>
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Code Interpreter</h3>
@@ -160,7 +173,7 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 3 */}
+            {/* Feature 4 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
@@ -173,20 +186,20 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 4 */}
+            {/* Feature 5 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <FileCode className="h-4 w-4" strokeWidth={1.75} />
                 </span>
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Modelfile SDK</h3>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Tilekit SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Customize local models and agent experiences within Tiles. Built in Rust, with support for the Open Responses API.
+                Customize local models and agent experiences within Tiles. Built in Rust, with support for the Modelfile spec and the Open Responses API.
               </p>
             </div>
 
-            {/* Feature 5 */}
+            {/* Feature 6 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">

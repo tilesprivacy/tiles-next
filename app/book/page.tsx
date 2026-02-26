@@ -10,7 +10,7 @@ export async function generateMetadata() {
     'Tiles Book: Technical documentation for the models, infrastructure, and cryptography powering Tiles.'
   const ogTitle = canonicalTabTitle
   const description =
-    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Modelfile SDK.'
+    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Tilekit SDK.'
   // Use absolute title for the index page so it does not depend on a child heading.
   return {
     ...metadata,

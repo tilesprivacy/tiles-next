@@ -196,7 +196,7 @@ export async function POST(request: NextRequest) {
                         </p>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 32px 0; line-height: 1.6;">
-                          Developers can extend Tiles using our Modelfile-based SDK to customize models and agent experiences securely.
+                          Developers can extend Tiles using our Tilekit SDK to customize models and agent experiences securely.
                         </p>
                         
                         <h2 class="email-heading" style="color: #000000; font-size: 22px; font-weight: 600; margin: 0 0 12px 0; line-height: 1.3; letter-spacing: -0.02em;">
@@ -204,7 +204,7 @@ export async function POST(request: NextRequest) {
                         </h2>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 32px 0; line-height: 1.6;">
-                          Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Modelfile SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
+                          Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Tilekit SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
                         </p>
                         
                         <h2 class="email-heading" style="color: #000000; font-size: 22px; font-weight: 600; margin: 0 0 12px 0; line-height: 1.3; letter-spacing: -0.02em;">
