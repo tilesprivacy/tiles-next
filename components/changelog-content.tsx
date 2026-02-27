@@ -222,7 +222,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               H1 2026
             </h3>
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
-              <li>ATProto-based identity</li>
+              <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
               <li>Peer-to-peer encrypted sync</li>
               <li>Connectors based on MCP and Agent Skills optimized for token efficiency</li>
               <li>MLS-based group chats</li>
