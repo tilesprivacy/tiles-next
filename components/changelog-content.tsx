@@ -224,7 +224,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>ATProto-based identity</li>
               <li>Peer-to-peer encrypted sync</li>
-              <li>Connectors based on MCP and Agent Skills optimized for token efficiency.</li>
+              <li>Connectors based on MCP and Agent Skills optimized for token efficiency</li>
               <li>MLS-based group chats</li>
             </ul>
             <p className={`mb-5 ${paragraphClass}`}>
