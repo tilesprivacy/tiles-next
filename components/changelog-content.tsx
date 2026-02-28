@@ -225,6 +225,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
               <li>Peer-to-peer encrypted sync</li>
               <li>Connectors based on MCP and Agent Skills optimized for token efficiency</li>
+              <li>Sandboxed code execution</li>
               <li>MLS-based group chats</li>
             </ul>
             <p className={`mb-5 ${paragraphClass}`}>
