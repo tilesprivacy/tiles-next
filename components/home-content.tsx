@@ -140,10 +140,10 @@ export function HomeContent() {
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Cpu className="h-4 w-4" strokeWidth={1.75} />
                 </span>
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Built for Your Machine</h3>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">On-device models</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                An opinionated package of prompt, tools, and on-device models optimized for your hardware.
+                An opinionated package of prompt, tools, and models optimized for your hardware.
               </p>
             </div>
 
