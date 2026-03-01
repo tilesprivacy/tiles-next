@@ -156,7 +156,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Local-First Identity</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                DID-based accounts created on-device, secured by public-key cryptography.
+                Locally generated DIDs secured by public-key cryptography.
               </p>
             </div>
 

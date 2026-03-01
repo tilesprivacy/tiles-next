@@ -9,4 +9,8 @@ Our approach to model selection is to use the most suitable model for each task,
 
 We use [`gpt-oss-20b`](https://openai.com/index/introducing-gpt-oss/) as the primary model for everyday tasks and expose it through the [Open Responses API](https://www.openresponses.org/). Its Mixture of Experts architecture activates only around 4B parameters at inference time out of a total 21B, making it a strong balance between quality and efficiency.
 
-This setup requires 16 GB of unified memory to run optimally and should not pose an adoption issue, as all Macs sold from late 2024 onward ship with 16 GB of base memory.
+Memory capacity and memory bandwidth, not peak FLOPs, are the primary constraints for local inference. Personal computing assistants typically operate at batch_size = 1, where throughput is limited by memory movement rather than raw compute.
+
+We started with Apple Silicon hardware because it offers strong memory unit economics relative to competing platforms, due to its unified memory architecture and high memory bandwidth per dollar.
+
+This setup requires 16 GB of unified memory to run optimally. Adoption should not be a constraint, as all Macs shipped from late 2024 onward include 16 GB of base memory.
