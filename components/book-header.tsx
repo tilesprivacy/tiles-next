@@ -5,6 +5,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { memo, useCallback, useState } from 'react'
 import { MobileMenu } from "./mobile-menu"
+import { triggerHapticFeedback } from "@/lib/haptic"
 
 const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   return (
@@ -26,7 +27,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
           asChild
           className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
         >
-          <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
+          <Link href="/download" onClick={() => triggerHapticFeedback("medium")} className="group flex items-center gap-1.5 lg:gap-2">
             {/* Light mode: white Apple logo (on black button) */}
             <Image
               src="/apple-logo-white.svg"
@@ -56,6 +57,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
             href="https://github.com/sponsors/tilesprivacy"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => triggerHapticFeedback("medium")}
             className="group flex items-center gap-1.5 lg:gap-2"
           >
             <svg
