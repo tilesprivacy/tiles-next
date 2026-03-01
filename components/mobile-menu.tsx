@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
+import { triggerHapticFeedback } from "@/lib/haptic"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -130,7 +131,10 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             >
               <Link
                 href="/download"
-                onClick={onClose}
+                onClick={() => {
+                  triggerHapticFeedback("medium")
+                  onClose()
+                }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
                 {themeAware ? (
@@ -175,6 +179,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 href="https://github.com/sponsors/tilesprivacy"
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => triggerHapticFeedback("medium")}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
                 <svg

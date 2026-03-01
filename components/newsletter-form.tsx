@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { useTheme } from 'next-themes'
 import { cn } from "@/lib/utils"
 import Script from "next/script"
+import { triggerHapticFeedback } from "@/lib/haptic"
 
 interface NewsletterFormProps {
   surface?: "auto" | "light" | "dark"
@@ -138,6 +139,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
             />
             <Button
               type="submit"
+              onClick={() => triggerHapticFeedback("medium")}
               disabled={status === "loading" || status === "success"}
               className={cn(
                 "w-full rounded-md px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
