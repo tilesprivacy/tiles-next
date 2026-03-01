@@ -8,6 +8,11 @@ import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
 
+const releasesHref =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/changelog#releases"
+    : "https://tiles.run/changelog#releases"
+
 export function HomeContent() {
   const [copied, setCopied] = useState(false)
 
@@ -83,7 +88,7 @@ export function HomeContent() {
                 <p className="text-xs lg:text-sm text-black/60 dark:text-[#B3B3B3]">
                   Paste this in your terminal, or{" "}
                   <Link
-                    href="http://localhost:3000/changelog#releases"
+                    href={releasesHref}
                     className="underline underline-offset-2 hover:text-black dark:hover:text-[#E6E6E6] transition-colors"
                   >
                     install another version
