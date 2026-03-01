@@ -32,12 +32,7 @@ async function loadGoogleFont(font: string, text: string) {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
-  const page = url.searchParams.get("page")
-
-  const tagline =
-    page === "changelog"
-      ? "All notable changes and releases for Tiles."
-      : "Your private and secure AI assistant for everyday use."
+  const tagline = "Your private and secure AI assistant for everyday use."
   const fontText = tagline
 
   // Fetch logo/font opportunistically; never fail the OG image if unavailable.
