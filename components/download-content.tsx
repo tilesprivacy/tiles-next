@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from 'next-themes'
 import { FaBook, FaDiscord } from "react-icons/fa6"
+import { triggerHaptic } from "@/lib/haptics"
 
 export function DownloadContent() {
   const { resolvedTheme } = useTheme()
@@ -31,6 +32,7 @@ export function DownloadContent() {
 
     const handleCopy = async () => {
       await navigator.clipboard.writeText(code)
+      triggerHaptic()
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }

@@ -7,7 +7,7 @@ description: "Our approach to model selection and optimization"
 
 Our approach to model selection is to use the most suitable model for each task, within the constraints of the supported hardware. Currently, Tiles is designed to handle everyday tasks, with plans to expand into more domain-specific use cases over time. We provide a carefully tested combination of system prompts, tools, and models, so users do not need to manage model selection or scaffolding themselves.
 
-We use [`gpt-oss-20b`](https://openai.com/index/introducing-gpt-oss/) as the primary model for everyday tasks and expose it through the [Open Responses API](https://www.openresponses.org/). Its Mixture of Experts architecture activates only around 4B parameters at inference time out of a total 21B, making it a strong balance between quality and efficiency.
+We use [`gpt-oss-20b`](https://openai.com/index/introducing-gpt-oss/) as the primary model for everyday tasks, with the [Harmony renderer](https://developers.openai.com/cookbook/articles/openai-harmony/) and support for the [Open Responses API](https://www.openresponses.org/) to ensure optimal inference efficiency. Its Mixture of Experts architecture activates roughly 4B parameters at inference time out of 21B total parameters, providing a strong balance between quality and efficiency.
 
 Memory capacity and memory bandwidth, not peak FLOPs, are the primary constraints for local inference. Personal computing assistants typically operate at batch_size = 1, where throughput is limited by memory movement rather than raw compute.
 

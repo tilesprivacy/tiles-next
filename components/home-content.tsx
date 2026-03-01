@@ -6,12 +6,14 @@ import { useState } from "react"
 import { Cpu, Package, Brain, FileCode, KeyRound } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
+import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
   const [copied, setCopied] = useState(false)
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText("curl -fsSL https://tiles.run/install.sh | sh")
+    triggerHaptic()
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -81,7 +83,7 @@ export function HomeContent() {
                 <p className="text-xs lg:text-sm text-black/60 dark:text-[#B3B3B3]">
                   Paste this in your terminal, or{" "}
                   <Link
-                    href="/changelog"
+                    href="http://localhost:3000/changelog#releases"
                     className="underline underline-offset-2 hover:text-black dark:hover:text-[#E6E6E6] transition-colors"
                   >
                     install another version

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
+import { triggerHaptic } from "@/lib/haptics"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -130,7 +131,10 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             >
               <Link
                 href="/download"
-                onClick={onClose}
+                onClick={(e) => {
+                  triggerHaptic()
+                  onClose()
+                }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
                 {themeAware ? (
@@ -176,6 +180,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-1.5 lg:gap-2"
+                onClick={() => triggerHaptic()}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -233,7 +238,10 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               href="https://github.com/tilesprivacy/tiles"
               target="_blank"
               rel="noopener noreferrer"
-              onClick={onClose}
+              onClick={(e) => {
+                triggerHaptic()
+                onClose()
+              }}
               aria-label="Star on GitHub"
               className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-3`}
             >

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { useTheme } from 'next-themes'
 import { cn } from "@/lib/utils"
 import Script from "next/script"
+import { triggerHaptic } from "@/lib/haptics"
 
 interface NewsletterFormProps {
   surface?: "auto" | "light" | "dark"
@@ -37,6 +38,8 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
       setMessage("Please enter your email")
       return
     }
+
+    triggerHaptic()
 
     setStatus("loading")
 

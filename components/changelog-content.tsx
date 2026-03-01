@@ -4,6 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { triggerHaptic } from "@/lib/haptics"
 
 interface ChangelogContentProps {
   releases: Release[]
@@ -110,6 +111,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
     const handleCopy = async () => {
       await navigator.clipboard.writeText(code)
+      triggerHaptic()
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }
@@ -207,19 +209,29 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           </p>
 
           {/* Status */}
-          <section className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 lg:mb-12 lg:pb-12">
+          <section
+            id="status"
+            className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 scroll-mt-28 lg:mb-12 lg:pb-12 lg:scroll-mt-40"
+          >
             <h2 className={sectionHeadingClass}>
-              Status
+              <a href="#status">
+                Status
+              </a>
             </h2>
             <p className={paragraphClass}>
               Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Tilekit SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
             </p>
           </section>
 
-          {/* What's next */}
-          <section className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 lg:mb-12 lg:pb-12">
+          {/* Roadmap */}
+          <section
+            id="roadmap"
+            className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 scroll-mt-28 lg:mb-12 lg:pb-12 lg:scroll-mt-40"
+          >
             <h2 className={sectionHeadingClass}>
-              What's next
+              <a href="#roadmap">
+                Roadmap
+              </a>
             </h2>
             <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
               H1 2026
@@ -245,7 +257,15 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             </a>
           </section>
 
-          <section className="mb-8 lg:mb-10">
+          <section
+            id="releases"
+            className="mb-8 scroll-mt-28 lg:mb-10 lg:scroll-mt-40"
+          >
+            <h2 className={sectionHeadingClass}>
+              <a href="#releases">
+                Releases
+              </a>
+            </h2>
             <p className={`text-sm leading-relaxed ${textColorBodyLight} lg:text-base`}>
               The format is based on{" "}
               <a

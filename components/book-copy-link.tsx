@@ -4,6 +4,7 @@ import { type CSSProperties, useEffect, useMemo, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { FaLink } from 'react-icons/fa6'
+import { triggerHaptic } from "@/lib/haptics"
 
 const copyIconClass =
   'h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5'
@@ -25,6 +26,7 @@ function CopyLinkButton() {
       // Fallback: open URL so user can copy manually
       window.open(url, '_blank', 'noopener,noreferrer')
     }
+    triggerHaptic()
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1400)
   }

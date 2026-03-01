@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { memo, useCallback, useEffect, useState } from "react"
 import { FaGithub } from "react-icons/fa6"
 import { MobileMenu } from "./mobile-menu"
+import { triggerHaptic } from "@/lib/haptics"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -105,6 +106,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Star on GitHub"
+              onClick={() => triggerHaptic()}
               className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${sourceButtonClasses}`}
             >
               <FaGithub className="h-4 w-4 shrink-0" aria-hidden />
@@ -121,7 +123,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             variant="ghost"
             className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2.5 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs lg:h-10 lg:px-4 lg:text-sm`}
           >
-            <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
+            <Link
+              href="/download"
+              className="group flex items-center gap-1.5 lg:gap-2"
+              onClick={() => triggerHaptic()}
+            >
               {themeAware ? (
                 <>
                   {/* Light mode: white Apple logo (on black button) */}
@@ -165,6 +171,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-1.5 lg:gap-2"
+              onClick={() => triggerHaptic()}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
