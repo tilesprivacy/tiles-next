@@ -64,6 +64,8 @@ const formatBinarySize = (sizeBytes: number) => {
   return `${value.toFixed(precision)} ${units[unitIndex]}`
 }
 
+const getReleaseAnchorId = (version: string) => version.replace(/^v/, "")
+
 export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -100,6 +102,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
   const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
   const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
+  const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
   const tarballMetaClass = `text-xs ${textColorBodyLight} lg:text-sm`
 
   const CodeBlock = ({ code, version }: { code: string; version: string }) => {
@@ -250,17 +253,23 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               <div className={`absolute left-[124px] top-0 hidden h-full w-px ${timelineBg} md:block`} />
 
               <div className="space-y-10 md:space-y-12">
-                {releases.map((release, index) => (
+                {releases.map((release, index) => {
+                  const releaseAnchorId = getReleaseAnchorId(release.version)
+                  return (
                   <div
                     key={release.version}
-                    className="relative border-b border-black/5 pb-10 last:border-b-0 last:pb-0 dark:border-white/10"
+                    id={releaseAnchorId}
+                    className="relative scroll-mt-28 border-b border-black/5 pb-10 last:border-b-0 last:pb-0 dark:border-white/10 lg:scroll-mt-40"
                   >
                     {/* Mobile layout */}
                     <div className="md:hidden">
                       <div className="mb-3 flex items-center gap-3">
-                        <span className={`text-base font-semibold ${textColor} lg:text-lg`}>
+                        <a
+                          href={`#${releaseAnchorId}`}
+                          className={`text-base font-semibold ${linkColor} lg:text-lg`}
+                        >
                           {release.version}
-                        </span>
+                        </a>
                         {index === 0 && (
                           <span className={`rounded-full ${badgeBg} px-2 py-0.5 text-xs font-medium ${badgeText}`}>
                             Latest
@@ -299,27 +308,34 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         )}
                       </div>
                       <TarballList release={release} />
-                      {release.changes.length > 0 && (
-                        <ul className={releaseBodyClass}>
-                          {release.changes.map((change, i) => (
-                            <li key={i}>
-                              <div className="flex items-start gap-2">
-                                <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                <span>{renderTextWithCode(change.text, isDark)}</span>
-                              </div>
-                              {change.subItems && change.subItems.length > 0 && (
-                                <ul className="ml-4 mt-1.5 space-y-1.5">
-                                  {change.subItems.map((subItem, j) => (
-                                    <li key={j} className="flex items-start gap-2">
-                                      <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                      <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              )}
-                            </li>
+                      {release.sections.length > 0 && (
+                        <div className="space-y-5">
+                          {release.sections.map((section, sectionIndex) => (
+                            <section key={`${release.version}-${section.title}-${sectionIndex}`} className="space-y-2">
+                              <h3 className={releaseSectionHeadingClass}>{section.title}</h3>
+                              <ul className={releaseBodyClass}>
+                                {section.changes.map((change, i) => (
+                                  <li key={i}>
+                                    <div className="flex items-start gap-2">
+                                      <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
+                                      <span>{renderTextWithCode(change.text, isDark)}</span>
+                                    </div>
+                                    {change.subItems && change.subItems.length > 0 && (
+                                      <ul className="ml-4 mt-1.5 space-y-1.5">
+                                        {change.subItems.map((subItem, j) => (
+                                          <li key={j} className="flex items-start gap-2">
+                                            <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
+                                            <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </li>
+                                ))}
+                              </ul>
+                            </section>
                           ))}
-                        </ul>
+                        </div>
                       )}
                       <CodeBlock code={`curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`} version={release.version} />
                     </div>
@@ -328,9 +344,12 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                     <div className="hidden md:grid md:grid-cols-[100px_16px_1fr] md:gap-4">
                       {/* Left column: version and date */}
                       <div className="text-right">
-                        <span className={`text-base font-semibold ${textColor} lg:text-lg`}>
+                        <a
+                          href={`#${releaseAnchorId}`}
+                          className={`text-base font-semibold ${linkColor} lg:text-lg`}
+                        >
                           {release.version}
-                        </span>
+                        </a>
                         <p className={`text-sm ${textColorSubtle}`}>{release.date}</p>
                       </div>
 
@@ -383,33 +402,41 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         </div>
                         <TarballList release={release} />
 
-                        {release.changes.length > 0 && (
-                          <ul className={releaseBodyClass}>
-                            {release.changes.map((change, i) => (
-                              <li key={i}>
-                                <div className="flex items-start gap-2">
-                                  <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                  <span>{renderTextWithCode(change.text, isDark)}</span>
-                                </div>
-                                {change.subItems && change.subItems.length > 0 && (
-                                  <ul className="ml-4 mt-1.5 space-y-1.5">
-                                    {change.subItems.map((subItem, j) => (
-                                      <li key={j} className="flex items-start gap-2">
-                                        <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                        <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
-                                      </li>
-                                    ))}
-                                  </ul>
-                                )}
-                              </li>
+                        {release.sections.length > 0 && (
+                          <div className="space-y-5">
+                            {release.sections.map((section, sectionIndex) => (
+                              <section key={`${release.version}-${section.title}-${sectionIndex}`} className="space-y-2">
+                                <h3 className={releaseSectionHeadingClass}>{section.title}</h3>
+                                <ul className={releaseBodyClass}>
+                                  {section.changes.map((change, i) => (
+                                    <li key={i}>
+                                      <div className="flex items-start gap-2">
+                                        <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
+                                        <span>{renderTextWithCode(change.text, isDark)}</span>
+                                      </div>
+                                      {change.subItems && change.subItems.length > 0 && (
+                                        <ul className="ml-4 mt-1.5 space-y-1.5">
+                                          {change.subItems.map((subItem, j) => (
+                                            <li key={j} className="flex items-start gap-2">
+                                              <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
+                                              <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      )}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </section>
                             ))}
-                          </ul>
+                          </div>
                         )}
                         <CodeBlock code={`curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`} version={release.version} />
                       </div>
                     </div>
                   </div>
-                ))}
+                  )
+                })}
               </div>
             </div>
           )}

@@ -3,11 +3,16 @@ export interface ChangeItem {
   subItems?: string[]
 }
 
+export interface ChangeSection {
+  title: string
+  changes: ChangeItem[]
+}
+
 export interface Release {
   version: string
   date: string
   title: string
-  changes: ChangeItem[]
+  sections: ChangeSection[]
   isPrerelease: boolean
   githubUrl: string
   compareUrl?: string
@@ -21,62 +26,111 @@ export interface ReleaseTarball {
 }
 
 // Custom changes to supplement or override GitHub release data
-const customChanges: Record<string, ChangeItem[]> = {
-  "0.4.1": [
+const customSections: Record<string, ChangeSection[]> = {
+  "0.3.0": [
     {
-      text: "Basic Identity system for Tiles",
-      subItems: [
-        "`tiles account` – shows the account details from toml",
-        "`tiles account create <nickname>` – creates root identity and adds nickname (optional)",
-        "`tiles account set-nickname` – set nickname to the root identity",
+      title: "Fixed",
+      changes: [
+        {
+          text: "Tiles binary startup issue when run from outside a project directory",
+        },
+        {
+          text: "Model not unloading after exiting the REPL",
+        },
+        {
+          text: "Updated Python version to 3.13 for development",
+        },
+        {
+          text: "Enabled basic Linux compatibility",
+        },
       ],
     },
     {
-      text: "Updated CLI to add default `tiles` command",
+      title: "Changed",
+      changes: [
+        {
+          text: "Basic refactoring for implementing multiple inference runtimes",
+        },
+      ],
+    },
+  ],
+  "0.3.1": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "`--relay-count` / `-r` option for `tiles run` (helps if model gets stuck)",
+        },
+        {
+          text: "CLI shows progress status while downloading models",
+        },
+        {
+          text: "Slash commands and placeholder hint in the REPL",
+        },
+        {
+          text: "Ability to set custom memory location via `tiles memory set-path`",
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Minor internal refactoring",
+        },
+      ],
+    },
+  ],
+  "0.4.1": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "Identity system for Tiles",
+          subItems: [
+            "`tiles account` to show account details",
+            "`tiles account create <nickname>` to create root identity and optional nickname",
+            "`tiles account set-nickname` to set a nickname for root identity",
+          ],
+        },
+        {
+          text: "Updated CLI to include default `tiles` command",
+        },
+      ],
     },
   ],
   "0.4.0": [
     {
-      text: "Implemented a portable Python runtime in the installer",
-      subItems: [
-        "Tiles can now be installed without any system Python or other system dependencies"
-      ]
-    },
-    {
-      text: "Bundled default Modelfiles and now read the system prompt directly from the Modelfile",
-      subItems: [
-        "Default Modelfiles are bundled directly with the Tiles installer"
-      ]
-    },
-    {
-      text: "Added support for gpt-oss-20b in interactive chat",
-      subItems: [
-        "gpt-oss-20b is supported and used as the default model for non-memory chat"
-      ]
-    },
-    {
-      text: "Added basic support for the Open Responses API (`/v1/responses`) and REST endpoints"
-    },
-    {
-      text: "Added token metrics for model responses in the REPL"
-    },
-    {
-      text: "Added the `-m` flag to `tiles run` to execute Tiles in memory mode",
-      subItems: [
-        "This is an experimental feature"
-      ]
-    },
-    {
-      text: "Tilekit 0.2.0: Added the `optimize` subcommand for automatic SYSTEM prompt optimization using DSRs",
-      subItems: [
-        "`tiles optimize <Modelfile>` updates the Modelfile's system prompt using server based LLMs as optimizer models"
-      ]
+      title: "Added",
+      changes: [
+        {
+          text: "Portable Python runtime in the installer (no system Python required)",
+        },
+        {
+          text: "Bundled default Modelfiles and direct reading of system prompt from Modelfile",
+        },
+        {
+          text: "Support for `gpt-oss-20b` in interactive chat",
+        },
+        {
+          text: "Basic support for the Open Responses API (`/v1/responses`) and REST endpoints",
+        },
+        {
+          text: "Token metrics for model responses in the REPL",
+        },
+        {
+          text: "`-m` flag for `tiles run` to execute Tiles in memory mode (experimental)",
+        },
+        {
+          text: "Tilekit 0.2.0: `optimize` subcommand for automatic system-prompt optimization via DSRs",
+        },
+      ],
     }
   ]
 }
 
 // Additional changes to append to existing changes (for supplements, not overrides)
-const additionalChanges: Record<string, ChangeItem[]> = {}
+const additionalSections: Record<string, ChangeSection[]> = {}
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
@@ -84,9 +138,7 @@ const customTitles: Record<string, string> = {
 }
 
 // Versions where the last bullet point should be replaced
-const replaceLastChange: Record<string, string> = {
-  "0.3.0": "Basic refactoring for implementing multiple inference runtimes",
-}
+const replaceLastChange: Record<string, string> = {}
 
 function normalizeVersion(version: string): string {
   return version.replace(/^v/, "")
@@ -98,9 +150,9 @@ const githubHeaders = {
 
 const requiredVersions = Array.from(
   new Set([
-    ...Object.keys(customChanges),
+    ...Object.keys(customSections),
     ...Object.keys(customTitles),
-    ...Object.keys(additionalChanges),
+    ...Object.keys(additionalSections),
     ...Object.keys(replaceLastChange),
   ])
 )
@@ -168,39 +220,57 @@ export async function fetchReleases(): Promise<Release[]> {
     .filter((release: any) => !release.prerelease)
     .map((release: any) => {
       const body = release.body || ""
-      const changes = extractChanges(body)
+      const extractedSections = extractSections(body)
       const version = release.tag_name
       const normalizedVersion = normalizeVersion(version)
 
-      // Use custom changes if available (overrides), otherwise use extracted changes
-      let finalChanges =
-        customChanges[version] || customChanges[normalizedVersion] || changes
+      // Use custom sections if available (overrides), otherwise use extracted sections
+      let finalSections =
+        customSections[version] || customSections[normalizedVersion] || extractedSections
 
       // Replace last bullet point if specified
       if (
         (replaceLastChange[version] || replaceLastChange[normalizedVersion]) &&
-        finalChanges.length > 0
+        finalSections.length > 0
       ) {
-        finalChanges = [
-          ...finalChanges.slice(0, -1),
-          { text: replaceLastChange[version] || replaceLastChange[normalizedVersion] },
-        ]
+        const replacement =
+          replaceLastChange[version] || replaceLastChange[normalizedVersion]
+        const sectionsCopy = finalSections.map((section) => ({
+          ...section,
+          changes: [...section.changes],
+        }))
+
+        for (let i = sectionsCopy.length - 1; i >= 0; i--) {
+          const section = sectionsCopy[i]
+          if (section.changes.length > 0) {
+            section.changes = [
+              ...section.changes.slice(0, -1),
+              { text: replacement },
+            ]
+            break
+          }
+        }
+
+        finalSections = sectionsCopy
       }
 
-      // Append additional changes if specified (for supplements)
-      if (additionalChanges[version] || additionalChanges[normalizedVersion]) {
-        finalChanges = [
-          ...finalChanges,
-          ...(additionalChanges[version] || additionalChanges[normalizedVersion]),
-        ]
+      // Append additional sections if specified (for supplements)
+      if (additionalSections[version] || additionalSections[normalizedVersion]) {
+        finalSections = mergeSections(
+          finalSections,
+          additionalSections[version] || additionalSections[normalizedVersion]
+        )
       }
 
       // Remove trailing periods from all bullet points and sub-items
       // Also fix any typos
-      finalChanges = finalChanges.map((change) => ({
-        ...change,
-        text: change.text.replace(/\.$/, "").replace(/enoints/g, "endpoints"),
-        subItems: change.subItems?.map((sub) => sub.replace(/\.$/, "")),
+      finalSections = finalSections.map((section) => ({
+        ...section,
+        changes: section.changes.map((change) => ({
+          ...change,
+          text: normalizeChangeText(change.text),
+          subItems: change.subItems?.map((sub) => normalizeChangeText(sub)),
+        })),
       }))
 
       return {
@@ -215,7 +285,7 @@ export async function fetchReleases(): Promise<Release[]> {
           customTitles[normalizedVersion] ||
           release.name ||
           release.tag_name,
-        changes: finalChanges,
+        sections: finalSections,
         isPrerelease: release.prerelease,
         githubUrl: release.html_url,
         compareUrl: extractCompareUrl(body),
@@ -238,15 +308,74 @@ function extractTarballs(assets: any[] | undefined): ReleaseTarball[] {
     }))
 }
 
-function extractChanges(body: string): ChangeItem[] {
-  const changes: ChangeItem[] = []
+const KEEP_A_CHANGELOG_SECTION_ORDER = [
+  "Added",
+  "Changed",
+  "Deprecated",
+  "Removed",
+  "Fixed",
+  "Security",
+]
+
+const SECTION_TITLE_ALIASES: Record<string, string> = {
+  added: "Added",
+  add: "Added",
+  new: "Added",
+  features: "Added",
+  changed: "Changed",
+  change: "Changed",
+  changes: "Changed",
+  enhancements: "Changed",
+  improved: "Changed",
+  improvements: "Changed",
+  fixed: "Fixed",
+  fixes: "Fixed",
+  "bug fixes": "Fixed",
+  bugfixes: "Fixed",
+  deprecated: "Deprecated",
+  removed: "Removed",
+  security: "Security",
+}
+
+function extractSections(body: string): ChangeSection[] {
+  const sections: ChangeSection[] = []
   const lines = body.split("\n")
+  let currentSection: ChangeSection | null = null
   let currentChange: ChangeItem | null = null
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i]
+  const getOrCreateSection = (rawTitle: string) => {
+    const title = normalizeSectionTitle(rawTitle)
+    if (!title) {
+      return null
+    }
+
+    const existing = sections.find((section) => section.title === title)
+    if (existing) {
+      return existing
+    }
+
+    const next = { title, changes: [] }
+    sections.push(next)
+    return next
+  }
+
+  const pushCurrentChange = () => {
+    if (currentSection && currentChange) {
+      currentSection.changes.push(currentChange)
+    }
+    currentChange = null
+  }
+
+  for (const line of lines) {
     const trimmed = line.trim()
     const indentLevel = line.length - line.trimStart().length
+
+    const sectionHeaderMatch = trimmed.match(/^#{2,6}\s+(.+)$/)
+    if (sectionHeaderMatch) {
+      pushCurrentChange()
+      currentSection = getOrCreateSection(sectionHeaderMatch[1] || "")
+      continue
+    }
 
     // Check if it's a main bullet point (starts with *, -, or •)
     if (
@@ -255,19 +384,15 @@ function extractChanges(body: string): ChangeItem[] {
         trimmed.startsWith("• ")) &&
       indentLevel < 4
     ) {
-      // Save previous change if exists
-      if (currentChange) {
-        changes.push(currentChange)
-      }
+      pushCurrentChange()
 
-      const change = trimmed
-        .replace(/^[-*•]\s*/, "")
-        .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-        .replace(/by @\w+/g, "")
-        .replace(/in https?:\/\/[^\s]+/g, "")
-        .trim()
+      const rawBulletText = trimmed.replace(/^[-*•]\s*/, "")
+      const change = sanitizeBulletText(rawBulletText)
+      const targetSection =
+        currentSection || getOrCreateSection(inferSectionTitle(change))
 
       if (change && !change.startsWith("@") && change.length > 5) {
+        currentSection = targetSection
         currentChange = { text: change }
       } else {
         currentChange = null
@@ -286,18 +411,98 @@ function extractChanges(body: string): ChangeItem[] {
           if (!currentChange.subItems) {
             currentChange.subItems = []
           }
-          currentChange.subItems.push(subItem)
+          currentChange.subItems.push(sanitizeBulletText(subItem))
         }
       }
     }
   }
 
-  // Add the last change if exists
-  if (currentChange) {
-    changes.push(currentChange)
+  pushCurrentChange()
+  return sortSections(
+    sections.filter((section) => section.changes.length > 0)
+  )
+}
+
+function normalizeSectionTitle(rawTitle: string): string | null {
+  const title = rawTitle
+    .replace(/:$/, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .toLowerCase()
+
+  return SECTION_TITLE_ALIASES[title] || null
+}
+
+function inferSectionTitle(changeText: string): string {
+  const text = changeText.toLowerCase()
+
+  if (/\b(fix|fixed|bug|issue|crash|error)\b/.test(text)) {
+    return "Fixed"
+  }
+  if (/\b(add|added|new|introduc|support|enable)\b/.test(text)) {
+    return "Added"
+  }
+  if (/\b(change|changed|update|updated|refactor|improv)\b/.test(text)) {
+    return "Changed"
   }
 
-  return changes
+  return "Changed"
+}
+
+function sanitizeBulletText(text: string): string {
+  if (!text) {
+    return ""
+  }
+
+  return text
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\s+by\s+@\w+\s+in\s+https?:\/\/[^\s]+/gi, "")
+    .replace(/\s+in\s+https?:\/\/[^\s]+/gi, "")
+    .replace(/\s+/g, " ")
+    .trim()
+}
+
+function normalizeChangeText(text: string): string {
+  return text.replace(/\.$/, "").replace(/enoints/g, "endpoints")
+}
+
+function sortSections(sections: ChangeSection[]): ChangeSection[] {
+  return [...sections].sort((a, b) => {
+    const indexA = KEEP_A_CHANGELOG_SECTION_ORDER.indexOf(a.title)
+    const indexB = KEEP_A_CHANGELOG_SECTION_ORDER.indexOf(b.title)
+
+    const normalizedA = indexA === -1 ? Number.MAX_SAFE_INTEGER : indexA
+    const normalizedB = indexB === -1 ? Number.MAX_SAFE_INTEGER : indexB
+
+    if (normalizedA !== normalizedB) {
+      return normalizedA - normalizedB
+    }
+    return a.title.localeCompare(b.title)
+  })
+}
+
+function mergeSections(
+  baseSections: ChangeSection[],
+  extraSections: ChangeSection[]
+): ChangeSection[] {
+  const merged = baseSections.map((section) => ({
+    ...section,
+    changes: [...section.changes],
+  }))
+
+  for (const section of extraSections) {
+    const existing = merged.find((item) => item.title === section.title)
+    if (existing) {
+      existing.changes.push(...section.changes)
+    } else {
+      merged.push({
+        ...section,
+        changes: [...section.changes],
+      })
+    }
+  }
+
+  return sortSections(merged)
 }
 
 function extractCompareUrl(body: string): string | undefined {
