@@ -32,31 +32,41 @@ async function loadGoogleFont(font: string, text: string) {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
+  const page = url.searchParams.get("page")
 
-  const tagline = "Your private and secure AI assistant for everyday use."
+  const tagline =
+    page === "changelog"
+      ? "All notable changes and releases for Tiles."
+      : "Your private and secure AI assistant for everyday use."
   const fontText = tagline
 
-  // Fetch the logo image and convert to base64 for edge runtime
-  const logoResponse = await fetch(`${origin}/logo.png`)
-  if (!logoResponse.ok) {
-    throw new Error("Failed to fetch logo")
-  }
-  const logoBuffer = await logoResponse.arrayBuffer()
-  
-  // Convert ArrayBuffer to base64 (edge runtime compatible, chunked to avoid stack overflow)
-  const bytes = new Uint8Array(logoBuffer)
-  const chunkSize = 8192
-  let binary = ""
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    const chunk = bytes.subarray(i, i + chunkSize)
-    // Build string chunk by chunk without spreading
-    for (let j = 0; j < chunk.length; j++) {
-      binary += String.fromCharCode(chunk[j])
+  // Fetch logo/font opportunistically; never fail the OG image if unavailable.
+  let logoDataUrl: string | null = null
+  try {
+    const logoResponse = await fetch(`${origin}/logo.png`)
+    if (logoResponse.ok) {
+      const logoBuffer = await logoResponse.arrayBuffer()
+      const bytes = new Uint8Array(logoBuffer)
+      const chunkSize = 8192
+      let binary = ""
+      for (let i = 0; i < bytes.length; i += chunkSize) {
+        const chunk = bytes.subarray(i, i + chunkSize)
+        for (let j = 0; j < chunk.length; j++) {
+          binary += String.fromCharCode(chunk[j])
+        }
+      }
+      logoDataUrl = `data:image/png;base64,${btoa(binary)}`
     }
+  } catch {
+    logoDataUrl = null
   }
-  const logoBase64 = btoa(binary)
-  const logoDataUrl = `data:image/png;base64,${logoBase64}`
-  const geistFontData = await loadGoogleFont("Geist", fontText)
+
+  let geistFontData: ArrayBuffer | null = null
+  try {
+    geistFontData = await loadGoogleFont("Geist", fontText)
+  } catch {
+    geistFontData = null
+  }
 
   return new ImageResponse(
     (
@@ -82,15 +92,34 @@ export async function GET(request: Request) {
             flexDirection: "column",
           }}
         >
-          <img
-            src={logoDataUrl}
-            alt="Tiles logo"
-            width={200}
-            height={200}
-            style={{
-              objectFit: "contain",
-            }}
-          />
+          {logoDataUrl ? (
+            <img
+              src={logoDataUrl}
+              alt="Tiles logo"
+              width={200}
+              height={200}
+              style={{
+                objectFit: "contain",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: 200,
+                height: 200,
+                borderRadius: 9999,
+                backgroundColor: "#000000",
+                color: "#FFFFFF",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: 96,
+                fontWeight: 700,
+              }}
+            >
+              T
+            </div>
+          )}
           <div
             style={{
               display: "flex",
@@ -119,14 +148,18 @@ export async function GET(request: Request) {
     {
       width: size.width,
       height: size.height,
-      fonts: [
-        {
-          name: "Geist",
-          data: geistFontData,
-          style: "normal",
-          weight: 400,
-        },
-      ],
+      ...(geistFontData
+        ? {
+            fonts: [
+              {
+                name: "Geist",
+                data: geistFontData,
+                style: "normal" as const,
+                weight: 400 as const,
+              },
+            ],
+          }
+        : {}),
     },
   )
 }

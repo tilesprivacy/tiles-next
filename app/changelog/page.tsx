@@ -10,10 +10,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Tiles Changelog",
     description: "All notable changes and releases for Tiles.",
+    url: "https://www.tiles.run/changelog",
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: "https://www.tiles.run/api/og?page=changelog",
         width: 1200,
         height: 630,
         alt: "Tiles Changelog",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Changelog",
     description: "All notable changes and releases for Tiles.",
-    images: ["https://www.tiles.run/api/og"],
+    images: ["https://www.tiles.run/api/og?page=changelog"],
   },
 }
 
