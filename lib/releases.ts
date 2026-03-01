@@ -342,6 +342,7 @@ function extractSections(body: string): ChangeSection[] {
   const lines = body.split("\n")
   let currentSection: ChangeSection | null = null
   let currentChange: ChangeItem | null = null
+  let currentMainIndent = 0
 
   const getOrCreateSection = (rawTitle: string) => {
     const title = normalizeSectionTitle(rawTitle)
@@ -364,6 +365,7 @@ function extractSections(body: string): ChangeSection[] {
       currentSection.changes.push(currentChange)
     }
     currentChange = null
+    currentMainIndent = 0
   }
 
   for (const line of lines) {
@@ -377,13 +379,25 @@ function extractSections(body: string): ChangeSection[] {
       continue
     }
 
-    // Check if it's a main bullet point (starts with *, -, or •)
-    if (
-      (trimmed.startsWith("- ") ||
-        trimmed.startsWith("* ") ||
-        trimmed.startsWith("• ")) &&
-      indentLevel < 4
-    ) {
+    const isBullet =
+      trimmed.startsWith("- ") ||
+      trimmed.startsWith("* ") ||
+      trimmed.startsWith("• ")
+
+    // Treat indented bullets as sub-bullets relative to the current main bullet.
+    if (isBullet && currentChange && indentLevel > currentMainIndent) {
+      const subItem = trimmed.replace(/^[-*•]\s*/, "").trim()
+      if (subItem.length > 0) {
+        if (!currentChange.subItems) {
+          currentChange.subItems = []
+        }
+        currentChange.subItems.push(sanitizeBulletText(subItem))
+      }
+      continue
+    }
+
+    // Otherwise, treat as a main bullet point.
+    if (isBullet) {
       pushCurrentChange()
 
       const rawBulletText = trimmed.replace(/^[-*•]\s*/, "")
@@ -394,25 +408,9 @@ function extractSections(body: string): ChangeSection[] {
       if (change && !change.startsWith("@") && change.length > 5) {
         currentSection = targetSection
         currentChange = { text: change }
+        currentMainIndent = indentLevel
       } else {
         currentChange = null
-      }
-    }
-    // Check if it's a sub-bullet (indented and starts with -)
-    else if (
-      indentLevel >= 4 &&
-      (trimmed.startsWith("- ") || trimmed.startsWith("* "))
-    ) {
-      if (currentChange) {
-        const subItem = trimmed
-          .replace(/^[-*•]\s*/, "")
-          .trim()
-        if (subItem && subItem.length > 0) {
-          if (!currentChange.subItems) {
-            currentChange.subItems = []
-          }
-          currentChange.subItems.push(sanitizeBulletText(subItem))
-        }
       }
     }
   }

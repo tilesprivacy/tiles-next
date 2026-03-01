@@ -245,6 +245,22 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             </a>
           </section>
 
+          <section className="mb-8 lg:mb-10">
+            <p className={`text-sm leading-relaxed ${textColorBodyLight} lg:text-base`}>
+              The format is based on{" "}
+              <a
+                href="https://keepachangelog.com/en/1.1.0/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+              >
+                Keep a Changelog convention
+                <ExternalLinkIcon />
+              </a>
+              .
+            </p>
+          </section>
+
           {error ? (
             <div className={`rounded-lg ${errorBg} p-4 ${errorText}`}>{error}</div>
           ) : (
