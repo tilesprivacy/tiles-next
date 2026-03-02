@@ -161,14 +161,15 @@ export function DownloadContent() {
                   Join Discord
                 </h2>
                 <p className={`text-sm sm:text-base ${textColorMuted} leading-relaxed`}>
-                  Chat with the team and other users, get help, and share feedback.{" "}
+                  Chat with the team and other users, get help, and share feedback. Join us in the #tiles channel hosted
+                  by the{" "}
                   <a
                     href="https://go.tiles.run/discord"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`${textColorLink} underline underline-offset-2 transition-colors`}
                   >
-                    Join our Discord server
+                    User &amp; Agents community
                   </a>
                   .
                 </p>
