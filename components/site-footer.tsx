@@ -48,7 +48,6 @@ export function SiteFooter() {
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center"
                 aria-label="RSS Feed for blog posts"
-                shapeRendering="crispEdges"
               >
                 <FaRss className={`h-4 w-4 ${textColor} transition-colors group-hover:text-orange-500`} />
               </a>
@@ -190,7 +189,6 @@ export function SiteFooter() {
                 className="h-3.5 w-[21px]"
                 aria-label="Indian flag"
                 role="img"
-                shapeRendering="crispEdges"
               >
                 <rect width="30" height="6.67" fill="#FF9933" />
                 <rect y="6.67" width="30" height="6.66" fill="#FFFFFF" />
