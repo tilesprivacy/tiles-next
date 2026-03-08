@@ -178,8 +178,29 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom section - copyright and theme switcher */}
-        <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
-          <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors</p>
+        <div className={`flex flex-row items-center justify-between gap-3 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
+          <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">
+            <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors.</p>
+            <p className="inline-flex items-center gap-1.5 leading-tight">
+              <span>A</span>
+              <a
+                href="https://userandagents.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="U&A"
+                className="inline-flex items-center"
+              >
+                <img
+                  src="/ua-logo.svg"
+                  alt="U&A"
+                  width={40}
+                  height={20}
+                  className="h-4 sm:h-5 w-auto"
+                />
+              </a>
+              <span>incubated project.</span>
+            </p>
+          </div>
 
           {/* Theme Switcher - visible on all screens */}
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
