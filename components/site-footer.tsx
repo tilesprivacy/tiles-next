@@ -198,7 +198,7 @@ export function SiteFooter() {
                   className="h-4 sm:h-5 w-auto"
                 />
               </a>
-              <span>incubated project.</span>
+              <span>partner project.</span>
             </p>
           </div>
 
