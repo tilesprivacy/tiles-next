@@ -31,6 +31,7 @@ export function SiteFooter() {
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#B3B3B3]' : 'text-black/60'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#E6E6E6]' : '!text-black'
+  const flagWheel = isDarkFooter ? '#9ab6ff' : '#1A3E8A'
 
   return (
     <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-8 lg:py-10`}>
@@ -179,7 +180,43 @@ export function SiteFooter() {
 
         {/* Bottom section - copyright and theme switcher */}
         <div className={`flex flex-row items-center justify-between gap-2 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
-          <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors</p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+            <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors</p>
+            <p className="inline-flex items-center gap-1.5 whitespace-nowrap">
+              <span>Made in IN</span>
+              <svg
+                viewBox="0 0 30 20"
+                className="h-3.5 w-[21px]"
+                aria-label="Indian flag"
+                role="img"
+              >
+                <rect width="30" height="6.67" fill="#FF9933" />
+                <rect y="6.67" width="30" height="6.66" fill="#FFFFFF" />
+                <rect y="13.33" width="30" height="6.67" fill="#138808" />
+                <circle cx="15" cy="10" r="2.25" fill="none" stroke={flagWheel} strokeWidth="0.38" />
+                <circle cx="15" cy="10" r="0.35" fill={flagWheel} />
+                {Array.from({ length: 24 }).map((_, index) => {
+                  const angle = (index * 360) / 24
+                  const radians = (angle * Math.PI) / 180
+                  const x2 = 15 + Math.cos(radians) * 2.05
+                  const y2 = 10 + Math.sin(radians) * 2.05
+
+                  return (
+                    <line
+                      key={index}
+                      x1="15"
+                      y1="10"
+                      x2={x2}
+                      y2={y2}
+                      stroke={flagWheel}
+                      strokeWidth="0.28"
+                      strokeLinecap="round"
+                    />
+                  )
+                })}
+              </svg>
+            </p>
+          </div>
 
           {/* Theme Switcher - visible on all screens */}
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
