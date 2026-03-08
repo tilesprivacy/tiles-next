@@ -239,9 +239,9 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
               <li>Peer-to-peer encrypted sync</li>
-              <li>Connectors based on MCP and Agent Skills optimized for token efficiency</li>
-              <li>Sandboxed code execution</li>
+              <li>Agentic harness built on Codex</li>
               <li>MLS-based group chats</li>
+              <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
             </ul>
             <p className={`mb-5 ${paragraphClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
