@@ -31,7 +31,6 @@ export function SiteFooter() {
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#B3B3B3]' : 'text-black/60'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#E6E6E6]' : '!text-black'
-  const flagOutline = isDarkFooter ? 'border-[#6b6b6b]' : 'border-black/20'
   const flagWheel = isDarkFooter ? '#9ab6ff' : '#1A3E8A'
 
   return (
@@ -187,18 +186,34 @@ export function SiteFooter() {
               <span>Made in IN</span>
               <svg
                 viewBox="0 0 30 20"
-                className={`h-3.5 w-[1.1rem] rounded-[2px] border ${flagOutline}`}
+                className="h-3.5 w-[1.1rem] rounded-[2px]"
                 aria-label="Indian flag"
                 role="img"
               >
                 <rect width="30" height="6.67" fill="#FF9933" />
                 <rect y="6.67" width="30" height="6.66" fill="#FFFFFF" />
                 <rect y="13.33" width="30" height="6.67" fill="#138808" />
-                <circle cx="15" cy="10" r="2.2" fill="none" stroke={flagWheel} strokeWidth="0.65" />
-                <line x1="12.8" y1="10" x2="17.2" y2="10" stroke={flagWheel} strokeWidth="0.6" />
-                <line x1="15" y1="7.8" x2="15" y2="12.2" stroke={flagWheel} strokeWidth="0.6" />
-                <line x1="13.4" y1="8.4" x2="16.6" y2="11.6" stroke={flagWheel} strokeWidth="0.5" />
-                <line x1="16.6" y1="8.4" x2="13.4" y2="11.6" stroke={flagWheel} strokeWidth="0.5" />
+                <circle cx="15" cy="10" r="2.25" fill="none" stroke={flagWheel} strokeWidth="0.38" />
+                <circle cx="15" cy="10" r="0.35" fill={flagWheel} />
+                {Array.from({ length: 24 }).map((_, index) => {
+                  const angle = (index * 360) / 24
+                  const radians = (angle * Math.PI) / 180
+                  const x2 = 15 + Math.cos(radians) * 2.05
+                  const y2 = 10 + Math.sin(radians) * 2.05
+
+                  return (
+                    <line
+                      key={index}
+                      x1="15"
+                      y1="10"
+                      x2={x2}
+                      y2={y2}
+                      stroke={flagWheel}
+                      strokeWidth="0.28"
+                      strokeLinecap="round"
+                    />
+                  )
+                })}
               </svg>
             </p>
           </div>
