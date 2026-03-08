@@ -63,6 +63,28 @@ export default function SubProcessorsPage() {
           </div>
         </div>
         <div className="space-y-2">
+          <h3>GitHub</h3>
+          <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
+            <p>
+              <span className="font-medium subprocessor-label">Purpose:</span> Source code hosting and issue tracking
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Location:</span> US
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Reference:</span>{" "}
+              <a
+                href="https://github.com/customer-terms/github-data-protection-agreement"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors"
+              >
+                DPA
+              </a>
+            </p>
+          </div>
+        </div>
+        <div className="space-y-2">
           <h3>Better Stack</h3>
           <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
             <p>

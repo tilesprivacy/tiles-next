@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tiles releases</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --background: oklch(0.985 0 0);
+        --foreground: oklch(0.145 0 0);
+        --card: oklch(1 0 0);
+        --card-foreground: oklch(0.145 0 0);
+        --primary: oklch(0.205 0 0);
+        --primary-foreground: oklch(0.985 0 0);
+        --muted-foreground: oklch(0.556 0 0);
+        --border: oklch(0.922 0 0);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background-color: var(--background);
+        color: var(--foreground);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+          "Segoe UI", sans-serif;
+      }
+
+      main {
+        width: 100%;
+        max-width: 720px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background-color: var(--card);
+        color: var(--card-foreground);
+        box-shadow:
+          0 18px 45px rgba(0, 0, 0, 0.08),
+          0 0 0 1px rgba(0, 0, 0, 0.02);
+        padding: 24px 24px 20px;
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .logo-mark {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        box-shadow:
+          0 10px 25px rgba(0, 0, 0, 0.15),
+          0 0 0 1px rgba(0, 0, 0, 0.04);
+      }
+
+      .product-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .product-name {
+        font-size: 0.9rem;
+        font-weight: 600;
+        letter-spacing: -0.03em;
+      }
+
+      .tagline-small {
+        font-size: 0.8rem;
+        color: var(--muted-foreground);
+      }
+
+      header h1 {
+        margin: 4px 0 2px;
+        font-size: 1.6rem;
+        letter-spacing: -0.03em;
+      }
+
+      header p {
+        margin: 0;
+        font-size: 0.95rem;
+        color: var(--muted-foreground);
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 24px 0 0;
+      }
+
+      li + li {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+      }
+
+      a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .release-title {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+
+      .filename {
+        display: block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .empty-state {
+        margin-top: 16px;
+        font-size: 0.9rem;
+        color: var(--muted-foreground);
+      }
+
+      footer {
+        margin-top: 24px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 0.8rem;
+        color: var(--muted-foreground);
+      }
+
+      footer a {
+        color: inherit;
+        text-decoration: underline;
+      }
+
+      .footer-text {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .ua-logo {
+        height: 16px;
+        vertical-align: middle;
+        margin: 0 4px;
+      }
+
+      .footer-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .footer-nav a {
+        text-decoration: none;
+      }
+
+      .footer-nav a:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 16px;
+        }
+
+        main {
+          padding: 20px 18px 18px;
+        }
+
+        header h1 {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main aria-labelledby="releases-title">
+      <header>
+        <div class="logo-row" aria-hidden="true">
+          <img src="https://tiles.run/logo.png" alt="Tiles logo" class="logo-mark" />
+          <div class="product-meta">
+            <div class="product-name">Tiles</div>
+            <div class="tagline-small">Private and secure AI assistant</div>
+          </div>
+        </div>
+        <h1 id="releases-title">Release Artifacts</h1>
+        <p>Download Tiles CLI tarballs for macOS (arm64).</p>
+      </header>
+
+      <ul aria-label="Release tarballs">
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.4.3-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.4.3 – macOS (arm64)</span>
+            <span class="filename">tiles-v0.4.3-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.4.2-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.4.2 – macOS (arm64)</span>
+            <span class="filename">tiles-v0.4.2-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.4.0-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.4.0 – macOS (arm64)</span>
+            <span class="filename">tiles-v0.4.0-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.4.0-rc.1-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.4.0-rc.1 – macOS (arm64, prerelease)</span>
+            <span class="filename">tiles-v0.4.0-rc.1-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.3.1-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.3.1 – macOS (arm64)</span>
+            <span class="filename">tiles-v0.3.1-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.3.0-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.3.0 – macOS (arm64)</span>
+            <span class="filename">tiles-v0.3.0-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.2.0-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.2.0 – macOS (arm64)</span>
+            <span class="filename">tiles-v0.2.0-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://download.tiles.run/tiles-v0.1.0-arm64-darwin.tar.gz">
+            <span class="release-title">Tiles 0.1.0 – macOS (arm64, prerelease)</span>
+            <span class="filename">tiles-v0.1.0-arm64-darwin.tar.gz</span>
+          </a>
+        </li>
+      </ul>
+
+      <footer>
+        <div class="footer-text">
+          <span>© 2026 Tiles Privacy &amp; Contributors.</span>
+          <span>
+            A
+            <img
+              src="https://tiles.run/ua-logo.svg"
+              alt="U&amp;A"
+              class="ua-logo"
+            />
+            incubated project.
+          </span>
+        </div>
+        <nav class="footer-nav" aria-label="Footer navigation">
+          <a href="https://tiles.run">Home</a>
+          <a href="https://tiles.run/changelog">Changelog</a>
+          <a href="https://tiles.run/blog">Blog</a>
+          <a href="https://tiles.run/book">Book</a>
+          <a href="https://github.com/tilesprivacy/tiles">GitHub</a>
+        </nav>
+      </footer>
+    </main>
+  </body>
+</html>
+
