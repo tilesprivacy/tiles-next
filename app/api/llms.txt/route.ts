@@ -109,13 +109,12 @@ export async function GET(request: Request) {
   sections.push('='.repeat(80))
   sections.push('')
 
-  // Download Page
-  sections.push(`## Download (${baseUrl}/download)`)
+  // Download Installer
+  sections.push('## Download Installer (https://download.tiles.run/tiles-0.4.3-signed.pkg)')
   sections.push('')
-  sections.push('Install and run Tiles for Mac:')
+  sections.push('Direct installer for macOS:')
   sections.push('')
-  sections.push('curl -fsSL https://tiles.run/install.sh | sh')
-  sections.push('tiles run')
+  sections.push('https://download.tiles.run/tiles-0.4.3-signed.pkg')
   sections.push('')
   sections.push('='.repeat(80))
   sections.push('')

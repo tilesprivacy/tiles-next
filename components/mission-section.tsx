@@ -116,6 +116,15 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
           </p>
 
           <p>
+            We are seeking design partners for TEE based cloud workloads that align with our goal of a verifiable
+            privacy perimeter. Contact us at{" "}
+            <a href="mailto:hello@tiles.run" className={`${linkColor} underline`}>
+              hello@tiles.run
+            </a>
+            .
+          </p>
+
+          <p>
             Want to contribute?{" "}
             <Link href="/book/community" className={`${linkColor} underline`}>
               See how you can make Tiles better.

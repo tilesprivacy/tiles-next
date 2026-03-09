@@ -256,7 +256,7 @@ export async function POST(request: NextRequest) {
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
                           <tr>
                             <td style="padding-bottom: 12px;">
-                              <a href="https://www.tiles.run/download" class="email-card email-card-dark" style="display: block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 17px; font-weight: 500; -webkit-text-size-adjust: 100%;">
+                              <a href="https://download.tiles.run/tiles-0.4.3-signed.pkg" class="email-card email-card-dark" style="display: block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 17px; font-weight: 500; -webkit-text-size-adjust: 100%;">
                                 Download Tiles for macOS
                               </a>
                             </td>

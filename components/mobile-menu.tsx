@@ -130,7 +130,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2.5 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs`}
             >
               <Link
-                href="/download"
+                href="https://download.tiles.run/tiles-0.4.3-signed.pkg"
                 onClick={(e) => {
                   triggerHaptic()
                   onClose()

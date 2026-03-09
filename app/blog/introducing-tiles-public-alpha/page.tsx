@@ -519,7 +519,7 @@ export default function HowTilesWorksPage() {
               </p>
               <p>
                 When you're done, you can{" "}
-                <Link href="/download" className="text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline">
+                <Link href="https://download.tiles.run/tiles-0.4.3-signed.pkg" className="text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline">
                   install Tiles
                 </Link>
                 .

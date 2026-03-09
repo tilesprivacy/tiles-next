@@ -7,7 +7,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
     "/mission",
-    "/download",
     "/blog",
     "/book",
     "/privacy",

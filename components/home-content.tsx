@@ -2,26 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
 import { Cpu, Package, Brain, FileCode, KeyRound } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
 
-const releasesHref =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000/changelog#releases"
-    : "https://tiles.run/changelog#releases"
-
 export function HomeContent() {
-  const [copied, setCopied] = useState(false)
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText("curl -fsSL https://tiles.run/install.sh | sh")
-    triggerHaptic()
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
   return (
     <div className="min-h-screen bg-background">
 
@@ -45,65 +31,43 @@ export function HomeContent() {
                 </p>
               </div>
 
-              {/* Install Command Block */}
+              {/* Primary Call To Action */}
               <div className="flex flex-col gap-3 sm:gap-4 lg:gap-3 w-full">
-                <div className="flex items-center rounded-xl bg-[#f5f5f5] dark:bg-[#1a1a1a] border border-[#e5e5e5] dark:border-[#2a2a2a] w-full overflow-hidden">
-                  <div className="overflow-x-auto px-2.5 py-2.5 sm:px-3 lg:px-5 lg:py-3.5 flex-1 min-w-0">
-                    <code className="font-mono text-xs lg:text-base text-black/80 dark:text-[#E6E6E6] whitespace-nowrap">
-                      curl -fsSL https://tiles.run/install.sh | sh
-                    </code>
-                  </div>
-                  <button
-                    onClick={handleCopy}
-                    className="flex-shrink-0 flex items-center justify-center bg-[#f5f5f5] dark:bg-[#1a1a1a] hover:bg-[#e5e5e5] dark:hover:bg-[#252525] rounded-r-xl transition-colors px-2 py-2.5 sm:px-2.5 lg:px-4 lg:py-3.5 touch-manipulation"
-                    aria-label="Copy to clipboard"
-                    title={copied ? "Copied!" : "Copy to clipboard"}
-                  >
-                    {copied ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        className="h-3.5 w-3.5 text-green-600 lg:h-[18px] lg:w-[18px]"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A] hover:text-black/80 dark:hover:text-[#E6E6E6] transition-colors lg:h-[18px] lg:w-[18px]"
-                      >
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-                <p className="text-xs lg:text-sm text-black/60 dark:text-[#B3B3B3]">
-                  Paste this in your terminal, or{" "}
+                <div className="flex">
                   <Link
-                    href={releasesHref}
-                    className="underline underline-offset-2 hover:text-black dark:hover:text-[#E6E6E6] transition-colors"
+                    href="https://download.tiles.run/tiles-0.4.3-signed.pkg"
+                    onClick={() => triggerHaptic()}
+                    className="group inline-flex h-10 w-fit items-center justify-center gap-2 self-start rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-white dark:text-black dark:ring-white/10 dark:hover:bg-white/90 sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-base"
                   >
-                    install another version
+                    <Image
+                      src="/apple-logo-white.svg"
+                      alt="Apple"
+                      width={16}
+                      height={20}
+                      className="h-3.5 w-auto origin-right transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 dark:hidden"
+                    />
+                    <Image
+                      src="/apple-logo.svg"
+                      alt="Apple"
+                      width={16}
+                      height={20}
+                      className="hidden h-3.5 w-auto origin-right transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 dark:block"
+                    />
+                    <span className="origin-left transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
+                      Download for macOS
+                    </span>
                   </Link>
-                </p>
+                </div>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
                   <span className="block">
-                    <span className="inline-flex shrink-0 align-middle rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[#7c7ca8] border-[#7c7ca8]/60 bg-[#7c7ca8]/15 dark:text-[#a5a5c4] dark:border-[#a5a5c4]/50 dark:bg-[#a5a5c4]/20 mr-1.5">
-                      Alpha
-                    </span>
-                    for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
+                    Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
                   </span>
                   <span className="block">
                     iOS, Android, Linux, and Windows support coming later.
                   </span>
+                </p>
+                <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
+                  Runs fully on-device. Your data never leaves your Mac.
                 </p>
               </div>
             </div>

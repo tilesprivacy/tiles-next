@@ -124,7 +124,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2.5 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs lg:h-10 lg:px-4 lg:text-sm`}
           >
             <Link
-              href="/download"
+              href="https://download.tiles.run/tiles-0.4.3-signed.pkg"
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={() => triggerHaptic()}
             >
