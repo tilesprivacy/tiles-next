@@ -12,9 +12,13 @@ interface DownloadMetadata {
   binarySizeLabel: string
 }
 
-export function HomeContent() {
+interface HomeContentProps {
+  initialBinarySizeLabel?: string
+}
+
+export function HomeContent({ initialBinarySizeLabel = "Unavailable" }: HomeContentProps) {
   const [download, setDownload] = useState<DownloadMetadata>({
-    binarySizeLabel: "Loading...",
+    binarySizeLabel: initialBinarySizeLabel,
   })
 
   useEffect(() => {

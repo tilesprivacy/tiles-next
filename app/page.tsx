@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
+import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 
 export const metadata: Metadata = {
   title: "Tiles: Your private and secure AI assistant for everyday use",
@@ -23,6 +24,8 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Page() {
-  return <HomeContent />
+export default async function Page() {
+  const artifact = await getLatestDownloadArtifact()
+
+  return <HomeContent initialBinarySizeLabel={artifact.binarySizeLabel} />
 }
