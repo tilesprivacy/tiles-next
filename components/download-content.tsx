@@ -190,6 +190,14 @@ export function DownloadContent() {
                 </div>
               </div>
 
+              <p className={bodyTextClass}>
+                Installation options for earlier releases of Tiles are available on the{" "}
+                <a href="/changelog" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
+                  Changelog page
+                </a>
+                .
+              </p>
+
               {/* Manual and Community CTAs */}
               <div className="grid grid-cols-1 gap-10 pt-2 sm:pt-4">
                 {/* Manual */}

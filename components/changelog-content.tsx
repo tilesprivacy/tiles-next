@@ -130,28 +130,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           </div>
         )}
 
-        {release.tarballs.map((tarball) => (
-          <div key={tarball.name} className={`rounded-xl ${codeBg} px-3 py-2.5`}>
-            <div className="flex flex-wrap items-center gap-x-2">
-              <span>Tarball:</span>
-              <a
-                href={tarball.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
-              >
-                {tarball.name}
-                <ExternalLinkIcon />
-              </a>
-              <span>({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})</span>
-            </div>
-            <div className="mt-1 flex flex-wrap items-start gap-x-2">
-              <span>SHA256:</span>
-              <span className="font-mono text-[11px] break-all">{tarball.sha256}</span>
-            </div>
-          </div>
-        ))}
-
         <div className={`rounded-xl ${codeBg} p-0 max-w-full overflow-hidden`}>
           <div className="flex items-start">
             <div className="flex-1 min-w-0 px-3 py-2.5">
@@ -204,6 +182,28 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             </button>
           </div>
         </div>
+
+        {release.tarballs.map((tarball) => (
+          <div key={tarball.name} className={`rounded-xl ${codeBg} px-3 py-2.5`}>
+            <div className="flex flex-wrap items-center gap-x-2">
+              <span>Tarball:</span>
+              <a
+                href={tarball.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+              >
+                {tarball.name}
+                <ExternalLinkIcon />
+              </a>
+              <span>({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+            </div>
+            <div className="mt-1 flex flex-wrap items-start gap-x-2">
+              <span>SHA256:</span>
+              <span className="font-mono text-[11px] break-all">{tarball.sha256}</span>
+            </div>
+          </div>
+        ))}
       </div>
     )
   }
