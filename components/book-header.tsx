@@ -26,7 +26,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
           asChild
           className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
         >
-          <Link href="https://download.tiles.run/tiles-0.4.3-signed.pkg" className="group flex items-center gap-1.5 lg:gap-2">
+          <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
             {/* Light mode: white Apple logo (on black button) */}
             <Image
               src="/apple-logo-white.svg"

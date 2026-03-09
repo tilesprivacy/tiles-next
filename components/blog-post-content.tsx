@@ -222,7 +222,7 @@ export function BlogPostContent({
               </p>
               <p>
                 When you're done, you can{" "}
-                <Link href="https://download.tiles.run/tiles-0.4.3-signed.pkg" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
+                <Link href="/download" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
                   install Tiles
                 </Link>
                 .

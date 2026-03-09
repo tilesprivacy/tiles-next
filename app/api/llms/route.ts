@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { blogPosts } from '@/lib/blog-posts'
+import { getLatestDownloadArtifact } from '@/lib/download-artifact'
 import fs from 'fs'
 import path from 'path'
 
@@ -33,6 +34,7 @@ function readMdxFile(relativePath: string): string {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const baseUrl = `${url.protocol}//${url.host}`
+  const artifact = await getLatestDownloadArtifact()
 
   const sections: string[] = []
 
@@ -96,11 +98,11 @@ export async function GET(request: Request) {
   sections.push('')
 
   // Download Installer
-  sections.push('## Download Installer (https://download.tiles.run/tiles-0.4.3-signed.pkg)')
+  sections.push(`## Download Installer (${artifact.downloadUrl})`)
   sections.push('')
   sections.push('Direct installer for macOS:')
   sections.push('')
-  sections.push('https://download.tiles.run/tiles-0.4.3-signed.pkg')
+  sections.push(artifact.downloadUrl)
   sections.push('')
   sections.push('='.repeat(80))
   sections.push('')

@@ -2,12 +2,57 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { useEffect, useState } from "react"
 import { Cpu, Package, Brain, FileCode, KeyRound } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
 
+interface DownloadMetadata {
+  downloadUrl: string
+  binarySizeLabel: string
+  sha256: string
+}
+
 export function HomeContent() {
+  const [download, setDownload] = useState<DownloadMetadata>({
+    downloadUrl: "/download",
+    binarySizeLabel: "Loading...",
+    sha256: "Loading...",
+  })
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadDownloadMetadata() {
+      try {
+        const res = await fetch("/api/download-metadata")
+        if (!res.ok) {
+          return
+        }
+
+        const data = (await res.json()) as DownloadMetadata
+        if (!isMounted) {
+          return
+        }
+
+        setDownload({
+          downloadUrl: data.downloadUrl || "/download",
+          binarySizeLabel: data.binarySizeLabel || "Unavailable",
+          sha256: data.sha256 || "Unavailable",
+        })
+      } catch {
+        // Keep default fallback metadata on network failures.
+      }
+    }
+
+    void loadDownloadMetadata()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
   return (
     <div className="min-h-screen bg-background">
 
@@ -35,7 +80,7 @@ export function HomeContent() {
               <div className="flex flex-col gap-3 sm:gap-4 lg:gap-3 w-full">
                 <div className="flex">
                   <Link
-                    href="https://download.tiles.run/tiles-0.4.3-signed.pkg"
+                    href={download.downloadUrl}
                     onClick={() => triggerHaptic()}
                     className="group inline-flex h-10 w-fit items-center justify-center gap-2 self-start rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-white dark:text-black dark:ring-white/10 dark:hover:bg-white/90 sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-base"
                   >
@@ -62,12 +107,13 @@ export function HomeContent() {
                   <span className="block">
                     Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
                   </span>
-                  <span className="block">
-                    iOS, Android, Linux, and Windows support coming later.
-                  </span>
+                </p>
+                <p className="text-xs leading-relaxed text-muted-foreground max-w-[26rem]">
+                  Size: {download.binarySizeLabel} · SHA256:{" "}
+                  <span className="font-mono break-all">{download.sha256}</span>
                 </p>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
-                  Runs fully on-device. Your data never leaves your Mac.
+                    Runs fully on-device. Your data never leaves your machine.
                 </p>
               </div>
             </div>

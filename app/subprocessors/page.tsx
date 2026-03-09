@@ -106,6 +106,28 @@ export default function SubProcessorsPage() {
             </p>
           </div>
         </div>
+        <div className="space-y-2">
+          <h3>Cloudflare</h3>
+          <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
+            <p>
+              <span className="font-medium subprocessor-label">Purpose:</span> CDN hosting
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Location:</span> US
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Reference:</span>{" "}
+              <a
+                href="https://www.cloudflare.com/cloudflare-customer-dpa/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors"
+              >
+                DPA
+              </a>
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="space-y-4 pt-4">

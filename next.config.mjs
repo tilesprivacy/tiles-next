@@ -58,15 +58,6 @@ const nextConfig = {
       },
     ]
   },
-  async redirects() {
-    return [
-      {
-        source: '/download',
-        destination: 'https://download.tiles.run/tiles-0.4.3-signed.pkg',
-        permanent: false,
-      },
-    ]
-  },
 }
 
 export default withNextra(nextConfig)
