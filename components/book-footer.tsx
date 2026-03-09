@@ -113,7 +113,7 @@ export function BookFooter() {
                     className="h-4 sm:h-5 w-auto"
                   />
                 </a>
-                <span>incubated project.</span>
+                <span>network project.</span>
               </p>
             </div>
             <ThemeSwitcher variant="dark" size="sm" />
@@ -244,7 +244,7 @@ export function BookFooter() {
                   className="h-4 sm:h-5 w-auto"
                 />
               </a>
-              <span>incubated project.</span>
+              <span>network project.</span>
             </p>
           </div>
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
