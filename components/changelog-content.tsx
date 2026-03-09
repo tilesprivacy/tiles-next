@@ -5,6 +5,7 @@ import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { triggerHaptic } from "@/lib/haptics"
+import { formatBinarySize } from "@/lib/format-binary-size"
 
 interface ChangelogContentProps {
   releases: Release[]
@@ -45,24 +46,6 @@ const renderTextWithCode = (text: string, isDark: boolean) => {
     }
     return part
   })
-}
-
-const formatBinarySize = (sizeBytes: number) => {
-  if (!Number.isFinite(sizeBytes) || sizeBytes < 0) {
-    return "Unknown size"
-  }
-
-  const units = ["B", "KB", "MB", "GB", "TB"]
-  let value = sizeBytes
-  let unitIndex = 0
-
-  while (value >= 1000 && unitIndex < units.length - 1) {
-    value /= 1000
-    unitIndex++
-  }
-
-  const precision = unitIndex === 0 ? 0 : value >= 10 ? 1 : 2
-  return `${value.toFixed(precision)} ${units[unitIndex]}`
 }
 
 const getReleaseAnchorId = (version: string) => version.replace(/^v/, "")
@@ -138,7 +121,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                 {release.installer.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(release.installer.sizeBytes)})</span>
+              <span>({formatBinarySize(release.installer.sizeBytes, { unknownLabel: "Unknown size" })})</span>
             </div>
             <div className="mt-1 flex flex-wrap items-start gap-x-2">
               <span>SHA256:</span>
@@ -160,7 +143,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                 {tarball.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(tarball.sizeBytes)})</span>
+              <span>({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})</span>
             </div>
             <div className="mt-1 flex flex-wrap items-start gap-x-2">
               <span>SHA256:</span>

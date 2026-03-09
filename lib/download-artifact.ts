@@ -1,3 +1,5 @@
+import { formatBinarySize } from "@/lib/format-binary-size"
+
 export interface DownloadArtifact {
   version: string
   fileName: string
@@ -21,15 +23,6 @@ const FALLBACK_ARTIFACT: DownloadArtifact = {
   binarySizeBytes: 79153404,
   binarySizeLabel: "75.49 MB",
   sha256: "e972bddfc063818f4c08a42eccf32ab33d9145b1c267404d9c233c51b86dd2d3",
-}
-
-function formatBinarySize(bytes: number): string {
-  if (!Number.isFinite(bytes) || bytes <= 0) {
-    return "Unknown"
-  }
-
-  const mb = bytes / (1024 * 1024)
-  return `${mb.toFixed(2)} MB`
 }
 
 function extractSha256Digest(asset: any): string {
