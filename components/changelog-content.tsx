@@ -246,15 +246,26 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <p className={`mb-5 ${paragraphClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
             </p>
-            <a
-              href="https://github.com/orgs/tilesprivacy/discussions"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
-            >
-              View the RFCs
-              <ExternalLinkIcon />
-            </a>
+            <div className="flex flex-wrap items-center gap-3">
+              <a
+                href="https://github.com/orgs/tilesprivacy/projects/4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
+              >
+                Track progress
+                <ExternalLinkIcon />
+              </a>
+              <a
+                href="https://github.com/orgs/tilesprivacy/discussions"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
+              >
+                View the RFCs
+                <ExternalLinkIcon />
+              </a>
+            </div>
           </section>
 
           <section
