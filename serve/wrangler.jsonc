@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tiles-release-sync",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-03-09",
+  "r2_buckets": [
+    {
+      "binding": "TILESPRIVACY",
+      "bucket_name": "tilesprivacy"
+    }
+  ],
+  "vars": {
+    "GITHUB_REPO": "tilesprivacy/tiles"
+  }
+}

@@ -52,12 +52,12 @@ const formatBinarySize = (sizeBytes: number) => {
     return "Unknown size"
   }
 
-  const units = ["B", "KiB", "MiB", "GiB", "TiB"]
+  const units = ["B", "KB", "MB", "GB", "TB"]
   let value = sizeBytes
   let unitIndex = 0
 
-  while (value >= 1024 && unitIndex < units.length - 1) {
-    value /= 1024
+  while (value >= 1000 && unitIndex < units.length - 1) {
+    value /= 1000
     unitIndex++
   }
 
@@ -106,93 +106,121 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
   const tarballMetaClass = `text-xs ${textColorBodyLight} lg:text-sm`
 
-  const CodeBlock = ({ code, version }: { code: string; version: string }) => {
+  const DownloadArtifacts = ({ release }: { release: Release }) => {
     const [copied, setCopied] = useState(false)
+    const hasTarballs = release.tarballs.length > 0
+    const hasInstaller = Boolean(release.installer)
+    const installScript = `curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`
 
     const handleCopy = async () => {
-      await navigator.clipboard.writeText(code)
+      await navigator.clipboard.writeText(installScript)
       triggerHaptic()
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     }
 
-    return (
-      <div className="mt-4">
-        <div className={`flex items-start rounded-xl ${codeBg} max-w-full overflow-hidden`}>
-          <div className="flex-1 min-w-0 px-4 py-2.5">
-            <code className={`font-mono ${codeText} text-sm break-all`}>
-              {code}
-            </code>
-          </div>
-          <button
-            onClick={handleCopy}
-            className={`flex-shrink-0 flex items-center justify-center ${copyButtonBg} rounded-r-xl transition-colors px-3 py-2.5`}
-            aria-label="Copy to clipboard"
-            title={copied ? "Copied!" : "Copy to clipboard"}
-          >
-            {copied ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="h-4 w-4 text-green-600"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                className={`h-4 w-4 ${copyIconColor} transition-colors`}
-              >
-                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-              </svg>
-            )}
-          </button>
-        </div>
-        <div className={`mt-2 flex items-center gap-1 text-xs ${linkColor}`}>
-          <a
-            href={`https://github.com/tilesprivacy/tiles/blob/${version}/scripts/install.sh`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-0.5 transition-colors"
-          >
-            View script source
-            <ExternalLinkIcon />
-          </a>
-        </div>
-      </div>
-    )
-  }
-
-  const TarballList = ({ release }: { release: Release }) => {
-    if (release.tarballs.length === 0) {
+    if (!hasTarballs && !hasInstaller) {
       return null
     }
 
     return (
-      <div className={`mb-4 space-y-1 ${tarballMetaClass}`}>
+      <div className={`mb-4 mt-1 space-y-2 ${tarballMetaClass}`}>
+        {release.installer && (
+          <div className={`rounded-xl ${codeBg} px-3 py-2.5`}>
+            <div className="flex flex-wrap items-center gap-x-2">
+              <span>Installer:</span>
+              <a
+                href={release.installer.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+              >
+                {release.installer.name}
+                <ExternalLinkIcon />
+              </a>
+              <span>({formatBinarySize(release.installer.sizeBytes)})</span>
+            </div>
+            <div className="mt-1 flex flex-wrap items-start gap-x-2">
+              <span>SHA256:</span>
+              <span className="font-mono text-[11px] break-all">{release.installer.sha256}</span>
+            </div>
+          </div>
+        )}
+
         {release.tarballs.map((tarball) => (
-          <div key={tarball.name} className="flex flex-wrap items-center gap-x-2">
-            <span>Tarball:</span>
-            <a
-              href={tarball.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
-            >
-              {tarball.name}
-              <ExternalLinkIcon />
-            </a>
-            <span>({formatBinarySize(tarball.sizeBytes)})</span>
+          <div key={tarball.name} className={`rounded-xl ${codeBg} px-3 py-2.5`}>
+            <div className="flex flex-wrap items-center gap-x-2">
+              <span>Tarball:</span>
+              <a
+                href={tarball.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+              >
+                {tarball.name}
+                <ExternalLinkIcon />
+              </a>
+              <span>({formatBinarySize(tarball.sizeBytes)})</span>
+            </div>
+            <div className="mt-1 flex flex-wrap items-start gap-x-2">
+              <span>SHA256:</span>
+              <span className="font-mono text-[11px] break-all">{tarball.sha256}</span>
+            </div>
           </div>
         ))}
+
+        <div className={`rounded-xl ${codeBg} p-0 max-w-full overflow-hidden`}>
+          <div className="flex items-start">
+            <div className="flex-1 min-w-0 px-3 py-2.5">
+              <div className="mb-1">Install script:</div>
+              <code className={`font-mono ${codeText} text-xs lg:text-sm break-all`}>
+                {installScript}
+              </code>
+              <div className={`mt-2 flex items-center gap-1 text-xs ${linkColor}`}>
+                <a
+                  href={`https://github.com/tilesprivacy/tiles/blob/${release.version}/scripts/install.sh`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-0.5 transition-colors"
+                >
+                  View script source
+                  <ExternalLinkIcon />
+                </a>
+              </div>
+            </div>
+            <button
+              onClick={handleCopy}
+              className={`flex-shrink-0 flex items-center justify-center ${copyButtonBg} rounded-r-xl transition-colors px-3 py-2.5`}
+              aria-label="Copy install command"
+              title={copied ? "Copied!" : "Copy install command"}
+            >
+              {copied ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className="h-4 w-4 text-green-600"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className={`h-4 w-4 ${copyIconColor} transition-colors`}
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -239,7 +267,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
               <li>Peer-to-peer encrypted sync</li>
-              <li>Agentic harness built with Codex CLI</li>
+              <li>Agentic harness built with Pi</li>
               <li>MLS-based group chats</li>
               <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
             </ul>
@@ -354,7 +382,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           </a>
                         )}
                       </div>
-                      <TarballList release={release} />
+                      <DownloadArtifacts release={release} />
                       {release.sections.length > 0 && (
                         <div className="space-y-5">
                           {release.sections.map((section, sectionIndex) => (
@@ -384,7 +412,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           ))}
                         </div>
                       )}
-                      <CodeBlock code={`curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`} version={release.version} />
                     </div>
 
                     {/* Desktop layout */}
@@ -447,7 +474,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             </a>
                           )}
                         </div>
-                        <TarballList release={release} />
+                        <DownloadArtifacts release={release} />
 
                         {release.sections.length > 0 && (
                           <div className="space-y-5">
@@ -478,7 +505,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             ))}
                           </div>
                         )}
-                        <CodeBlock code={`curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`} version={release.version} />
                       </div>
                     </div>
                   </div>

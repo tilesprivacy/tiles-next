@@ -17,12 +17,21 @@ export interface Release {
   githubUrl: string
   compareUrl?: string
   tarballs: ReleaseTarball[]
+  installer?: ReleaseInstaller
 }
 
 export interface ReleaseTarball {
   name: string
   url: string
   sizeBytes: number
+  sha256: string
+}
+
+export interface ReleaseInstaller {
+  name: string
+  url: string
+  sizeBytes: number
+  sha256: string
 }
 
 // Custom changes to supplement or override GitHub release data
@@ -142,6 +151,47 @@ const replaceLastChange: Record<string, string> = {}
 
 function normalizeVersion(version: string): string {
   return version.replace(/^v/, "")
+}
+
+function parseVersion(version: string): number[] {
+  const [major = "0", minor = "0", patch = "0"] = normalizeVersion(version).split(".")
+  return [Number(major) || 0, Number(minor) || 0, Number(patch) || 0]
+}
+
+function isVersionGte(version: string, minimum: string): boolean {
+  const versionParts = parseVersion(version)
+  const minimumParts = parseVersion(minimum)
+
+  for (let i = 0; i < 3; i++) {
+    const current = versionParts[i] ?? 0
+    const min = minimumParts[i] ?? 0
+    if (current > min) {
+      return true
+    }
+    if (current < min) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function buildBucketDownloadUrl(fileName: string): string {
+  return `https://download.tiles.run/${fileName}`
+}
+
+function buildInstallerFileName(version: string): string {
+  return `tiles-${normalizeVersion(version)}-signed.pkg`
+}
+
+function extractSha256Digest(asset: any): string {
+  const digest = typeof asset?.digest === "string" ? asset.digest.trim() : ""
+  if (!digest.toLowerCase().startsWith("sha256:")) {
+    return "Unavailable"
+  }
+
+  const sha256 = digest.slice("sha256:".length).trim().toLowerCase()
+  return /^[a-f0-9]{64}$/.test(sha256) ? sha256 : "Unavailable"
 }
 
 const githubHeaders = {
@@ -290,6 +340,7 @@ export async function fetchReleases(): Promise<Release[]> {
         githubUrl: release.html_url,
         compareUrl: extractCompareUrl(body),
         tarballs: extractTarballs(release.assets),
+        installer: extractInstaller(version, release.assets),
       }
     })
 }
@@ -303,9 +354,39 @@ function extractTarballs(assets: any[] | undefined): ReleaseTarball[] {
     .filter((asset) => typeof asset?.name === "string" && asset.name.endsWith(".tar.gz"))
     .map((asset) => ({
       name: asset.name,
-      url: asset.browser_download_url,
-      sizeBytes: asset.size,
+      url: buildBucketDownloadUrl(asset.name),
+      sizeBytes: typeof asset.size === "number" ? asset.size : -1,
+      sha256: extractSha256Digest(asset),
     }))
+}
+
+function extractInstaller(
+  version: string,
+  assets: any[] | undefined
+): ReleaseInstaller | undefined {
+  const normalizedVersion = normalizeVersion(version)
+  if (!isVersionGte(normalizedVersion, "0.4.3")) {
+    return undefined
+  }
+
+  const pkgAsset = Array.isArray(assets)
+    ? assets.find(
+        (asset) =>
+          typeof asset?.name === "string" && asset.name.toLowerCase().endsWith(".pkg")
+      )
+    : undefined
+
+  const fileName =
+    typeof pkgAsset?.name === "string"
+      ? pkgAsset.name
+      : buildInstallerFileName(normalizedVersion)
+
+  return {
+    name: fileName,
+    url: buildBucketDownloadUrl(fileName),
+    sizeBytes: typeof pkgAsset?.size === "number" ? pkgAsset.size : -1,
+    sha256: extractSha256Digest(pkgAsset),
+  }
 }
 
 const KEEP_A_CHANGELOG_SECTION_ORDER = [

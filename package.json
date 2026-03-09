@@ -9,7 +9,11 @@
     "start": "next start",
     "generate:wireframe": "node scripts/extract-wireframe.mjs",
     "sync:email-preview": "node scripts/sync-email-preview.mjs",
-    "sync:email-preview:watch": "node scripts/sync-email-preview.mjs --watch"
+    "sync:email-preview:watch": "node scripts/sync-email-preview.mjs --watch",
+    "serve:install": "npm --prefix serve install",
+    "serve:deploy": "npm --prefix serve run deploy",
+    "serve:upload-latest-pkg": "npm --prefix serve run upload:latest-pkg",
+    "serve:upload-file": "npm --prefix serve run upload:file --"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
