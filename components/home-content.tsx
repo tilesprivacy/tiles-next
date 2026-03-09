@@ -100,7 +100,7 @@ export function HomeContent({ initialBinarySizeLabel = "Unavailable" }: HomeCont
                       Download for macOS
                     </span>
                   </Link>
-                  <span className="text-xl sm:text-2xl font-light text-black/60 dark:text-[#B3B3B3] tracking-tight">
+                  <span className="text-lg sm:text-xl font-light text-black/60 dark:text-[#B3B3B3] tracking-tight">
                     {download.binarySizeLabel}
                   </span>
                 </div>
