@@ -3,6 +3,8 @@ title: "Manual"
 description: "Command-line interface reference for Tiles and Tilekit, with usage examples"
 ---
 
+import { ClickableImage as Image } from '@/components/clickable-image'
+
 # Manual
 
 Reminder: this is in alpha.
@@ -12,6 +14,35 @@ Enjoy these sample commands in lieu of a formal doc.
 ## Tiles
 
 Commands in this section are intended for regular users. Most user-facing functionality is available through slash commands in the chat REPL.
+
+### Onboarding
+
+This is what the first run looks like when you type `tiles` in your terminal.
+
+<figure style={{ margin: '1.5rem 0', maxWidth: 900 }}>
+  <Image
+    src="/onboardingdemo.png"
+    alt="Tiles onboarding flow in the CLI"
+    width={1726}
+    height={2196}
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto',
+    }}
+  />
+  <figcaption style={{
+    marginTop: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.4',
+    color: 'var(--nextra-text-color-secondary, #666)',
+    textAlign: 'center',
+    fontStyle: 'italic'
+  }}>
+    First-run onboarding flow (`tiles`)
+  </figcaption>
+</figure>
 
 ### CLI Commands
 

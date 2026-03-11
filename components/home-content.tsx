@@ -110,7 +110,10 @@ export function HomeContent({ initialBinarySizeLabel = "Unavailable" }: HomeCont
                   </span>
                 </p>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
-                    Runs fully on-device. Your data never leaves your machine.
+                  Runs fully on-device, with optional peer-to-peer sync.{" "}
+                  <Link href="/book/manual#onboarding" className="underline underline-offset-4">
+                    View CLI screenshots.
+                  </Link>
                 </p>
               </div>
             </div>
