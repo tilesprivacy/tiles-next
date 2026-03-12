@@ -282,6 +282,13 @@ export function DownloadContent() {
                     </div>
                   </div>
                 </div>
+                <p className={bodyTextClass}>
+                  Installation options for earlier releases of Tiles are available on the{" "}
+                  <Link href="/changelog" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
+                    Changelog page
+                  </Link>
+                  .
+                </p>
               </div>
 
               <div className="space-y-8">
@@ -289,7 +296,8 @@ export function DownloadContent() {
                   <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 2</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Go through the installer setup</h2>
                   <p className={bodyTextClass}>
-                    Open the downloaded installer and complete the install wizard.
+                    Open the downloaded installer and complete the install wizard. The installer adds the{" "}
+                    <code className={`rounded px-1.5 py-0.5 ${codeBg} ${codeText}`}>tiles</code> command to your system.
                   </p>
                 </div>
                 <div className="space-y-2 border-t border-black/10 pt-6 dark:border-white/10">
@@ -303,57 +311,50 @@ export function DownloadContent() {
                 </div>
               </div>
 
-              <div className="border-t border-black/10 dark:border-white/10" aria-hidden="true" />
-
-              <p className={bodyTextClass}>
-                Installation options for earlier releases of Tiles are available on the{" "}
-                <Link href="/changelog" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
-                  Changelog page
-                </Link>
-                .
-              </p>
-
               {/* Manual and Community CTAs */}
-              <div className="grid grid-cols-1 gap-10 pt-2 sm:pt-4">
-                {/* Manual */}
-                <div className="flex flex-col gap-4">
-                  <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
-                    <FaBook className="h-5 w-5" />
+              <div className="space-y-5 border-t border-black/10 pt-8 dark:border-white/10">
+                <h2 className={`font-sans text-2xl font-medium tracking-tight sm:text-3xl ${textColor}`}>Resources</h2>
+                <div className="grid grid-cols-1 gap-10">
+                  {/* Manual */}
+                  <div className="flex flex-col gap-4">
+                    <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
+                      <FaBook className="h-5 w-5" />
+                    </div>
+                    <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Manual</h3>
+                    <p className={bodyTextClass}>
+                      Need usage instructions? Check out the{" "}
+                      <a
+                        href="https://tiles.run/book/manual"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                      >
+                        Manual
+                      </a>{" "}
+                      in the book for step-by-step guidance.
+                    </p>
                   </div>
-                  <h2 className={`font-sans text-base font-medium tracking-tight ${textColor}`}>Manual</h2>
-                  <p className={bodyTextClass}>
-                    Need usage instructions? Check out the{" "}
-                    <a
-                      href="https://tiles.run/book/manual"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${textColorLink} underline underline-offset-2 transition-colors`}
-                    >
-                      Manual
-                    </a>{" "}
-                    in the book for step-by-step guidance.
-                  </p>
-                </div>
 
-                {/* Join Discord */}
-                <div className="flex flex-col gap-4">
-                  <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
-                    <FaDiscord className="h-5 w-5" />
+                  {/* Join Discord */}
+                  <div className="flex flex-col gap-4">
+                    <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
+                      <FaDiscord className="h-5 w-5" />
+                    </div>
+                    <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Join Discord</h3>
+                    <p className={bodyTextClass}>
+                      Chat with the team and other users, get help, and share feedback. Join us in the #tiles channel
+                      hosted by the{" "}
+                      <a
+                        href="https://go.tiles.run/discord"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                      >
+                        User &amp; Agents community
+                      </a>
+                      .
+                    </p>
                   </div>
-                  <h2 className={`font-sans text-base font-medium tracking-tight ${textColor}`}>Join Discord</h2>
-                  <p className={bodyTextClass}>
-                    Chat with the team and other users, get help, and share feedback. Join us in the #tiles channel
-                    hosted by the{" "}
-                    <a
-                      href="https://go.tiles.run/discord"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`${textColorLink} underline underline-offset-2 transition-colors`}
-                    >
-                      User &amp; Agents community
-                    </a>
-                    .
-                  </p>
                 </div>
               </div>
 
