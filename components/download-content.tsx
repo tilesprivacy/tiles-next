@@ -16,18 +16,24 @@ interface DownloadMetadata {
   fileName: string
 }
 
-export function DownloadContent() {
+interface DownloadContentProps {
+  initialDownload?: DownloadMetadata
+}
+
+const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
+  version: "latest",
+  downloadUrl: "",
+  binarySizeLabel: "",
+  sha256: "Unavailable",
+  fileName: "tiles.pkg",
+}
+
+export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [isLoadingMetadata, setIsLoadingMetadata] = useState(true)
+  const [isLoadingMetadata, setIsLoadingMetadata] = useState(!Boolean(initialDownload?.downloadUrl))
   const [metadataLoadFailed, setMetadataLoadFailed] = useState(false)
-  const [download, setDownload] = useState<DownloadMetadata>({
-    version: "latest",
-    downloadUrl: "",
-    binarySizeLabel: "",
-    sha256: "Unavailable",
-    fileName: "tiles.pkg",
-  })
+  const [download, setDownload] = useState<DownloadMetadata>(initialDownload ?? DEFAULT_DOWNLOAD_METADATA)
 
   useEffect(() => {
     setMounted(true)
@@ -35,9 +41,12 @@ export function DownloadContent() {
 
   useEffect(() => {
     let isMounted = true
+    const shouldShowLoadingState = !Boolean(initialDownload?.downloadUrl)
 
     async function loadDownloadMetadata() {
-      setIsLoadingMetadata(true)
+      if (shouldShowLoadingState) {
+        setIsLoadingMetadata(true)
+      }
       setMetadataLoadFailed(false)
       try {
         const res = await fetch("/api/download-metadata")
@@ -76,7 +85,7 @@ export function DownloadContent() {
         }
         // Keep fallback metadata if request fails.
       } finally {
-        if (isMounted) {
+        if (isMounted && shouldShowLoadingState) {
           setIsLoadingMetadata(false)
         }
       }
@@ -87,7 +96,7 @@ export function DownloadContent() {
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [initialDownload?.downloadUrl])
 
   const isDark = mounted && resolvedTheme === "dark"
 
