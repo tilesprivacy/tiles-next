@@ -148,7 +148,7 @@ export function DownloadContent() {
                 <div className="space-y-2">
                   <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 1</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Download your installer</h2>
-                  <p className={bodyTextClass}>Start with the network installer. Offline installer support is coming soon.</p>
+                  <p className={bodyTextClass}>Choose the installer that best fits your setup.</p>
                 </div>
                 <div className="grid grid-cols-1 gap-4">
                   <div className="py-2">
@@ -168,15 +168,19 @@ export function DownloadContent() {
                         download the model during onboarding.
                       </p>
                       <p className={`text-sm ${textColorSubtle}`}>
-                        Size: {download.binarySizeLabel || "Unavailable"} | SHA256: {shortenedSha256} |{" "}
-                        <a
-                          href={checksumFileUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`${textColorLink} underline underline-offset-2 transition-colors`}
-                        >
-                          View checksum file
-                        </a>
+                        Size: {download.binarySizeLabel || "Unavailable"} | SHA256:{" "}
+                        {shortenedSha256 !== "Unavailable" ? (
+                          <a
+                            href={checksumFileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                          >
+                            {shortenedSha256}
+                          </a>
+                        ) : (
+                          shortenedSha256
+                        )}
                       </p>
                     </div>
                     <div className="pt-4">
