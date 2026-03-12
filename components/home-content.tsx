@@ -2,55 +2,12 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import { Cpu, Package, Brain, FileCode, KeyRound } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
 
-interface DownloadMetadata {
-  binarySizeLabel: string
-}
-
-interface HomeContentProps {
-  initialBinarySizeLabel?: string
-}
-
-export function HomeContent({ initialBinarySizeLabel = "Unavailable" }: HomeContentProps) {
-  const [download, setDownload] = useState<DownloadMetadata>({
-    binarySizeLabel: initialBinarySizeLabel,
-  })
-
-  useEffect(() => {
-    let isMounted = true
-
-    async function loadDownloadMetadata() {
-      try {
-        const res = await fetch("/api/download-metadata")
-        if (!res.ok) {
-          return
-        }
-
-        const data = (await res.json()) as DownloadMetadata
-        if (!isMounted) {
-          return
-        }
-
-        setDownload({
-          binarySizeLabel: data.binarySizeLabel || "Unavailable",
-        })
-      } catch {
-        // Keep default fallback metadata on network failures.
-      }
-    }
-
-    void loadDownloadMetadata()
-
-    return () => {
-      isMounted = false
-    }
-  }, [])
-
+export function HomeContent() {
   return (
     <div className="min-h-screen bg-background">
 
@@ -100,9 +57,6 @@ export function HomeContent({ initialBinarySizeLabel = "Unavailable" }: HomeCont
                       Download for macOS
                     </span>
                   </Link>
-                  <span className="text-lg sm:text-xl font-light text-black/60 dark:text-[#B3B3B3] tracking-tight">
-                    {download.binarySizeLabel}
-                  </span>
                 </div>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
                   <span className="block">

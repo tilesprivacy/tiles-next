@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from "next-themes"
 import { FaBook, FaDiscord } from "react-icons/fa6"
 import { triggerHaptic } from "@/lib/haptics"
+import Link from "next/link"
 
 interface DownloadMetadata {
   version: string
@@ -17,6 +18,8 @@ interface DownloadMetadata {
 export function DownloadContent() {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isLoadingMetadata, setIsLoadingMetadata] = useState(true)
+  const [metadataLoadFailed, setMetadataLoadFailed] = useState(false)
   const [download, setDownload] = useState<DownloadMetadata>({
     version: "latest",
     downloadUrl: "",
@@ -24,8 +27,6 @@ export function DownloadContent() {
     sha256: "Unavailable",
     fileName: "tiles.pkg",
   })
-  const [hasAutoStarted, setHasAutoStarted] = useState(false)
-  const [copiedVerifyCommand, setCopiedVerifyCommand] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -35,9 +36,14 @@ export function DownloadContent() {
     let isMounted = true
 
     async function loadDownloadMetadata() {
+      setIsLoadingMetadata(true)
+      setMetadataLoadFailed(false)
       try {
         const res = await fetch("/api/download-metadata")
         if (!res.ok) {
+          if (isMounted) {
+            setMetadataLoadFailed(true)
+          }
           return
         }
 
@@ -64,7 +70,14 @@ export function DownloadContent() {
           fileName: data.fileName || fileNameFromUrl,
         })
       } catch {
+        if (isMounted) {
+          setMetadataLoadFailed(true)
+        }
         // Keep fallback metadata if request fails.
+      } finally {
+        if (isMounted) {
+          setIsLoadingMetadata(false)
+        }
       }
     }
 
@@ -74,15 +87,6 @@ export function DownloadContent() {
       isMounted = false
     }
   }, [])
-
-  useEffect(() => {
-    if (!download.downloadUrl || hasAutoStarted) {
-      return
-    }
-
-    setHasAutoStarted(true)
-    window.location.assign(download.downloadUrl)
-  }, [download.downloadUrl, hasAutoStarted])
 
   const isDark = mounted && resolvedTheme === "dark"
 
@@ -94,20 +98,24 @@ export function DownloadContent() {
   const textColorLink = isDark
     ? "text-[#8A8A8A] hover:text-[#E6E6E6]"
     : "text-black/60 hover:text-black"
+  const stepLabelClass = isDark ? "text-[#8A8A8A]" : "text-black/45"
   const bodyTextClass = `text-sm sm:text-base leading-7 ${textColorMuted}`
   const codeBg = isDark ? "bg-[#1a1a1a]" : "bg-black/[0.04]"
   const codeText = isDark ? "text-[#E6E6E6]" : "text-black/80"
-  const copyButtonBg = isDark ? "bg-[#1a1a1a] hover:bg-[#252525]" : "bg-[#f5f5f5] hover:bg-[#e5e5e5]"
-  const copyIconColor = isDark ? "text-[#8A8A8A] hover:text-[#E6E6E6]" : "text-black/50 hover:text-black/80"
-  const verifyCommand = `echo "${download.sha256} *${download.fileName}" | shasum -a 256 --check`
-  const verifyOutput = `${download.fileName}: OK`
-
-  const handleCopyVerifyCommand = async () => {
-    await navigator.clipboard.writeText(verifyCommand)
-    triggerHaptic()
-    setCopiedVerifyCommand(true)
-    setTimeout(() => setCopiedVerifyCommand(false), 2000)
-  }
+  const hasDownloadUrl = Boolean(download.downloadUrl)
+  const displayVersion = download.version && download.version !== "latest" ? `v${download.version}` : null
+  const checksumFileUrl = download.fileName
+    ? `https://download.tiles.run/checksums/${download.fileName}.sha256`
+    : "https://download.tiles.run/checksums"
+  const shortenedSha256 =
+    download.sha256 !== "Unavailable"
+      ? `${download.sha256.slice(0, 12)}...${download.sha256.slice(-12)}`
+      : "Unavailable"
+  const downloadButtonLabel = isLoadingMetadata
+    ? "Loading installer..."
+    : hasDownloadUrl
+      ? "Download network installer"
+      : "Download unavailable"
   return (
     <div className={`relative flex min-h-[100dvh] flex-col ${bgColor}`}>
       {/* Main Content - Split Screen */}
@@ -120,81 +128,141 @@ export function DownloadContent() {
               <h1
                 className={`font-sans text-[1.75rem] font-semibold leading-tight tracking-tight ${textColor} sm:text-3xl lg:text-[2.2rem]`}
               >
-                Thank you for downloading Tiles Alpha {download.version}
+                Download Tiles Alpha
               </h1>
+              <p className={bodyTextClass}>
+                Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or
+                more.
+              </p>
+              {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
+              {metadataLoadFailed && (
+                <p className={`text-sm ${textColorSubtle}`}>
+                  Live download metadata is temporarily unavailable. The page is showing fallback details.
+                </p>
+              )}
             </div>
 
             {/* Install Section */}
             <div className="space-y-9">
-              <p className={bodyTextClass}>
-                Your download should start automatically. If it doesn&apos;t,{" "}
-                <a
-                  href={download.downloadUrl || "#"}
-                  onClick={(event) => {
-                    if (!download.downloadUrl) {
-                      event.preventDefault()
-                      return
-                    }
-                    triggerHaptic()
-                  }}
-                  className={`${textColorLink} underline underline-offset-2 transition-colors`}
-                >
-                  download now.
-                </a>
-              </p>
-
               <div className="space-y-4">
-                <p className={bodyTextClass}>
-                  Run this command in your terminal in the directory the package was downloaded to verify the SHA256
-                  checksum:
-                </p>
-                <div className={`flex items-start rounded-xl ${codeBg} max-w-full overflow-hidden`}>
-                  <div className="flex-1 min-w-0 overflow-x-auto px-4 py-2.5">
-                    <code className={`font-mono text-sm whitespace-nowrap ${codeText}`}>{verifyCommand}</code>
-                  </div>
-                  <button
-                    onClick={handleCopyVerifyCommand}
-                    className={`flex-shrink-0 flex items-center justify-center ${copyButtonBg} rounded-r-xl transition-colors px-3 py-2.5`}
-                    aria-label="Copy to clipboard"
-                    title={copiedVerifyCommand ? "Copied!" : "Copy to clipboard"}
-                  >
-                    {copiedVerifyCommand ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        className="h-4 w-4 text-green-600"
-                      >
-                        <polyline points="20 6 9 17 4 12" />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className={`h-4 w-4 ${copyIconColor} transition-colors`}
-                      >
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                      </svg>
-                    )}
-                  </button>
+                <div className="space-y-2">
+                  <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 1</p>
+                  <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Download your installer</h2>
+                  <p className={bodyTextClass}>Start with the network installer. Offline installer support is coming soon.</p>
                 </div>
-                <p className={bodyTextClass}>You should get the following output:</p>
-                <div className={`w-full overflow-x-auto rounded-md px-4 py-3 ${codeBg}`}>
-                  <code className={`font-mono text-sm whitespace-nowrap ${codeText}`}>{verifyOutput}</code>
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="py-2">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <p className={`font-medium ${textColor}`}>Network installer</p>
+                        <span
+                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wide ${
+                            isDark ? "text-[#8A8A8A] ring-1 ring-white/15" : "text-black/45 ring-1 ring-black/15"
+                          }`}
+                        >
+                          Recommended
+                        </span>
+                      </div>
+                      <p className={bodyTextClass}>
+                        Small package that downloads the required runtime during setup. You will be prompted to
+                        download the model during onboarding.
+                      </p>
+                      <p className={`text-sm ${textColorSubtle}`}>
+                        Size: {download.binarySizeLabel || "Unavailable"} | SHA256: {shortenedSha256} |{" "}
+                        <a
+                          href={checksumFileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                        >
+                          View checksum file
+                        </a>
+                      </p>
+                    </div>
+                    <div className="pt-4">
+                      {hasDownloadUrl ? (
+                        <a
+                          href={download.downloadUrl}
+                          onClick={() => {
+                            triggerHaptic()
+                          }}
+                          download={download.fileName}
+                          className="inline-flex h-10 items-center justify-center rounded-full bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                        >
+                          {downloadButtonLabel}
+                        </a>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled
+                          className="inline-flex h-10 cursor-not-allowed items-center justify-center rounded-full bg-black/10 px-5 text-sm font-medium text-black/40 dark:bg-white/10 dark:text-white/40"
+                          aria-disabled="true"
+                        >
+                          {downloadButtonLabel}
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="pt-6">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <p className={`font-medium ${textColor}`}>Offline installer</p>
+                        <span
+                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wide ${
+                            isDark ? "text-[#8A8A8A] ring-1 ring-white/15" : "text-black/45 ring-1 ring-black/15"
+                          }`}
+                        >
+                          Coming soon
+                        </span>
+                      </div>
+                      <p className={bodyTextClass}>
+                        Includes the default{" "}
+                        <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>gpt-oss-20b</span>{" "}
+                        model bundled for fully offline setup with no additional downloads.
+                      </p>
+                      <p className={`text-sm ${textColorSubtle}`}>Size: ~5GB | SHA256: Coming soon</p>
+                    </div>
+                    <div className="pt-4">
+                      <button
+                        type="button"
+                        disabled
+                        className="inline-flex h-10 cursor-not-allowed items-center justify-center rounded-full bg-black px-5 text-sm font-medium text-white opacity-40 dark:bg-white dark:text-black"
+                        aria-disabled="true"
+                      >
+                        Download offline installer
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
+              <div className="space-y-8">
+                <div className="space-y-2 border-t border-black/10 pt-6 dark:border-white/10">
+                  <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 2</p>
+                  <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Go through the installer setup</h2>
+                  <p className={bodyTextClass}>
+                    Open the downloaded installer and complete the install wizard.
+                  </p>
+                </div>
+                <div className="space-y-2 border-t border-black/10 pt-6 dark:border-white/10">
+                  <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 3</p>
+                  <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Run tiles command</h2>
+                  <p className={bodyTextClass}>
+                    Open Terminal and run <code className={`rounded px-1.5 py-0.5 ${codeBg} ${codeText}`}>tiles</code>.
+                    Then complete CLI onboarding to set up your account. If you chose the network installer, select the
+                    model you want to download.
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t border-black/10 dark:border-white/10" aria-hidden="true" />
+
               <p className={bodyTextClass}>
                 Installation options for earlier releases of Tiles are available on the{" "}
-                <a href="/changelog" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
+                <Link href="/changelog" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
                   Changelog page
-                </a>
+                </Link>
                 .
               </p>
 
@@ -210,11 +278,13 @@ export function DownloadContent() {
                     Need usage instructions? Check out the{" "}
                     <a
                       href="https://tiles.run/book/manual"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={`${textColorLink} underline underline-offset-2 transition-colors`}
                     >
                       Manual
                     </a>{" "}
-                    in the book for step by step guidance.
+                    in the book for step-by-step guidance.
                   </p>
                 </div>
 
