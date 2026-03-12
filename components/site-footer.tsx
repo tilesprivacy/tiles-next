@@ -101,78 +101,78 @@ export function SiteFooter() {
           </nav>
 
           {/* Social icons - right aligned on all screens */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 mt-1 sm:mt-1.5">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-4 lg:gap-5 mt-1 sm:mt-1.5">
             <a
               href="https://x.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="X (Twitter)"
             >
-              <FaXTwitter className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors ${iconHoverTwitter}`} />
+              <FaXTwitter className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${iconHoverTwitter}`} />
             </a>
             <a
               href="https://bsky.app/profile/tiles.run"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="Bluesky"
             >
-              <FaBluesky className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors group-hover:text-[#0085FF]`} />
+              <FaBluesky className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#0085FF]`} />
             </a>
             <a
               href="https://www.instagram.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="Instagram"
             >
-              <FaInstagram className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors group-hover:text-[#E4405F]`} />
+              <FaInstagram className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#E4405F]`} />
             </a>
             <a
               href="https://go.tiles.run/discord"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="Discord"
             >
-              <FaDiscord className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors group-hover:text-[#5865F2]`} />
+              <FaDiscord className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#5865F2]`} />
             </a>
             <a
               href="https://github.com/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="GitHub"
             >
-              <FaGithub className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors ${iconHoverGithub}`} />
+              <FaGithub className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${iconHoverGithub}`} />
             </a>
             <a
               href="https://www.reddit.com/user/sdexca/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="Reddit"
             >
-              <FaRedditAlien className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors group-hover:text-[#FF4500]`} />
+              <FaRedditAlien className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#FF4500]`} />
             </a>
             <a
               href="https://huggingface.co/tilesprivacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="Hugging Face"
             >
-              <SiHuggingface className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors group-hover:text-[#FFD21E]`} />
+              <SiHuggingface className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#FFD21E]`} />
             </a>
             <a
               href="/api/rss"
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center justify-center"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
               aria-label="RSS Feed"
             >
-              <FaRss className={`h-3.5 w-3.5 sm:h-4 sm:w-4 ${textColor} transition-colors group-hover:text-orange-500`} />
+              <FaRss className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-orange-500`} />
             </a>
           </div>
         </div>
