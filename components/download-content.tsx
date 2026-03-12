@@ -164,8 +164,8 @@ export function DownloadContent() {
                         </span>
                       </div>
                       <p className={bodyTextClass}>
-                        Small package that downloads the required runtime during setup. You will be prompted to
-                        download the model during onboarding.
+                        Small package that includes the required runtime. You will be prompted to download the model
+                        during onboarding.
                       </p>
                       <p className={`text-sm ${textColorSubtle}`}>
                         Size: {download.binarySizeLabel || "Unavailable"} | SHA256:{" "}
