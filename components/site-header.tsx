@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { memo, useCallback, useEffect, useState } from "react"
+import { Download } from "lucide-react"
 import { FaGithub } from "react-icons/fa6"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
@@ -128,34 +129,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={() => triggerHaptic()}
             >
-              {themeAware ? (
-                <>
-                  {/* Light mode: white Apple logo (on black button) */}
-                  <Image
-                    src="/apple-logo-white.svg"
-                    alt="Apple"
-                    width={16}
-                    height={20}
-                    className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 lg:h-4 dark:hidden"
-                  />
-                  {/* Dark mode: black Apple logo (on white button) */}
-                  <Image
-                    src="/apple-logo.svg"
-                    alt="Apple"
-                    width={16}
-                    height={20}
-                    className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 lg:h-4 hidden dark:block"
-                  />
-                </>
-              ) : (
-                <Image
-                  src="/apple-logo-white.svg"
-                  alt="Apple"
-                  width={16}
-                  height={20}
-                  className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 lg:h-4"
-                />
-              )}
+              <Download className="h-3 w-3 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" aria-hidden />
               <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
                 Download
               </span>

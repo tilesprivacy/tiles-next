@@ -6,6 +6,7 @@ import { useTheme } from "next-themes"
 import { FaBook, FaDiscord } from "react-icons/fa6"
 import { triggerHaptic } from "@/lib/haptics"
 import Link from "next/link"
+import Image from "next/image"
 
 interface DownloadMetadata {
   version: string
@@ -191,17 +192,45 @@ export function DownloadContent() {
                             triggerHaptic()
                           }}
                           download={download.fileName}
-                          className="inline-flex h-10 items-center justify-center rounded-full bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                          className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
                         >
+                          <Image
+                            src="/apple-logo-white.svg"
+                            alt="Apple"
+                            width={16}
+                            height={20}
+                            className="h-3.5 w-auto dark:hidden"
+                          />
+                          <Image
+                            src="/apple-logo.svg"
+                            alt="Apple"
+                            width={16}
+                            height={20}
+                            className="hidden h-3.5 w-auto dark:block"
+                          />
                           {downloadButtonLabel}
                         </a>
                       ) : (
                         <button
                           type="button"
                           disabled
-                          className="inline-flex h-10 cursor-not-allowed items-center justify-center rounded-full bg-black/10 px-5 text-sm font-medium text-black/40 dark:bg-white/10 dark:text-white/40"
+                          className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-full bg-black/10 px-5 text-sm font-medium text-black/40 dark:bg-white/10 dark:text-white/40"
                           aria-disabled="true"
                         >
+                          <Image
+                            src="/apple-logo.svg"
+                            alt="Apple"
+                            width={16}
+                            height={20}
+                            className="h-3.5 w-auto opacity-50 dark:hidden"
+                          />
+                          <Image
+                            src="/apple-logo-white.svg"
+                            alt="Apple"
+                            width={16}
+                            height={20}
+                            className="hidden h-3.5 w-auto opacity-50 dark:block"
+                          />
                           {downloadButtonLabel}
                         </button>
                       )}
@@ -231,9 +260,23 @@ export function DownloadContent() {
                       <button
                         type="button"
                         disabled
-                        className="inline-flex h-10 cursor-not-allowed items-center justify-center rounded-full bg-black px-5 text-sm font-medium text-white opacity-40 dark:bg-white dark:text-black"
+                        className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white opacity-40 dark:bg-white dark:text-black"
                         aria-disabled="true"
                       >
+                        <Image
+                          src="/apple-logo-white.svg"
+                          alt="Apple"
+                          width={16}
+                          height={20}
+                          className="h-3.5 w-auto dark:hidden"
+                        />
+                        <Image
+                          src="/apple-logo.svg"
+                          alt="Apple"
+                          width={16}
+                          height={20}
+                          className="hidden h-3.5 w-auto dark:block"
+                        />
                         Download offline installer
                       </button>
                     </div>

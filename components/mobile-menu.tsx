@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useEffect, useState } from "react"
+import { Download } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { triggerHaptic } from "@/lib/haptics"
@@ -137,34 +138,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
-                {themeAware ? (
-                  <>
-                    {/* Light mode: white Apple logo (on black button) */}
-                    <Image
-                      src="/apple-logo-white.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 dark:hidden"
-                    />
-                    {/* Dark mode: black Apple logo (on white button) */}
-                    <Image
-                      src="/apple-logo.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 hidden dark:block"
-                    />
-                  </>
-                ) : (
-                  <Image
-                    src="/apple-logo-white.svg"
-                    alt="Apple"
-                    width={16}
-                    height={20}
-                    className="h-3 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5"
-                  />
-                )}
+                <Download className="h-3 w-3 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5" aria-hidden />
                 <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
               </Link>
             </Button>

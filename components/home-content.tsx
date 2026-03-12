@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Cpu, Package, Brain, FileCode, KeyRound } from "lucide-react"
+import { Cpu, Package, Brain, FileCode, KeyRound, Download } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
@@ -39,20 +39,7 @@ export function HomeContent() {
                     onClick={() => triggerHaptic()}
                     className="group inline-flex h-10 w-fit items-center justify-center gap-2 self-start rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-white dark:text-black dark:ring-white/10 dark:hover:bg-white/90 sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-base"
                   >
-                    <Image
-                      src="/apple-logo-white.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="h-3.5 w-auto origin-right transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 dark:hidden"
-                    />
-                    <Image
-                      src="/apple-logo.svg"
-                      alt="Apple"
-                      width={16}
-                      height={20}
-                      className="hidden h-3.5 w-auto origin-right transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 dark:block"
-                    />
+                    <Download className="h-3.5 w-3.5 origin-right transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4" aria-hidden />
                     <span className="origin-left transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
                       Download for macOS
                     </span>
