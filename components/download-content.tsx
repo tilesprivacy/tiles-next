@@ -244,6 +244,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       <div className="flex items-center gap-2">
                         <p className={`font-medium ${textColor}`}>Offline installer</p>
                       </div>
+                      <p className={`text-sm ${textColorSubtle}`}>Coming soon.</p>
                       <p className={bodyTextClass}>
                         Includes the default{" "}
                         <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>gpt-oss-20b</span>{" "}
