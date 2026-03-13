@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from "next-themes"
-import { FaBook, FaDiscord } from "react-icons/fa6"
+import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
 import { triggerHaptic } from "@/lib/haptics"
 import Link from "next/link"
 import Image from "next/image"
@@ -325,8 +325,8 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
               </div>
 
               {/* Manual and Community CTAs */}
-              <div className="space-y-5 border-t border-black/10 pt-8 dark:border-white/10">
-                <h2 className={`font-sans text-2xl font-medium tracking-tight sm:text-3xl ${textColor}`}>Resources</h2>
+              <div className="border-t border-black/10 pt-10 dark:border-white/10">
+                <h2 className={`mb-6 font-sans text-2xl font-medium tracking-tight sm:text-3xl ${textColor}`}>Resources</h2>
                 <div className="grid grid-cols-1 gap-10">
                   {/* Manual */}
                   <div className="flex flex-col gap-4">
@@ -366,6 +366,21 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         User &amp; Agents community
                       </a>
                       .
+                    </p>
+                  </div>
+
+                  {/* Releases */}
+                  <div className="flex flex-col gap-4">
+                    <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
+                      <FaClockRotateLeft className="h-5 w-5" />
+                    </div>
+                    <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Releases</h3>
+                    <p className={bodyTextClass}>
+                      Need an older build? Browse the{" "}
+                      <Link href="/changelog#releases" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
+                        changelog page
+                      </Link>{" "}
+                      to download previous versions.
                     </p>
                   </div>
                 </div>
