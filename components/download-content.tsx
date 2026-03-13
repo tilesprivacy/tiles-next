@@ -162,17 +162,10 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 </div>
                 <div className="grid grid-cols-1 gap-4">
                   <div className="py-2">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <p className={`font-medium ${textColor}`}>Network installer</p>
-                        <span
-                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wide ${
-                            isDark ? "text-[#8A8A8A] ring-1 ring-white/15" : "text-black/45 ring-1 ring-black/15"
-                          }`}
-                        >
-                          Recommended
-                        </span>
-                      </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <p className={`font-medium ${textColor}`}>Network installer</p>
+                    </div>
                       <p className={bodyTextClass}>
                         Small package that includes the required runtime. You will be prompted to download the model
                         during onboarding.
@@ -250,13 +243,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
                         <p className={`font-medium ${textColor}`}>Offline installer</p>
-                        <span
-                          className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wide ${
-                            isDark ? "text-[#8A8A8A] ring-1 ring-white/15" : "text-black/45 ring-1 ring-black/15"
-                          }`}
-                        >
-                          Coming soon
-                        </span>
                       </div>
                       <p className={bodyTextClass}>
                         Includes the default{" "}
