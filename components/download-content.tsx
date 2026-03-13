@@ -291,10 +291,14 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     </div>
                   </div>
                 </div>
-                <p className={bodyTextClass}>
-                  Installation options for earlier releases of Tiles are available on the{" "}
-                  <Link href="/changelog" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
-                    Changelog page
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  By downloading and using Tiles, you agree to the{" "}
+                  <Link href="/terms" className="underline underline-offset-4">
+                    terms
+                  </Link>{" "}
+                  and{" "}
+                  <Link href="/privacy" className="underline underline-offset-4">
+                    privacy statement
                   </Link>
                   .
                 </p>
