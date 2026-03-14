@@ -250,7 +250,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>gpt-oss-20b</span>{" "}
                         model bundled for fully offline setup with no additional downloads.
                       </p>
-                      <p className={`text-sm ${textColorSubtle}`}>Size: ~5GB | SHA256: Coming soon</p>
+                      <p className={`text-sm ${textColorSubtle}`}>Size: ~10GB | SHA256: Coming soon</p>
                     </div>
                     <div className="pt-4">
                       <button
