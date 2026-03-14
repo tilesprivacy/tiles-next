@@ -53,3 +53,11 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 ### Regenerating the WebP
 - If you change `public/wireframe.svg`, run: `npm run generate:wireframe`
 - This overwrites `public/wireframe.webp`.
+
+## Learned User Preferences
+
+- Legal copy near download buttons should be styled as minimal subtext (matching the homepage pattern) instead of prominent body text.
+
+## Learned Workspace Facts
+
+- Previous Tiles releases are linked from the changelog page at `/changelog#releases` and should be referred to as the changelog page in copy.

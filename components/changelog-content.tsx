@@ -123,7 +123,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               </a>
               <span>({formatBinarySize(release.installer.sizeBytes, { unknownLabel: "Unknown size" })})</span>
             </div>
-            <div className="mt-1 flex flex-wrap items-start gap-x-2">
+            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
               <span>SHA256:</span>
               <span className="font-mono text-[11px] break-all">{release.installer.sha256}</span>
             </div>
@@ -198,7 +198,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               </a>
               <span>({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})</span>
             </div>
-            <div className="mt-1 flex flex-wrap items-start gap-x-2">
+            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
               <span>SHA256:</span>
               <span className="font-mono text-[11px] break-all">{tarball.sha256}</span>
             </div>
