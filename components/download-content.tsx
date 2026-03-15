@@ -247,7 +247,9 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       <p className={`text-sm ${textColorSubtle}`}>Coming soon.</p>
                       <p className={bodyTextClass}>
                         Includes the default{" "}
-                        <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>gpt-oss-20b</span>{" "}
+                        <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>
+                          gpt-oss-20b-MXFP4-Q4
+                        </span>{" "}
                         model bundled for fully offline setup with no additional downloads.
                       </p>
                       <p className={`text-sm ${textColorSubtle}`}>Size: ~10GB | SHA256: Coming soon</p>
@@ -304,9 +306,10 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                   <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 3</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Run tiles command</h2>
                   <p className={bodyTextClass}>
-                    Open Terminal and run <code className={`rounded px-1.5 py-0.5 ${codeBg} ${codeText}`}>tiles</code>.
-                    Then complete CLI onboarding to set up your account. If you chose the network installer, select the
-                    model you want to download.
+                    Open Terminal and run{" "}
+                    <code className={`rounded px-1.5 py-0.5 ${codeBg} ${codeText}`}>tiles</code>. Then follow the CLI
+                    onboarding to set up your account and start using the chat interface. If you installed the network
+                    version, you will be prompted to choose and download a model.
                   </p>
                 </div>
               </div>
