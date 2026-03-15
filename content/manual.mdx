@@ -54,8 +54,7 @@ tiles account                  # Show account details
 tiles data set-path <path>     # Set data directory
 tiles run [MODELFILE_PATH]     # Run a model (default if not provided)
 tiles run -m                   # Run with experimental memory model
-tiles server start             # Start daemon server
-tiles server stop              # Stop daemon server
+tiles update                   # Check for and install app updates
 ```
 
 ### Examples
@@ -85,11 +84,8 @@ tiles run ./path/to/Modelfile
 # Run with experimental memory model
 tiles run -m
 
-# Start daemon server
-tiles server start
-
-# Stop daemon server
-tiles server stop
+# Check for and install app updates
+tiles update
 ```
 
 ## Tilekit
@@ -98,7 +94,7 @@ Commands in this section are meant for developers.
 
 ### Prompt Optimization
 
-We use DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/) built into the Tiles CLI to automatically optimize system prompts in Modelfiles.
+We have DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/)) built into the Tiles CLI to automatically optimize system prompts in Modelfiles.
 
 ### CLI Commands
 
