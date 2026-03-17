@@ -8,6 +8,19 @@ export function formatBinarySize(
     return unknownLabel
   }
 
-  const mb = bytes / (1024 * 1024)
-  return `${mb.toFixed(2)} MB`
+  const kb = bytes / 1024
+  const mb = kb / 1024
+  const gb = mb / 1024
+
+  if (gb >= 1) {
+    return `${gb.toFixed(2)} GB`
+  }
+  if (mb >= 1) {
+    return `${mb.toFixed(2)} MB`
+  }
+  if (kb >= 1) {
+    return `${kb.toFixed(2)} KB`
+  }
+
+  return `${bytes.toFixed(0)} B`
 }

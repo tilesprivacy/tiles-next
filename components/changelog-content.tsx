@@ -93,6 +93,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
     const [copied, setCopied] = useState(false)
     const hasTarballs = release.tarballs.length > 0
     const hasInstaller = Boolean(release.installer)
+    const hasFullInstaller = Boolean(release.fullInstaller)
     const installScript = `curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`
 
     const handleCopy = async () => {
@@ -102,7 +103,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
       setTimeout(() => setCopied(false), 2000)
     }
 
-    if (!hasTarballs && !hasInstaller) {
+    if (!hasTarballs && !hasInstaller && !hasFullInstaller) {
       return null
     }
 
@@ -111,7 +112,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
         {release.installer && (
           <div className={`rounded-xl ${codeBg} px-3 py-2.5`}>
             <div className="flex flex-wrap items-center gap-x-2">
-              <span>Installer:</span>
+              <span>Network installer:</span>
               <a
                 href={release.installer.url}
                 target="_blank"
@@ -126,6 +127,28 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
               <span>SHA256:</span>
               <span className="font-mono text-[11px] break-all">{release.installer.sha256}</span>
+            </div>
+          </div>
+        )}
+
+        {release.fullInstaller && (
+          <div className={`rounded-xl ${codeBg} px-3 py-2.5`}>
+            <div className="flex flex-wrap items-center gap-x-2">
+              <span>Full installer:</span>
+              <a
+                href={release.fullInstaller.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+              >
+                {release.fullInstaller.name}
+                <ExternalLinkIcon />
+              </a>
+              <span>({formatBinarySize(release.fullInstaller.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+            </div>
+            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
+              <span>SHA256:</span>
+              <span className="font-mono text-[11px] break-all">{release.fullInstaller.sha256}</span>
             </div>
           </div>
         )}

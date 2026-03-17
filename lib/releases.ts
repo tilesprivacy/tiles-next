@@ -18,6 +18,7 @@ export interface Release {
   compareUrl?: string
   tarballs: ReleaseTarball[]
   installer?: ReleaseInstaller
+  fullInstaller?: ReleaseInstaller
 }
 
 export interface ReleaseTarball {
@@ -32,6 +33,16 @@ export interface ReleaseInstaller {
   url: string
   sizeBytes: number
   sha256: string
+}
+
+const customFullInstallers: Record<string, ReleaseInstaller> = {
+  "0.4.4": {
+    name: "tiles-0.4.4-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.4.4-full-signed.pkg",
+    // Source of truth is the checksum file; size is for display only.
+    sizeBytes: 11070278205,
+    sha256: "93943329953ddaa08de3c47e65532b5ffddeaf282839d7b95cf263ffeac2c5ab",
+  },
 }
 
 // Custom changes to supplement or override GitHub release data
@@ -341,6 +352,7 @@ export async function fetchReleases(): Promise<Release[]> {
         compareUrl: extractCompareUrl(body),
         tarballs: extractTarballs(release.assets),
         installer: extractInstaller(version, release.assets),
+        fullInstaller: customFullInstallers[normalizedVersion],
       }
     })
 }
