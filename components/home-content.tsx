@@ -141,7 +141,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Bundled dependencies that run without being installed on your system, for secure and air-gapped installations.
+                Bundled dependencies run in a self contained environment without modifying your system, with a fully offline installer available for secure and air gapped installations.
               </p>
             </div>
 
