@@ -21,8 +21,8 @@ interface DownloadContentProps {
 }
 
 const OFFLINE_INSTALLER = {
-  downloadUrl: "https://download.tiles.run/tiles-0.4.4-full.pkg",
-  fileName: "tiles-0.4.4-full.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.4.4-full-signed.pkg",
+  fileName: "tiles-0.4.4-full-signed.pkg",
   binarySizeLabel: "10.31 GB",
   sha256: "93943329953ddaa08de3c47e65532b5ffddeaf282839d7b95cf263ffeac2c5ab",
 } as const
