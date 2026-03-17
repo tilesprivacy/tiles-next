@@ -20,6 +20,13 @@ interface DownloadContentProps {
   initialDownload?: DownloadMetadata
 }
 
+const OFFLINE_INSTALLER = {
+  downloadUrl: "https://download.tiles.run/tiles-0.4.4-full.pkg",
+  fileName: "tiles-0.4.4-full.pkg",
+  binarySizeLabel: "10.31 GB",
+  sha256: "93943329953ddaa08de3c47e65532b5ffddeaf282839d7b95cf263ffeac2c5ab",
+} as const
+
 const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
   version: "latest",
   downloadUrl: "",
@@ -121,6 +128,8 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
     download.sha256 !== "Unavailable"
       ? `${download.sha256.slice(0, 12)}...${download.sha256.slice(-12)}`
       : "Unavailable"
+  const offlineShortenedSha256 = `${OFFLINE_INSTALLER.sha256.slice(0, 12)}...${OFFLINE_INSTALLER.sha256.slice(-12)}`
+  const offlineChecksumFileUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
   const downloadButtonLabel = isLoadingMetadata
     ? "Loading installer..."
     : hasDownloadUrl
@@ -244,7 +253,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       <div className="flex items-center gap-2">
                         <p className={`font-medium ${textColor}`}>Offline installer</p>
                       </div>
-                      <p className={`text-sm ${textColorSubtle}`}>Coming soon.</p>
                       <p className={bodyTextClass}>
                         Includes the default{" "}
                         <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>
@@ -252,14 +260,26 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         </span>{" "}
                         model bundled for fully offline setup with no additional downloads.
                       </p>
-                      <p className={`text-sm ${textColorSubtle}`}>Size: ~10GB | SHA256: Coming soon</p>
+                      <p className={`text-sm ${textColorSubtle}`}>
+                        Size: {OFFLINE_INSTALLER.binarySizeLabel} | SHA256:{" "}
+                        <a
+                          href={offlineChecksumFileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                        >
+                          {offlineShortenedSha256}
+                        </a>
+                      </p>
                     </div>
                     <div className="pt-4">
-                      <button
-                        type="button"
-                        disabled
-                        className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white opacity-40 dark:bg-white dark:text-black"
-                        aria-disabled="true"
+                      <a
+                        href={OFFLINE_INSTALLER.downloadUrl}
+                        onClick={() => {
+                          triggerHaptic()
+                        }}
+                        download={OFFLINE_INSTALLER.fileName}
+                        className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
                       >
                         <Image
                           src="/apple-logo-white.svg"
@@ -276,7 +296,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                           className="hidden h-3.5 w-auto dark:block"
                         />
                         Download offline installer
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
