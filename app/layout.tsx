@@ -1,30 +1,20 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
-import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
+import { PwaRegister } from "@/components/pwa-register"
 import "./globals.css"
 
-const geist = Geist({
-  subsets: ["latin"],
-  display: 'swap',
-  preload: true,
-})
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  display: 'swap',
-  preload: true,
-})
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
   title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
   description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
   generator: "v0.app",
+  manifest: "/manifest.webmanifest",
   icons: {
     icon: "/logo.png",
-    apple: "/logo.png",
+    apple: "/apple-icon.png",
   },
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
@@ -76,7 +66,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${geist.className} antialiased`}>
+      <body className="antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -87,7 +77,7 @@ export default function RootLayout({
           <SiteHeader themeAware />
           {children}
         </ThemeProvider>
-        <Analytics />
+        <PwaRegister />
       </body>
     </html>
   )
