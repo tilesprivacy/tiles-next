@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { createReadStream } from "node:fs";
-import { stat } from "node:fs/promises";
+import { stat, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const workerUrl = process.env.TILES_SYNC_WORKER_URL;
@@ -23,7 +23,7 @@ function guessContentType(filePath) {
   return map[ext] ?? "application/octet-stream";
 }
 
-async function sendRequest(endpoint, init) {
+async function sendRequest(endpoint, init, { logUploadId = false } = {}) {
   const response = await fetch(endpoint, init);
 
   let payload = null;
@@ -36,6 +36,10 @@ async function sendRequest(endpoint, init) {
 
   if (!response.ok) {
     throw new Error(JSON.stringify(payload, null, 2));
+  }
+
+  if (logUploadId && payload?.uploadId) {
+    console.log("UploadId", payload.uploadId);
   }
 
   return payload;
@@ -74,13 +78,24 @@ if (command === "latest-pkg") {
 
 if (command === "upload-file") {
   const localFilePath = process.argv[3];
-  const customKey = process.argv[4];
+  const customKey = process.argv[4] && !process.argv[4].startsWith("--") ? process.argv[4] : undefined;
+  const flagArgs = process.argv.slice(customKey ? 5 : 4);
+  const getFlagValue = (flag) => {
+    const idx = flagArgs.indexOf(flag);
+    if (idx === -1) {
+      return undefined;
+    }
+    return flagArgs[idx + 1];
+  };
+  const resumeUploadId = getFlagValue("--upload-id");
+  const resumePartsArg = getFlagValue("--parts");
+  const partsOutArg = getFlagValue("--parts-out");
 
   if (!localFilePath) {
     console.error(
       [
         "Missing file path.",
-        "Usage: npm run upload:file -- <local-file-path> [bucket-key]",
+        "Usage: npm run upload:file -- <local-file-path> [bucket-key] [--upload-id <id> --parts <file>] [--parts-out <file>]",
       ].join("\n"),
     );
     process.exit(1);
@@ -92,6 +107,9 @@ if (command === "upload-file") {
   requireWorkerAuth();
 
   try {
+    if (resumePartsArg && !resumeUploadId) {
+      throw new Error("Provided --parts without --upload-id. Both are required to resume.");
+    }
     if (details.size <= workerUploadLimitBytes) {
       const endpoint = new URL("/sync/upload-file", workerUrl);
       endpoint.searchParams.set("key", key);
@@ -111,25 +129,53 @@ if (command === "upload-file") {
     }
 
     // Large files are uploaded via multipart requests through the Worker.
-    const startUrl = new URL("/sync/upload-file-multipart/start", workerUrl);
-    startUrl.searchParams.set("key", key);
-    startUrl.searchParams.set("contentType", guessContentType(localFilePath));
-    const started = await sendRequest(startUrl.toString(), {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${triggerToken}`,
-      },
-    });
+    let uploadId = resumeUploadId;
+    let parts = [];
+    const partsFilePath =
+      resumePartsArg ?? partsOutArg ?? `${localFilePath}.parts.json`;
 
-    const uploadId = started.uploadId;
-    if (!uploadId) {
-      throw new Error("Missing uploadId from multipart start response");
+    if (resumeUploadId) {
+      if (!resumePartsArg) {
+        throw new Error("Missing --parts for resume. Provide a path to a JSON file.");
+      }
+      const rawParts = await readFile(resumePartsArg, "utf8");
+      const parsed = JSON.parse(rawParts);
+      if (!Array.isArray(parsed)) {
+        throw new Error("Resume parts must be a JSON array of { partNumber, etag } objects.");
+      }
+      parts = parsed;
+      console.log("UploadId", uploadId);
+    } else {
+      const startUrl = new URL("/sync/upload-file-multipart/start", workerUrl);
+      startUrl.searchParams.set("key", key);
+      startUrl.searchParams.set("contentType", guessContentType(localFilePath));
+      const started = await sendRequest(
+        startUrl.toString(),
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${triggerToken}`,
+          },
+        },
+        { logUploadId: true },
+      );
+
+      uploadId = started.uploadId;
+      if (!uploadId) {
+        throw new Error("Missing uploadId from multipart start response");
+      }
     }
 
-    const parts = [];
+    const uploadedPartNumbers = new Set(
+      parts.map((part) => Number(part?.partNumber)).filter((value) => Number.isFinite(value)),
+    );
     const totalParts = Math.ceil(details.size / multipartPartSizeBytes);
-
+    
     for (let partNumber = 1; partNumber <= totalParts; partNumber += 1) {
+      if (uploadedPartNumbers.has(partNumber)) {
+        console.log(`Skipping part ${partNumber}/${totalParts} (already uploaded)`);
+        continue;
+      }
       const start = (partNumber - 1) * multipartPartSizeBytes;
       const endExclusive = Math.min(start + multipartPartSizeBytes, details.size);
       const stream = createReadStream(localFilePath, { start, end: endExclusive - 1 });
@@ -149,6 +195,7 @@ if (command === "upload-file") {
         duplex: "half",
       });
       parts.push(part);
+      await writeFile(partsFilePath, JSON.stringify(parts, null, 2));
       console.log(`Uploaded part ${partNumber}/${totalParts}`);
     }
 
@@ -156,6 +203,7 @@ if (command === "upload-file") {
     completeUrl.searchParams.set("key", key);
     completeUrl.searchParams.set("uploadId", uploadId);
 
+    parts.sort((a, b) => a.partNumber - b.partNumber);
     const completed = await sendRequest(completeUrl.toString(), {
       method: "POST",
       headers: {
