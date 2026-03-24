@@ -20,6 +20,15 @@ interface DownloadContentProps {
   initialDownload?: DownloadMetadata
 }
 
+function extractVersionFromFileName(fileName: string | undefined): string | null {
+  if (!fileName) {
+    return null
+  }
+
+  const match = fileName.match(/tiles-(\d+\.\d+\.\d+)(?:[.-]|$)/i)
+  return match?.[1] ?? null
+}
+
 const OFFLINE_INSTALLER = {
   downloadUrl: "https://download.tiles.run/tiles-0.4.4-full-signed.pkg",
   fileName: "tiles-0.4.4-full-signed.pkg",
@@ -120,7 +129,9 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const codeBg = isDark ? "bg-[#1a1a1a]" : "bg-black/[0.04]"
   const codeText = isDark ? "text-[#E6E6E6]" : "text-black/80"
   const hasDownloadUrl = Boolean(download.downloadUrl)
-  const displayVersion = download.version && download.version !== "latest" ? `v${download.version}` : null
+  const networkReleaseVersion = extractVersionFromFileName(download.fileName) ?? (download.version && download.version !== "latest" ? download.version : null)
+  const offlineReleaseVersion = extractVersionFromFileName(OFFLINE_INSTALLER.fileName)
+  const displayVersion = networkReleaseVersion ? `v${networkReleaseVersion}` : null
   const checksumFileUrl = download.fileName
     ? `https://download.tiles.run/checksums/${download.fileName}.sha256`
     : "https://download.tiles.run/checksums"
@@ -178,6 +189,9 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       <p className={bodyTextClass}>
                         Small package that includes the required runtime. You will be prompted to download the model
                         during onboarding.
+                      </p>
+                      <p className={`text-sm ${textColorSubtle}`}>
+                        Release: {networkReleaseVersion ? `v${networkReleaseVersion}` : "Unavailable"}
                       </p>
                       <p className={`text-sm ${textColorSubtle}`}>
                         Size: {download.binarySizeLabel || "Unavailable"} | SHA256:{" "}
@@ -261,6 +275,9 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         model bundled for fully offline setup with no additional downloads.
                       </p>
                       <p className={`text-sm ${textColorSubtle}`}>
+                        Release: {offlineReleaseVersion ? `v${offlineReleaseVersion}` : "Unavailable"}
+                      </p>
+                      <p className={`text-sm ${textColorSubtle}`}>
                         Size: {OFFLINE_INSTALLER.binarySizeLabel} | SHA256:{" "}
                         <a
                           href={offlineChecksumFileUrl}
@@ -300,6 +317,10 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     </div>
                   </div>
                 </div>
+                <p className={`text-xs leading-relaxed ${textColorSubtle}`}>
+                  Offline installer builds aren&apos;t published for every release. Check the release version above to
+                  confirm which build each installer includes.
+                </p>
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   By downloading and using Tiles, you agree to the{" "}
                   <Link href="/terms" className="underline underline-offset-4">
