@@ -17,9 +17,9 @@ const githubHeaders = {
 }
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
-  version: "0.4.3",
-  fileName: "tiles-0.4.3-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.3-signed.pkg",
+  version: "0.4.5",
+  fileName: "tiles-0.4.5-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.4.5-signed.pkg",
   binarySizeBytes: 79153404,
   binarySizeLabel: "75.49 MB",
   sha256: "e972bddfc063818f4c08a42eccf32ab33d9145b1c267404d9c233c51b86dd2d3",
