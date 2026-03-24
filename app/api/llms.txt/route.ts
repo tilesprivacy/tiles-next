@@ -120,7 +120,7 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Offline installer for macOS (bundled model):')
   sections.push('')
-  sections.push('https://download.tiles.run/tiles-0.4.4-full-signed.pkg')
+  sections.push('https://download.tiles.run/tiles-0.4.5-full.pkg')
   sections.push('SHA256: 93943329953ddaa08de3c47e65532b5ffddeaf282839d7b95cf263ffeac2c5ab')
   sections.push('Size: 10.31 GB')
   sections.push('')
