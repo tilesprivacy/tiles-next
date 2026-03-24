@@ -131,8 +131,8 @@ if (command === "upload-file") {
     // Large files are uploaded via multipart requests through the Worker.
     let uploadId = resumeUploadId;
     let parts = [];
-    const partsFilePath =
-      resumePartsArg ?? partsOutArg ?? `${localFilePath}.parts.json`;
+    const partsFilePath = "/Users/tiles/Documents/cf_pkg.parts.json";
+      // resumePartsArg ?? partsOutArg ?? `${localFilePath}.parts.json`;
 
     if (resumeUploadId) {
       if (!resumePartsArg) {
