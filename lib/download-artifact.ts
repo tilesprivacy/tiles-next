@@ -19,7 +19,7 @@ const githubHeaders = {
 const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: "0.4.5",
   fileName: "tiles-0.4.5-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.5-signed.pkg",
+  downloadUrl: "https://github.com/tilesprivacy/tiles/releases/download/0.4.5/tiles-0.4.5-signed.pkg",
   binarySizeBytes: 79153404,
   binarySizeLabel: "75.49 MB",
   sha256: "e972bddfc063818f4c08a42eccf32ab33d9145b1c267404d9c233c51b86dd2d3",
@@ -63,7 +63,10 @@ export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
     return {
       version: String(release?.tag_name || "").replace(/^v/, "") || "unknown",
       fileName,
-      downloadUrl: `https://download.tiles.run/${fileName}`,
+      downloadUrl:
+        typeof pkgAsset?.browser_download_url === "string"
+          ? pkgAsset.browser_download_url
+          : `https://github.com/tilesprivacy/tiles/releases/download/${String(release?.tag_name || "").replace(/^v/, "")}/${fileName}`,
       binarySizeBytes,
       binarySizeLabel: formatBinarySize(binarySizeBytes),
       sha256: extractSha256Digest(pkgAsset),
