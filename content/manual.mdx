@@ -54,6 +54,11 @@ tiles account                  # Show account details
 tiles data set-path <path>     # Set data directory
 tiles run [MODELFILE_PATH]     # Run a model (default if not provided)
 tiles run -m                   # Run with experimental memory model
+tiles link enable [ticket]     # Enable linking or join with a ticket
+tiles link list-peers          # List linked devices (including DID)
+tiles link disable <DID>       # Unlink a device by DID
+tiles sync                     # Wait for a sync request from linked peers
+tiles sync <DID>               # Start sync with a specific linked peer DID
 tiles update                   # Check for and install app updates
 ```
 
@@ -84,9 +89,37 @@ tiles run ./path/to/Modelfile
 # Run with experimental memory model
 tiles run -m
 
+# Enable linking and generate a ticket on this device
+tiles link enable
+
+# Join an existing link using an out-of-band ticket
+tiles link enable <ticket>
+
+# List linked peers and copy a DID for sync
+tiles link list-peers
+
+# Unlink a device
+tiles link disable did:key:z6M...
+
+# Listen for incoming sync requests from linked peers
+tiles sync
+
+# Initiate sync with a linked peer DID
+tiles sync did:key:z6M...
+
 # Check for and install app updates
 tiles update
 ```
+
+### Device Linking and Sync Notes
+
+Recent releases added peer-to-peer device linking and sync flows:
+
+- `tiles link enable` generates a ticket and waits for a link request.
+- `tiles link enable <ticket>` joins from another device using that ticket.
+- `tiles link list-peers` shows linked peers and their DIDs.
+- `tiles sync` listens for sync requests from linked peers.
+- `tiles sync <DID>` initiates sync with a specific linked peer DID.
 
 ## Tilekit
 
