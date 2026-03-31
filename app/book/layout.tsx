@@ -7,7 +7,6 @@ import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
 import { BookDatestampMover } from '@/components/book-datestamp-mover'
 import { BookCodeHighlightFix } from '@/components/book-code-highlight-fix'
-import { BookCopyLink } from '@/components/book-copy-link'
 import { BookScrollToTop } from '@/components/book-scroll-to-top'
 
 export const metadata = {
@@ -114,7 +113,6 @@ export default async function BookLayout({
     <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
       <BookBreadcrumbLink />
       <BookDatestampMover />
-      <BookCopyLink />
       <BookCodeHighlightFix />
       <BookScrollToTop />
       <div className="pt-28 lg:pt-32">
