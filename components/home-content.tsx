@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Cpu, Package, Brain, FileCode, KeyRound, Download, RefreshCw } from "lucide-react"
+import { Cpu, Package, FileCode, KeyRound, Download, RefreshCw } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
@@ -171,23 +171,6 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 6 */}
-            <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-              <div className="flex items-center gap-3">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
-                  <Brain className="h-4 w-4" strokeWidth={1.75} />
-                </span>
-                <div className="flex items-center gap-2 flex-wrap min-w-0">
-                  <h3 className="text-base lg:text-lg font-semibold text-foreground">AI Memory</h3>
-                  <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[9px] lg:text-[10px] font-medium uppercase tracking-wide text-black/50 dark:text-[#8A8A8A] ring-1 ring-black/10 dark:ring-white/10 bg-transparent font-mono">
-                    EXPERIMENTAL
-                  </span>
-                </div>
-              </div>
-              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Personalized assistance that learns and remembers your preferences.
-              </p>
-            </div>
           </div>
 
           <MissionSection title="Get to know Tiles Privacy" compact />
