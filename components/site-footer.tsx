@@ -31,6 +31,7 @@ export function SiteFooter() {
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#B3B3B3]' : 'text-black/60'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#E6E6E6]' : '!text-black'
+  const licenseTextColor = isDarkFooter ? 'text-[#8A8A8A]' : 'text-black/50'
 
   return (
     <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-8 lg:py-10`}>
@@ -204,6 +205,21 @@ export function SiteFooter() {
 
           {/* Theme Switcher - visible on all screens */}
           <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
+        </div>
+
+        <div className={`text-[10px] leading-relaxed sm:text-xs ${licenseTextColor}`}>
+          <p>This work is licensed under the dual-licensed under MIT and Apache 2.0.</p>
+          <p>
+            To view a copy of this license, visit{" "}
+            <a
+              href="https://download.tiles.run/LICENSE.txt"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 transition-opacity hover:opacity-80"
+            >
+              https://download.tiles.run/LICENSE.txt
+            </a>
+          </p>
         </div>
       </div>
     </footer>
