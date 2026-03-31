@@ -78,6 +78,7 @@ export async function GET(request: Request) {
   sections.push('Private AI comparison:')
   sections.push('- CLI: Tiles, Ollama, LM Studio, Jan')
   sections.push('- Client app: Ollama, LM Studio, Jan')
+  sections.push('- Memory: Tiles (WIP)')
   sections.push('- Connectors: Ollama, LM Studio, Jan; Tiles (WIP)')
   sections.push('- Decentralized Identity: Tiles')
   sections.push('- Encryption: Tiles')
