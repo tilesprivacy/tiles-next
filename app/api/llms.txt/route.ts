@@ -76,6 +76,7 @@ export async function GET(request: Request) {
   sections.push('Runs fully on-device, with optional peer-to-peer sync.')
   sections.push('')
   sections.push('Private AI comparison:')
+  sections.push('- CLI: Tiles, Ollama, LM Studio, Jan')
   sections.push('- Client app: Ollama, LM Studio, Jan')
   sections.push('- Connectors: Ollama, LM Studio, Jan; Tiles (WIP)')
   sections.push('- Decentralized Identity: Tiles')

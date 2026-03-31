@@ -9,6 +9,7 @@ import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
   const comparisonRows = [
+    { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check" },
     { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check" },
     { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check" },
     { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
