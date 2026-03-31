@@ -208,7 +208,7 @@ export function SiteFooter() {
         </div>
 
         <div className={`text-[10px] leading-relaxed sm:text-xs ${licenseTextColor}`}>
-          <p>This work is licensed under the dual-licensed under MIT and Apache 2.0.</p>
+          <p>This work is dual-licensed under the MIT and Apache 2.0 licenses.</p>
           <p>
             To view a copy of this license, visit{" "}
             <a
