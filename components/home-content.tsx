@@ -206,7 +206,7 @@ export function HomeContent() {
           </div>
 
           <section className="pt-12 sm:pt-14 lg:pt-20">
-            <div className="space-y-4 sm:space-y-5">
+            <div className="min-w-0 space-y-4 sm:space-y-5">
               <div className="max-w-2xl space-y-2">
                 <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                   Private AI comparison
@@ -216,7 +216,7 @@ export function HomeContent() {
                 </p>
               </div>
 
-              <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+              <div className="max-w-full overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch]">
                 <table className="w-full min-w-[42rem] border-separate border-spacing-0 text-left">
                   <thead>
                     <tr>
