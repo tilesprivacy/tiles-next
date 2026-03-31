@@ -73,6 +73,20 @@ export async function GET(request: Request) {
   sections.push('Your private and secure AI assistant for everyday use')
   sections.push('')
   sections.push('Tiles is a private and secure AI assistant for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
+  sections.push('Runs fully on-device, with optional peer-to-peer sync.')
+  sections.push('')
+  sections.push('Private AI comparison:')
+  sections.push('- Client app: Ollama, LM Studio, Jan')
+  sections.push('- Connectors: Ollama, LM Studio, Jan; Tiles (WIP)')
+  sections.push('- Decentralized Identity: Tiles')
+  sections.push('- Encryption: Tiles')
+  sections.push('- Sync: Tiles')
+  sections.push('- Portable Dependencies: Tiles, LM Studio')
+  sections.push('- Air-gapped installer: Tiles')
+  sections.push('- Cross platform: Ollama, LM Studio, Jan; Tiles (WIP)')
+  sections.push('- Cloud models: Ollama, Jan')
+  sections.push('- In-house models: Jan')
+  sections.push('- Open source: Tiles, Jan; Ollama and LM Studio (partially open source)')
   sections.push('')
   sections.push('='.repeat(80))
   sections.push('')
@@ -194,4 +208,3 @@ export async function GET(request: Request) {
     },
   })
 }
-

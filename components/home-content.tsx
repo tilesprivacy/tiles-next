@@ -2,12 +2,44 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Cpu, Package, FileCode, KeyRound, Download, RefreshCw } from "lucide-react"
+import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw, Wrench } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
+  const comparisonRows = [
+    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check" },
+    { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check" },
+    { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
+    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
+    { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
+    { label: "Portable Dependencies", tiles: "check", ollama: "empty", lmStudio: "check", jan: "empty" },
+    { label: "Air-gapped installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
+    { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check" },
+    { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check" },
+    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check" },
+    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check" },
+  ]
+  const renderComparisonStatus = (status: string) => (
+    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
+      {status === "check" ? (
+        <Check className="h-4 w-4" strokeWidth={2} aria-hidden />
+      ) : status === "wip" ? (
+        <Wrench className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+      ) : status === "partial" ? (
+        <CircleDashed className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+      ) : (
+        <span className="text-sm text-black/35 dark:text-[#6B6B6B]" aria-hidden>
+          -
+        </span>
+      )}
+      <span className="sr-only">
+        {status === "check" ? "Supported" : status === "wip" ? "Work in progress" : status === "partial" ? "Partially supported" : "Not supported"}
+      </span>
+    </span>
+  )
+
   return (
     <div className="min-h-screen bg-background">
 
@@ -172,6 +204,79 @@ export function HomeContent() {
             </div>
 
           </div>
+
+          <section className="pt-12 sm:pt-14 lg:pt-20">
+            <div className="space-y-4 sm:space-y-5">
+              <div className="max-w-2xl space-y-2">
+                <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+                  Private AI comparison
+                </h2>
+                <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base">
+                  A quick comparison of private, local-first AI tools across app experience, integrations, built-in models, and private deployment features.
+                </p>
+              </div>
+
+              <div className="overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]">
+                <table className="w-full min-w-[42rem] border-separate border-spacing-0 text-left">
+                  <thead>
+                    <tr>
+                      <th className="border-b border-black/10 py-3 pr-4 text-xs font-medium uppercase tracking-[0.2em] text-black/50 dark:border-white/10 dark:text-[#8A8A8A]">
+                        Capability
+                      </th>
+                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                        Tiles
+                      </th>
+                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                        Ollama
+                      </th>
+                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                        LM Studio
+                      </th>
+                      <th className="border-b border-black/10 pl-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                        Jan
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {comparisonRows.map((row) => (
+                      <tr key={row.label}>
+                        <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">
+                          {row.label}
+                        </th>
+                        {[row.tiles, row.ollama, row.lmStudio, row.jan].map((status, index) => (
+                          <td
+                            key={`${row.label}-${index}`}
+                            className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10"
+                          >
+                            {renderComparisonStatus(status)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-black/60 dark:text-[#B3B3B3] sm:text-sm">
+                <span className="inline-flex items-center gap-2">
+                  {renderComparisonStatus("check")}
+                  <span>Supported</span>
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  {renderComparisonStatus("partial")}
+                  <span>Partially supported</span>
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  {renderComparisonStatus("empty")}
+                  <span>Not supported</span>
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  {renderComparisonStatus("wip")}
+                  <span>Work in progress</span>
+                </span>
+              </div>
+            </div>
+          </section>
 
           <MissionSection title="Get to know Tiles Privacy" compact />
         </div>
