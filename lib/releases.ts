@@ -146,6 +146,56 @@ const customSections: Record<string, ChangeSection[]> = {
         },
       ],
     }
+  ],
+  "0.4.5": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "P2P device linking v1",
+          subItems: [
+            "Works on both online and offline networks",
+            "`tiles link enable` creates a ticket and listens for link requests",
+            "`tiles link enable <ticket>` joins with a ticket shared out-of-band",
+            "`tiles link list-peers` shows linked device details, including DID and nickname",
+            "`tiles link disable <DID>` unlinks a linked device",
+          ],
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "Permission issues when updating Tiles with `tiles update` after moving the binary from `~/.local/` to `/usr/`",
+        },
+      ],
+    },
+  ],
+  "0.4.6": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "P2P chat sync",
+          subItems: [
+            "`tiles sync` starts listening for a sync request from linked peers",
+            "`tiles sync <DID>` initiates syncing with a linked peer by DID",
+          ],
+        },
+        {
+          text: "At rest encryption for local databases",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "Loading issue in the qwen 3.5 series",
+        },
+      ],
+    },
   ]
 }
 
@@ -329,7 +379,7 @@ export async function fetchReleases(): Promise<Release[]> {
         ...section,
         changes: section.changes.map((change) => ({
           ...change,
-          text: normalizeChangeText(change.text),
+          text: normalizeChangeText(change.text, section.title),
           subItems: change.subItems?.map((sub) => normalizeChangeText(sub)),
         })),
       }))
@@ -547,14 +597,55 @@ function sanitizeBulletText(text: string): string {
 
   return text
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\s+(?:in|via|through|under)\s+#\d+\b/gi, "")
+    .replace(/\s*\((?:#\d+(?:,\s*#\d+)*)\)/g, "")
+    .replace(/(^|\s)#\d+\b(?:,\s*#\d+\b)*/g, "$1")
     .replace(/\s+by\s+@\w+\s+in\s+https?:\/\/[^\s]+/gi, "")
     .replace(/\s+in\s+https?:\/\/[^\s]+/gi, "")
+    .replace(/\s+([,.;:!?])/g, "$1")
     .replace(/\s+/g, " ")
     .trim()
 }
 
-function normalizeChangeText(text: string): string {
-  return text.replace(/\.$/, "").replace(/enoints/g, "endpoints")
+function normalizeChangeText(text: string, sectionTitle?: string): string {
+  let normalized = text.replace(/\.$/, "").replace(/enoints/g, "endpoints")
+
+  if (sectionTitle === "Added") {
+    normalized = normalized.replace(/^Added\s+/i, "")
+  } else if (sectionTitle === "Fixed") {
+    normalized = normalized.replace(/^Fixed\s+/i, "")
+  } else if (sectionTitle === "Changed") {
+    normalized = normalized.replace(/^(?:Changed|Updated)\s+/i, "")
+  } else if (sectionTitle === "Removed") {
+    normalized = normalized.replace(/^Removed\s+/i, "")
+  } else if (sectionTitle === "Deprecated") {
+    normalized = normalized.replace(/^Deprecated\s+/i, "")
+  } else if (sectionTitle === "Security") {
+    normalized = normalized.replace(/^Security:\s*/i, "")
+  }
+
+  return capitalizeLeadingText(normalized.trim())
+}
+
+function capitalizeLeadingText(text: string): string {
+  if (!text) {
+    return text
+  }
+
+  const leadingCodeMatch = text.match(/^((?:`[^`]+`\s*)+)/)
+  if (leadingCodeMatch) {
+    const prefix = leadingCodeMatch[1] || ""
+    const remainder = text.slice(prefix.length)
+    return prefix + capitalizeFirstLetter(remainder)
+  }
+
+  return capitalizeFirstLetter(text)
+}
+
+function capitalizeFirstLetter(text: string): string {
+  return text.replace(/^([^A-Za-z]*)([a-z])/, (_, prefix: string, letter: string) => {
+    return `${prefix}${letter.toUpperCase()}`
+  })
 }
 
 function sortSections(sections: ChangeSection[]): ChangeSection[] {
