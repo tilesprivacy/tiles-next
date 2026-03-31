@@ -161,7 +161,16 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Sync</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network.
+                Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network. Powered by{" "}
+                <a
+                  href="https://www.iroh.computer/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black dark:hover:text-[#E6E6E6]"
+                >
+                  Iroh&rsquo;s
+                </a>{" "}
+                networking stack.
               </p>
             </div>
 
