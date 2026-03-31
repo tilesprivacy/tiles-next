@@ -1,6 +1,6 @@
 ---
 title: "Manual"
-description: "Command-line interface reference for Tiles and Tilekit, with usage examples"
+description: "Command-line interface reference for Tiles, with usage examples"
 ---
 
 import { ClickableImage as Image } from '@/components/clickable-image'
@@ -13,9 +13,13 @@ Enjoy these sample commands in lieu of a formal doc.
 
 ## Tiles
 
-Commands in this section are intended for regular users. Most user-facing functionality is available through slash commands in the chat REPL.
+Commands in this section are for regular users. Most day-to-day behavior is also available as slash commands inside the chat REPL.
 
-### Onboarding
+Commands are grouped by subcommand family: the base `tiles` command, identity, data layout, models, updates, then peer-to-peer linking and sync.
+
+### Main command (`tiles`)
+
+Launches onboarding (first run) and the interactive REPL.
 
 This is what the first run looks like when you type `tiles` in your terminal.
 
@@ -44,128 +48,91 @@ This is what the first run looks like when you type `tiles` in your terminal.
   </figcaption>
 </figure>
 
-### CLI Commands
-
 ```bash
-tiles                          # Onboarding and launching REPL
-tiles account create <nickname> # Create root identity (nickname optional)
-tiles account set-nickname     # Set nickname
-tiles account                  # Show account details
-tiles data set-path <path>     # Set data directory
-tiles run [MODELFILE_PATH]     # Run a model (default if not provided)
-tiles run -m                   # Run with experimental memory model
-tiles update                   # Check for and install app updates
+tiles   # Onboarding (if needed) and REPL
 ```
 
-### Examples
+### Account (`tiles account`)
+
+Root identity and display nickname.
 
 ```bash
-# Onboarding and launching REPL
-tiles
+tiles account create [<nickname>]  # Create root identity (nickname optional)
+tiles account set-nickname         # Set nickname
+tiles account                      # Show account details
+```
 
-# Create root identity (nickname optional)
+```bash
 tiles account create alice
-
-# Set nickname
 tiles account set-nickname
-
-# Show account details
 tiles account
+```
 
-# Set data directory
+### Data directory (`tiles data`)
+
+Where Tiles stores local data.
+
+```bash
+tiles data set-path <path>   # Set data directory
+```
+
+```bash
 tiles data set-path ~/.tiles/data
+```
 
-# Run a model (default if not provided)
+### Run models (`tiles run`)
+
+Start a chat session with a model; optional Modelfile path and experimental memory flag.
+
+```bash
+tiles run [MODELFILE_PATH]   # Default model if path omitted
+tiles run -m                 # Experimental memory model
+```
+
+```bash
 tiles run
-
-# Run a model from a specific Modelfile
 tiles run ./path/to/Modelfile
-
-# Run with experimental memory model
 tiles run -m
-
-# Check for and install app updates
-tiles update
 ```
 
-## Tilekit
-
-Commands in this section are meant for developers.
-
-### Prompt Optimization
-
-We have DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/)) built into the Tiles CLI to automatically optimize system prompts in Modelfiles.
-
-### CLI Commands
+### App updates (`tiles update`)
 
 ```bash
-tiles optimize <MODELFILE_PATH> [--data <path>] [--model <provider:model-name>]  # Optimize SYSTEM prompt in Modelfile
+tiles update   # Check for and install app updates
 ```
 
-### Examples
+### Peer-to-peer: linking (`tiles link`)
+
+Tiles can sync chats across multiple **linked** devices peer-to-peer, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
 
 ```bash
-# Optimize SYSTEM prompt in a Modelfile
-tiles optimize path/to/Modelfile
-
-# Optimize with custom training data
-tiles optimize ./Modelfile --data training-data.json
-
-# Optimize using a specific model
-tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
+tiles link enable      # Become link listener; share the ticket out of band
+tiles link list-peers  # Show linked peers (DID and nickname)
+tiles link disable     # Unlink a peer; ignore their future sync requests
 ```
 
-### Optimize Command Details
+**`tiles link enable`**: Puts this device in **link listener** mode. It generates a **link ticket** and waits for a link request from another device. Share the ticket **out of band** with the peer you want to link.
 
-The `tiles optimize` command refines the `SYSTEM` prompt in your Modelfile automatically using DSRs (dspy-rs) and the COPRO optimizer.
+- If the device is **online**, the ticket is a **base64** string (easy to copy).
+- If **offline**, the ticket is an **eight-character alphanumeric code** you can type on another device on the same network.
 
-**Basic Usage:**
+When the peer runs **`tiles link enable`** and supplies your ticket, this device is notified; after you **approve**, the two devices are linked.
+
+**`tiles link list-peers`**: Lists linked peers by **DID** (decentralized identifier) and **nickname**.
+
+**`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
+
+### Peer-to-peer: chat sync (`tiles sync`)
+
+After devices are linked, use **`tiles sync`** to replicate chats. Listener and initiator roles mirror linking: one side waits, the other connects using the listener’s DID.
 
 ```bash
-tiles optimize path/to/Modelfile
+tiles sync        # Listener: wait for incoming sync requests
+tiles sync <DID>  # Initiator: sync toward the peer with this DID (the listener)
 ```
 
-By default, this will:
-- Generate 5 synthetic examples automatically if you do not provide your own training data
-- Use `openai:gpt-4o-mini` as the optimization model
-- Update your Modelfile in-place with the improved `SYSTEM` prompt
+**`tiles sync`** (listener): Starts this device in **sync listener** mode: it waits for incoming sync requests.
 
-**Options:**
+On the **other** device, run **`tiles sync`** with the listener’s **DID** so the initiator targets the correct peer. If your CLI uses different syntax for the peer argument, check `tiles sync --help`.
 
-- `--data <path>` - Provide your own training data as a JSON file
-- `--model <provider:model-name>` - Specify a different model to use for optimization
-
-**Requirements:**
-
-Your Modelfile must contain a starting `SYSTEM` prompt, so the optimizer knows what it should build upon.
-
-**Training Data Format:**
-
-If supplying your own data, use JSON structured like this:
-
-```json
-[
-  {
-    "input": "User query here",
-    "output": "Expected AI response here"
-  }
-]
-```
-
-**Example:**
-
-Let's say you have a Modelfile:
-
-```text
-FROM llama3
-SYSTEM "You are a helpful assistant."
-```
-
-To optimize its `SYSTEM` prompt using Claude:
-
-```bash
-export ANTHROPIC_API_KEY=sk-ant-...
-tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
-```
-
-This will rewrite the `SYSTEM` line with a more effective version based on the optimization process.
+When a sync run finishes, you should get a notification on the devices involved.

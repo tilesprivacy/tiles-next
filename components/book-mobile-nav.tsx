@@ -11,7 +11,7 @@ const bookPages: BookPage[] = [
   {
     number: '01',
     title: 'Manual',
-    description: 'Command-line interface reference for Tiles and Tilekit, with usage examples',
+    description: 'Command-line interface reference for Tiles, with usage examples',
     href: '/book/manual',
   },
   {
@@ -29,7 +29,7 @@ const bookPages: BookPage[] = [
   {
     number: '04',
     title: 'Modelfile',
-    description: 'Complete reference for the Modelfile parser, grammar, instructions, parameters, and API usage.',
+    description: 'Tilekit CLI usage for Modelfiles, plus parser grammar, instructions, parameters, and API usage.',
     href: '/book/modelfile',
   },
   {

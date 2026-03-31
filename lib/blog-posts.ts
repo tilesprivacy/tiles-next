@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
     coverAlt: "Cover image for Introducing Tiles Public Alpha",
     content: `<img src="/kingston.webp" alt="Cover image for Introducing Tiles Public Alpha" style="width: 100%; height: auto; margin-bottom: 2rem;" />
 
-<p>We're thrilled to launch Tiles Public Alpha, our first public release of a privacy-first AI assistant. Tiles brings together local-first models, personalized experiences, and verifiable privacy—all running on your device, with your data staying yours. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
+<p>We're thrilled to launch Tiles Public Alpha, our first public release of a privacy-first AI assistant. Tiles brings together local-first models, personalized experiences, and verifiable privacy, all running on your device, with your data staying yours. We believe identity and memory are two sides of the same coin, and Tiles makes that coin yours: your user-agent.</p>
 
 <p>Our first alpha is a CLI assistant app for Apple Silicon devices, and a Tilekit SDK that lets developers customize local models and agent experiences within Tiles. We aim to evolve Modelfile in collaboration with the community, establishing it as the standard for model customization.</p>
 

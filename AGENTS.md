@@ -57,7 +57,11 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 ## Learned User Preferences
 
 - Legal copy near download buttons should be styled as minimal subtext (matching the homepage pattern) instead of prominent body text.
+- On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav.
 
 ## Learned Workspace Facts
 
 - Previous Tiles releases are linked from the changelog page at `/changelog#releases` and should be referred to as the changelog page in copy.
+- Offline (full) macOS installer builds are not published for every release and may lag the latest network installer; reflect that in download and changelog copy when relevant.
+- Subscription emails sent via Resend should use the visible sender name “Tiles Privacy” (display name with the from address still driven by env).
+- Latest network `.pkg` metadata comes from GitHub via `getLatestDownloadArtifact`; keep `FALLBACK_ARTIFACT` in `lib/download-artifact.ts` aligned with the current release when the API path fails.
