@@ -1,0 +1,99 @@
+---
+title: "Usage"
+description: "Command-line usage guide for Tiles user workflows"
+---
+
+import { ClickableImage as Image } from '@/components/clickable-image'
+
+# Usage
+
+Reminder: this is in alpha.
+
+This page covers end-user `tiles` CLI commands and common workflows.
+
+## Getting Started
+
+### First Run (Onboarding)
+
+This is what the first run looks like when you type `tiles` in your terminal.
+
+<figure style={{ margin: '1.5rem 0', maxWidth: 900 }}>
+  <Image
+    src="/onboardingdemo.png"
+    alt="Tiles onboarding flow in the CLI"
+    width={1726}
+    height={2196}
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto',
+    }}
+  />
+  <figcaption style={{
+    marginTop: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.4',
+    color: 'var(--nextra-text-color-secondary, #666)',
+    textAlign: 'center',
+    fontStyle: 'italic'
+  }}>
+    First-run onboarding flow (`tiles`)
+  </figcaption>
+</figure>
+
+## Core User Commands
+
+### Account Commands
+
+```bash
+tiles account create <nickname>  # Create root identity (nickname optional)
+tiles account set-nickname       # Set nickname
+tiles account                    # Show account details
+```
+
+### Data Commands
+
+```bash
+tiles data set-path <path>       # Set data directory
+```
+
+### Runtime Commands
+
+```bash
+tiles                            # Launch REPL (and onboarding on first run)
+tiles run [MODELFILE_PATH]       # Run a model (default if not provided)
+tiles run -m                     # Run with experimental memory model
+tiles update                     # Check for and install app updates
+```
+
+## Device Linking and Sync
+
+Use these commands to link trusted peer devices and sync chats peer-to-peer.
+
+### Link Commands
+
+```bash
+tiles link enable            # Start link listener and generate a link ticket
+tiles link enable <ticket>   # Send a link request to a listener using their ticket
+tiles link list-peers        # List linked peers (DID + nickname)
+tiles link disable <DID>     # Unlink a peer and ignore future sync requests
+```
+
+### Sync Commands
+
+```bash
+tiles sync                   # Listen for incoming sync requests
+tiles sync <DID>             # Start syncing to a linked peer DID
+```
+
+### Link + Sync Flow
+
+1. On device A, run `tiles link enable` and share the generated ticket out-of-band.
+2. On device B, run `tiles link enable <ticket>` to request linking.
+3. Approve the request on device A.
+4. Verify linkage with `tiles link list-peers` on either device.
+5. On one device, run `tiles sync` to wait for requests.
+6. On the other device, run `tiles sync <DID>` to sync with the listener.
+
+When devices are online, tickets are base64-encoded strings. In offline/local-network scenarios, tickets can be short 8-character alphanumeric codes.

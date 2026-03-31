@@ -6,8 +6,8 @@
       "timestamp": true
     }
   },
-  "manual": {
-    "title": "Manual",
+  "usage": {
+    "title": "Usage",
     "theme": {
       "copyPage": true,
       "timestamp": true
@@ -74,4 +74,3 @@
     }
   }
 }
-
