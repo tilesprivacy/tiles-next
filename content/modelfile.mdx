@@ -5,22 +5,21 @@ description: "Complete reference for the Modelfile parser, grammar, instructions
 
 # Modelfile
 
+## Tilekit Commands
 
-## Tilekit Usage (Prompt Optimization)
+This section covers developer-facing Tilekit commands for working with Modelfiles.
 
-Tilekit commands are intended for developers working on Modelfiles.
-
-### Prompt Optimization
+### Prompt Optimization (`tiles optimize`)
 
 Tiles includes DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/)) to automatically optimize `SYSTEM` prompts in Modelfiles.
 
-### CLI Commands
+#### Command
 
 ```bash
 tiles optimize <MODELFILE_PATH> [--data <path>] [--model <provider:model-name>]  # Optimize SYSTEM prompt in Modelfile
 ```
 
-### Examples
+#### Common Examples
 
 ```bash
 # Optimize SYSTEM prompt in a Modelfile
@@ -33,31 +32,23 @@ tiles optimize ./Modelfile --data training-data.json
 tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
 ```
 
-### Optimize Command Details
+#### Behavior
 
-The `tiles optimize` command refines the `SYSTEM` prompt in your Modelfile automatically using DSRs (dspy-rs) and the COPRO optimizer.
-
-**Basic Usage:**
-
-```bash
-tiles optimize path/to/Modelfile
-```
-
-By default, this will:
+By default, `tiles optimize` will:
 - Generate 5 synthetic examples automatically if you do not provide your own training data
 - Use `openai:gpt-4o-mini` as the optimization model
 - Update your Modelfile in-place with the improved `SYSTEM` prompt
 
-**Options:**
+#### Options
 
 - `--data <path>` - Provide your own training data as a JSON file
 - `--model <provider:model-name>` - Specify a different model to use for optimization
 
-**Requirements:**
+#### Requirements
 
 Your Modelfile must contain a starting `SYSTEM` prompt, so the optimizer knows what it should build upon.
 
-**Training Data Format:**
+#### Training Data Format
 
 If supplying your own data, use JSON structured like this:
 
@@ -70,24 +61,23 @@ If supplying your own data, use JSON structured like this:
 ]
 ```
 
-**Example:**
+#### End-to-End Example
 
-Let's say you have a Modelfile:
+Given a Modelfile:
 
 ```text
 FROM llama3
 SYSTEM "You are a helpful assistant."
 ```
 
-To optimize its `SYSTEM` prompt using Claude:
+Optimize its `SYSTEM` prompt using Claude:
 
 ```bash
 export ANTHROPIC_API_KEY=sk-ant-...
 tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
 ```
 
-This will rewrite the `SYSTEM` line with a more effective version based on the optimization process.
-
+This rewrites the `SYSTEM` line with an improved prompt based on the optimization process.
 
 ## Overview
 

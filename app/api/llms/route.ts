@@ -142,10 +142,13 @@ export async function GET(request: Request) {
   // Book Pages
   const bookPages = [
     { path: '', title: 'Tiles Book' },
-    { path: 'cli', title: 'CLI' },
+    { path: 'usage', title: 'Usage' },
+    { path: 'models', title: 'Models' },
+    { path: 'memory', title: 'Memory' },
     { path: 'modelfile', title: 'Modelfile' },
     { path: 'mir', title: 'MIR Extension' },
-    { path: 'memory', title: 'Memory' },
+    { path: 'community', title: 'Community' },
+    { path: 'resources', title: 'Resources' },
   ]
 
   for (const page of bookPages) {

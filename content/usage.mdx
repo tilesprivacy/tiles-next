@@ -1,21 +1,19 @@
 ---
-title: "Manual"
-description: "Command-line interface reference for Tiles, with usage examples"
+title: "Usage"
+description: "Command-line usage guide for Tiles user workflows"
 ---
 
 import { ClickableImage as Image } from '@/components/clickable-image'
 
-# Manual
+# Usage
 
 Reminder: this is in alpha.
 
-Enjoy these sample commands in lieu of a formal doc.
+This page covers end-user `tiles` CLI commands and common workflows.
 
-## Tiles
+## Getting Started
 
-Commands in this section are intended for regular users. Most user-facing functionality is available through slash commands in the chat REPL.
-
-### Onboarding
+### First Run (Onboarding)
 
 This is what the first run looks like when you type `tiles` in your terminal.
 
@@ -44,66 +42,52 @@ This is what the first run looks like when you type `tiles` in your terminal.
   </figcaption>
 </figure>
 
-### CLI Commands
+## Core User Commands
+
+### Account Commands
 
 ```bash
-tiles                          # Onboarding and launching REPL
-tiles account create <nickname> # Create root identity (nickname optional)
-tiles account set-nickname     # Set nickname
-tiles account                  # Show account details
-tiles data set-path <path>     # Set data directory
-tiles run [MODELFILE_PATH]     # Run a model (default if not provided)
-tiles run -m                   # Run with experimental memory model
-tiles update                   # Check for and install app updates
+tiles account create <nickname>  # Create root identity (nickname optional)
+tiles account set-nickname       # Set nickname
+tiles account                    # Show account details
 ```
 
-### Examples
+### Data Commands
 
 ```bash
-# Onboarding and launching REPL
-tiles
-
-# Create root identity (nickname optional)
-tiles account create alice
-
-# Set nickname
-tiles account set-nickname
-
-# Show account details
-tiles account
-
-# Set data directory
-tiles data set-path ~/.tiles/data
-
-# Run a model (default if not provided)
-tiles run
-
-# Run a model from a specific Modelfile
-tiles run ./path/to/Modelfile
-
-# Run with experimental memory model
-tiles run -m
-
-# Check for and install app updates
-tiles update
+tiles data set-path <path>       # Set data directory
 ```
 
-### Device Linking and Sync
+### Runtime Commands
+
+```bash
+tiles                            # Launch REPL (and onboarding on first run)
+tiles run [MODELFILE_PATH]       # Run a model (default if not provided)
+tiles run -m                     # Run with experimental memory model
+tiles update                     # Check for and install app updates
+```
+
+## Device Linking and Sync
 
 Use these commands to link trusted peer devices and sync chats peer-to-peer.
 
-#### CLI Commands
+### Link Commands
 
 ```bash
 tiles link enable            # Start link listener and generate a link ticket
 tiles link enable <ticket>   # Send a link request to a listener using their ticket
 tiles link list-peers        # List linked peers (DID + nickname)
 tiles link disable <DID>     # Unlink a peer and ignore future sync requests
+```
+
+### Sync Commands
+
+```bash
 tiles sync                   # Listen for incoming sync requests
 tiles sync <DID>             # Start syncing to a linked peer DID
 ```
 
-#### Link + Sync Flow
+### Link + Sync Flow
 
 1. On device A, run `tiles link enable` and share the generated ticket out-of-band.
 2. On device B, run `tiles link enable <ticket>` to request linking.
