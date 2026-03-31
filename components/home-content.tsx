@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Cpu, Package, Brain, FileCode, KeyRound, Download } from "lucide-react"
+import { Cpu, Package, Brain, FileCode, KeyRound, Download, RefreshCw } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
@@ -118,7 +118,20 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 3 - Code Interpreter (commented out for later)
+            {/* Feature 3 — Sync */}
+            <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <RefreshCw className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Sync</h3>
+              </div>
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
+                Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network.
+              </p>
+            </div>
+
+            {/* Code Interpreter (commented out for later)
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
