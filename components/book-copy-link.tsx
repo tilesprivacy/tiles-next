@@ -56,20 +56,19 @@ export function BookCopyLink() {
   const style: CSSProperties | null = useMemo(() => {
     if (!anchorRect) return null
     const safeTop = Math.max(0, headerBottom) + 8
-    // Hide the control as soon as its anchor reaches the top header zone.
-    if (anchorRect.top <= safeTop) return null
     const isMobile = viewportWidth > 0 && viewportWidth <= 1023
     const preferredLeft = anchorRect.left - 12
     const hasRoomOnLeft = preferredLeft >= 160
+    const staticTop = safeTop + 10
 
     // Keep a consistent "attached companion control" appearance:
-    // prefer left side of Copy page control; if no room (narrow viewports), drop below.
+    // keep a static position below the header, aligned to Copy page horizontally.
     if (!isMobile && hasRoomOnLeft) {
       return {
         position: 'fixed',
-        top: `${Math.max(safeTop, anchorRect.top + anchorRect.height / 2)}px`,
+        top: `${staticTop}px`,
         left: `${Math.max(8, preferredLeft)}px`,
-        transform: 'translate(-100%, -50%)',
+        transform: 'translateX(-100%)',
         zIndex: 30,
         pointerEvents: 'auto',
       }
@@ -77,7 +76,7 @@ export function BookCopyLink() {
 
     return {
       position: 'fixed',
-      top: `${Math.max(safeTop, anchorRect.bottom + 14)}px`,
+      top: `${staticTop}px`,
       left: `${Math.max(8, anchorRect.left)}px`,
       zIndex: 30,
       pointerEvents: 'auto',
@@ -174,7 +173,6 @@ export function BookCopyLink() {
     const t = setTimeout(update, 150)
     const t2 = setTimeout(update, 400)
 
-    window.addEventListener('scroll', update, true)
     window.addEventListener('resize', update)
     document.addEventListener('click', update, true)
     document.addEventListener('touchstart', update, true)
@@ -193,7 +191,6 @@ export function BookCopyLink() {
       cancelAnimationFrame(raf)
       clearTimeout(t)
       clearTimeout(t2)
-      window.removeEventListener('scroll', update, true)
       window.removeEventListener('resize', update)
       document.removeEventListener('click', update, true)
       document.removeEventListener('touchstart', update, true)
