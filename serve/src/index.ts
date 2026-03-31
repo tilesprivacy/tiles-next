@@ -30,6 +30,24 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
+async function serveBucketObject(request: Request, key: string, env: Env): Promise<Response> {
+  const object = await env.TILESPRIVACY.get(key);
+  if (!object || !object.body) {
+    return new Response("Not found", { status: 404 });
+  }
+
+  const headers = new Headers();
+  object.writeHttpMetadata(headers);
+  if (object.httpEtag) {
+    headers.set("etag", object.httpEtag);
+  }
+
+  return new Response(request.method === "HEAD" ? null : object.body, {
+    status: 200,
+    headers,
+  });
+}
+
 function isAuthorized(request: Request, env: Env): boolean {
   if (!env.SYNC_TRIGGER_TOKEN) return false;
   const authHeader = request.headers.get("authorization");
@@ -64,6 +82,11 @@ export default {
 
     if (request.method === "GET" && url.pathname === "/health") {
       return json({ ok: true });
+    }
+
+    if ((request.method === "GET" || request.method === "HEAD") && url.pathname.startsWith("/checksums/")) {
+      const key = url.pathname.replace(/^\/+/, "");
+      return serveBucketObject(request, key, env);
     }
 
     if (request.method !== "POST") {
