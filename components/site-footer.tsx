@@ -34,11 +34,11 @@ export function SiteFooter() {
   const licenseTextColor = isDarkFooter ? 'text-[#8A8A8A]' : 'text-black/50'
 
   return (
-    <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-8 lg:py-10`}>
-      <div className="mx-auto max-w-6xl flex flex-col gap-8 lg:gap-10">
-        <section className={`grid gap-6 border-b pb-8 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-10 lg:pb-10 ${borderColor}`}>
-          <div className="max-w-xl space-y-2">
-            <div className="flex items-center gap-2">
+    <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
+      <div className="mx-auto max-w-6xl flex flex-col gap-10 lg:gap-12">
+        <section className={`grid gap-8 border-b pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-x-12 lg:gap-y-0 lg:pb-12 ${borderColor}`}>
+          <div className="max-w-xl space-y-3">
+            <div className="flex items-center gap-2.5">
               <h3 className={`text-lg font-semibold tracking-tight lg:text-xl ${newsletterHeadingColor}`}>
                 Stay updated
               </h3>
@@ -68,9 +68,9 @@ export function SiteFooter() {
         </section>
 
         {/* Main content - consistent layout on mobile and desktop */}
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
           {/* Links - left aligned on all screens */}
-          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs sm:gap-4 sm:text-sm md:gap-6">
+          <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm md:gap-x-6">
             <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
               Subprocessors
             </Link>
@@ -102,7 +102,7 @@ export function SiteFooter() {
           </nav>
 
           {/* Social icons - right aligned on all screens */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 lg:gap-5 mt-1 sm:mt-1.5">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-4 lg:gap-5 sm:justify-end">
             <a
               href="https://x.com/tilesprivacy"
               target="_blank"
@@ -178,64 +178,66 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Bottom section - copyright, network credits, Atmosphere, and theme switcher */}
-        <div className={`flex flex-col gap-2 pt-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
-          <div className="flex min-w-0 flex-col gap-0.5">
-            <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors.</p>
-            <div className="flex flex-col items-start gap-y-1.5">
-              <p className="inline-flex items-center gap-1 leading-tight">
-                <span>Built on</span>
-                <a
-                  href="https://atproto.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="the Atmosphere"
-                  className={`${textColor} transition-colors ${textColorHover}`}
-                >
-                  the Atmosphere.
-                </a>
-              </p>
-              <p className="inline-flex items-center gap-1.5 leading-tight">
-                <span>A</span>
-                <a
-                  href="https://userandagents.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="U&A"
-                  className="inline-flex items-center"
-                >
-                  <img
-                    src="/ua-logo.svg"
-                    alt="U&A"
-                    width={40}
-                    height={20}
-                    className="h-4 sm:h-5 w-auto"
-                  />
-                </a>
-                <span>network project.</span>
-              </p>
+        {/* Bottom section - copyright, network credits, Atmosphere, license */}
+        <div className={`border-t ${borderColor} pt-9 sm:pt-10 space-y-7 sm:space-y-6`}>
+          <div className={`flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-6 text-[10px] sm:text-xs ${textColor}`}>
+            <div className="flex min-w-0 flex-col gap-4 sm:gap-3">
+              <p className="whitespace-nowrap leading-snug sm:leading-normal">© 2026 Tiles Privacy & Contributors.</p>
+              <div className="flex flex-col items-start gap-y-3 sm:gap-y-2">
+                <p className="inline-flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-snug sm:leading-normal">
+                  <span>Built on</span>
+                  <a
+                    href="https://atproto.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="the Atmosphere"
+                    className={`${textColor} transition-colors ${textColorHover}`}
+                  >
+                    the Atmosphere.
+                  </a>
+                </p>
+                <p className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5 leading-snug sm:leading-normal">
+                  <span>A</span>
+                  <a
+                    href="https://userandagents.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="U&A"
+                    className="inline-flex items-center"
+                  >
+                    <img
+                      src="/ua-logo.svg"
+                      alt="U&A"
+                      width={40}
+                      height={20}
+                      className="h-4 sm:h-5 w-auto"
+                    />
+                  </a>
+                  <span>network project.</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Theme Switcher - visible on all screens; self-end on mobile balances the left-aligned credits */}
+            <div className="shrink-0 self-end sm:self-start sm:pt-0.5">
+              <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
             </div>
           </div>
 
-          {/* Theme Switcher - visible on all screens */}
-          <div className="self-end sm:self-auto">
-            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
+          <div className={`text-[10px] leading-relaxed sm:text-xs space-y-2.5 sm:space-y-1.5 ${licenseTextColor}`}>
+            <p>This work is dual-licensed under the MIT and Apache 2.0 licenses.</p>
+            <p>
+              To view a copy of this license, visit{" "}
+              <a
+                href="https://download.tiles.run/LICENSE.txt"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 transition-opacity hover:opacity-80"
+              >
+                https://download.tiles.run/LICENSE.txt
+              </a>
+            </p>
           </div>
-        </div>
-
-        <div className={`text-[10px] leading-relaxed sm:text-xs ${licenseTextColor}`}>
-          <p>This work is dual-licensed under the MIT and Apache 2.0 licenses.</p>
-          <p>
-            To view a copy of this license, visit{" "}
-            <a
-              href="https://download.tiles.run/LICENSE.txt"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-2 transition-opacity hover:opacity-80"
-            >
-              https://download.tiles.run/LICENSE.txt
-            </a>
-          </p>
         </div>
       </div>
     </footer>

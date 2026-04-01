@@ -20,7 +20,7 @@ export function HomeContent() {
     { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
     { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
     { label: "Portable Dependencies", tiles: "check", ollama: "empty", lmStudio: "check", jan: "empty", lumo: "empty" },
-    { label: "Air-gapped installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", lumo: "check" },
     { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", lumo: "empty" },
@@ -253,10 +253,10 @@ export function HomeContent() {
                       <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
                         LM Studio
                       </th>
-                      <th className="border-b border-black/10 pl-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
                         Jan
                       </th>
-                      <th className="border-b border-black/10 pl-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
                         Lumo
                       </th>
                     </tr>

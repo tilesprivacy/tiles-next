@@ -63,6 +63,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 
 ## Learned Workspace Facts
 
+- Tilekit SDK documentation uses the standard book route `/book/tilekit` (navigation, links, and generated metadata should stay consistent with that path rather than a separate top-level `/tilekit` alias).
 - Previous Tiles releases are linked from the changelog page at `/changelog#releases` and should be referred to as the changelog page in copy.
 - Offline (full) macOS installer builds are not published for every release and may lag the latest network installer; reflect that in download and changelog copy when relevant.
 - Subscription emails sent via Resend should use the visible sender name “Tiles Privacy” (display name with the from address still driven by env).
