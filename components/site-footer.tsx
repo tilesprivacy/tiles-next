@@ -192,7 +192,7 @@ export function SiteFooter() {
                   aria-label="the Atmosphere"
                   className={`${textColor} transition-colors ${textColorHover}`}
                 >
-                  the Atmosphere
+                  the Atmosphere.
                 </a>
               </p>
               <p className="inline-flex items-center gap-1.5 leading-tight">
