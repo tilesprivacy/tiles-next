@@ -138,7 +138,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">On-device Models</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                An opinionated package of prompt, tools, and models optimized for your hardware.
+                Locally generated decentralized IDs, with the private key stored on-device. Powered by MLX on Apple Silicon.
               </p>
             </div>
 

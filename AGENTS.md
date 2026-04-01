@@ -59,6 +59,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Legal copy near download buttons should be styled as minimal subtext (matching the homepage pattern) instead of prominent body text.
 - On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav.
 - On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, and rewrite the remaining sentence so it still reads naturally.
+- Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
 
 ## Learned Workspace Facts
 
