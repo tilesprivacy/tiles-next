@@ -202,8 +202,8 @@ export function SiteFooter() {
                 </a>
                 <span>network project.</span>
               </p>
-              <p className="inline-flex items-center gap-1.5 leading-tight">
-                <span>Built on</span>
+              <p className="inline-flex items-center gap-0 leading-tight">
+                <span>Built on{" "}</span>
                 <a
                   href="https://atproto.com/"
                   target="_blank"
