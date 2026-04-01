@@ -14,9 +14,10 @@ interface MobileMenuProps {
   onClose: () => void
   themeAware?: boolean
   hasBanner?: boolean
+  starsLabel?: string | null
 }
 
-export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = false }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = false, starsLabel = null }: MobileMenuProps) {
 
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
@@ -220,7 +221,15 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-3`}
             >
               <FaGithub className="h-5 w-5 shrink-0" aria-hidden />
-              <span>Star</span>
+              <span className="inline-flex items-center gap-2.5">
+                <span>Star</span>
+                {starsLabel ? (
+                  <span className="inline-flex items-center gap-2 text-base text-black/55 dark:text-[#A3A3A3]">
+                    <span aria-hidden className="h-4 w-px bg-black/15 dark:bg-white/20" />
+                    <span className="rounded-full bg-black/[0.05] px-2 py-0.5 leading-none dark:bg-white/[0.08]">{starsLabel}</span>
+                  </span>
+                ) : null}
+              </span>
             </a>
           </nav>
 

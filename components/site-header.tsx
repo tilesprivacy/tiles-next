@@ -8,6 +8,7 @@ import { Download } from "lucide-react"
 import { FaGithub } from "react-icons/fa6"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
+import { useGithubStars } from "@/lib/use-github-stars"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -21,11 +22,13 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   isBannerVisible,
   onDismissBanner,
   onOpenMenu,
+  starsLabel,
 }: {
   themeAware: boolean
   isBannerVisible: boolean
   onDismissBanner: () => void
   onOpenMenu: () => void
+  starsLabel: string | null
 }) {
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const headerBg = themeAware ? "bg-background" : "bg-white"
@@ -37,8 +40,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const buttonHover = themeAware ? "hover:bg-black/90 dark:hover:bg-white/90" : "hover:bg-black/90"
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
   const sourceButtonClasses = themeAware
-    ? "bg-black/5 text-black hover:bg-black/10 dark:bg-white/10 dark:text-[#E6E6E6] dark:hover:bg-white/20"
-    : "bg-black/5 text-black hover:bg-black/10"
+    ? "bg-black/[0.04] text-black/80 hover:bg-black/[0.07] dark:bg-white/[0.08] dark:text-[#D1D1D1] dark:hover:bg-white/[0.12]"
+    : "bg-black/[0.04] text-black/80 hover:bg-black/[0.07]"
 
   return (
     <>
@@ -108,10 +111,16 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               rel="noopener noreferrer"
               aria-label="Star on GitHub"
               onClick={() => triggerHaptic()}
-              className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${sourceButtonClasses}`}
+              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[13px] font-medium leading-none transition-colors ${sourceButtonClasses}`}
             >
               <FaGithub className="h-4 w-4 shrink-0" aria-hidden />
               <span>Star</span>
+              {starsLabel ? (
+                <span className="inline-flex items-center gap-1.5 text-[12px] text-black/60 dark:text-[#A3A3A3]">
+                  <span aria-hidden className="h-3.5 w-px bg-black/15 dark:bg-white/20" />
+                  <span className="rounded-full bg-black/[0.05] px-1.5 py-0.5 dark:bg-white/[0.08]">{starsLabel}</span>
+                </span>
+              ) : null}
             </a>
           </nav>
         </div>
@@ -180,6 +189,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isBannerVisible, setIsBannerVisible] = useState(false)
+  const starsLabel = useGithubStars()
 
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
@@ -204,6 +214,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         isBannerVisible={isBannerVisible}
         onDismissBanner={handleDismissBanner}
         onOpenMenu={openMenu}
+        starsLabel={starsLabel}
       />
 
       {/* Mobile Menu */}
@@ -212,6 +223,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         onClose={closeMenu}
         themeAware={themeAware}
         hasBanner={isBannerVisible}
+        starsLabel={starsLabel}
       />
     </>
   )
