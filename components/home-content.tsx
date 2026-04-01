@@ -226,7 +226,7 @@ export function HomeContent() {
                   Private AI comparison
                 </h2>
                 <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base">
-                  A quick comparison of private, local-first AI tools across app experience, integrations, built-in models, and private deployment features.
+                  A quick comparison of private, local-first private AI tools across app experience, integrations, built-in models, and private deployment features.
                 </p>
               </div>
 
