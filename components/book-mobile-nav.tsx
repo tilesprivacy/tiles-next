@@ -30,7 +30,7 @@ const bookPages: BookPage[] = [
     number: '04',
     title: 'Tilekit',
     description: 'Tilekit CLI usage for Modelfiles, plus parser grammar, instructions, parameters, and API usage.',
-    href: '/tilekit',
+    href: '/book/tilekit',
   },
   {
     number: '05',

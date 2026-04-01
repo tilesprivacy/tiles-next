@@ -15,7 +15,7 @@ export const metadata = {
     default: 'Privacy technology for everyone! | Tiles Book',
   },
   description:
-    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Tilekit SDK.',
+    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.',
 }
 
 export default async function BookLayout({
@@ -67,26 +67,8 @@ export default async function BookLayout({
   // Filter the pageMap to only include book-related content
   const filteredPageMap = filterPageMap(pageMap)
 
-  const transformPageMapRoutes = (items: typeof pageMap): typeof pageMap => {
-    return items.map((item) => {
-      const updatedItem = { ...item }
-
-      if ('route' in updatedItem && updatedItem.route === '/book/tilekit') {
-        updatedItem.route = '/tilekit'
-      }
-
-      if ('children' in updatedItem && Array.isArray(updatedItem.children)) {
-        updatedItem.children = transformPageMapRoutes(updatedItem.children as typeof pageMap)
-      }
-
-      return updatedItem
-    })
-  }
-
-  const transformedPageMap = transformPageMapRoutes(filteredPageMap)
-
   // Flatten the "book" folder if it exists - extract its children to the top level
-  const flattenedPageMap = transformedPageMap.flatMap((item) => {
+  const flattenedPageMap = filteredPageMap.flatMap((item) => {
     // If this is a folder named "book" or has route "/book", extract its children
     if ('children' in item && Array.isArray(item.children)) {
       const name = 'name' in item ? item.name : ''

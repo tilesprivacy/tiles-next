@@ -213,7 +213,14 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Tilekit SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and the Open Responses API.
+                Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and the Open Responses API.{" "}
+                See{" "}
+                <Link
+                  href="/book/tilekit"
+                  className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black dark:hover:text-[#E6E6E6]"
+                >
+                  Tilekit SDK docs.
+                </Link>
               </p>
             </div>
 

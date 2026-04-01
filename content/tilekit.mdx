@@ -11,15 +11,19 @@ Commands in this section are for **developers** using Modelfiles with the Tiles 
 
 ### Prompt optimization
 
-The Tiles CLI includes DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/)) to optimize `SYSTEM` prompts in Modelfiles automatically.
-
-### CLI commands
+The Tiles CLI includes DSRs ([dspy-rs](https://dsrs.herumbshandilya.com/)) to optimize `SYSTEM` prompts in Modelfiles automatically. Use `tiles optimize` to refine the `SYSTEM` prompt in your Modelfile with the COPRO optimizer.
 
 ```bash
 tiles optimize <MODELFILE_PATH> [--data <path>] [--model <provider:model-name>]  # Optimize SYSTEM prompt in Modelfile
 ```
 
-### Examples
+By default, this will:
+
+- Generate 5 synthetic examples automatically if you do not provide your own training data
+- Use `openai:gpt-4o-mini` as the optimization model
+- Update your Modelfile in-place with the improved `SYSTEM` prompt
+
+#### Examples
 
 ```bash
 # Optimize SYSTEM prompt in a Modelfile
@@ -32,32 +36,16 @@ tiles optimize ./Modelfile --data training-data.json
 tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
 ```
 
-### `tiles optimize` details
-
-The `tiles optimize` command refines the `SYSTEM` prompt in your Modelfile using DSRs (dspy-rs) and the COPRO optimizer.
-
-**Basic usage:**
-
-```bash
-tiles optimize path/to/Modelfile
-```
-
-By default, this will:
-
-- Generate 5 synthetic examples automatically if you do not provide your own training data
-- Use `openai:gpt-4o-mini` as the optimization model
-- Update your Modelfile in-place with the improved `SYSTEM` prompt
-
-**Options:**
+#### Options
 
 - `--data <path>`: Provide your own training data as a JSON file
 - `--model <provider:model-name>`: Specify a different model to use for optimization
 
-**Requirements:**
+#### Requirements
 
 Your Modelfile must contain a starting `SYSTEM` prompt so the optimizer knows what to build on.
 
-**Training data format:**
+#### Training data format
 
 If you supply your own data, use JSON like this:
 
@@ -70,7 +58,7 @@ If you supply your own data, use JSON like this:
 ]
 ```
 
-**Example:**
+#### Example
 
 Modelfile:
 
@@ -88,7 +76,9 @@ tiles optimize ./Modelfile --model anthropic:claude-3-5-sonnet-20240620
 
 This rewrites the `SYSTEM` line with an improved version from the optimization run.
 
-## Modelfile
+## SDK Reference
+
+### Modelfile
 
 The Modelfile parser is implemented in `src/core/modelfile.rs` using the `nom` parser combinator library. It parses a text-based configuration format for defining model configurations, parameters, templates, and system prompts.
 
