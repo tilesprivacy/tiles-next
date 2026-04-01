@@ -182,7 +182,7 @@ export function SiteFooter() {
         <div className={`flex flex-col gap-2 pt-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-2 text-[10px] sm:text-xs ${textColor}`}>
           <div className="flex min-w-0 flex-col gap-0.5">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors.</p>
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            <div className="flex flex-col items-start gap-y-1.5">
               <p className="inline-flex items-center gap-1.5 leading-tight">
                 <span>A</span>
                 <a
