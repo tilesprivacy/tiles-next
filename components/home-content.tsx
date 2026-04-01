@@ -9,22 +9,22 @@ import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
   const comparisonRows = [
-    { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check" },
-    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check" },
-    { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty" },
-    { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty" },
-    { label: "Memory", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty" },
-    { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty" },
-    { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check" },
-    { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
-    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
-    { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
-    { label: "Portable Dependencies", tiles: "check", ollama: "empty", lmStudio: "check", jan: "empty" },
-    { label: "Air-gapped installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty" },
-    { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check" },
-    { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check" },
-    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check" },
-    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check" },
+    { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
+    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
+    { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", lumo: "empty" },
+    { label: "Memory", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
+    { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
+    { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
+    { label: "Portable Dependencies", tiles: "check", ollama: "empty", lmStudio: "check", jan: "empty", lumo: "empty" },
+    { label: "Air-gapped installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
+    { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", lumo: "check" },
+    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", lumo: "empty" },
+    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", lumo: "partial" },
   ]
   const renderComparisonStatus = (status: string) => (
     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
@@ -256,6 +256,9 @@ export function HomeContent() {
                       <th className="border-b border-black/10 pl-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
                         Jan
                       </th>
+                      <th className="border-b border-black/10 pl-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                        Lumo
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -264,7 +267,7 @@ export function HomeContent() {
                         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">
                           {row.label}
                         </th>
-                        {[row.tiles, row.ollama, row.lmStudio, row.jan].map((status, index) => (
+                        {[row.tiles, row.ollama, row.lmStudio, row.jan, row.lumo].map((status, index) => (
                           <td
                             key={`${row.label}-${index}`}
                             className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10"
