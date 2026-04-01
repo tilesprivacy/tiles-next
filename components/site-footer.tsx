@@ -183,6 +183,18 @@ export function SiteFooter() {
           <div className="flex min-w-0 flex-col gap-0.5">
             <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors.</p>
             <div className="flex flex-col items-start gap-y-1.5">
+              <p className="inline-flex items-center gap-1 leading-tight">
+                <span>Built on</span>
+                <a
+                  href="https://atproto.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="the Atmosphere"
+                  className={`${textColor} transition-colors ${textColorHover}`}
+                >
+                  the Atmosphere
+                </a>
+              </p>
               <p className="inline-flex items-center gap-1.5 leading-tight">
                 <span>A</span>
                 <a
@@ -201,18 +213,6 @@ export function SiteFooter() {
                   />
                 </a>
                 <span>network project.</span>
-              </p>
-              <p className="inline-flex items-center gap-1 leading-tight">
-                <span>Built on</span>
-                <a
-                  href="https://atproto.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="the Atmosphere"
-                  className={`${textColor} transition-colors ${textColorHover}`}
-                >
-                  the Atmosphere
-                </a>
               </p>
             </div>
           </div>
