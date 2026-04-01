@@ -46,7 +46,7 @@ export function HomeContent() {
   )
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-clip bg-background">
 
       {/* Main Content - progressive spacing so narrow screens keep consistent rhythm */}
       <main className="px-4 pt-20 pb-16 sm:px-6 sm:pb-20 lg:px-12 lg:pt-28 lg:pb-28">

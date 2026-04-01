@@ -218,7 +218,9 @@ export function SiteFooter() {
           </div>
 
           {/* Theme Switcher - visible on all screens */}
-          <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
+          <div className="self-start sm:self-auto">
+            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
+          </div>
         </div>
 
         <div className={`text-[10px] leading-relaxed sm:text-xs ${licenseTextColor}`}>
