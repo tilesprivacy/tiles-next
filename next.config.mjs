@@ -50,8 +50,31 @@ const nextConfig = {
       },
     ]
   },
+  async redirects() {
+    return [
+      {
+        source: '/book/modelfile',
+        destination: '/tilekit#modelfile',
+        permanent: true,
+      },
+      {
+        source: '/modelfile',
+        destination: '/tilekit#modelfile',
+        permanent: true,
+      },
+      {
+        source: '/book/tilekit',
+        destination: '/tilekit',
+        permanent: true,
+      },
+    ]
+  },
   async rewrites() {
     return [
+      {
+        source: '/tilekit',
+        destination: '/book/tilekit',
+      },
       {
         source: '/llms.txt',
         destination: '/api/llms',

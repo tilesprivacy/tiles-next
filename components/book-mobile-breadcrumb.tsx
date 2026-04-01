@@ -9,7 +9,7 @@ const pageTitles: Record<string, string> = {
   'manual': 'Manual',
   'models': 'Models',
   'memory': 'Memory',
-  'modelfile': 'Modelfile',
+  'tilekit': 'Tilekit',
   'mir': 'MIR Extension',
   'resources': 'Resources',
 }
@@ -18,7 +18,9 @@ export function BookMobileBreadcrumb() {
   const pathname = usePathname()
   
   // Extract the current page slug from the pathname
-  const slug = pathname.replace('/book/', '').replace('/book', '')
+  const slug = pathname === '/tilekit'
+    ? 'tilekit'
+    : pathname.replace('/book/', '').replace('/book', '')
   const currentTitle = pageTitles[slug] || slug
   
   // Don't show breadcrumb on the index page

@@ -67,8 +67,23 @@ export default async function BookLayout({
   // Filter the pageMap to only include book-related content
   const filteredPageMap = filterPageMap(pageMap)
 
-  // Currently no route transformation is needed; work directly on the filtered map
-  const transformedPageMap = filteredPageMap
+  const transformPageMapRoutes = (items: typeof pageMap): typeof pageMap => {
+    return items.map((item) => {
+      const updatedItem = { ...item }
+
+      if ('route' in updatedItem && updatedItem.route === '/book/tilekit') {
+        updatedItem.route = '/tilekit'
+      }
+
+      if ('children' in updatedItem && Array.isArray(updatedItem.children)) {
+        updatedItem.children = transformPageMapRoutes(updatedItem.children as typeof pageMap)
+      }
+
+      return updatedItem
+    })
+  }
+
+  const transformedPageMap = transformPageMapRoutes(filteredPageMap)
 
   // Flatten the "book" folder if it exists - extract its children to the top level
   const flattenedPageMap = transformedPageMap.flatMap((item) => {
@@ -86,7 +101,7 @@ export default async function BookLayout({
   })
 
   // Define the correct order from _meta.json
-  const desiredOrder = ['index', 'manual', 'models', 'memory', 'modelfile', 'mir', 'community', 'resources', 'contact']
+  const desiredOrder = ['index', 'manual', 'models', 'memory', 'tilekit', 'mir', 'community', 'resources', 'contact']
 
   // Sort the pageMap according to the desired order
   const finalPageMap = flattenedPageMap.sort((a, b) => {

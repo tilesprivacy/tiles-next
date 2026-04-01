@@ -143,7 +143,7 @@ export async function GET(request: Request) {
   const bookPages = [
     { path: '', title: 'Tiles Book' },
     { path: 'cli', title: 'CLI' },
-    { path: 'modelfile', title: 'Modelfile' },
+    { path: 'tilekit', title: 'Tilekit' },
     { path: 'mir', title: 'MIR Extension' },
     { path: 'memory', title: 'Memory' },
   ]
@@ -153,7 +153,7 @@ export async function GET(request: Request) {
     const content = readMdxFile(mdxPath)
     
     if (content) {
-      const urlPath = page.path ? `/book/${page.path}` : '/book'
+      const urlPath = page.path === 'tilekit' ? '/tilekit' : page.path ? `/book/${page.path}` : '/book'
       sections.push(`## Book: ${page.title} (${baseUrl}${urlPath})`)
       sections.push('')
       // Remove code blocks for cleaner text output

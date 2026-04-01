@@ -46,24 +46,24 @@ export function HomeContent() {
   )
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-background">
+    <div className="min-h-[100dvh] overflow-x-clip bg-background">
 
       {/* Main Content - progressive spacing so narrow screens keep consistent rhythm */}
-      <main className="px-4 pt-20 pb-16 sm:px-6 sm:pb-20 lg:px-12 lg:pt-28 lg:pb-28">
-        <div className="w-full max-w-6xl mx-auto">
+      <main className="px-4 pb-14 pt-[4.5rem] min-[390px]:px-5 min-[390px]:pt-20 sm:px-6 sm:pb-20 lg:px-12 lg:pt-28 lg:pb-28">
+        <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
-          <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 mb-12 sm:mb-14 lg:mb-20 items-stretch lg:items-center">
+          <div className="mb-10 flex flex-col gap-10 min-[390px]:mb-12 sm:mb-14 sm:gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:mb-20">
             {/* Left Pane - Content */}
-            <div className="flex flex-col gap-7 sm:gap-10 lg:gap-10">
+            <div className="flex max-w-[34rem] flex-col gap-6 sm:gap-10 lg:gap-10">
               {/* Spacer for top whitespace on desktop only; mobile uses main pt-20 for consistency */}
               <div className="h-0 lg:h-6 w-fit" aria-hidden="true" />
 
               {/* Title & Subtitle */}
-              <div className="space-y-4 sm:space-y-6 lg:space-y-6">
-                <h1 className="font-sans text-3xl min-[360px]:text-4xl font-bold tracking-tight text-foreground lg:text-6xl leading-[1.08]">
+              <div className="space-y-3.5 min-[390px]:space-y-5 sm:space-y-6 lg:space-y-6">
+                <h1 className="font-sans text-[2.6rem] font-bold leading-[1.02] tracking-tight text-foreground min-[360px]:text-[3rem] lg:text-6xl">
                   Tiles
                 </h1>
-                <p className="text-sm sm:text-base text-black/60 dark:text-[#B3B3B3] lg:text-xl max-w-xl leading-relaxed">
+                <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base lg:text-xl">
                   Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.
                 </p>
               </div>
@@ -97,14 +97,14 @@ export function HomeContent() {
             </div>
 
             {/* Right Pane - Wireframe */}
-            <div className="w-full flex items-center justify-center">
-              <div className="relative w-full max-w-xl">
+            <div className="flex w-full items-center justify-center">
+              <div className="relative mx-auto w-full max-w-[24rem] min-[360px]:max-w-[26rem] min-[430px]:max-w-[30rem] sm:max-w-[34rem] lg:max-w-xl">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
                   width={800}
                   height={600}
-                  className="w-full h-auto"
+                  className="h-auto w-full"
                   priority
                 />
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
@@ -128,7 +128,7 @@ export function HomeContent() {
           </div>
 
           {/* Features Section - same width as hero, tighter spacing for continuous flow */}
-          <div className="flex flex-col gap-8 sm:gap-10 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 pt-12 sm:pt-14 lg:pt-20">
+          <div className="flex flex-col gap-7 pt-10 sm:gap-10 sm:pt-14 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:pt-20">
             {/* Feature 1 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
@@ -219,7 +219,7 @@ export function HomeContent() {
 
           </div>
 
-          <section className="pt-12 sm:pt-14 lg:pt-20">
+          <section className="pt-10 sm:pt-14 lg:pt-20">
             <div className="min-w-0 space-y-4 sm:space-y-5">
               <div className="max-w-2xl space-y-2">
                 <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
@@ -230,8 +230,8 @@ export function HomeContent() {
                 </p>
               </div>
 
-              <div className="max-w-full overflow-x-auto overflow-y-hidden overscroll-x-contain [-webkit-overflow-scrolling:touch]">
-                <table className="w-full min-w-[48rem] border-separate border-spacing-0 text-left">
+              <div className="-mx-4 max-w-none overflow-x-auto overflow-y-hidden px-4 overscroll-x-contain min-[390px]:-mx-5 min-[390px]:px-5 sm:mx-0 sm:max-w-full sm:px-0 [-webkit-overflow-scrolling:touch]">
+                <table className="w-full min-w-[42rem] border-separate border-spacing-0 text-left sm:min-w-[48rem]">
                   <thead>
                     <tr>
                       <th className="border-b border-black/10 py-3 pr-4 text-xs font-medium uppercase tracking-[0.2em] text-black/50 dark:border-white/10 dark:text-[#8A8A8A]">

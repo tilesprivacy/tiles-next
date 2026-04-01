@@ -27,8 +27,8 @@
       "timestamp": true
     }
   },
-  "modelfile": {
-    "title": "Modelfile",
+  "tilekit": {
+    "title": "Tilekit",
     "theme": {
       "copyPage": true,
       "timestamp": true
