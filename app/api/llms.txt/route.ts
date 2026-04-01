@@ -79,7 +79,7 @@ export async function GET(request: Request) {
   sections.push('- CLI: Tiles, Ollama, LM Studio, Jan')
   sections.push('- Client app: Ollama, LM Studio, Jan')
   sections.push('- Modelfile: Tiles, Ollama; LM Studio and Jan (not supported)')
-  sections.push('- Harness: Tiles (WIP); Ollama; LM Studio (partially); Jan (not supported)')
+  sections.push('- Agent Harness: Tiles (WIP); Ollama; LM Studio (partially); Jan (not supported)')
   sections.push('- Memory: Tiles (WIP)')
   sections.push('- Shared Links: Tiles (WIP); Ollama, LM Studio, Jan (not supported)')
   sections.push('- TIL: Tiles (WIP); Ollama, LM Studio, Jan (not supported)')

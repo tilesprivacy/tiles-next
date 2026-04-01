@@ -12,7 +12,7 @@ export function HomeContent() {
     { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check" },
     { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check" },
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty" },
-    { label: "Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty" },
+    { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty" },
     { label: "Memory", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty" },
     { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty" },
     { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check" },
