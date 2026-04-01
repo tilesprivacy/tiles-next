@@ -82,7 +82,7 @@ This rewrites the `SYSTEM` line with an improved version from the optimization r
 
 The Modelfile parser is implemented in `src/core/modelfile.rs` using the `nom` parser combinator library. It parses a text-based configuration format for defining model configurations, parameters, templates, and system prompts.
 
-### Grammar
+#### Grammar
 
 The Modelfile grammar follows this structure:
 
@@ -98,9 +98,9 @@ quoted_string -> "<str>"
 multiline_string -> """<str>"""
 ```
 
-### Supported Instructions
+#### Supported Instructions
 
-#### FROM (Required)
+##### FROM (Required)
 
 The `FROM` instruction specifies the base model to use. This is the only required instruction in a Modelfile.
 
@@ -127,7 +127,7 @@ FROM mlx-community/dolphin3.0-llama3.2-1B-4Bit
 - Only one `FROM` instruction is allowed per Modelfile
 - A Modelfile without a `FROM` instruction will fail validation
 
-#### PARAMETER
+##### PARAMETER
 
 The `PARAMETER` instruction sets model inference parameters. Multiple parameters can be specified.
 
@@ -181,7 +181,7 @@ PARAMETER seed 42
 - Float parameters must parse as valid f32 values
 - Invalid parameter types will result in an error
 
-#### TEMPLATE
+##### TEMPLATE
 
 The `TEMPLATE` instruction defines the prompt template for the model. Only one template is allowed.
 
@@ -208,7 +208,7 @@ TEMPLATE """{{ if .System }}<|start_header_id|>system<|end_header_id|>
 - Only one `TEMPLATE` instruction is allowed per Modelfile
 - Template can be specified as a single-line string, quoted string, or multiline string
 
-#### SYSTEM
+##### SYSTEM
 
 The `SYSTEM` instruction sets the system prompt for the model. Only one system prompt is allowed.
 
@@ -237,7 +237,7 @@ You also not a bot
 - Only one `SYSTEM` instruction is allowed per Modelfile
 - System prompt can be specified as a single-line string, quoted string, or multiline string
 
-#### ADAPTER
+##### ADAPTER
 
 The `ADAPTER` instruction specifies a path to a LoRA adapter file. Only one adapter is allowed.
 
@@ -259,7 +259,7 @@ ADAPTER ./adapters/my_adapter.safetensors
 
 - Only one `ADAPTER` instruction is allowed per Modelfile
 
-#### LICENSE
+##### LICENSE
 
 The `LICENSE` instruction specifies the license text for the model. Only one license is allowed.
 
@@ -290,7 +290,7 @@ Version 2.0, January 2004
 - Only one `LICENSE` instruction is allowed per Modelfile
 - License text can be specified as a single-line string, quoted string, or multiline string
 
-#### MESSAGE
+##### MESSAGE
 
 The `MESSAGE` instruction defines example messages for few-shot learning or conversation examples. Multiple messages can be specified.
 
@@ -325,7 +325,7 @@ MESSAGE assistant no
 - Role must be one of: `system`, `user`, or `assistant` (case-insensitive)
 - Invalid roles will result in an error
 
-#### Comments
+##### Comments
 
 Comments are supported using the `#` character. Comments are preserved in the parsed Modelfile.
 
@@ -347,7 +347,7 @@ FROM llama3.2
 # This is a comment
 ```
 
-### String Formats
+#### String Formats
 
 The parser supports three string formats for instruction arguments:
 
