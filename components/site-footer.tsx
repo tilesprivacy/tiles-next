@@ -218,7 +218,7 @@ export function SiteFooter() {
           </div>
 
           {/* Theme Switcher - visible on all screens */}
-          <div className="self-start sm:self-auto">
+          <div className="self-end sm:self-auto">
             <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
           </div>
         </div>
