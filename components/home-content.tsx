@@ -169,7 +169,7 @@ export function HomeContent() {
                   href="https://www.iroh.computer/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black dark:hover:text-[#E6E6E6]"
+                  className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
                 >
                   Iroh&rsquo;s
                 </a>{" "}
@@ -217,7 +217,7 @@ export function HomeContent() {
                 See{" "}
                 <Link
                   href="/book/tilekit"
-                  className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black dark:hover:text-[#E6E6E6]"
+                  className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
                 >
                   Tilekit SDK docs.
                 </Link>
