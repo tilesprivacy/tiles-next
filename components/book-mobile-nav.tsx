@@ -70,13 +70,21 @@ export function BookMobileNav() {
             style={{ textDecoration: 'none' }}
           >
             <div className="bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-all duration-200 p-8 rounded-2xl h-full" style={{ textDecoration: 'none' }}>
-              <div className="text-black/35 dark:text-white/40 text-base font-medium mb-4 tracking-tight" style={{ textDecoration: 'none' }}>
-                {page.number}
+              <div className="flex flex-col items-start gap-3">
+                <div
+                  className="text-sm lg:text-base leading-none tabular-nums text-black/35 dark:text-white/40 font-medium tracking-tight"
+                  style={{ textDecoration: 'none' }}
+                >
+                  {page.number}
+                </div>
+                <h2
+                  className="text-3xl font-semibold leading-[1.05] text-black dark:text-white tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80 transition-colors"
+                  style={{ textDecoration: 'none' }}
+                >
+                  {page.title}
+                </h2>
               </div>
-              <h2 className="text-3xl font-semibold text-black dark:text-white mb-4 tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80 transition-colors leading-tight" style={{ textDecoration: 'none' }}>
-                {page.title}
-              </h2>
-              <p className="text-black/60 dark:text-white/70 text-base leading-relaxed" style={{ textDecoration: 'none' }}>
+              <p className="mt-4 text-black/60 dark:text-white/70 text-base leading-relaxed" style={{ textDecoration: 'none' }}>
                 {page.description}
               </p>
             </div>

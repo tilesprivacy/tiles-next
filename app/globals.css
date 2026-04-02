@@ -1100,6 +1100,7 @@ sniper-link[hidden] {
   [data-book-section] aside.nextra-sidebar > div > div > ul > li > a,
   [data-book-section] aside.nextra-sidebar > div > div > ul > li > button {
     color: rgba(0, 0, 0, 0.82) !important;
+    font-size: 1rem !important;
     font-weight: 500 !important;
     text-decoration: none !important;
   }
@@ -1109,6 +1110,7 @@ sniper-link[hidden] {
   [data-book-section] aside.nextra-sidebar > div > div > ul > li.active > a,
   [data-book-section] aside.nextra-sidebar > div > div > ul > li.active > button {
     color: #000000 !important;
+    font-size: 1rem !important;
     font-weight: 600 !important;
     text-decoration: none !important;
   }
@@ -1118,6 +1120,7 @@ sniper-link[hidden] {
   [data-book-section] aside.nextra-sidebar ul ul a,
   [data-book-section] aside.nextra-sidebar ul ul button {
     color: rgba(0, 0, 0, 0.62) !important;
+    font-size: 0.95rem !important;
     font-weight: 500 !important;
     text-decoration: none !important;
   }
@@ -1131,6 +1134,7 @@ sniper-link[hidden] {
   [data-book-section] aside.nextra-sidebar nav ul ul a[aria-current="page"],
   [data-book-section] aside.nextra-sidebar nav ul ul button[aria-current="page"] {
     color: rgba(0, 0, 0, 0.78) !important;
+    font-size: 0.95rem !important;
     font-weight: 500 !important;
     text-decoration: none !important;
   }

@@ -53,7 +53,11 @@ We include an update path that checks GitHub releases and can install updates th
 
 We also pin dependencies as part of our supply-chain posture, which helps reduce exposure to unexpected upstream changes. Dependencies are reviewed carefully before being added so the software stack remains intentionally selected rather than loosely accumulated over time.
 
-That does not make our update process unusual, but it does mean we should be precise about what is implemented today and avoid overstating supply chain guarantees.
+Our macOS installer package is code signed, notarized, and stapled. That gives users a stronger distribution baseline at install time and helps ensure the package meets Apple’s platform verification requirements.
+
+Tiles is also packaged so its dependencies are self-contained and portable, without requiring package downloads from the internet during normal installation and use. Because those dependencies are bundled in a self-contained way, they do not modify or interfere with the system’s existing dependencies. That reduces reliance on live third-party package resolution at install time and improves our overall security posture.
+
+These measures strengthen our distribution and supply-chain posture, but they do not remove the need to describe our current guarantees precisely and avoid overstating them.
 
 ## Vulnerability Disclosure
 
