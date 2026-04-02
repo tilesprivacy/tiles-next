@@ -21,8 +21,8 @@ export function HomeContent() {
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", lumo: "empty" },
     { label: "Memory", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
+    { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
   ]
@@ -247,7 +247,15 @@ export function HomeContent() {
               </div>
 
               <div className="-mx-4 max-w-none overflow-x-auto overflow-y-hidden px-4 overscroll-x-contain min-[390px]:-mx-5 min-[390px]:px-5 sm:mx-0 sm:max-w-full sm:px-0 [-webkit-overflow-scrolling:touch]">
-                <table className="w-full min-w-[42rem] border-separate border-spacing-0 text-left sm:min-w-[48rem]">
+                <table className="w-full min-w-[42rem] table-fixed border-separate border-spacing-0 text-left sm:min-w-[48rem]">
+                  <colgroup>
+                    <col className="w-[32%]" />
+                    <col className="w-[13.6%]" />
+                    <col className="w-[13.6%]" />
+                    <col className="w-[13.6%]" />
+                    <col className="w-[13.6%]" />
+                    <col className="w-[13.6%]" />
+                  </colgroup>
                   <thead>
                     <tr>
                       <th className="border-b border-black/10 py-3 pr-4 text-xs font-medium uppercase tracking-[0.2em] text-black/50 dark:border-white/10 dark:text-[#8A8A8A]">
