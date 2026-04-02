@@ -12,15 +12,21 @@ export function useGithubStars() {
   const [starsLabel, setStarsLabel] = useState<string | null>(null)
 
   useEffect(() => {
+    let hasCachedStars = false
     const cached = window.localStorage.getItem(STARS_CACHE_KEY)
     if (cached) {
       const parsed = Number(cached)
       if (Number.isFinite(parsed) && parsed >= 0) {
+        hasCachedStars = true
         setStarsLabel(formatStarCount(parsed))
       }
     }
 
     const updateStars = async () => {
+      if (!navigator.onLine) {
+        return
+      }
+
       try {
         const response = await fetch("/api/github-stars", { cache: "no-store" })
         if (!response.ok) return
@@ -35,7 +41,15 @@ export function useGithubStars() {
       }
     }
 
-    void updateStars()
+    if (!hasCachedStars) {
+      void updateStars()
+    }
+
+    window.addEventListener("online", updateStars)
+
+    return () => {
+      window.removeEventListener("online", updateStars)
+    }
   }, [])
 
   return starsLabel

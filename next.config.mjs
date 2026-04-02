@@ -54,27 +54,23 @@ const nextConfig = {
     return [
       {
         source: '/book/modelfile',
-        destination: '/tilekit#modelfile',
+        destination: '/book/tilekit#modelfile',
         permanent: true,
       },
       {
         source: '/modelfile',
-        destination: '/tilekit#modelfile',
+        destination: '/book/tilekit#modelfile',
         permanent: true,
       },
       {
-        source: '/book/tilekit',
-        destination: '/tilekit',
+        source: '/tilekit',
+        destination: '/book/tilekit',
         permanent: true,
       },
     ]
   },
   async rewrites() {
     return [
-      {
-        source: '/tilekit',
-        destination: '/book/tilekit',
-      },
       {
         source: '/llms.txt',
         destination: '/api/llms',

@@ -24,9 +24,22 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
   const [senderEmail, setSenderEmail] = useState("")
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isOnline, setIsOnline] = useState(() => (typeof navigator === "undefined" ? true : navigator.onLine))
 
   useEffect(() => {
     setMounted(true)
+    setIsOnline(navigator.onLine)
+
+    const handleOnline = () => setIsOnline(true)
+    const handleOffline = () => setIsOnline(false)
+
+    window.addEventListener("online", handleOnline)
+    window.addEventListener("offline", handleOffline)
+
+    return () => {
+      window.removeEventListener("online", handleOnline)
+      window.removeEventListener("offline", handleOffline)
+    }
   }, [])
 
   const isDark = surface === "auto" ? mounted && resolvedTheme === "dark" : surface === "dark"
@@ -106,7 +119,9 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
 
   return (
     <>
-      <Script src="https://sniperl.ink/v1/sniper-link.js" strategy="lazyOnload" />
+      {mounted && isOnline && subscriberEmail && senderEmail ? (
+        <Script src="https://sniperl.ink/v1/sniper-link.js" strategy="lazyOnload" />
+      ) : null}
       <form 
         onSubmit={handleSubmit} 
         className={cn("w-full", className)}

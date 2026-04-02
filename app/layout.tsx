@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { SiteHeader } from "@/components/site-header"
+import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import "./globals.css"
 
 const geist = Geist({
@@ -84,6 +85,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="tiles-theme"
         >
+          <SiteOfflineCacheRegistrar />
           <SiteHeader themeAware />
           {children}
         </ThemeProvider>

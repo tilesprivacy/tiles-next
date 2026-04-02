@@ -1,6 +1,10 @@
 const CACHE_VERSION = 'book-cache-v1'
 const BOOK_PAGE_CACHE = `${CACHE_VERSION}-pages`
 const BOOK_ASSET_CACHE = `${CACHE_VERSION}-assets`
+const IS_LOCALHOST =
+  self.location.hostname === 'localhost' ||
+  self.location.hostname === '127.0.0.1' ||
+  self.location.hostname === '[::1]'
 
 const BOOK_FILE_PATTERN = /\.(?:css|js|mjs|png|jpg|jpeg|gif|svg|webp|avif|ico|woff2?|ttf)$/i
 
@@ -10,12 +14,22 @@ const toAbsoluteBookUrl = (route) => {
 }
 
 self.addEventListener('install', (event) => {
+  if (IS_LOCALHOST) {
+    event.waitUntil(self.skipWaiting())
+    return
+  }
+
   event.waitUntil(self.skipWaiting())
 })
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     (async () => {
+      if (IS_LOCALHOST) {
+        const registrations = await self.registration.unregister()
+        void registrations
+      }
+
       const cacheNames = await caches.keys()
       await Promise.all(
         cacheNames
@@ -28,6 +42,10 @@ self.addEventListener('activate', (event) => {
 })
 
 self.addEventListener('message', (event) => {
+  if (IS_LOCALHOST) {
+    return
+  }
+
   if (!event.data || event.data.type !== 'PRECACHE_BOOK_ROUTES') {
     return
   }
@@ -92,6 +110,10 @@ self.addEventListener('message', (event) => {
 })
 
 self.addEventListener('fetch', (event) => {
+  if (IS_LOCALHOST) {
+    return
+  }
+
   const request = event.request
 
   if (request.method !== 'GET') {

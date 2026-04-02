@@ -60,6 +60,16 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
     const shouldShowLoadingState = !Boolean(initialDownload?.downloadUrl)
 
     async function loadDownloadMetadata() {
+      if (!navigator.onLine) {
+        if (isMounted) {
+          setMetadataLoadFailed(true)
+          if (shouldShowLoadingState) {
+            setIsLoadingMetadata(false)
+          }
+        }
+        return
+      }
+
       if (shouldShowLoadingState) {
         setIsLoadingMetadata(true)
       }
@@ -107,10 +117,15 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
       }
     }
 
-    void loadDownloadMetadata()
+    if (shouldShowLoadingState) {
+      void loadDownloadMetadata()
+    }
+
+    window.addEventListener("online", loadDownloadMetadata)
 
     return () => {
       isMounted = false
+      window.removeEventListener("online", loadDownloadMetadata)
     }
   }, [initialDownload?.downloadUrl])
 

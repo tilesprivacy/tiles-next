@@ -22,7 +22,7 @@ export default function SubProcessorsPage() {
           <h3>Vercel</h3>
           <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
             <p>
-              <span className="font-medium subprocessor-label">Purpose:</span> Server hosting, website hosting
+              <span className="font-medium subprocessor-label">Purpose:</span> Website hosting
             </p>
             <p>
               <span className="font-medium subprocessor-label">Location:</span> US
