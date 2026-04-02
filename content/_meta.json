@@ -41,6 +41,13 @@
       "timestamp": true
     }
   },
+  "security": {
+    "title": "Security",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "community": {
     "title": "Community",
     "theme": {
@@ -74,4 +81,3 @@
     }
   }
 }
-

@@ -18,6 +18,7 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/memory', title: 'Memory' },
   { route: '/book/tilekit', title: 'Tilekit' },
   { route: '/book/mir', title: 'MIR Extension' },
+  { route: '/book/security', title: 'Security' },
   { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
 ]
@@ -119,4 +120,3 @@ export function BookPageNavigation() {
     </nav>
   )
 }
-

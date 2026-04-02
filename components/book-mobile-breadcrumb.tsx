@@ -11,6 +11,7 @@ const pageTitles: Record<string, string> = {
   'memory': 'Memory',
   'tilekit': 'Tilekit',
   'mir': 'MIR Extension',
+  'security': 'Security',
   'resources': 'Resources',
 }
 

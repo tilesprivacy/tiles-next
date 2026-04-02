@@ -179,6 +179,7 @@ export async function GET(request: Request) {
     { path: 'cli', title: 'CLI' },
     { path: 'tilekit', title: 'Tilekit' },
     { path: 'mir', title: 'MIR Extension' },
+    { path: 'security', title: 'Security' },
     { path: 'memory', title: 'Memory' },
   ]
 

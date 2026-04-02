@@ -40,12 +40,18 @@ const bookPages: BookPage[] = [
   },
   {
     number: '06',
+    title: 'Security',
+    description: 'How Tiles approaches privacy, local data protection, identity, sync, and operational security boundaries.',
+    href: '/book/security',
+  },
+  {
+    number: '07',
     title: 'Community',
     description: 'See how you can make Tiles better.',
     href: '/book/community',
   },
   {
-    number: '07',
+    number: '08',
     title: 'Resources',
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',
