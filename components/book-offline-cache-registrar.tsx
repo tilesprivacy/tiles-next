@@ -22,7 +22,7 @@ export function BookOfflineCacheRegistrar({ routes }: BookOfflineCacheRegistrarP
     const registerServiceWorker = async () => {
       try {
         const registration = await navigator.serviceWorker.register('/book-sw.js', {
-          scope: '/book/',
+          scope: '/book',
         })
 
         const serviceWorker = registration.active ?? registration.waiting ?? registration.installing
