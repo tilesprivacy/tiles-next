@@ -8,6 +8,29 @@ import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
 import { BookDatestampMover } from '@/components/book-datestamp-mover'
 import { BookCodeHighlightFix } from '@/components/book-code-highlight-fix'
 import { BookScrollToTop } from '@/components/book-scroll-to-top'
+import { BookOfflineCacheRegistrar } from '@/components/book-offline-cache-registrar'
+
+type PageMapItem = Awaited<ReturnType<typeof getPageMap>>[number]
+
+function collectBookRoutes(items: PageMapItem[]): string[] {
+  const routes = new Set<string>()
+
+  const walk = (entries: PageMapItem[]) => {
+    entries.forEach((entry) => {
+      if ('route' in entry && typeof entry.route === 'string' && entry.route.startsWith('/book')) {
+        routes.add(entry.route)
+      }
+
+      if ('children' in entry && Array.isArray(entry.children)) {
+        walk(entry.children as PageMapItem[])
+      }
+    })
+  }
+
+  walk(items)
+
+  return Array.from(routes)
+}
 
 export const metadata = {
   title: {
@@ -106,12 +129,15 @@ export default async function BookLayout({
     return 0
   })
 
+  const bookRoutes = collectBookRoutes(finalPageMap as PageMapItem[])
+
   return (
     <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
       <BookBreadcrumbLink />
       <BookDatestampMover />
       <BookCodeHighlightFix />
       <BookScrollToTop />
+      <BookOfflineCacheRegistrar routes={bookRoutes} />
       <div className="pt-28 lg:pt-32">
         <BookMobileBreadcrumb />
         <Layout
