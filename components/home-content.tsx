@@ -265,9 +265,6 @@ export function HomeContent() {
                         Tiles
                       </th>
                       <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
-                        Lumo
-                      </th>
-                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
                         Ollama
                       </th>
                       <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
@@ -275,6 +272,9 @@ export function HomeContent() {
                       </th>
                       <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
                         Jan
+                      </th>
+                      <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
+                        Lumo
                       </th>
                     </tr>
                   </thead>
@@ -284,7 +284,7 @@ export function HomeContent() {
                         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">
                           {row.label}
                         </th>
-                        {[row.tiles, row.lumo, row.ollama, row.lmStudio, row.jan].map((status, index) => (
+                        {[row.tiles, row.ollama, row.lmStudio, row.jan, row.lumo].map((status, index) => (
                           <td
                             key={`${row.label}-${index}`}
                             className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10"
