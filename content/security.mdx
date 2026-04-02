@@ -31,6 +31,14 @@ We include peer-to-peer device linking and chat sync. Linking is user-mediated r
 
 In release builds, networking endpoints are derived from the user’s stored secret key, and incoming peer identity is checked against the delivered public key. That helps ensure a peer cannot simply claim an arbitrary identity without controlling the corresponding cryptographic material. Sync is also scoped with some defensive controls, including operation against linked peers and a maximum size cap for downloaded deltas before they are applied.
 
+### Iroh Relay and Sync Transport
+
+Tiles sync is built on Iroh endpoints, gossip topics, and blob tickets. In normal online operation, Tiles creates network endpoints with the `N0` preset and uses those endpoints for linking and sync traffic. That gives devices a practical way to find and reach each other across typical internet network boundaries while still using peer identities derived from local keys.
+
+When devices are not online, Tiles falls back to local-network discovery through mDNS for nearby linking and peer bootstrap. For sync transfer itself, Tiles sends bounded delta payloads using Iroh blob tickets and applies a maximum downloaded data cap before processing.
+
+Today, this means alpha builds rely on publicly hosted Iroh relay infrastructure as part of the transport path for online connectivity. Our plan after alpha is to move to self-hosted relay infrastructure so this network boundary is operated directly by Tiles.
+
 ## Memory and Restricted Code Execution
 
 We currently include a memory-agent flow that can execute generated Python against a designated memory path. The current implementation applies path restrictions to file operations such as opening, renaming, and removing files, and it includes basic size limits intended to keep the memory workspace bounded.
