@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { memo, useCallback, useEffect, useState } from "react"
-import { Download } from "lucide-react"
-import { FaGithub } from "react-icons/fa6"
-import { MobileMenu } from "./mobile-menu"
-import { triggerHaptic } from "@/lib/haptics"
-import { useGithubStars } from "@/lib/use-github-stars"
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { memo, useCallback, useEffect, useState } from "react";
+import { Download } from "lucide-react";
+import { FaGithub } from "react-icons/fa6";
+import { MobileMenu } from "./mobile-menu";
+import { triggerHaptic } from "@/lib/haptics";
+import { useGithubStars } from "@/lib/use-github-stars";
 
 /** Set to true to show the top banner (e.g. for announcements). */
-const BANNER_ENABLED = false
+const BANNER_ENABLED = false;
 
 interface SiteHeaderProps {
-  themeAware?: boolean
+  themeAware?: boolean;
 }
 
 const SiteHeaderChrome = memo(function SiteHeaderChrome({
@@ -24,24 +24,28 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onOpenMenu,
   starsLabel,
 }: {
-  themeAware: boolean
-  isBannerVisible: boolean
-  onDismissBanner: () => void
-  onOpenMenu: () => void
-  starsLabel: string | null
+  themeAware: boolean;
+  isBannerVisible: boolean;
+  onDismissBanner: () => void;
+  onOpenMenu: () => void;
+  starsLabel: string | null;
 }) {
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
-  const headerBg = themeAware ? "bg-background" : "bg-white"
-  const textColor = themeAware ? "text-foreground" : "text-black"
-  const textColorHover = themeAware ? "hover:text-foreground/70" : "hover:text-black/70"
+  const headerBg = themeAware ? "bg-background" : "bg-white";
+  const textColor = themeAware ? "text-foreground" : "text-black";
+  const textColorHover = themeAware
+    ? "hover:text-foreground/70"
+    : "hover:text-black/70";
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
-  const buttonBg = themeAware ? "bg-black dark:bg-white" : "bg-black"
-  const buttonText = themeAware ? "text-white dark:text-black" : "text-white"
-  const buttonHover = themeAware ? "hover:bg-black/90 dark:hover:bg-white/90" : "hover:bg-black/90"
-  const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
+  const buttonBg = themeAware ? "bg-black dark:bg-white" : "bg-black";
+  const buttonText = themeAware ? "text-white dark:text-black" : "text-white";
+  const buttonHover = themeAware
+    ? "hover:bg-black/90 dark:hover:bg-white/90"
+    : "hover:bg-black/90";
+  const hamburgerColor = themeAware ? "bg-foreground" : "bg-black";
   const sourceButtonClasses = themeAware
-    ? "bg-black/[0.04] text-black/80 hover:bg-black/[0.07] dark:bg-white/[0.08] dark:text-[#D1D1D1] dark:hover:bg-white/[0.12]"
-    : "bg-black/[0.04] text-black/80 hover:bg-black/[0.07]"
+    ? "bg-black text-white hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+    : "bg-black text-white hover:bg-black/90";
 
   return (
     <>
@@ -85,24 +89,51 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:hidden" />
+                <Image
+                  src="/lighticon.png"
+                  alt="Tiles"
+                  width={48}
+                  height={48}
+                  className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:hidden"
+                />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 hidden dark:block" />
+                <Image
+                  src="/grey.png"
+                  alt="Tiles"
+                  width={48}
+                  height={48}
+                  className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 hidden dark:block"
+                />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
+              <Image
+                src="/lighticon.png"
+                alt="Tiles"
+                width={48}
+                height={48}
+                className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12"
+              />
             )}
           </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6">
-            <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            <Link
+              href="/changelog"
+              className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}
+            >
               Changelog
             </Link>
-            <Link href="/blog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            <Link
+              href="/blog"
+              className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}
+            >
               Blog
             </Link>
-            <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            <Link
+              href="/book"
+              className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}
+            >
               Book
             </Link>
             <a
@@ -114,11 +145,16 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[13px] font-medium leading-none transition-colors ${sourceButtonClasses}`}
             >
               <FaGithub className="h-4 w-4 shrink-0" aria-hidden />
-              <span>Star</span>
+              <span>Star on GitHub</span>
               {starsLabel ? (
                 <span className="inline-flex items-center gap-1.5 text-[12px] text-black/60 dark:text-[#A3A3A3]">
-                  <span aria-hidden className="h-3.5 w-px bg-black/15 dark:bg-white/20" />
-                  <span className="rounded-full bg-black/[0.05] px-1.5 py-0.5 dark:bg-white/[0.08]">{starsLabel}</span>
+                  <span
+                    aria-hidden
+                    className="h-3.5 w-px bg-black/15 dark:bg-white/20"
+                  />
+                  <span className="rounded-full bg-black/[0.05] px-1.5 py-0.5 dark:bg-white/[0.08]">
+                    {starsLabel}
+                  </span>
                 </span>
               ) : null}
             </a>
@@ -138,7 +174,10 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={() => triggerHaptic()}
             >
-              <Download className="h-3 w-3 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" aria-hidden />
+              <Download
+                className="h-3 w-3 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
+                aria-hidden
+              />
               <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
                 Download
               </span>
@@ -176,36 +215,42 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             aria-label="Open navigation menu"
             type="button"
           >
-            <span className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300`} />
-            <span className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300 my-1`} />
-            <span className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300`} />
+            <span
+              className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300`}
+            />
+            <span
+              className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300 my-1`}
+            />
+            <span
+              className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300`}
+            />
           </button>
         </div>
       </header>
     </>
-  )
-})
+  );
+});
 
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isBannerVisible, setIsBannerVisible] = useState(false)
-  const starsLabel = useGithubStars()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBannerVisible, setIsBannerVisible] = useState(false);
+  const starsLabel = useGithubStars();
 
   useEffect(() => {
-    if (typeof window === "undefined" || !BANNER_ENABLED) return
-    const dismissed = window.localStorage.getItem("tilesBannerDismissed")
-    setIsBannerVisible(dismissed !== "true")
-  }, [])
+    if (typeof window === "undefined" || !BANNER_ENABLED) return;
+    const dismissed = window.localStorage.getItem("tilesBannerDismissed");
+    setIsBannerVisible(dismissed !== "true");
+  }, []);
 
   const handleDismissBanner = useCallback(() => {
-    setIsBannerVisible(false)
+    setIsBannerVisible(false);
     if (typeof window !== "undefined") {
-      window.localStorage.setItem("tilesBannerDismissed", "true")
+      window.localStorage.setItem("tilesBannerDismissed", "true");
     }
-  }, [])
+  }, []);
 
-  const openMenu = useCallback(() => setIsMenuOpen(true), [])
-  const closeMenu = useCallback(() => setIsMenuOpen(false), [])
+  const openMenu = useCallback(() => setIsMenuOpen(true), []);
+  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
 
   return (
     <>
@@ -226,9 +271,9 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         starsLabel={starsLabel}
       />
     </>
-  )
+  );
 }
 
 export function SiteHeader(props: SiteHeaderProps) {
-  return <SiteHeaderContent {...props} />
+  return <SiteHeaderContent {...props} />;
 }
