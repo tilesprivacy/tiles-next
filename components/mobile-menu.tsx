@@ -99,7 +99,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
 
   if (!isOpen) return null
 
-  const topOffsetClass = hasBanner ? "top-8" : "top-0"
+  const topOffsetClass = hasBanner
+    ? "top-[calc(2rem+env(safe-area-inset-top,0px))]"
+    : "top-0"
+
+  const menuHeaderPadding = hasBanner
+    ? "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 pt-3 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 sm:pt-4"
+    : "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 sm:pt-[calc(1rem+env(safe-area-inset-top,0px))]"
 
   return (
     <>
@@ -108,7 +114,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
         className={`fixed inset-x-0 bottom-0 ${topOffsetClass} ${menuBg} z-[60] lg:hidden flex flex-col overscroll-contain`}
       >
         {/* Header section with logo and buttons */}
-        <div className={`flex items-center justify-between px-3 pb-2.5 pt-3 sm:px-4 sm:pb-3 sm:pt-4 ${menuBg} shrink-0`}>
+        <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
           {/* Logo */}
           <Link href="/" onClick={onClose} className="transition-colors hover:opacity-70">
             {themeAware ? (
@@ -191,21 +197,21 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Link
               href="/changelog"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Changelog
             </Link>
             <Link
               href="/blog"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Blog
             </Link>
             <Link
               href="/book"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover}`}
+              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Book
             </Link>
@@ -218,7 +224,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 onClose()
               }}
               aria-label="Star on GitHub"
-              className={`text-2xl font-medium ${textColor} py-4 px-4 transition-colors ${textColorHover} inline-flex items-center gap-3`}
+              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover} inline-flex items-center gap-3`}
             >
               <FaGithub className="h-5 w-5 shrink-0" aria-hidden />
               <span className="inline-flex items-center gap-2.5">
@@ -237,7 +243,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           <div className="flex-1" />
 
           {/* Social Icons - positioned in bottom half */}
-          <div className="flex items-center gap-4 px-4 pb-8">
+          <div className="flex items-center gap-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] pb-[max(2rem,env(safe-area-inset-bottom,0px))]">
             <a
               href="https://x.com/tilesprivacy"
               target="_blank"

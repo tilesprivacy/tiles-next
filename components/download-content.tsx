@@ -166,7 +166,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col min-h-0">
         {/* Left Side - Installation Instructions */}
-        <div className="flex w-full flex-col items-center justify-start px-6 pt-32 pb-24 lg:px-12 lg:pt-36 lg:pb-28">
+        <div className="flex w-full flex-col items-center justify-start px-6 pt-[calc(8rem+env(safe-area-inset-top,0px))] pb-24 lg:px-12 lg:pt-[calc(9rem+env(safe-area-inset-top,0px))] lg:pb-28">
           <div className="flex w-full max-w-xl flex-col gap-12 text-left lg:gap-14">
             {/* Title */}
             <div className="space-y-4">

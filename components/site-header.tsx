@@ -47,37 +47,47 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     <>
       {isBannerVisible && (
         <div
-          className={`fixed inset-x-0 top-0 z-50 flex h-8 items-center justify-center px-4 text-[11px] shadow-sm ring-1 ring-black/5 lg:h-9 lg:text-xs dark:ring-white/5 ${
+          className={`fixed inset-x-0 top-0 z-50 flex flex-col pt-[env(safe-area-inset-top,0px)] text-[11px] shadow-sm ring-1 ring-black/5 lg:text-xs dark:ring-white/5 ${
             themeAware ? "bg-background text-foreground" : "bg-white text-black"
           }`}
         >
-          <div className="flex w-full max-w-7xl items-center justify-between px-2">
-            <div className="w-5" aria-hidden="true" />
-            <Link
-              href="/blog/introducing-tiles-public-alpha"
-              className="inline-flex items-center gap-2 text-black/70 dark:text-[#B3B3B3] transition-colors hover:text-black/90 dark:hover:text-[#E6E6E6]"
-            >
-              <span>Introducing Tiles Public Alpha</span>
-              <span aria-hidden="true" className="text-[12px] leading-none">
-                →
-              </span>
-            </Link>
-            <button
-              type="button"
-              onClick={onDismissBanner}
-              className="inline-flex h-5 w-5 items-center justify-center rounded-full text-black/50 transition-colors hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]"
-              aria-label="Dismiss banner"
-            >
-              <span aria-hidden="true" className="text-[12px] leading-none">
-                ×
-              </span>
-            </button>
+          <div className="flex h-8 w-full shrink-0 items-center justify-center px-4 lg:h-9">
+            <div className="flex w-full max-w-7xl items-center justify-between px-2">
+              <div className="w-5" aria-hidden="true" />
+              <Link
+                href="/blog/introducing-tiles-public-alpha"
+                className="inline-flex items-center gap-2 text-black/70 dark:text-[#B3B3B3] transition-colors hover:text-black/90 dark:hover:text-[#E6E6E6]"
+              >
+                <span>Introducing Tiles Public Alpha</span>
+                <span aria-hidden="true" className="text-[12px] leading-none">
+                  →
+                </span>
+              </Link>
+              <button
+                type="button"
+                onClick={onDismissBanner}
+                className="inline-flex h-5 w-5 items-center justify-center rounded-full text-black/50 transition-colors hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]"
+                aria-label="Dismiss banner"
+              >
+                <span aria-hidden="true" className="text-[12px] leading-none">
+                  ×
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       )}
 
       <header
-        className={`fixed inset-x-0 ${isBannerVisible ? "top-8 lg:top-9" : "top-0"} z-40 flex items-center justify-between px-3 pb-2.5 pt-3 sm:px-4 sm:pb-3 sm:pt-4 lg:px-6 lg:pb-4 lg:pt-6 ${headerBg}`}
+        className={`fixed inset-x-0 ${
+          isBannerVisible
+            ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
+            : "top-0"
+        } z-40 flex items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-4 ${
+          isBannerVisible
+            ? "pt-3 sm:pt-4 lg:pt-6"
+            : "pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.5rem+env(safe-area-inset-top,0px))]"
+        } ${headerBg}`}
       >
         {/* Left side: Logo and Desktop Nav Links */}
         <div className="flex items-center gap-8 shrink-0">

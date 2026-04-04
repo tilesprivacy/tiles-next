@@ -50,7 +50,7 @@ export function HomeContent() {
     <div className="min-h-[100dvh] overflow-x-clip bg-background">
 
       {/* Main Content - progressive spacing so narrow screens keep consistent rhythm */}
-      <main className="px-4 pb-14 pt-[4.5rem] min-[390px]:px-5 min-[390px]:pt-20 sm:px-6 sm:pb-20 lg:px-12 lg:pt-28 lg:pb-28">
+      <main className="px-4 pb-14 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-20 lg:px-12 lg:pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pb-28">
         <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
           <div className="mb-10 flex flex-col gap-10 min-[390px]:mb-12 sm:mb-14 sm:gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:mb-20">

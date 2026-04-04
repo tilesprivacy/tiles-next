@@ -112,7 +112,7 @@ export default async function BookLayout({
       <BookDatestampMover />
       <BookCodeHighlightFix />
       <BookScrollToTop />
-      <div className="pt-28 lg:pt-32">
+      <div className="pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-[calc(8rem+env(safe-area-inset-top,0px))]">
         <BookMobileBreadcrumb />
         <Layout
           pageMap={finalPageMap}
