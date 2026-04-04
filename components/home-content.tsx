@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw, Wrench } from "lucide-react"
+import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
@@ -320,6 +321,119 @@ export function HomeContent() {
           </section>
 
           <MissionSection title="Get to know Tiles Privacy" compact />
+
+          <section
+            className="pt-10 sm:pt-14 lg:pt-20"
+            aria-labelledby="home-security-faq-heading"
+          >
+            <div className="min-w-0 space-y-4 sm:space-y-5">
+              <div className="max-w-2xl space-y-2">
+                <h2
+                  id="home-security-faq-heading"
+                  className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+                >
+                  Frequently asked questions
+                </h2>
+                <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base">
+                  Short answers drawn from our{" "}
+                  <Link
+                    href="/book/security"
+                    className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
+                  >
+                    security documentation
+                  </Link>
+                  . For full context and limits, read that page.
+                </p>
+              </div>
+              <BookFaq omitHeading className="mt-0">
+              <BookFaqItem question="What does local-first mean for Tiles?">
+                <p>
+                  Tiles is designed so the default experience runs on-device. The local server binds to{" "}
+                  <code>localhost</code>, which limits exposed network surface during normal use. Configuration and
+                  application data live in standard local directories, and you can change the user data path when
+                  needed.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="Are chat and account databases stored as plain SQLite files?">
+                <p>
+                  No. Application state is persisted locally with encryption at rest. The Rust build uses
+                  SQLCipher-enabled SQLite, and database connections use a passkey from secure storage. That raises the
+                  bar against casual inspection of copied files, though it does not remove all local risk.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="How does Tiles handle identity and secret material?">
+                <p>
+                  Public identity is separated from private keys. Device and account identity use{" "}
+                  <code>did:key</code> identifiers from Ed25519 keys. Private keys and database passkeys are stored in
+                  the operating system’s secure credential store, not in plaintext app configuration files.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="How does device linking and chat sync work?">
+                <p>
+                  Peer-to-peer linking is user-mediated, not automatic. One device shows a ticket or local code; the
+                  other enters it and explicitly accepts or rejects. In release builds, endpoints derive from your stored
+                  secret key, and peer identity is checked against the delivered public key. Sync includes defensive
+                  controls, including a maximum size cap for downloaded deltas before they are applied.
+                </p>
+                <p>
+                  Sync uses{" "}
+                  <a
+                    href="https://www.iroh.computer/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Iroh
+                  </a>{" "}
+                  for device-to-device networking. When a direct path is not practical, Iroh&apos;s public relays can help
+                  establish the connection; we list that relay use on our{" "}
+                  <Link href="/sub-processors">sub-processors</Link>{" "}
+                  page.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="Is memory Python execution a hardened sandbox?">
+                <p>
+                  No. The memory-agent flow runs generated Python with path restrictions and basic size limits on a
+                  designated memory path. This is restricted execution, not strong OS-level isolation, virtualization,
+                  or container sandboxing. This path is transitional and may be removed or replaced after Pi agent
+                  harness work.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="Does Tiles include product analytics, and what is logged locally?">
+                <p>
+                  The product does not currently bundle obvious analytics SDKs such as Sentry, PostHog, Segment,
+                  Mixpanel, or similar telemetry. There is still local logging: the Python server may log request
+                  metadata and bodies to files under the Tiles data directory, so prompt content can appear in local
+                  logs unless logging changes.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="How do updates, signing, and bundled dependencies relate to trust?">
+                <p>
+                  Updates can check GitHub releases and install via the hosted installer script, which depends on
+                  release and hosting integrity rather than a stronger built-in end-user verification workflow.
+                  Dependencies are pinned and reviewed. The macOS package is code signed, notarized, and stapled. Bundled
+                  dependencies are self-contained so normal installation and use do not require live package downloads
+                  from the internet.
+                </p>
+              </BookFaqItem>
+              <BookFaqItem question="How do I report a security vulnerability?">
+                <p>
+                  Use the published security policy and private disclosure path. Researchers can use GitHub Security
+                  Advisories or email{" "}
+                  <a href="mailto:security@tiles.run">security@tiles.run</a>, with expectations for acknowledgement,
+                  triage, and coordinated disclosure. See{" "}
+                  <a
+                    href="https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    SECURITY.md
+                  </a>
+                  .
+                </p>
+              </BookFaqItem>
+            </BookFaq>
+            </div>
+          </section>
         </div>
       </main>
 
