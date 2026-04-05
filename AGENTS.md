@@ -60,6 +60,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav.
 - On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, and rewrite the remaining sentence so it still reads naturally.
 - Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
+- Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, aligning the theme switcher to the end of the row can balance left-stacked copy.
 
 ## Learned Workspace Facts
 
@@ -68,3 +69,5 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Offline (full) macOS installer builds are not published for every release and may lag the latest network installer; reflect that in download and changelog copy when relevant.
 - Subscription emails sent via Resend should use the visible sender name “Tiles Privacy” (display name with the from address still driven by env).
 - Latest network `.pkg` metadata comes from GitHub via `getLatestDownloadArtifact`; keep `FALLBACK_ARTIFACT` in `lib/download-artifact.ts` aligned with the current release when the API path fails.
+- Fixed header and mobile menu on Android Chrome edge-to-edge need `viewport-fit=cover` and `env(safe-area-inset-*)` on chrome, overlay, and main top padding; avoid global `header` rules that use `contain` or `transform`, which can break full-width `position: fixed` on narrow viewports.
+- On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.

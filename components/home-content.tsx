@@ -13,7 +13,7 @@ export function HomeContent() {
     { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
     { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
     { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
+    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "partial", jan: "empty", lumo: "check" },
     { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
     { label: "On-device models", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", lumo: "check" },
@@ -388,14 +388,6 @@ export function HomeContent() {
                   establish the connection; we list that relay use on our{" "}
                   <Link href="/sub-processors">sub-processors</Link>{" "}
                   page.
-                </p>
-              </BookFaqItem>
-              <BookFaqItem question="Is memory Python execution a hardened sandbox?">
-                <p>
-                  No. The memory-agent flow runs generated Python with path restrictions and basic size limits on a
-                  designated memory path. This is restricted execution, not strong OS-level isolation, virtualization,
-                  or container sandboxing. This path is transitional and may be removed or replaced after Pi agent
-                  harness work.
                 </p>
               </BookFaqItem>
               <BookFaqItem question="Does Tiles include product analytics, and what is logged locally?">

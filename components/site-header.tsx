@@ -79,11 +79,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       )}
 
       <header
-        className={`fixed inset-x-0 ${
+        className={`site-header-chrome fixed inset-x-0 left-0 right-0 z-40 flex w-full max-w-none items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-4 ${
           isBannerVisible
             ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
             : "top-0"
-        } z-40 flex items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-4 ${
+        } ${
           isBannerVisible
             ? "pt-3 sm:pt-4 lg:pt-6"
             : "pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.5rem+env(safe-area-inset-top,0px))]"

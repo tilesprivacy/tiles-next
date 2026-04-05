@@ -345,20 +345,12 @@
     min-height: 100dvh;
   }
 
-  /* Optimize rendering for fixed header - prevent flicker during navigation */
+  /* Site chrome uses position:fixed + full bleed; avoid contain/transform on header
+     globally — on some mobile browsers they break fixed sizing vs the viewport (bar
+     can shrink to main content width, e.g. above a wide horizontal scroll region). */
   header {
-    contain: layout paint;
-    backface-visibility: hidden;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  /* Ensure header remains stable during page transitions */
-  header * {
-    backface-visibility: hidden;
   }
 
   /* Prevent layout shift from images */

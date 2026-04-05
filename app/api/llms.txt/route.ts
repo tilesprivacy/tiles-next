@@ -85,7 +85,7 @@ export async function GET(request: Request) {
   sections.push('- Connectors: Ollama, LM Studio, Jan; Tiles (WIP)')
   sections.push('- Shared Links: Tiles (WIP); Ollama, LM Studio, Jan (not supported)')
   sections.push('- Decentralized Identity: Tiles')
-  sections.push('- Encryption: Tiles')
+  sections.push('- Encryption: Tiles; LM Studio (partially)')
   sections.push('- Sync: Tiles')
   sections.push('- Portable Dependencies: Tiles, LM Studio')
   sections.push('- Air-gapped installer: Tiles')

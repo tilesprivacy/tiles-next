@@ -44,6 +44,16 @@ const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
   fileName: "tiles.pkg",
 }
 
+/** Matches homepage primary download CTA (home-content) */
+const primaryDownloadButtonClass =
+  "group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-white dark:text-black dark:ring-white/10 dark:hover:bg-white/90"
+
+const downloadButtonAppleIconClass =
+  "origin-right h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110"
+
+const downloadButtonLabelClass =
+  "origin-left transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105"
+
 export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -232,23 +242,23 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                             triggerHaptic()
                           }}
                           download={download.fileName}
-                          className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                          className={primaryDownloadButtonClass}
                         >
                           <Image
                             src="/apple-logo-white.svg"
                             alt="Apple"
                             width={16}
                             height={20}
-                            className="h-3.5 w-auto dark:hidden"
+                            className={`${downloadButtonAppleIconClass} dark:hidden`}
                           />
                           <Image
                             src="/apple-logo.svg"
                             alt="Apple"
                             width={16}
                             height={20}
-                            className="hidden h-3.5 w-auto dark:block"
+                            className={`hidden ${downloadButtonAppleIconClass} dark:block`}
                           />
-                          {downloadButtonLabel}
+                          <span className={downloadButtonLabelClass}>{downloadButtonLabel}</span>
                         </a>
                       ) : (
                         <button
@@ -311,23 +321,23 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                           triggerHaptic()
                         }}
                         download={OFFLINE_INSTALLER.fileName}
-                        className="inline-flex h-10 items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90"
+                        className={primaryDownloadButtonClass}
                       >
                         <Image
                           src="/apple-logo-white.svg"
                           alt="Apple"
                           width={16}
                           height={20}
-                          className="h-3.5 w-auto dark:hidden"
+                          className={`${downloadButtonAppleIconClass} dark:hidden`}
                         />
                         <Image
                           src="/apple-logo.svg"
                           alt="Apple"
                           width={16}
                           height={20}
-                          className="hidden h-3.5 w-auto dark:block"
+                          className={`hidden ${downloadButtonAppleIconClass} dark:block`}
                         />
-                        Download offline installer
+                        <span className={downloadButtonLabelClass}>Download offline installer</span>
                       </a>
                     </div>
                   </div>

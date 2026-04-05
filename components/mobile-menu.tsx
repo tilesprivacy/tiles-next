@@ -111,7 +111,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     <>
       {/* Full screen overlay - higher z-index than header */}
       <div
-        className={`fixed inset-x-0 bottom-0 ${topOffsetClass} ${menuBg} z-[60] lg:hidden flex flex-col overscroll-contain`}
+        className={`fixed inset-x-0 bottom-0 left-0 right-0 z-[60] flex w-full max-w-none flex-col overscroll-contain lg:hidden ${topOffsetClass} ${menuBg}`}
       >
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
