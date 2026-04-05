@@ -61,6 +61,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, and rewrite the remaining sentence so it still reads naturally.
 - Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
 - Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, aligning the theme switcher to the end of the row can balance left-stacked copy.
+- In public blog copy, prefer plain phrasing such as “macOS binary” over insider jargon like “Mach-O” unless the post is explicitly aimed at readers who need that precision.
 
 ## Learned Workspace Facts
 
@@ -74,3 +75,4 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme.
 - The homepage Private AI comparison table in `components/home-content.tsx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix.
 - Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing ` @handle`, which the UI shows as a distinct handle segment instead of stripping it silently.
+- Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned.
