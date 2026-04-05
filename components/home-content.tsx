@@ -10,22 +10,22 @@ import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
   const comparisonRows = [
-    { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
-    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
-    { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "partial", jan: "empty", lumo: "check" },
-    { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
-    { label: "On-device models", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
-    { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", lumo: "check" },
-    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", lumo: "empty" },
-    { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Agent Harness", tiles: "empty", ollama: "check", lmStudio: "partial", jan: "empty", lumo: "empty" },
-    { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
-    { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Cross platform", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
-    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", lumo: "partial" },
+    { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
+    { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "partial", jan: "empty", osaurus: "partial" },
+    { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
+    { label: "On-device models", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", osaurus: "check" },
+    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", osaurus: "empty" },
+    { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", osaurus: "empty" },
+    { label: "Agent Harness", tiles: "empty", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
+    { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
+    { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
+    { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
+    { label: "Cross platform", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "empty" },
+    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", osaurus: "check" },
   ]
   const renderComparisonStatus = (status: string) => (
     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
@@ -273,7 +273,7 @@ export function HomeContent() {
                         Jan
                       </th>
                       <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">
-                        Lumo
+                        Osaurus
                       </th>
                     </tr>
                   </thead>
@@ -283,7 +283,7 @@ export function HomeContent() {
                         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">
                           {row.label}
                         </th>
-                        {[row.tiles, row.ollama, row.lmStudio, row.jan, row.lumo].map((status, index) => (
+                        {[row.tiles, row.ollama, row.lmStudio, row.jan, row.osaurus].map((status, index) => (
                           <td
                             key={`${row.label}-${index}`}
                             className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10"
