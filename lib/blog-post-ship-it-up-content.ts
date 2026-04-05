@@ -95,9 +95,9 @@ codesign --force \\
   pkg/tiles.pkg
 </code></pre>
 
-<p>That signs the <code>.pkg</code> itself. The Tiles binary is already signed; signing a Mach-O binary and signing an installer package are different operations.</p>
+<p>That signs the <code>.pkg</code> itself. The Tiles binary is already signed; signing a macOS binary and signing an installer package are different operations.</p>
 
-<p>In practice you use <code>productsign</code> instead of <code>codesign</code>, with a Developer ID Installer identity instead of Developer ID Application (for example <code>DEVELOPER ID INSTALLER</code> versus <code style="white-space: pre-wrap">DEVELOPER  ID APPLICATION</code> in Keychain).</p>
+<p>The main difference is <code>productsign</code> instead of <code>codesign</code>, and the certificate we use is <code>DEVELOPER ID INSTALLER</code> instead of <code style="white-space: pre-wrap">DEVELOPER  ID APPLICATION</code>.</p>
 
 <h2>Notarizing the installer</h2>
 
