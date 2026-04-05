@@ -61,3 +61,15 @@ export function getPersonById(id: string): PersonIdentity | null {
   }
   return null
 }
+
+/** Split trailing " @handle" from display names (e.g. blog bylines). */
+export function splitPersonDisplayName(fullName: string): {
+  nameWithoutHandle: string
+  handle: string | null
+} {
+  const match = fullName.match(/^(.+)\s(@\S+)$/)
+  if (match) {
+    return { nameWithoutHandle: match[1].trim(), handle: match[2] ?? null }
+  }
+  return { nameWithoutHandle: fullName, handle: null }
+}

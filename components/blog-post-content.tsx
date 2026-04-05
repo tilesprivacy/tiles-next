@@ -8,6 +8,7 @@ import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-i
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
+import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
@@ -89,9 +90,11 @@ export function BlogPostContent({
                     variant="blog"
                     className="inline-flex shrink-0"
                   />
-                  <span className="text-sm text-black/60 dark:text-white/60 lg:text-base">
-                    {author.name.replace(/\s@[^ ]+$/, "")}
-                  </span>
+                  <BlogAuthorDisplayName
+                    fullName={author.name}
+                    className="text-sm text-black/60 dark:text-white/60 lg:text-base"
+                    handleClassName="text-black/45 dark:text-white/45"
+                  />
                   <SocialLinks
                     name={author.name}
                     links={author.links}

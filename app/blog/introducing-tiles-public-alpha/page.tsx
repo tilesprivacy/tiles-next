@@ -8,6 +8,7 @@ import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
 import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-icons/fa6"
 import { useEffect, useMemo, useState } from "react"
+import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { blogPosts } from "@/lib/blog-posts"
 import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
@@ -74,9 +75,11 @@ export default function HowTilesWorksPage() {
                     variant="blog"
                     className="inline-flex shrink-0"
                   />
-                  <span className="text-sm text-black/60 dark:text-[#B3B3B3] lg:text-base">
-                    {author.name.replace(/\s@[^ ]+$/, "")}
-                  </span>
+                  <BlogAuthorDisplayName
+                    fullName={author.name}
+                    className="text-sm text-black/60 dark:text-[#B3B3B3] lg:text-base"
+                    handleClassName="text-black/45 dark:text-[#8A8A8A]"
+                  />
                   <SocialLinks
                     name={author.name}
                     links={author.links}

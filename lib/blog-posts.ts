@@ -1,3 +1,5 @@
+import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content"
+
 export interface BlogPost {
   slug: string
   title: string
@@ -11,6 +13,16 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "ship-it-up",
+    title: "Ship it up",
+    description: "How we package and ship Tiles",
+    date: new Date("2026-04-05"),
+    author: "anandu-pavanan",
+    coverImage: "/shipitup.png",
+    coverAlt: "Cover image for Ship it up",
+    content: shipItUpBlogContent,
+  },
   {
     slug: "introducing-tiles-public-alpha",
     title: "Introducing Tiles Public Alpha",

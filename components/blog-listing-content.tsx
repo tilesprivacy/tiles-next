@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
+import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 
@@ -63,7 +64,11 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
                   variant="blog"
                   className="inline-flex shrink-0"
                 />
-                <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                <BlogAuthorDisplayName
+                  fullName={author.name}
+                  className="text-black/60 dark:text-white/60"
+                  handleClassName="text-black/45 dark:text-white/45"
+                />
               </span>
             )}
           </div>
