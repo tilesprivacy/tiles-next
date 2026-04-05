@@ -77,7 +77,7 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Private AI comparison:')
   sections.push('- CLI: Tiles, Ollama, LM Studio, Jan')
-  sections.push('- Client app: Ollama, LM Studio, Jan')
+  sections.push('- Client app: Tiles (WIP); Ollama, LM Studio, Jan')
   sections.push('- Modelfile: Tiles, Ollama; LM Studio and Jan (not supported)')
   sections.push('- Agent Harness: Tiles (WIP); Ollama; LM Studio (partially); Jan (not supported)')
   sections.push('- Memory: Tiles (WIP)')

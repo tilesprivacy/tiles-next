@@ -11,7 +11,7 @@ import { triggerHaptic } from "@/lib/haptics"
 export function HomeContent() {
   const comparisonRows = [
     { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
-    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
+    { label: "Client app", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
     { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "partial", jan: "empty", lumo: "check" },
     { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
