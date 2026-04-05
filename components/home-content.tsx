@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw, Wrench } from "lucide-react"
+import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
@@ -11,7 +11,7 @@ import { triggerHaptic } from "@/lib/haptics"
 export function HomeContent() {
   const comparisonRows = [
     { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
-    { label: "Client app", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
+    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
     { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "partial", jan: "empty", lumo: "check" },
     { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "check" },
@@ -19,20 +19,18 @@ export function HomeContent() {
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", lumo: "check" },
     { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", lumo: "empty" },
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", lumo: "empty" },
-    { label: "Memory", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Connectors", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
-    { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Agent Harness", tiles: "empty", ollama: "check", lmStudio: "partial", jan: "empty", lumo: "empty" },
+    { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
+    { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
+    { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
-    { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
+    { label: "Cross platform", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
     { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", lumo: "partial" },
   ]
   const renderComparisonStatus = (status: string) => (
     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
       {status === "check" ? (
         <Check className="h-4 w-4" strokeWidth={2} aria-hidden />
-      ) : status === "wip" ? (
-        <Wrench className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
       ) : status === "partial" ? (
         <CircleDashed className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
       ) : (
@@ -41,7 +39,7 @@ export function HomeContent() {
         </span>
       )}
       <span className="sr-only">
-        {status === "check" ? "Supported" : status === "wip" ? "Work in progress" : status === "partial" ? "Partially supported" : "Not supported"}
+        {status === "check" ? "Supported" : status === "partial" ? "Partially supported" : "Not supported"}
       </span>
     </span>
   )
@@ -311,10 +309,6 @@ export function HomeContent() {
                 <span className="inline-flex items-center gap-2">
                   {renderComparisonStatus("empty")}
                   <span>Not supported</span>
-                </span>
-                <span className="inline-flex items-center gap-2">
-                  {renderComparisonStatus("wip")}
-                  <span>Work in progress</span>
                 </span>
               </div>
             </div>
