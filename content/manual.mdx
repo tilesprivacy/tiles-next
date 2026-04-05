@@ -1,6 +1,6 @@
 ---
 title: "Manual"
-description: "Command-line interface reference for Tiles, with usage examples"
+description: "Command-line interface reference for Tiles, with usage examples and macOS uninstall steps"
 ---
 
 import { ClickableImage as Image } from '@/components/clickable-image'
@@ -139,3 +139,123 @@ tiles sync did:key:z6Mknxy...YWSmTcZA
 On the **other** device, run **`tiles sync`** with the listener’s **DID** so the initiator targets the correct peer. If your CLI uses different syntax for the peer argument, check `tiles sync --help`.
 
 When a sync run finishes, you should get a notification on the devices involved.
+
+## Uninstall Tiles (macOS)
+
+This section is **macOS only**. Tiles does not ship a built-in uninstaller. You stop the app, remove the files the installer placed under `/usr/local`, remove your data under your home folder (and any custom paths), then optionally clear Keychain entries and Installer receipts.
+
+### How the macOS `.pkg` installs Tiles
+
+Understanding the installer makes uninstall predictable.
+
+#### What Apple’s Installer does
+
+The release ships one or more **component packages**. For the full downloadable product, those are wrapped into the installer you download from the site.
+
+| Package identifier | Role |
+| --- | --- |
+| `com.tilesprivacy.tiles` | Main app: CLI binary, Python server stack under `server/`, `modelfiles/`, and related files |
+| `com.tilesprivacy.tiles_models` | **Offline (“Tiles Offline”) bundle only:** extra payload (bundled models) under the same `/usr/local/share/tiles` tree |
+
+- **Network-style installer:** installs **only** `com.tilesprivacy.tiles`. Models are fetched later by Tiles.
+- **Offline installer:** can install **both** the app package and `com.tilesprivacy.tiles_models` in one run.
+
+The binary is installed to `/usr/local/bin/tiles`, and shared files to `/usr/local/share/tiles` (server, modelfiles, and any bundled models).
+
+#### Scripts that run during install
+
+- **Preinstall:** removes the previous `/usr/local/share/tiles/server` tree so upgrades do not leave duplicate Python stacks.
+- **Postinstall:** unpacks and runs the embedded Python stack’s post-install steps under `/usr/local/share/tiles/server`.
+
+Installer.app records **receipts** (package IDs) in the system database. Receipts are **not** removed when you delete files by hand, so after a manual uninstall you may want to forget them (see step 3 below).
+
+### 1. Stop Tiles
+
+```bash
+tiles server stop
+tiles daemon stop
+```
+
+If `tiles` is already gone, skip this or quit any leftover Tiles-related processes in **Activity Monitor**.
+
+### 2. Remove files installed under `/usr/local`
+
+This matches what the `.pkg` lays down (and the same paths used by the shell install script if you installed that way):
+
+```bash
+sudo rm -f /usr/local/bin/tiles
+sudo rm -rf /usr/local/share/tiles
+```
+
+**Optional:** see exactly what the receipt tracked (useful if you changed layouts or are verifying):
+
+```bash
+pkgutil --pkgs | grep tilesprivacy
+pkgutil --files com.tilesprivacy.tiles
+# If you used the offline installer with bundled models:
+pkgutil --files com.tilesprivacy.tiles_models
+```
+
+`pkgutil --files` lists paths as installed; removing `/usr/local/share/tiles` and the binary still covers a normal install.
+
+### 3. Optional: forget Installer receipts
+
+After the files above are gone, you can drop the records so macOS no longer thinks those packages are installed:
+
+```bash
+sudo pkgutil --forget com.tilesprivacy.tiles
+sudo pkgutil --forget com.tilesprivacy.tiles_models
+```
+
+The second line applies only if `com.tilesprivacy.tiles_models` appears in `pkgutil --pkgs`. `--forget` does **not** delete files; it only updates the receipt database (use it after you have already removed the payload, or you will have orphaned files).
+
+### 4. Remove your data (config, logs, databases, memory)
+
+Tiles uses XDG-style paths. On a typical Mac shell, `XDG_CONFIG_HOME` and `XDG_DATA_HOME` are unset, so defaults are:
+
+| Purpose | Default on Mac |
+| --- | --- |
+| Config (`config.toml`, `server.pid`, …) | `~/.config/tiles` |
+| Data (logs, default `data/` including memory, downloaded models under your data dir, …) | `~/.local/share/tiles` |
+
+If you set `XDG_CONFIG_HOME` or `XDG_DATA_HOME` in `~/.zprofile` / `~/.zshrc`, remove the `tiles` folder under those locations instead.
+
+```bash
+rm -rf ~/.config/tiles
+rm -rf ~/.local/share/tiles
+```
+
+Or, in one shot respecting XDG:
+
+```bash
+rm -rf "${XDG_CONFIG_HOME:-$HOME/.config}/tiles"
+rm -rf "${XDG_DATA_HOME:-$HOME/.local/share}/tiles"
+```
+
+#### Custom `[data] path`
+
+If `config.toml` sets a non-empty `[data] path`, databases and related data live there. Check before deleting:
+
+```bash
+cat ~/.config/tiles/config.toml
+```
+
+(If you already removed `~/.config/tiles`, recall your custom path from backup or notes.)
+
+### 5. Optional: Hugging Face cache
+
+Tiles may still resolve some models under `~/.cache/huggingface/hub`. Deleting that directory affects **every** app on this Mac that uses the Hugging Face cache, not only Tiles.
+
+### 6. Optional: Keychain
+
+Secrets (for example the database encryption key and identity material) are stored via the system keychain under the service name `tiles`. Open **Keychain Access**, search for **tiles**, and delete matching entries if you want credentials removed.
+
+### 7. Optional: `PATH` in `~/.zshrc`
+
+Only if you explicitly added a line for Tiles; most Macs already pick up `/usr/local/bin`.
+
+### 8. Optional: development builds on this Mac
+
+Debug builds from a source tree use `.tiles_dev/tiles` next to the project instead of `~/.config` / `~/.local/share`. Remove that folder if you used a local debug binary.
+
+> **Warning:** `rm -rf` **permanently deletes** data: chats, encrypted databases, logs, local memory (PKM), and anything else under those paths. Confirm backups before running destructive commands.
