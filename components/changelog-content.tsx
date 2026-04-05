@@ -4,7 +4,6 @@ import { SiteFooter } from "@/components/site-footer"
 import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { triggerHaptic } from "@/lib/haptics"
 import { formatBinarySize } from "@/lib/format-binary-size"
 
 interface ChangelogContentProps {
@@ -80,9 +79,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const errorBg = isDark ? 'bg-red-900/30' : 'bg-red-50'
   const errorText = isDark ? 'text-red-400' : 'text-red-600'
   const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
-  const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
-  const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
-  const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
   const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
   const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
   const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
@@ -90,18 +86,9 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const tarballMetaClass = `text-xs ${textColorBodyLight} lg:text-sm`
 
   const DownloadArtifacts = ({ release }: { release: Release }) => {
-    const [copied, setCopied] = useState(false)
     const hasTarballs = release.tarballs.length > 0
     const hasInstaller = Boolean(release.installer)
     const hasFullInstaller = Boolean(release.fullInstaller)
-    const installScript = `curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`
-
-    const handleCopy = async () => {
-      await navigator.clipboard.writeText(installScript)
-      triggerHaptic()
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
 
     if (!hasTarballs && !hasInstaller && !hasFullInstaller) {
       return null
@@ -152,59 +139,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             </div>
           </div>
         )}
-
-        <div className={`rounded-xl ${codeBg} p-0 max-w-full overflow-hidden`}>
-          <div className="flex items-start">
-            <div className="flex-1 min-w-0 px-3 py-2.5">
-              <div className="mb-1">Install script:</div>
-              <code className={`font-mono ${codeText} text-xs lg:text-sm break-all`}>
-                {installScript}
-              </code>
-              <div className={`mt-2 flex items-center gap-1 text-xs ${linkColor}`}>
-                <a
-                  href={`https://github.com/tilesprivacy/tiles/blob/${release.version}/scripts/install.sh`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 transition-colors"
-                >
-                  View script source
-                  <ExternalLinkIcon />
-                </a>
-              </div>
-            </div>
-            <button
-              onClick={handleCopy}
-              className={`flex-shrink-0 flex items-center justify-center ${copyButtonBg} rounded-r-xl transition-colors px-3 py-2.5`}
-              aria-label="Copy install command"
-              title={copied ? "Copied!" : "Copy install command"}
-            >
-              {copied ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-green-600"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className={`h-4 w-4 ${copyIconColor} transition-colors`}
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
 
         {release.tarballs.map((tarball) => (
           <div key={tarball.name} className={`rounded-xl ${codeBg} px-3 py-2.5`}>
