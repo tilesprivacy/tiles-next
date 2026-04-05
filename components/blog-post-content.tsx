@@ -8,6 +8,7 @@ import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-i
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
+import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
 
@@ -79,10 +80,17 @@ export function BlogPostContent({
                 />
               </div>
               {author && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <span className="hidden text-black/20 dark:text-white/20 lg:inline">·</span>
-                  <span className="text-sm text-black/40 dark:text-white/40 lg:text-base">
-                    By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+                  <span className="text-sm text-black/40 dark:text-white/40 lg:text-base">By</span>
+                  <PersonAvatar
+                    name={author.name}
+                    links={author.links}
+                    variant="blog"
+                    className="inline-flex shrink-0"
+                  />
+                  <span className="text-sm text-black/60 dark:text-white/60 lg:text-base">
+                    {author.name.replace(/\s@[^ ]+$/, "")}
                   </span>
                   <SocialLinks
                     name={author.name}

@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
+import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 
 interface BlogPost {
@@ -51,15 +52,19 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
     <Link href={`/blog/${post.slug}`} className="group block">
       <article className="grid grid-cols-[minmax(0,1fr)_6.5rem] items-start gap-4 py-6 sm:grid-cols-[minmax(0,1fr)_9.5rem] sm:gap-6 sm:py-9 lg:grid-cols-[minmax(0,1fr)_11rem]">
         <div className="space-y-3 sm:space-y-4">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-black/45 dark:text-white/45 lg:text-sm">
+          <div className="flex flex-col gap-2 text-xs leading-snug text-black/45 dark:text-white/45 sm:gap-2.5 lg:text-sm">
             <span>{formatDate(post.date)}</span>
             {author && (
-              <>
-                <span className="text-black/25 dark:text-white/25">·</span>
-                <span>
-                  By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
-                </span>
-              </>
+              <span className="inline-flex items-center gap-1.5">
+                <span>By</span>
+                <PersonAvatar
+                  name={author.name}
+                  links={author.links}
+                  variant="blog"
+                  className="inline-flex shrink-0"
+                />
+                <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
+              </span>
             )}
           </div>
 

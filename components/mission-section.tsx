@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import Link from "next/link"
+import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
 import { people } from "@/lib/people"
 
@@ -40,121 +41,11 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
     )
   }
 
-  function getAvatarUrl(links: string[]) {
-    const priorityHosts = ["github.com", "x.com", "twitter.com", "bsky.app", "reddit.com"]
-    const sorted = [...links].sort((a, b) => {
-      const aRank = priorityHosts.findIndex((host) => a.includes(host))
-      const bRank = priorityHosts.findIndex((host) => b.includes(host))
-      const aScore = aRank === -1 ? Number.MAX_SAFE_INTEGER : aRank
-      const bScore = bRank === -1 ? Number.MAX_SAFE_INTEGER : bRank
-      return aScore - bScore
-    })
-
-    for (const link of sorted) {
-      try {
-        const url = new URL(link)
-        const host = url.hostname.toLowerCase()
-        const parts = url.pathname.split("/").filter(Boolean)
-
-        if (host.includes("github.com") && parts[0]) {
-          return `https://unavatar.io/github/${parts[0]}`
-        }
-        if ((host.includes("x.com") || host.includes("twitter.com")) && parts[0]) {
-          return `https://unavatar.io/x/${parts[0]}`
-        }
-        if (host.includes("reddit.com") && parts[0]) {
-          const username = parts[0] === "user" ? parts[1] : parts[0]
-          if (username) return `https://unavatar.io/reddit/${username}`
-        }
-      } catch {
-        // Ignore invalid URLs and continue checking remaining links.
-      }
-    }
-
-    return ""
-  }
-
-  function getBlueskyHandle(links: string[]) {
-    for (const link of links) {
-      try {
-        const url = new URL(link)
-        const host = url.hostname.toLowerCase()
-        if (!host.includes("bsky.app")) continue
-        const parts = url.pathname.split("/").filter(Boolean)
-        const handle = parts[0] === "profile" ? parts[1] : parts[0]
-        if (handle) return handle
-      } catch {
-        // Ignore invalid URLs and continue checking remaining links.
-      }
-    }
-
-    return ""
-  }
-
   function Person({ name, links }: { name: string; links: string[] }) {
-    const [avatarFailed, setAvatarFailed] = useState(false)
-    const staticAvatarUrl = getAvatarUrl(links)
-    const bskyHandle = getBlueskyHandle(links)
-    const [avatarUrl, setAvatarUrl] = useState(staticAvatarUrl)
-    const initials = name
-      .replace(/\s@[^ ]+$/, "")
-      .split(" ")
-      .filter(Boolean)
-      .map((part) => part[0]?.toUpperCase() ?? "")
-      .join("")
-      .slice(0, 2)
-
-    useEffect(() => {
-      let cancelled = false
-      setAvatarFailed(false)
-
-      if (staticAvatarUrl) {
-        setAvatarUrl(staticAvatarUrl)
-        return () => {
-          cancelled = true
-        }
-      }
-
-      if (!bskyHandle) {
-        setAvatarUrl("")
-        return () => {
-          cancelled = true
-        }
-      }
-
-      fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(bskyHandle)}`)
-        .then((res) => (res.ok ? res.json() : null))
-        .then((data: { avatar?: string } | null) => {
-          if (cancelled) return
-          setAvatarUrl(data?.avatar ?? "")
-        })
-        .catch(() => {
-          if (cancelled) return
-          setAvatarUrl("")
-        })
-
-      return () => {
-        cancelled = true
-      }
-    }, [bskyHandle, staticAvatarUrl])
-
     return (
       <div className={`flex items-center justify-between gap-3 text-xs sm:text-sm ${textColorMuted} lg:text-base leading-relaxed`}>
         <div className="min-w-0 flex items-center gap-2 sm:gap-2.5">
-          {avatarUrl && !avatarFailed ? (
-            <img
-              src={avatarUrl}
-              alt={`${name} profile`}
-              className="h-6 w-6 rounded-full object-cover ring-1 ring-black/10 dark:ring-white/15"
-              referrerPolicy="no-referrer"
-              loading="lazy"
-              onError={() => setAvatarFailed(true)}
-            />
-          ) : (
-            <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/10 text-[10px] font-semibold text-black/70 ring-1 ring-black/10 dark:bg-white/10 dark:text-white/80 dark:ring-white/15">
-              {initials}
-            </span>
-          )}
+          <PersonAvatar name={name} links={links} className="inline-flex shrink-0" />
           <span className="truncate">{renderDisplayName(name)}</span>
         </div>
         <SocialLinks

@@ -18,7 +18,6 @@ export function HomeContent() {
     { label: "On-device models", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", lumo: "empty" },
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", lumo: "check" },
     { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", lumo: "empty" },
-    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", lumo: "partial" },
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", lumo: "empty" },
     { label: "Memory", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
@@ -26,6 +25,7 @@ export function HomeContent() {
     { label: "Shared Links", tiles: "wip", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", lumo: "empty" },
     { label: "Cross platform", tiles: "wip", ollama: "check", lmStudio: "check", jan: "check", lumo: "check" },
+    { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", lumo: "partial" },
   ]
   const renderComparisonStatus = (status: string) => (
     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">

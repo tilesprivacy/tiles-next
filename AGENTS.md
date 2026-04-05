@@ -71,3 +71,4 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Latest network `.pkg` metadata comes from GitHub via `getLatestDownloadArtifact`; keep `FALLBACK_ARTIFACT` in `lib/download-artifact.ts` aligned with the current release when the API path fails.
 - Fixed header and mobile menu on Android Chrome edge-to-edge need `viewport-fit=cover` and `env(safe-area-inset-*)` on chrome, overlay, and main top padding; avoid global `header` rules that use `contain` or `transform`, which can break full-width `position: fixed` on narrow viewports.
 - On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.
+- Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme.
