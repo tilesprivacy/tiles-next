@@ -509,16 +509,6 @@ export default function HowTilesWorksPage() {
           <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
             <div className="space-y-2 text-xs text-black/60 dark:text-[#8A8A8A] lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
               <p>
-                You're reading the{" "}
-                <a
-                  href="https://tiles.run"
-                  className="text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline"
-                >
-                  Tiles
-                </a>{" "}
-                blog.
-              </p>
-              <p>
               Tiles is a private and secure AI assistant for everyday use.
               </p>
               <p>
@@ -533,7 +523,7 @@ export default function HowTilesWorksPage() {
                 <Link href="/download" className="text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline">
                   install Tiles
                 </Link>
-                .
+                . Keep on Tiling!
               </p>
             </div>
           </div>

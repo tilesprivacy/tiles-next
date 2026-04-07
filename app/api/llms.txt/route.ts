@@ -83,6 +83,7 @@ export async function GET(request: Request) {
   sections.push('- Memory: Tiles (not supported)')
   sections.push('- TIL: Ollama, LM Studio, Jan (not supported); Tiles (not supported)')
   sections.push('- Connectors: Ollama, LM Studio, Jan; Tiles (not supported)')
+  sections.push('- Remote link: LM Studio, Osaurus; Tiles, Ollama, and Jan (not supported)')
   sections.push('- Shared Links: Ollama, LM Studio, Jan (not supported); Tiles (not supported)')
   sections.push('- Decentralized Identity: Tiles')
   sections.push('- Encryption: Tiles; LM Studio (partially)')

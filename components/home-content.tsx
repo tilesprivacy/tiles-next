@@ -22,6 +22,7 @@ export function HomeContent() {
     { label: "Agent Harness", tiles: "empty", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
     { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
     { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Remote link", tiles: "empty", ollama: "empty", lmStudio: "check", jan: "empty", osaurus: "check" },
     { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Cross platform", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "empty" },
