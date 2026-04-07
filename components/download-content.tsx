@@ -33,7 +33,7 @@ const OFFLINE_INSTALLER = {
   downloadUrl: "https://download.tiles.run/tiles-0.4.7-full-signed.pkg",
   fileName: "tiles-0.4.7-full-signed.pkg",
   binarySizeLabel: "10.31 GB",
-  sha256: "Unavailable",
+  sha256: "e2fa2d5339d356c023fb1c13fba8a6cf099fedad07f684b7b090d59292c91032",
 } as const
 
 const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
