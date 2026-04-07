@@ -226,7 +226,9 @@ export function BlogPostContent({
                 <Link href="/download" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
                   install Tiles
                 </Link>
-                . Keep on Tiling!
+                .
+                <br />
+                Keep on Tiling!
               </p>
             </div>
           </div>

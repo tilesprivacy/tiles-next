@@ -523,7 +523,9 @@ export default function HowTilesWorksPage() {
                 <Link href="/download" className="text-black dark:text-[#E6E6E6] hover:text-black/80 dark:hover:text-[#B3B3B3] underline">
                   install Tiles
                 </Link>
-                . Keep on Tiling!
+                .
+                <br />
+                Keep on Tiling!
               </p>
             </div>
           </div>
