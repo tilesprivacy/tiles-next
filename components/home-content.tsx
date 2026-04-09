@@ -157,10 +157,10 @@ export function HomeContent() {
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <KeyRound className="h-4 w-4" strokeWidth={1.75} />
                 </span>
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Local-First Identity</h3>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Decentralized Identity</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Locally generated decentralized IDs, with the private key always stored locally on device.
+                Locally generated IDs, with the private key always stored locally on device.
               </p>
             </div>
 
@@ -170,7 +170,7 @@ export function HomeContent() {
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <RefreshCw className="h-4 w-4" strokeWidth={1.75} />
                 </span>
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Sync</h3>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">P2P Sync</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network. Powered by{" "}
@@ -222,14 +222,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Tilekit SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and the Open Responses API.{" "}
-                See{" "}
-                <Link
-                  href="/book/tilekit"
-                  className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
-                >
-                  Tilekit SDK docs.
-                </Link>
+                Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and the Open Responses API.
               </p>
             </div>
 

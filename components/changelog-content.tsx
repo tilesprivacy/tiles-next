@@ -210,6 +210,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                 Peer-to-peer encrypted sync
               </li>
               <li>Agentic harness built with Pi</li>
+              <li>Apple Foundation Model support</li>
               <li>MLS-based group chats</li>
               <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
             </ul>

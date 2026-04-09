@@ -62,6 +62,8 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
 - Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, aligning the theme switcher to the end of the row can balance left-stacked copy.
 - In public blog copy, prefer plain phrasing such as “macOS binary” over insider jargon like “Mach-O” unless the post is explicitly aimed at readers who need that precision.
+- In download and changelog copy, prefer the label “Offline Installer” instead of alternatives like “Full installer” or “Portable Packaging.”
+- On `/blog` bylines, keep the avatar unbordered, place it between “By” and the author name, and keep the author name on a new line with clear spacing on both mobile and desktop.
 
 ## Learned Workspace Facts
 
