@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
+  const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
   const comparisonRows = [
     { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
     { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
@@ -237,7 +238,7 @@ export function HomeContent() {
           <section className="pt-10 sm:pt-14 lg:pt-20">
             <div className="min-w-0 space-y-4 sm:space-y-5">
               <div className="max-w-2xl space-y-2">
-                <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+                <h2 className={sectionHeadingClass}>
                   Private AI comparison
                 </h2>
                 <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base">
@@ -322,7 +323,7 @@ export function HomeContent() {
               <div className="max-w-2xl space-y-2">
                 <h2
                   id="home-security-faq-heading"
-                  className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+                  className={sectionHeadingClass}
                 >
                   Frequently asked questions
                 </h2>
