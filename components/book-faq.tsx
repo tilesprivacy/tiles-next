@@ -16,6 +16,7 @@ export function BookFaq({
   /** When true, only the accordion list is rendered (parent supplies title and section). */
   omitHeading?: boolean
 }) {
+  const faqHeadingClass = "mb-6 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
   const list = (
     <div
       className={cn(
@@ -39,7 +40,7 @@ export function BookFaq({
       {title ? (
         <h2
           id={headingId}
-          className="mb-6 text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
+          className={faqHeadingClass}
         >
           {title}
         </h2>
