@@ -5,7 +5,6 @@ import Link from "next/link"
 import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { SiteFooter } from "@/components/site-footer"
-import { MissionSection } from "@/components/mission-section"
 import { triggerHaptic } from "@/lib/haptics"
 
 export function HomeContent() {
@@ -314,8 +313,6 @@ export function HomeContent() {
               </div>
             </div>
           </section>
-
-          <MissionSection title="Get to know Tiles Privacy" compact />
 
           <section
             className="pt-10 sm:pt-14 lg:pt-20"

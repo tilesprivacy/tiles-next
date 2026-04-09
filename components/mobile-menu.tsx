@@ -195,6 +195,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
             <Link
+              href="/about"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+            >
+              About Us
+            </Link>
+            <Link
               href="/changelog"
               onClick={onClose}
               className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}

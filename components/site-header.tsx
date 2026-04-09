@@ -106,6 +106,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6">
+            <Link href="/about" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+              About Us
+            </Link>
             <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
               Changelog
             </Link>
