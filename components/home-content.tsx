@@ -206,7 +206,7 @@ export function HomeContent() {
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Package className="h-4 w-4" strokeWidth={1.75} />
                 </span>
-                <h3 className="text-base lg:text-lg font-semibold text-foreground">Portable Packaging</h3>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Offline Installer</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
                 Bundled dependencies run in a self contained environment without modifying your system, with a fully offline installer available for secure and air gapped installations.
