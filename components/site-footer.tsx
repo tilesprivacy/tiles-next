@@ -149,7 +149,7 @@ export function SiteFooter() {
               <FaGithub className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${iconHoverGithub}`} />
             </a>
             <a
-              href="https://www.reddit.com/user/sdexca/"
+              href="https://www.reddit.com/r/tilesprivacy/"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center p-1.5 -m-1.5"
