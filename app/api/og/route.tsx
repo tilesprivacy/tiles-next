@@ -29,31 +29,62 @@ async function loadGoogleFont(font: string, text: string) {
   return response.arrayBuffer()
 }
 
+function arrayBufferToDataUrlPng(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer)
+  const chunkSize = 8192
+  let binary = ""
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    const chunk = bytes.subarray(i, i + chunkSize)
+    for (let j = 0; j < chunk.length; j++) {
+      binary += String.fromCharCode(chunk[j])
+    }
+  }
+  return `data:image/png;base64,${btoa(binary)}`
+}
+
+/** Load a public asset as a data URL for @vercel/og. SVGs are UTF-8 safe via encodeURIComponent. */
+async function loadLogoDataUrl(origin: string, path: string): Promise<string | null> {
+  try {
+    const logoResponse = await fetch(`${origin}${path}`)
+    if (!logoResponse.ok) {
+      return null
+    }
+    const isSvg = path.endsWith(".svg")
+    if (isSvg) {
+      const svgText = await logoResponse.text()
+      const utf8 = new TextEncoder().encode(svgText)
+      let binary = ""
+      for (let i = 0; i < utf8.length; i++) {
+        binary += String.fromCharCode(utf8[i])
+      }
+      const base64 = btoa(binary)
+      return `data:image/svg+xml;base64,${base64}`
+    }
+    const logoBuffer = await logoResponse.arrayBuffer()
+    return arrayBufferToDataUrlPng(logoBuffer)
+  } catch {
+    return null
+  }
+}
+
+const OG_LOGO_CANDIDATES = [
+  "/tiles_tlogo_banner_v1.2/svg/tiles_banner_fill_blk.svg",
+  "/lighticon.png",
+  "/logo.png",
+] as const
+
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
   const tagline = "Your private and secure AI assistant for everyday use."
   const fontText = tagline
 
-  // Fetch logo/font opportunistically; never fail the OG image if unavailable.
   let logoDataUrl: string | null = null
-  try {
-    const logoResponse = await fetch(`${origin}/logo.png`)
-    if (logoResponse.ok) {
-      const logoBuffer = await logoResponse.arrayBuffer()
-      const bytes = new Uint8Array(logoBuffer)
-      const chunkSize = 8192
-      let binary = ""
-      for (let i = 0; i < bytes.length; i += chunkSize) {
-        const chunk = bytes.subarray(i, i + chunkSize)
-        for (let j = 0; j < chunk.length; j++) {
-          binary += String.fromCharCode(chunk[j])
-        }
-      }
-      logoDataUrl = `data:image/png;base64,${btoa(binary)}`
+  for (const candidate of OG_LOGO_CANDIDATES) {
+    logoDataUrl = await loadLogoDataUrl(origin, candidate)
+    if (logoDataUrl) {
+      break
     }
-  } catch {
-    logoDataUrl = null
   }
 
   let geistFontData: ArrayBuffer | null = null
@@ -78,7 +109,6 @@ export async function GET(request: Request) {
           fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
         }}
       >
-        {/* Centered logo */}
         <div
           style={{
             display: "flex",
@@ -91,7 +121,7 @@ export async function GET(request: Request) {
             <img
               src={logoDataUrl}
               alt="Tiles logo"
-              width={200}
+              width={560}
               height={200}
               style={{
                 objectFit: "contain",
@@ -132,6 +162,7 @@ export async function GET(request: Request) {
                 lineHeight: 1.25,
                 color: "#1A1A1A",
                 maxWidth: 900,
+                fontFamily: geistFontData ? "Geist" : undefined,
               }}
             >
               {tagline}

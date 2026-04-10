@@ -18,6 +18,7 @@ const BRANDING_ASSET_FILES = [
   'apple-logo-white.svg',
   'tiles_banner_outline_blk.svg',
   'tiles_banner_outline_wht.svg',
+  'tiles_tlogo_banner_v1.2/svg/tiles_banner_fill_blk.svg',
   'ua-logo.svg',
   'apple-icon.png',
   'favicon.ico',
