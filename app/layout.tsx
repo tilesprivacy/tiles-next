@@ -29,9 +29,14 @@ export const metadata: Metadata = {
   title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
   description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
   generator: "v0.app",
+  manifest: "/manifest.json",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon0.svg", type: "image/svg+xml" },
+      { url: "/icon1.png", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-icon.png" }],
   },
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
@@ -65,6 +70,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light dark" />
+        <meta name="apple-mobile-web-app-title" content="Tiles" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

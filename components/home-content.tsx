@@ -49,7 +49,7 @@ export function HomeContent() {
     <div className="min-h-[100dvh] overflow-x-clip bg-background">
 
       {/* Main Content - progressive spacing so narrow screens keep consistent rhythm */}
-      <main className="px-4 pb-14 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-20 lg:px-12 lg:pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pb-28">
+      <main className="px-4 pb-6 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pb-10">
         <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
           <div className="mb-10 flex flex-col gap-10 min-[390px]:mb-12 sm:mb-14 sm:gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:mb-20">
@@ -414,6 +414,25 @@ export function HomeContent() {
           </section>
         </div>
       </main>
+
+      <section className="px-4 pb-4 sm:px-6 sm:pb-6 lg:px-12 lg:pb-8" aria-label="Tiles banner art">
+        <div className="mx-auto w-full max-w-6xl">
+          <Image
+            src="/tiles_banner_outline_blk.svg"
+            alt="Tiles banner art"
+            width={1200}
+            height={220}
+            className="h-auto w-full dark:hidden"
+          />
+          <Image
+            src="/tiles_banner_outline_wht.svg"
+            alt="Tiles banner art"
+            width={1200}
+            height={220}
+            className="hidden h-auto w-full dark:block"
+          />
+        </div>
+      </section>
 
       <SiteFooter />
     </div>
