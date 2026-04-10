@@ -27,6 +27,7 @@ export default function MoveAlongPythonPage() {
       date={formattedDate}
       authorId={post.author}
       coverImage={post.coverImage ?? "/og-image.jpg"}
+      coverImageDark="/tiles_banner_outline_wht.svg"
       coverAlt={post.coverAlt ?? post.title}
       content={post.content}
     >

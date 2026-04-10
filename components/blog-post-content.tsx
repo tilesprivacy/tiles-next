@@ -20,6 +20,7 @@ interface BlogPostContentProps {
   /** Person ID from `lib/people.ts` */
   authorId?: string
   coverImage: string
+  coverImageDark?: string
   coverAlt: string
   content: string
   children: ReactNode
@@ -31,6 +32,7 @@ export function BlogPostContent({
   date, 
   authorId,
   coverImage, 
+  coverImageDark,
   coverAlt, 
   content,
   children 
@@ -169,13 +171,32 @@ export function BlogPostContent({
 
           {/* Cover Image */}
           <div className="mb-8 lg:mb-16 lg:max-w-[44rem] lg:mx-auto">
-            <Image
-              src={coverImage}
-              alt={coverAlt}
-              width={1200}
-              height={600}
-              className="w-full h-auto rounded-lg"
-            />
+            {coverImageDark ? (
+              <>
+                <Image
+                  src={coverImage}
+                  alt={coverAlt}
+                  width={1200}
+                  height={600}
+                  className="w-full h-auto rounded-lg dark:hidden"
+                />
+                <Image
+                  src={coverImageDark}
+                  alt={coverAlt}
+                  width={1200}
+                  height={600}
+                  className="hidden w-full h-auto rounded-lg dark:block"
+                />
+              </>
+            ) : (
+              <Image
+                src={coverImage}
+                alt={coverAlt}
+                width={1200}
+                height={600}
+                className="w-full h-auto rounded-lg"
+              />
+            )}
           </div>
 
           {/* Blog Content + TOC + References lanes */}

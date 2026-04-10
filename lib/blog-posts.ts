@@ -114,8 +114,8 @@ export const blogPosts: BlogPost[] = [
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
     date: new Date("2026-02-17"),
     author: "anandu-pavanan",
-    coverImage: "/og-plain.png",
-    coverAlt: "Move Along, Python – deterministic, portable Python runtimes for Tiles using layered venvstacks",
+    coverImage: "/tiles_banner_outline_blk.svg",
+    coverAlt: "Tiles banner",
     content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>, a private and secure AI assistant for everyday use.</p>
 
 <h2>The Python Problem</h2>
