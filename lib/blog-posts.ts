@@ -8,6 +8,7 @@ export interface BlogPost {
   /** Person ID from `lib/people.ts` (sourced from homepage identities). */
   author?: string
   coverImage?: string
+  coverImageDark?: string
   coverAlt?: string
   content: string // Full HTML content for RSS feed
 }
@@ -115,6 +116,7 @@ export const blogPosts: BlogPost[] = [
     date: new Date("2026-02-17"),
     author: "anandu-pavanan",
     coverImage: "/tiles_banner_outline_blk.svg",
+    coverImageDark: "/tiles_banner_outline_wht.svg",
     coverAlt: "Tiles banner",
     content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>, a private and secure AI assistant for everyday use.</p>
 

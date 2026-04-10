@@ -63,6 +63,7 @@ export default function BlogCarousel() {
         {posts.map((post) => {
           // Prefer explicit cover metadata; fall back to first post image.
           const imageSrc = post.coverImage || extractFirstImageSrc(post.content) || '/og-image.jpg'
+          const darkImageSrc = post.coverImageDark || imageSrc
           const imageAlt = post.coverAlt || post.title
 
           return (
@@ -78,7 +79,14 @@ export default function BlogCarousel() {
                       alt={imageAlt}
                       fill
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 49vw"
-                      className="object-cover"
+                      className="object-cover dark:hidden"
+                    />
+                    <Image
+                      src={darkImageSrc}
+                      alt={imageAlt}
+                      fill
+                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 49vw"
+                      className="hidden object-cover dark:block"
                     />
                   </div>
 
