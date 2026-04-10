@@ -15,6 +15,7 @@ interface BlogPost {
   date: Date
   author?: string
   coverImage?: string
+  coverImageDark?: string
   coverAlt?: string
 }
 
@@ -37,9 +38,11 @@ function formatDate(date: Date): string {
   return `Published ${diffDays} days ago (${dateStr})`
 }
 
-function getPostImage(post: BlogPost): { src: string; alt: string } {
+function getPostImage(post: BlogPost): { src: string; srcDark: string; alt: string } {
+  const src = post.coverImage || "/og-image.jpg"
   return {
-    src: post.coverImage || "/og-image.jpg",
+    src,
+    srcDark: post.coverImageDark || src,
     alt: post.coverAlt || post.title,
   }
 }
@@ -47,6 +50,7 @@ function getPostImage(post: BlogPost): { src: string; alt: string } {
 function BlogPostEntry({ post }: { post: BlogPost }) {
   const image = getPostImage(post)
   const [imageSrc, setImageSrc] = useState(image.src)
+  const [imageSrcDark, setImageSrcDark] = useState(image.srcDark)
   const author = post.author ? getPersonById(post.author) : null
 
   return (
@@ -94,8 +98,17 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               width={900}
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
               onError={() => setImageSrc("/og-image.jpg")}
+            />
+            <Image
+              src={imageSrcDark}
+              alt={image.alt}
+              width={900}
+              height={900}
+              sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
+              className="hidden h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] dark:block"
+              onError={() => setImageSrcDark("/og-image.jpg")}
             />
           </div>
         </div>

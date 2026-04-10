@@ -37,6 +37,7 @@ export default function BlogPage() {
       date: post.date,
       author: post.author,
       coverImage: post.coverImage ?? "/og-image.jpg",
+      coverImageDark: post.coverImageDark ?? post.coverImage ?? "/og-image.jpg",
       coverAlt: post.coverAlt ?? post.title,
     }))
 
