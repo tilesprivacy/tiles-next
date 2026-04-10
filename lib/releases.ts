@@ -612,6 +612,7 @@ function sanitizeBulletText(text: string): string {
     .replace(/\s+(?:in|via|through|under)\s+#\d+\b/gi, "")
     .replace(/\s*\((?:#\d+(?:,\s*#\d+)*)\)/g, "")
     .replace(/(^|\s)#\d+\b(?:,\s*#\d+\b)*/g, "$1")
+    .replace(/\s+https?:\/\/github\.com\/[^\s]+\/pull\/\d+\b/gi, "")
     .replace(/\s+by\s+@\w+\s+in\s+https?:\/\/[^\s]+/gi, "")
     .replace(/\s+in\s+https?:\/\/[^\s]+/gi, "")
     .replace(/\s+([,.;:!?])/g, "$1")
