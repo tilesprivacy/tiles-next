@@ -78,7 +78,7 @@ export default function BlogCarousel() {
                       alt={imageAlt}
                       fill
                       sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 49vw"
-                      className={`object-cover ${post.slug === 'ship-it-up' ? 'dark:invert dark:brightness-[1.35]' : ''}`}
+                      className={`object-cover ${post.slug === 'ship-it-up' ? 'dark:[filter:grayscale(1)_brightness(0)_invert(1)]' : ''}`}
                     />
                   </div>
 
