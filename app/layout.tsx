@@ -28,7 +28,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
   title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
   description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
-  generator: "v0.app",
   icons: {
     icon: "/logo.png",
     apple: "/logo.png",
