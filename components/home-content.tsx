@@ -49,7 +49,7 @@ export function HomeContent() {
     <div className="min-h-[100dvh] overflow-x-clip bg-background">
 
       {/* Main Content - progressive spacing so narrow screens keep consistent rhythm */}
-      <main className="px-4 pb-6 pt-[calc(4.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pb-10">
+      <main className="px-4 pb-6 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))] lg:pb-10">
         <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
           <div className="mb-10 flex flex-col gap-10 min-[390px]:mb-12 sm:mb-14 sm:gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:mb-20">
@@ -107,20 +107,20 @@ export function HomeContent() {
                   className="h-auto w-full"
                   priority
                 />
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-[10%] sm:px-[11%]">
                   <Image
-                    src="/lighticon.png"
+                    src="/tiles_banner_outline_blk.svg"
                     alt="Tiles"
-                    width={80}
-                    height={80}
-                    className="h-16 w-16 lg:h-20 lg:w-20 dark:hidden"
+                    width={1200}
+                    height={220}
+                    className="h-auto w-full max-w-[15rem] min-[360px]:max-w-[16.5rem] sm:max-w-[18rem] lg:max-w-[19.5rem] dark:hidden"
                   />
                   <Image
-                    src="/grey.png"
+                    src="/tiles_banner_outline_wht.svg"
                     alt="Tiles"
-                    width={80}
-                    height={80}
-                    className="hidden h-16 w-16 lg:h-20 lg:w-20 dark:block"
+                    width={1200}
+                    height={220}
+                    className="hidden h-auto w-full max-w-[15rem] min-[360px]:max-w-[16.5rem] sm:max-w-[18rem] lg:max-w-[19.5rem] dark:block"
                   />
                 </div>
               </div>
@@ -309,7 +309,7 @@ export function HomeContent() {
           </section>
 
           <section
-            className="pt-10 sm:pt-14 lg:pt-20"
+            className="pt-10 pb-8 sm:pt-14 sm:pb-10 lg:pt-20 lg:pb-12"
             aria-labelledby="home-security-faq-heading"
           >
             <div className="min-w-0 space-y-4 sm:space-y-5">
@@ -414,25 +414,6 @@ export function HomeContent() {
           </section>
         </div>
       </main>
-
-      <section className="px-4 pb-4 sm:px-6 sm:pb-6 lg:px-12 lg:pb-8" aria-label="Tiles banner art">
-        <div className="mx-auto w-full max-w-6xl">
-          <Image
-            src="/tiles_banner_outline_blk.svg"
-            alt="Tiles banner art"
-            width={1200}
-            height={220}
-            className="h-auto w-full dark:hidden"
-          />
-          <Image
-            src="/tiles_banner_outline_wht.svg"
-            alt="Tiles banner art"
-            width={1200}
-            height={220}
-            className="hidden h-auto w-full dark:block"
-          />
-        </div>
-      </section>
 
       <SiteFooter />
     </div>

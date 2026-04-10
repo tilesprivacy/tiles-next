@@ -12,7 +12,7 @@ export function SidebarBottomLinks() {
       style.textContent = `
         .sidebar-bottom-links-container {
           padding: 1rem;
-          border-top: 1px solid rgba(0, 0, 0, 0.1);
+          border-top: 1px solid var(--sidebar-border);
           margin-top: auto;
           display: flex;
           flex-direction: column;
@@ -28,28 +28,16 @@ export function SidebarBottomLinks() {
           }
         }
         
-        .dark .sidebar-bottom-links-container {
-          border-top-color: rgba(255, 255, 255, 0.1);
-        }
-        
         .sidebar-bottom-link {
           font-size: 0.875rem;
           font-weight: 500;
-          color: rgb(51, 65, 85);
+          color: var(--muted-foreground);
           text-decoration: none;
           transition: color 0.2s;
         }
         
         .sidebar-bottom-link:hover {
-          color: rgb(15, 23, 42);
-        }
-        
-        .dark .sidebar-bottom-link {
-          color: rgb(203, 213, 225);
-        }
-        
-        .dark .sidebar-bottom-link:hover {
-          color: rgb(241, 245, 249);
+          color: var(--sidebar-foreground);
         }
       `
       document.head.appendChild(style)

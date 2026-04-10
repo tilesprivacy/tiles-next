@@ -27,7 +27,7 @@ const ExternalLinkIcon = () => (
 )
 
 // Helper function to render text with inline code
-const renderTextWithCode = (text: string, isDark: boolean) => {
+const renderTextWithCode = (text: string) => {
   const parts = text.split(/(`[^`]+`)/)
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
@@ -35,9 +35,7 @@ const renderTextWithCode = (text: string, isDark: boolean) => {
       return (
         <code
           key={index}
-          className={`px-1.5 py-0.5 rounded text-sm font-mono ${
-            isDark ? 'bg-[#1a1a1a] text-[#E6E6E6]' : 'bg-gray-100 text-gray-800'
-          }`}
+          className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground"
         >
           {code}
         </code>
@@ -59,31 +57,38 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-[#B3B3B3]' : 'text-black/60'
-  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-gray-400'
-  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-gray-600'
-  const textColorBodyLight = isDark ? 'text-[#8A8A8A]' : 'text-gray-500'
-  const textColorHeading = isDark ? 'text-[#E6E6E6]' : 'text-gray-900'
-  const linkColor = isDark ? 'text-[#B3B3B3] hover:text-[#E6E6E6]' : 'text-gray-700 hover:text-gray-900'
-  const badgeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-gray-100'
-  const badgeText = isDark ? 'text-[#B3B3B3]' : 'text-gray-700'
-  const badgeTextLight = isDark ? 'text-[#8A8A8A]' : 'text-gray-600'
-  const timelineBg = isDark ? 'bg-[#2a2a2a]' : 'bg-gray-200'
-  const dotBg = isDark ? 'bg-[#E6E6E6]' : 'bg-black'
-  const dotRing = isDark ? 'ring-[#121212]' : 'ring-white'
-  const bulletBg = isDark ? 'bg-[#8A8A8A]' : 'bg-gray-400'
-  const bulletBgLight = isDark ? 'bg-[#5a5a5a]' : 'bg-gray-300'
+  const textColorMuted = 'text-muted-foreground'
+  const textColorSubtle = 'text-muted-foreground'
+  const textColorBody = 'text-foreground/90'
+  const textColorBodyLight = 'text-muted-foreground'
+  const textColorHeading = 'text-foreground'
+  const linkColor =
+    'font-medium text-foreground underline decoration-foreground/35 underline-offset-2 transition-colors hover:decoration-foreground'
+  const badgeBg = 'bg-muted'
+  const badgeText = 'text-foreground'
+  const badgeTextLight = 'text-muted-foreground'
+  const timelineBg = 'bg-border'
+  const dotBg = 'bg-foreground'
+  const dotRing = 'ring-background'
+  const bulletBg = 'bg-muted-foreground'
+  const bulletBgLight = 'bg-border'
   const errorBg = isDark ? 'bg-red-900/30' : 'bg-red-50'
   const errorText = isDark ? 'text-red-400' : 'text-red-600'
-  const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
+  /** Flat cards: light border + muted fill, no shadow. */
+  const artifactCardClass =
+    'rounded-lg border border-border bg-muted/25 px-3 py-2.5 text-sm text-foreground shadow-none dark:bg-muted/15'
+  const artifactKindClass = 'text-xs font-medium text-muted-foreground'
+  const artifactLinkClass = `${linkColor} inline-flex items-center gap-0.5 font-medium`
+  const artifactShaBlockClass =
+    'mt-2 text-[11px] leading-relaxed text-muted-foreground'
   const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
   const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
   const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
-  const tarballMetaClass = `text-xs ${textColorBodyLight} lg:text-sm`
+  const roadmapCtaClass =
+    'inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3.5 py-2 text-sm font-medium text-card-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground lg:text-base'
 
   const DownloadArtifacts = ({ release }: { release: Release }) => {
     const hasTarballs = release.tarballs.length > 0
@@ -95,70 +100,76 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
     }
 
     return (
-      <div className={`mb-4 mt-1 space-y-2 ${tarballMetaClass}`}>
+      <div className="mb-4 mt-1 space-y-2.5">
         {release.installer && (
-          <div className={`rounded-xl ${codeBg} px-3 py-2.5`}>
-            <div className="flex flex-wrap items-center gap-x-2">
-              <span>Network installer:</span>
+          <div className={artifactCardClass}>
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:gap-y-1">
+              <span className={`shrink-0 ${artifactKindClass}`}>Network installer</span>
               <a
                 href={release.installer.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+                className={artifactLinkClass}
               >
                 {release.installer.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(release.installer.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+              <span className={`text-xs tabular-nums ${textColorMuted}`}>
+                ({formatBinarySize(release.installer.sizeBytes, { unknownLabel: "Unknown size" })})
+              </span>
             </div>
-            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-              <span>SHA256:</span>
-              <span className="font-mono text-[11px] break-all">{release.installer.sha256}</span>
-            </div>
+            <p className={artifactShaBlockClass}>
+              <span className="select-none">SHA256 </span>
+              <span className="break-all font-mono text-foreground">{release.installer.sha256}</span>
+            </p>
           </div>
         )}
 
         {release.fullInstaller && (
-          <div className={`rounded-xl ${codeBg} px-3 py-2.5`}>
-            <div className="flex flex-wrap items-center gap-x-2">
-              <span>Full installer:</span>
+          <div className={artifactCardClass}>
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:gap-y-1">
+              <span className={`shrink-0 ${artifactKindClass}`}>Offline installer</span>
               <a
                 href={release.fullInstaller.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+                className={artifactLinkClass}
               >
                 {release.fullInstaller.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(release.fullInstaller.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+              <span className={`text-xs tabular-nums ${textColorMuted}`}>
+                ({formatBinarySize(release.fullInstaller.sizeBytes, { unknownLabel: "Unknown size" })})
+              </span>
             </div>
-            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-              <span>SHA256:</span>
-              <span className="font-mono text-[11px] break-all">{release.fullInstaller.sha256}</span>
-            </div>
+            <p className={artifactShaBlockClass}>
+              <span className="select-none">SHA256 </span>
+              <span className="break-all font-mono text-foreground">{release.fullInstaller.sha256}</span>
+            </p>
           </div>
         )}
 
         {release.tarballs.map((tarball) => (
-          <div key={tarball.name} className={`rounded-xl ${codeBg} px-3 py-2.5`}>
-            <div className="flex flex-wrap items-center gap-x-2">
-              <span>Tarball:</span>
+          <div key={tarball.name} className={artifactCardClass}>
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:gap-y-1">
+              <span className={`shrink-0 ${artifactKindClass}`}>Tarball</span>
               <a
                 href={tarball.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+                className={artifactLinkClass}
               >
                 {tarball.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+              <span className={`text-xs tabular-nums ${textColorMuted}`}>
+                ({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})
+              </span>
             </div>
-            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-              <span>SHA256:</span>
-              <span className="font-mono text-[11px] break-all">{tarball.sha256}</span>
-            </div>
+            <p className={artifactShaBlockClass}>
+              <span className="select-none">SHA256 </span>
+              <span className="break-all font-mono text-foreground">{tarball.sha256}</span>
+            </p>
           </div>
         ))}
       </div>
@@ -167,7 +178,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
   return (
     <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
-      <main className="flex-1 px-4 pb-16 pt-[calc(8rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11rem+env(safe-area-inset-top,0px))]">
+      <main className="flex-1 px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto max-w-3xl">
           <h1 className={`mb-4 text-3xl font-bold tracking-tight ${textColor} lg:mb-5 lg:text-5xl`}>
             Changelog
@@ -217,12 +228,12 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <p className={`mb-5 ${paragraphClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
             </p>
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-2">
               <a
                 href="https://github.com/orgs/tilesprivacy/projects/4"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
+                className={roadmapCtaClass}
               >
                 Track progress
                 <ExternalLinkIcon />
@@ -231,7 +242,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                 href="https://github.com/orgs/tilesprivacy/discussions"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
+                className={roadmapCtaClass}
               >
                 View the RFCs
                 <ExternalLinkIcon />
@@ -336,14 +347,14 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                   <li key={i}>
                                     <div className="flex items-start gap-2">
                                       <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                      <span>{renderTextWithCode(change.text, isDark)}</span>
+                                      <span>{renderTextWithCode(change.text)}</span>
                                     </div>
                                     {change.subItems && change.subItems.length > 0 && (
                                       <ul className="ml-4 mt-1.5 space-y-1.5">
                                         {change.subItems.map((subItem, j) => (
                                           <li key={j} className="flex items-start gap-2">
                                             <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                            <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
+                                            <span className={textColorBodyLight}>{renderTextWithCode(subItem)}</span>
                                           </li>
                                         ))}
                                       </ul>
@@ -429,14 +440,14 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                     <li key={i}>
                                       <div className="flex items-start gap-2">
                                         <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                        <span>{renderTextWithCode(change.text, isDark)}</span>
+                                        <span>{renderTextWithCode(change.text)}</span>
                                       </div>
                                       {change.subItems && change.subItems.length > 0 && (
                                         <ul className="ml-4 mt-1.5 space-y-1.5">
                                           {change.subItems.map((subItem, j) => (
                                             <li key={j} className="flex items-start gap-2">
                                               <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                              <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
+                                              <span className={textColorBodyLight}>{renderTextWithCode(subItem)}</span>
                                             </li>
                                           ))}
                                         </ul>

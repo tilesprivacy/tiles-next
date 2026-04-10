@@ -3,81 +3,86 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Light theme: Cursor marketing warm neutrals (cursor.com) */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: #f7f7f4;
+  --foreground: #26251e;
+  --card: #f2f1ed;
+  --card-foreground: #26251e;
+  --popover: #f2f1ed;
+  --popover-foreground: #26251e;
+  --primary: #26251e;
+  --primary-foreground: #f7f7f4;
+  --secondary: #ebeae5;
+  --secondary-foreground: #26251e;
+  --muted: #ebeae5;
+  --muted-foreground: #5e5d58;
+  --accent: #e6e5e0;
+  --accent-foreground: #26251e;
+  --destructive: #cf2d56;
+  --destructive-foreground: #f7f7f4;
+  --border: #e1e0db;
+  --input: #e1e0db;
+  --ring: #26251e40;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #f2f1ed;
+  --sidebar-foreground: #26251e;
+  --sidebar-primary: #26251e;
+  --sidebar-primary-foreground: #f7f7f4;
+  --sidebar-accent: #ebeae5;
+  --sidebar-accent-foreground: #26251e;
+  --sidebar-border: #e1e0db;
+  --sidebar-ring: #26251e40;
+  --brand-accent: #f54e00;
+  /* Light canvas + ink for inverted strips (e.g. book footer on dark pages); not flipped in .dark */
+  --cursor-light-surface: #f7f7f4;
+  --cursor-light-ink: #26251e;
 }
 
+/* Dark theme: Cursor marketing warm neutrals (cursor.com) */
 .dark {
-  /* Book-matching dark theme: #121212 background, #E6E6E6 text */
-  --background: #121212;
-  --foreground: #E6E6E6;
-  --card: #121212;
-  --card-foreground: #E6E6E6;
-  --popover: #121212;
-  --popover-foreground: #E6E6E6;
-  --primary: #E6E6E6;
-  --primary-foreground: #121212;
-  --secondary: #1a1a1a;
-  --secondary-foreground: #B3B3B3;
-  --muted: #1a1a1a;
-  --muted-foreground: #8A8A8A;
-  --accent: #1a1a1a;
-  --accent-foreground: #E6E6E6;
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: #2a2a2a;
-  --input: #2a2a2a;
-  --ring: #4a4a4a;
+  --background: #14120b;
+  --foreground: #edecec;
+  --card: #1b1913;
+  --card-foreground: #edecec;
+  --popover: #1b1913;
+  --popover-foreground: #edecec;
+  --primary: #edecec;
+  --primary-foreground: #14120b;
+  --secondary: #201e18;
+  --secondary-foreground: #d7d6d5;
+  --muted: #201e18;
+  --muted-foreground: #a9a8a4;
+  --accent: #26241e;
+  --accent-foreground: #edecec;
+  --destructive: #cf2d56;
+  --destructive-foreground: #edecec;
+  --border: #2b2923;
+  --input: #2b2923;
+  --ring: #3d3b35;
   --chart-1: oklch(0.65 0.15 230);
   --chart-2: oklch(0.696 0.12 150);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: #151515;
-  --sidebar-foreground: #E6E6E6;
-  --sidebar-primary: oklch(0.65 0.15 230);
-  --sidebar-primary-foreground: #E6E6E6;
-  --sidebar-accent: #1a1a1a;
-  --sidebar-accent-foreground: #E6E6E6;
-  --sidebar-border: #2a2a2a;
-  --sidebar-ring: #4a4a4a;
+  --sidebar: #1b1913;
+  --sidebar-foreground: #edecec;
+  --sidebar-primary: #edecec;
+  --sidebar-primary-foreground: #14120b;
+  --sidebar-accent: #201e18;
+  --sidebar-accent-foreground: #edecec;
+  --sidebar-border: #2b2923;
+  --sidebar-ring: #3d3b35;
 
-  /* Nextra theme overrides for book section */
-  --nextra-bg: #121212;
+  /* Nextra theme overrides for book section (--nextra-bg must be space-separated RGB for rgb(var(--nextra-bg))) */
   --nextra-primary-hue: 0deg;
   --nextra-primary-saturation: 0%;
+  --brand-accent: #f54e00;
 }
 
 /* Nextra dark theme overrides - ensure book pages use our dark colors */
@@ -86,13 +91,86 @@
 }
 
 .dark [data-book-section] {
-  background-color: #121212 !important;
+  background-color: var(--background) !important;
 }
 
 .dark [data-book-section] article,
-.dark [data-book-section] main,
-.dark [data-book-section] aside {
-  background-color: #121212 !important;
+.dark [data-book-section] main {
+  background-color: var(--background) !important;
+}
+
+/* Nextra: page/mobile surfaces use --background as RGB triplet (theme-docs uses rgb(var(--nextra-bg))) */
+[data-book-section] {
+  --nextra-bg: 247 247 244;
+  /* Left nav: same canvas as the rest of the site; global --sidebar matches --card */
+  --sidebar: var(--background);
+  --sidebar-accent: var(--muted);
+  --sidebar-border: var(--border);
+}
+
+.dark [data-book-section] {
+  --nextra-bg: 20 18 11;
+  --sidebar: var(--background);
+  --sidebar-accent: var(--muted);
+  --sidebar-border: var(--border);
+}
+
+/* Left Nextra nav: sidebar surface (content stays --background in article/main) */
+[data-book-section] aside.nextra-sidebar,
+[data-book-section] .nextra-sidebar {
+  background-color: var(--sidebar) !important;
+}
+
+/* Scroll region + footer: match sidebar panel (footer uses x:bg-nextra-bg from Nextra; align to --sidebar) */
+[data-book-section] aside.nextra-sidebar .nextra-scrollbar,
+[data-book-section] .nextra-sidebar .nextra-scrollbar {
+  background-color: var(--sidebar) !important;
+}
+
+[data-book-section] .nextra-sidebar-footer {
+  background-color: var(--sidebar) !important;
+}
+
+/*
+ * Nextra theme-docs sidebar links use x:text-gray-* / primary-* utilities.
+ * Override to site sidebar tokens so the left nav matches book chrome.
+ */
+[data-book-section] aside.nextra-sidebar a[class*="x:rounded"],
+[data-book-section] aside.nextra-sidebar button[class*="x:rounded"] {
+  color: var(--sidebar-foreground) !important;
+  background-color: transparent !important;
+}
+
+[data-book-section] aside.nextra-sidebar ul ul a[class*="x:rounded"],
+[data-book-section] aside.nextra-sidebar ul ul button[class*="x:rounded"] {
+  color: var(--muted-foreground) !important;
+}
+
+[data-book-section] aside.nextra-sidebar a[class*="x:rounded"]:hover,
+[data-book-section] aside.nextra-sidebar button[class*="x:rounded"]:hover {
+  color: var(--sidebar-foreground) !important;
+  background-color: var(--sidebar-accent) !important;
+}
+
+[data-book-section] aside.nextra-sidebar li.active > a,
+[data-book-section] aside.nextra-sidebar li.active > button {
+  color: var(--sidebar-foreground) !important;
+  background-color: var(--sidebar-accent) !important;
+  font-weight: 600 !important;
+}
+
+[data-book-section] aside.nextra-sidebar li[class*="font-semibold"] {
+  color: var(--sidebar-foreground) !important;
+}
+
+[data-book-section] aside.nextra-sidebar [class*="nextra-border"] {
+  border-color: var(--sidebar-border) !important;
+}
+
+/* Nested list guide line (gray-200 / neutral-800 in Nextra) */
+[data-book-section] aside.nextra-sidebar ul[class*="before:bg-gray-200"]::before,
+[data-book-section] aside.nextra-sidebar ul[class*="before:bg-neutral-800"]::before {
+  background-color: var(--sidebar-border) !important;
 }
 
 /* Nextra text colors in dark mode */
@@ -102,82 +180,64 @@
 .dark [data-book-section] h4,
 .dark [data-book-section] h5,
 .dark [data-book-section] h6 {
-  color: #E6E6E6 !important;
+  color: var(--foreground) !important;
 }
 
 .dark [data-book-section] p,
 .dark [data-book-section] li,
 .dark [data-book-section] span:not([class*="token"]) {
-  color: #E6E6E6 !important;
+  color: var(--foreground) !important;
 }
 
-/* Right sidebar "On this Page" TOC navigation - lighter than primary page navigation */
-/* Target the right sidebar TOC (not the left sidebar navigation) */
+/* Right “On this page” TOC (Nextra 4: nav.nextra-toc sibling of article; not aside) */
+[data-book-section] nav[aria-label="table of contents"] a,
+[data-book-section] nav.nextra-toc a,
 [data-book-section] article > aside a,
 [data-book-section] article aside a,
 [data-book-section] aside[class*="toc"] a,
 [data-book-section] aside[class*="TOC"] a,
 [data-book-section] aside nav[class*="toc"] a,
 [data-book-section] aside nav[class*="TOC"] a {
-  color: rgba(0, 0, 0, 0.62) !important;
+  color: var(--muted-foreground) !important;
   font-weight: 400 !important;
   text-decoration: none !important;
 }
 
+[data-book-section] nav[aria-label="table of contents"] a:hover,
+[data-book-section] nav.nextra-toc a:hover,
 [data-book-section] article > aside a:hover,
 [data-book-section] article aside a:hover,
 [data-book-section] aside[class*="toc"] a:hover,
 [data-book-section] aside[class*="TOC"] a:hover,
 [data-book-section] aside nav[class*="toc"] a:hover,
 [data-book-section] aside nav[class*="TOC"] a:hover,
+[data-book-section] nav[aria-label="table of contents"] a[aria-current="location"],
+[data-book-section] nav.nextra-toc a[aria-current="location"],
+[data-book-section] nav[aria-label="table of contents"] a[aria-current="page"],
+[data-book-section] nav.nextra-toc a[aria-current="page"],
 [data-book-section] article > aside a[aria-current="page"],
 [data-book-section] article aside a[aria-current="page"],
 [data-book-section] aside[class*="toc"] a[aria-current="page"],
 [data-book-section] aside[class*="TOC"] a[aria-current="page"],
 [data-book-section] aside nav[class*="toc"] a[aria-current="page"],
-[data-book-section] aside nav[class*="TOC"] a[aria-current="page"] {
-  color: rgba(0, 0, 0, 0.78) !important;
-  font-weight: 500 !important;
-  text-decoration: none !important;
-}
-
-.dark [data-book-section] article > aside a,
-.dark [data-book-section] article aside a,
-.dark [data-book-section] aside[class*="toc"] a,
-.dark [data-book-section] aside[class*="TOC"] a,
-.dark [data-book-section] aside nav[class*="toc"] a,
-.dark [data-book-section] aside nav[class*="TOC"] a {
-  color: rgba(230, 230, 230, 0.66) !important;
-  font-weight: 400 !important;
-  text-decoration: none !important;
-}
-
-.dark [data-book-section] article > aside a:hover,
-.dark [data-book-section] article aside a:hover,
-.dark [data-book-section] aside[class*="toc"] a:hover,
-.dark [data-book-section] aside[class*="TOC"] a:hover,
-.dark [data-book-section] aside nav[class*="toc"] a:hover,
-.dark [data-book-section] aside nav[class*="TOC"] a:hover,
-.dark [data-book-section] article > aside a[aria-current="page"],
-.dark [data-book-section] article aside a[aria-current="page"],
-.dark [data-book-section] aside[class*="toc"] a[aria-current="page"],
-.dark [data-book-section] aside[class*="TOC"] a[aria-current="page"],
-.dark [data-book-section] aside nav[class*="toc"] a[aria-current="page"],
-.dark [data-book-section] aside nav[class*="TOC"] a[aria-current="page"] {
-  color: rgba(230, 230, 230, 0.8) !important;
-  font-weight: 500 !important;
+[data-book-section] aside nav[class*="TOC"] a[aria-current="page"],
+/* Nextra marks active item with x:text-primary-600 when store updates */
+[data-book-section] nav[aria-label="table of contents"] a[class*="text-primary-600"],
+[data-book-section] nav.nextra-toc a[class*="text-primary-600"] {
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
   text-decoration: none !important;
 }
 
 /* Muted text in dark mode */
 .dark [data-book-section] time,
 .dark [data-book-section] small {
-  color: #8A8A8A !important;
+  color: var(--muted-foreground) !important;
 }
 
 /* Book section header in dark mode - match body background */
 .dark [data-book-section] header {
-  background-color: #121212 !important;
+  background-color: var(--background) !important;
 }
 
 /* Book section buttons in dark mode - ensure proper contrast */
@@ -187,8 +247,8 @@
 .dark [data-book-section] header a.bg-white,
 .dark [data-book-section] header button.bg-white,
 .dark [data-book-section] header [class*="bg-white"] {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: var(--foreground) !important;
+  color: var(--primary-foreground) !important;
 }
 
 .dark [data-book-section] header a.bg-foreground span,
@@ -197,7 +257,7 @@
 .dark [data-book-section] header a.bg-white span,
 .dark [data-book-section] header button.bg-white span,
 .dark [data-book-section] header [class*="bg-white"] span {
-  color: #000000 !important;
+  color: var(--primary-foreground) !important;
 }
 
 .dark [data-book-section] header a.bg-foreground svg,
@@ -206,7 +266,7 @@
 .dark [data-book-section] header a.bg-white svg,
 .dark [data-book-section] header button.bg-white svg,
 .dark [data-book-section] header [class*="bg-white"] svg {
-  fill: #000000 !important;
+  fill: var(--primary-foreground) !important;
 }
 
 /* Mobile menu buttons in dark mode - ensure proper contrast for book section */
@@ -218,8 +278,8 @@
 .dark [data-book-section] button[class*="bg-white"],
 .dark [data-book-section] a.bg-white,
 .dark [data-book-section] a[class*="bg-white"] {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: var(--foreground) !important;
+  color: var(--primary-foreground) !important;
 }
 
 .dark [data-book-section] button.bg-foreground a,
@@ -234,7 +294,7 @@
 .dark [data-book-section] button[class*="bg-white"] span,
 .dark [data-book-section] a.bg-white span,
 .dark [data-book-section] a[class*="bg-white"] span {
-  color: #000000 !important;
+  color: var(--primary-foreground) !important;
 }
 
 .dark [data-book-section] button.bg-foreground svg,
@@ -245,39 +305,38 @@
 .dark [data-book-section] button[class*="bg-white"] svg,
 .dark [data-book-section] a.bg-white svg,
 .dark [data-book-section] a[class*="bg-white"] svg {
-  fill: #000000 !important;
-  color: #000000 !important;
+  fill: var(--primary-foreground) !important;
+  color: var(--primary-foreground) !important;
 }
 
-/* Book footer - preserve explicit text colors (footer inverts theme) */
-/* When page is dark mode, footer is light (bg-white with text-black) */
+/* Book footer - inverted strip on dark book pages uses Cursor light canvas */
 .dark [data-book-section] footer.bg-white,
 .dark [data-book-section] footer.bg-white * {
   --tw-text-opacity: 1;
 }
 
 .dark [data-book-section] footer.bg-white {
-  background-color: #ffffff !important;
+  background-color: var(--cursor-light-surface) !important;
 }
 
 .dark [data-book-section] footer.bg-white p,
 .dark [data-book-section] footer.bg-white a,
 .dark [data-book-section] footer.bg-white span {
-  color: #000000 !important;
+  color: var(--cursor-light-ink) !important;
 }
 
 .dark [data-book-section] footer.bg-white a:hover {
-  color: rgba(0, 0, 0, 0.7) !important;
+  color: color-mix(in oklab, var(--cursor-light-ink) 70%, var(--cursor-light-surface)) !important;
 }
 
 /* Only target social icon SVGs in footer links, not theme switcher buttons */
 .dark [data-book-section] footer.bg-white a svg {
-  color: #000000 !important;
+  color: var(--cursor-light-ink) !important;
 }
 
-/* Theme switcher in light footer (dark mode page) - active buttons need white icons */
+/* Theme switcher in light footer (dark mode page) - active buttons need light icons */
 .dark [data-book-section] footer.bg-white button.bg-black svg {
-  color: #ffffff !important;
+  color: var(--cursor-light-surface) !important;
 }
 
 @theme inline {
@@ -462,7 +521,7 @@
 [data-book-section] pre button[title="Copy code"],
 [data-book-section] pre button:has(.nextra-copy-icon),
 [data-book-section] pre button:has(svg) {
-  background-color: #f5f5f5 !important;
+  background-color: var(--muted) !important;
   border: none !important;
   border-radius: 0.25rem !important;
   padding: 0.25rem !important;
@@ -475,7 +534,7 @@
 [data-book-section] .nextra-code button[title="Copy code"]:hover,
 [data-book-section] pre button[title="Copy code"]:hover,
 [data-book-section] pre button:has(svg):hover {
-  background-color: #e5e5e5 !important;
+  background-color: var(--accent) !important;
 }
 
 /* Dark mode code block buttons */
@@ -486,9 +545,9 @@
 .dark [data-book-section] pre button[title="Copy code"],
 .dark [data-book-section] pre button:has(.nextra-copy-icon),
 .dark [data-book-section] pre button:has(svg) {
-  background-color: #1a1a1a !important;
+  background-color: var(--secondary) !important;
   border: none !important;
-  color: #E6E6E6 !important;
+  color: var(--foreground) !important;
   opacity: 1 !important;
 }
 
@@ -497,7 +556,7 @@
 .dark [data-book-section] .nextra-code button[title="Copy code"]:hover,
 .dark [data-book-section] pre button[title="Copy code"]:hover,
 .dark [data-book-section] pre button:has(svg):hover {
-  background-color: #252525 !important;
+  background-color: var(--accent) !important;
 }
 
 /* Button icons - matching download page colors */
@@ -514,12 +573,12 @@
 
 .dark [data-book-section] .nextra-copy-icon,
 .dark [data-book-section] pre button svg {
-  color: #8A8A8A !important;
+  color: var(--muted-foreground) !important;
 }
 
 .dark [data-book-section] pre button:hover svg,
 .dark [data-book-section] pre button:hover .nextra-copy-icon {
-  color: #E6E6E6 !important;
+  color: var(--foreground) !important;
 }
 
 /* Syntax highlighting tokens in dark mode - Shiki/Nextra */
@@ -528,13 +587,13 @@
 
 /* Force Nextra's .nextra-code span to use dark mode color variable */
 .dark [data-book-section] .nextra-code span {
-  color: var(--shiki-dark, #E6E6E6) !important;
+  color: var(--shiki-dark, var(--foreground)) !important;
 }
 
 /* Also target pre code spans directly */
 .dark [data-book-section] pre code span[style*="--shiki"],
 .dark [data-book-section] pre code span[style*="shiki"] {
-  color: var(--shiki-dark, #E6E6E6) !important;
+  color: var(--shiki-dark, var(--foreground)) !important;
 }
 
 /* Base token styles - override inline styles */
@@ -544,7 +603,7 @@
 .dark [data-book-section] pre.shiki span[class*="token"],
 .dark [data-book-section] .nextra-code pre code .token,
 .dark [data-book-section] .nextra-code pre code span[class*="token"] {
-  color: #E6E6E6 !important;
+  color: var(--foreground) !important;
 }
 
 /* Keywords - blue-ish (override inline styles) */
@@ -686,20 +745,20 @@ form[data-theme="light"] sniper-link::part(button) {
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background-color: white;
-  color: black;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--foreground);
 }
 
 form[data-theme="light"] sniper-link::part(button):hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.25);
+  background-color: var(--accent);
+  border-color: color-mix(in oklab, var(--foreground) 25%, var(--background));
 }
 
 form[data-theme="light"] sniper-link::part(text) {
   font-size: 0.875rem;
   font-weight: 500;
-  color: black;
+  color: var(--foreground);
 }
 
 /* Dark theme Sniper Link */
@@ -713,20 +772,20 @@ form[data-theme="dark"] sniper-link::part(button) {
   font-weight: 500;
   transition: all 0.2s ease;
   cursor: pointer;
-  border: 1px solid #303030;
-  background-color: #151515;
-  color: #E6E6E6;
+  border: 1px solid var(--border);
+  background-color: var(--sidebar);
+  color: var(--foreground);
 }
 
 form[data-theme="dark"] sniper-link::part(button):hover {
-  background-color: #1f1f1f;
-  border-color: #404040;
+  background-color: var(--secondary);
+  border-color: var(--ring);
 }
 
 form[data-theme="dark"] sniper-link::part(text) {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #E6E6E6;
+  color: var(--foreground);
 }
 
 /* Common Sniper Link styles */
@@ -876,7 +935,7 @@ sniper-link[hidden] {
     opacity: 1 !important;
     margin: 0 0 0.75rem 0 !important;
     font-size: 0.8125rem !important;
-    color: #8A8A8A !important;
+    color: var(--muted-foreground) !important;
     text-align: left !important;
     white-space: nowrap !important;
     overflow: hidden !important;
@@ -897,7 +956,7 @@ sniper-link[hidden] {
   .dark [data-book-section] article .book-date-stamp,
   .dark [data-book-section] article div.x\:mt-12.x\:mb-8,
   .dark [data-book-section] article div[class*="x:mt-12"][class*="x:mb-8"] {
-    color: #8A8A8A !important;
+    color: var(--muted-foreground) !important;
   }
   
   /* Copy button comes third, after datestamp */
@@ -935,7 +994,7 @@ sniper-link[hidden] {
     margin-top: 0.5rem !important;
     margin-bottom: 1.5rem !important;
     font-size: 0.875rem !important;
-    color: #8A8A8A !important;
+    color: var(--muted-foreground) !important;
     text-align: left !important;
     white-space: nowrap !important;
   }
@@ -949,7 +1008,7 @@ sniper-link[hidden] {
   /* Dark mode datestamp */
   .dark [data-book-section] article main > div:has(time),
   .dark [data-book-section] article main div:has(> time) {
-    color: #8A8A8A !important;
+    color: var(--muted-foreground) !important;
   }
 }
 
@@ -1026,23 +1085,21 @@ sniper-link[hidden] {
 }
 
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
-/* Left sidebar navigation - white prominent background like "On this Page" */
- [data-book-section] {
-  --book-top-offset: 7rem;
- }
+[data-book-section] {
+  --book-top-offset: 7.5rem;
+}
 
 @media (min-width: 1024px) {
   [data-book-section] {
-    --book-top-offset: 8rem;
+    --book-top-offset: 9rem;
   }
 
+  /* Layout for asides; background only on left nav (TOC uses article background) */
   [data-book-section] aside {
     display: flex !important;
     flex-direction: column !important;
-    background-color: #ffffff !important;
   }
 
-  /* Keep the left navigation sidebar fixed like the right TOC */
   [data-book-section] aside.nextra-sidebar,
   [data-book-section] .nextra-sidebar {
     position: sticky !important;
@@ -1051,6 +1108,13 @@ sniper-link[hidden] {
     height: calc(100dvh - var(--book-top-offset)) !important;
     align-self: flex-start !important;
     overflow: hidden !important;
+    background-color: var(--sidebar) !important;
+  }
+
+  [data-book-section] aside.nextra-sidebar nav,
+  [data-book-section] aside.nextra-sidebar > nav,
+  [data-book-section] aside.nextra-sidebar [class*="nextra-sidebar"] {
+    background-color: var(--sidebar) !important;
   }
 
   /* Make the sidebar menu itself scroll, not the whole sidebar */
@@ -1067,31 +1131,13 @@ sniper-link[hidden] {
   [data-book-section] .nextra-sidebar-footer {
     margin-top: auto !important;
   }
-  
-  /* Dark mode - keep dark background */
-  .dark [data-book-section] aside {
-    background-color: #121212 !important;
-  }
-  
-  /* Ensure sidebar navigation links and content have proper contrast on white background */
-  [data-book-section] aside nav,
-  [data-book-section] aside > nav,
-  [data-book-section] aside [class*="nextra-sidebar"] {
-    background-color: #ffffff !important;
-  }
-  
-  .dark [data-book-section] aside nav,
-  .dark [data-book-section] aside > nav,
-  .dark [data-book-section] aside [class*="nextra-sidebar"] {
-    background-color: #121212 !important;
-  }
 
-  /* Left sidebar hierarchy: primary page index should read stronger than nested entries */
+  /* Left nav hierarchy (theme tokens follow .light / .dark on html) */
   [data-book-section] .nextra-sidebar > div > div > ul > li > a,
   [data-book-section] .nextra-sidebar > div > div > ul > li > button,
   [data-book-section] aside.nextra-sidebar > div > div > ul > li > a,
   [data-book-section] aside.nextra-sidebar > div > div > ul > li > button {
-    color: rgba(0, 0, 0, 0.82) !important;
+    color: var(--sidebar-foreground) !important;
     font-size: 1rem !important;
     font-weight: 500 !important;
     text-decoration: none !important;
@@ -1101,7 +1147,7 @@ sniper-link[hidden] {
   [data-book-section] .nextra-sidebar > div > div > ul > li.active > button,
   [data-book-section] aside.nextra-sidebar > div > div > ul > li.active > a,
   [data-book-section] aside.nextra-sidebar > div > div > ul > li.active > button {
-    color: #000000 !important;
+    color: var(--sidebar-foreground) !important;
     font-size: 1rem !important;
     font-weight: 600 !important;
     text-decoration: none !important;
@@ -1111,7 +1157,7 @@ sniper-link[hidden] {
   [data-book-section] .nextra-sidebar ul ul button,
   [data-book-section] aside.nextra-sidebar ul ul a,
   [data-book-section] aside.nextra-sidebar ul ul button {
-    color: rgba(0, 0, 0, 0.62) !important;
+    color: var(--muted-foreground) !important;
     font-size: 0.95rem !important;
     font-weight: 500 !important;
     text-decoration: none !important;
@@ -1125,63 +1171,19 @@ sniper-link[hidden] {
   [data-book-section] aside.nextra-sidebar nav ul ul button:hover,
   [data-book-section] aside.nextra-sidebar nav ul ul a[aria-current="page"],
   [data-book-section] aside.nextra-sidebar nav ul ul button[aria-current="page"] {
-    color: rgba(0, 0, 0, 0.78) !important;
+    color: var(--sidebar-foreground) !important;
     font-size: 0.95rem !important;
     font-weight: 500 !important;
     text-decoration: none !important;
   }
-
-  .dark [data-book-section] .nextra-sidebar > div > div > ul > li > a,
-  .dark [data-book-section] .nextra-sidebar > div > div > ul > li > button,
-  .dark [data-book-section] aside.nextra-sidebar > div > div > ul > li > a,
-  .dark [data-book-section] aside.nextra-sidebar > div > div > ul > li > button {
-    color: rgba(230, 230, 230, 0.82) !important;
-    font-weight: 500 !important;
-    text-decoration: none !important;
-  }
-
-  .dark [data-book-section] .nextra-sidebar > div > div > ul > li.active > a,
-  .dark [data-book-section] .nextra-sidebar > div > div > ul > li.active > button,
-  .dark [data-book-section] aside.nextra-sidebar > div > div > ul > li.active > a,
-  .dark [data-book-section] aside.nextra-sidebar > div > div > ul > li.active > button {
-    color: #E6E6E6 !important;
-    font-weight: 600 !important;
-    text-decoration: none !important;
-  }
-
-  .dark [data-book-section] .nextra-sidebar ul ul a,
-  .dark [data-book-section] .nextra-sidebar ul ul button,
-  .dark [data-book-section] aside.nextra-sidebar ul ul a,
-  .dark [data-book-section] aside.nextra-sidebar ul ul button {
-    color: rgba(230, 230, 230, 0.68) !important;
-    font-weight: 500 !important;
-    text-decoration: none !important;
-  }
-
-  .dark [data-book-section] .nextra-sidebar nav ul ul a:hover,
-  .dark [data-book-section] .nextra-sidebar nav ul ul button:hover,
-  .dark [data-book-section] .nextra-sidebar nav ul ul a[aria-current="page"],
-  .dark [data-book-section] .nextra-sidebar nav ul ul button[aria-current="page"],
-  .dark [data-book-section] aside.nextra-sidebar nav ul ul a:hover,
-  .dark [data-book-section] aside.nextra-sidebar nav ul ul button:hover,
-  .dark [data-book-section] aside.nextra-sidebar nav ul ul a[aria-current="page"],
-  .dark [data-book-section] aside.nextra-sidebar nav ul ul button[aria-current="page"] {
-    color: rgba(230, 230, 230, 0.82) !important;
-    font-weight: 500 !important;
-  }
 }
 
-/* Theme switcher container - stick to bottom of sidebar */
-[data-book-section] aside > div:last-child,
-[data-book-section] aside > button:last-child {
+/* Theme switcher / footer band on left nav only */
+[data-book-section] aside.nextra-sidebar > div:last-child,
+[data-book-section] aside.nextra-sidebar > button:last-child {
   margin-top: auto !important;
   padding-top: 1rem !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.1) !important;
-}
-
-.dark [data-book-section] aside > div:last-child,
-.dark [data-book-section] aside > button:last-child {
-  border-top-color: rgba(255, 255, 255, 0.1) !important;
+  border-top: 1px solid var(--sidebar-border) !important;
 }
 
 /* Mobile hero sizing - graph covers top half of logo, logo centered in viewport */

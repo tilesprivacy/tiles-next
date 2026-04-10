@@ -41,7 +41,7 @@ export default function HowTilesWorksPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-6 pt-[calc(8rem+env(safe-area-inset-top,0px))] pb-20 sm:px-8 lg:px-10 lg:pt-[calc(8rem+env(safe-area-inset-top,0px))] lg:pb-24 xl:px-12 gap-6 lg:gap-12 overflow-x-clip">
+      <main className="flex flex-1 flex-col items-center px-6 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] pb-20 sm:px-8 lg:px-10 lg:pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:pb-24 xl:px-12 gap-6 lg:gap-12 overflow-x-clip">
         {/* Bottom Card - Blog Post Content */}
         <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
           {/* Blog Title */}

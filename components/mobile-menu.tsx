@@ -14,28 +14,27 @@ interface MobileMenuProps {
   onClose: () => void
   themeAware?: boolean
   hasBanner?: boolean
-  starsLabel?: string | null
 }
 
-export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = false, starsLabel = null }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = false }: MobileMenuProps) {
 
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
   const textColor = themeAware ? 'text-foreground' : 'text-black'
   const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
-  const buttonBg = themeAware ? 'bg-black dark:bg-white' : 'bg-black'
-  const buttonText = themeAware ? 'text-white dark:text-black' : 'text-white'
-  const buttonHover = themeAware ? 'hover:bg-black/90 dark:hover:bg-white/90' : 'hover:bg-black/90'
+  const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
+  const buttonText = themeAware ? 'text-background' : 'text-white'
+  const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
   
-  // Social icon colors - theme-aware using dark: utilities (matching book dark theme)
-  const iconBaseColor = themeAware ? 'text-black/40 dark:text-[#B3B3B3]' : 'text-black/40'
+  // Social icon colors - theme-aware using dark: utilities
+  const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
   const iconHoverColors = {
-    twitter: themeAware ? 'group-hover:text-black/70 dark:group-hover:text-[#E6E6E6]' : 'group-hover:text-black/70',
+    twitter: themeAware ? 'group-hover:text-foreground/70 dark:group-hover:text-foreground' : 'group-hover:text-black/70',
     bluesky: 'group-hover:text-[#0085FF]',
     instagram: 'group-hover:text-[#E4405F]',
     discord: 'group-hover:text-[#5865F2]',
-    github: themeAware ? 'group-hover:text-black/70 dark:group-hover:text-[#E6E6E6]' : 'group-hover:text-black/70',
+    github: themeAware ? 'group-hover:text-foreground/70 dark:group-hover:text-foreground' : 'group-hover:text-black/70',
     huggingface: 'group-hover:text-[#FFD21E]',
     rss: 'group-hover:text-orange-500',
   }
@@ -104,8 +103,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     : "top-0"
 
   const menuHeaderPadding = hasBanner
-    ? "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 pt-3 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 sm:pt-4"
-    : "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 sm:pt-[calc(1rem+env(safe-area-inset-top,0px))]"
+    ? "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 pt-4 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 sm:pt-5"
+    : "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 sm:pt-[calc(1.125rem+env(safe-area-inset-top,0px))]"
 
   return (
     <>
@@ -120,12 +119,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 dark:hidden" />
+                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 dark:hidden" />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 hidden dark:block" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 hidden dark:block" />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10" />
+              <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12" />
             )}
           </Link>
 
@@ -135,7 +134,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2.5 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs`}
+              className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"
@@ -145,7 +144,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
-                <Download className="h-3 w-3 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5" aria-hidden />
+                <Download className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4" aria-hidden />
                 <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
               </Link>
             </Button>
@@ -154,7 +153,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs`}
+              className={`h-8 rounded-full ${buttonBg} ${buttonText} px-2.5 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm`}
             >
               <a
                 href="https://github.com/sponsors/tilesprivacy"
@@ -166,7 +165,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
-                  className="h-3 w-3 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-3.5 sm:w-3.5"
+                  className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-4 sm:w-4"
                 >
                   <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
                 </svg>
@@ -179,13 +178,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             {/* Close Button - Animated Hamburger */}
             <button
               onClick={onClose}
-              className="ml-2 flex flex-col justify-center items-center w-5 h-5 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none relative"
+              className="ml-2 flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none relative"
               aria-label="Close navigation menu"
               type="button"
             >
-              <span className={`block w-5 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 rotate-45`} />
-              <span className={`block w-5 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 opacity-0`} />
-              <span className={`block w-5 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 -rotate-45`} />
+              <span className={`block w-6 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 rotate-45`} />
+              <span className={`block w-6 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 opacity-0`} />
+              <span className={`block w-6 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 -rotate-45`} />
             </button>
           </div>
         </div>
@@ -199,7 +198,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               onClick={onClose}
               className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
-              About Us
+              About
             </Link>
             <Link
               href="/changelog"
@@ -222,28 +221,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             >
               Book
             </Link>
-            <a
-              href="https://github.com/tilesprivacy/tiles"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => {
-                triggerHaptic()
-                onClose()
-              }}
-              aria-label="Star on GitHub"
-              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover} inline-flex items-center gap-3`}
-            >
-              <FaGithub className="h-5 w-5 shrink-0" aria-hidden />
-              <span className="inline-flex items-center gap-2.5">
-                <span>Star</span>
-                {starsLabel ? (
-                  <span className="inline-flex items-center gap-2 text-base text-black/55 dark:text-[#A3A3A3]">
-                    <span aria-hidden className="h-4 w-px bg-black/15 dark:bg-white/20" />
-                    <span className="rounded-full bg-black/[0.05] px-2 py-0.5 leading-none dark:bg-white/[0.08]">{starsLabel}</span>
-                  </span>
-                ) : null}
-              </span>
-            </a>
           </nav>
 
           {/* Spacer to push content to bottom half */}

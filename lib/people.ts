@@ -24,6 +24,11 @@ export const people = {
       name: "Anandu Pavanan @madclaws",
       links: ["https://github.com/madclaws", "https://bsky.app/profile/madcla.ws"],
     },
+    {
+      id: "exdysa",
+      name: "exdysa @exdysa",
+      links: ["https://github.com/exdysa", "https://huggingface.co/exdysa"],
+    },
   ],
   contributorsCommunity: [],
   sponsorsActive: [

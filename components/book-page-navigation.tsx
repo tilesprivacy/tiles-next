@@ -65,7 +65,7 @@ export function BookPageNavigation() {
       className="mt-12 mx-4 lg:mx-0 lg:mt-16"
     >
       {/* Outer Gray Pill */}
-      <div className="flex items-center gap-3 lg:gap-4 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded-[1.75rem] pl-5 pr-2 py-2 lg:pl-7 lg:pr-2.5 lg:py-2.5">
+      <div className="flex items-center gap-3 lg:gap-4 bg-muted dark:bg-secondary rounded-[1.75rem] pl-5 pr-2 py-2 lg:pl-7 lg:pr-2.5 lg:py-2.5">
         {/* Previous Button - On Gray Background */}
         {prevPage ? (
           <Link

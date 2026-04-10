@@ -12,14 +12,10 @@ export function MobileSidebarFix() {
     style.id = styleId
     style.textContent = `
       @media (max-width: 768px) {
-        [data-book-section] aside {
-          background-color: rgb(255, 255, 255) !important;
-          background: rgb(255, 255, 255) !important;
-        }
-        
-        .dark [data-book-section] aside {
-          background-color: #121212 !important;
-          background: #121212 !important;
+        [data-book-section] aside.nextra-sidebar,
+        [data-book-section] .nextra-sidebar {
+          background-color: var(--sidebar) !important;
+          background: var(--sidebar) !important;
         }
       }
     `

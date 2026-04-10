@@ -46,7 +46,7 @@ const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
 
 /** Matches homepage primary download CTA (home-content) */
 const primaryDownloadButtonClass =
-  "group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-white dark:text-black dark:ring-white/10 dark:hover:bg-white/90"
+  "group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-foreground dark:text-background dark:ring-foreground/10 dark:hover:bg-foreground/90"
 
 const downloadButtonAppleIconClass =
   "origin-right h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110"
@@ -141,18 +141,17 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
 
   const isDark = mounted && resolvedTheme === "dark"
 
-  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = "bg-background"
   const textColor = "text-foreground"
-  const textColorMuted = isDark ? "text-[#B3B3B3]" : "text-black/70"
-  const textColorSubtle = isDark ? "text-[#8A8A8A]" : "text-black/50"
-  const textColorLink = isDark
-    ? "text-[#8A8A8A] hover:text-[#E6E6E6]"
-    : "text-black/60 hover:text-black"
-  const stepLabelClass = isDark ? "text-[#8A8A8A]" : "text-black/45"
+  const textColorMuted = isDark ? "text-secondary-foreground" : "text-muted-foreground"
+  const textColorSubtle = "text-muted-foreground"
+  const textColorLink =
+    "text-foreground underline decoration-foreground/35 underline-offset-2 transition-colors hover:decoration-foreground"
+  const stepLabelClass = "text-muted-foreground"
   const bodyTextClass = `text-sm sm:text-base leading-7 ${textColorMuted}`
-  const codeBg = isDark ? "bg-[#1a1a1a]" : "bg-black/[0.04]"
-  const codeText = isDark ? "text-[#E6E6E6]" : "text-black/80"
+  const codeSurfaceClass = isDark
+    ? "border border-border bg-secondary text-foreground"
+    : "border border-border bg-card text-card-foreground"
   const hasDownloadUrl = Boolean(download.downloadUrl)
   const networkReleaseVersion = extractVersionFromFileName(download.fileName) ?? (download.version && download.version !== "latest" ? download.version : null)
   const offlineReleaseVersion = extractVersionFromFileName(OFFLINE_INSTALLER.fileName)
@@ -179,7 +178,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
       {/* Main Content - Split Screen */}
       <main className="flex flex-1 flex-col min-h-0">
         {/* Left Side - Installation Instructions */}
-        <div className="flex w-full flex-col items-center justify-start px-6 pt-[calc(8rem+env(safe-area-inset-top,0px))] pb-24 lg:px-12 lg:pt-[calc(9rem+env(safe-area-inset-top,0px))] lg:pb-28">
+        <div className="flex w-full flex-col items-center justify-start px-6 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] pb-24 lg:px-12 lg:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:pb-28">
           <div className="flex w-full max-w-xl flex-col gap-12 text-left lg:gap-14">
             {/* Title */}
             <div className="space-y-4">
@@ -267,7 +266,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         <button
                           type="button"
                           disabled
-                          className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-full bg-black/10 px-5 text-sm font-medium text-black/40 dark:bg-white/10 dark:text-white/40"
+                          className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-full border border-border bg-muted px-5 text-sm font-medium text-muted-foreground"
                           aria-disabled="true"
                         >
                           <Image
@@ -297,7 +296,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       </div>
                       <p className={bodyTextClass}>
                         Includes the default{" "}
-                        <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeBg} ${codeText}`}>
+                        <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeSurfaceClass}`}>
                           gpt-oss-20b-MXFP4-Q4
                         </span>{" "}
                         model bundled for fully offline setup with no additional downloads.
@@ -367,20 +366,20 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
               </div>
 
               <div className="space-y-8">
-                <div className="space-y-2 border-t border-black/10 pt-6 dark:border-white/10">
+                <div className="space-y-2 border-t border-border pt-6">
                   <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 2</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Go through the installer setup</h2>
                   <p className={bodyTextClass}>
                     Open the downloaded installer and complete the install wizard. The installer adds the{" "}
-                    <code className={`rounded px-1.5 py-0.5 ${codeBg} ${codeText}`}>tiles</code> command to your system.
+                    <code className={`rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>tiles</code> command to your system.
                   </p>
                 </div>
-                <div className="space-y-2 border-t border-black/10 pt-6 dark:border-white/10">
+                <div className="space-y-2 border-t border-border pt-6">
                   <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 3</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Run tiles command</h2>
                   <p className={bodyTextClass}>
                     Open Terminal and run{" "}
-                    <code className={`rounded px-1.5 py-0.5 ${codeBg} ${codeText}`}>tiles</code>. Then follow the CLI
+                    <code className={`rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>tiles</code>. Then follow the CLI
                     onboarding to set up your account and start using the chat interface. If you installed the network
                     version, you will be prompted to choose and download a model.
                   </p>
@@ -388,7 +387,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
               </div>
 
               {/* Manual and Community CTAs */}
-              <div className="border-t border-black/10 pt-10 dark:border-white/10">
+              <div className="border-t border-border pt-10">
                 <h2 className={`mb-6 font-sans text-2xl font-medium tracking-tight sm:text-3xl ${textColor}`}>Resources</h2>
                 <div className="grid grid-cols-1 gap-10">
                   {/* Manual */}

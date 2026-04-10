@@ -121,7 +121,7 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
   return (
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center gap-12 px-6 pb-28 pt-[calc(4rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-20 lg:px-10 lg:pb-24 lg:pt-[calc(7rem+env(safe-area-inset-top,0px))] xl:px-12">
+      <main className="flex flex-1 flex-col items-center gap-12 px-6 pb-28 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-20 lg:px-10 lg:pb-24 lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))] xl:px-12">
         {/* Top Card - Logo and Title */}
         <div className="w-full max-w-[48rem] pt-20 pb-8 lg:pt-24 lg:pb-12">
           {/* Blog Title */}

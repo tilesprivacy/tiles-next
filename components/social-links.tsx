@@ -1,12 +1,14 @@
 import { FaBluesky, FaRedditAlien } from "react-icons/fa6"
+import { SiHuggingface } from "react-icons/si"
 
-export type SocialIconType = "website" | "twitter" | "github" | "bluesky" | "reddit"
+export type SocialIconType = "website" | "twitter" | "github" | "bluesky" | "reddit" | "huggingface"
 
 export function getSocialIconType(url: string): SocialIconType {
   if (url.includes("x.com") || url.includes("twitter.com")) return "twitter"
   if (url.includes("github.com")) return "github"
   if (url.includes("bsky.app")) return "bluesky"
   if (url.includes("reddit.com")) return "reddit"
+  if (url.includes("huggingface.co")) return "huggingface"
   return "website"
 }
 
@@ -36,6 +38,8 @@ export function SocialIcon({
       return <FaBluesky className={iconClass} />
     case "reddit":
       return <FaRedditAlien className={iconClass} />
+    case "huggingface":
+      return <SiHuggingface className={iconClass} />
     case "website":
     default:
       return (

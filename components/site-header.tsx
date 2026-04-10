@@ -5,10 +5,8 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { memo, useCallback, useEffect, useState } from "react"
 import { Download } from "lucide-react"
-import { FaGithub } from "react-icons/fa6"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
-import { useGithubStars } from "@/lib/use-github-stars"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -22,27 +20,21 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   isBannerVisible,
   onDismissBanner,
   onOpenMenu,
-  starsLabel,
 }: {
   themeAware: boolean
   isBannerVisible: boolean
   onDismissBanner: () => void
   onOpenMenu: () => void
-  starsLabel: string | null
 }) {
-  // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
-  const headerBg = themeAware ? "bg-background" : "bg-white"
+  const headerChrome =
+    "bg-transparent border-0 border-transparent shadow-none ring-0 outline-none"
   const textColor = themeAware ? "text-foreground" : "text-black"
   const textColorHover = themeAware ? "hover:text-foreground/70" : "hover:text-black/70"
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
-  const buttonBg = themeAware ? "bg-black dark:bg-white" : "bg-black"
-  const buttonText = themeAware ? "text-white dark:text-black" : "text-white"
-  const buttonHover = themeAware ? "hover:bg-black/90 dark:hover:bg-white/90" : "hover:bg-black/90"
+  const buttonBg = themeAware ? "bg-foreground" : "bg-black"
+  const buttonText = themeAware ? "text-background" : "text-white"
+  const buttonHover = themeAware ? "hover:bg-foreground/90" : "hover:bg-black/90"
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
-  const sourceButtonClasses = themeAware
-    ? "bg-black/[0.04] text-black/80 hover:bg-black/[0.07] dark:bg-white/[0.08] dark:text-[#D1D1D1] dark:hover:bg-white/[0.12]"
-    : "bg-black/[0.04] text-black/80 hover:bg-black/[0.07]"
-
   return (
     <>
       {isBannerVisible && (
@@ -56,7 +48,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <div className="w-5" aria-hidden="true" />
               <Link
                 href="/blog/introducing-tiles-public-alpha"
-                className="inline-flex items-center gap-2 text-black/70 dark:text-[#B3B3B3] transition-colors hover:text-black/90 dark:hover:text-[#E6E6E6]"
+                className="inline-flex items-center gap-2 text-foreground/70 transition-colors hover:text-foreground/90"
               >
                 <span>Introducing Tiles Public Alpha</span>
                 <span aria-hidden="true" className="text-[12px] leading-none">
@@ -66,7 +58,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <button
                 type="button"
                 onClick={onDismissBanner}
-                className="inline-flex h-5 w-5 items-center justify-center rounded-full text-black/50 transition-colors hover:text-black/80 dark:text-[#8A8A8A] dark:hover:text-[#E6E6E6]"
+                className="inline-flex h-5 w-5 items-center justify-center rounded-full text-foreground/50 transition-colors hover:text-foreground/80"
                 aria-label="Dismiss banner"
               >
                 <span aria-hidden="true" className="text-[12px] leading-none">
@@ -79,62 +71,45 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       )}
 
       <header
-        className={`site-header-chrome fixed inset-x-0 left-0 right-0 z-40 flex w-full max-w-none items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-2.5 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-4 ${
+        className={`site-header-chrome fixed inset-x-0 left-0 right-0 z-40 flex w-full max-w-none items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-5 ${
           isBannerVisible
             ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
             : "top-0"
         } ${
           isBannerVisible
-            ? "pt-3 sm:pt-4 lg:pt-6"
-            : "pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.5rem+env(safe-area-inset-top,0px))]"
-        } ${headerBg}`}
+            ? "pt-4 sm:pt-5 lg:pt-7"
+            : "pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1.125rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.75rem+env(safe-area-inset-top,0px))]"
+        } ${headerChrome}`}
       >
         {/* Left side: Logo and Desktop Nav Links */}
-        <div className="flex items-center gap-8 shrink-0">
+        <div className="flex items-center gap-9 lg:gap-10 shrink-0">
           <Link href="/" className="transition-colors hover:opacity-70">
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 dark:hidden" />
+                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 lg:h-14 lg:w-14 dark:hidden" />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12 hidden dark:block" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 lg:h-14 lg:w-14 hidden dark:block" />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={48} height={48} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-12 lg:w-12" />
+              <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 lg:h-14 lg:w-14" />
             )}
           </Link>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6">
-            <Link href="/about" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
-              About Us
+          <nav className="hidden lg:flex items-center gap-8">
+            <Link href="/about" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
+              About
             </Link>
-            <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            <Link href="/changelog" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
               Changelog
             </Link>
-            <Link href="/blog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            <Link href="/blog" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
               Blog
             </Link>
-            <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            <Link href="/book" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
               Book
             </Link>
-            <a
-              href="https://github.com/tilesprivacy/tiles"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Star on GitHub"
-              onClick={() => triggerHaptic()}
-              className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[13px] font-medium leading-none transition-colors ${sourceButtonClasses}`}
-            >
-              <FaGithub className="h-4 w-4 shrink-0" aria-hidden />
-              <span>Star</span>
-              {starsLabel ? (
-                <span className="inline-flex items-center gap-1.5 text-[12px] text-black/60 dark:text-[#A3A3A3]">
-                  <span aria-hidden className="h-3.5 w-px bg-black/15 dark:bg-white/20" />
-                  <span className="rounded-full bg-black/[0.05] px-1.5 py-0.5 dark:bg-white/[0.08]">{starsLabel}</span>
-                </span>
-              ) : null}
-            </a>
           </nav>
         </div>
 
@@ -144,14 +119,14 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2.5 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs lg:h-10 lg:px-4 lg:text-sm`}
+            className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
           >
             <Link
               href="/download"
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={() => triggerHaptic()}
             >
-              <Download className="h-3 w-3 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4" aria-hidden />
+              <Download className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
               <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
                 Download
               </span>
@@ -160,7 +135,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-7 rounded-full ${buttonBg} ${buttonText} px-2 text-[11px] font-medium ${buttonHover} sm:h-8 sm:px-3 sm:text-xs lg:h-10 lg:px-4 lg:text-sm`}
+            className={`h-8 rounded-full ${buttonBg} ${buttonText} px-2.5 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
           >
             <a
               href="https://github.com/sponsors/tilesprivacy"
@@ -172,7 +147,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
-                className="h-3 w-3 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
+                className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
               >
                 <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
               </svg>
@@ -185,13 +160,13 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           {/* Hamburger Menu Button - Mobile Only */}
           <button
             onClick={onOpenMenu}
-            className="lg:hidden ml-2 flex flex-col justify-center items-center w-5 h-5 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none"
+            className="lg:hidden ml-2 flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none"
             aria-label="Open navigation menu"
             type="button"
           >
-            <span className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300`} />
-            <span className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300 my-1`} />
-            <span className={`block w-5 h-0.5 ${hamburgerColor} transition-all duration-300`} />
+            <span className={`block w-6 h-0.5 ${hamburgerColor} transition-all duration-300`} />
+            <span className={`block w-6 h-0.5 ${hamburgerColor} transition-all duration-300 my-1`} />
+            <span className={`block w-6 h-0.5 ${hamburgerColor} transition-all duration-300`} />
           </button>
         </div>
       </header>
@@ -202,8 +177,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isBannerVisible, setIsBannerVisible] = useState(false)
-  const starsLabel = useGithubStars()
-
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
     const dismissed = window.localStorage.getItem("tilesBannerDismissed")
@@ -227,7 +200,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         isBannerVisible={isBannerVisible}
         onDismissBanner={handleDismissBanner}
         onOpenMenu={openMenu}
-        starsLabel={starsLabel}
       />
 
       {/* Mobile Menu */}
@@ -236,7 +208,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         onClose={closeMenu}
         themeAware={themeAware}
         hasBanner={isBannerVisible}
-        starsLabel={starsLabel}
       />
     </>
   )
