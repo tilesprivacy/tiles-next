@@ -30,8 +30,8 @@ export const metadata: Metadata = {
   description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
   generator: "v0.app",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
