@@ -8,7 +8,6 @@
     "lint": "eslint .",
     "start": "next start",
     "generate:wireframe": "node scripts/extract-wireframe.mjs",
-    "generate:logos": "node scripts/generate-logos.mjs",
     "sync:email-preview": "node scripts/sync-email-preview.mjs",
     "sync:email-preview:watch": "node scripts/sync-email-preview.mjs --watch",
     "serve:install": "npm --prefix serve install",

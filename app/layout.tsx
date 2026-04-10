@@ -28,10 +28,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
   title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
   description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
-  generator: "v0.app",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    icon: "/logo.png",
+    apple: "/logo.png",
   },
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
