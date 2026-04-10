@@ -150,6 +150,18 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
                   ))}
                 </div>
               </div>
+              {people.contributorsCommunity.length > 0 && (
+                <div>
+                  <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>
+                    Community
+                  </h4>
+                  <div className="space-y-2 sm:space-y-2.5">
+                    {people.contributorsCommunity.map((person) => (
+                      <Person key={person.name} name={person.name} links={person.links} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 

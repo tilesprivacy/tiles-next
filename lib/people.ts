@@ -24,13 +24,18 @@ export const people = {
       name: "Anandu Pavanan @madclaws",
       links: ["https://github.com/madclaws", "https://bsky.app/profile/madcla.ws"],
     },
+  ],
+  contributorsCommunity: [
     {
       id: "exdysa",
       name: "exdysa @exdysa",
-      links: ["https://github.com/exdysa", "https://huggingface.co/exdysa"],
+      links: [
+        "https://github.com/exdysa",
+        "https://huggingface.co/exdysa",
+        "https://ohai.social/@yzzxyz",
+      ],
     },
   ],
-  contributorsCommunity: [],
   sponsorsActive: [
     { id: "luke-hubbard", name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
     {

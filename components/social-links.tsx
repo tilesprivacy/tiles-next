@@ -1,7 +1,14 @@
 import { FaBluesky, FaRedditAlien } from "react-icons/fa6"
-import { SiHuggingface } from "react-icons/si"
+import { SiHuggingface, SiMastodon } from "react-icons/si"
 
-export type SocialIconType = "website" | "twitter" | "github" | "bluesky" | "reddit" | "huggingface"
+export type SocialIconType =
+  | "website"
+  | "twitter"
+  | "github"
+  | "bluesky"
+  | "reddit"
+  | "huggingface"
+  | "mastodon"
 
 export function getSocialIconType(url: string): SocialIconType {
   if (url.includes("x.com") || url.includes("twitter.com")) return "twitter"
@@ -9,6 +16,12 @@ export function getSocialIconType(url: string): SocialIconType {
   if (url.includes("bsky.app")) return "bluesky"
   if (url.includes("reddit.com")) return "reddit"
   if (url.includes("huggingface.co")) return "huggingface"
+  try {
+    const { pathname } = new URL(url)
+    if (pathname.length > 2 && pathname.startsWith("/@")) return "mastodon"
+  } catch {
+    /* ignore */
+  }
   return "website"
 }
 
@@ -40,6 +53,8 @@ export function SocialIcon({
       return <FaRedditAlien className={iconClass} />
     case "huggingface":
       return <SiHuggingface className={iconClass} />
+    case "mastodon":
+      return <SiMastodon className={iconClass} />
     case "website":
     default:
       return (
