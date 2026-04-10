@@ -1,9 +1,47 @@
-const CACHE_VERSION = 'site-cache-v1'
+const CACHE_VERSION = 'site-cache-v2'
 const DOCUMENT_CACHE = `${CACHE_VERSION}-documents`
 const ASSET_CACHE = `${CACHE_VERSION}-assets`
 const DATA_CACHE = `${CACHE_VERSION}-data`
 
+// Logos and favicons must not be served cache-first; updates should appear without another SW bump.
+const BRANDING_PATHS = new Set([
+  '/lighticon.png',
+  '/grey.png',
+  '/light.png',
+  '/logo.png',
+  '/og-logo.png',
+  '/apple-logo.svg',
+  '/apple-logo-white.svg',
+  '/tiles_banner_outline_blk.svg',
+  '/tiles_banner_outline_wht.svg',
+  '/ua-logo.svg',
+  '/apple-icon.png',
+  '/favicon.ico',
+  '/icon0.svg',
+  '/icon1.png',
+])
+
 const STATIC_ASSET_PATTERN = /\.(?:css|js|mjs|png|jpg|jpeg|gif|svg|webp|avif|ico|woff2?|ttf|otf|eot|txt|xml|json)$/i
+
+const isBrandingPathname = (pathname) => BRANDING_PATHS.has(pathname)
+
+const isNextImageBrandingRequest = (requestUrl) => {
+  if (requestUrl.pathname !== '/_next/image') {
+    return false
+  }
+  const raw = requestUrl.searchParams.get('url')
+  if (!raw) {
+    return false
+  }
+  try {
+    const decoded = decodeURIComponent(raw)
+    const pathOnly = decoded.startsWith('http') ? new URL(decoded).pathname : decoded
+    const normalized = pathOnly.startsWith('/') ? pathOnly : `/${pathOnly}`
+    return isBrandingPathname(normalized)
+  } catch {
+    return false
+  }
+}
 
 const isSameOrigin = (url) => url.origin === self.location.origin
 
@@ -102,6 +140,11 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isStaticAssetRequest(requestUrl, request)) {
+    if (isBrandingPathname(requestUrl.pathname) || isNextImageBrandingRequest(requestUrl)) {
+      event.respondWith(fetch(request))
+      return
+    }
+
     event.respondWith(
       (async () => {
         const assetCache = await caches.open(ASSET_CACHE)

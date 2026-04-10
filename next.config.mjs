@@ -8,6 +8,31 @@ const withNextra = nextra({
   defaultShowCopyCode: true,
 })
 
+const BRANDING_ASSET_FILES = [
+  'lighticon.png',
+  'grey.png',
+  'light.png',
+  'logo.png',
+  'og-logo.png',
+  'apple-logo.svg',
+  'apple-logo-white.svg',
+  'tiles_banner_outline_blk.svg',
+  'tiles_banner_outline_wht.svg',
+  'ua-logo.svg',
+  'apple-icon.png',
+  'favicon.ico',
+  'icon0.svg',
+  'icon1.png',
+  'tilescli.png',
+]
+
+const brandingCacheControlHeaders = [
+  {
+    key: 'Cache-Control',
+    value: 'public, max-age=0, must-revalidate',
+  },
+]
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -39,15 +64,10 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: '/tilescli.png',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=0, must-revalidate',
-          },
-        ],
-      },
+      ...BRANDING_ASSET_FILES.map((file) => ({
+        source: `/${file}`,
+        headers: brandingCacheControlHeaders,
+      })),
     ]
   },
   async redirects() {
