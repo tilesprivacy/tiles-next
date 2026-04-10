@@ -1,5 +1,6 @@
 import { fetchReleases, Release } from "@/lib/releases"
 import { ChangelogContent } from "@/components/changelog-content"
+import { getOGImageUrl } from "@/lib/og-image-url"
 import type { Metadata } from "next"
 
 export const dynamic = "force-dynamic"
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og?page=changelog",
+        url: getOGImageUrl("https://www.tiles.run/api/og?page=changelog"),
         width: 1200,
         height: 630,
         alt: "Tiles Changelog",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Changelog",
     description: "All notable changes and releases for Tiles.",
-    images: ["https://www.tiles.run/api/og?page=changelog"],
+    images: [getOGImageUrl("https://www.tiles.run/api/og?page=changelog")],
   },
 }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { MissionContent } from "@/components/mission-content"
+import { getOGImageUrl } from "@/lib/og-image-url"
 
 export const metadata: Metadata = {
   title: "Tiles Mission",
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: getOGImageUrl("https://www.tiles.run/api/og"),
         width: 1200,
         height: 630,
         alt: "Tiles Mission",
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Mission",
     description: "Bringing privacy technology to everyone.",
-    images: ["https://www.tiles.run/api/og"],
+    images: [getOGImageUrl("https://www.tiles.run/api/og")],
   },
 }
 
