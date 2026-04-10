@@ -63,6 +63,7 @@ export default function BlogCarousel() {
         {posts.map((post) => {
           // Prefer explicit cover metadata; fall back to first post image.
           const imageSrc = post.coverImage || extractFirstImageSrc(post.content) || '/og-image.jpg'
+          const imageSrcDark = post.coverImageDark || imageSrc
           const imageAlt = post.coverAlt || post.title
 
           return (
@@ -73,13 +74,22 @@ export default function BlogCarousel() {
               <Link href={`/blog/${post.slug}`} className="block group h-full" prefetch={true}>
                 <div className="space-y-3 rounded-lg border border-black/5 bg-white p-5 hover:border-black/10 hover:shadow-sm lg:p-7 lg:space-y-4 dark:bg-[#161616] dark:border-white/10 dark:hover:border-white/20">
                   <div className="relative aspect-video overflow-hidden rounded-md border border-black/5 dark:border-white/10">
-                    <Image
-                      src={imageSrc}
-                      alt={imageAlt}
-                      fill
-                      sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 49vw"
-                      className="object-cover"
-                    />
+                    <>
+                      <Image
+                        src={imageSrc}
+                        alt={imageAlt}
+                        fill
+                        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 49vw"
+                        className="object-cover dark:hidden"
+                      />
+                      <Image
+                        src={imageSrcDark}
+                        alt={imageAlt}
+                        fill
+                        sizes="(max-width: 640px) 92vw, (max-width: 1024px) 80vw, 49vw"
+                        className="hidden object-cover dark:block"
+                      />
+                    </>
                   </div>
 
                   <h3 className="text-lg font-semibold text-black group-hover:text-black/80 underline lg:text-2xl tracking-tight line-clamp-2 dark:text-white dark:group-hover:text-white/80">

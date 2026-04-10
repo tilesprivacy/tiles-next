@@ -27,7 +27,7 @@ export default function MoveAlongPythonPage() {
       date={formattedDate}
       authorId={post.author}
       coverImage={post.coverImage ?? "/og-image.jpg"}
-      coverImageDark="/tiles_banner_outline_wht.svg"
+      coverImageDark={post.coverImageDark ?? post.coverImage ?? "/og-image.jpg"}
       coverAlt={post.coverAlt ?? post.title}
       content={post.content}
     >
@@ -203,4 +203,3 @@ export default function MoveAlongPythonPage() {
     </BlogPostContent>
   )
 }
-
