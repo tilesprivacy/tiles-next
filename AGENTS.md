@@ -78,3 +78,14 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - The homepage Private AI comparison table in `components/home-content.tsx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix.
 - Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing ` @handle`, which the UI shows as a distinct handle segment instead of stripping it silently.
 - Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned.
+
+## Cursor Cloud specific instructions
+
+- **Stack**: Next.js 16 (App Router) + Nextra 4 docs + Tailwind CSS 4, managed with npm. Node 22+.
+- **Dev server**: `npm run dev` starts the site at `http://localhost:3000`. Turbopack is used automatically.
+- **Lint**: `npm run lint` calls `eslint .` but ESLint is not configured (no config file or dependency). The command will fail; this is a known state.
+- **TypeScript**: `npx tsc --noEmit` reports errors (Nextra types, Cloudflare Worker types in `serve/`). The Next.js config sets `ignoreBuildErrors: true`, so builds succeed despite TS errors.
+- **Build**: `npm run build` runs Next.js build then Pagefind indexing. In dev mode, Pagefind search is not available (only generated at build time).
+- **No database or external services required**: The site runs fully with `npm run dev` alone. The Resend API key (`RESEND_API_KEY`) is only needed if testing the newsletter subscribe endpoint. GitHub API access (for download metadata and star count) has built-in fallback values.
+- **`/serve` sub-project**: A separate Cloudflare Worker for R2 file distribution. Not needed for website development. Has its own `package.json` and dependencies (`npm --prefix serve install`).
+- **Key routes to verify**: `/` (homepage), `/download`, `/blog`, `/book` (Nextra docs), `/llms.txt` (dynamic endpoint via rewrite).
