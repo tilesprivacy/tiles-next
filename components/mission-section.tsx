@@ -6,14 +6,17 @@ import Link from "next/link"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
 import { people } from "@/lib/people"
+import { cn } from "@/lib/utils"
 
 interface MissionSectionProps {
   title: string
   /** Use compact layout (e.g. on landing page). Default false = full mission page layout. */
   compact?: boolean
+  /** Merged into the full-page `<main>` wrapper (compact layout ignores this). */
+  className?: string
 }
 
-export function MissionSection({ title, compact = false }: MissionSectionProps) {
+export function MissionSection({ title, compact = false, className }: MissionSectionProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -202,7 +205,12 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
   }
 
   return (
-    <main className="flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">
+    <main
+      className={cn(
+        "flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto",
+        className,
+      )}
+    >
       {content}
     </main>
   )
