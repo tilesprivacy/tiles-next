@@ -8,6 +8,7 @@ import { Download } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { triggerHaptic } from "@/lib/haptics"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -26,7 +27,10 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
   const buttonText = themeAware ? 'text-background' : 'text-white'
   const buttonHover = themeAware ? 'hover:bg-foreground/90' : 'hover:bg-black/90'
-  
+  const headerCtaPalette = themeAware
+    ? themeAwareHeaderPrimaryCtaClasses
+    : `${buttonBg} ${buttonText} ${buttonHover}`
+
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
   const iconHoverColors = {
@@ -134,7 +138,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"
@@ -153,7 +157,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${buttonBg} ${buttonText} px-2.5 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-full ${headerCtaPalette} px-2.5 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm`}
             >
               <a
                 href="https://github.com/sponsors/tilesprivacy"

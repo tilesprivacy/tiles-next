@@ -5,7 +5,9 @@ import Link from "next/link"
 import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { SiteFooter } from "@/components/site-footer"
+import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 export function HomeContent() {
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
@@ -71,16 +73,25 @@ export function HomeContent() {
               {/* Primary Call To Action */}
               <div className="flex flex-col gap-3 sm:gap-4 lg:gap-3 w-full">
                 <div className="flex items-center gap-4 sm:gap-6">
-                  <Link
-                    href="/download"
-                    onClick={() => triggerHaptic()}
-                    className="group inline-flex h-10 w-fit items-center justify-center gap-2 self-start rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-white dark:text-black dark:ring-white/10 dark:hover:bg-white/90 sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-base"
+                  <Button
+                    asChild
+                    variant="ghost"
+                    className={`h-10 w-fit self-start rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-base`}
                   >
-                    <Download className="h-3.5 w-3.5 origin-right transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4" aria-hidden />
-                    <span className="origin-left transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
-                      Download for macOS
-                    </span>
-                  </Link>
+                    <Link
+                      href="/download"
+                      onClick={() => triggerHaptic()}
+                      className="group flex items-center gap-2"
+                    >
+                      <Download
+                        className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
+                        aria-hidden
+                      />
+                      <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                        Download for macOS
+                      </span>
+                    </Link>
+                  </Button>
                 </div>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
                   <span className="block">

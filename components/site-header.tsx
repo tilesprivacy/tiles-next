@@ -7,6 +7,7 @@ import { memo, useCallback, useEffect, useState } from "react"
 import { Download } from "lucide-react"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -34,6 +35,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const buttonBg = themeAware ? "bg-foreground" : "bg-black"
   const buttonText = themeAware ? "text-background" : "text-white"
   const buttonHover = themeAware ? "hover:bg-foreground/90" : "hover:bg-black/90"
+  const headerCtaPalette = themeAware
+    ? themeAwareHeaderPrimaryCtaClasses
+    : `${buttonBg} ${buttonText} ${buttonHover}`
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
   return (
     <>
@@ -119,7 +123,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${buttonBg} ${buttonText} px-3 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
+            className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
           >
             <Link
               href="/download"
@@ -135,7 +139,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${buttonBg} ${buttonText} px-2.5 text-xs font-medium ${buttonHover} sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
+            className={`h-8 rounded-full ${headerCtaPalette} px-2.5 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
           >
             <a
               href="https://github.com/sponsors/tilesprivacy"

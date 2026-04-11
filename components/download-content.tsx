@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from "next-themes"
 import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
 import { triggerHaptic } from "@/lib/haptics"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -44,9 +45,8 @@ const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
   fileName: "tiles.pkg",
 }
 
-/** Matches homepage primary download CTA (home-content) */
-const primaryDownloadButtonClass =
-  "group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full bg-black px-5 text-sm font-medium text-white shadow-sm ring-1 ring-black/5 transition-all duration-300 will-change-transform hover:scale-[1.02] hover:bg-black/90 active:scale-[0.98] dark:bg-foreground dark:text-background dark:ring-foreground/10 dark:hover:bg-foreground/90"
+/** Matches site header Download CTA (same `Button` palette, flat surface like the nav pill) */
+const primaryDownloadButtonClass = `group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-all duration-300 will-change-transform hover:scale-[1.02] active:scale-[0.98] ${themeAwareHeaderPrimaryCtaClasses}`
 
 const downloadButtonAppleIconClass =
   "origin-right h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110"

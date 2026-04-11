@@ -64,6 +64,9 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - In public blog copy, prefer plain phrasing such as “macOS binary” over insider jargon like “Mach-O” unless the post is explicitly aimed at readers who need that precision.
 - In download and changelog copy, prefer the label “Offline Installer” instead of alternatives like “Full installer” or “Portable Packaging.”
 - On `/blog` bylines, keep the avatar unbordered, place it between “By” and the author name, and keep the author name on a new line with clear spacing on both mobile and desktop.
+- Site light and dark palettes should track the sensibility of the Cursor marketing blog (see https://cursor.com/blog), including book sidebar surfaces so they feel native to the same theme system.
+- The primary top navigation should read as fully transparent: no backdrop blur, no bottom border or hairline separator, and layout should allow page content to show through behind the bar (including under download and sponsor controls) rather than looking like an opaque strip.
+- Changelog release cards should stay card-like but minimal and flat with consistent contrast; avoid an extra horizontal rule between stacked rows such as the download link and SHA, and style secondary actions (for example track progress or RFC links) so they remain legible against the themed background.
 
 ## Learned Workspace Facts
 
@@ -74,7 +77,8 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Latest network `.pkg` metadata comes from GitHub via `getLatestDownloadArtifact`; keep `FALLBACK_ARTIFACT` in `lib/download-artifact.ts` aligned with the current release when the API path fails.
 - Fixed header and mobile menu on Android Chrome edge-to-edge need `viewport-fit=cover` and `env(safe-area-inset-*)` on chrome, overlay, and main top padding; avoid global `header` rules that use `contain` or `transform`, which can break full-width `position: fixed` on narrow viewports.
 - On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.
-- Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme.
+- Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme. Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned.
 - The homepage Private AI comparison table in `components/home-content.tsx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix.
 - Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing ` @handle`, which the UI shows as a distinct handle segment instead of stripping it silently.
-- Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned.
+- Banner wordmark SVGs exported on oversized artboards can add large transparent margins; cropping the SVG `viewBox` (or similar) is often needed when tightening whitespace around homepage or about-page banner sections.
+- The offline site service worker in `public/site-sw.js` has historically applied cache-first handling to broad image classes, which can leave logos and favicons stale after deploys until cache versioning or per-path fetch rules are updated; pair any worker changes with sensible `Cache-Control` on key public branding files in `next.config.mjs` when refreshed assets must reach returning visitors.
