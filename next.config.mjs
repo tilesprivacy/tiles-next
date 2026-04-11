@@ -21,8 +21,9 @@ const BRANDING_ASSET_FILES = [
   'ua-logo.svg',
   'apple-icon.png',
   'favicon.ico',
-  'icon0.svg',
-  'icon1.png',
+  'icon.svg',
+  'icon-light-32x32.png',
+  'icon-dark-32x32.png',
   'tilescli.png',
 ]
 

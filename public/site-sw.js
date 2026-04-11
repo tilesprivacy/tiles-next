@@ -17,8 +17,9 @@ const BRANDING_PATHS = new Set([
   '/ua-logo.svg',
   '/apple-icon.png',
   '/favicon.ico',
-  '/icon0.svg',
-  '/icon1.png',
+  '/icon.svg',
+  '/icon-light-32x32.png',
+  '/icon-dark-32x32.png',
 ])
 
 const STATIC_ASSET_PATTERN = /\.(?:css|js|mjs|png|jpg|jpeg|gif|svg|webp|avif|ico|woff2?|ttf|otf|eot|txt|xml|json)$/i
