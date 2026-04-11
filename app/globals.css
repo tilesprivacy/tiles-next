@@ -1211,3 +1211,108 @@ sniper-link[hidden] {
     --mobile-logo-overlap: calc(var(--mobile-logo-size) / 2);
   }
 }
+
+/* Print layout normalization for blog, book, and marketing pages. */
+@media print {
+  @page {
+    size: auto;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  /* Hide fixed overlays/navigation chrome that causes misplaced print output. */
+  .site-header-chrome,
+  [data-book-section] header,
+  [data-book-section] aside.nextra-sidebar,
+  [data-book-section] .nextra-sidebar,
+  [data-book-section] nav[aria-label="table of contents"],
+  [data-book-section] nav.nextra-toc,
+  .blog-reference-container,
+  .book-copy-link-floating,
+  .book-copy-link-control,
+  .nextra-sidebar-overlay,
+  [aria-label="Open navigation menu"],
+  [aria-label="Close navigation menu"],
+  [role="dialog"],
+  [data-radix-portal],
+  footer {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* Remove header spacing offsets so content starts naturally on page. */
+  [data-book-section],
+  [data-book-section] > div,
+  main,
+  article {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    min-height: auto !important;
+  }
+
+  [data-book-section] .nextra-container,
+  [data-book-section] article,
+  [data-book-section] main,
+  .blog-article-container,
+  .blog-article-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: visible !important;
+  }
+
+  /* Ensure images render in print/PDF and do not overflow page width. */
+  img,
+  svg,
+  canvas,
+  video,
+  picture,
+  figure,
+  .next-image,
+  span:has(> img) {
+    max-width: 100% !important;
+    height: auto !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  /* Print readable typography for themed pages. */
+  * {
+    color: #000 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a,
+  a:visited {
+    text-decoration: underline !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  pre,
+  blockquote,
+  table,
+  figure {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  p,
+  li,
+  blockquote {
+    orphans: 3;
+    widows: 3;
+  }
+}
