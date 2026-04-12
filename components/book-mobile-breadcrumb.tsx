@@ -12,7 +12,9 @@ const pageTitles: Record<string, string> = {
   'tilekit': 'Tilekit',
   'mir': 'MIR Extension',
   'security': 'Security',
+  'community': 'Community',
   'resources': 'Resources',
+  'licenses': 'Licenses',
 }
 
 export function BookMobileBreadcrumb() {
