@@ -1331,8 +1331,11 @@ iframe.skiptranslate {
   display: none !important;
 }
 
+/* Google Translate can temporarily offset `body`; keep the canvas stable. */
 body {
   top: 0 !important;
+  margin-top: 0 !important;
+  position: static !important;
 }
 
 #goog-gt-tt,

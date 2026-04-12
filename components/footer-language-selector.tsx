@@ -106,6 +106,28 @@ function restoreScrollAfterTranslateReload() {
   }
 }
 
+function lockScrollAroundGoogleComboApply(run: () => void) {
+  const x = window.scrollX
+  const y = window.scrollY
+  const previous = window.history.scrollRestoration
+  window.history.scrollRestoration = 'manual'
+  run()
+  const restore = () => {
+    window.scrollTo({ left: x, top: y, behavior: 'auto' })
+  }
+  queueMicrotask(restore)
+  requestAnimationFrame(() => {
+    restore()
+    requestAnimationFrame(() => {
+      restore()
+      setTimeout(() => {
+        restore()
+        window.history.scrollRestoration = previous
+      }, 120)
+    })
+  })
+}
+
 function tryApplyGoogleCombo(language: string) {
   const combo = document.querySelector<HTMLSelectElement>('.goog-te-combo')
   if (!combo) return false
@@ -124,8 +146,10 @@ function tryApplyGoogleCombo(language: string) {
     }
   }
   if (targetValue == null) return false
-  combo.value = targetValue
-  combo.dispatchEvent(new Event('change', { bubbles: true }))
+  lockScrollAroundGoogleComboApply(() => {
+    combo.value = targetValue
+    combo.dispatchEvent(new Event('change', { bubbles: true }))
+  })
   return true
 }
 
@@ -264,15 +288,17 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   }
 
   return (
-    <div ref={rootRef} className="relative w-auto notranslate" translate="no">
+    <div
+      ref={rootRef}
+      className="relative shrink-0 notranslate w-[min(14rem,calc(100vw-9.5rem))] sm:w-[min(14.25rem,calc(100vw-10rem))]"
+      translate="no"
+    >
       <div id={GOOGLE_ELEMENT_ID} className="tiles-google-translate-root" />
       <span id="footer-language-selector-label" className="sr-only">
         Select language
       </span>
-      <div
-        className={`inline-flex items-center rounded-full p-1 ${trackClass}`}
-      >
-        <div className="relative flex items-center">
+      <div className={`inline-flex w-full items-center rounded-full p-1 ${trackClass}`}>
+        <div className="relative flex w-full min-w-0 items-center">
           <Globe
             className={`pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
             aria-hidden
@@ -284,8 +310,9 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((open) => !open)}
-            className={`h-[22px] min-w-[10rem] sm:min-w-[11rem] rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-left text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
+            className={`h-[22px] w-full min-w-0 truncate rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-left text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             translate="no"
+            title={selectedOption.label}
           >
             {selectedOption.label}
           </button>
