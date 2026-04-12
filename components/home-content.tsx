@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
+import { Bot, Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
@@ -21,9 +21,9 @@ export function HomeContent() {
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", osaurus: "check" },
     { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", osaurus: "empty" },
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", osaurus: "empty" },
-    { label: "Agent Harness", tiles: "empty", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
+    { label: "Agent Harness", tiles: "check", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
     { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
-    { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Connectors", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
     { label: "Remote link", tiles: "empty", ollama: "empty", lmStudio: "check", jan: "empty", osaurus: "check" },
     { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
@@ -144,6 +144,20 @@ export function HomeContent() {
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
+                  <Bot className="h-4 w-4" strokeWidth={1.75} />
+                </span>
+                <h3 className="text-base lg:text-lg font-semibold text-foreground">Agent Harness</h3>
+              </div>
+              <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
+                Native Pi agent harness for knowledge work and coding, with extensions for fully customizable workflows
+                across tasks and use cases.
+              </p>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
                   <Cpu className="h-4 w-4" strokeWidth={1.75} />
                 </span>
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">On-device Models</h3>
@@ -162,7 +176,7 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 2 */}
+            {/* Feature 3 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
@@ -175,7 +189,7 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 3 — Sync */}
+            {/* Feature 4 — Sync */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
@@ -211,7 +225,7 @@ export function HomeContent() {
             </div>
             */}
 
-            {/* Feature 4 */}
+            {/* Feature 5 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
@@ -224,7 +238,7 @@ export function HomeContent() {
               </p>
             </div>
 
-            {/* Feature 5 */}
+            {/* Feature 6 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
