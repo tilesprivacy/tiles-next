@@ -68,11 +68,10 @@ export function SiteFooter() {
           </div>
         </section>
 
-        {/* Main content - consistent layout on mobile and desktop */}
-        <div className="flex flex-col gap-6 sm:gap-8">
-          {/* Links - left aligned on all screens */}
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-            <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm md:gap-x-6">
+        {/* Main content grouped by priority: navigation first, then community links */}
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-10">
+          <div>
+            <nav aria-label="Footer links" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm md:gap-x-6">
               <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
                 Subprocessors
               </Link>
@@ -102,9 +101,10 @@ export function SiteFooter() {
                 </svg>
               </a>
             </nav>
+          </div>
 
-            {/* Social icons - right aligned on all screens */}
-            <div className="flex flex-wrap items-center gap-4 sm:gap-4 lg:gap-5 sm:justify-end">
+          <div className="lg:text-right">
+            <div className="flex flex-wrap items-center gap-4 sm:gap-4 lg:justify-end lg:gap-5">
               <a
                 href="https://x.com/tilesprivacy"
                 target="_blank"
@@ -168,21 +168,11 @@ export function SiteFooter() {
               >
                 <SiHuggingface className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#FFD21E]`} />
               </a>
-              <a
-                href="/api/rss"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="RSS Feed"
-              >
-                <FaRss className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-orange-500`} />
-              </a>
             </div>
           </div>
-
         </div>
 
-        {/* Bottom section - copyright, network credits, Atmosphere, license */}
+        {/* Bottom section - controls and legal details */}
         <div className={`border-t ${borderColor} pt-9 sm:pt-10 space-y-7 sm:space-y-6`}>
           <div className={`flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-6 text-[10px] sm:text-xs ${textColor}`}>
             <div className="flex min-w-0 flex-col gap-4 sm:gap-3">
@@ -222,7 +212,7 @@ export function SiteFooter() {
               </div>
             </div>
 
-            {/* Theme Switcher - visible on all screens; self-end on mobile balances the left-aligned credits */}
+            {/* Preferences stay close to legal/meta info so they are easy to find */}
             <div className="shrink-0 self-end sm:self-start sm:pt-0.5 flex items-center gap-2.5">
               <FooterLanguageSelector variant={themeSwitcherVariant} />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
