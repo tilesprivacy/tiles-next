@@ -70,10 +70,10 @@ export function BlogPostContent({
             <h1 className="text-3xl font-semibold text-black dark:text-white mb-4 lg:text-5xl lg:mb-4 tracking-tight">
               {title}
             </h1>
-            <p className="text-base text-black/50 dark:text-white/50 lg:text-lg mb-3 lg:mb-3">
+            <p className="text-base text-black/50 dark:text-white/50 lg:text-lg mb-4 lg:mb-4">
               {description}
             </p>
-            <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:gap-4">
+            <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
                 <p className="text-sm text-black/40 dark:text-white/40 lg:text-base">{date}</p>
                 <span className="text-black/20 dark:text-white/20">·</span>
@@ -83,8 +83,7 @@ export function BlogPostContent({
                 />
               </div>
               {author && (
-                <div className="flex items-center gap-1.5">
-                  <span className="hidden text-black/20 dark:text-white/20 lg:inline">·</span>
+                <div className="mt-0.5 flex items-center gap-1.5">
                   <span className="text-sm text-black/40 dark:text-white/40 lg:text-base">By</span>
                   <PersonAvatar
                     name={author.name}
@@ -108,7 +107,7 @@ export function BlogPostContent({
               )}
             </div>
             {shareUrl && (
-              <div className="mt-5 flex items-center gap-4">
+              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
                 <a
                   href={`https://twitter.com/intent/tweet?text=${shareText}`}
                   target="_blank"
