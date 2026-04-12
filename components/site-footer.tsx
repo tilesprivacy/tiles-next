@@ -224,7 +224,7 @@ export function SiteFooter() {
 
             {/* Theme Switcher - visible on all screens; self-end on mobile balances the left-aligned credits */}
             <div className="shrink-0 self-end sm:self-start sm:pt-0.5 flex items-center gap-2.5">
-              <FooterLanguageSelector isDarkFooter={isDarkFooter} />
+              <FooterLanguageSelector variant={themeSwitcherVariant} />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
             </div>
           </div>

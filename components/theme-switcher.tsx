@@ -31,13 +31,13 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
   const hoverText = isLightVariant ? 'hover:text-black' : 'hover:text-white'
 
   const sizeClasses = size === 'sm' 
-    ? 'text-[10px] px-2 py-0.5 gap-0.5' 
-    : 'text-xs px-2.5 py-1 gap-1'
+    ? 'text-[11px] px-2.5 py-1 gap-0.5' 
+    : 'text-sm px-3 py-1.5 gap-1'
 
-  const iconSize = size === 'sm' ? 'h-3 w-3' : 'h-3.5 w-3.5'
+  const iconSize = size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'
 
   return (
-    <div className={`inline-flex items-center rounded-full ${bgColor} p-0.5`}>
+    <div className={`inline-flex items-center rounded-full ${bgColor} p-1`}>
       <button
         onClick={() => setTheme('light')}
         className={`inline-flex items-center ${sizeClasses} rounded-full font-medium transition-all duration-200 ${

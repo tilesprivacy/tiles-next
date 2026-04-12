@@ -66,16 +66,21 @@ function applyTranslation(language: string) {
 }
 
 type FooterLanguageSelectorProps = {
-  isDarkFooter: boolean
+  /** Matches `ThemeSwitcher` `variant` for the reversed footer surface (`dark` = dark footer band). */
+  variant: 'light' | 'dark'
 }
 
-export function FooterLanguageSelector({ isDarkFooter }: FooterLanguageSelectorProps) {
+export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
   const [ready, setReady] = useState(false)
 
-  const selectClasses = isDarkFooter
-    ? 'border-[#2a2a2a] bg-black text-[#E6E6E6] hover:border-[#3a3a3a] focus-visible:ring-[#3a3a3a]'
-    : 'border-black/10 bg-white text-black/85 hover:border-black/20 focus-visible:ring-black/20'
+  // Track + text colors aligned with `components/theme-switcher.tsx` (segmented control shell).
+  const isLightVariant = variant === 'light'
+  const trackClass = isLightVariant ? 'bg-black/10' : 'bg-white/10'
+  const selectClasses = isLightVariant
+    ? 'text-black/85 focus-visible:ring-black/25'
+    : 'text-white/90 focus-visible:ring-white/25'
+  const iconMutedClass = isLightVariant ? 'text-black/60' : 'text-white/60'
 
   useEffect(() => {
     setSelectedLanguage(getLanguageFromCookie())
@@ -132,34 +137,34 @@ export function FooterLanguageSelector({ isDarkFooter }: FooterLanguageSelectorP
       <label className="sr-only" htmlFor="footer-language-selector">
         Select language
       </label>
-      <div className="relative">
-        <Globe
-          className={`pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${
-            isDarkFooter ? 'text-[#A3A3A3]' : 'text-black/50'
-          }`}
-          aria-hidden
-        />
-        <select
-          id="footer-language-selector"
-          value={selectedLanguage}
-          onChange={(event) => onLanguageChange(event.target.value)}
-          className={`h-8 min-w-[170px] appearance-none rounded-full border py-0 pl-8 pr-8 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 disabled:cursor-wait disabled:opacity-70 ${selectClasses}`}
-          aria-label="Website language"
-          disabled={!ready}
-          translate="no"
-        >
-          {LANGUAGE_OPTIONS.map((option) => (
-            <option key={option.value} value={option.value} lang={option.value} translate="no">
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <ChevronDown
-          className={`pointer-events-none absolute right-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${
-            isDarkFooter ? 'text-[#A3A3A3]' : 'text-black/50'
-          }`}
-          aria-hidden
-        />
+      <div
+        className={`inline-flex items-center rounded-full p-1 ${trackClass}`}
+      >
+        <div className="relative flex items-center">
+          <Globe
+            className={`pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
+            aria-hidden
+          />
+          <select
+            id="footer-language-selector"
+            value={selectedLanguage}
+            onChange={(event) => onLanguageChange(event.target.value)}
+            className={`h-[22px] min-w-[10rem] sm:min-w-[11rem] cursor-pointer appearance-none rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 disabled:cursor-wait disabled:opacity-70 ${selectClasses}`}
+            aria-label="Website language"
+            disabled={!ready}
+            translate="no"
+          >
+            {LANGUAGE_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value} lang={option.value} translate="no">
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <ChevronDown
+            className={`pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
+            aria-hidden
+          />
+        </div>
       </div>
     </div>
   )
