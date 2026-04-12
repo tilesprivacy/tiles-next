@@ -10,13 +10,14 @@ export const metadata: Metadata = {
 
 interface BackerPurchaseSuccessPageProps {
   searchParams?: Promise<{
+    checkoutId?: string
     checkout_id?: string
   }>
 }
 
 export default async function BackerPurchaseSuccessPage({ searchParams }: BackerPurchaseSuccessPageProps) {
   const params = searchParams ? await searchParams : undefined
-  const checkoutId = params?.checkout_id
+  const checkoutId = params?.checkoutId ?? params?.checkout_id
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
@@ -25,7 +26,7 @@ export default async function BackerPurchaseSuccessPage({ searchParams }: Backer
           <p className="text-sm font-medium text-muted-foreground">Thanks for your support</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">Backer license confirmed</h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Thank you for supporting Tiles. Your backer purchase was successful.
+            Thank you for supporting Tiles. Your backer license purchase was successful.
           </p>
           {checkoutId ? (
             <p className="mt-2 text-sm text-muted-foreground">

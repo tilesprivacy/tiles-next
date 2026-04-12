@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 
 interface CommercialPurchaseSuccessPageProps {
   searchParams?: Promise<{
+    checkoutId?: string
     checkout_id?: string
   }>
 }
@@ -18,7 +19,7 @@ export default async function CommercialPurchaseSuccessPage({
   searchParams,
 }: CommercialPurchaseSuccessPageProps) {
   const params = searchParams ? await searchParams : undefined
-  const checkoutId = params?.checkout_id
+  const checkoutId = params?.checkoutId ?? params?.checkout_id
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
@@ -29,7 +30,7 @@ export default async function CommercialPurchaseSuccessPage({
             Commercial license confirmed
           </h1>
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Thank you for supporting Tiles. Your commercial purchase was successful.
+            Thank you for supporting Tiles. Your commercial license purchase was successful.
           </p>
           {checkoutId ? (
             <p className="mt-2 text-sm text-muted-foreground">

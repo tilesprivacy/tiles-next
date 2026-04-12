@@ -1,7 +1,10 @@
 import { Checkout } from "@polar-sh/nextjs"
+import { getSiteUrl } from "@/lib/site-url"
+
+const siteUrl = getSiteUrl()
 
 export const GET = Checkout({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
-  successUrl: "/pricing/success/backer?checkout_id={CHECKOUT_ID}",
-  returnUrl: "/pricing",
+  successUrl: `${siteUrl}/pricing/success/backer`,
+  returnUrl: `${siteUrl}/pricing`,
 })
