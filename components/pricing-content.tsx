@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Check, ChevronDown } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
+import { Button } from "@/components/ui/button"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 type PricingPlan = {
@@ -97,9 +98,9 @@ export function PricingContent() {
   const cardClass =
     "flex min-h-[500px] flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-none sm:p-7"
   const primaryCardButtonClass =
-    `inline-flex h-11 w-full items-center justify-center rounded-[10px] px-4 text-sm font-medium transition-opacity hover:opacity-95 sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
+    `h-10 w-full rounded-full px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
   const secondaryCardButtonClass =
-    "inline-flex h-11 w-full items-center justify-center rounded-[10px] border border-border bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:text-base"
+    "h-10 w-full rounded-full border-border bg-secondary px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
@@ -142,20 +143,29 @@ export function PricingContent() {
                   </div>
                   <p className="mt-3 text-base font-normal leading-relaxed text-muted-foreground">{plan.cadence}</p>
                   <div className="mt-7 space-y-2.5">
-                    <a
-                      href={plan.ctaHref}
-                      target={plan.ctaHref.startsWith("http") ? "_blank" : undefined}
-                      rel={plan.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                    <Button
+                      asChild
+                      size="lg"
                       className={primaryCardButtonClass}
                     >
-                      {plan.ctaLabel}
-                    </a>
-                    <Link
-                      href={plan.learnMoreHref}
+                      <a
+                        href={plan.ctaHref}
+                        target={plan.ctaHref.startsWith("http") ? "_blank" : undefined}
+                        rel={plan.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+                      >
+                        {plan.ctaLabel}
+                      </a>
+                    </Button>
+                    <Button
+                      asChild
+                      variant="secondary"
+                      size="lg"
                       className={secondaryCardButtonClass}
                     >
-                      Learn more
-                    </Link>
+                      <Link href={plan.learnMoreHref}>
+                        Learn more
+                      </Link>
+                    </Button>
                   </div>
                   <div className="mt-8 flex flex-1 flex-col">
                     <ul className="space-y-3 text-base leading-relaxed text-card-foreground">
