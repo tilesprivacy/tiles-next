@@ -1,7 +1,7 @@
 'use client'
 
 import { ChevronDown, Globe } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 declare global {
   interface Window {
@@ -72,6 +72,8 @@ type FooterLanguageSelectorProps = {
 
 export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
+  const [isOpen, setIsOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement | null>(null)
 
   // Track + text colors aligned with `components/theme-switcher.tsx` (segmented control shell).
   const isLightVariant = variant === 'light'
@@ -80,6 +82,12 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
     ? 'text-black/85 focus-visible:ring-black/25'
     : 'text-white/90 focus-visible:ring-white/25'
   const iconMutedClass = isLightVariant ? 'text-black/60' : 'text-white/60'
+  const dropdownSurfaceClass = isLightVariant
+    ? 'border-black/10 bg-white text-black shadow-[0_8px_30px_rgba(0,0,0,0.14)]'
+    : 'border-white/15 bg-[#101010] text-white shadow-[0_8px_30px_rgba(0,0,0,0.45)]'
+  const optionActiveClass = isLightVariant ? 'bg-black/5 text-black' : 'bg-white/10 text-white'
+  const optionIdleClass = isLightVariant ? 'hover:bg-black/5 text-black/85' : 'hover:bg-white/10 text-white/90'
+  const selectedOption = LANGUAGE_OPTIONS.find((option) => option.value === selectedLanguage) ?? LANGUAGE_OPTIONS[0]
 
   useEffect(() => {
     setSelectedLanguage(getLanguageFromCookie())
@@ -121,8 +129,35 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
     }
   }, [])
 
+  useEffect(() => {
+    const onPointerDown = (event: MouseEvent | TouchEvent) => {
+      if (!rootRef.current) return
+      const target = event.target
+      if (target instanceof Node && !rootRef.current.contains(target)) {
+        setIsOpen(false)
+      }
+    }
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('touchstart', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('touchstart', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [])
+
   const onLanguageChange = (language: string) => {
     setSelectedLanguage(language)
+    setIsOpen(false)
     const applied = applyTranslation(language)
     if (!applied) {
       window.location.reload()
@@ -130,11 +165,11 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   }
 
   return (
-    <div className="w-auto notranslate" translate="no">
+    <div ref={rootRef} className="relative w-auto notranslate" translate="no">
       <div id={GOOGLE_ELEMENT_ID} className="tiles-google-translate-root" />
-      <label className="sr-only" htmlFor="footer-language-selector">
+      <span id="footer-language-selector-label" className="sr-only">
         Select language
-      </label>
+      </span>
       <div
         className={`inline-flex items-center rounded-full p-1 ${trackClass}`}
       >
@@ -143,26 +178,55 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
             className={`pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
             aria-hidden
           />
-          <select
+          <button
+            type="button"
             id="footer-language-selector"
-            value={selectedLanguage}
-            onChange={(event) => onLanguageChange(event.target.value)}
-            className={`h-[22px] min-w-[10rem] sm:min-w-[11rem] cursor-pointer appearance-none rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
-            aria-label="Website language"
+            aria-labelledby="footer-language-selector-label footer-language-selector"
+            aria-haspopup="listbox"
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((open) => !open)}
+            className={`h-[22px] min-w-[10rem] sm:min-w-[11rem] rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-left text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             translate="no"
           >
-            {LANGUAGE_OPTIONS.map((option) => (
-              <option key={option.value} value={option.value} lang={option.value} translate="no">
-                {option.label}
-              </option>
-            ))}
-          </select>
+            {selectedOption.label}
+          </button>
           <ChevronDown
-            className={`pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
+            className={`pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 transition-transform ${iconMutedClass} ${
+              isOpen ? 'rotate-180' : ''
+            }`}
             aria-hidden
           />
         </div>
       </div>
+      {isOpen ? (
+        <div
+          className={`absolute bottom-full right-0 z-50 mb-2 w-[min(16rem,85vw)] overflow-hidden rounded-2xl border p-1.5 ${dropdownSurfaceClass}`}
+          role="presentation"
+        >
+          <ul role="listbox" aria-labelledby="footer-language-selector-label" className="max-h-64 overflow-y-auto">
+            {LANGUAGE_OPTIONS.map((option) => {
+              const isSelected = option.value === selectedLanguage
+              return (
+                <li key={option.value} role="presentation">
+                  <button
+                    type="button"
+                    role="option"
+                    aria-selected={isSelected}
+                    onClick={() => onLanguageChange(option.value)}
+                    className={`w-full rounded-xl px-3 py-2 text-left text-sm transition-colors ${
+                      isSelected ? optionActiveClass : optionIdleClass
+                    }`}
+                    translate="no"
+                    lang={option.value}
+                  >
+                    {option.label}
+                  </button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ) : null}
     </div>
   )
 }
