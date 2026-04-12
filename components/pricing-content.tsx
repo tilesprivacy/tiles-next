@@ -198,7 +198,7 @@ export function PricingContent() {
                 <p className="text-sm text-muted-foreground sm:text-base">Frequently asked questions about pricing</p>
               </div>
 
-              <div className="max-w-3xl divide-y divide-border border-y border-border">
+              <div className="w-full divide-y divide-border border-y border-border">
                 {faqs.map((faq, faqIndex) => (
                   <details key={faq.question} className="group py-4 sm:py-5" open={faqIndex === 0}>
                     <summary className="flex cursor-pointer list-none items-start justify-between gap-3 pr-1 text-lg font-medium tracking-tight text-foreground marker:content-[''] sm:text-xl">
@@ -209,7 +209,7 @@ export function PricingContent() {
                         aria-hidden
                       />
                     </summary>
-                    <p className="mt-3 max-w-3xl text-left text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    <p className="mt-3 text-left text-sm leading-relaxed text-muted-foreground sm:text-base">
                       {faq.answer}
                     </p>
                   </details>

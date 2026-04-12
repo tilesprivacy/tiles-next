@@ -60,7 +60,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav.
 - On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, and rewrite the remaining sentence so it still reads naturally.
 - Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
-- Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, aligning the theme switcher to the end of the row can balance left-stacked copy.
+- Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, aligning the theme switcher to the end of the row can balance left-stacked copy, and language switcher labels should remain in their original language names.
 - In public blog copy, prefer plain phrasing such as “macOS binary” over insider jargon like “Mach-O” unless the post is explicitly aimed at readers who need that precision.
 - In download and changelog copy, prefer the label “Offline Installer” instead of alternatives like “Full installer” or “Portable Packaging.”
 - On `/blog` bylines, keep the avatar unbordered, place it between “By” and the author name, and keep the author name on a new line with clear spacing on both mobile and desktop.
