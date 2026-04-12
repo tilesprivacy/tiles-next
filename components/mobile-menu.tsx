@@ -219,6 +219,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               Blog
             </Link>
             <Link
+              href="/pricing"
+              onClick={onClose}
+              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+            >
+              Pricing
+            </Link>
+            <Link
               href="/book"
               onClick={onClose}
               className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
