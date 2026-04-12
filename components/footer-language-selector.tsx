@@ -50,18 +50,22 @@ function getLanguageFromCookie() {
 function setLanguageCookie(language: string) {
   if (typeof document === 'undefined') return
   if (language === 'en') {
+    const hostname = window.location.hostname
+    const domainVariants = [hostname, `.${hostname}`]
+    for (const domain of domainVariants) {
+      document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${domain};`
+    }
     document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;'
     return
   }
   document.cookie = `googtrans=/en/${language}; path=/; max-age=31536000`
 }
 
-function applyTranslation(language: string) {
-  setLanguageCookie(language)
+function tryApplyGoogleCombo(language: string) {
   const combo = document.querySelector<HTMLSelectElement>('.goog-te-combo')
   if (!combo) return false
-  combo.value = language === 'en' ? '' : language
-  combo.dispatchEvent(new Event('change'))
+  combo.value = language
+  combo.dispatchEvent(new Event('change', { bubbles: true }))
   return true
 }
 
@@ -74,6 +78,32 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
   const [isOpen, setIsOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const translatePollRafRef = useRef<number | null>(null)
+
+  const cancelTranslatePoll = () => {
+    if (translatePollRafRef.current != null) {
+      cancelAnimationFrame(translatePollRafRef.current)
+      translatePollRafRef.current = null
+    }
+  }
+
+  const scheduleGoogleComboPoll = (language: string) => {
+    cancelTranslatePoll()
+    const deadline = performance.now() + 8000
+    const step = () => {
+      if (tryApplyGoogleCombo(language)) {
+        cancelTranslatePoll()
+        return
+      }
+      if (performance.now() >= deadline) {
+        cancelTranslatePoll()
+        window.location.reload()
+        return
+      }
+      translatePollRafRef.current = requestAnimationFrame(step)
+    }
+    translatePollRafRef.current = requestAnimationFrame(step)
+  }
 
   // Track + text colors aligned with `components/theme-switcher.tsx` (segmented control shell).
   const isLightVariant = variant === 'light'
@@ -130,6 +160,14 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   }, [])
 
   useEffect(() => {
+    return () => {
+      const id = translatePollRafRef.current
+      if (id != null) cancelAnimationFrame(id)
+      translatePollRafRef.current = null
+    }
+  }, [])
+
+  useEffect(() => {
     const onPointerDown = (event: MouseEvent | TouchEvent) => {
       if (!rootRef.current) return
       const target = event.target
@@ -158,10 +196,15 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   const onLanguageChange = (language: string) => {
     setSelectedLanguage(language)
     setIsOpen(false)
-    const applied = applyTranslation(language)
-    if (!applied) {
+    if (language === 'en') {
+      cancelTranslatePoll()
+      setLanguageCookie(language)
       window.location.reload()
+      return
     }
+    setLanguageCookie(language)
+    if (tryApplyGoogleCombo(language)) return
+    scheduleGoogleComboPoll(language)
   }
 
   return (

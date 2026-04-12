@@ -41,7 +41,7 @@ const plans: PricingPlan[] = [
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_acVtj1bKcYElIOYc7EuQSJuT9fzwSKHf0Gpd20jDseq",
     learnMoreHref: "/book/licenses#commercial",
-    features: ["Support development and infrastructure costs", "Become a featured organization"],
+    features: ["Support development and infrastructure costs", "Become a featured organization", "Priority support channel"],
     note: "For bulk purchases and other inquiries, contact us at support@tiles.run",
   },
 ]
