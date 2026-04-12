@@ -30,7 +30,7 @@ const plans: PricingPlan[] = [
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_UaSG3EKkZRlrPdoeCThS8emJvA7eOCcCHyjdZ1uXyAW",
     learnMoreHref: "/mission",
-    features: ["Early access to beta versions", "Support development and infrastructure costs", "Priority feature development"],
+    features: ["Early access to beta versions", "Support development and infrastructure costs", "Prioritize feature development"],
   },
   {
     name: "Commercial",
@@ -66,6 +66,11 @@ const faqs: PricingFaq[] = [
     answer:
       "Backer members receive early access to beta versions, directly support development, and help prioritize feature development. Backer support helps keep Tiles fully user-supported and independent from investor influence.",
   },
+  {
+    question: "What do development and infrastructure costs support?",
+    answer:
+      "Development support funds core contributors working on Tiles’ core engineering and applied research. Infrastructure support covers the operation of relay infrastructure used for peer-to-peer connectivity, specifically Iroh public relays, which forward end-to-end encrypted traffic only when direct peer-to-peer connections cannot be established or are impractical. Infrastructure support also covers CDN hosting costs for model distribution and installer builds.",
+  },
 ]
 
 export function PricingContent() {
@@ -90,33 +95,33 @@ export function PricingContent() {
   })
 
   const cardClass =
-    "flex min-h-[540px] flex-col rounded-2xl border border-border bg-card p-8 text-card-foreground shadow-none"
+    "flex min-h-[500px] flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-none sm:p-7"
   const primaryCardButtonClass =
-    `inline-flex h-12 w-full items-center justify-center rounded-[10px] px-4 text-base font-medium transition-opacity hover:opacity-95 ${themeAwareHeaderPrimaryCtaClasses}`
+    `inline-flex h-11 w-full items-center justify-center rounded-[10px] px-4 text-sm font-medium transition-opacity hover:opacity-95 sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
   const secondaryCardButtonClass =
-    "inline-flex h-12 w-full items-center justify-center rounded-[10px] border border-border bg-secondary px-4 text-base font-medium text-secondary-foreground transition-colors hover:bg-secondary/80"
+    "inline-flex h-11 w-full items-center justify-center rounded-[10px] border border-border bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-secondary/80 sm:text-base"
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
       <main className="flex flex-1 flex-col pb-16 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:pb-20 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
         <section className="px-4 sm:px-6 lg:px-12">
-          <div className="mx-auto w-full max-w-4xl space-y-16 lg:space-y-20">
-            <div className="space-y-5 pt-4 text-center sm:pt-8 lg:pt-10">
-              <h1 className="inline-block text-4xl font-semibold tracking-tight text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-5xl">
+          <div className="mx-auto w-full max-w-4xl space-y-14 lg:space-y-16">
+            <div className="space-y-4 pt-4 text-center sm:pt-8 lg:pt-10">
+              <h1 className="inline-block text-3xl font-semibold tracking-tight text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-4xl">
                 Free without limits.
               </h1>
-              <p className="mx-auto max-w-xl text-3xl font-semibold leading-tight text-foreground sm:text-4xl">
+              <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
                 No sign-up required.
                 <br />
                 No strings attached.
               </p>
             </div>
 
-            <div className="space-y-3 border-t border-border pt-10 text-center lg:pt-12">
-              <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            <div className="space-y-2 border-t border-border pt-8 text-center lg:pt-10">
+              <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
                 100% user-supported.
               </h2>
-              <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              <p className="mx-auto max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
                 Optional licenses help support the independent development of Tiles.
               </p>
             </div>
@@ -127,16 +132,16 @@ export function PricingContent() {
                   key={plan.name}
                   className={cardClass}
                 >
-                  <h3 className="text-[1.9rem] font-semibold tracking-tight text-card-foreground">{plan.name}</h3>
-                  <p className="mt-2 text-sm font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                  <h3 className="text-[1.75rem] font-semibold tracking-tight text-card-foreground">{plan.name}</h3>
+                  <p className="mt-2 text-sm font-normal tracking-[0.03em] text-muted-foreground">
                     {plan.description}
                   </p>
-                  <div className="mt-7 flex items-end gap-2">
-                    <p className="text-6xl font-semibold leading-none text-card-foreground">{plan.price}</p>
-                    <p className="pb-1 text-xl uppercase tracking-wide text-muted-foreground">USD</p>
+                  <div className="mt-6 flex items-end gap-2">
+                    <p className="text-5xl font-semibold leading-none text-card-foreground sm:text-[3.25rem]">{plan.price}</p>
+                    <p className="pb-1 text-sm tracking-[0.08em] text-muted-foreground">USD</p>
                   </div>
-                  <p className="mt-4 text-lg leading-relaxed text-muted-foreground">{plan.cadence}</p>
-                  <div className="mt-8 space-y-2.5">
+                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">{plan.cadence}</p>
+                  <div className="mt-7 space-y-2.5">
                     <a
                       href={plan.ctaHref}
                       target={plan.ctaHref.startsWith("http") ? "_blank" : undefined}
@@ -152,8 +157,8 @@ export function PricingContent() {
                       Learn more
                     </Link>
                   </div>
-                  <div className="mt-9 flex flex-1 flex-col">
-                    <ul className="space-y-3 text-[1.05rem] leading-relaxed text-card-foreground">
+                  <div className="mt-8 flex flex-1 flex-col">
+                    <ul className="space-y-3 text-base leading-relaxed text-card-foreground">
                       {plan.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-2.5">
                           <Check className="mt-1 h-5 w-5 shrink-0 text-emerald-400" aria-hidden />
@@ -175,18 +180,18 @@ export function PricingContent() {
               ))}
             </div>
 
-            <section className="space-y-6 border-t border-border pt-8" aria-labelledby="pricing-faq">
+            <section className="space-y-5 border-t border-border pt-8" aria-labelledby="pricing-faq">
               <div className="space-y-2 text-left">
-                <h2 id="pricing-faq" className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                <h2 id="pricing-faq" className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
                   FAQ
                 </h2>
-                <p className="text-base text-muted-foreground sm:text-lg">Frequently asked questions about pricing</p>
+                <p className="text-sm text-muted-foreground sm:text-base">Frequently asked questions about pricing</p>
               </div>
 
               <div className="max-w-3xl divide-y divide-border border-y border-border">
                 {faqs.map((faq, faqIndex) => (
-                  <details key={faq.question} className="group py-5" open={faqIndex === 0}>
-                    <summary className="flex cursor-pointer list-none items-start justify-between gap-3 pr-1 text-xl font-semibold tracking-tight text-foreground marker:content-[''] sm:text-2xl">
+                  <details key={faq.question} className="group py-4 sm:py-5" open={faqIndex === 0}>
+                    <summary className="flex cursor-pointer list-none items-start justify-between gap-3 pr-1 text-lg font-medium tracking-tight text-foreground marker:content-[''] sm:text-xl">
                       <span>{faq.question}</span>
                       <ChevronDown
                         className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
@@ -194,7 +199,7 @@ export function PricingContent() {
                         aria-hidden
                       />
                     </summary>
-                    <p className="mt-3 max-w-3xl text-left text-base leading-relaxed text-muted-foreground sm:text-lg">
+                    <p className="mt-3 max-w-3xl text-left text-sm leading-relaxed text-muted-foreground sm:text-base">
                       {faq.answer}
                     </p>
                   </details>
