@@ -7,6 +7,7 @@ import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
+import { FooterLanguageSwitcher } from "@/components/footer-language-switcher"
 
 export function SiteFooter() {
   const { resolvedTheme } = useTheme()
@@ -218,8 +219,9 @@ export function SiteFooter() {
               </div>
             </div>
 
-            {/* Theme Switcher - visible on all screens; self-end on mobile balances the left-aligned credits */}
-            <div className="shrink-0 self-end sm:self-start sm:pt-0.5">
+            {/* Footer controls - language and theme */}
+            <div className="flex shrink-0 flex-col items-end gap-3 self-end sm:self-start sm:pt-0.5">
+              <FooterLanguageSwitcher isDarkFooter={isDarkFooter} />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
             </div>
           </div>
