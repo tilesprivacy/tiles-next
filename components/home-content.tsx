@@ -66,7 +66,7 @@ export function HomeContent() {
                   Tiles
                 </h1>
                 <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base lg:text-xl">
-                  Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.
+                  Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.
                 </p>
               </div>
 
@@ -265,7 +265,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Tilekit SDK</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and the Open Responses API.
+                Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.
               </p>
             </div>
 

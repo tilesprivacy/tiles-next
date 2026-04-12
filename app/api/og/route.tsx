@@ -32,7 +32,8 @@ async function loadGoogleFont(font: string, text: string) {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
-  const tagline = "Your private and secure AI assistant for everyday use."
+  const tagline =
+    "Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API."
   const fontText = tagline
 
   // Fetch logo/font opportunistically; never fail the OG image if unavailable.

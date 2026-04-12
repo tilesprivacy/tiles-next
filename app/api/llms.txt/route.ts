@@ -70,7 +70,9 @@ export async function GET(request: Request) {
   sections.push(`## Homepage (${baseUrl}/)`)
   sections.push('')
   sections.push('Tiles')
-  sections.push('Your private and secure AI assistant for everyday use')
+  sections.push(
+    'Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.',
+  )
   sections.push('')
   sections.push('Tiles is a private and secure AI assistant for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
   sections.push('Runs fully on-device, with optional peer-to-peer sync.')
