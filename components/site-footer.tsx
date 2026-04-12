@@ -213,7 +213,7 @@ export function SiteFooter() {
             </div>
 
             {/* Preferences stay close to legal/meta info so they are easy to find */}
-            <div className="shrink-0 self-end sm:self-start sm:pt-0.5 flex items-center gap-2.5">
+            <div className="shrink-0 self-start sm:self-start sm:pt-0.5 flex items-center gap-2.5">
               <FooterLanguageSelector variant={themeSwitcherVariant} />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
             </div>
