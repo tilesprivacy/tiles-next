@@ -24,7 +24,7 @@ type PricingFaq = {
 const plans: PricingPlan[] = [
   {
     name: "Backer",
-    description: "For individual supporters",
+    description: "For individual users",
     price: "$50",
     cadence: "One-time payment",
     ctaLabel: "Support Tiles",
