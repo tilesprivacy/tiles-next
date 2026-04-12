@@ -106,22 +106,22 @@ export function PricingContent() {
       <main className="flex flex-1 flex-col pb-16 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:pb-20 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
         <section className="px-4 sm:px-6 lg:px-12">
           <div className="mx-auto w-full max-w-4xl space-y-14 lg:space-y-16">
-            <div className="space-y-4 pt-4 text-center sm:pt-8 lg:pt-10">
-              <h1 className="inline-block text-3xl font-semibold tracking-tight text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-4xl">
+            <div className="space-y-3 pt-4 text-center sm:space-y-4 sm:pt-8 lg:pt-10">
+              <h1 className="inline-block text-3xl font-bold tracking-tight text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-4xl">
                 Free without limits.
               </h1>
-              <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+              <p className="mx-auto max-w-xl text-xl font-semibold leading-snug text-foreground/90 sm:text-2xl">
                 No sign-up required.
                 <br />
                 No strings attached.
               </p>
             </div>
 
-            <div className="space-y-2 border-t border-border pt-8 text-center lg:pt-10">
+            <div className="space-y-2 pt-8 text-center lg:pt-10">
               <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
                 100% user-supported.
               </h2>
-              <p className="mx-auto max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+              <p className="mx-auto max-w-2xl text-lg font-normal leading-relaxed text-foreground/80 sm:text-xl">
                 Optional licenses help support the independent development of Tiles.
               </p>
             </div>
@@ -137,10 +137,10 @@ export function PricingContent() {
                     {plan.description}
                   </p>
                   <div className="mt-6 flex items-end gap-2">
-                    <p className="text-5xl font-semibold leading-none text-card-foreground sm:text-[3.25rem]">{plan.price}</p>
-                    <p className="pb-1 text-sm tracking-[0.08em] text-muted-foreground">USD</p>
+                    <p className="text-5xl font-bold tabular-nums leading-none text-card-foreground sm:text-[3.25rem]">{plan.price}</p>
+                    <p className="pb-1 text-sm font-medium tracking-[0.08em] text-muted-foreground">USD</p>
                   </div>
-                  <p className="mt-3 text-base leading-relaxed text-muted-foreground">{plan.cadence}</p>
+                  <p className="mt-3 text-base font-normal leading-relaxed text-muted-foreground">{plan.cadence}</p>
                   <div className="mt-7 space-y-2.5">
                     <a
                       href={plan.ctaHref}
