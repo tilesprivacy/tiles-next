@@ -1316,3 +1316,26 @@ sniper-link[hidden] {
     widows: 3;
   }
 }
+
+/* Google Translate widget is driven by footer selector only. */
+.tiles-google-translate-root {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.goog-te-banner-frame.skiptranslate,
+iframe.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+}

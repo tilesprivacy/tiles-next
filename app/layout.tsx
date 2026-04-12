@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeFavicon } from "@/components/theme-favicon"
 import { SiteHeader } from "@/components/site-header"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import "./globals.css"
@@ -32,22 +33,34 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
       {
-        url: "/icon-light-32x32.png",
-        sizes: "32x32",
+        url: "/icon-dark-96x96.png",
+        sizes: "96x96",
         type: "image/png",
         media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-light-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+        media: "(prefers-color-scheme: dark)",
       },
       {
         url: "/icon-dark-32x32.png",
         sizes: "32x32",
         type: "image/png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-light-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
         media: "(prefers-color-scheme: dark)",
       },
       { url: "/favicon.ico" },
-      { url: "/icon.svg", type: "image/svg+xml" },
     ],
-    apple: [{ url: "/apple-icon.png" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
@@ -108,6 +121,7 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="tiles-theme"
         >
+          <ThemeFavicon />
           <SiteOfflineCacheRegistrar />
           <SiteHeader themeAware />
           {children}
