@@ -72,7 +72,6 @@ type FooterLanguageSelectorProps = {
 
 export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
-  const [ready, setReady] = useState(false)
 
   // Track + text colors aligned with `components/theme-switcher.tsx` (segmented control shell).
   const isLightVariant = variant === 'light'
@@ -97,7 +96,6 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
         },
         GOOGLE_ELEMENT_ID,
       )
-      setReady(true)
     }
 
     if (window.google?.translate?.TranslateElement) {
@@ -149,9 +147,8 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
             id="footer-language-selector"
             value={selectedLanguage}
             onChange={(event) => onLanguageChange(event.target.value)}
-            className={`h-[22px] min-w-[10rem] sm:min-w-[11rem] cursor-pointer appearance-none rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 disabled:cursor-wait disabled:opacity-70 ${selectClasses}`}
+            className={`h-[22px] min-w-[10rem] sm:min-w-[11rem] cursor-pointer appearance-none rounded-full border-0 bg-transparent py-0 pl-9 pr-8 text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             aria-label="Website language"
-            disabled={!ready}
             translate="no"
           >
             {LANGUAGE_OPTIONS.map((option) => (
