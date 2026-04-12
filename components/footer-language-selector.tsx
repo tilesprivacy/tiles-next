@@ -24,6 +24,7 @@ declare global {
 
 const GOOGLE_SCRIPT_ID = 'tiles-google-translate-script'
 const GOOGLE_ELEMENT_ID = 'google_translate_element'
+const TRANSLATE_SCROLL_RESTORE_KEY = 'tiles-translate-scroll-restore'
 
 const LANGUAGE_OPTIONS = [
   { value: 'en', label: 'English' },
@@ -61,10 +62,69 @@ function setLanguageCookie(language: string) {
   document.cookie = `googtrans=/en/${language}; path=/; max-age=31536000`
 }
 
+function reloadPreservingScroll() {
+  try {
+    sessionStorage.setItem(
+      TRANSLATE_SCROLL_RESTORE_KEY,
+      JSON.stringify({
+        path: `${window.location.pathname}${window.location.search}`,
+        x: window.scrollX,
+        y: window.scrollY,
+      }),
+    )
+  } catch {
+    // Ignore storage failures and continue with reload fallback.
+  }
+  window.location.reload()
+}
+
+function restoreScrollAfterTranslateReload() {
+  try {
+    const raw = sessionStorage.getItem(TRANSLATE_SCROLL_RESTORE_KEY)
+    if (!raw) return
+    sessionStorage.removeItem(TRANSLATE_SCROLL_RESTORE_KEY)
+    const parsed = JSON.parse(raw) as { path?: string; x?: number; y?: number }
+    const currentPath = `${window.location.pathname}${window.location.search}`
+    if (parsed.path !== currentPath) return
+    const x = Number.isFinite(parsed.x) ? parsed.x : 0
+    const y = Number.isFinite(parsed.y) ? parsed.y : 0
+    const previousScrollRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    const restore = () => {
+      window.scrollTo({ left: x, top: y, behavior: 'auto' })
+    }
+    requestAnimationFrame(() => {
+      restore()
+      requestAnimationFrame(restore)
+      setTimeout(() => {
+        restore()
+        window.history.scrollRestoration = previousScrollRestoration
+      }, 120)
+    })
+  } catch {
+    sessionStorage.removeItem(TRANSLATE_SCROLL_RESTORE_KEY)
+  }
+}
+
 function tryApplyGoogleCombo(language: string) {
   const combo = document.querySelector<HTMLSelectElement>('.goog-te-combo')
   if (!combo) return false
-  combo.value = language
+  const optionValues = Array.from(combo.options).map((option) => option.value)
+  let targetValue: string | null = null
+  if (language === 'en') {
+    // Prefer the Google "original" option, then explicit English.
+    if (optionValues.includes('')) {
+      targetValue = ''
+    } else if (optionValues.includes('en')) {
+      targetValue = 'en'
+    }
+  } else {
+    if (optionValues.includes(language)) {
+      targetValue = language
+    }
+  }
+  if (targetValue == null) return false
+  combo.value = targetValue
   combo.dispatchEvent(new Event('change', { bubbles: true }))
   return true
 }
@@ -97,7 +157,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
       }
       if (performance.now() >= deadline) {
         cancelTranslatePoll()
-        window.location.reload()
+        reloadPreservingScroll()
         return
       }
       translatePollRafRef.current = requestAnimationFrame(step)
@@ -120,6 +180,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   const selectedOption = LANGUAGE_OPTIONS.find((option) => option.value === selectedLanguage) ?? LANGUAGE_OPTIONS[0]
 
   useEffect(() => {
+    restoreScrollAfterTranslateReload()
     setSelectedLanguage(getLanguageFromCookie())
 
     const initGoogleTranslate = () => {
@@ -196,12 +257,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   const onLanguageChange = (language: string) => {
     setSelectedLanguage(language)
     setIsOpen(false)
-    if (language === 'en') {
-      cancelTranslatePoll()
-      setLanguageCookie(language)
-      window.location.reload()
-      return
-    }
+    cancelTranslatePoll()
     setLanguageCookie(language)
     if (tryApplyGoogleCombo(language)) return
     scheduleGoogleComboPoll(language)
