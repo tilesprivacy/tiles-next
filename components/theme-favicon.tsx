@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 
-const BUST = 'v=20260411'
+const BUST = 'v=20260412'
 
 function upsertIconLink(
   marker: string,

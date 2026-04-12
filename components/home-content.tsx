@@ -194,7 +194,16 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Decentralized Identity</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Locally generated DIDs, with the private key always stored locally on device.
+                Locally generated{" "}
+                <a
+                  href="https://github.com/w3c/did"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
+                >
+                  DIDs
+                </a>
+                , with the private key always stored locally on device.
               </p>
             </div>
 
