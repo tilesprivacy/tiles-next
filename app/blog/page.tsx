@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog-posts"
 import { BlogListingContent } from "@/components/blog-listing-content"
+import { getOGImageUrl } from "@/lib/og-image-url"
 
 export const metadata: Metadata = {
   title: "Tiles Blog: Privacy technology for everyone!",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: getOGImageUrl("https://www.tiles.run/api/og"),
         width: 1200,
         height: 630,
         alt: "Tiles Blog: Privacy technology for everyone!",
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Blog: Privacy technology for everyone!",
     description: "We're building open source privacy technology for personalized software experiences.",
-    images: ["https://www.tiles.run/api/og"],
+    images: [getOGImageUrl("https://www.tiles.run/api/og")],
   },
 }
 

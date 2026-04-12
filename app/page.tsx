@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
+import { getOGImageUrl } from "@/lib/og-image-url"
 
 export const metadata: Metadata = {
   title: "Tiles: Your private and secure AI assistant for everyday use",
@@ -8,7 +9,7 @@ export const metadata: Metadata = {
     description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: getOGImageUrl("https://www.tiles.run/api/og"),
         width: 1200,
         height: 630,
         alt: "Tiles - Your private and secure AI assistant for everyday use",
@@ -19,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles",
     description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
-    images: ["https://www.tiles.run/api/og"],
+    images: [getOGImageUrl("https://www.tiles.run/api/og")],
   },
 }
 

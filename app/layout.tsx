@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeFavicon } from "@/components/theme-favicon"
 import { SiteHeader } from "@/components/site-header"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
+import { getOGImageUrl } from "@/lib/og-image-url"
 import "./globals.css"
 
 const geist = Geist({
@@ -69,7 +70,7 @@ export const metadata: Metadata = {
     siteName: "Tiles Privacy",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: getOGImageUrl("https://www.tiles.run/api/og"),
         width: 1200,
         height: 630,
         alt: "Tiles Privacy – Your private and secure AI assistant for everyday use",
@@ -81,7 +82,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
     description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
-    images: ["https://www.tiles.run/api/og"],
+    images: [getOGImageUrl("https://www.tiles.run/api/og")],
   },
 }
 

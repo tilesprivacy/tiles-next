@@ -1,6 +1,7 @@
 import { generateStaticParamsFor, importPage } from 'nextra/pages'
 import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
 import { BookPageNavigation } from '@/components/book-page-navigation'
+import { getOGImageUrl } from '@/lib/og-image-url'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath')
 
@@ -27,6 +28,7 @@ export async function generateMetadata(props: {
 
   // Match blog post title structure: "<heading> | Tiles Book"
   const ogTitle = pageTitle ? `${pageTitle} | Tiles Book` : 'Tiles Book'
+  const ogImageUrl = getOGImageUrl('/api/og')
 
   // Return the cleaned title so the layout template appends " | Tiles Book".
   // Use absolute title when empty to avoid an empty heading title.
@@ -38,7 +40,7 @@ export async function generateMetadata(props: {
       title: ogTitle,
       images: [
         {
-          url: '/api/og',
+          url: ogImageUrl,
           width: 1200,
           height: 630,
           alt: ogTitle,
@@ -48,7 +50,7 @@ export async function generateMetadata(props: {
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
-      images: ['/api/og'],
+      images: [ogImageUrl],
     },
   }
 }
