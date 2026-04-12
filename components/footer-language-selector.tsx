@@ -200,7 +200,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
       </div>
       {isOpen ? (
         <div
-          className={`absolute bottom-full right-0 z-50 mb-2 w-[min(16rem,85vw)] overflow-hidden rounded-2xl border p-1.5 ${dropdownSurfaceClass}`}
+          className={`absolute bottom-full left-0 z-50 mb-2 w-[min(16rem,calc(100vw-3rem))] sm:left-auto sm:right-0 sm:w-[min(16rem,85vw)] overflow-hidden rounded-2xl border p-1.5 ${dropdownSurfaceClass}`}
           role="presentation"
         >
           <ul role="listbox" aria-labelledby="footer-language-selector-label" className="max-h-64 overflow-y-auto">
