@@ -27,7 +27,7 @@ export default async function BookLayout({
   const pageMap = await getPageMap()
 
   // Filter out unwanted routes from the sidebar
-  const excludedRoutes = ['/', '/mission', '/download', '/explore', '/blog', '/changelog', '/privacy', '/sub-processors', '/subprocessors', '/terms']
+  const excludedRoutes = ['/', '/mission', '/download', '/explore', '/blog', '/changelog', '/privacy', '/sub-processors', '/subprocessors', '/terms', '/pricing']
   
   const filterPageMap = (items: typeof pageMap): typeof pageMap => {
     return items
@@ -83,11 +83,19 @@ export default async function BookLayout({
     return [item]
   })
 
-  // Define the correct order from _meta.json
-  const desiredOrder = ['index', 'manual', 'models', 'memory', 'tilekit', 'mir', 'security', 'community', 'resources', 'contact']
+  // Keep sidebar aligned with the `/book` mobile card grid.
+  const desiredOrder = ['index', 'manual', 'models', 'memory', 'tilekit', 'mir', 'security', 'community', 'resources', 'licenses']
+
+  const cardPageSet = new Set(desiredOrder)
+
+  // Keep only pages that are represented in the mobile card navigation.
+  const cardOnlyPageMap = flattenedPageMap.filter((item) => {
+    const name = 'name' in item ? (item.name as string) : ''
+    return cardPageSet.has(name)
+  })
 
   // Sort the pageMap according to the desired order
-  const finalPageMap = flattenedPageMap.sort((a, b) => {
+  const finalPageMap = cardOnlyPageMap.sort((a, b) => {
     const aName = 'name' in a ? (a.name as string) : ''
     const bName = 'name' in b ? (b.name as string) : ''
 

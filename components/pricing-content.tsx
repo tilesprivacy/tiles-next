@@ -29,7 +29,7 @@ const plans: PricingPlan[] = [
     cadence: "One-time payment",
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_UaSG3EKkZRlrPdoeCThS8emJvA7eOCcCHyjdZ1uXyAW",
-    learnMoreHref: "/mission",
+    learnMoreHref: "/book/licenses#backer",
     features: ["Early access to beta versions", "Support development and infrastructure costs", "Prioritize feature development"],
   },
   {
@@ -39,7 +39,7 @@ const plans: PricingPlan[] = [
     cadence: "Per user, per year",
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_acVtj1bKcYElIOYc7EuQSJuT9fzwSKHf0Gpd20jDseq",
-    learnMoreHref: "/about",
+    learnMoreHref: "/book/licenses#commercial",
     features: ["Support development and infrastructure costs", "Become a featured organization"],
     note: "For bulk purchases and other inquiries, contact us at support@tiles.run",
   },

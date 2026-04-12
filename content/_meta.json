@@ -55,6 +55,13 @@
       "timestamp": true
     }
   },
+  "licenses": {
+    "title": "Licenses",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "resources": {
     "title": "Resources",
     "theme": {

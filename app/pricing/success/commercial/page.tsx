@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 
@@ -21,11 +22,13 @@ export default async function CommercialPurchaseSuccessPage({
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
-      <main className="flex flex-1 items-center px-4 pb-16 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
-        <section className="mx-auto w-full max-w-2xl rounded-2xl border border-border bg-card p-8 text-card-foreground">
-          <p className="text-sm font-medium uppercase tracking-[0.12em] text-muted-foreground">Purchase complete</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight sm:text-4xl">Commercial license confirmed</h1>
-          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+      <main className="flex flex-1 items-center px-4 pb-14 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
+        <section className="mx-auto w-full max-w-2xl text-center">
+          <p className="text-sm font-medium text-muted-foreground">Thanks for your support</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+            Commercial license confirmed
+          </h1>
+          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
             Thank you for supporting Tiles. Your commercial purchase was successful.
           </p>
           {checkoutId ? (
@@ -33,14 +36,14 @@ export default async function CommercialPurchaseSuccessPage({
               Checkout ID: <span className="font-mono text-foreground">{checkoutId}</span>
             </p>
           ) : null}
-          <p className="mt-2 text-base leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-2 max-w-xl text-base leading-relaxed text-muted-foreground">
             For invoices, seat adjustments, or procurement questions, email{" "}
             <a href="mailto:support@tiles.run" className="underline underline-offset-2 text-foreground hover:opacity-80">
               support@tiles.run
             </a>
             .
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-3">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/pricing"
               className="inline-flex h-10 items-center justify-center rounded-full border border-border px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted/40"
@@ -56,6 +59,27 @@ export default async function CommercialPurchaseSuccessPage({
           </div>
         </section>
       </main>
+      <section
+        className="bg-background px-4 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-3 lg:px-12 lg:pb-14 lg:pt-4"
+        aria-label="Tiles wordmark"
+      >
+        <div className="mx-auto flex max-w-6xl justify-center">
+          <Image
+            src="/tiles_banner_outline_blk.svg"
+            alt="Tiles"
+            width={1200}
+            height={220}
+            className="h-auto w-full max-w-lg min-[390px]:max-w-xl sm:max-w-2xl lg:max-w-3xl dark:hidden"
+          />
+          <Image
+            src="/tiles_banner_outline_wht.svg"
+            alt="Tiles"
+            width={1200}
+            height={220}
+            className="hidden h-auto w-full max-w-lg min-[390px]:max-w-xl sm:max-w-2xl lg:max-w-3xl dark:block"
+          />
+        </div>
+      </section>
       <SiteFooter />
     </div>
   )
