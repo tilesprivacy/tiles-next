@@ -149,8 +149,17 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Agent Harness</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Native Pi agent harness for knowledge work and coding, with extensions for fully customizable workflows
-                across tasks and use cases.
+                Native{" "}
+                <a
+                  href="https://pi.dev"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
+                >
+                  Pi
+                </a>{" "}
+                agent harness for knowledge work and coding, with extensions for fully customizable workflows across
+                tasks and use cases.
               </p>
             </div>
 
@@ -185,7 +194,7 @@ export function HomeContent() {
                 <h3 className="text-base lg:text-lg font-semibold text-foreground">Decentralized Identity</h3>
               </div>
               <p className="text-sm lg:text-base text-black/60 dark:text-[#B3B3B3] leading-relaxed">
-                Locally generated IDs, with the private key always stored locally on device.
+                Locally generated DIDs, with the private key always stored locally on device.
               </p>
             </div>
 
