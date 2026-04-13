@@ -121,6 +121,8 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                   </Button>
                   <p className="pl-1 text-xs font-medium text-black/55 dark:text-[#9E9E9E] sm:text-sm">
                     Apple Silicon · macOS 14+
+                    <br />
+                    Requires 16 GB minimum unified memory
                   </p>
                 </div>
               </div>
