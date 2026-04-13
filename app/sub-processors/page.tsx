@@ -44,7 +44,7 @@ export default function SubProcessorsPage() {
           <h3>Iroh</h3>
           <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
             <p>
-              <span className="font-medium subprocessor-label">Purpose:</span> Public relays
+              <span className="font-medium subprocessor-label">Purpose:</span> Public relays for peer-to-peer networking
             </p>
             <p>
               <span className="font-medium subprocessor-label">Location:</span> US
@@ -110,7 +110,7 @@ export default function SubProcessorsPage() {
           <h3>GitHub</h3>
           <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
             <p>
-              <span className="font-medium subprocessor-label">Purpose:</span> Source code hosting and issue tracking
+              <span className="font-medium subprocessor-label">Purpose:</span> Source code hosting, issue tracking, and collecting sponsorships
             </p>
             <p>
               <span className="font-medium subprocessor-label">Location:</span> US
