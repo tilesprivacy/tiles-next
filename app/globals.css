@@ -3,86 +3,86 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Light theme: pure monochrome */
+/* Light theme: minimal neutral palette */
 :root {
-  --background: #ffffff;
-  --foreground: #000000;
+  --background: #f5f5f7;
+  --foreground: #1d1d1f;
   --card: #ffffff;
-  --card-foreground: #000000;
+  --card-foreground: #1d1d1f;
   --popover: #ffffff;
-  --popover-foreground: #000000;
-  --primary: #000000;
+  --popover-foreground: #1d1d1f;
+  --primary: #1d1d1f;
   --primary-foreground: #ffffff;
-  --secondary: #f5f5f5;
-  --secondary-foreground: #000000;
-  --muted: #f5f5f5;
-  --muted-foreground: #525252;
-  --accent: #f0f0f0;
-  --accent-foreground: #000000;
+  --secondary: #ebebf0;
+  --secondary-foreground: #1d1d1f;
+  --muted: #ececf1;
+  --muted-foreground: #6e6e73;
+  --accent: #e8e8ed;
+  --accent-foreground: #1d1d1f;
   --destructive: #cf2d56;
   --destructive-foreground: #ffffff;
-  --border: #d4d4d4;
-  --input: #d4d4d4;
-  --ring: #00000033;
+  --border: #dcdce2;
+  --input: #dcdce2;
+  --ring: #1d1d1f2e;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   --sidebar: #ffffff;
-  --sidebar-foreground: #000000;
-  --sidebar-primary: #000000;
+  --sidebar-foreground: #1d1d1f;
+  --sidebar-primary: #1d1d1f;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f5f5f5;
-  --sidebar-accent-foreground: #000000;
-  --sidebar-border: #d4d4d4;
-  --sidebar-ring: #00000033;
-  --brand-accent: #000000;
+  --sidebar-accent: #ececf1;
+  --sidebar-accent-foreground: #1d1d1f;
+  --sidebar-border: #dcdce2;
+  --sidebar-ring: #1d1d1f2e;
+  --brand-accent: #1d1d1f;
   /* Light canvas + ink for inverted strips (e.g. book footer on dark pages); not flipped in .dark */
   --cursor-light-surface: #ffffff;
-  --cursor-light-ink: #000000;
+  --cursor-light-ink: #1d1d1f;
 }
 
-/* Dark theme: pure monochrome */
+/* Dark theme: minimal neutral palette */
 .dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
-  --primary: #ffffff;
-  --primary-foreground: #000000;
-  --secondary: #111111;
-  --secondary-foreground: #f5f5f5;
-  --muted: #111111;
-  --muted-foreground: #a3a3a3;
-  --accent: #171717;
-  --accent-foreground: #ffffff;
+  --background: #0b0b0d;
+  --foreground: #f5f5f7;
+  --card: #111114;
+  --card-foreground: #f5f5f7;
+  --popover: #111114;
+  --popover-foreground: #f5f5f7;
+  --primary: #f5f5f7;
+  --primary-foreground: #0b0b0d;
+  --secondary: #17171c;
+  --secondary-foreground: #f5f5f7;
+  --muted: #17171c;
+  --muted-foreground: #9d9da3;
+  --accent: #1f1f25;
+  --accent-foreground: #f5f5f7;
   --destructive: #cf2d56;
   --destructive-foreground: #ffffff;
-  --border: #2a2a2a;
-  --input: #2a2a2a;
-  --ring: #666666;
+  --border: #2b2b32;
+  --input: #2b2b32;
+  --ring: #8a8a93;
   --chart-1: oklch(0.65 0.15 230);
   --chart-2: oklch(0.696 0.12 150);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: #0a0a0a;
-  --sidebar-foreground: #ffffff;
-  --sidebar-primary: #ffffff;
-  --sidebar-primary-foreground: #000000;
-  --sidebar-accent: #111111;
-  --sidebar-accent-foreground: #ffffff;
-  --sidebar-border: #2a2a2a;
-  --sidebar-ring: #666666;
+  --sidebar: #111114;
+  --sidebar-foreground: #f5f5f7;
+  --sidebar-primary: #f5f5f7;
+  --sidebar-primary-foreground: #0b0b0d;
+  --sidebar-accent: #17171c;
+  --sidebar-accent-foreground: #f5f5f7;
+  --sidebar-border: #2b2b32;
+  --sidebar-ring: #8a8a93;
 
   /* Nextra theme overrides for book section (--nextra-bg must be space-separated RGB for rgb(var(--nextra-bg))) */
   --nextra-primary-hue: 0deg;
   --nextra-primary-saturation: 0%;
-  --brand-accent: #ffffff;
+  --brand-accent: #f5f5f7;
 }
 
 /* Nextra dark theme overrides - ensure book pages use our dark colors */
@@ -386,9 +386,12 @@
   }
   body {
     @apply bg-background text-foreground;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
   a {
     @apply no-underline;
+    transition: color 0.2s ease;
   }
 }
 

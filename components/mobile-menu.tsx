@@ -22,7 +22,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   // Theme-aware class names - use Tailwind dark: utilities for CSS-based switching
   const menuBg = themeAware ? 'bg-background' : 'bg-white'
   const textColor = themeAware ? 'text-foreground' : 'text-black'
-  const textColorHover = themeAware ? 'hover:text-foreground/70' : 'hover:text-black/70'
+  const textColorHover = themeAware ? 'hover:text-foreground/65' : 'hover:text-black/65'
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
   const buttonBg = themeAware ? 'bg-foreground' : 'bg-black'
   const buttonText = themeAware ? 'text-background' : 'text-white'
@@ -121,7 +121,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
           {/* Logo */}
-          <Link href="/" onClick={onClose} className="flex items-center gap-2.5 transition-colors hover:opacity-70 sm:gap-3">
+          <Link href="/" onClick={onClose} className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3">
             {themeAware ? (
               <>
                 {/* Light mode logo */}
@@ -132,7 +132,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             ) : (
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10" />
             )}
-            <span className={`text-lg font-semibold leading-none tracking-tight sm:text-xl ${textColor}`}>
+            <span className={`text-lg font-medium leading-none tracking-tight sm:text-xl ${textColor}`}>
               Tiles
             </span>
           </Link>
@@ -153,8 +153,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
-                <Download className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4" aria-hidden />
-                <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">Download</span>
+                <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4" aria-hidden />
+                <span className="transition-opacity duration-200 group-hover:opacity-90">Download</span>
               </Link>
             </Button>
 
@@ -172,7 +172,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 }}
                 className="group flex items-center"
               >
-                <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                <span className="transition-opacity duration-200 group-hover:opacity-90">
                   Buy $50
                 </span>
               </Link>
@@ -199,35 +199,35 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Link
               href="/about"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               About
             </Link>
             <Link
               href="/changelog"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Changelog
             </Link>
             <Link
               href="/blog"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Blog
             </Link>
             <Link
               href="/pricing"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Pricing
             </Link>
             <Link
               href="/book"
               onClick={onClose}
-              className={`text-2xl font-medium ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Book
             </Link>

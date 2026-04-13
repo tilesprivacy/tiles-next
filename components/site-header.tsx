@@ -37,7 +37,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     ? "bg-background border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
     : "bg-white border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
   const textColor = themeAware ? "text-foreground" : "text-black"
-  const textColorHover = themeAware ? "hover:text-foreground/70" : "hover:text-black/70"
+  const textColorHover = themeAware ? "hover:text-foreground/65" : "hover:text-black/65"
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
   const buttonBg = themeAware ? "bg-foreground" : "bg-black"
   const buttonText = themeAware ? "text-background" : "text-white"
@@ -94,7 +94,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       >
         {/* Left side: Logo and Wordmark */}
         <div className="flex items-center shrink-0">
-          <Link href="/" onClick={onHomeClick} className="flex items-center gap-2.5 transition-colors hover:opacity-70 sm:gap-3">
+          <Link href="/" onClick={onHomeClick} className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3">
             {themeAware ? (
               <>
                 {/* Light mode logo */}
@@ -106,7 +106,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
             <span
-              className={`text-lg font-semibold leading-none tracking-tight sm:text-xl lg:text-2xl ${textColor}`}
+              className={`text-lg font-medium leading-none tracking-tight sm:text-xl lg:text-2xl ${textColor}`}
             >
               Tiles
             </span>
@@ -115,19 +115,19 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 
         {/* Centered Desktop Navigation Links */}
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
-          <Link href="/about" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+          <Link href="/about" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             About
           </Link>
-          <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+          <Link href="/changelog" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Changelog
           </Link>
-          <Link href="/blog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+          <Link href="/blog" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Blog
           </Link>
-          <Link href="/pricing" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+          <Link href="/pricing" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Pricing
           </Link>
-          <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+          <Link href="/book" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Book
           </Link>
         </nav>
@@ -145,8 +145,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={onDownloadClick}
             >
-              <Download className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
-              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+              <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
+              <span className="transition-opacity duration-200 group-hover:opacity-90">
                 Download
               </span>
             </Link>
@@ -161,7 +161,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="group flex items-center"
               onClick={() => triggerHaptic()}
             >
-              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+              <span className="transition-opacity duration-200 group-hover:opacity-90">
                 Buy $50
               </span>
             </Link>

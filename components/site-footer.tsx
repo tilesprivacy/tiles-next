@@ -21,18 +21,18 @@ export function SiteFooter() {
   const isDarkFooter = !mounted || resolvedTheme === 'light'
 
   // Footer colors - reversed from page theme (matching book dark theme colors)
-  const footerBg = isDarkFooter ? 'bg-black' : 'bg-white'
-  const borderColor = isDarkFooter ? 'border-[#2a2a2a]' : 'border-black/10'
-  const textColor = isDarkFooter ? 'text-[#E6E6E6]' : 'text-black'
-  const textColorHover = isDarkFooter ? 'hover:text-[#B3B3B3]' : 'hover:text-black/60'
-  const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#B3B3B3]' : 'group-hover:text-black/70'
-  const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#B3B3B3]' : 'group-hover:text-black/70'
+  const footerBg = isDarkFooter ? 'bg-[#111114]' : 'bg-[#f7f7fa]'
+  const borderColor = isDarkFooter ? 'border-white/10' : 'border-black/8'
+  const textColor = isDarkFooter ? 'text-[#e7e7ed]' : 'text-[#1d1d1f]'
+  const textColorHover = isDarkFooter ? 'hover:text-[#c6c6cf]' : 'hover:text-[#1d1d1f]/65'
+  const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
+  const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
 
   // Theme switcher variant - opposite of page theme since footer is reversed
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
-  const newsletterDescriptionColor = isDarkFooter ? 'text-[#B3B3B3]' : 'text-black/60'
-  const newsletterHeadingColor = isDarkFooter ? '!text-[#E6E6E6]' : '!text-black'
-  const licenseTextColor = isDarkFooter ? 'text-[#8A8A8A]' : 'text-black/50'
+  const newsletterDescriptionColor = isDarkFooter ? 'text-[#b0b0ba]' : 'text-[#1d1d1f]/60'
+  const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
+  const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/50'
 
   return (
     <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
