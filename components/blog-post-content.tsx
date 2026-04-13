@@ -55,9 +55,20 @@ export function BlogPostContent({
     return encodeURIComponent(shareUrl)
   }, [shareUrl])
 
+  const handleCopyLink = () => {
+    if (!shareUrl) return
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1400)
+      return
+    }
+    window.open(shareUrl, '_blank', 'noopener,noreferrer')
+  }
+
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
-  const copyLabelClass = "text-[11px] text-black/50 dark:text-white/50 lg:text-xs"
+  const copyLabelClass = "text-[11px] text-black/50 transition-colors hover:text-black/70 dark:text-white/50 dark:hover:text-white/70 lg:text-xs"
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -146,24 +157,20 @@ export function BlogPostContent({
                 </a>
                 <button
                   type="button"
-                  onClick={() => {
-                    if (!shareUrl) return
-                    if (navigator?.clipboard?.writeText) {
-                      navigator.clipboard.writeText(shareUrl)
-                      setCopied(true)
-                      window.setTimeout(() => setCopied(false), 1400)
-                      return
-                    }
-                    window.open(shareUrl, '_blank', 'noopener,noreferrer')
-                  }}
+                  onClick={handleCopyLink}
                   aria-label="Copy link"
                   className="inline-flex items-center justify-center"
                 >
                   <FaLink className={copyIconClass} />
                 </button>
-                <span className={copyLabelClass}>
+                <button
+                  type="button"
+                  onClick={handleCopyLink}
+                  aria-label={copied ? "Copied link" : "Copy link"}
+                  className={copyLabelClass}
+                >
                   {copied ? 'Copied' : 'Copy link'}
-                </span>
+                </button>
               </div>
             )}
           </div>
