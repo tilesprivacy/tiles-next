@@ -66,7 +66,7 @@ export function HomeContent() {
                   Tiles
                 </h1>
                 <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base lg:text-xl">
-                  Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.
+                  Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project.
                 </p>
               </div>
 

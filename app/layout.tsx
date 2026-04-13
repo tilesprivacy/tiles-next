@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
   title: "Tiles: Your private and secure Al assistant for everyday use",
-  description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+  description: "Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project.",
   generator: "v0.app",
   manifest: "/manifest.json",
   icons: {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Tiles: Your private and secure Al assistant for everyday use",
-    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+    description: "Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project.",
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
     images: [
@@ -80,7 +80,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Tiles: Your private and secure Al assistant for everyday use",
-    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+    description: "Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project.",
     images: ["https://www.tiles.run/api/og"],
   },
 }
