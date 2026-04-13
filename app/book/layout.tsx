@@ -13,7 +13,7 @@ import { BookTocScrollSync } from '@/components/book-toc-scroll-sync'
 export const metadata = {
   title: {
     template: '%s | Tiles Book',
-    default: 'Privacy technology for everyone! | Tiles Book',
+    default: 'Tiles Book: Technical documentation for Tiles and Tilekit',
   },
   description:
     'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.',

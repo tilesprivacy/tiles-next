@@ -7,7 +7,7 @@ export async function generateMetadata() {
   const { metadata } = await importPage([])
 
   const canonicalTabTitle =
-    'Tiles Book: Technical documentation for the models, infrastructure, and cryptography powering Tiles.'
+    'Tiles Book: Technical documentation for Tiles and Tilekit'
   const ogTitle = canonicalTabTitle
   const description =
     'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.'

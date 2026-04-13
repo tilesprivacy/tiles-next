@@ -54,7 +54,7 @@ export function HomeContent() {
       <main className="px-4 pb-6 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))] lg:pb-10">
         <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
-          <div className="mb-10 flex flex-col gap-10 min-[390px]:mb-12 sm:mb-14 sm:gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16 lg:mb-20">
+          <div className="mb-8 flex flex-col gap-10 min-[390px]:mb-10 sm:mb-12 sm:gap-12 lg:mb-14 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
             {/* Left Pane - Content */}
             <div className="flex max-w-[34rem] flex-col gap-6 sm:gap-10 lg:gap-10">
               {/* Spacer for top whitespace on desktop only; mobile uses main pt-20 for consistency */}
@@ -66,7 +66,7 @@ export function HomeContent() {
                   Tiles
                 </h1>
                 <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base lg:text-xl">
-                  Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.
+                  Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.
                 </p>
               </div>
 
@@ -93,11 +93,6 @@ export function HomeContent() {
                     </Link>
                   </Button>
                 </div>
-                <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
-                  <span className="block">
-                    Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
-                  </span>
-                </p>
                 <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
                   Runs fully on-device, with optional peer-to-peer sync.{" "}
                   <Link href="/book/manual#onboarding" className="underline underline-offset-4">
@@ -139,7 +134,7 @@ export function HomeContent() {
           </div>
 
           {/* Features Section - same width as hero, tighter spacing for continuous flow */}
-          <div className="flex flex-col gap-7 pt-10 sm:gap-10 sm:pt-14 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:pt-20">
+          <div className="flex flex-col gap-7 pt-2 sm:gap-10 sm:pt-3 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:pt-4">
             {/* Feature 1 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
@@ -271,7 +266,7 @@ export function HomeContent() {
 
           </div>
 
-          <section className="pt-10 sm:pt-14 lg:pt-20">
+          <section className="pt-8 sm:pt-10 lg:pt-14">
             <div className="min-w-0 space-y-4 sm:space-y-5">
               <div className="max-w-2xl space-y-2">
                 <h2 className={sectionHeadingClass}>
@@ -352,7 +347,7 @@ export function HomeContent() {
           </section>
 
           <section
-            className="pt-10 pb-8 sm:pt-14 sm:pb-10 lg:pt-20 lg:pb-12"
+            className="pt-8 pb-8 sm:pt-10 sm:pb-10 lg:pt-14 lg:pb-12"
             aria-labelledby="home-security-faq-heading"
           >
             <div className="min-w-0 space-y-4 sm:space-y-5">

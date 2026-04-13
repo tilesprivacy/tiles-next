@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Download Tiles",
+  title: "Download | Tiles",
   description: "Download Tiles, a private and secure AI assistant for everyday use",
   openGraph: {
-    title: "Download Tiles",
+    title: "Download | Tiles",
     description: "Download Tiles, a private and secure AI assistant for everyday use",
     url: "https://www.tiles.run/download",
     siteName: "Tiles Privacy",
@@ -14,13 +14,13 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Download Tiles",
+        alt: "Download | Tiles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Download Tiles",
+    title: "Download | Tiles",
     description: "Download Tiles, a private and secure AI assistant for everyday use",
     images: ["https://www.tiles.run/api/og"],
   },

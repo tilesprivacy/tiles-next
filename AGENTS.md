@@ -3,6 +3,7 @@
 ## Layout Preferences
 
 ### Mobile View
+
 - **No scrolling**: The mobile view should never scroll. All content must fit within a single viewport (`100dvh`).
 - Use `h-[100dvh]` with `overflow-hidden` to enforce this constraint.
 - Content should be vertically centered and adjust flexibly to fit the screen.
@@ -10,6 +11,7 @@
 ## Footer Consistency
 
 ### Footer Links
+
 - All footers across pages (home, about, etc.) must remain consistent.
 - The developer link should always be:
   - **Text**: "Book"
@@ -18,6 +20,7 @@
 ## llms.txt Endpoint Maintenance
 
 ### Automatic Content Synchronization
+
 - The `/llms.txt` endpoint is **dynamically generated** from all website content via `app/api/llms/route.ts`.
 - The endpoint automatically includes:
   - Homepage content
@@ -28,29 +31,35 @@
 - **No manual updates needed**: The endpoint automatically reflects all content changes.
 
 ### When Content is Updated
+
 Whenever you update any of the following, the `/llms.txt` endpoint will automatically reflect those changes:
+
 - **Page content**: Any changes to `app/*/page.tsx` files (home, mission, download, blog)
 - **Blog posts**: Updates to `lib/blog-posts.ts` or blog post content
 - **Book pages**: Changes to any `content/*.mdx` files
 - **Contributors/Sponsors**: Updates to the mission page contributors or sponsors sections
 
 ### Verification
+
 - After making content changes, verify the `/llms.txt` endpoint reflects the updates by:
   1. Starting the development server: `npm run dev` (or equivalent)
   2. Visiting `http://localhost:3000/llms.txt` to see the generated content
   3. Checking that all updated content appears correctly in the text output
 
 ### Static File (if present)
+
 - If a static `public/llms.txt` file exists, it should be **removed** or **ignored** in favor of the dynamic endpoint.
 - The dynamic endpoint at `/llms.txt` (via rewrite from `/api/llms`) is the source of truth.
 
 ## Hero Wireframe Image (Next.js Image)
 
 ### Implementation
+
 - The hero MacBook wireframe is served as **WebP** (`public/wireframe.webp`) for fast first load. The source asset is the large SVG at `public/wireframe.svg` (embedded PNG); `wireframe.webp` is generated from it.
 - The hero uses **Next.js `<Image>`** with `src="/wireframe.webp"`, `priority` (for LCP), and fixed dimensions (800×600) for layout stability.
 
 ### Regenerating the WebP
+
 - If you change `public/wireframe.svg`, run: `npm run generate:wireframe`
 - This overwrites `public/wireframe.webp`.
 
@@ -60,11 +69,11 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav.
 - On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, and rewrite the remaining sentence so it still reads naturally.
 - Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
-- Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, align the theme switcher and language switcher to the start of the row on mobile so they stay with left-stacked copy, and language switcher labels should remain in their original language names.
+- Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, align the theme switcher and language switcher to the start of the row on mobile so they stay with left-stacked copy, language switcher labels should remain in their original language names, and changing language should not cause page position or layout shift on desktop or mobile.
 - In public blog copy, prefer plain phrasing such as “macOS binary” over insider jargon like “Mach-O” unless the post is explicitly aimed at readers who need that precision.
 - In download and changelog copy, prefer the label “Offline Installer” instead of alternatives like “Full installer” or “Portable Packaging.”
 - On `/blog` bylines, keep the avatar unbordered, place it between “By” and the author name, and keep the author name on a new line with clear spacing on both mobile and desktop.
-- Site light and dark palettes should track the sensibility of the Cursor marketing blog (see https://cursor.com/blog), including book sidebar surfaces so they feel native to the same theme system.
+- Site light and dark palettes should track the sensibility of the Cursor marketing blog (see [https://cursor.com/blog](https://cursor.com/blog)), including book sidebar surfaces so they feel native to the same theme system.
 - The primary top navigation should read as fully transparent: no backdrop blur, no bottom border or hairline separator, and layout should allow page content to show through behind the bar (including under download and sponsor controls) rather than looking like an opaque strip.
 - Changelog release cards should stay card-like but minimal and flat with consistent contrast; avoid an extra horizontal rule between stacked rows such as the download link and SHA, and style secondary actions (for example track progress or RFC links) so they remain legible against the themed background.
 - Primary “Download for macOS” actions on the homepage and download flows should use the shared `themeAwareHeaderPrimaryCtaClasses` from `lib/header-primary-cta-classes.ts` so they match the theme-aware top navigation pills and do not drift.
@@ -80,6 +89,6 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Footer Google Translate wiring lives in `components/footer-language-selector.tsx`; restoring English clears `googtrans` across host variants then drives the hidden `.goog-te-combo` back to the empty “original” option (avoid full reload so scroll position stays stable). If the combo is not ready yet, the same RAF poll as other languages runs, with reload only as a last-resort timeout fallback.
 - Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme. Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned.
 - The homepage Private AI comparison table in `components/home-content.tsx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix.
-- Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing ` @handle`, which the UI shows as a distinct handle segment instead of stripping it silently. Some posts duplicate byline markup in their own `app/blog/*/page.tsx`; keep those copies aligned when changing `components/blog-post-content.tsx`.
+- Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing  `@handle`, which the UI shows as a distinct handle segment instead of stripping it silently. Some posts duplicate byline markup in their own `app/blog/*/page.tsx`; keep those copies aligned when changing `components/blog-post-content.tsx`.
 - Banner wordmark SVGs exported on oversized artboards can add large transparent margins; cropping the SVG `viewBox` (or similar) is often needed when tightening whitespace around homepage or about-page banner sections. Favicon SVGs should use a square viewport for common audits. In static `public/index.html`, use root-relative asset URLs; Next.js does not substitute `%PUBLIC_URL%` (unlike CRA). Files named `icon-dark-*` / `icon-mark-dark.svg` are dark glyphs for light browser chrome; `icon-light-*` / `icon-mark-light.svg` are light glyphs for dark chrome, so pair `prefers-color-scheme: light` with dark-named assets and vice versa when wiring tab favicons or metadata.
 - The offline site service worker in `public/site-sw.js` has historically applied cache-first handling to broad image classes, which can leave logos and favicons stale after deploys until cache versioning or per-path fetch rules are updated; pair any worker changes with sensible `Cache-Control` on key public branding files in `next.config.mjs` when refreshed assets must reach returning visitors.

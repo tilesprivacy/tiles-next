@@ -3,10 +3,10 @@ import { blogPosts } from "@/lib/blog-posts"
 import { BlogListingContent } from "@/components/blog-listing-content"
 
 export const metadata: Metadata = {
-  title: "Tiles Blog: Privacy technology for everyone!",
+  title: "Blog | Tiles",
   description: "We're building open source privacy technology for personalized software experiences.",
   openGraph: {
-    title: "Tiles Blog: Privacy technology for everyone!",
+    title: "Blog | Tiles",
     description: "We're building open source privacy technology for personalized software experiences.",
     type: "website",
     images: [
@@ -14,13 +14,13 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles Blog: Privacy technology for everyone!",
+        alt: "Blog | Tiles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles Blog: Privacy technology for everyone!",
+    title: "Blog | Tiles",
     description: "We're building open source privacy technology for personalized software experiences.",
     images: ["https://www.tiles.run/api/og"],
   },

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "Backer Purchase Success",
+  title: "Backer Purchase Success | Tiles",
   description: "Backer purchase success confirmation for Tiles.",
 }
 

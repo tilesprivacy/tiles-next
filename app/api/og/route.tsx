@@ -33,7 +33,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
   const tagline =
-    "Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API."
+    "Your private and secure Al assistant for everyday use"
   const fontText = tagline
 
   // Fetch logo/font opportunistically; never fail the OG image if unavailable.

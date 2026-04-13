@@ -5,10 +5,10 @@ import type { Metadata } from "next"
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "Tiles Changelog",
+  title: "Changelog | Tiles",
   description: "All notable changes and releases for Tiles.",
   openGraph: {
-    title: "Tiles Changelog",
+    title: "Changelog | Tiles",
     description: "All notable changes and releases for Tiles.",
     url: "https://www.tiles.run/changelog",
     type: "website",
@@ -17,13 +17,13 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og?page=changelog",
         width: 1200,
         height: 630,
-        alt: "Tiles Changelog",
+        alt: "Changelog | Tiles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles Changelog",
+    title: "Changelog | Tiles",
     description: "All notable changes and releases for Tiles.",
     images: ["https://www.tiles.run/api/og?page=changelog"],
   },

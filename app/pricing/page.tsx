@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { PricingContent } from "@/components/pricing-content"
 
 export const metadata: Metadata = {
-  title: "Pricing - Tiles",
+  title: "Pricing | Tiles",
   description: "Tiles is free and 100% user-supported.",
   openGraph: {
-    title: "Pricing - Tiles",
+    title: "Pricing | Tiles",
     description: "Tiles is free and 100% user-supported.",
     type: "website",
     images: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pricing - Tiles",
+    title: "Pricing | Tiles",
     description: "Tiles is free and 100% user-supported.",
     images: ["https://www.tiles.run/api/og"],
   },
