@@ -20,11 +20,12 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
   const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
   const betaAvailabilityNote = (
-    <p className="inline-flex w-fit items-center gap-1 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
-      <span>Currently available in</span>
+    <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
       <span className="inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]">
         ALPHA
       </span>
+      <span className="hidden lg:inline">for macOS 14+ (arm64)</span>
+      <span className="lg:hidden">Currently available in alpha</span>
     </p>
   )
   const highlightCards = [
