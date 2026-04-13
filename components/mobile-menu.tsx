@@ -103,8 +103,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     return () => window.removeEventListener('keydown', handleEscape)
   }, [isOpen, onClose])
 
-  if (!isOpen) return null
-
   const topOffsetClass = hasBanner
     ? "top-[calc(2rem+env(safe-area-inset-top,0px))]"
     : "top-0"
@@ -117,7 +115,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     <>
       {/* Full screen overlay - higher z-index than header */}
       <div
-        className={`fixed inset-x-0 bottom-0 left-0 right-0 z-[60] flex w-full max-w-none flex-col overscroll-contain lg:hidden ${topOffsetClass} ${menuBg}`}
+        className={`fixed inset-x-0 bottom-0 left-0 right-0 z-[60] w-full max-w-none flex-col overscroll-contain lg:hidden ${isOpen ? "flex" : "hidden"} ${topOffsetClass} ${menuBg}`}
+        aria-hidden={!isOpen}
       >
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
