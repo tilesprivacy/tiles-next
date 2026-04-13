@@ -1092,6 +1092,12 @@ sniper-link[hidden] {
   --book-top-offset: 7.5rem;
 }
 
+/* Keep in-page hash targets clear of the fixed site nav on book pages. */
+[data-book-section] article :where(h1, h2, h3, h4, h5, h6)[id],
+[data-book-section] article :where([id]):target {
+  scroll-margin-top: calc(var(--book-top-offset) + 1rem);
+}
+
 @media (min-width: 1024px) {
   [data-book-section] {
     --book-top-offset: 9rem;
