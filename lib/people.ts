@@ -37,6 +37,7 @@ export const people = {
     },
   ],
   sponsorsActive: [
+    { id: "boris-mann", name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
     { id: "luke-hubbard", name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
     {
       id: "dietrich-ayala",
@@ -48,7 +49,6 @@ export const people = {
     { id: "utkarsh-saxena", name: "Utkarsh Saxena @saxenauts", links: ["https://saxenauts.io/", "https://x.com/saxenauts"] },
   ],
   sponsorsPast: [
-    { id: "boris-mann", name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
     { id: "seref-yarar", name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref", "https://github.com/serefyarar"] },
     { id: "curran-dwyer", name: "Curran Dwyer @currandwyer", links: ["https://x.com/CurranDwyer"] },
     {
