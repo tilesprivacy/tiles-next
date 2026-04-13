@@ -8,6 +8,7 @@ import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import Link from "next/link"
 import Image from "next/image"
+import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 
 interface DownloadMetadata {
   version: string
@@ -56,6 +57,7 @@ const downloadButtonLabelClass =
 
 export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
+  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt("/download")
   const [mounted, setMounted] = useState(false)
   const [isLoadingMetadata, setIsLoadingMetadata] = useState(!Boolean(initialDownload?.downloadUrl))
   const [metadataLoadFailed, setMetadataLoadFailed] = useState(false)
@@ -240,7 +242,10 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       {hasDownloadUrl ? (
                         <a
                           href={download.downloadUrl}
-                          onClick={() => {
+                          onClick={(event) => {
+                            if (openMobileDownloadPrompt(event)) {
+                              return
+                            }
                             triggerHaptic()
                           }}
                           download={download.fileName}
@@ -323,7 +328,10 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     <div className="pt-4">
                       <a
                         href={OFFLINE_INSTALLER.downloadUrl}
-                        onClick={() => {
+                        onClick={(event) => {
+                          if (openMobileDownloadPrompt(event)) {
+                            return
+                          }
                           triggerHaptic()
                         }}
                         download={OFFLINE_INSTALLER.fileName}
@@ -454,6 +462,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
         </div>
       </main>
 
+      {mobileDownloadPrompt}
       <SiteFooter />
     </div>
   )

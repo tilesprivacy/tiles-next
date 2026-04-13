@@ -10,13 +10,23 @@ import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { getPersonById, splitPersonDisplayName } from "@/lib/people"
+import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 
 interface HomeContentProps {
   highlightReadTimes: Record<string, string>
 }
 
 export function HomeContent({ highlightReadTimes }: HomeContentProps) {
+  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt("/download")
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+  const betaAvailabilityNote = (
+    <p className="inline-flex w-fit items-center gap-1 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
+      <span>Currently available in</span>
+      <span className="inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]">
+        ALPHA
+      </span>
+    </p>
+  )
   const highlightCards = [
     {
       slug: "ship-it-up",
@@ -107,7 +117,12 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                   >
                     <Link
                       href="/download"
-                      onClick={() => triggerHaptic()}
+                      onClick={(event) => {
+                        if (openMobileDownloadPrompt(event)) {
+                          return
+                        }
+                        triggerHaptic()
+                      }}
                       className="group flex items-center gap-2"
                     >
                       <Download
@@ -119,11 +134,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                       </span>
                     </Link>
                   </Button>
-                  <p className="pl-1 text-xs font-medium text-black/55 dark:text-[#9E9E9E] sm:text-sm">
-                    Apple Silicon · macOS 14+
-                    <br />
-                    Minimum 16 GB unified memory
-                  </p>
+                  {betaAvailabilityNote}
                 </div>
               </div>
             </div>
@@ -534,7 +545,16 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                 variant="ghost"
                 className={`mt-7 h-10 rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
               >
-                <Link href="/download" onClick={() => triggerHaptic()} className="group flex items-center gap-1.5 sm:gap-2">
+                <Link
+                  href="/download"
+                  onClick={(event) => {
+                    if (openMobileDownloadPrompt(event)) {
+                      return
+                    }
+                    triggerHaptic()
+                  }}
+                  className="group flex items-center gap-1.5 sm:gap-2"
+                >
                   <Download
                     className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4"
                     aria-hidden
@@ -544,11 +564,13 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                   </span>
                 </Link>
               </Button>
+              <div className="mt-2">{betaAvailabilityNote}</div>
             </div>
           </section>
         </div>
       </main>
 
+      {mobileDownloadPrompt}
       <SiteFooter />
     </div>
   )

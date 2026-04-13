@@ -8,6 +8,7 @@ import { Download } from "lucide-react"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -21,11 +22,13 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   isBannerVisible,
   onDismissBanner,
   onOpenMenu,
+  onDownloadClick,
 }: {
   themeAware: boolean
   isBannerVisible: boolean
   onDismissBanner: () => void
   onOpenMenu: () => void
+  onDownloadClick: (event: { preventDefault: () => void }) => void
 }) {
   const headerChrome = themeAware
     ? "bg-background border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
@@ -137,7 +140,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             <Link
               href="/download"
               className="group flex items-center gap-1.5 lg:gap-2"
-              onClick={() => triggerHaptic()}
+              onClick={onDownloadClick}
             >
               <Download className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
               <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
@@ -181,6 +184,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isBannerVisible, setIsBannerVisible] = useState(false)
+  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt("/download")
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
     const dismissed = window.localStorage.getItem("tilesBannerDismissed")
@@ -196,6 +200,15 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
 
   const openMenu = useCallback(() => setIsMenuOpen(true), [])
   const closeMenu = useCallback(() => setIsMenuOpen(false), [])
+  const handleDownloadClick = useCallback(
+    (event: { preventDefault: () => void }) => {
+      if (openMobileDownloadPrompt(event)) {
+        return
+      }
+      triggerHaptic()
+    },
+    [openMobileDownloadPrompt],
+  )
 
   return (
     <>
@@ -204,6 +217,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         isBannerVisible={isBannerVisible}
         onDismissBanner={handleDismissBanner}
         onOpenMenu={openMenu}
+        onDownloadClick={handleDownloadClick}
       />
 
       {/* Mobile Menu */}
@@ -213,6 +227,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         themeAware={themeAware}
         hasBanner={isBannerVisible}
       />
+      {mobileDownloadPrompt}
     </>
   )
 }

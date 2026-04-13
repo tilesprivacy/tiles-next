@@ -31,9 +31,11 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
                 Support Tiles via GitHub Sponsors
               </h2>
               <p className="max-w-2xl text-sm leading-relaxed text-black/65 dark:text-[#B3B3B3]">
-                Tiles is independently built and fully user-supported. Initial project funding is bootstrapped through
-                GitHub Sponsors, with plans to commercialize the product through licenses over time and sustain it that
-                way long term.
+                Tiles is independently built and fully user-supported. Early development is bootstrapped through GitHub
+                Sponsors, with plans to sustain the project long term through licensing. We are a small team of two
+                working to improve how you browse and use AI. If you find Tiles useful, consider supporting our work.
+                Contributions directly fund development, help keep both developers fed, and keep the project moving.
+                Your support means a lot.
               </p>
               <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-transparent px-2.5 py-1 text-xs font-medium text-black/65 dark:border-white/15 dark:text-[#B3B3B3]">
                 <Heart className="h-3.5 w-3.5" aria-hidden />

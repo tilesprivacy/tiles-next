@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeFavicon } from "@/components/theme-favicon"
 import { SiteHeader } from "@/components/site-header"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
+import { GlobalMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 import "./globals.css"
 
 const geist = Geist({
@@ -124,6 +125,7 @@ export default function RootLayout({
           <ThemeFavicon />
           <SiteOfflineCacheRegistrar />
           <SiteHeader themeAware />
+          <GlobalMobileDownloadPrompt />
           {children}
         </ThemeProvider>
         <Analytics />
