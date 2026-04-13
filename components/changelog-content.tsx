@@ -215,15 +215,19 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
               H1 2026
             </h3>
+            <p className={`mb-4 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
+              This roadmap is listed in implementation priority order, from highest to lowest.
+            </p>
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
               <li className={`line-through ${textColorBodyLight}`}>
                 Peer-to-peer encrypted sync
               </li>
               <li>Agentic harness built with Pi</li>
+              <li>Remote link, run models on remote machines and use them like local models</li>
               <li>Apple Foundation Model support</li>
-              <li>MLS-based group chats</li>
               <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
+              <li>MLS-based group chats</li>
             </ul>
             <p className={`mb-5 ${paragraphClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
