@@ -33,14 +33,17 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
 
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
+  const monochromeIconHover = themeAware
+    ? 'group-hover:text-foreground/70 dark:group-hover:text-foreground'
+    : 'group-hover:text-black/70'
   const iconHoverColors = {
-    twitter: themeAware ? 'group-hover:text-foreground/70 dark:group-hover:text-foreground' : 'group-hover:text-black/70',
-    bluesky: 'group-hover:text-[#0085FF]',
-    instagram: 'group-hover:text-[#E4405F]',
-    discord: 'group-hover:text-[#5865F2]',
-    github: themeAware ? 'group-hover:text-foreground/70 dark:group-hover:text-foreground' : 'group-hover:text-black/70',
-    huggingface: 'group-hover:text-[#FFD21E]',
-    rss: 'group-hover:text-orange-500',
+    twitter: monochromeIconHover,
+    bluesky: monochromeIconHover,
+    instagram: monochromeIconHover,
+    discord: monochromeIconHover,
+    github: monochromeIconHover,
+    huggingface: monochromeIconHover,
+    rss: monochromeIconHover,
   }
 
   // Prevent body scroll when menu is open (iOS Safari needs position:fixed to fully lock)

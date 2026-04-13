@@ -50,7 +50,7 @@ export function SiteFooter() {
                 className="group inline-flex items-center justify-center"
                 aria-label="RSS Feed for blog posts"
               >
-                <FaRss className={`h-4 w-4 ${textColor} transition-colors group-hover:text-orange-500`} />
+                <FaRss className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
               </a>
             </div>
             <p className={`text-sm leading-relaxed lg:text-base ${newsletterDescriptionColor}`}>
@@ -121,7 +121,7 @@ export function SiteFooter() {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Bluesky"
               >
-                <FaBluesky className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#0085FF]`} />
+                <FaBluesky className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://www.instagram.com/tilesprivacy"
@@ -130,7 +130,7 @@ export function SiteFooter() {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Instagram"
               >
-                <FaInstagram className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#E4405F]`} />
+                <FaInstagram className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://go.tiles.run/discord"
@@ -139,7 +139,7 @@ export function SiteFooter() {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Discord"
               >
-                <FaDiscord className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#5865F2]`} />
+                <FaDiscord className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://github.com/tilesprivacy"
@@ -157,7 +157,7 @@ export function SiteFooter() {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Reddit"
               >
-                <FaRedditAlien className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#FF4500]`} />
+                <FaRedditAlien className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://huggingface.co/tilesprivacy"
@@ -166,7 +166,7 @@ export function SiteFooter() {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Hugging Face"
               >
-                <SiHuggingface className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors group-hover:text-[#FFD21E]`} />
+                <SiHuggingface className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
             </div>
           </div>

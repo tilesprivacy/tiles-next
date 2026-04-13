@@ -43,14 +43,15 @@ export function BookFooter() {
   const themeSwitcherVariant = footerIsDark ? 'dark' : 'light'
 
   // Icon hover colors - keep brand colors but adjust base
+  const monochromeIconHover = footerIsDark ? "group-hover:text-white/70" : "group-hover:text-black/70"
   const iconHoverClasses = {
-    twitter: footerIsDark ? "group-hover:text-white/70" : "group-hover:text-black/70",
-    bluesky: "group-hover:text-[#0085FF]",
-    instagram: "group-hover:text-[#E4405F]",
-    discord: "group-hover:text-[#5865F2]",
-    github: footerIsDark ? "group-hover:text-white/70" : "group-hover:text-black/70",
-    huggingface: "group-hover:text-[#FFD21E]",
-    rss: "group-hover:text-orange-500",
+    twitter: monochromeIconHover,
+    bluesky: monochromeIconHover,
+    instagram: monochromeIconHover,
+    discord: monochromeIconHover,
+    github: monochromeIconHover,
+    huggingface: monochromeIconHover,
+    rss: monochromeIconHover,
   }
 
   // Default to dark footer during SSR to avoid hydration mismatch
