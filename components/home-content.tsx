@@ -4,13 +4,42 @@ import Image from "next/image"
 import Link from "next/link"
 import { Bot, Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
+import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { getPersonById, splitPersonDisplayName } from "@/lib/people"
 
-export function HomeContent() {
+interface HomeContentProps {
+  highlightReadTimes: Record<string, string>
+}
+
+export function HomeContent({ highlightReadTimes }: HomeContentProps) {
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+  const highlightCards = [
+    {
+      slug: "ship-it-up",
+      href: "/blog/ship-it-up",
+      meta: "Apr 5, 2026 . Engineering",
+      title: "Ship it up",
+      authorId: "anandu-pavanan",
+    },
+    {
+      slug: "move-along-python",
+      href: "/blog/move-along-python",
+      meta: "Feb 17, 2026 . Engineering",
+      title: "Move Along, Python",
+      authorId: "anandu-pavanan",
+    },
+    {
+      slug: "introducing-tiles-public-alpha",
+      href: "/blog/introducing-tiles-public-alpha",
+      meta: "Jan 2, 2026 . Product",
+      title: "Introducing Tiles Public Alpha",
+      authorId: "ankesh-bharti",
+    },
+  ]
   const comparisonRows = [
     { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
     { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
@@ -51,32 +80,30 @@ export function HomeContent() {
     <div className="min-h-[100dvh] overflow-x-clip bg-background">
 
       {/* Main Content - progressive spacing so narrow screens keep consistent rhythm */}
-      <main className="px-4 pb-6 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))] lg:pb-10">
+      <main className="px-4 pb-6 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] lg:pb-10">
         <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
-          <div className="mb-8 flex flex-col gap-10 min-[390px]:mb-10 sm:mb-12 sm:gap-12 lg:mb-14 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="mb-10 flex flex-col gap-8 min-[390px]:mb-12 sm:mb-14 sm:gap-10 lg:mb-16 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
             {/* Left Pane - Content */}
-            <div className="flex max-w-[34rem] flex-col gap-6 sm:gap-10 lg:gap-10">
-              {/* Spacer for top whitespace on desktop only; mobile uses main pt-20 for consistency */}
-              <div className="h-0 lg:h-6 w-fit" aria-hidden="true" />
-
-              {/* Title & Subtitle */}
-              <div className="space-y-3.5 min-[390px]:space-y-5 sm:space-y-6 lg:space-y-6">
-                <h1 className="font-sans text-[2.6rem] font-bold leading-[1.02] tracking-tight text-foreground min-[360px]:text-[3rem] lg:text-6xl">
-                  Tiles
+            <div className="flex max-w-[33rem] flex-col gap-5 sm:gap-6 lg:gap-6 lg:pr-4">
+              {/* Hero copy */}
+              <div className="space-y-3 min-[390px]:space-y-4 sm:space-y-4 lg:space-y-4">
+                <h1 className="max-w-[22ch] font-sans text-[1.95rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[2.2rem] lg:text-[2.6rem]">
+                  Private and secure AI assistant for everyday use
                 </h1>
-                <p className="max-w-xl text-base leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base lg:text-xl">
-                  Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project.
+                <p className="max-w-xl text-base leading-relaxed text-black/65 dark:text-[#B3B3B3] sm:text-base lg:text-lg">
+                  Runs locally by default with optional peer-to-peer sync. Built as a fully user-supported,
+                  independent open-source project.
                 </p>
               </div>
 
               {/* Primary Call To Action */}
-              <div className="flex flex-col gap-3 sm:gap-4 lg:gap-3 w-full">
-                <div className="flex items-center gap-4 sm:gap-6">
+              <div className="flex flex-col gap-3 sm:gap-3.5 lg:gap-3 w-full">
+                <div className="inline-flex w-fit flex-col items-start gap-2">
                   <Button
                     asChild
                     variant="ghost"
-                    className={`h-10 w-fit self-start rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-base`}
+                    className={`h-10 w-fit self-start rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-[0.98rem]`}
                   >
                     <Link
                       href="/download"
@@ -92,19 +119,16 @@ export function HomeContent() {
                       </span>
                     </Link>
                   </Button>
+                  <p className="pl-1 text-xs font-medium text-black/55 dark:text-[#9E9E9E] sm:text-sm">
+                    Apple Silicon · macOS 14+
+                  </p>
                 </div>
-                <p className="text-xs leading-relaxed text-muted-foreground max-w-[20rem]">
-                  Runs fully on-device, with optional peer-to-peer sync.{" "}
-                  <Link href="/book/manual#onboarding" className="underline underline-offset-4">
-                    View CLI screenshots.
-                  </Link>
-                </p>
               </div>
             </div>
 
             {/* Right Pane - Wireframe */}
             <div className="flex w-full items-center justify-center">
-              <div className="relative mx-auto w-full max-w-[24rem] min-[360px]:max-w-[26rem] min-[430px]:max-w-[30rem] sm:max-w-[34rem] lg:max-w-xl">
+              <div className="relative mx-auto w-full max-w-[24rem] min-[360px]:max-w-[26rem] min-[430px]:max-w-[30rem] sm:max-w-[34rem] lg:max-w-[35.5rem]">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
@@ -134,7 +158,7 @@ export function HomeContent() {
           </div>
 
           {/* Features Section - same width as hero, tighter spacing for continuous flow */}
-          <div className="flex flex-col gap-7 pt-2 sm:gap-10 sm:pt-3 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:pt-4">
+          <div className="flex flex-col gap-7 pt-8 pb-10 sm:gap-10 sm:pt-10 sm:pb-12 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:pt-12 lg:pb-14">
             {/* Feature 1 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
@@ -266,14 +290,14 @@ export function HomeContent() {
 
           </div>
 
-          <section className="pt-8 sm:pt-10 lg:pt-14">
+          <section className="border-t border-black/10 pt-10 pb-10 dark:border-white/10 sm:pt-12 sm:pb-12 lg:pt-14 lg:pb-14">
             <div className="min-w-0 space-y-4 sm:space-y-5">
               <div className="max-w-2xl space-y-2">
                 <h2 className={sectionHeadingClass}>
-                  Private AI comparison
+                  What makes Tiles different
                 </h2>
                 <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base">
-                  A quick comparison of private AI assistant tools across app experience, integrations, models, and private deployment features.
+                  Our approach combines best-in-class privacy-focused engineering with unmatched consumer convenience. See how Tiles compares to other local-first AI assistants.
                 </p>
               </div>
 
@@ -347,7 +371,7 @@ export function HomeContent() {
           </section>
 
           <section
-            className="pt-8 pb-8 sm:pt-10 sm:pb-10 lg:pt-14 lg:pb-12"
+            className="border-t border-black/10 pt-10 pb-10 dark:border-white/10 sm:pt-12 sm:pb-12 lg:pt-14 lg:pb-14"
             aria-labelledby="home-security-faq-heading"
           >
             <div className="min-w-0 space-y-4 sm:space-y-5">
@@ -448,6 +472,76 @@ export function HomeContent() {
                 </p>
               </BookFaqItem>
             </BookFaq>
+            </div>
+          </section>
+
+          <section className="border-t border-black/10 pt-10 pb-12 dark:border-white/10 sm:pt-12 sm:pb-14 lg:pt-14 lg:pb-16" aria-labelledby="recent-highlights-heading">
+            <div className="space-y-4">
+              <h2 id="recent-highlights-heading" className="text-[2rem] font-semibold tracking-tight text-foreground sm:text-[2.15rem]">
+                Recent highlights
+              </h2>
+              <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-3">
+                {highlightCards.map((card) => (
+                  (() => {
+                    const author = getPersonById(card.authorId)
+                    const authorLabel = author ? splitPersonDisplayName(author.name).nameWithoutHandle : "Tiles Team"
+                    const readTime = highlightReadTimes[card.slug] ?? "min read"
+
+                    return (
+                      <Link
+                        key={card.href}
+                        href={card.href}
+                        className="group min-h-[7rem] rounded-sm border border-black/[0.07] bg-black/[0.025] p-3 transition-colors hover:bg-black/[0.04] dark:border-white/10 dark:bg-white/[0.02] dark:hover:bg-white/[0.05]"
+                      >
+                        <p className="text-[0.78rem] text-black/45 dark:text-[#8A8A8A]">{card.meta}</p>
+                        <p className="mt-1.5 text-[1.02rem] font-medium leading-snug text-foreground">{card.title}</p>
+                        <div className="mt-3.5 inline-flex items-center gap-1.5 text-[0.96rem] text-black/60 transition-colors group-hover:text-black/70 dark:text-[#B3B3B3] dark:group-hover:text-[#D0D0D0]">
+                          {author && (
+                            <PersonAvatar
+                              name={author.name}
+                              links={author.links}
+                              variant="blog"
+                              className="inline-flex shrink-0"
+                            />
+                          )}
+                          <span>{authorLabel}</span>
+                          <span aria-hidden>.</span>
+                          <span>{readTime}</span>
+                        </div>
+                      </Link>
+                    )
+                  })()
+                ))}
+              </div>
+              <Link
+                href="/blog"
+                className="inline-flex items-center text-base font-medium text-black/65 underline decoration-current underline-offset-4 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6]"
+              >
+                View all blog posts -&gt;
+              </Link>
+            </div>
+          </section>
+
+          <section className="border-t border-black/10 pb-16 pt-12 text-center dark:border-white/10 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
+            <div className="mx-auto flex max-w-2xl flex-col items-center">
+              <h2 className="text-5xl font-medium tracking-tight text-foreground sm:text-6xl lg:text-[4.2rem]">
+                Try Tiles now.
+              </h2>
+              <Button
+                asChild
+                variant="ghost"
+                className={`mt-7 h-10 rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
+              >
+                <Link href="/download" onClick={() => triggerHaptic()} className="group flex items-center gap-1.5 sm:gap-2">
+                  <Download
+                    className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4"
+                    aria-hidden
+                  />
+                  <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
+                    Download for macOS
+                  </span>
+                </Link>
+              </Button>
             </div>
           </section>
         </div>

@@ -2,11 +2,76 @@
 
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
+import { Button } from "@/components/ui/button"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { Heart } from "lucide-react"
+import { FaGithub } from "react-icons/fa6"
 
-export function AboutContent() {
+interface AboutContentProps {
+  sponsorsGoal: {
+    goalAmountMonthly: string | null
+    progressPercent: string | null
+  }
+}
+
+export function AboutContent({ sponsorsGoal }: AboutContentProps) {
+  const goalLine = sponsorsGoal.goalAmountMonthly
+    ? `${sponsorsGoal.progressPercent ? `${sponsorsGoal.progressPercent} toward ` : ""}${sponsorsGoal.goalAmountMonthly} goal`
+    : "Monthly goal updates are published on GitHub Sponsors"
+  const progressValue = sponsorsGoal.progressPercent
+    ? Math.max(0, Math.min(100, Number.parseInt(sponsorsGoal.progressPercent, 10)))
+    : null
+
   return (
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
       <div className="flex flex-1 flex-col pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
+        <section className="mx-auto w-full max-w-7xl px-4 pb-6 sm:px-6 sm:pb-8 lg:px-12 lg:pb-10">
+          <div className="rounded-2xl border border-black/[0.08] bg-black/[0.015] px-4 py-4 dark:border-white/[0.1] dark:bg-white/[0.02] sm:px-6 sm:py-5 lg:px-8 lg:py-6">
+            <div className="mx-auto flex w-full max-w-3xl flex-col items-start gap-3 sm:gap-3.5">
+              <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+                Support Tiles via GitHub Sponsors
+              </h2>
+              <p className="max-w-2xl text-sm leading-relaxed text-black/65 dark:text-[#B3B3B3]">
+                Tiles is independently built and fully user-supported. Initial project funding is raised through
+                GitHub Sponsors, with plans to commercialize the product through licenses over time and sustain it that
+                way long term.
+              </p>
+              <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-transparent px-2.5 py-1 text-xs font-medium text-black/65 dark:border-white/15 dark:text-[#B3B3B3]">
+                <Heart className="h-3.5 w-3.5" aria-hidden />
+                <span>{goalLine}</span>
+              </div>
+              {progressValue !== null && (
+                <div className="w-full max-w-2xl">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-black/10 dark:bg-white/10">
+                    <div
+                      className="h-full rounded-full bg-[#d96ab0] transition-[width] duration-500"
+                      style={{ width: `${progressValue}%` }}
+                      aria-hidden
+                    />
+                  </div>
+                </div>
+              )}
+              <p className="text-sm leading-relaxed text-black/60 dark:text-[#A8A8A8]">
+                Baseline funding to support two full-time contributors.
+              </p>
+              <Button
+                asChild
+                variant="ghost"
+                className={`h-9 rounded-full px-4 text-sm font-medium sm:h-10 sm:px-5 ${themeAwareHeaderPrimaryCtaClasses}`}
+              >
+                <a
+                  href="https://github.com/sponsors/tilesprivacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="gap-2"
+                >
+                  <FaGithub className="h-3.5 w-3.5" aria-hidden />
+                  <span>Sponsor</span>
+                </a>
+              </Button>
+            </div>
+          </div>
+        </section>
         <MissionSection title="Get to know Tiles Privacy" className="pb-6 sm:pb-8 lg:pb-10" />
       </div>
       <SiteFooter />

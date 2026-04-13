@@ -27,8 +27,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onDismissBanner: () => void
   onOpenMenu: () => void
 }) {
-  const headerChrome =
-    "bg-transparent border-0 border-transparent shadow-none ring-0 outline-none"
+  const headerChrome = themeAware
+    ? "bg-background/95 border-0 border-transparent shadow-none ring-0 outline-none supports-[backdrop-filter]:backdrop-blur"
+    : "bg-white/95 border-0 border-transparent shadow-none ring-0 outline-none supports-[backdrop-filter]:backdrop-blur"
   const textColor = themeAware ? "text-foreground" : "text-black"
   const textColorHover = themeAware ? "hover:text-foreground/70" : "hover:text-black/70"
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
@@ -75,58 +76,63 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       )}
 
       <header
-        className={`site-header-chrome fixed inset-x-0 left-0 right-0 z-40 flex w-full max-w-none items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-5 ${
+        className={`site-header-chrome sticky top-0 z-40 flex w-full max-w-none items-center justify-between pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 lg:pl-[max(1.5rem,env(safe-area-inset-left,0px))] lg:pr-[max(1.5rem,env(safe-area-inset-right,0px))] lg:pb-5 ${
           isBannerVisible
             ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
             : "top-0"
         } ${
           isBannerVisible
             ? "pt-4 sm:pt-5 lg:pt-7"
-            : "pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1.125rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.75rem+env(safe-area-inset-top,0px))]"
-        } ${headerChrome}`}
+            : "pt-[calc(0.875rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]"
+        } ${headerChrome} relative`}
       >
-        {/* Left side: Logo and Desktop Nav Links */}
-        <div className="flex items-center gap-9 lg:gap-10 shrink-0">
-          <Link href="/" className="transition-colors hover:opacity-70">
+        {/* Left side: Logo and Wordmark */}
+        <div className="flex items-center shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 transition-colors hover:opacity-70 sm:gap-3">
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 lg:h-14 lg:w-14 dark:hidden" />
+                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11 dark:hidden" />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 lg:h-14 lg:w-14 hidden dark:block" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11 hidden dark:block" />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 lg:h-14 lg:w-14" />
+              <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
+            <span
+              className={`text-lg font-semibold leading-none tracking-tight sm:text-xl lg:text-2xl ${textColor}`}
+            >
+              Tiles
+            </span>
           </Link>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-8">
-            <Link href="/about" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
-              About
-            </Link>
-            <Link href="/changelog" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Changelog
-            </Link>
-            <Link href="/blog" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Blog
-            </Link>
-            <Link href="/pricing" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Pricing
-            </Link>
-            <Link href="/book" className={`text-lg font-medium ${textColor} transition-colors ${textColorHover}`}>
-              Book
-            </Link>
-          </nav>
         </div>
 
+        {/* Centered Desktop Navigation Links */}
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
+          <Link href="/about" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            About
+          </Link>
+          <Link href="/changelog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            Changelog
+          </Link>
+          <Link href="/blog" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            Blog
+          </Link>
+          <Link href="/pricing" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            Pricing
+          </Link>
+          <Link href="/book" className={`text-base font-medium ${textColor} transition-colors ${textColorHover}`}>
+            Book
+          </Link>
+        </nav>
+
         {/* Right side: Buttons and Hamburger */}
-        <div className="flex items-center gap-1 sm:gap-2 whitespace-nowrap lg:gap-3 shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap lg:gap-2 shrink-0">
           {/* Buttons */}
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
+            className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
             <Link
               href="/download"
@@ -142,26 +148,17 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${headerCtaPalette} px-2.5 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm lg:h-11 lg:px-5 lg:text-base`}
+            className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
-            <a
-              href="https://github.com/sponsors/tilesprivacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 lg:gap-2"
+            <Link
+              href="/pricing"
+              className="group flex items-center"
               onClick={() => triggerHaptic()}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
-              >
-                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-              </svg>
-              <span className="hidden min-[360px]:inline transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
-                Sponsor
+              <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                Buy $50
               </span>
-            </a>
+            </Link>
           </Button>
 
           {/* Hamburger Menu Button - Mobile Only */}

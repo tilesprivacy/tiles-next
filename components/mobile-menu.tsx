@@ -123,12 +123,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             {themeAware ? (
               <>
                 {/* Light mode logo */}
-                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 dark:hidden" />
+                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 dark:hidden" />
                 {/* Dark mode logo */}
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12 hidden dark:block" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 hidden dark:block" />
               </>
             ) : (
-              <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-11 w-11 sm:h-12 sm:w-12" />
+              <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10" />
             )}
           </Link>
 
@@ -153,30 +153,24 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               </Link>
             </Button>
 
-            {/* Sponsor Button */}
+            {/* Buy Button */}
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${headerCtaPalette} px-2.5 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm`}
             >
-              <a
-                href="https://github.com/sponsors/tilesprivacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-1.5 lg:gap-2"
-                onClick={() => triggerHaptic()}
+              <Link
+                href="/pricing"
+                onClick={() => {
+                  triggerHaptic()
+                  onClose()
+                }}
+                className="group flex items-center"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5 fill-current transition-all duration-300 will-change-transform backface-hidden group-hover:scale-110 group-active:scale-110 sm:h-4 sm:w-4"
-                >
-                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-                </svg>
-                <span className="hidden min-[360px]:inline transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
-                  Sponsor
+                <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                  Buy $50
                 </span>
-              </a>
+              </Link>
             </Button>
 
             {/* Close Button - Animated Hamburger */}
