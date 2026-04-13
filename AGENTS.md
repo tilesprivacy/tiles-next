@@ -66,7 +66,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 ## Learned User Preferences
 
 - Legal copy near download buttons should be styled as minimal subtext (matching the homepage pattern) instead of prominent body text.
-- On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav.
+- On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav, and ensure in-page anchor/section jumps land below the fixed header instead of clipping under the top nav.
 - On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, and rewrite the remaining sentence so it still reads naturally.
 - Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
 - Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, align the theme switcher and language switcher to the start of the row on mobile so they stay with left-stacked copy, language switcher labels should remain in their original language names, and changing language should not cause page position or layout shift on desktop or mobile.

@@ -8,6 +8,7 @@ import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
 import { BookDatestampMover } from '@/components/book-datestamp-mover'
 import { BookCodeHighlightFix } from '@/components/book-code-highlight-fix'
 import { BookScrollToTop } from '@/components/book-scroll-to-top'
+import { BookHashScrollOffset } from '@/components/book-hash-scroll-offset'
 import { BookTocScrollSync } from '@/components/book-toc-scroll-sync'
 
 export const metadata = {
@@ -121,6 +122,7 @@ export default async function BookLayout({
       <BookDatestampMover />
       <BookCodeHighlightFix />
       <BookScrollToTop />
+      <BookHashScrollOffset />
       <BookTocScrollSync />
       <div className="pt-[calc(7.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(9rem+env(safe-area-inset-top,0px))]">
         <BookMobileBreadcrumb />
