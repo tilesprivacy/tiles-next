@@ -227,6 +227,7 @@ export function SiteFooter() {
                 href="https://download.tiles.run/LICENSE.txt"
                 target="_blank"
                 rel="noopener noreferrer"
+                data-skip-mobile-download-prompt="true"
                 className="underline underline-offset-2 transition-opacity hover:opacity-80"
               >
                 https://download.tiles.run/LICENSE.txt

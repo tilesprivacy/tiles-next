@@ -9,6 +9,8 @@ type DownloadIntentEvent = {
   preventDefault: () => void
 }
 
+const MOBILE_DOWNLOAD_PROMPT_SKIP_ATTRIBUTE = "data-skip-mobile-download-prompt"
+
 function padTime(value: number): string {
   return value.toString().padStart(2, "0")
 }
@@ -295,6 +297,10 @@ export function GlobalMobileDownloadPrompt() {
 
       const anchor = target.closest("a")
       if (!anchor) {
+        return
+      }
+
+      if (anchor.hasAttribute(MOBILE_DOWNLOAD_PROMPT_SKIP_ATTRIBUTE)) {
         return
       }
 

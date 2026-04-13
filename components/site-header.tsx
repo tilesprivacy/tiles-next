@@ -9,6 +9,7 @@ import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
+import { usePathname } from "next/navigation"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -23,12 +24,14 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onDismissBanner,
   onOpenMenu,
   onDownloadClick,
+  onHomeClick,
 }: {
   themeAware: boolean
   isBannerVisible: boolean
   onDismissBanner: () => void
   onOpenMenu: () => void
   onDownloadClick: (event: { preventDefault: () => void }) => void
+  onHomeClick: (event: { preventDefault: () => void }) => void
 }) {
   const headerChrome = themeAware
     ? "bg-background border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
@@ -91,7 +94,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       >
         {/* Left side: Logo and Wordmark */}
         <div className="flex items-center shrink-0">
-          <Link href="/" className="flex items-center gap-2.5 transition-colors hover:opacity-70 sm:gap-3">
+          <Link href="/" onClick={onHomeClick} className="flex items-center gap-2.5 transition-colors hover:opacity-70 sm:gap-3">
             {themeAware ? (
               <>
                 {/* Light mode logo */}
@@ -185,6 +188,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isBannerVisible, setIsBannerVisible] = useState(false)
   const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
+  const pathname = usePathname()
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
     const dismissed = window.localStorage.getItem("tilesBannerDismissed")
@@ -209,6 +213,18 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
     },
     [openMobileDownloadPrompt],
   )
+  const handleHomeClick = useCallback(
+    (event: { preventDefault: () => void }) => {
+      triggerHaptic()
+      if (pathname !== "/") {
+        return
+      }
+
+      event.preventDefault()
+      window.scrollTo({ top: 0, behavior: "smooth" })
+    },
+    [pathname],
+  )
 
   return (
     <>
@@ -218,6 +234,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         onDismissBanner={handleDismissBanner}
         onOpenMenu={openMenu}
         onDownloadClick={handleDownloadClick}
+        onHomeClick={handleHomeClick}
       />
 
       {/* Mobile Menu */}
