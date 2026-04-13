@@ -2,6 +2,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Check, ChevronDown } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
+import { PolarEmbeddedCheckoutLink } from "@/components/polar-embedded-checkout-link"
 import { Button } from "@/components/ui/button"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
@@ -75,26 +76,6 @@ const faqs: PricingFaq[] = [
 ]
 
 export function PricingContent() {
-  const backerProductId = process.env.POLAR_BACKER_PRODUCT_ID
-  const commercialProductId = process.env.POLAR_COMMERCIAL_PRODUCT_ID
-  const checkoutPlans = plans.map((plan) => {
-    if (plan.name === "Backer" && backerProductId) {
-      return {
-        ...plan,
-        ctaHref: `/api/polar/checkout/backer?products=${encodeURIComponent(backerProductId)}`,
-      }
-    }
-
-    if (plan.name === "Commercial" && commercialProductId) {
-      return {
-        ...plan,
-        ctaHref: `/api/polar/checkout/commercial?products=${encodeURIComponent(commercialProductId)}`,
-      }
-    }
-
-    return plan
-  })
-
   const cardClass =
     "flex min-h-[500px] flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-none sm:p-7"
   const primaryCardButtonClass =
@@ -128,7 +109,7 @@ export function PricingContent() {
             </div>
 
             <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {checkoutPlans.map((plan) => (
+              {plans.map((plan) => (
                 <article
                   key={plan.name}
                   className={cardClass}
@@ -148,13 +129,11 @@ export function PricingContent() {
                       size="lg"
                       className={primaryCardButtonClass}
                     >
-                      <a
+                      <PolarEmbeddedCheckoutLink
                         href={plan.ctaHref}
-                        target={plan.ctaHref.startsWith("http") ? "_blank" : undefined}
-                        rel={plan.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
                       >
                         {plan.ctaLabel}
-                      </a>
+                      </PolarEmbeddedCheckoutLink>
                     </Button>
                     <Button
                       asChild
