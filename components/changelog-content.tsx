@@ -76,9 +76,9 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const bulletBgLight = 'bg-border'
   const errorBg = isDark ? 'bg-red-900/30' : 'bg-red-50'
   const errorText = isDark ? 'text-red-400' : 'text-red-600'
-  /** Flat cards: light border + muted fill, no shadow. */
+  /** Legacy changelog card look: soft gray in light, charcoal in dark. */
   const artifactCardClass =
-    'rounded-lg border border-border bg-muted/25 px-3 py-2.5 text-sm text-foreground shadow-none dark:bg-muted/15'
+    'rounded-lg border border-black/5 bg-black/[0.035] px-3 py-2.5 text-sm text-foreground shadow-none dark:border-white/5 dark:bg-white/[0.06]'
   const artifactKindClass = 'text-xs font-medium text-muted-foreground'
   const artifactLinkClass = `${linkColor} inline-flex items-center gap-0.5 font-medium`
   const artifactShaBlockClass =
@@ -88,7 +88,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
   const roadmapCtaClass =
-    'inline-flex items-center gap-1 rounded-lg border border-border bg-card px-3.5 py-2 text-sm font-medium text-card-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground lg:text-base'
+    'inline-flex items-center gap-1 rounded-2xl border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
 
   const DownloadArtifacts = ({ release }: { release: Release }) => {
     const hasTarballs = release.tarballs.length > 0

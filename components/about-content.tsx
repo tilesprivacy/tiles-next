@@ -3,7 +3,6 @@
 import { SiteFooter } from "@/components/site-footer"
 import { MissionSection } from "@/components/mission-section"
 import { Button } from "@/components/ui/button"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { Heart } from "lucide-react"
 import { FaGithub } from "react-icons/fa6"
 
@@ -26,13 +25,13 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
       <div className="flex flex-1 flex-col pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto w-full max-w-7xl px-4 pb-6 sm:px-6 sm:pb-8 lg:px-12 lg:pb-10">
-          <div className="rounded-2xl border border-black/[0.08] bg-black/[0.015] px-4 py-4 dark:border-white/[0.1] dark:bg-white/[0.02] sm:px-6 sm:py-5 lg:px-8 lg:py-6">
+          <div className="rounded-2xl border border-black/5 bg-black/[0.035] px-4 py-4 dark:border-white/5 dark:bg-white/[0.06] sm:px-6 sm:py-5 lg:px-8 lg:py-6">
             <div className="mx-auto flex w-full max-w-3xl flex-col items-start gap-3 sm:gap-3.5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                 Support Tiles via GitHub Sponsors
               </h2>
               <p className="max-w-2xl text-sm leading-relaxed text-black/65 dark:text-[#B3B3B3]">
-                Tiles is independently built and fully user-supported. Initial project funding is raised through
+                Tiles is independently built and fully user-supported. Initial project funding is bootstrapped through
                 GitHub Sponsors, with plans to commercialize the product through licenses over time and sustain it that
                 way long term.
               </p>
@@ -57,7 +56,7 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
               <Button
                 asChild
                 variant="ghost"
-                className={`h-9 rounded-full px-4 text-sm font-medium sm:h-10 sm:px-5 ${themeAwareHeaderPrimaryCtaClasses}`}
+                className="h-9 rounded-2xl border border-black/5 bg-black/[0.045] px-4 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] sm:h-10 sm:px-5"
               >
                 <a
                   href="https://github.com/sponsors/tilesprivacy"

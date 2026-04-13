@@ -27,7 +27,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onDismissBanner: () => void
   onOpenMenu: () => void
 }) {
-  const headerChrome = "bg-transparent border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+  const headerChrome = themeAware
+    ? "bg-background border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+    : "bg-white border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
   const textColor = themeAware ? "text-foreground" : "text-black"
   const textColorHover = themeAware ? "hover:text-foreground/70" : "hover:text-black/70"
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)

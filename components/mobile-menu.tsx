@@ -111,7 +111,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
 
   const menuHeaderPadding = hasBanner
     ? "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 pt-4 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 sm:pt-5"
-    : "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 pt-[calc(1rem+env(safe-area-inset-top,0px))] sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 sm:pt-[calc(1.125rem+env(safe-area-inset-top,0px))]"
+    : "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 pt-[calc(0.875rem+env(safe-area-inset-top,0px))] sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 sm:pt-[calc(1rem+env(safe-area-inset-top,0px))]"
 
   return (
     <>
@@ -122,7 +122,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
           {/* Logo */}
-          <Link href="/" onClick={onClose} className="transition-colors hover:opacity-70">
+          <Link href="/" onClick={onClose} className="flex items-center gap-2.5 transition-colors hover:opacity-70 sm:gap-3">
             {themeAware ? (
               <>
                 {/* Light mode logo */}
@@ -133,15 +133,18 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             ) : (
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10" />
             )}
+            <span className={`text-lg font-semibold leading-none tracking-tight sm:text-xl ${textColor}`}>
+              Tiles
+            </span>
           </Link>
 
           {/* Right side: Buttons and Close button */}
-          <div className="flex items-center gap-1 sm:gap-2 whitespace-nowrap shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0">
             {/* Download Button */}
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"
@@ -160,7 +163,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-9 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/pricing"
