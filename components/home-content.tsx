@@ -17,7 +17,7 @@ interface HomeContentProps {
 }
 
 export function HomeContent({ highlightReadTimes }: HomeContentProps) {
-  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt("/download")
+  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
   const betaAvailabilityNote = (
     <p className="inline-flex w-fit items-center gap-1 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">

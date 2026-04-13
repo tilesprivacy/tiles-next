@@ -1,7 +1,7 @@
 "use client"
 
 import { CalendarPlus, Check, Link2, Monitor } from "lucide-react"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { triggerHaptic } from "@/lib/haptics"
 import { FaArrowUpFromBracket } from "react-icons/fa6"
 
@@ -102,6 +102,10 @@ interface MobileDownloadPromptOverlayProps {
 
 function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownloadPromptOverlayProps) {
   const [isCopyConfirmed, setIsCopyConfirmed] = useState(false)
+  const closePrompt = useCallback(() => {
+    triggerHaptic()
+    onClose()
+  }, [onClose])
 
   useEffect(() => {
     if (!isOpen) {
@@ -168,7 +172,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
     window.setTimeout(() => {
       URL.revokeObjectURL(blobUrl)
     }, 1000)
-  }, [targetUrl])
+  }, [])
 
   if (!isOpen) {
     return null
@@ -180,9 +184,13 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobile-download-prompt-title"
+      onClick={closePrompt}
     >
       <div className="w-full px-2 pb-[max(0.5rem,env(safe-area-inset-bottom,0px))]">
-        <div className="mx-auto w-full max-w-2xl rounded-[1.2rem] border border-border/70 bg-card/90 px-4 pb-4 pt-5 shadow-[0_24px_60px_rgba(0,0,0,0.25)] backdrop-blur-xl dark:bg-card/80">
+        <div
+          className="mx-auto w-full max-w-2xl rounded-[1.2rem] bg-card/65 px-4 pb-4 pt-5 backdrop-blur-2xl dark:bg-card/55"
+          onClick={(event) => event.stopPropagation()}
+        >
           <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-full text-foreground">
             <Monitor className="h-5 w-5" aria-hidden />
           </div>
@@ -198,7 +206,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
             <button
               type="button"
               onClick={onShare}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-border/70 bg-secondary/80 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
             >
               <FaArrowUpFromBracket className="h-5 w-5" aria-hidden />
               <span>Share</span>
@@ -206,7 +214,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
             <button
               type="button"
               onClick={onCopyLink}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-border/70 bg-secondary/80 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
             >
               {isCopyConfirmed ? <Check className="h-5 w-5" aria-hidden /> : <Link2 className="h-5 w-5" aria-hidden />}
               <span>Copy link</span>
@@ -214,7 +222,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
             <button
               type="button"
               onClick={onRemind}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl border border-border/70 bg-secondary/80 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary"
+              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
             >
               <CalendarPlus className="h-5 w-5" aria-hidden />
               <span>Remind</span>
@@ -223,11 +231,8 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
 
           <button
             type="button"
-            onClick={() => {
-              triggerHaptic()
-              onClose()
-            }}
-            className="mt-2 w-full rounded-2xl bg-foreground py-3 text-base font-medium text-background transition-colors hover:bg-foreground/90"
+            onClick={closePrompt}
+            className="mt-4 w-full rounded-2xl bg-foreground py-3 text-base font-medium text-background transition-colors hover:bg-foreground/90"
           >
             Close
           </button>
@@ -237,7 +242,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
   )
 }
 
-export function useMobileDownloadPrompt(path = "/download") {
+export function useMobileDownloadPrompt() {
   const [isOpen, setIsOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -245,13 +250,7 @@ export function useMobileDownloadPrompt(path = "/download") {
     setIsMobile(isLikelyMobileDevice())
   }, [])
 
-  const targetUrl = useMemo(() => {
-    if (typeof window === "undefined") {
-      return `https://tiles.run${path}`
-    }
-
-    return new URL(path, window.location.origin).toString()
-  }, [path])
+  const targetUrl = "https://www.tiles.run"
 
   const openMobileDownloadPrompt = useCallback(
     (event?: DownloadIntentEvent) => {
@@ -336,7 +335,7 @@ export function GlobalMobileDownloadPrompt() {
     <MobileDownloadPromptOverlay
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
-      targetUrl="https://www.tiles.run/download"
+      targetUrl="https://www.tiles.run"
     />
   )
 }

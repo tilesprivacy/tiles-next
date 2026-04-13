@@ -57,7 +57,7 @@ const downloadButtonLabelClass =
 
 export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
-  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt("/download")
+  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const [mounted, setMounted] = useState(false)
   const [isLoadingMetadata, setIsLoadingMetadata] = useState(!Boolean(initialDownload?.downloadUrl))
   const [metadataLoadFailed, setMetadataLoadFailed] = useState(false)

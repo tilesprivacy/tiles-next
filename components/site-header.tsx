@@ -184,7 +184,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isBannerVisible, setIsBannerVisible] = useState(false)
-  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt("/download")
+  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
     const dismissed = window.localStorage.getItem("tilesBannerDismissed")
