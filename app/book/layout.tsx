@@ -124,7 +124,7 @@ export default async function BookLayout({
       <BookScrollToTop />
       <BookHashScrollOffset />
       <BookTocScrollSync />
-      <div className="pt-[calc(7.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(9rem+env(safe-area-inset-top,0px))]">
+      <div className="pt-[calc(5.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(7rem+env(safe-area-inset-top,0px))]">
         <BookMobileBreadcrumb />
         <Layout
           pageMap={finalPageMap}

@@ -1089,7 +1089,7 @@ sniper-link[hidden] {
 
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
 [data-book-section] {
-  --book-top-offset: 7.5rem;
+  --book-top-offset: 5.5rem;
 }
 
 /* Keep in-page hash targets clear of the fixed site nav on book pages. */
@@ -1100,7 +1100,7 @@ sniper-link[hidden] {
 
 @media (min-width: 1024px) {
   [data-book-section] {
-    --book-top-offset: 9rem;
+    --book-top-offset: 7rem;
   }
 
   /* Layout for asides; background only on left nav (TOC uses article background) */
