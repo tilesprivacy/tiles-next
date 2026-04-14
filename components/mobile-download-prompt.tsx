@@ -30,21 +30,15 @@ function toUtcIcsDate(date: Date): string {
 
 function resolveReminderWindow(now: Date): { start: Date; end: Date } {
   const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000)
-  const rolledToNextDay =
-    twoHoursFromNow.getFullYear() !== now.getFullYear() ||
-    twoHoursFromNow.getMonth() !== now.getMonth() ||
-    twoHoursFromNow.getDate() !== now.getDate()
+  const start = new Date(twoHoursFromNow)
+  start.setMinutes(0, 0, 0)
 
-  const slot = rolledToNextDay ? new Date(now) : twoHoursFromNow
-  if (rolledToNextDay) {
-    slot.setHours(23, 0, 0, 0)
-  } else {
-    const nearestHour = Math.min(23, Math.max(0, Math.round(slot.getHours() + slot.getMinutes() / 60)))
-    slot.setHours(nearestHour, 0, 0, 0)
+  if (start.getTime() < twoHoursFromNow.getTime()) {
+    start.setHours(start.getHours() + 1)
   }
 
-  const end = new Date(slot.getTime() + 15 * 60 * 1000)
-  return { start: slot, end }
+  const end = new Date(start.getTime() + 15 * 60 * 1000)
+  return { start, end }
 }
 
 function createReminderIcs(): { content: string; fileName: string } {
