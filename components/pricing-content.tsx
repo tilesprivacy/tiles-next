@@ -26,17 +26,17 @@ type PricingFaq = {
 const plans: PricingPlan[] = [
   {
     name: "Backer",
-    description: "For individual users",
+    description: "For hobbyists, students, and non-profits",
     price: "$50",
     cadence: "One-time payment",
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_UaSG3EKkZRlrPdoeCThS8emJvA7eOCcCHyjdZ1uXyAW",
     learnMoreHref: "/book/licenses#backer",
-    features: ["Early access to beta versions", "Support development and infrastructure costs", "Prioritize feature development"],
+    features: ["Early access to beta versions", "Support development and infrastructure costs", "Prioritize feature development", "Community support channel"],
   },
   {
     name: "Commercial",
-    description: "For teams and organizations",
+    description: "For professionals, teams, and companies",
     price: "$100",
     cadence: "Per user, per year",
     ctaLabel: "Support Tiles",
