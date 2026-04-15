@@ -101,8 +101,8 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
   }
 
   const inputClasses = isDark
-    ? "!h-10 !bg-[#151515] !border-[#303030] !text-[#E6E6E6] placeholder:!text-[#8A8A8A] focus-visible:!ring-white/20 focus-visible:!border-white/25"
-    : "!h-10 !bg-white !border-black/15 !text-black placeholder:!text-black/45 focus-visible:!ring-black/10 focus-visible:!border-black/25"
+    ? "!h-10 !rounded-none !bg-[#151515] !border-[#303030] !text-[#E6E6E6] placeholder:!text-[#8A8A8A] focus-visible:!ring-white/20 focus-visible:!border-white/25"
+    : "!h-10 !rounded-none !bg-white !border-black/15 !text-black placeholder:!text-black/45 focus-visible:!ring-black/10 focus-visible:!border-black/25"
 
   const buttonClasses = isDark
     ? "!h-10 !bg-white !text-black hover:!bg-[#F2F2F2] focus-visible:!ring-white/30"
@@ -158,7 +158,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
               type="submit"
               disabled={status === "loading" || status === "success"}
               className={cn(
-                "w-full rounded-md px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
+                "w-full !rounded-none px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
                 buttonClasses,
               )}
             >

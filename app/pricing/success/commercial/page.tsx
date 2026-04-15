@@ -47,13 +47,13 @@ export default async function CommercialPurchaseSuccessPage({
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/pricing"
-              className="inline-flex h-10 items-center justify-center rounded-full border border-border px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted/40"
+              className="inline-flex h-10 items-center justify-center rounded-sm border border-border px-4 text-sm font-medium text-foreground transition-colors hover:bg-muted/40"
             >
               Back to pricing
             </Link>
             <Link
               href="/download"
-              className="inline-flex h-10 items-center justify-center rounded-full bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              className="inline-flex h-10 items-center justify-center rounded-sm bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
             >
               Continue to download
             </Link>

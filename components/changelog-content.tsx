@@ -78,7 +78,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const errorText = isDark ? 'text-red-400' : 'text-red-600'
   /** Legacy changelog card look: soft gray in light, charcoal in dark. */
   const artifactCardClass =
-    'rounded-lg border border-black/5 bg-black/[0.035] px-3 py-2.5 text-sm text-foreground shadow-none dark:border-white/5 dark:bg-white/[0.06]'
+    'rounded-sm border border-black/5 bg-black/[0.035] px-3 py-2.5 text-sm text-foreground shadow-none dark:border-white/5 dark:bg-white/[0.06]'
   const artifactKindClass = 'text-xs font-medium text-muted-foreground'
   const artifactLinkClass = `${linkColor} inline-flex items-center gap-0.5 font-medium`
   const artifactShaBlockClass =
@@ -88,7 +88,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
   const roadmapCtaClass =
-    'inline-flex items-center gap-1 rounded-2xl border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
+    'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
 
   const DownloadArtifacts = ({ release }: { release: Release }) => {
     const hasTarballs = release.tarballs.length > 0
@@ -291,7 +291,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           </section>
 
           {error ? (
-            <div className={`rounded-lg ${errorBg} p-4 ${errorText}`}>{error}</div>
+            <div className={`rounded-sm ${errorBg} p-4 ${errorText}`}>{error}</div>
           ) : (
             <div className="relative">
               {/* Timeline line */}

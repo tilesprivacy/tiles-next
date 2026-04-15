@@ -25,7 +25,7 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
       <div className="flex flex-1 flex-col pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto w-full max-w-7xl px-4 pb-6 sm:px-6 sm:pb-8 lg:px-12 lg:pb-10">
-          <div className="rounded-2xl border border-black/5 bg-black/[0.035] px-4 py-5 dark:border-white/5 dark:bg-white/[0.06] sm:px-6 sm:py-6 lg:px-8 lg:py-8">
+          <div className="rounded-sm border border-black/5 bg-black/[0.035] px-4 py-5 dark:border-white/5 dark:bg-white/[0.06] sm:px-6 sm:py-6 lg:px-8 lg:py-8">
             <div className="mx-auto flex w-full max-w-3xl flex-col items-start gap-4 sm:gap-5">
               <h2 className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
                 Support Tiles via GitHub Sponsors
@@ -60,7 +60,7 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
               <Button
                 asChild
                 variant="ghost"
-                className="mt-1 h-10 rounded-2xl border border-black/5 bg-black/[0.045] px-5 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14]"
+                className="mt-1 h-10 rounded-sm border border-black/5 bg-black/[0.045] px-5 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14]"
               >
                 <a
                   href="https://github.com/sponsors/tilesprivacy"

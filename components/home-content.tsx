@@ -121,7 +121,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                   <Button
                     asChild
                     variant="ghost"
-                    className={`h-10 w-fit self-start rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-[0.98rem]`}
+                    className={`h-10 w-fit self-start rounded-sm ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:h-10 sm:px-5 lg:h-11 lg:px-7 lg:text-[0.98rem]`}
                   >
                     <Link
                       href="/download"
@@ -551,7 +551,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
               <Button
                 asChild
                 variant="ghost"
-                className={`mt-7 h-10 rounded-full ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
+                className={`mt-7 h-10 rounded-sm ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
               >
                 <Link
                   href="/download"

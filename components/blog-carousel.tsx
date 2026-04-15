@@ -72,8 +72,8 @@ export default function BlogCarousel() {
               className="w-[92%] shrink-0 snap-start sm:w-[80%] lg:w-[49%]"
             >
               <Link href={`/blog/${post.slug}`} className="block group h-full" prefetch={true}>
-                <div className="space-y-3 rounded-lg border border-black/5 bg-white p-5 hover:border-black/10 hover:shadow-sm lg:p-7 lg:space-y-4 dark:bg-[#161616] dark:border-white/10 dark:hover:border-white/20">
-                  <div className="relative aspect-video overflow-hidden rounded-md border border-black/5 dark:border-white/10">
+                <div className="space-y-3 rounded-sm border border-black/5 bg-white p-5 hover:border-black/10 hover:shadow-sm lg:p-7 lg:space-y-4 dark:bg-[#161616] dark:border-white/10 dark:hover:border-white/20">
+                  <div className="relative aspect-video overflow-hidden rounded-sm border border-black/5 dark:border-white/10">
                     <>
                       <Image
                         src={imageSrc}
@@ -111,7 +111,7 @@ export default function BlogCarousel() {
             type="button"
             onClick={() => scrollByCard(-1)}
             disabled={!canScrollPrev}
-            className="hidden lg:inline-flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 h-9 w-9 items-center justify-center rounded-full border border-black/15 bg-background text-black/80 hover:text-black disabled:opacity-30 dark:border-white/20 dark:text-white/80 dark:hover:text-white"
+            className="hidden lg:inline-flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-14 h-9 w-9 items-center justify-center rounded-sm border border-black/15 bg-background text-black/80 hover:text-black disabled:opacity-30 dark:border-white/20 dark:text-white/80 dark:hover:text-white"
             aria-label="Scroll blog cards left"
           >
             <span aria-hidden="true">←</span>
@@ -120,7 +120,7 @@ export default function BlogCarousel() {
             type="button"
             onClick={() => scrollByCard(1)}
             disabled={!canScrollNext}
-            className="hidden lg:inline-flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 h-9 w-9 items-center justify-center rounded-full border border-black/15 bg-background text-black/80 hover:text-black disabled:opacity-30 dark:border-white/20 dark:text-white/80 dark:hover:text-white"
+            className="hidden lg:inline-flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-14 h-9 w-9 items-center justify-center rounded-sm border border-black/15 bg-background text-black/80 hover:text-black disabled:opacity-30 dark:border-white/20 dark:text-white/80 dark:hover:text-white"
             aria-label="Scroll blog cards right"
           >
             <span aria-hidden="true">→</span>

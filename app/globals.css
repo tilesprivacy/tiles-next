@@ -29,7 +29,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.75rem;
+  --radius: 0.45rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #1d1d1f;
   --sidebar-primary: #1d1d1f;
@@ -42,6 +42,22 @@
   /* Light canvas + ink for inverted strips (e.g. book footer on dark pages); not flipped in .dark */
   --cursor-light-surface: #ffffff;
   --cursor-light-ink: #1d1d1f;
+}
+
+/* Global corner profile: make cards/buttons squarer site-wide */
+@layer base {
+  :is(button, a, [role='button']).rounded-full,
+  :is(button, a, [role='button']).rounded-2xl,
+  :is(button, a, [role='button']).rounded-xl,
+  :is(button, a, [role='button']).rounded-lg {
+    border-radius: var(--radius) !important;
+  }
+
+  :is(div, section, article, li).rounded-2xl[class*='border'],
+  :is(div, section, article, li).rounded-xl[class*='border'],
+  :is(div, section, article, li).rounded-lg[class*='border'] {
+    border-radius: calc(var(--radius) + 0.1rem) !important;
+  }
 }
 
 /* Dark theme: minimal neutral palette */

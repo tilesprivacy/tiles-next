@@ -184,7 +184,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
     >
       <div className="w-full px-2 pb-[max(0.5rem,env(safe-area-inset-bottom,0px))]">
         <div
-          className="mx-auto w-full max-w-2xl rounded-[1.2rem] bg-card/65 px-4 pb-4 pt-5 backdrop-blur-2xl dark:bg-card/55"
+          className="mx-auto w-full max-w-2xl rounded-sm bg-card/65 px-4 pb-4 pt-5 backdrop-blur-2xl dark:bg-card/55"
           onClick={(event) => event.stopPropagation()}
         >
           <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-full text-foreground">
@@ -202,7 +202,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
             <button
               type="button"
               onClick={onShare}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
+              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-sm bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
             >
               <FaArrowUpFromBracket className="h-5 w-5" aria-hidden />
               <span>Share</span>
@@ -210,7 +210,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
             <button
               type="button"
               onClick={onCopyLink}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
+              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-sm bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
             >
               {isCopyConfirmed ? <Check className="h-5 w-5" aria-hidden /> : <Link2 className="h-5 w-5" aria-hidden />}
               <span>Copy link</span>
@@ -218,7 +218,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
             <button
               type="button"
               onClick={onRemind}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-2xl bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
+              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-sm bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
             >
               <CalendarPlus className="h-5 w-5" aria-hidden />
               <span>Remind</span>
@@ -228,7 +228,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
           <button
             type="button"
             onClick={closePrompt}
-            className="mt-4 w-full rounded-2xl bg-foreground py-3 text-base font-medium text-background transition-colors hover:bg-foreground/90"
+            className="mt-4 w-full rounded-sm bg-foreground py-3 text-base font-medium text-background transition-colors hover:bg-foreground/90"
           >
             Close
           </button>

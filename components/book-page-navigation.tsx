@@ -65,8 +65,8 @@ export function BookPageNavigation() {
       data-book-navigation
       className="mt-12 mx-4 lg:mx-0 lg:mt-16"
     >
-      {/* Outer Gray Pill */}
-      <div className="flex items-center gap-3 lg:gap-4 bg-muted dark:bg-secondary rounded-[1.75rem] pl-5 pr-2 py-2 lg:pl-7 lg:pr-2.5 lg:py-2.5">
+      {/* Outer gray container */}
+      <div className="flex items-center gap-3 lg:gap-4 bg-muted dark:bg-secondary rounded-none pl-5 pr-2 py-2 lg:pl-7 lg:pr-2.5 lg:py-2.5">
         {/* Previous Button - On Gray Background */}
         {prevPage ? (
           <Link
@@ -84,8 +84,8 @@ export function BookPageNavigation() {
           </div>
         )}
 
-        {/* Inner White Pill - Contains Page Title and Navigation Button */}
-        <div className="flex-1 flex items-center justify-end gap-4 lg:gap-6 bg-background rounded-[1.75rem] pl-4 pr-5 py-3.5 lg:pl-6 lg:pr-7 lg:py-4">
+        {/* Inner panel - contains page title and navigation button */}
+        <div className="flex-1 flex items-center justify-end gap-4 lg:gap-6 bg-background rounded-none pl-4 pr-5 py-3.5 lg:pl-6 lg:pr-7 lg:py-4">
           {/* Show Next Page Title if exists, otherwise show Previous Page Title */}
           {nextPage ? (
             <span className="text-base lg:text-lg font-semibold text-foreground">

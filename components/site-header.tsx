@@ -138,7 +138,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
+            className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
             <Link
               href="/download"
@@ -154,7 +154,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
+            className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
             <Link
               href="/pricing"

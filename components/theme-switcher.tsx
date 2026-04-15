@@ -37,10 +37,10 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
   const iconSize = size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'
 
   return (
-    <div className={`inline-flex items-center rounded-full ${bgColor} p-1`}>
+    <div className={`inline-flex items-center rounded-none ${bgColor} p-1`}>
       <button
         onClick={() => setTheme('light')}
-        className={`inline-flex items-center ${sizeClasses} rounded-full font-medium transition-all duration-200 ${
+        className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
           resolvedTheme === 'light' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`
@@ -58,7 +58,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
       </button>
       <button
         onClick={() => setTheme('dark')}
-        className={`inline-flex items-center ${sizeClasses} rounded-full font-medium transition-all duration-200 ${
+        className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
           resolvedTheme === 'dark' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`
@@ -76,7 +76,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
       </button>
       <button
         onClick={() => setTheme('system')}
-        className={`inline-flex items-center ${sizeClasses} rounded-full font-medium transition-all duration-200 ${
+        className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
           theme === 'system' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`

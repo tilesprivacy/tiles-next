@@ -212,7 +212,7 @@ export function BlogTableOfContents({
     return (
       <nav
         aria-label="Table of contents"
-        className="rounded-xl border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.04]"
+        className="rounded-sm border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.04]"
       >
         <button
           type="button"

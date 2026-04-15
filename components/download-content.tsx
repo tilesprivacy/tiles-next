@@ -47,7 +47,7 @@ const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
 }
 
 /** Matches site header Download CTA (same `Button` palette, flat surface like the nav pill) */
-const primaryDownloadButtonClass = `group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-full px-5 text-sm font-medium transition-all duration-300 will-change-transform hover:scale-[1.02] active:scale-[0.98] ${themeAwareHeaderPrimaryCtaClasses}`
+const primaryDownloadButtonClass = `group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-sm px-5 text-sm font-medium transition-all duration-300 will-change-transform hover:scale-[1.02] active:scale-[0.98] ${themeAwareHeaderPrimaryCtaClasses}`
 
 const downloadButtonAppleIconClass =
   "origin-right h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110"
@@ -271,7 +271,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         <button
                           type="button"
                           disabled
-                          className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-full border border-border bg-muted px-5 text-sm font-medium text-muted-foreground"
+                          className="inline-flex h-10 cursor-not-allowed items-center justify-center gap-2 rounded-sm border border-border bg-muted px-5 text-sm font-medium text-muted-foreground"
                           aria-disabled="true"
                         >
                           <Image

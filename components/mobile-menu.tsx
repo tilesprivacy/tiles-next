@@ -143,7 +143,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"
@@ -162,7 +162,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-full ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
+              className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/pricing"

@@ -77,11 +77,11 @@ const faqs: PricingFaq[] = [
 
 export function PricingContent() {
   const cardClass =
-    "flex min-h-[500px] flex-col rounded-2xl border border-border bg-card p-6 text-card-foreground shadow-none sm:p-7"
+    "flex min-h-[500px] flex-col rounded-sm border border-border bg-card p-6 text-card-foreground shadow-none sm:p-7"
   const primaryCardButtonClass =
-    `h-10 w-full rounded-full px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
+    `h-10 w-full rounded-sm px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
   const secondaryCardButtonClass =
-    "h-10 w-full rounded-full border-border bg-secondary px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
+    "h-10 w-full rounded-sm border-border bg-secondary px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
