@@ -81,7 +81,7 @@ export function SiteFooter({ showTryTilesCta = true, reverseTheme = true }: Site
         </section>
       )}
 
-      <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
+      <footer className={`relative z-50 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
         <div className="mx-auto max-w-6xl flex flex-col gap-10 lg:gap-12">
         <section className={`grid gap-8 border-b pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-x-12 lg:gap-y-0 lg:pb-12 ${borderColor}`}>
           <div className="max-w-xl space-y-3">
