@@ -16,12 +16,8 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return null
-  }
-
   const isDark = resolvedTheme === 'dark'
-  
+
   // Determine colors based on variant
   const isLightVariant = variant === 'light' || (variant === 'auto' && !isDark)
   const bgColor = isLightVariant ? 'bg-black/10' : 'bg-white/10'
@@ -35,6 +31,19 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
     : 'text-sm px-3 py-1.5 gap-1'
 
   const iconSize = size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'
+
+  if (!mounted) {
+    return (
+      <div className={`inline-flex items-center rounded-none ${bgColor} p-1 pointer-events-none`} aria-hidden="true">
+        {[0, 1, 2].map((index) => (
+          <span key={index} className={`inline-flex items-center ${sizeClasses} rounded-none font-medium`}>
+            {/* Keep the pre-hydration footprint identical to avoid footer jumps. */}
+            <span className={`${iconSize} opacity-0`} />
+          </span>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className={`inline-flex items-center rounded-none ${bgColor} p-1`}>
