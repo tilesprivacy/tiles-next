@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import { Download } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
@@ -53,9 +54,10 @@ export default async function CommercialPurchaseSuccessPage({
             </Link>
             <Link
               href="/download"
-              className="inline-flex h-10 items-center justify-center rounded-sm bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-sm bg-foreground px-4 text-sm font-medium text-background transition-opacity hover:opacity-90"
             >
               Continue to download
+              <Download className="h-3.5 w-3.5" aria-hidden />
             </Link>
           </div>
         </section>

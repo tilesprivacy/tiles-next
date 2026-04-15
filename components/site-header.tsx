@@ -145,10 +145,10 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={onDownloadClick}
             >
-              <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
               <span className="transition-opacity duration-200 group-hover:opacity-90">
                 Download
               </span>
+              <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
             </Link>
           </Button>
           <Button

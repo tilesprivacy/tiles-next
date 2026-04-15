@@ -81,6 +81,9 @@ export function SiteFooter() {
               <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
                 Privacy
               </Link>
+              <Link href="/brand" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
+                Brand
+              </Link>
               <a
                 href="https://status.tiles.run"
                 target="_blank"

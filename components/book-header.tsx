@@ -3,6 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { Download } from "lucide-react"
 import { memo, useCallback, useState } from 'react'
 import { MobileMenu } from "./mobile-menu"
 
@@ -46,6 +47,10 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
             <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
               Download for macOS
             </span>
+            <Download
+              className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 will-change-transform backface-hidden group-hover:translate-y-[1px] lg:h-4 lg:w-4"
+              aria-hidden
+            />
           </Link>
         </Button>
         <Button

@@ -133,13 +133,13 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                       }}
                       className="group flex items-center gap-2"
                     >
+                      <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                        Download for macOS
+                      </span>
                       <Download
                         className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
                         aria-hidden
                       />
-                      <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
-                        Download for macOS
-                      </span>
                     </Link>
                   </Button>
                   {betaAvailabilityNote}
@@ -563,13 +563,13 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                   }}
                   className="group flex items-center gap-1.5 sm:gap-2"
                 >
+                  <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
+                    Download for macOS
+                  </span>
                   <Download
                     className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4"
                     aria-hidden
                   />
-                  <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
-                    Download for macOS
-                  </span>
                 </Link>
               </Button>
               <div className="mt-2">{betaAvailabilityNote}</div>

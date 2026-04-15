@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from "next-themes"
 import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
+import { Download } from "lucide-react"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import Link from "next/link"
@@ -54,6 +55,9 @@ const downloadButtonAppleIconClass =
 
 const downloadButtonLabelClass =
   "origin-left transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105"
+
+const downloadButtonArrowIconClass =
+  "h-3.5 w-3.5 shrink-0 transition-transform duration-300 will-change-transform backface-hidden group-hover:translate-y-[1px]"
 
 export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
@@ -266,6 +270,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                             className={`hidden ${downloadButtonAppleIconClass} dark:block`}
                           />
                           <span className={downloadButtonLabelClass}>{downloadButtonLabel}</span>
+                          <Download className={downloadButtonArrowIconClass} aria-hidden />
                         </a>
                       ) : (
                         <button
@@ -289,6 +294,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                             className="hidden h-3.5 w-auto opacity-50 dark:block"
                           />
                           {downloadButtonLabel}
+                          <Download className="h-3.5 w-3.5 shrink-0 opacity-50" aria-hidden />
                         </button>
                       )}
                     </div>
@@ -352,6 +358,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                           className={`hidden ${downloadButtonAppleIconClass} dark:block`}
                         />
                         <span className={downloadButtonLabelClass}>Download offline installer</span>
+                        <Download className={downloadButtonArrowIconClass} aria-hidden />
                       </a>
                     </div>
                   </div>

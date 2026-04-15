@@ -53,9 +53,6 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
                     </div>
                   </div>
                 )}
-                <p className="text-sm leading-relaxed text-black/60 dark:text-[#A8A8A8]">
-                  Baseline funding to support two full-time contributors.
-                </p>
               </div>
               <Button
                 asChild

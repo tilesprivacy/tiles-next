@@ -153,8 +153,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
-                <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4" aria-hidden />
                 <span className="transition-opacity duration-200 group-hover:opacity-90">Download</span>
+                <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4" aria-hidden />
               </Link>
             </Button>
 
