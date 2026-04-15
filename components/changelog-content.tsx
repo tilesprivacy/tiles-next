@@ -237,8 +237,8 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
             </h3>
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
               <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
-              <li>Performance improvements for inference server with continuous batching and tiered KV caching</li>
-              <li>Inference runtime hardening with hypervisor Stage-2 memory isolation</li>
+              <li>Performance improvements for inference server with continuous batching, tiered KV caching, and dynamic quantised weights</li>
+              <li>Inference runtime hardening with hypervisor Stage-2 memory isolation and hardware-backed attestation</li>
               <li>Automatic LoRA adapter training from chat history and user-uploaded datasets</li>
             </ul>
             <p className={`mb-5 ${paragraphClass}`}>

@@ -205,6 +205,10 @@ export function BlogPostContent({
             )}
           </div>
 
+          <div className="mb-8 lg:mb-16 lg:max-w-[44rem] lg:mx-auto xl:hidden">
+            <BlogTableOfContents mode="mobile" />
+          </div>
+
           {/* Blog Content + TOC + References lanes */}
           <div className="xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
             <aside className="hidden xl:block">

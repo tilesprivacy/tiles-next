@@ -10,6 +10,7 @@ interface TocItem {
 
 interface BlogTableOfContentsProps {
   contentSelector?: string
+  mode?: 'desktop' | 'mobile'
 }
 
 const INTRO_ID = 'blog-content-start'
@@ -24,10 +25,12 @@ function slugify(text: string): string {
 
 export function BlogTableOfContents({
   contentSelector = '.blog-article-content',
+  mode = 'desktop',
 }: BlogTableOfContentsProps) {
   const [items, setItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const [stickyTop, setStickyTop] = useState<number>(112)
+  const [isExpanded, setIsExpanded] = useState(true)
 
   const getScrollOffset = useCallback(() => {
     const header = document.querySelector('header.fixed.inset-x-0') as HTMLElement | null
@@ -160,16 +163,8 @@ export function BlogTableOfContents({
   }
 
   const isIntroActive = activeId === INTRO_ID
-
-  return (
-    <nav
-      aria-label="Table of contents"
-      className="sticky overflow-y-auto pr-4"
-      style={{
-        top: `${stickyTop}px`,
-        maxHeight: `calc(100dvh - ${stickyTop + 16}px)`,
-      }}
-    >
+  const navItems = (
+    <>
       <a
         href={`#${INTRO_ID}`}
         className={`mb-3 block text-sm font-medium transition-colors ${
@@ -210,6 +205,51 @@ export function BlogTableOfContents({
           )
         })}
       </ul>
+    </>
+  )
+
+  if (mode === 'mobile') {
+    return (
+      <nav
+        aria-label="Table of contents"
+        className="rounded-xl border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.04]"
+      >
+        <button
+          type="button"
+          onClick={() => setIsExpanded((current) => !current)}
+          className="flex w-full items-center justify-between text-left"
+          aria-expanded={isExpanded}
+          aria-controls="blog-mobile-toc-list"
+        >
+          <span className="text-[1.15rem] font-medium text-black/60 dark:text-white/60">Table of Contents</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="none"
+            className={`h-4 w-4 text-black/45 transition-transform dark:text-white/45 ${isExpanded ? 'rotate-180' : ''}`}
+          >
+            <path d="M5 12.5L10 7.5L15 12.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        {isExpanded ? (
+          <div id="blog-mobile-toc-list" className="mt-3.5">
+            {navItems}
+          </div>
+        ) : null}
+      </nav>
+    )
+  }
+
+  return (
+    <nav
+      aria-label="Table of contents"
+      className="sticky overflow-y-auto pr-4"
+      style={{
+        top: `${stickyTop}px`,
+        maxHeight: `calc(100dvh - ${stickyTop + 16}px)`,
+      }}
+    >
+      {navItems}
     </nav>
   )
 }
