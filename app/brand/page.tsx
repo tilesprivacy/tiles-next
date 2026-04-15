@@ -1,9 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
-import { PersonAvatar } from "@/components/person-avatar"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
-import { getPersonById } from "@/lib/people"
 
 export const metadata: Metadata = {
   title: "Brand | Tiles",
@@ -30,12 +28,6 @@ export const metadata: Metadata = {
 }
 
 export default function BrandPage() {
-  const exdysa = getPersonById("exdysa")
-  const exdysaName = exdysa?.name ?? "exdysa @exdysa"
-  const exdysaLinks = exdysa?.links ?? ["https://github.com/exdysa"]
-  const exdysaGithubLink =
-    exdysaLinks.find((link) => link.includes("github.com/exdysa")) ?? "https://github.com/exdysa"
-
   return (
     <main className="bg-background text-foreground">
       <section className="mx-auto w-full max-w-4xl px-6 pb-16 pt-28 md:pt-32">
@@ -142,18 +134,6 @@ export default function BrandPage() {
                 >
                   <Image src="/darkshapes-logo.svg" alt="Darkshapes logo" width={14} height={14} className="h-3.5 w-auto" />
                   <span>Darkshapes</span>
-                </a>
-                <span>by</span>
-                <a
-                  href={exdysaGithubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-foreground transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
-                >
-                  <span className="inline-flex shrink-0 scale-[0.7]">
-                    <PersonAvatar name={exdysaName} links={exdysaLinks} variant="blog" className="inline-flex shrink-0" />
-                  </span>
-                  <span>@exdysa</span>
                 </a>
                 <span>.</span>
               </p>
