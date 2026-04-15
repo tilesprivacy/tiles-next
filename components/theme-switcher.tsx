@@ -48,6 +48,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
   return (
     <div className={`inline-flex items-center rounded-none ${bgColor} p-1`}>
       <button
+        type="button"
         onClick={() => setTheme('light')}
         className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
           resolvedTheme === 'light' 
@@ -66,6 +67,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
         </svg>
       </button>
       <button
+        type="button"
         onClick={() => setTheme('dark')}
         className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
           resolvedTheme === 'dark' 
@@ -84,6 +86,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
         </svg>
       </button>
       <button
+        type="button"
         onClick={() => setTheme('system')}
         className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
           theme === 'system' 

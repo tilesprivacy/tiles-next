@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link"
+import { Download } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
@@ -8,8 +9,15 @@ import { useEffect, useState } from 'react'
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
+import { Button } from "@/components/ui/button"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
-export function SiteFooter() {
+interface SiteFooterProps {
+  showTryTilesCta?: boolean
+  reverseTheme?: boolean
+}
+
+export function SiteFooter({ showTryTilesCta = true, reverseTheme = true }: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -17,8 +25,10 @@ export function SiteFooter() {
     setMounted(true)
   }, [])
 
-  // Reversed theme: dark footer when light mode, light footer when dark mode
-  const isDarkFooter = !mounted || resolvedTheme === 'light'
+  // Default behavior inverts page theme. Some surfaces (e.g. /book) need matched theme colors.
+  const isDarkFooter = reverseTheme
+    ? !mounted || resolvedTheme === 'light'
+    : !mounted || resolvedTheme !== 'light'
 
   // Footer colors - reversed from page theme (matching book dark theme colors)
   const footerBg = isDarkFooter ? 'bg-[#111114]' : 'bg-[#f7f7fa]'
@@ -35,8 +45,44 @@ export function SiteFooter() {
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/50'
 
   return (
-    <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
-      <div className="mx-auto max-w-6xl flex flex-col gap-10 lg:gap-12">
+    <>
+      {showTryTilesCta && (
+        <section className="bg-background px-4 sm:px-6 lg:px-12">
+          <div className="mx-auto w-full max-w-6xl">
+            <section className="border-t border-black/10 pb-16 pt-12 text-center dark:border-white/10 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
+              <div className="mx-auto flex max-w-2xl flex-col items-center">
+                <h2 className="text-5xl font-medium tracking-tight text-foreground sm:text-6xl lg:text-[4.2rem]">
+                  Try Tiles now.
+                </h2>
+                <Button
+                  asChild
+                  variant="ghost"
+                  className={`mt-7 h-10 rounded-sm ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
+                >
+                  <Link href="/download" className="group flex items-center gap-1.5 sm:gap-2">
+                    <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
+                      Download for macOS
+                    </span>
+                    <Download
+                      className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4"
+                      aria-hidden
+                    />
+                  </Link>
+                </Button>
+                <p className="mt-2 inline-flex w-fit items-center gap-1.5 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
+                  <span className="inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]">
+                    ALPHA
+                  </span>
+                  <span>for macOS 14+ (arm64)</span>
+                </p>
+              </div>
+            </section>
+          </div>
+        </section>
+      )}
+
+      <footer className={`relative z-20 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
+        <div className="mx-auto max-w-6xl flex flex-col gap-10 lg:gap-12">
         <section className={`grid gap-8 border-b pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-x-12 lg:gap-y-0 lg:pb-12 ${borderColor}`}>
           <div className="max-w-xl space-y-3">
             <div className="flex items-center gap-2.5">
@@ -240,7 +286,8 @@ export function SiteFooter() {
             </p>
           </div>
         </div>
-      </div>
-    </footer>
+        </div>
+      </footer>
+    </>
   )
 }

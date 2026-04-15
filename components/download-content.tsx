@@ -470,7 +470,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
       </main>
 
       {mobileDownloadPrompt}
-      <SiteFooter />
+      <SiteFooter showTryTilesCta={false} />
     </div>
   )
 }

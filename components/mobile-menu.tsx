@@ -121,7 +121,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
           {/* Logo */}
-          <Link href="/" onClick={onClose} className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3">
+          <Link
+            href="/"
+            onClick={onClose}
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3"
+          >
             {themeAware ? (
               <>
                 {/* Light mode logo */}
@@ -132,7 +136,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             ) : (
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10" />
             )}
-            <span className={`text-lg font-medium leading-none tracking-tight sm:text-xl ${textColor}`}>
+            <span
+              className={`notranslate text-lg font-medium leading-none tracking-tight sm:text-xl ${textColor}`}
+              translate="no"
+              lang="en"
+            >
               Tiles
             </span>
           </Link>

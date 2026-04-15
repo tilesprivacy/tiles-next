@@ -218,13 +218,6 @@ export function PricingContent() {
             height={220}
             className="h-auto w-full max-w-lg min-[390px]:max-w-xl sm:max-w-2xl lg:max-w-3xl dark:hidden"
           />
-          <Image
-            src="/tiles_banner_outline_wht.svg"
-            alt="Tiles"
-            width={1200}
-            height={220}
-            className="hidden h-auto w-full max-w-lg min-[390px]:max-w-xl sm:max-w-2xl lg:max-w-3xl dark:block"
-          />
         </div>
       </section>
 

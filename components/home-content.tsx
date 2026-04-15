@@ -543,38 +543,6 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
             </div>
           </section>
 
-          <section className="border-t border-black/10 pb-16 pt-12 text-center dark:border-white/10 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
-            <div className="mx-auto flex max-w-2xl flex-col items-center">
-              <h2 className="text-5xl font-medium tracking-tight text-foreground sm:text-6xl lg:text-[4.2rem]">
-                Try Tiles now.
-              </h2>
-              <Button
-                asChild
-                variant="ghost"
-                className={`mt-7 h-10 rounded-sm ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
-              >
-                <Link
-                  href="/download"
-                  onClick={(event) => {
-                    if (openMobileDownloadPrompt(event)) {
-                      return
-                    }
-                    triggerHaptic()
-                  }}
-                  className="group flex items-center gap-1.5 sm:gap-2"
-                >
-                  <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
-                    Download for macOS
-                  </span>
-                  <Download
-                    className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4"
-                    aria-hidden
-                  />
-                </Link>
-              </Button>
-              <div className="mt-2">{betaAvailabilityNote}</div>
-            </div>
-          </section>
         </div>
       </main>
 

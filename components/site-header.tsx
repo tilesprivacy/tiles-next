@@ -94,7 +94,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       >
         {/* Left side: Logo and Wordmark */}
         <div className="flex items-center shrink-0">
-          <Link href="/" onClick={onHomeClick} className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3">
+          <Link
+            href="/"
+            onClick={onHomeClick}
+            className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3"
+          >
             {themeAware ? (
               <>
                 {/* Light mode logo */}
@@ -106,7 +110,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
             <span
-              className={`text-lg font-medium leading-none tracking-tight sm:text-xl lg:text-2xl ${textColor}`}
+              className={`notranslate text-lg font-medium leading-none tracking-tight sm:text-xl lg:text-2xl ${textColor}`}
+              translate="no"
+              lang="en"
             >
               Tiles
             </span>

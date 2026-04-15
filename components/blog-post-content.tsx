@@ -253,13 +253,6 @@ export function BlogPostContent({
                 .
               </p>
               <p>
-                When you're done, you can{" "}
-                <Link href="/download" className="text-black dark:text-white hover:text-black/80 dark:hover:text-white/80 underline">
-                  install Tiles
-                </Link>
-                .
-              </p>
-              <p>
                 Keep on Tiling!
               </p>
             </div>
