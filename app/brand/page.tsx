@@ -75,16 +75,16 @@ export default function BrandPage() {
               <Image
                 src="/lighticon.png"
                 alt="Tiles logo preview on light theme"
-                width={220}
-                height={220}
-                className="h-[160px] w-[160px] object-contain dark:hidden md:h-[220px] md:w-[220px]"
+                width={280}
+                height={280}
+                className="h-[200px] w-[200px] object-contain dark:hidden md:h-[280px] md:w-[280px]"
               />
               <Image
                 src="/grey.png"
                 alt="Tiles logo preview on dark theme"
-                width={220}
-                height={220}
-                className="hidden h-[160px] w-[160px] object-contain dark:block md:h-[220px] md:w-[220px]"
+                width={280}
+                height={280}
+                className="hidden h-[200px] w-[200px] object-contain dark:block md:h-[280px] md:w-[280px]"
               />
             </div>
             <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
@@ -95,22 +95,44 @@ export default function BrandPage() {
           <div>
             <div className="mx-auto flex w-full max-w-3xl justify-center">
               <Image
-                src="/tiles_banner_outline_blk.svg"
-                alt="Tiles banner preview on light theme"
+                src="/tiles_tlogo_banner_v1.2/svg/tiles_banner_fill_blk.svg"
+                alt="Tiles filled banner preview on light theme"
                 width={1200}
                 height={220}
                 className="h-auto w-full object-contain dark:hidden"
               />
               <Image
-                src="/tiles_banner_outline_wht.svg"
-                alt="Tiles banner preview on dark theme"
+                src="/tiles_tlogo_banner_v1.2/svg/tiles_banner_fill_wht.svg"
+                alt="Tiles filled banner preview on dark theme"
                 width={1200}
                 height={220}
                 className="hidden h-auto w-full object-contain dark:block"
               />
             </div>
             <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
-              Tiles banner treatment for light and dark surfaces.
+              Tiles filled banner treatment for light and dark surfaces.
+            </p>
+          </div>
+
+          <div>
+            <div className="mx-auto flex w-full max-w-3xl justify-center">
+              <Image
+                src="/tiles_banner_outline_blk.svg"
+                alt="Tiles outline banner preview on light theme"
+                width={1200}
+                height={220}
+                className="h-auto w-full object-contain dark:hidden"
+              />
+              <Image
+                src="/tiles_banner_outline_wht.svg"
+                alt="Tiles outline banner preview on dark theme"
+                width={1200}
+                height={220}
+                className="hidden h-auto w-full object-contain dark:block"
+              />
+            </div>
+            <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
+              Tiles outline banner treatment for light and dark surfaces.
             </p>
           </div>
         </div>
@@ -123,8 +145,8 @@ export default function BrandPage() {
         <div className="mt-14 border-t border-black/10 pt-6 dark:border-white/10">
           <div className="flex flex-col gap-3 text-sm leading-relaxed text-black/55 dark:text-[#9A9A9D]">
             <div className="min-w-0">
-              <p className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                <span>Visual identity developed in collaboration with</span>
+              <p className="text-sm leading-relaxed text-black/55 dark:text-[#9A9A9D]">
+                Visual identity developed in collaboration with{" "}
                 <a
                   href="https://darkshapes.org"
                   target="_blank"
@@ -134,7 +156,7 @@ export default function BrandPage() {
                   <Image src="/darkshapes-logo.svg" alt="Darkshapes logo" width={14} height={14} className="h-3.5 w-auto" />
                   <span>Darkshapes</span>
                 </a>
-                <span>.</span>
+                , an umbrella organization rethinking machine-learning tools that work for people, not corporations.
               </p>
             </div>
           </div>
