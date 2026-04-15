@@ -39,7 +39,6 @@ export default function BrandPage() {
         </p>
         <a
           href="/tiles-brand-assets.zip"
-          download
           className={`mt-8 inline-flex h-10 items-center gap-2 rounded-sm px-5 text-sm font-medium transition-all duration-300 will-change-transform hover:scale-[1.02] active:scale-[0.98] ${themeAwareHeaderPrimaryCtaClasses}`}
         >
           Download brand assets
