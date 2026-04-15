@@ -231,12 +231,12 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               <li>Remote link, run models on remote machines and use them like local models</li>
               <li>Apple Foundation Model support</li>
               <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
-              <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
             </ul>
             <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
               H2 2026
             </h3>
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
+              <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
               <li>Performance improvements for inference server with continuous batching and tiered KV caching</li>
               <li>Inference runtime hardening with hypervisor Stage-2 memory isolation</li>
               <li>Automatic LoRA adapter training from chat history and user-uploaded datasets</li>
