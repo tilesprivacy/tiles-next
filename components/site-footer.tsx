@@ -178,6 +178,7 @@ export function SiteFooter() {
             <div className="flex min-w-0 flex-col gap-4 sm:gap-3">
               <p className="whitespace-nowrap leading-snug sm:leading-normal">© 2026 Tiles Privacy & Contributors.</p>
               <div className="flex flex-col items-start gap-y-3 sm:gap-y-2">
+                {/*
                 <p className="inline-flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-snug sm:leading-normal">
                   <span>Built on</span>
                   <a
@@ -190,6 +191,7 @@ export function SiteFooter() {
                     the ATmosphere
                   </a>
                 </p>
+                */}
                 <p className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5 leading-snug sm:leading-normal">
                   <span>A</span>
                   <a

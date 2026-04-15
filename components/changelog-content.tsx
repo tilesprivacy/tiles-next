@@ -219,15 +219,27 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
               This roadmap is listed in implementation priority order, from highest to lowest.
             </p>
             <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
-              <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
-              <li className={`line-through ${textColorBodyLight}`}>
-                Peer-to-peer encrypted sync
+              <li className={textColorBodyLight}>
+                <span>Peer-to-peer encrypted sync</span>
+                <span
+                  className={`ml-2 inline-flex items-center rounded-full ${badgeBg} px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${badgeTextLight}`}
+                >
+                  Shipped
+                </span>
               </li>
               <li>Agentic harness built with Pi</li>
               <li>Remote link, run models on remote machines and use them like local models</li>
               <li>Apple Foundation Model support</li>
+              <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
               <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
-              <li>MLS-based group chats</li>
+            </ul>
+            <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
+              H2 2026
+            </h3>
+            <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
+              <li>Performance improvements for inference server with continuous batching and tiered KV caching</li>
+              <li>Inference runtime hardening with hypervisor Stage-2 memory isolation</li>
+              <li>Automatic LoRA adapter training from chat history and user-uploaded datasets</li>
             </ul>
             <p className={`mb-5 ${paragraphClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.

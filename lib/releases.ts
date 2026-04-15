@@ -615,6 +615,8 @@ function sanitizeBulletText(text: string): string {
     .replace(/\s+https?:\/\/github\.com\/[^\s]+\/pull\/\d+\b/gi, "")
     .replace(/\s+by\s+@\w+\s+in\s+https?:\/\/[^\s]+/gi, "")
     .replace(/\s+in\s+https?:\/\/[^\s]+/gi, "")
+    // Cleanup dangling trailing connectors left after stripping issue references.
+    .replace(/\s+(?:in|via|through|under)\s*$/gi, "")
     .replace(/\s+([,.;:!?])/g, "$1")
     .replace(/\s+/g, " ")
     .trim()
