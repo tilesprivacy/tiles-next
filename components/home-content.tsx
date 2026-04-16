@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Bot, Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
+import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
@@ -68,9 +68,9 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", osaurus: "check" },
     { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", osaurus: "empty" },
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", osaurus: "empty" },
-    { label: "Agent Harness", tiles: "check", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
+    { label: "Agent Harness", tiles: "empty", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
     { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
-    { label: "Connectors", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
     { label: "Remote link", tiles: "empty", ollama: "empty", lmStudio: "check", jan: "empty", osaurus: "check" },
     { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
@@ -180,7 +180,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
 
           {/* Features Section - same width as hero, tighter spacing for continuous flow */}
           <div className="flex flex-col gap-7 pt-8 pb-10 sm:gap-10 sm:pt-10 sm:pb-12 lg:grid lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12 lg:pt-12 lg:pb-14">
-            {/* Feature 1 */}
+            {/* Feature 1 (temporarily hidden until launch)
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 text-foreground">
@@ -202,6 +202,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                 tasks and use cases.
               </p>
             </div>
+            */}
 
             {/* Feature 2 */}
             <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
