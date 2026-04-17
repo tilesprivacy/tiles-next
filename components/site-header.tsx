@@ -48,7 +48,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
   const headerCtaLabelClass = "transition-opacity duration-200 group-hover:opacity-90"
   const headerCtaIconClass = "flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
-  const headerCtaSymbolClass = "inline-flex items-center justify-center font-medium leading-none transition-opacity duration-200 group-hover:opacity-85"
   const alphaBadgeClass = themeAware
     ? "border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70"
     : "border border-black/10 bg-black/[0.04] text-black/65"
@@ -149,9 +148,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           </Link>
         </nav>
 
-        {/* Right side: Buttons and Hamburger */}
-        <div className="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap lg:gap-2 shrink-0">
-          {/* Buttons */}
+        {/* Right side: Download CTA and mobile menu */}
+        <div className="flex items-center gap-1 whitespace-nowrap sm:gap-1.5 lg:gap-2 shrink-0">
           <Button
             asChild
             variant="ghost"
@@ -168,30 +166,10 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Download className={headerCtaIconClass} aria-hidden />
             </Link>
           </Button>
-          <Button
-            asChild
-            variant="ghost"
-            className={`h-8 min-w-0 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
-          >
-            <Link
-              href="/pricing"
-              className="group flex items-center justify-center gap-1 lg:gap-1.5"
-              onClick={() => triggerHaptic()}
-              aria-label="Pricing"
-            >
-              <span className={headerCtaLabelClass}>
-                Buy
-              </span>
-              <span className={headerCtaSymbolClass} aria-hidden="true">
-                $
-              </span>
-            </Link>
-          </Button>
-
           {/* Hamburger Menu Button - Mobile Only */}
           <button
             onClick={onOpenMenu}
-            className="lg:hidden ml-2 flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none"
+            className="lg:hidden flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none"
             aria-label="Open navigation menu"
             type="button"
           >

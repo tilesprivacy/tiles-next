@@ -35,7 +35,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     : 'border border-black/10 bg-black/[0.04] text-black/65'
   const headerCtaLabelClass = 'transition-opacity duration-200 group-hover:opacity-90'
   const headerCtaIconClass = 'flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
-  const headerCtaSymbolClass = 'inline-flex items-center justify-center font-medium leading-none transition-opacity duration-200 group-hover:opacity-85'
 
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
@@ -156,8 +155,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             </span>
           </Link>
 
-          {/* Right side: Buttons and Close button */}
-          <div className="flex items-center gap-1.5 sm:gap-2 whitespace-nowrap shrink-0">
+          {/* Right side: Download CTA and close button */}
+          <div className="flex items-center gap-1 whitespace-nowrap sm:gap-1.5 shrink-0">
             {/* Download Button */}
             <Button
               asChild
@@ -177,33 +176,10 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               </Link>
             </Button>
 
-            {/* Buy Button */}
-            <Button
-              asChild
-              variant="ghost"
-              className={`h-8 min-w-0 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
-            >
-              <Link
-                href="/pricing"
-                onClick={() => {
-                  triggerHaptic()
-                  onClose()
-                }}
-                className="group flex items-center justify-center gap-1"
-              >
-                <span className={headerCtaLabelClass}>
-                  Buy
-                </span>
-                <span className={headerCtaSymbolClass} aria-hidden="true">
-                  $
-                </span>
-              </Link>
-            </Button>
-
             {/* Close Button - Animated Hamburger */}
             <button
               onClick={onClose}
-              className="ml-2 flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none relative"
+              className="flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none relative"
               aria-label="Close navigation menu"
               type="button"
             >
