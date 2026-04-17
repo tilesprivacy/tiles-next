@@ -34,9 +34,9 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     ? 'border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70'
     : 'border border-black/10 bg-black/[0.04] text-black/65'
   const headerCtaLabelClass = 'transition-opacity duration-200 group-hover:opacity-90'
-  const headerCtaIconClass = 'flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
-  const mobileHeaderControlSize = 'h-7.5 sm:h-8.5'
-  const mobileMenuButtonSize = 'h-8.5 w-8.5 sm:h-9 sm:w-9'
+  const headerCtaIconClass = 'flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
+  const mobileHeaderControlSize = 'h-7 sm:h-8.5'
+  const mobileMenuButtonSize = 'h-8 w-8 sm:h-9 sm:w-9'
 
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
@@ -163,7 +163,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-[13px] font-medium sm:px-3.5 sm:text-sm`}
+              className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"
@@ -171,7 +171,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                   triggerHaptic()
                   onClose()
                 }}
-                className="group flex items-center gap-1.25 sm:gap-1.5 lg:gap-2"
+                className="group flex items-center gap-1 sm:gap-1.5 lg:gap-2"
               >
                 <span className={headerCtaLabelClass}>Download</span>
                 <Download className={headerCtaIconClass} aria-hidden />

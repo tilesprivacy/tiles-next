@@ -47,9 +47,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     : `${buttonBg} ${buttonText} ${buttonHover}`
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
   const headerCtaLabelClass = "transition-opacity duration-200 group-hover:opacity-90"
-  const headerCtaIconClass = "flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
-  const mobileHeaderControlSize = "h-7.5 sm:h-8.5"
-  const mobileMenuButtonSize = "h-8.5 w-8.5 sm:h-9 sm:w-9"
+  const headerCtaIconClass = "flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
+  const mobileHeaderControlSize = "h-7 sm:h-8.5"
+  const mobileMenuButtonSize = "h-8 w-8 sm:h-9 sm:w-9"
   const alphaBadgeClass = themeAware
     ? "border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70"
     : "border border-black/10 bg-black/[0.04] text-black/65"
@@ -155,11 +155,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-[13px] font-medium sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
+            className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
             <Link
               href="/download"
-              className="group flex items-center gap-1.25 sm:gap-1.5 lg:gap-2"
+              className="group flex items-center gap-1 sm:gap-1.5 lg:gap-2"
               onClick={onDownloadClick}
             >
               <span className={headerCtaLabelClass}>
