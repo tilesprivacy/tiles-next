@@ -14,10 +14,9 @@ import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-clas
 
 interface SiteFooterProps {
   showTryTilesCta?: boolean
-  reverseTheme?: boolean
 }
 
-export function SiteFooter({ showTryTilesCta = true, reverseTheme = true }: SiteFooterProps) {
+export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -25,12 +24,9 @@ export function SiteFooter({ showTryTilesCta = true, reverseTheme = true }: Site
     setMounted(true)
   }, [])
 
-  // Default behavior inverts page theme. Some surfaces (e.g. /book) need matched theme colors.
-  const isDarkFooter = reverseTheme
-    ? !mounted || resolvedTheme === 'light'
-    : !mounted || resolvedTheme !== 'light'
+  const isDarkFooter = !mounted || resolvedTheme === 'dark'
 
-  // Footer colors - reversed from page theme (matching book dark theme colors)
+  // Footer colors follow the page theme so the footer and body share the same surface.
   const footerBg = isDarkFooter ? 'bg-[#111114]' : 'bg-[#f7f7fa]'
   const borderColor = isDarkFooter ? 'border-white/10' : 'border-black/8'
   const textColor = isDarkFooter ? 'text-[#e7e7ed]' : 'text-[#1d1d1f]'
@@ -38,7 +34,6 @@ export function SiteFooter({ showTryTilesCta = true, reverseTheme = true }: Site
   const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
   const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
 
-  // Theme switcher variant - opposite of page theme since footer is reversed
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#b0b0ba]' : 'text-[#1d1d1f]/60'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'

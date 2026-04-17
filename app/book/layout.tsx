@@ -134,7 +134,7 @@ export default async function BookLayout({
           {children}
         </Layout>
       </div>
-      <SiteFooter reverseTheme={false} />
+      <SiteFooter />
     </div>
   )
 }

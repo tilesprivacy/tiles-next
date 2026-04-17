@@ -154,7 +154,7 @@ function tryApplyGoogleCombo(language: string) {
 }
 
 type FooterLanguageSelectorProps = {
-  /** Matches `ThemeSwitcher` `variant` for the reversed footer surface (`dark` = dark footer band). */
+  /** Matches `ThemeSwitcher` `variant` for the footer surface (`dark` = dark footer band). */
   variant: 'light' | 'dark'
 }
 
