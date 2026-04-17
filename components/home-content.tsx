@@ -19,21 +19,28 @@ interface HomeContentProps {
 export function HomeContent({ highlightReadTimes }: HomeContentProps) {
   const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+  const alphaPillClass =
+    "inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]"
   const betaAvailabilityNote = (
-    <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
-      <span className="hidden items-center gap-1.5 lg:inline-flex">
-        <span className="inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]">
-          ALPHA
+    <div className="max-w-md space-y-2 pl-1">
+      <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
+        <span className="hidden items-center gap-1.5 lg:inline-flex">
+          <span className={alphaPillClass}>
+            ALPHA
+          </span>
+          <span>for macOS 14+ (arm64)</span>
         </span>
-        <span>for macOS 14+ (arm64)</span>
-      </span>
-      <span className="inline-flex items-center gap-1.5 lg:hidden">
-        <span>Currently available in</span>
-        <span className="inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]">
-          ALPHA
+        <span className="inline-flex items-center gap-1.5 lg:hidden">
+          <span>Currently available in</span>
+          <span className={alphaPillClass}>
+            ALPHA
+          </span>
         </span>
-      </span>
-    </p>
+      </p>
+      <p className="max-w-[34ch] text-xs leading-relaxed text-black/55 dark:text-[#9E9E9E] sm:text-[0.8rem]">
+        Expect rough edges, features behind experimental flags, and occasional reliability issues.
+      </p>
+    </div>
   )
   const highlightCards = [
     {

@@ -32,7 +32,12 @@ const plans: PricingPlan[] = [
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_UaSG3EKkZRlrPdoeCThS8emJvA7eOCcCHyjdZ1uXyAW",
     learnMoreHref: "/book/licenses#backer",
-    features: ["Early access to beta versions", "Support development and infrastructure costs", "Prioritize feature development", "Community support channel"],
+    features: [
+      "Managed public relays for sync",
+      "Support development and relay infrastructure",
+      "Added weight in feature prioritization",
+      "Community support channel",
+    ],
   },
   {
     name: "Commercial",
@@ -42,7 +47,12 @@ const plans: PricingPlan[] = [
     ctaLabel: "Support Tiles",
     ctaHref: "https://buy.polar.sh/polar_cl_acVtj1bKcYElIOYc7EuQSJuT9fzwSKHf0Gpd20jDseq",
     learnMoreHref: "/book/licenses#commercial",
-    features: ["Support development and infrastructure costs", "Become a featured organization", "Priority support channel"],
+    features: [
+      "Self-hosted relays for sync",
+      "Support development and relay infrastructure",
+      "Featured organization status",
+      "Priority support channel",
+    ],
     note: "For bulk purchases and other inquiries, contact us at support@tiles.run",
   },
 ]
@@ -66,7 +76,7 @@ const faqs: PricingFaq[] = [
   {
     question: "What benefits does the Backer license grant?",
     answer:
-      "Backer members receive early access to beta versions, directly support development, and help prioritize feature development. Backer support helps keep Tiles fully user-supported and independent from investor influence.",
+      "Backer members get access to managed public relays for sync, help fund relay infrastructure and core development, and carry added weight in feature prioritization. Backer support helps keep Tiles fully user-supported and independent from investor influence.",
   },
   {
     question: "What do development and infrastructure costs support?",

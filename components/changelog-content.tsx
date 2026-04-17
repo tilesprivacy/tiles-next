@@ -197,8 +197,11 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                 Status
               </a>
             </h2>
+            <p className={`mb-3 inline-flex w-fit items-center rounded-full ${badgeBg} px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] ${badgeTextLight}`}>
+              Public Alpha
+            </p>
             <p className={paragraphClass}>
-              Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Tilekit SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
+              Tiles is currently in alpha. You should expect rough edges in quality while we harden the product, including incomplete capabilities, setup friction, and occasional reliability issues across fast-moving builds. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Tilekit SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
             </p>
           </section>
 
@@ -227,7 +230,14 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                   Shipped
                 </span>
               </li>
-              <li>Agentic harness built with Pi</li>
+              <li>
+                <span>Agentic harness built with Pi</span>
+                <span
+                  className={`ml-2 inline-flex items-center rounded-full ${badgeBg} px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${badgeTextLight}`}
+                >
+                  WIP
+                </span>
+              </li>
               <li>Remote link, run models on remote machines and use them like local models</li>
               <li>Apple Foundation Model support</li>
               <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>

@@ -49,6 +49,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const headerCtaLabelClass = "transition-opacity duration-200 group-hover:opacity-90"
   const headerCtaIconClass = "flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
   const headerCtaSymbolClass = "inline-flex items-center justify-center font-medium leading-none transition-opacity duration-200 group-hover:opacity-85"
+  const alphaBadgeClass = themeAware
+    ? "border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70"
+    : "border border-black/10 bg-black/[0.04] text-black/65"
   return (
     <>
       {isBannerVisible && (
@@ -118,6 +121,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               lang="en"
             >
               Tiles
+            </span>
+            <span
+              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-medium uppercase tracking-[0.14em] sm:text-[0.62rem] ${alphaBadgeClass}`}
+            >
+              Alpha
             </span>
           </Link>
         </div>

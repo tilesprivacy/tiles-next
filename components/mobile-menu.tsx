@@ -30,6 +30,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   const headerCtaPalette = themeAware
     ? themeAwareHeaderPrimaryCtaClasses
     : `${buttonBg} ${buttonText} ${buttonHover}`
+  const alphaBadgeClass = themeAware
+    ? 'border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70'
+    : 'border border-black/10 bg-black/[0.04] text-black/65'
+  const headerCtaLabelClass = 'transition-opacity duration-200 group-hover:opacity-90'
+  const headerCtaIconClass = 'flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
+  const headerCtaSymbolClass = 'inline-flex items-center justify-center font-medium leading-none transition-opacity duration-200 group-hover:opacity-85'
 
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
@@ -143,6 +149,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             >
               Tiles
             </span>
+            <span
+              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-medium uppercase tracking-[0.14em] sm:text-[0.62rem] ${alphaBadgeClass}`}
+            >
+              Alpha
+            </span>
           </Link>
 
           {/* Right side: Buttons and Close button */}
@@ -161,8 +172,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                 }}
                 className="group flex items-center gap-1.5 lg:gap-2"
               >
-                <span className="transition-opacity duration-200 group-hover:opacity-90">Download</span>
-                <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4" aria-hidden />
+                <span className={headerCtaLabelClass}>Download</span>
+                <Download className={headerCtaIconClass} aria-hidden />
               </Link>
             </Button>
 
@@ -170,7 +181,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
+              className={`h-8 min-w-0 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/pricing"
@@ -178,10 +189,13 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                   triggerHaptic()
                   onClose()
                 }}
-                className="group flex items-center"
+                className="group flex items-center justify-center gap-1"
               >
-                <span className="transition-opacity duration-200 group-hover:opacity-90">
-                  Buy $50
+                <span className={headerCtaLabelClass}>
+                  Buy
+                </span>
+                <span className={headerCtaSymbolClass} aria-hidden="true">
+                  $
                 </span>
               </Link>
             </Button>
