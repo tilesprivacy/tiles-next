@@ -880,11 +880,11 @@ sniper-link[hidden] {
 /* Desktop: increase padding for navigation */
 @media (min-width: 1024px) {
   [data-book-section] nav[data-book-navigation] {
-    max-width: 768px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
