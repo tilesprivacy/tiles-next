@@ -35,6 +35,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     : 'border border-black/10 bg-black/[0.04] text-black/65'
   const headerCtaLabelClass = 'transition-opacity duration-200 group-hover:opacity-90'
   const headerCtaIconClass = 'flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
+  const mobileHeaderControlSize = 'h-7.5 sm:h-8.5'
+  const mobileMenuButtonSize = 'h-8.5 w-8.5 sm:h-9 sm:w-9'
 
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
@@ -161,7 +163,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm`}
+              className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-[13px] font-medium sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"
@@ -169,7 +171,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
                   triggerHaptic()
                   onClose()
                 }}
-                className="group flex items-center gap-1.5 lg:gap-2"
+                className="group flex items-center gap-1.25 sm:gap-1.5 lg:gap-2"
               >
                 <span className={headerCtaLabelClass}>Download</span>
                 <Download className={headerCtaIconClass} aria-hidden />
@@ -179,13 +181,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             {/* Close Button - Animated Hamburger */}
             <button
               onClick={onClose}
-              className="flex flex-col justify-center items-center w-6 h-6 touch-manipulation outline-none border-none bg-transparent p-0 shadow-none focus:outline-none focus:ring-0 active:outline-none relative"
+              className={`relative inline-flex ${mobileMenuButtonSize} shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60`}
               aria-label="Close navigation menu"
               type="button"
             >
-              <span className={`block w-6 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 rotate-45`} />
-              <span className={`block w-6 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 opacity-0`} />
-              <span className={`block w-6 h-0.5 ${themeAware ? 'bg-foreground' : 'bg-black'} absolute top-1/2 left-0 transition-all duration-300 -rotate-45`} />
+              <span className={`block h-px w-5 rounded-full ${themeAware ? 'bg-foreground' : 'bg-black'} absolute opacity-95 transition-all duration-300 rotate-45`} />
+              <span className={`block h-px w-5 rounded-full ${themeAware ? 'bg-foreground' : 'bg-black'} absolute opacity-95 transition-all duration-300 -rotate-45`} />
             </button>
           </div>
         </div>
