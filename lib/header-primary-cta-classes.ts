@@ -3,4 +3,4 @@
  * Keep homepage and download CTAs on this palette so they match the top bar exactly.
  */
 export const themeAwareHeaderPrimaryCtaClasses =
-  "!bg-[var(--primary)] !text-white hover:!brightness-110 ring-1 ring-black/5 dark:ring-white/10" as const
+  "!bg-foreground !text-background hover:!opacity-90 ring-1 ring-black/5 dark:ring-white/10" as const

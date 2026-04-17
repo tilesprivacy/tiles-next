@@ -263,7 +263,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                             className={`${downloadButtonAppleIconClass} dark:hidden`}
                           />
                           <Image
-                            src="/apple-logo-white.svg"
+                            src="/apple-logo.svg"
                             alt="Apple"
                             width={16}
                             height={20}
@@ -351,7 +351,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                           className={`${downloadButtonAppleIconClass} dark:hidden`}
                         />
                         <Image
-                          src="/apple-logo-white.svg"
+                          src="/apple-logo.svg"
                           alt="Apple"
                           width={16}
                           height={20}

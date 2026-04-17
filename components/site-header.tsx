@@ -46,6 +46,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     ? themeAwareHeaderPrimaryCtaClasses
     : `${buttonBg} ${buttonText} ${buttonHover}`
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
+  const headerCtaLabelClass = "transition-opacity duration-200 group-hover:opacity-90"
+  const headerCtaIconClass = "flex h-3.5 w-3.5 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
+  const headerCtaSymbolClass = "inline-flex items-center justify-center font-medium leading-none transition-opacity duration-200 group-hover:opacity-85"
   return (
     <>
       {isBannerVisible && (
@@ -110,7 +113,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
             <span
-              className={`notranslate text-lg font-medium leading-none tracking-tight sm:text-xl lg:text-2xl ${textColor}`}
+              className={`notranslate text-lg font-semibold leading-none tracking-[-0.02em] sm:text-xl lg:text-[1.6rem] ${textColor}`}
               translate="no"
               lang="en"
             >
@@ -151,24 +154,28 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="group flex items-center gap-1.5 lg:gap-2"
               onClick={onDownloadClick}
             >
-              <span className="transition-opacity duration-200 group-hover:opacity-90">
+              <span className={headerCtaLabelClass}>
                 Download
               </span>
-              <Download className="h-3.5 w-3.5 transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5" aria-hidden />
+              <Download className={headerCtaIconClass} aria-hidden />
             </Link>
           </Button>
           <Button
             asChild
             variant="ghost"
-            className={`h-8 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
+            className={`h-8 min-w-0 rounded-sm ${headerCtaPalette} px-3 text-xs font-medium sm:h-8.5 sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
             <Link
               href="/pricing"
-              className="group flex items-center"
+              className="group flex items-center justify-center gap-1 lg:gap-1.5"
               onClick={() => triggerHaptic()}
+              aria-label="Pricing"
             >
-              <span className="transition-opacity duration-200 group-hover:opacity-90">
-                Buy $50
+              <span className={headerCtaLabelClass}>
+                Buy
+              </span>
+              <span className={headerCtaSymbolClass} aria-hidden="true">
+                $
               </span>
             </Link>
           </Button>
