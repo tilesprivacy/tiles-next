@@ -155,8 +155,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
     "text-foreground underline decoration-foreground/35 underline-offset-2 transition-colors hover:decoration-foreground"
   const stepLabelClass = "text-muted-foreground"
   const bodyTextClass = `text-sm sm:text-base leading-7 ${textColorMuted}`
-  const alphaNoticeClass =
-    "rounded-sm border border-black/8 bg-black/[0.035] px-4 py-3 text-sm leading-relaxed text-foreground dark:border-white/8 dark:bg-white/[0.05]"
   const codeSurfaceClass = isDark
     ? "border border-border bg-secondary text-foreground"
     : "border border-border bg-card text-card-foreground"
@@ -199,13 +197,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or
                 more.
               </p>
-              <div className={alphaNoticeClass}>
-                <p>
-                  <span className="font-medium">Alpha quality:</span> expect rough edges while core workflows are still
-                  being stabilized. You may run into onboarding friction, incomplete features, and occasional failures
-                  that require retrying or updating to a newer build.
-                </p>
-              </div>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (
                 <p className={`text-sm ${textColorSubtle}`}>
