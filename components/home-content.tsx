@@ -100,7 +100,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
         {status === "check"
           ? "Supported"
           : status === "wip"
-            ? "Available behind experimental flag"
+            ? "Behind experimental flag"
             : status === "partial"
               ? "Partially supported"
               : "Not supported"}
@@ -400,7 +400,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                 </span>
                 <span className="inline-flex items-center gap-2">
                   {renderComparisonStatus("wip")}
-                  <span>Available behind experimental flag</span>
+                  <span>Behind experimental flag</span>
                 </span>
                 <span className="inline-flex items-center gap-2">
                   {renderComparisonStatus("empty")}
