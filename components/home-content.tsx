@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Check, CircleDashed, Cpu, Download, FileCode, KeyRound, Package, RefreshCw, Wrench } from "lucide-react"
+import { Check, CircleDashed, Cpu, Download, FileCode, FlaskConical, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
@@ -89,7 +89,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
       {status === "check" ? (
         <Check className="h-4 w-4" strokeWidth={2} aria-hidden />
       ) : status === "wip" ? (
-        <Wrench className="h-3.5 w-3.5 text-black/55 dark:text-[#A0A0A0]" strokeWidth={1.9} aria-hidden />
+        <FlaskConical className="h-3.5 w-3.5 text-black/55 dark:text-[#A0A0A0]" strokeWidth={1.9} aria-hidden />
       ) : status === "partial" ? (
         <CircleDashed className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
       ) : (
@@ -101,7 +101,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
         {status === "check"
           ? "Supported"
           : status === "wip"
-            ? "Work in progress"
+            ? "Available behind experimental flag"
             : status === "partial"
               ? "Partially supported"
               : "Not supported"}
@@ -401,7 +401,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                 </span>
                 <span className="inline-flex items-center gap-2">
                   {renderComparisonStatus("wip")}
-                  <span>Work in progress</span>
+                  <span>Available behind experimental flag</span>
                 </span>
                 <span className="inline-flex items-center gap-2">
                   {renderComparisonStatus("empty")}
