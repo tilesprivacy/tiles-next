@@ -66,8 +66,6 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
     },
   ]
   const comparisonRows = [
-    { label: "CLI", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
-    { label: "Client app", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
     { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
     { label: "Encryption", tiles: "check", ollama: "empty", lmStudio: "partial", jan: "empty", osaurus: "partial" },
     { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
@@ -78,6 +76,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
     { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
     { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
     { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
+    { label: "Sandbox", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Remote link", tiles: "empty", ollama: "empty", lmStudio: "check", jan: "empty", osaurus: "check" },
     { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
