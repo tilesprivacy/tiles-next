@@ -27,8 +27,9 @@ const roadmapTracks: RoadmapTrack[] = [
       { label: 'Mac backend with MLX', status: 'shipped' },
       { label: 'Modelfile support', status: 'shipped' },
       { label: 'Offline Installer', status: 'shipped' },
-      { label: 'Remote link', status: 'planned' },
       { label: 'Apple Foundation Model support', status: 'planned' },
+      { label: 'MIR integration', status: 'planned' },
+      { label: 'TEE-based cloud models', status: 'planned' },
       { label: 'Continuous batching and KV cache improvements', status: 'planned' },
       { label: 'Linux backend with llama.cpp', status: 'planned' },
       { label: 'Modelfile deduplication and caching', status: 'planned' },
@@ -46,6 +47,7 @@ const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: 'Peer-to-peer encrypted sync', status: 'shipped' },
       { label: 'Shared Links', status: 'active' },
+      { label: 'Remote link', status: 'planned' },
       { label: 'Capability based Sync', status: 'planned' },
     ],
   },
