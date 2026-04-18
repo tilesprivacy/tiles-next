@@ -69,6 +69,64 @@ export function BlogPostContent({
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
   const copyLabelClass = "text-[11px] text-black/50 transition-colors hover:text-black/70 dark:text-white/50 dark:hover:text-white/70 lg:text-xs"
+  const shareLabelClass = "text-xs font-medium uppercase tracking-[0.14em] text-black/45 dark:text-white/45"
+
+  const shareActions = shareUrl ? (
+    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <a
+        href={`https://twitter.com/intent/tweet?text=${shareText}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on X"
+        className="inline-flex items-center justify-center"
+      >
+        <FaXTwitter className={shareIconClass} />
+      </a>
+      <a
+        href={`https://bsky.app/intent/compose?text=${shareText}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on Bluesky"
+        className="inline-flex items-center justify-center"
+      >
+        <FaBluesky className={shareIconClass} />
+      </a>
+      <a
+        href={`https://mastodon.social/share?text=${shareText}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on Mastodon"
+        className="inline-flex items-center justify-center"
+      >
+        <FaMastodon className={shareIconClass} />
+      </a>
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrlEncoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on LinkedIn"
+        className="inline-flex items-center justify-center"
+      >
+        <FaLinkedinIn className={shareIconClass} />
+      </a>
+      <button
+        type="button"
+        onClick={handleCopyLink}
+        aria-label="Copy link"
+        className="inline-flex items-center justify-center"
+      >
+        <FaLink className={copyIconClass} />
+      </button>
+      <button
+        type="button"
+        onClick={handleCopyLink}
+        aria-label={copied ? "Copied link" : "Copy link"}
+        className={copyLabelClass}
+      >
+        {copied ? 'Copied' : 'Copy link'}
+      </button>
+    </div>
+  ) : null
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -117,62 +175,6 @@ export function BlogPostContent({
                 </div>
               )}
             </div>
-            {shareUrl && (
-              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${shareText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on X"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaXTwitter className={shareIconClass} />
-                </a>
-                <a
-                  href={`https://bsky.app/intent/compose?text=${shareText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on Bluesky"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaBluesky className={shareIconClass} />
-                </a>
-                <a
-                  href={`https://mastodon.social/share?text=${shareText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on Mastodon"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaMastodon className={shareIconClass} />
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrlEncoded}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on LinkedIn"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaLinkedinIn className={shareIconClass} />
-                </a>
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  aria-label="Copy link"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaLink className={copyIconClass} />
-                </button>
-                <button
-                  type="button"
-                  onClick={handleCopyLink}
-                  aria-label={copied ? "Copied link" : "Copy link"}
-                  className={copyLabelClass}
-                >
-                  {copied ? 'Copied' : 'Copy link'}
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Cover Image */}
@@ -238,6 +240,15 @@ export function BlogPostContent({
 
             <div className="hidden xl:block" aria-hidden="true" />
           </div>
+
+          {shareActions && (
+            <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
+              <div className="rounded-lg border border-black/10 bg-black/[0.02] px-5 py-4 dark:border-white/10 dark:bg-white/[0.03]">
+                <p className={shareLabelClass}>Share</p>
+                {shareActions}
+              </div>
+            </div>
+          )}
 
           {/* Blog Footer Text */}
           <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">

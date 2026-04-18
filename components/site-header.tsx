@@ -136,6 +136,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Link href="/about" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             About
           </Link>
+          <Link href="/roadmap" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
+            Roadmap
+          </Link>
           <Link href="/changelog" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Changelog
           </Link>

@@ -37,6 +37,74 @@ export default function HowTilesWorksPage() {
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
   const copyLabelClass = "text-[11px] text-black/50 dark:text-[#8A8A8A] lg:text-xs"
+  const shareLabelClass = "text-xs font-medium uppercase tracking-[0.14em] text-black/45 dark:text-[#8A8A8A]"
+  const handleCopyLink = () => {
+    if (!shareUrl) return
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1400)
+      return
+    }
+    window.open(shareUrl, '_blank', 'noopener,noreferrer')
+  }
+
+  const shareActions = shareUrl ? (
+    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <a
+        href={`https://twitter.com/intent/tweet?text=${shareText}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on X"
+        className="inline-flex items-center justify-center"
+      >
+        <FaXTwitter className={shareIconClass} />
+      </a>
+      <a
+        href={`https://bsky.app/intent/compose?text=${shareText}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on Bluesky"
+        className="inline-flex items-center justify-center"
+      >
+        <FaBluesky className={shareIconClass} />
+      </a>
+      <a
+        href={`https://mastodon.social/share?text=${shareText}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on Mastodon"
+        className="inline-flex items-center justify-center"
+      >
+        <FaMastodon className={shareIconClass} />
+      </a>
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrlEncoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on LinkedIn"
+        className="inline-flex items-center justify-center"
+      >
+        <FaLinkedinIn className={shareIconClass} />
+      </a>
+      <button
+        type="button"
+        onClick={handleCopyLink}
+        aria-label="Copy link"
+        className="inline-flex items-center justify-center"
+      >
+        <FaLink className={copyIconClass} />
+      </button>
+      <button
+        type="button"
+        onClick={handleCopyLink}
+        aria-label={copied ? "Copied link" : "Copy link"}
+        className={copyLabelClass}
+      >
+        {copied ? 'Copied' : 'Copy link'}
+      </button>
+    </div>
+  ) : null
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
@@ -89,66 +157,6 @@ export default function HowTilesWorksPage() {
                 </div>
               )}
             </div>
-            {shareUrl && (
-              <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-                <a
-                  href={`https://twitter.com/intent/tweet?text=${shareText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on X"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaXTwitter className={shareIconClass} />
-                </a>
-                <a
-                  href={`https://bsky.app/intent/compose?text=${shareText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on Bluesky"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaBluesky className={shareIconClass} />
-                </a>
-                <a
-                  href={`https://mastodon.social/share?text=${shareText}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on Mastodon"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaMastodon className={shareIconClass} />
-                </a>
-                <a
-                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrlEncoded}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share on LinkedIn"
-                  className="inline-flex items-center justify-center"
-                >
-                  <FaLinkedinIn className={shareIconClass} />
-                </a>
-                <button
-                  type="button"
-                  onClick={() => {
-                    if (!shareUrl) return
-                    if (navigator?.clipboard?.writeText) {
-                      navigator.clipboard.writeText(shareUrl)
-                      setCopied(true)
-                      window.setTimeout(() => setCopied(false), 1400)
-                      return
-                    }
-                    window.open(shareUrl, '_blank', 'noopener,noreferrer')
-                  }}
-                  aria-label={copied ? "Copied to clipboard!" : "Copy URL"}
-                  className="inline-flex items-center gap-1.5 cursor-pointer"
-                >
-                  <FaLink className={copyIconClass} />
-                  <span className={copyLabelClass}>
-                    {copied ? 'Copied to clipboard!' : 'Copy URL'}
-                  </span>
-                </button>
-              </div>
-            )}
           </div>
 
           {/* Cover Image */}
@@ -507,6 +515,15 @@ export default function HowTilesWorksPage() {
 
             <div className="hidden xl:block" aria-hidden="true" />
           </div>
+
+          {shareActions && (
+            <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
+              <div className="rounded-lg border border-black/10 bg-black/[0.02] px-5 py-4 dark:border-[#2a2a2a] dark:bg-white/[0.03]">
+                <p className={shareLabelClass}>Share</p>
+                {shareActions}
+              </div>
+            </div>
+          )}
 
           {/* Blog Footer Text */}
           <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">

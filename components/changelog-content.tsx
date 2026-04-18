@@ -1,5 +1,4 @@
 'use client'
-
 import { SiteFooter } from "@/components/site-footer"
 import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
@@ -89,7 +88,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
   const roadmapCtaClass =
     'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
-
   const DownloadArtifacts = ({ release }: { release: Release }) => {
     const hasTarballs = release.tarballs.length > 0
     const hasInstaller = Boolean(release.installer)
@@ -186,120 +184,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           <p className={`mb-10 text-base ${textColorMuted} lg:mb-12 lg:text-xl`}>
             All notable changes and releases for Tiles.
           </p>
-
-          {/* Status */}
-          <section
-            id="status"
-            className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 scroll-mt-28 lg:mb-12 lg:pb-12 lg:scroll-mt-40"
-          >
-            <h2 className={sectionHeadingClass}>
-              <a href="#status">
-                Status
-              </a>
-            </h2>
-            <p className={`mb-3 inline-flex w-fit items-center rounded-full ${badgeBg} px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.14em] ${badgeTextLight}`}>
-              Public Alpha
-            </p>
-            <p className={paragraphClass}>
-              Tiles is currently in alpha. You should expect rough edges in quality while we harden the product, including incomplete capabilities, setup friction, and occasional reliability issues across fast-moving builds. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Tilekit SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
-            </p>
-          </section>
-
-          {/* Roadmap */}
-          <section
-            id="roadmap"
-            className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 scroll-mt-28 lg:mb-12 lg:pb-12 lg:scroll-mt-40"
-          >
-            <h2 className={sectionHeadingClass}>
-              <a href="#roadmap">
-                Roadmap
-              </a>
-            </h2>
-            <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
-              H1 2026
-            </h3>
-            <p className={`mb-4 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
-              This roadmap is listed in implementation priority order, from highest to lowest.
-            </p>
-            <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
-              <li className={textColorBodyLight}>
-                <span>Peer-to-peer encrypted sync</span>
-                <span
-                  className={`ml-2 inline-flex items-center rounded-full ${badgeBg} px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${badgeTextLight}`}
-                >
-                  Shipped
-                </span>
-              </li>
-              <li>
-                <span>Agentic harness built with Pi</span>
-                <span
-                  className={`ml-2 inline-flex items-center rounded-full ${badgeBg} px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide ${badgeTextLight}`}
-                >
-                  WIP
-                </span>
-              </li>
-              <li>Remote link, run models on remote machines and use them like local models</li>
-              <li>Apple Foundation Model support</li>
-              <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
-            </ul>
-            <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
-              H2 2026
-            </h3>
-            <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
-              <li>Lightweight microVM-based sandbox with programmable networking, nested virtualization, custom filesystems, secret protection, and snapshot support</li>
-              <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
-              <li>Performance improvements for inference server with continuous batching, tiered KV caching, and dynamic quantised weights</li>
-              <li>Inference runtime hardening with hypervisor Stage-2 memory isolation and hardware-backed attestation</li>
-              <li>Automatic LoRA adapter training from chat history and user-uploaded datasets</li>
-            </ul>
-            <p className={`mb-5 ${paragraphClass}`}>
-              If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
-            </p>
-            <div className="flex flex-wrap items-center gap-2">
-              <a
-                href="https://github.com/orgs/tilesprivacy/projects/4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={roadmapCtaClass}
-              >
-                Track progress
-                <ExternalLinkIcon />
-              </a>
-              <a
-                href="https://github.com/orgs/tilesprivacy/discussions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={roadmapCtaClass}
-              >
-                View the RFCs
-                <ExternalLinkIcon />
-              </a>
-            </div>
-          </section>
-
-          <section
-            id="releases"
-            className="mb-8 scroll-mt-28 lg:mb-10 lg:scroll-mt-40"
-          >
-            <h2 className={sectionHeadingClass}>
-              <a href="#releases">
-                Releases
-              </a>
-            </h2>
-            <p className={`text-sm leading-relaxed ${textColorBodyLight} lg:text-base`}>
-              The format is based on{" "}
-              <a
-                href="https://keepachangelog.com/en/1.1.0/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
-              >
-                Keep a Changelog convention
-                <ExternalLinkIcon />
-              </a>
-              .
-            </p>
-          </section>
 
           {error ? (
             <div className={`rounded-sm ${errorBg} p-4 ${errorText}`}>{error}</div>
