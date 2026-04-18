@@ -2,6 +2,7 @@
 
 import { CalendarPlus, Check, Link2, Monitor } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { triggerHaptic } from "@/lib/haptics"
 import { FaArrowUpFromBracket } from "react-icons/fa6"
 
@@ -174,7 +175,11 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
     return null
   }
 
-  return (
+  if (typeof document === "undefined") {
+    return null
+  }
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[120] flex items-end bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
       role="dialog"
@@ -234,7 +239,8 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 
