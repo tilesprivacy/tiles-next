@@ -16,7 +16,7 @@ const roadmapTracks: RoadmapTrack[] = [
   {
     label: 'Harness',
     items: [
-      { label: 'Agentic harness built with Pi', status: 'active' },
+      { label: 'Pi integration', status: 'active' },
       { label: 'Connectors support', status: 'planned' },
       { label: 'Automatic LoRA adapter training', status: 'planned' },
     ],
