@@ -72,7 +72,7 @@ export function AboutContent({ sponsorsGoal }: AboutContentProps) {
             </div>
           </div>
         </section>
-        <MissionSection title="Get to know Tiles Privacy" className="pb-6 sm:pb-8 lg:pb-10" />
+        <MissionSection title="About" className="pb-6 sm:pb-8 lg:pb-10" />
       </div>
       <SiteFooter />
     </div>

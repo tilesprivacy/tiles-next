@@ -65,7 +65,11 @@ export function MissionSection({ title, compact = false, className }: MissionSec
   const content = (
     <>
       <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl">
-        <h2 className={`text-3xl font-bold text-left ${textColor} mb-6 sm:mb-8 md:mb-10 lg:mb-12 lg:text-5xl`}>{title}</h2>
+        <h2
+          className={`mb-6 text-left text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] ${textColor} sm:mb-8 sm:text-[4.25rem] md:mb-10 lg:mb-12 lg:text-6xl`}
+        >
+          {title}
+        </h2>
         <div className={`space-y-4 sm:space-y-6 text-sm leading-relaxed ${textColorBody} sm:text-base md:space-y-6 lg:space-y-8 lg:text-lg lg:leading-relaxed`}>
           <p className={`text-base font-medium ${textColor} lg:text-xl`}>
             Our mission is to bring privacy technology to everyone.

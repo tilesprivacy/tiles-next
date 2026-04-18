@@ -178,10 +178,10 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
     <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
       <main className="flex-1 px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto max-w-3xl">
-          <h1 className={`mb-4 text-3xl font-bold tracking-tight ${textColor} lg:mb-5 lg:text-5xl`}>
+          <h1 className={`mb-4 text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] ${textColor} sm:text-[4.25rem] lg:text-6xl`}>
             Changelog
           </h1>
-          <p className={`mb-10 text-base ${textColorMuted} lg:mb-12 lg:text-xl`}>
+          <p className={`mb-10 max-w-3xl text-sm leading-relaxed ${textColorMuted} lg:mb-12 lg:text-lg`}>
             All notable changes and releases for Tiles.
           </p>
 

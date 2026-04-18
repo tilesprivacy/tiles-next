@@ -65,8 +65,8 @@ const roadmapTracks: RoadmapTrack[] = [
 ]
 
 const roadmapLegend = [
-  { label: 'Shipped', status: 'shipped' as const },
-  { label: 'Work in progress', status: 'active' as const },
+  { label: 'Stable', status: 'shipped' as const },
+  { label: 'Experimental', status: 'active' as const },
   { label: 'Future', status: 'planned' as const },
 ]
 
@@ -78,9 +78,9 @@ const paragraphClass = 'text-sm leading-relaxed text-foreground/90 lg:text-base'
 const getRoadmapItemClassName = (status: RoadmapStatus) => {
   switch (status) {
     case 'shipped':
-      return 'border-[#1d1d1f] bg-[#1d1d1f] text-white dark:border-white dark:bg-white dark:text-black'
+      return 'border-[#171717] bg-[#171717] text-white dark:border-white dark:bg-white dark:text-black'
     case 'active':
-      return 'border-[#262626] bg-transparent text-[#1d1d1f] dark:border-white/85 dark:text-white'
+      return 'border-[#262626] bg-transparent text-[#171717] dark:border-white/85 dark:text-white'
     case 'planned':
       return 'border-[#bdbdbd] border-dashed bg-transparent text-black/56 dark:border-white/24 dark:text-white/42'
     default:
@@ -111,18 +111,19 @@ export function RoadmapContent() {
           className="mb-10 px-2 pb-10 scroll-mt-28 sm:px-4 lg:mb-12 lg:px-0 lg:pb-12 lg:scroll-mt-40"
         >
           <div className="mx-auto max-w-3xl">
-            <h1 className="mb-3 text-2xl font-bold tracking-tight text-foreground lg:mb-4 lg:text-4xl">
+            <h1 className="mb-4 text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] text-foreground sm:text-[4.25rem] lg:mb-4 lg:text-6xl">
               Roadmap
             </h1>
-            <p className="mb-8 max-w-3xl text-sm text-muted-foreground lg:mb-10 lg:text-lg">
-              The current focus is on building a solid chat experience. On the horizon are connector support, introduced only with proper sandboxing, and a documented threat model.
+            <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground lg:mb-10 lg:text-lg">
+              The current focus is on building a basic chat experience. In the near future we are adding connector
+              support, introduced only with proper sandboxing, and a documented threat model.
             </p>
             <div className="mb-10">
-              <div className="mb-10 flex flex-wrap items-center gap-x-8 gap-y-3 text-xs text-muted-foreground lg:text-sm">
+              <div className="mb-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-[0.95rem] text-muted-foreground lg:text-sm">
                 {roadmapLegend.map((item) => (
                   <div key={item.label} className="inline-flex items-center gap-2">
                     <span
-                      className={`h-5 w-9 border-[2px] ${getRoadmapItemClassName(item.status)}`}
+                      className={`h-5 w-11 border-[2px] ${getRoadmapItemClassName(item.status)}`}
                       aria-hidden="true"
                     />
                     <span>{item.label}</span>
@@ -131,22 +132,22 @@ export function RoadmapContent() {
               </div>
               <div className="space-y-10 lg:space-y-12">
                 {roadmapTracks.map((track) => (
-                  <div key={track.label} className="space-y-4">
-                    <h2 className="whitespace-nowrap text-[15px] font-bold uppercase tracking-[0.14em] text-foreground/80">
+                  <div key={track.label} className="space-y-5">
+                    <h2 className="whitespace-nowrap text-[0.92rem] font-medium uppercase tracking-[0.16em] text-foreground/85 lg:text-[15px]">
                       {track.label}
                     </h2>
                     <div className="pb-1">
-                      <div className="flex flex-wrap items-center gap-2.5 gap-y-4">
+                      <div className="flex flex-wrap items-start gap-3 lg:gap-2.5 lg:gap-y-4">
                         {track.items.map((item, itemIndex) => (
                           <div key={item.label} className="contents">
                             <div
-                              className={`inline-flex min-h-[3.2rem] items-center border-[2px] px-5 py-2.5 text-[14px] font-normal tracking-[-0.02em] ${getRoadmapItemClassName(item.status)}`}
+                              className={`inline-flex min-h-[3.35rem] items-center border-[2px] px-5 py-2.5 text-[1.05rem] font-normal tracking-[-0.04em] ${getRoadmapItemClassName(item.status)} lg:min-h-[3.2rem] lg:text-[14px] lg:tracking-[-0.02em]`}
                             >
                               {item.label}
                             </div>
                             {itemIndex < track.items.length - 1 && (
                               <div
-                                className="flex h-[3.2rem] w-8 items-center justify-center text-black/18 dark:text-white/18"
+                                className="hidden h-[3.2rem] w-8 items-center justify-center text-black/18 dark:text-white/18 lg:flex"
                                 aria-hidden="true"
                               >
                                 <svg viewBox="0 0 32 12" className="h-3 w-8" fill="none">

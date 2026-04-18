@@ -120,20 +120,17 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
 export function BlogListingContent({ posts }: BlogListingContentProps) {
   return (
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
-      {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center gap-12 px-6 pb-28 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-20 lg:px-10 lg:pb-24 lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))] xl:px-12">
-        {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-[48rem] pt-20 pb-8 lg:pt-24 lg:pb-12">
-          {/* Blog Title */}
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-black dark:text-white lg:text-6xl tracking-tight mb-5 lg:mb-7">The Tiles Blog</h1>
-            <p className="text-base text-black/50 dark:text-white/50 lg:text-xl">Privacy technology for everyone!</p>
+      <main className="flex flex-1 flex-col px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
+        <div className="mx-auto w-full max-w-3xl">
+          <div className="mb-10 lg:mb-12">
+            <h1 className="mb-4 text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] text-foreground sm:text-[4.25rem] lg:text-6xl">
+              Blog
+            </h1>
           </div>
         </div>
 
-        {/* Bottom Card - Blog Posts */}
-        <div className="w-full max-w-[48rem] flex-1 space-y-12 pt-10 pb-4 lg:space-y-16 lg:pt-16 lg:pb-10">
-          <div className="border-y border-black/10 dark:border-white/10 divide-y divide-black/10 dark:divide-white/10">
+        <div className="mx-auto w-full max-w-3xl flex-1 pb-4 lg:pb-10">
+          <div className="divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
             {posts.map((post) => (
               <BlogPostEntry key={post.slug} post={post} />
             ))}
