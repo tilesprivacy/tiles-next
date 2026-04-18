@@ -31,7 +31,6 @@ const roadmapTracks: RoadmapTrack[] = [
       { label: 'MIR integration', status: 'planned' },
       { label: 'TEE-based cloud models', status: 'planned' },
       { label: 'Continuous batching and KV cache improvements', status: 'planned' },
-      { label: 'Linux backend with llama.cpp', status: 'planned' },
       { label: 'Modelfile deduplication and caching', status: 'planned' },
     ],
   },
@@ -128,7 +127,7 @@ export function RoadmapContent() {
               <div className="space-y-10 lg:space-y-12">
                 {roadmapTracks.map((track) => (
                   <div key={track.label} className="space-y-4">
-                    <h2 className="whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    <h2 className="whitespace-nowrap text-[15px] font-bold uppercase tracking-[0.14em] text-foreground/80">
                       {track.label}
                     </h2>
                     <div className="pb-1">
