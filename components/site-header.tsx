@@ -8,7 +8,6 @@ import { Download } from "lucide-react"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
-import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 import { usePathname } from "next/navigation"
 
 /** Set to true to show the top banner (e.g. for announcements). */
@@ -30,7 +29,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   isBannerVisible: boolean
   onDismissBanner: () => void
   onOpenMenu: () => void
-  onDownloadClick: (event: { preventDefault: () => void }) => void
+  onDownloadClick: () => void
   onHomeClick: (event: { preventDefault: () => void }) => void
 }) {
   const headerChrome = themeAware
@@ -190,7 +189,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isBannerVisible, setIsBannerVisible] = useState(false)
-  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const pathname = usePathname()
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
@@ -207,15 +205,9 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
 
   const openMenu = useCallback(() => setIsMenuOpen(true), [])
   const closeMenu = useCallback(() => setIsMenuOpen(false), [])
-  const handleDownloadClick = useCallback(
-    (event: { preventDefault: () => void }) => {
-      if (openMobileDownloadPrompt(event)) {
-        return
-      }
-      triggerHaptic()
-    },
-    [openMobileDownloadPrompt],
-  )
+  const handleDownloadClick = useCallback(() => {
+    triggerHaptic()
+  }, [])
   const handleHomeClick = useCallback(
     (event: { preventDefault: () => void }) => {
       triggerHaptic()
@@ -247,7 +239,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         themeAware={themeAware}
         hasBanner={isBannerVisible}
       />
-      {mobileDownloadPrompt}
     </>
   )
 }

@@ -3,8 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useEffect, useState } from "react"
-import { Download } from "lucide-react"
+import { useEffect } from "react"
+import { Download, X } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { triggerHaptic } from "@/lib/haptics"
@@ -185,8 +185,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               aria-label="Close navigation menu"
               type="button"
             >
-              <span className={`block h-px w-5 rounded-full ${themeAware ? 'bg-foreground' : 'bg-black'} absolute opacity-95 transition-all duration-300 rotate-45`} />
-              <span className={`block h-px w-5 rounded-full ${themeAware ? 'bg-foreground' : 'bg-black'} absolute opacity-95 transition-all duration-300 -rotate-45`} />
+              <X
+                className={`h-5 w-5 ${themeAware ? 'text-foreground' : 'text-black'}`}
+                strokeWidth={1.9}
+                aria-hidden
+              />
             </button>
           </div>
         </div>

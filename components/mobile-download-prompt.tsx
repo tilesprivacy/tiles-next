@@ -2,6 +2,7 @@
 
 import { CalendarPlus, Check, Link2, Monitor } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { triggerHaptic } from "@/lib/haptics"
 import { FaArrowUpFromBracket } from "react-icons/fa6"
 
@@ -98,6 +99,7 @@ interface MobileDownloadPromptOverlayProps {
 
 function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownloadPromptOverlayProps) {
   const [isCopyConfirmed, setIsCopyConfirmed] = useState(false)
+  const [viewportBox, setViewportBox] = useState({ top: 0, height: 0 })
   const closePrompt = useCallback(() => {
     triggerHaptic()
     onClose()
@@ -123,6 +125,28 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
       window.removeEventListener("keydown", onKeyDown)
     }
   }, [isOpen, onClose])
+
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const updateViewportBox = () => {
+      setViewportBox({
+        top: window.scrollY || window.pageYOffset || 0,
+        height: window.innerHeight || 0,
+      })
+    }
+
+    updateViewportBox()
+    window.addEventListener("resize", updateViewportBox)
+    window.addEventListener("orientationchange", updateViewportBox)
+
+    return () => {
+      window.removeEventListener("resize", updateViewportBox)
+      window.removeEventListener("orientationchange", updateViewportBox)
+    }
+  }, [isOpen])
 
   const onShare = useCallback(async () => {
     triggerHaptic()
@@ -174,13 +198,21 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
     return null
   }
 
-  return (
+  if (typeof document === "undefined") {
+    return null
+  }
+
+  return createPortal(
     <div
-      className="fixed inset-0 z-[120] flex items-end bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
+      className="absolute inset-x-0 z-[120] flex items-end bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobile-download-prompt-title"
       onClick={closePrompt}
+      style={{
+        top: `${viewportBox.top}px`,
+        height: `${Math.max(viewportBox.height, 1)}px`,
+      }}
     >
       <div className="w-full px-2 pb-[max(0.5rem,env(safe-area-inset-bottom,0px))]">
         <div
@@ -234,33 +266,26 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 
 export function useMobileDownloadPrompt() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(isLikelyMobileDevice())
-  }, [])
 
   const targetUrl = "https://www.tiles.run"
 
-  const openMobileDownloadPrompt = useCallback(
-    (event?: DownloadIntentEvent) => {
-      if (!isMobile) {
-        return false
-      }
+  const openMobileDownloadPrompt = useCallback((event?: DownloadIntentEvent) => {
+    if (!isLikelyMobileDevice()) {
+      return false
+    }
 
-      event?.preventDefault()
-      triggerHaptic()
-      setIsOpen(true)
-      return true
-    },
-    [isMobile],
-  )
+    event?.preventDefault()
+    triggerHaptic()
+    setIsOpen(true)
+    return true
+  }, [])
 
   return {
     openMobileDownloadPrompt,
@@ -271,19 +296,13 @@ export function useMobileDownloadPrompt() {
 }
 
 export function GlobalMobileDownloadPrompt() {
-  const [isMobile, setIsMobile] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    setIsMobile(isLikelyMobileDevice())
-  }, [])
-
-  useEffect(() => {
-    if (!isMobile) {
-      return
-    }
-
     const onDocumentClick = (event: MouseEvent) => {
+      if (!isLikelyMobileDevice()) {
+        return
+      }
       const target = event.target
       if (!(target instanceof Element)) {
         return
@@ -329,7 +348,7 @@ export function GlobalMobileDownloadPrompt() {
     return () => {
       document.removeEventListener("click", onDocumentClick, true)
     }
-  }, [isMobile])
+  }, [])
 
   return (
     <MobileDownloadPromptOverlay
