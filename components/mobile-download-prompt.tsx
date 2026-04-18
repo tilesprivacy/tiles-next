@@ -2,6 +2,7 @@
 
 import { CalendarPlus, Check, Link2, Monitor } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
+import { createPortal } from "react-dom"
 import { triggerHaptic } from "@/lib/haptics"
 import { FaArrowUpFromBracket } from "react-icons/fa6"
 
@@ -98,10 +99,15 @@ interface MobileDownloadPromptOverlayProps {
 
 function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownloadPromptOverlayProps) {
   const [isCopyConfirmed, setIsCopyConfirmed] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const closePrompt = useCallback(() => {
     triggerHaptic()
     onClose()
   }, [onClose])
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   useEffect(() => {
     if (!isOpen) {
@@ -170,13 +176,13 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
     }, 1000)
   }, [])
 
-  if (!isOpen) {
+  if (!isOpen || !isMounted) {
     return null
   }
 
-  return (
+  return createPortal(
     <div
-      className="fixed inset-0 z-[120] flex items-end bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
+      className="fixed inset-0 z-[120] flex h-[100dvh] items-end bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobile-download-prompt-title"
@@ -234,7 +240,8 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   )
 }
 

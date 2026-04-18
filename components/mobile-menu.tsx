@@ -3,8 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { useEffect, useState } from "react"
-import { Download } from "lucide-react"
+import { useEffect } from "react"
+import { Download, X } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { triggerHaptic } from "@/lib/haptics"
@@ -113,6 +113,9 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   const topOffsetClass = hasBanner
     ? "top-[calc(2rem+env(safe-area-inset-top,0px))]"
     : "top-0"
+  const menuViewportHeight = hasBanner
+    ? "calc(100dvh - 2rem - env(safe-area-inset-top,0px))"
+    : "100dvh"
 
   const menuHeaderPadding = hasBanner
     ? "pl-[max(0.75rem,env(safe-area-inset-left,0px))] pr-[max(0.75rem,env(safe-area-inset-right,0px))] pb-3 pt-4 sm:pl-[max(1rem,env(safe-area-inset-left,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] sm:pb-3.5 sm:pt-5"
@@ -122,8 +125,9 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     <>
       {/* Full screen overlay - higher z-index than header */}
       <div
-        className={`fixed inset-x-0 bottom-0 left-0 right-0 z-[60] w-full max-w-none flex-col overscroll-contain lg:hidden ${isOpen ? "flex" : "hidden"} ${topOffsetClass} ${menuBg}`}
+        className={`fixed inset-x-0 bottom-0 left-0 right-0 z-[60] w-full max-w-none flex-col overflow-y-auto overscroll-contain lg:hidden ${isOpen ? "flex" : "hidden"} ${topOffsetClass} ${menuBg}`}
         aria-hidden={!isOpen}
+        style={{ height: menuViewportHeight }}
       >
         {/* Header section with logo and buttons */}
         <div className={`flex items-center justify-between ${menuHeaderPadding} ${menuBg} shrink-0`}>
@@ -185,8 +189,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               aria-label="Close navigation menu"
               type="button"
             >
-              <span className={`block h-px w-5 rounded-full ${themeAware ? 'bg-foreground' : 'bg-black'} absolute opacity-95 transition-all duration-300 rotate-45`} />
-              <span className={`block h-px w-5 rounded-full ${themeAware ? 'bg-foreground' : 'bg-black'} absolute opacity-95 transition-all duration-300 -rotate-45`} />
+              <X className={`h-5 w-5 ${themeAware ? 'text-foreground' : 'text-black'}`} aria-hidden />
             </button>
           </div>
         </div>

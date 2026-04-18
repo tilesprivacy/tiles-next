@@ -10,14 +10,12 @@ import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { getPersonById, splitPersonDisplayName } from "@/lib/people"
-import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 
 interface HomeContentProps {
   highlightReadTimes: Record<string, string>
 }
 
 export function HomeContent({ highlightReadTimes }: HomeContentProps) {
-  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
   const alphaPillClass =
     "inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]"
@@ -139,10 +137,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
                   >
                     <Link
                       href="/download"
-                      onClick={(event) => {
-                        if (openMobileDownloadPrompt(event)) {
-                          return
-                        }
+                      onClick={() => {
                         triggerHaptic()
                       }}
                       className="group flex items-center gap-2"
@@ -565,7 +560,6 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
         </div>
       </main>
 
-      {mobileDownloadPrompt}
       <SiteFooter />
     </div>
   )
