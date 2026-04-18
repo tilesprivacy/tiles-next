@@ -240,7 +240,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
         </div>
       </div>
     </div>,
-    document.body,
+    document.documentElement,
   )
 }
 
