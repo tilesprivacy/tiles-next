@@ -240,27 +240,19 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
 
 export function useMobileDownloadPrompt() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-
-  useEffect(() => {
-    setIsMobile(isLikelyMobileDevice())
-  }, [])
 
   const targetUrl = "https://www.tiles.run"
 
-  const openMobileDownloadPrompt = useCallback(
-    (event?: DownloadIntentEvent) => {
-      if (!isMobile) {
-        return false
-      }
+  const openMobileDownloadPrompt = useCallback((event?: DownloadIntentEvent) => {
+    if (!isLikelyMobileDevice()) {
+      return false
+    }
 
-      event?.preventDefault()
-      triggerHaptic()
-      setIsOpen(true)
-      return true
-    },
-    [isMobile],
-  )
+    event?.preventDefault()
+    triggerHaptic()
+    setIsOpen(true)
+    return true
+  }, [])
 
   return {
     openMobileDownloadPrompt,
@@ -271,19 +263,13 @@ export function useMobileDownloadPrompt() {
 }
 
 export function GlobalMobileDownloadPrompt() {
-  const [isMobile, setIsMobile] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    setIsMobile(isLikelyMobileDevice())
-  }, [])
-
-  useEffect(() => {
-    if (!isMobile) {
-      return
-    }
-
     const onDocumentClick = (event: MouseEvent) => {
+      if (!isLikelyMobileDevice()) {
+        return
+      }
       const target = event.target
       if (!(target instanceof Element)) {
         return
@@ -329,7 +315,7 @@ export function GlobalMobileDownloadPrompt() {
     return () => {
       document.removeEventListener("click", onDocumentClick, true)
     }
-  }, [isMobile])
+  }, [])
 
   return (
     <MobileDownloadPromptOverlay
