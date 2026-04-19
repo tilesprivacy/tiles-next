@@ -853,6 +853,11 @@ sniper-link[hidden] {
   box-sizing: border-box;
 }
 
+/* Keep title-to-meta spacing consistent across breakpoints */
+[data-book-section] article h1:first-of-type {
+  margin-bottom: 0.25rem !important;
+}
+
 /* Ensure page navigation is constrained to content width */
 [data-book-section] nav[data-book-navigation] {
   max-width: 100%;
@@ -935,7 +940,7 @@ sniper-link[hidden] {
   /* h1 title comes first in visible order */
   [data-book-section] article h1:first-of-type {
     order: 1 !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.25rem !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
@@ -955,7 +960,7 @@ sniper-link[hidden] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    margin: 0 0 0.75rem 0 !important;
+    margin: 0 0 1rem 0 !important;
     font-size: 0.8125rem !important;
     color: var(--muted-foreground) !important;
     text-align: left !important;
@@ -1013,8 +1018,8 @@ sniper-link[hidden] {
   /* Datestamp styling after JS moves it below h1 */
   [data-book-section] article main > div:has(time),
   [data-book-section] article main div:has(> time) {
-    margin-top: 0.5rem !important;
-    margin-bottom: 1.5rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 1rem !important;
     font-size: 0.875rem !important;
     color: var(--muted-foreground) !important;
     text-align: left !important;
