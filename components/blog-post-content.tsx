@@ -69,7 +69,7 @@ export function BlogPostContent({
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-white/70 dark:hover:text-white lg:h-5 lg:w-5"
   const copyLabelClass = "text-[11px] text-black/50 transition-colors hover:text-black/70 dark:text-white/50 dark:hover:text-white/70 lg:text-xs"
-  const shareLabelClass = "text-xs font-medium uppercase tracking-[0.14em] text-black/45 dark:text-white/45"
+  const shareLabelClass = "text-xs text-black/45 dark:text-white/45"
 
   const shareActions = shareUrl ? (
     <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -243,10 +243,8 @@ export function BlogPostContent({
 
           {shareActions && (
             <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
-              <div className="rounded-lg border border-black/10 bg-black/[0.02] px-5 py-4 dark:border-white/10 dark:bg-white/[0.03]">
-                <p className={shareLabelClass}>Share</p>
-                {shareActions}
-              </div>
+              <p className={shareLabelClass}>Share this:</p>
+              {shareActions}
             </div>
           )}
 

@@ -37,7 +37,7 @@ export default function HowTilesWorksPage() {
   const shareIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
   const copyIconClass = "h-4 w-4 text-black/60 transition-colors hover:text-black dark:text-[#B3B3B3] dark:hover:text-[#E6E6E6] lg:h-5 lg:w-5"
   const copyLabelClass = "text-[11px] text-black/50 dark:text-[#8A8A8A] lg:text-xs"
-  const shareLabelClass = "text-xs font-medium uppercase tracking-[0.14em] text-black/45 dark:text-[#8A8A8A]"
+  const shareLabelClass = "text-xs text-black/45 dark:text-[#8A8A8A]"
   const handleCopyLink = () => {
     if (!shareUrl) return
     if (navigator?.clipboard?.writeText) {
@@ -518,10 +518,8 @@ export default function HowTilesWorksPage() {
 
           {shareActions && (
             <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
-              <div className="rounded-lg border border-black/10 bg-black/[0.02] px-5 py-4 dark:border-[#2a2a2a] dark:bg-white/[0.03]">
-                <p className={shareLabelClass}>Share</p>
-                {shareActions}
-              </div>
+              <p className={shareLabelClass}>Share this:</p>
+              {shareActions}
             </div>
           )}
 
