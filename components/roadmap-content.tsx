@@ -19,6 +19,7 @@ const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: 'Pi integration', status: 'active' },
       { label: 'Connectors support', status: 'planned' },
+      { label: 'Memory support', status: 'planned' },
       { label: 'Automatic LoRA adapter training', status: 'planned' },
     ],
   },
