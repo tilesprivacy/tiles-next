@@ -1,5 +1,4 @@
 import { SiteFooter } from "@/components/site-footer"
-import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 
 type RoadmapStatus = 'shipped' | 'active' | 'planned'
 
@@ -73,18 +72,18 @@ const roadmapLegend = [
 ]
 
 const roadmapCtaClass =
-  'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
+  'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.035] px-3.5 py-1.5 text-[0.82rem] font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.06] dark:border-white/5 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] lg:text-sm'
 
-const paragraphClass = 'text-sm leading-relaxed text-foreground/90'
+const paragraphClass = 'text-[0.92rem] leading-[1.75] text-foreground/72'
 
 const getRoadmapItemClassName = (status: RoadmapStatus) => {
   switch (status) {
     case 'shipped':
       return 'border-[#171717] bg-[#171717] text-white dark:border-white dark:bg-white dark:text-black'
     case 'active':
-      return 'border-[#262626] bg-transparent text-[#171717] dark:border-white/85 dark:text-white'
+      return 'border-[#2a2a2a] bg-white text-[#171717] dark:border-white/82 dark:bg-white dark:text-black'
     case 'planned':
-      return 'border-[#bdbdbd] border-dashed bg-transparent text-black/56 dark:border-white/24 dark:text-white/42'
+      return 'border-[#c7c7c7] border-dashed bg-transparent text-black/52 dark:border-white/24 dark:text-white/40'
     default:
       return ''
   }
@@ -110,52 +109,52 @@ export function RoadmapContent() {
       <main className="flex-1 px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <section
           id="roadmap"
-          className="mb-10 px-2 pb-10 scroll-mt-28 sm:px-4 lg:mb-12 lg:px-0 lg:pb-12 lg:scroll-mt-40"
+          className="mb-8 px-2 pb-10 scroll-mt-28 sm:px-4 lg:mb-10 lg:px-0 lg:pb-12 lg:scroll-mt-40"
         >
           <div className="mx-auto max-w-3xl">
-            <h1 className={`mb-4 ${marketingPageTitleClass}`}>
+            <h1 className="mb-3 font-sans text-[2.55rem] font-semibold leading-[0.98] tracking-[-0.045em] text-foreground sm:text-[3rem] lg:text-[3.35rem]">
               Roadmap
             </h1>
-            <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground lg:mb-10">
+            <p className="mb-7 max-w-[46rem] text-[0.96rem] leading-[1.7] text-muted-foreground lg:mb-9">
               Current focus is on building a basic CLI-based chat experience. In the near future, we will add
               connector support, introduced only with proper sandboxing and a documented threat model, along with a
               client app.
             </p>
-            <div className="mb-10">
-              <div className="mb-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-muted-foreground">
+            <div className="mb-9">
+              <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-[0.88rem] text-muted-foreground">
                 {roadmapLegend.map((item) => (
                   <div key={item.label} className="inline-flex items-center gap-2">
                     <span
-                      className={`h-5 w-11 border-[2px] ${getRoadmapItemClassName(item.status)}`}
+                      className={`h-4 w-9 border ${getRoadmapItemClassName(item.status)}`}
                       aria-hidden="true"
                     />
                     <span>{item.label}</span>
                   </div>
                 ))}
               </div>
-              <div className="space-y-10 lg:space-y-12">
+              <div className="space-y-9 lg:space-y-10">
                 {roadmapTracks.map((track) => (
-                  <div key={track.label} className="space-y-5">
-                    <h2 className="whitespace-nowrap text-xs font-medium uppercase tracking-[0.16em] text-foreground/85 sm:text-sm">
+                  <div key={track.label} className="space-y-4">
+                    <h2 className="whitespace-nowrap text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/72 sm:text-[0.74rem]">
                       {track.label}
                     </h2>
                     <div className="pb-1">
-                      <div className="flex flex-wrap items-start gap-3 lg:gap-2.5 lg:gap-y-4">
+                      <div className="flex flex-wrap items-start gap-2.5 lg:gap-2 lg:gap-y-3">
                         {track.items.map((item, itemIndex) => (
                           <div key={item.label} className="contents">
                             <div
-                              className={`inline-flex min-h-[3.35rem] items-center border-[2px] px-5 py-2.5 text-sm font-normal tracking-[-0.02em] ${getRoadmapItemClassName(item.status)} lg:min-h-[3.2rem]`}
+                              className={`inline-flex min-h-[2.8rem] items-center border px-4 py-2 text-[0.92rem] font-normal tracking-[-0.02em] ${getRoadmapItemClassName(item.status)} lg:min-h-[2.7rem]`}
                             >
                               {item.label}
                             </div>
                             {itemIndex < track.items.length - 1 && (
                               <div
-                                className="hidden h-[3.2rem] w-8 items-center justify-center text-black/18 dark:text-white/18 lg:flex"
+                                className="hidden h-[2.7rem] w-6 items-center justify-center text-black/14 dark:text-white/16 lg:flex"
                                 aria-hidden="true"
                               >
-                                <svg viewBox="0 0 32 12" className="h-3 w-8" fill="none">
-                                  <path d="M1 7H33" stroke="currentColor" strokeWidth="2" />
-                                  <path d="M27 2L33 7L27 12" stroke="currentColor" strokeWidth="2" />
+                                <svg viewBox="0 0 32 12" className="h-2.5 w-6" fill="none">
+                                  <path d="M2 6H28" stroke="currentColor" strokeWidth="1.5" />
+                                  <path d="M23 2L28 6L23 10" stroke="currentColor" strokeWidth="1.5" />
                                 </svg>
                               </div>
                             )}
