@@ -3,75 +3,59 @@ title: "Security"
 description: "Security and privacy engineering in Tiles."
 ---
 
+import { Callout } from 'nextra/components'
+
 # Security
 
-We build Tiles around a local-first privacy model. Our goal is to keep personal context, identity, and memory under user control rather than making a hosted service the default source of truth.
+Tiles is designed around a local-first model. The goal is simple: keep personal context, identity, and memory under user control by default.
 
-Tiles is still in its alpha stage. That matters for how this document should be read. We are already making concrete privacy and security decisions in the product, but state-of-the-art privacy engineering is still a work in progress for us. Some parts of the current design are stable enough to describe clearly today, while others are still evolving as we harden the system.
+Tiles is still in alpha. Some parts of the system are already stable enough to describe clearly, while others are still being hardened.
+
+<Callout type="warning">
+  <strong>Personal assistant trust model:</strong> this guidance assumes one trusted operator boundary per device or
+  gateway. Tiles is not a hostile multi-tenant boundary for adversarial users sharing one agent or gateway. If you
+  need mixed-trust operation, split trust boundaries with separate gateways, credentials, OS users, or hosts.
+  Inference runtime hardening with Stage-2 hypervisor memory isolation and hardware-backed attestation is on our
+  roadmap, enabling multi-tenant use cases out of the box.
+</Callout>
 
 ## Local-First Architecture
 
-We design Tiles so that the default experience runs on-device. The local server binds to `localhost`, which reduces the exposed network surface during normal usage. User configuration and application data are stored in standard local directories, with support for changing the user data path when needed. This keeps the storage model legible and gives users a clearer understanding of where their information lives.
+The default experience runs on-device. The local server binds to `localhost`, and app data lives in standard local directories with support for a custom user data path.
 
 ## Local Data Protection
 
-We persist application state locally and apply encryption at rest to our SQLite databases. The Rust application is built with SQLCipher-enabled SQLite support, and database connections are opened using a passkey retrieved from secure storage. This means the chat and account databases are not intended to be stored as plain, directly readable SQLite files on disk.
-
-This approach is an important part of our privacy posture. It does not eliminate all local risk, but it does raise the bar against casual inspection of copied database files or unintended exposure through raw filesystem access.
+Tiles encrypts local SQLite databases at rest. The Rust application uses SQLCipher-enabled SQLite, and database connections are opened with a passkey retrieved from secure storage. That does not remove all local risk, but it does raise the bar against casual inspection of copied database files.
 
 ## Identity and Secret Storage
 
-We separate public identity from private key material. Device and account identity are based on `did:key` identifiers derived from Ed25519 keys. The corresponding private keys are stored through the operating system’s secure credential storage rather than being written into application configuration files. The same secure storage mechanism is also used for database passkeys.
-
-This gives us a privacy-preserving identity model with two useful properties. First, identity can be stable without depending on a centralized vendor account. Second, secret material is delegated to the platform’s credential store instead of being kept directly in app-managed plaintext configuration.
+Device and account identity are based on `did:key` identifiers derived from Ed25519 keys. Private keys and database passkeys are stored in the operating system credential store rather than in app-managed plaintext configuration.
 
 ## Peer Linking and Sync
 
-We include peer-to-peer device linking and chat sync. Linking is user-mediated rather than automatic. One device generates a ticket or local code, the second device presents it, and the receiving side explicitly accepts or rejects the request. This makes device pairing an intentional action with visible user consent.
-
-In release builds, networking endpoints are derived from the user’s stored secret key, and incoming peer identity is checked against the delivered public key. That helps ensure a peer cannot simply claim an arbitrary identity without controlling the corresponding cryptographic material. Sync is also scoped with some defensive controls, including operation against linked peers and a maximum size cap for downloaded deltas before they are applied.
+Tiles includes peer-to-peer device linking and chat sync. Linking is user-mediated: one device presents a ticket or local code, and the other side explicitly accepts or rejects it. Sync is limited to linked peers and bounded by a maximum downloaded delta size before processing.
 
 ### Iroh Relay and Sync Transport
 
-Tiles sync is built on Iroh endpoints, gossip topics, and blob tickets. In normal online operation, Tiles creates network endpoints with the `N0` preset and uses those endpoints for linking and sync traffic. That gives devices a practical way to find and reach each other across typical internet network boundaries while still using peer identities derived from local keys.
-
-When devices are not online, Tiles falls back to local-network discovery through mDNS for nearby linking and peer bootstrap. For sync transfer itself, Tiles sends bounded delta payloads using Iroh blob tickets and applies a maximum downloaded data cap before processing.
-
-Today, this means alpha builds rely on publicly hosted Iroh relay infrastructure as part of the transport path for online connectivity. Our plan after alpha is to move to self-hosted relay infrastructure so this network boundary is operated directly by Tiles.
+Tiles sync uses Iroh endpoints, gossip topics, and blob tickets. In normal online operation, alpha builds rely on public Iroh relay infrastructure. On local networks, Tiles can fall back to mDNS for nearby discovery. The long-term plan is to move online relay infrastructure under direct Tiles control.
 
 ## Memory and Restricted Code Execution
 
-We currently include a memory-agent flow that can execute generated Python against a designated memory path. The current implementation applies path restrictions to file operations such as opening, renaming, and removing files, and it includes basic size limits intended to keep the memory workspace bounded.
-
-For documentation purposes, we describe this as restricted execution rather than as a hardened sandbox. It provides useful guardrails for the memory workflow, but it should not be presented as equivalent to strong OS-level isolation, virtualization, or container-based sandboxing.
-
-We also consider this part of the system transitional. The current memory and sandbox path was originally written around the experimental Dria model workflow. That is no longer our main focus, and we do not currently nudge regular Tiles users toward that path in the product UX. Because of that, we expect to remove this setup in near-term builds rather than continue to present it as part of the default experience.
-
-After our Pi agent harness work is complete, we plan to revisit memory and sandboxing with a cleaner and more deliberate implementation. Until that work lands, we describe the current code as legacy compatibility logic with guardrails rather than as our long-term security model for memory execution.
+Tiles currently includes a memory-agent flow that can execute generated Python against a designated memory path. That path has file-operation restrictions and basic size limits, but it is not a hardened sandbox and should not be described as strong isolation. This part of the system is transitional and not the long-term model for agent execution.
 
 ## Logging and Operational Boundaries
 
-We do not currently include obvious built-in product analytics integrations such as Sentry, PostHog, Segment, Mixpanel, or similar telemetry SDKs. That is consistent with our privacy goals.
-
-At the same time, we do maintain local logging, and we want to describe that honestly. The Python server logs request metadata and request bodies, and server output is written to local log files inside the Tiles data directory. In practice, that means prompt and request content may still appear in local logs unless we change or reduce that logging behavior.
+Tiles does not currently ship obvious built-in product analytics SDKs such as Sentry, PostHog, Segment, or Mixpanel. At the same time, the local Python server writes logs inside the Tiles data directory, and those logs may include request metadata, prompts, and request bodies.
 
 ## Updates and Supply Chain Trust
 
-We include an update path that checks GitHub releases and can install updates through the project’s hosted installer script. This is a practical distribution mechanism, but it is also a trust boundary. The current updater depends on the integrity of our release process and installer hosting rather than on a stronger built-in end-user verification workflow.
+Tiles checks GitHub releases for updates and can install updates through a hosted installer script. That is convenient, but it is also a trust boundary. The current updater depends on the integrity of the Tiles release process and installer hosting rather than on a stronger built-in end-user verification flow.
 
-We also pin dependencies as part of our supply-chain posture, which helps reduce exposure to unexpected upstream changes. Dependencies are reviewed carefully before being added so the software stack remains intentionally selected rather than loosely accumulated over time.
-
-Our macOS installer package is code signed, notarized, and stapled. That gives users a stronger distribution baseline at install time and helps ensure the package meets Apple’s platform verification requirements.
-
-Tiles is also packaged so its dependencies are self-contained and portable, without requiring package downloads from the internet during normal installation and use. Because those dependencies are bundled in a self-contained way, they do not modify or interfere with the system’s existing dependencies. That reduces reliance on live third-party package resolution at install time and improves our overall security posture.
-
-These measures strengthen our distribution and supply-chain posture, but they do not remove the need to describe our current guarantees precisely and avoid overstating them.
+Dependencies are pinned and reviewed before they are added. The macOS installer is code signed, notarized, and stapled. Tiles is also packaged with self-contained dependencies so normal installation does not depend on live package downloads.
 
 ## Vulnerability Disclosure
 
-We have a published security policy and a private disclosure path for reporting vulnerabilities. Researchers are directed to GitHub Security Advisories or to our security contact at [security@tiles.run](mailto:security@tiles.run), with expectations for acknowledgement, triage, and coordinated disclosure.
-
-See [SECURITY.md](https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md).
+We publish a security policy and private disclosure path for vulnerabilities. Reports should go through GitHub Security Advisories or [security@tiles.run](mailto:security@tiles.run). See [SECURITY.md](https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md).
 
 ## Current Strengths
 
@@ -86,6 +70,7 @@ See [SECURITY.md](https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md).
 ## Current Limits
 
 - Local server logs may include prompt and request content
+- Agents are not sandboxed today
 - The memory execution environment is restricted, but not strongly isolated
 - Offline pairing codes are still an evolving part of the linking model
 - The update path is convenient, but remains a privileged remote installation flow
@@ -93,6 +78,6 @@ See [SECURITY.md](https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md).
 
 ## Summary
 
-We already implement several concrete privacy and security controls: local-first operation, encrypted local persistence, OS-backed secret handling, and explicit peer-to-peer linking. At the same time, the project still has operational boundaries and hardening opportunities that should be documented clearly.
+Tiles already implements several concrete privacy and security controls: local-first operation, encrypted local persistence, OS-backed secret handling, and explicit peer-to-peer linking. At the same time, the project still has meaningful trust boundaries and hardening work ahead.
 
-We do not describe Tiles as a system that eliminates all trust. We describe it as one that moves sensitive state closer to the user, narrows default exposure, and makes key security decisions more visible and local than conventional cloud-first assistants.
+Tiles should not be described as trustless. It should be described as software that keeps more sensitive state local by default and makes key security decisions more visible to the user.

@@ -38,7 +38,7 @@ const roadmapTracks: RoadmapTrack[] = [
   {
     label: 'Identity',
     items: [
-      { label: 'DID-based local accounts', status: 'shipped' },
+      { label: 'DID:key based local accounts', status: 'shipped' },
       { label: 'ATProto accounts', status: 'active' },
     ],
   },
