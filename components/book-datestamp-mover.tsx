@@ -34,8 +34,8 @@ export function BookDatestampMover() {
 
       // Style the datestamp
       const div = datestampDiv as HTMLElement
-      div.style.marginTop = '0.5rem'
-      div.style.marginBottom = '1.5rem'
+      div.style.marginTop = '0'
+      div.style.marginBottom = '1rem'
       div.style.textAlign = 'left'
       div.style.fontSize = '0.875rem'
       div.style.color = '#8A8A8A'
