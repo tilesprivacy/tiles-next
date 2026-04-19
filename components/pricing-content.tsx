@@ -1,5 +1,4 @@
 import Link from "next/link"
-import Image from "next/image"
 import { Check, ChevronDown } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { PolarEmbeddedCheckoutLink } from "@/components/polar-embedded-checkout-link"
@@ -214,21 +213,6 @@ export function PricingContent() {
           </div>
         </section>
       </main>
-
-      <section
-        className="bg-background px-4 pb-8 pt-2 sm:px-6 sm:pb-10 sm:pt-3 lg:px-12 lg:pb-14 lg:pt-4"
-        aria-label="Tiles wordmark"
-      >
-        <div className="mx-auto flex max-w-6xl justify-center">
-          <Image
-            src="/tiles_banner_outline_blk.svg"
-            alt="Tiles"
-            width={1200}
-            height={220}
-            className="h-auto w-full max-w-lg min-[390px]:max-w-xl sm:max-w-2xl lg:max-w-3xl dark:hidden"
-          />
-        </div>
-      </section>
 
       <SiteFooter />
     </div>

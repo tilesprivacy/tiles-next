@@ -50,9 +50,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const headerCtaIconClass = "flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
   const mobileHeaderControlSize = "h-7 sm:h-8.5"
   const mobileMenuButtonSize = "h-8 w-8 sm:h-9 sm:w-9"
-  const alphaBadgeClass = themeAware
-    ? "border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70"
-    : "border border-black/10 bg-black/[0.04] text-black/65"
   return (
     <>
       {isBannerVisible && (
@@ -117,24 +114,20 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
             <span
-              className={`notranslate text-lg font-semibold leading-none tracking-[-0.02em] sm:text-xl lg:text-[1.6rem] ${textColor}`}
+              className={`notranslate text-[1.38rem] font-semibold leading-none tracking-[-0.028em] sm:text-[1.52rem] lg:text-[1.9rem] ${textColor}`}
               translate="no"
               lang="en"
+              aria-label="Tiles"
             >
-              Tiles
-            </span>
-            <span
-              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-medium uppercase tracking-[0.14em] sm:text-[0.62rem] ${alphaBadgeClass}`}
-            >
-              Alpha
+              Tile<span className="ml-[0.015em] text-black/78 dark:text-white/82">s</span>
             </span>
           </Link>
         </div>
 
         {/* Centered Desktop Navigation Links */}
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
-          <Link href="/about" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
-            About
+          <Link href="/sponsor" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
+            Sponsor
           </Link>
           <Link href="/roadmap" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Roadmap

@@ -72,10 +72,11 @@ export function BookMobileNav() {
           <Link
             key={page.href}
             href={page.href}
+            prefetch={false}
             className="block group"
             style={{ textDecoration: 'none' }}
           >
-            <div className="bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-all duration-200 p-8 rounded-sm h-full" style={{ textDecoration: 'none' }}>
+            <div className="bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] transition-colors duration-200 p-8 rounded-sm h-full" style={{ textDecoration: 'none' }}>
               <div className="flex flex-col items-start gap-3">
                 <div
                   className="text-sm lg:text-base leading-none tabular-nums text-black/35 dark:text-white/40 font-medium tracking-tight"

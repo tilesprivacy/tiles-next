@@ -9,6 +9,11 @@ const VARIANT_STYLES = {
     initials:
       "inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/10 text-[10px] font-semibold text-black/70 ring-1 ring-black/10 dark:bg-white/10 dark:text-white/80 dark:ring-white/15",
   },
+  inline: {
+    img: "h-[1.05rem] w-[1.05rem] rounded-full object-cover ring-1 ring-black/10 dark:ring-white/15",
+    initials:
+      "inline-flex h-[1.05rem] w-[1.05rem] items-center justify-center rounded-full bg-black/10 text-[8px] font-semibold text-black/70 ring-1 ring-black/10 dark:bg-white/10 dark:text-white/80 dark:ring-white/15",
+  },
   /** Square thumb, light border: matches blog listing covers and meta typography. */
   blog: {
     img: "h-5 w-5 rounded-sm object-cover",
@@ -27,7 +32,7 @@ export function PersonAvatar({
   links: string[]
   /** Optional wrapper class (e.g. shrink-0). */
   className?: string
-  /** `blog`: smaller square avatar aligned with blog UI. `default`: mission / sponsors. */
+  /** `blog`: smaller square avatar aligned with blog UI. `inline`: compact inline avatar. `default`: mission / sponsors. */
   variant?: keyof typeof VARIANT_STYLES
 }) {
   const [avatarFailed, setAvatarFailed] = useState(false)

@@ -148,11 +148,12 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10" />
             )}
             <span
-              className={`notranslate text-lg font-medium leading-none tracking-tight sm:text-xl ${textColor}`}
+              className={`notranslate text-[1.38rem] font-semibold leading-none tracking-[-0.045em] sm:text-[1.52rem] ${textColor}`}
               translate="no"
               lang="en"
+              aria-label="Tiles"
             >
-              Tiles
+              Tile<span className="ml-[0.015em] text-black/78 dark:text-white/82">s</span>
             </span>
             <span
               className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-medium uppercase tracking-[0.14em] sm:text-[0.62rem] ${alphaBadgeClass}`}
@@ -199,11 +200,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
             <Link
-              href="/about"
+              href="/sponsor"
               onClick={onClose}
               className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
-              About
+              Sponsor
             </Link>
             <Link
               href="/roadmap"
