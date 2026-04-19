@@ -85,7 +85,7 @@ const getRoadmapItemClassName = (status: RoadmapStatus) => {
     case 'shipped':
       return 'border-[#171717] bg-[#171717] text-white dark:border-white dark:bg-white dark:text-black'
     case 'active':
-      return 'border-[#2a2a2a] bg-white text-[#171717] dark:border-white/82 dark:bg-white dark:text-black'
+      return 'border-black/18 bg-black/[0.045] text-foreground dark:border-white/18 dark:bg-white/[0.08] dark:text-white'
     case 'planned':
       return 'border-[#c7c7c7] border-dashed bg-transparent text-black/52 dark:border-white/24 dark:text-white/40'
     default:
