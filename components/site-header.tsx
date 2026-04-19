@@ -119,7 +119,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               lang="en"
               aria-label="Tiles"
             >
-              Tile<span className="ml-[0.015em] text-black/78 dark:text-white/82">s</span>
+              Tiles
             </span>
           </Link>
         </div>

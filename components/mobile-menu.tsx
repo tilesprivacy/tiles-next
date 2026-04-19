@@ -153,7 +153,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               lang="en"
               aria-label="Tiles"
             >
-              Tile<span className="ml-[0.015em] text-black/78 dark:text-white/82">s</span>
+              Tiles
             </span>
             <span
               className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-medium uppercase tracking-[0.14em] sm:text-[0.62rem] ${alphaBadgeClass}`}
