@@ -35,6 +35,7 @@ const roadmapTracks: RoadmapTrack[] = [
       { label: 'Modelfile support', status: 'shipped' },
       { label: 'Offline Installer', status: 'shipped' },
       { label: 'Apple Foundation Model support', status: 'planned' },
+      { label: 'Hosted Iroh Relay', status: 'planned' },
       { label: 'MIR integration', status: 'planned' },
       { label: 'TEE-based cloud models', status: 'planned' },
       { label: 'Continuous batching and KV cache improvements', status: 'planned' },
