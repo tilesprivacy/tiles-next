@@ -73,7 +73,7 @@ const roadmapLegend = [
 const roadmapCtaClass =
   'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
 
-const paragraphClass = 'text-sm leading-relaxed text-foreground/90 lg:text-base'
+const paragraphClass = 'text-sm leading-relaxed text-foreground/90'
 
 const getRoadmapItemClassName = (status: RoadmapStatus) => {
   switch (status) {
@@ -114,12 +114,12 @@ export function RoadmapContent() {
             <h1 className="mb-4 text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] text-foreground sm:text-[4.25rem] lg:mb-4 lg:text-6xl">
               Roadmap
             </h1>
-            <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground lg:mb-10 lg:text-lg">
+            <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground lg:mb-10">
               The current focus is on building a basic chat experience. In the near future we are adding connector
               support, introduced only with proper sandboxing, and a documented threat model.
             </p>
             <div className="mb-10">
-              <div className="mb-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-[0.95rem] text-muted-foreground lg:text-sm">
+              <div className="mb-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-muted-foreground">
                 {roadmapLegend.map((item) => (
                   <div key={item.label} className="inline-flex items-center gap-2">
                     <span
@@ -133,7 +133,7 @@ export function RoadmapContent() {
               <div className="space-y-10 lg:space-y-12">
                 {roadmapTracks.map((track) => (
                   <div key={track.label} className="space-y-5">
-                    <h2 className="whitespace-nowrap text-[0.92rem] font-medium uppercase tracking-[0.16em] text-foreground/85 lg:text-[15px]">
+                    <h2 className="whitespace-nowrap text-xs font-medium uppercase tracking-[0.16em] text-foreground/85 sm:text-sm">
                       {track.label}
                     </h2>
                     <div className="pb-1">
@@ -141,7 +141,7 @@ export function RoadmapContent() {
                         {track.items.map((item, itemIndex) => (
                           <div key={item.label} className="contents">
                             <div
-                              className={`inline-flex min-h-[3.35rem] items-center border-[2px] px-5 py-2.5 text-[1.05rem] font-normal tracking-[-0.04em] ${getRoadmapItemClassName(item.status)} lg:min-h-[3.2rem] lg:text-[14px] lg:tracking-[-0.02em]`}
+                              className={`inline-flex min-h-[3.35rem] items-center border-[2px] px-5 py-2.5 text-sm font-normal tracking-[-0.02em] ${getRoadmapItemClassName(item.status)} lg:min-h-[3.2rem]`}
                             >
                               {item.label}
                             </div>
