@@ -56,7 +56,7 @@ const roadmapTracks: RoadmapTrack[] = [
     label: 'Security',
     items: [
       { label: 'Notarized builds', status: 'shipped' },
-      { label: 'MicroVM Sandbox', status: 'planned' },
+      { label: 'libkrun-based agent sandbox', status: 'planned' },
       {
         label:
           'Runtime hardening with Stage-2 hypervisor memory isolation and HW backed attestation',
