@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 
 export const metadata: Metadata = {
   title: "Brand | Tiles",
@@ -32,7 +33,7 @@ export default function BrandPage() {
     <div className="relative flex min-h-screen flex-col bg-background text-foreground lg:overflow-visible">
       <main className="flex flex-1 flex-col pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto w-full max-w-4xl px-6 pb-16 pt-8 lg:pb-24">
-          <h1 className="max-w-[22ch] font-sans text-[1.95rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[2.2rem] lg:text-[2.6rem]">
+          <h1 className={`max-w-[22ch] ${marketingPageTitleClass}`}>
             Tiles brand guidelines
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-black/65 md:text-lg dark:text-[#B3B3B3]">

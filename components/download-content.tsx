@@ -7,6 +7,7 @@ import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
 import { Download } from "lucide-react"
 import { triggerHaptic } from "@/lib/haptics"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
 import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
@@ -188,9 +189,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
           <div className="flex w-full max-w-xl flex-col gap-12 text-left lg:gap-14">
             {/* Title */}
             <div className="space-y-4">
-              <h1
-                className={`font-sans text-[1.75rem] font-semibold leading-tight tracking-tight ${textColor} sm:text-3xl lg:text-[2.2rem]`}
-              >
+              <h1 className={`${marketingPageTitleClass} ${textColor}`}>
                 Download Tiles Alpha
               </h1>
               <p className={bodyTextClass}>

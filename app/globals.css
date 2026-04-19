@@ -851,6 +851,25 @@ sniper-link[hidden] {
   margin-left: 0;
   margin-right: 0;
   box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1.875rem !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.025em !important;
+}
+
+@media (min-width: 640px) {
+  [data-book-section] article main h1,
+  [data-book-section] article h1 {
+    font-size: 2.25rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  [data-book-section] article main h1,
+  [data-book-section] article h1 {
+    font-size: 2.75rem !important;
+  }
 }
 
 /* Ensure page navigation is constrained to content width */

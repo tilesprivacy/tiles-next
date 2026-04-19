@@ -6,6 +6,7 @@ import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
+import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import { getPersonById } from "@/lib/people"
 
 interface BlogPost {
@@ -123,7 +124,7 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
       <main className="flex flex-1 flex-col px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto w-full max-w-3xl">
           <div className="mb-10 lg:mb-12">
-            <h1 className="mb-4 text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] text-foreground sm:text-[4.25rem] lg:text-6xl">
+            <h1 className={`mb-4 ${marketingPageTitleClass}`}>
               Blog
             </h1>
           </div>

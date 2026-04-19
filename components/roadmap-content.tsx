@@ -1,4 +1,5 @@
 import { SiteFooter } from "@/components/site-footer"
+import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 
 type RoadmapStatus = 'shipped' | 'active' | 'planned'
 
@@ -46,7 +47,7 @@ const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: 'Peer-to-peer encrypted sync', status: 'shipped' },
       { label: 'Shared Links', status: 'active' },
-      { label: 'Remote link', status: 'planned' },
+      { label: 'Remote Link', status: 'planned' },
       { label: 'Capability based Sync', status: 'planned' },
     ],
   },
@@ -65,8 +66,8 @@ const roadmapTracks: RoadmapTrack[] = [
 ]
 
 const roadmapLegend = [
-  { label: 'Stable', status: 'shipped' as const },
-  { label: 'Experimental', status: 'active' as const },
+  { label: 'Shipped', status: 'shipped' as const },
+  { label: 'Work in progress', status: 'active' as const },
   { label: 'Future', status: 'planned' as const },
 ]
 
@@ -111,7 +112,7 @@ export function RoadmapContent() {
           className="mb-10 px-2 pb-10 scroll-mt-28 sm:px-4 lg:mb-12 lg:px-0 lg:pb-12 lg:scroll-mt-40"
         >
           <div className="mx-auto max-w-3xl">
-            <h1 className="mb-4 text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] text-foreground sm:text-[4.25rem] lg:mb-4 lg:text-6xl">
+            <h1 className={`mb-4 ${marketingPageTitleClass}`}>
               Roadmap
             </h1>
             <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground lg:mb-10">
