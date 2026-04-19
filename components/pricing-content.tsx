@@ -35,7 +35,7 @@ const plans: PricingPlan[] = [
     features: [
       "Managed public relays for sync",
       "Support development and relay infrastructure",
-      "Added weight in feature prioritization",
+      "More say in what we build next",
       "Community support channel",
     ],
   },
@@ -49,7 +49,6 @@ const plans: PricingPlan[] = [
     learnMoreHref: "/book/licenses#commercial",
     features: [
       "Self-hosted relays for sync",
-      "Support development and relay infrastructure",
       "Featured organization status",
       "Priority support channel",
     ],
@@ -76,7 +75,7 @@ const faqs: PricingFaq[] = [
   {
     question: "What benefits does the Backer license grant?",
     answer:
-      "Backer members get access to managed public relays for sync, help fund relay infrastructure and core development, and carry added weight in feature prioritization. Backer support helps keep Tiles fully user-supported and independent from investor influence.",
+      "Backer members get access to managed public relays for sync, help fund relay infrastructure and core development, and have more say in what we build next. Backer support helps keep Tiles fully user-supported and independent from investor influence.",
   },
   {
     question: "What do development and infrastructure costs support?",

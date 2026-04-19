@@ -30,9 +30,9 @@ export const metadata: Metadata = {
 
 export default function BrandPage() {
   return (
-    <div className="relative flex min-h-screen flex-col bg-background text-foreground lg:overflow-visible">
-      <main className="flex flex-1 flex-col pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
-        <section className="mx-auto w-full max-w-4xl px-6 pb-16 pt-8 lg:pb-24">
+    <div className="relative flex min-h-screen flex-col overflow-x-clip bg-background text-foreground lg:overflow-visible">
+      <main className="flex flex-1 flex-col overflow-x-clip pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
+        <section className="mx-auto w-full max-w-4xl overflow-x-clip px-6 pb-16 pt-8 lg:pb-24">
           <h1 className={`max-w-[22ch] ${marketingPageTitleClass}`}>
             Tiles brand guidelines
           </h1>
@@ -41,7 +41,7 @@ export default function BrandPage() {
           </p>
           <a
             href="/tiles-brand-assets.zip"
-            className={`mt-8 inline-flex h-10 items-center gap-2 rounded-sm px-5 text-sm font-medium transition-all duration-300 will-change-transform hover:scale-[1.02] active:scale-[0.98] ${themeAwareHeaderPrimaryCtaClasses}`}
+            className={`mt-8 inline-flex h-10 items-center gap-2 rounded-sm px-5 text-sm font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] motion-reduce:transform-none ${themeAwareHeaderPrimaryCtaClasses}`}
           >
             Download brand assets
             <svg
@@ -79,14 +79,16 @@ export default function BrandPage() {
                   alt="Tiles logo preview on light theme"
                   width={280}
                   height={280}
-                  className="h-[200px] w-[200px] object-contain dark:hidden md:h-[280px] md:w-[280px]"
+                  sizes="(max-width: 767px) 200px, 280px"
+                  className="h-[200px] w-[200px] object-contain [content-visibility:visible] dark:hidden md:h-[280px] md:w-[280px]"
                 />
                 <Image
                   src="/grey.png"
                   alt="Tiles logo preview on dark theme"
                   width={280}
                   height={280}
-                  className="hidden h-[200px] w-[200px] object-contain dark:block md:h-[280px] md:w-[280px]"
+                  sizes="(max-width: 767px) 200px, 280px"
+                  className="hidden h-[200px] w-[200px] object-contain [content-visibility:visible] dark:block md:h-[280px] md:w-[280px]"
                 />
               </div>
               <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
@@ -101,14 +103,16 @@ export default function BrandPage() {
                   alt="Tiles filled banner preview on light theme"
                   width={1200}
                   height={220}
-                  className="h-auto w-full object-contain dark:hidden"
+                  sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
+                  className="h-auto w-full object-contain [content-visibility:visible] dark:hidden"
                 />
                 <Image
                   src="/tiles_tlogo_banner_v1.2/svg/tiles_banner_fill_wht.svg"
                   alt="Tiles filled banner preview on dark theme"
                   width={1200}
                   height={220}
-                  className="hidden h-auto w-full object-contain dark:block"
+                  sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
+                  className="hidden h-auto w-full object-contain [content-visibility:visible] dark:block"
                 />
               </div>
               <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
@@ -123,14 +127,16 @@ export default function BrandPage() {
                   alt="Tiles outline banner preview on light theme"
                   width={1200}
                   height={220}
-                  className="h-auto w-full object-contain dark:hidden"
+                  sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
+                  className="h-auto w-full object-contain [content-visibility:visible] dark:hidden"
                 />
                 <Image
                   src="/tiles_banner_outline_wht.svg"
                   alt="Tiles outline banner preview on dark theme"
                   width={1200}
                   height={220}
-                  className="hidden h-auto w-full object-contain dark:block"
+                  sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
+                  className="hidden h-auto w-full object-contain [content-visibility:visible] dark:block"
                 />
               </div>
               <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
