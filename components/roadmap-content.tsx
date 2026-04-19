@@ -40,7 +40,7 @@ const roadmapTracks: RoadmapTrack[] = [
     label: 'Identity',
     items: [
       { label: 'DID-based local accounts', status: 'shipped' },
-      { label: 'ATProto support', status: 'active' },
+      { label: 'ATProto accounts', status: 'active' },
     ],
   },
   {
@@ -56,10 +56,10 @@ const roadmapTracks: RoadmapTrack[] = [
     label: 'Security',
     items: [
       { label: 'Notarized builds', status: 'shipped' },
-      { label: 'libkrun-based agent sandbox', status: 'planned' },
+      { label: 'Encrypted SQLite database', status: 'shipped' },
+      { label: 'Agent Sandbox', status: 'planned' },
       {
-        label:
-          'Runtime hardening with Stage-2 hypervisor memory isolation and HW backed attestation',
+        label: 'Inference runtime hardening',
         status: 'planned',
       },
     ],
@@ -69,7 +69,7 @@ const roadmapTracks: RoadmapTrack[] = [
 const roadmapLegend = [
   { label: 'Shipped', status: 'shipped' as const },
   { label: 'Work in progress', status: 'active' as const },
-  { label: 'Future', status: 'planned' as const },
+  { label: 'Planned', status: 'planned' as const },
 ]
 
 const roadmapCtaClass =
