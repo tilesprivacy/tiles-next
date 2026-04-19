@@ -6,7 +6,11 @@ import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
-import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
+import {
+  marketingPageBodyClass,
+  marketingPageMetaClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 import { getPersonById } from "@/lib/people"
 
 interface BlogPost {
@@ -58,7 +62,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
     <Link href={`/blog/${post.slug}`} className="group block">
       <article className="grid grid-cols-[minmax(0,1fr)_6.5rem] items-start gap-4 py-6 sm:grid-cols-[minmax(0,1fr)_9.5rem] sm:gap-6 sm:py-9 lg:grid-cols-[minmax(0,1fr)_11rem]">
         <div className="space-y-3 sm:space-y-4">
-          <div className="flex flex-col gap-2 text-xs leading-snug text-black/45 dark:text-white/45 sm:gap-2.5 lg:text-sm">
+          <div className={`flex flex-col gap-2 sm:gap-2.5 ${marketingPageMetaClass}`}>
             <span>{formatDate(post.date)}</span>
             {author && (
               <span className="inline-flex items-center gap-1.5">
@@ -82,7 +86,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
             {post.title}
           </h2>
 
-          <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">
+          <p className={marketingPageBodyClass}>
             {post.description}
           </p>
 

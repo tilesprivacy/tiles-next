@@ -1,4 +1,10 @@
 import { SiteFooter } from "@/components/site-footer"
+import {
+  marketingPageBodyClass,
+  marketingPageLeadClass,
+  marketingPageMetaClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 type RoadmapStatus = 'shipped' | 'active' | 'planned'
 
@@ -74,8 +80,6 @@ const roadmapLegend = [
 const roadmapCtaClass =
   'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.035] px-3.5 py-1.5 text-[0.82rem] font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.06] dark:border-white/5 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] lg:text-sm'
 
-const paragraphClass = 'text-[0.92rem] leading-[1.75] text-foreground/72'
-
 const getRoadmapItemClassName = (status: RoadmapStatus) => {
   switch (status) {
     case 'shipped':
@@ -112,10 +116,10 @@ export function RoadmapContent() {
           className="mb-8 px-2 pb-10 scroll-mt-28 sm:px-4 lg:mb-10 lg:px-0 lg:pb-12 lg:scroll-mt-40"
         >
           <div className="mx-auto max-w-3xl">
-            <h1 className="mb-3 font-sans text-[2.55rem] font-semibold leading-[0.98] tracking-[-0.045em] text-foreground sm:text-[3rem] lg:text-[3.35rem]">
+            <h1 className={`mb-3 ${marketingPageTitleClass}`}>
               Roadmap
             </h1>
-            <p className="mb-7 max-w-[46rem] text-[0.96rem] leading-[1.7] text-muted-foreground lg:mb-9">
+            <p className={`mb-7 max-w-[46rem] ${marketingPageLeadClass} lg:mb-9`}>
               Current focus is on building a basic CLI-based chat experience.
               <br />
               <br />
@@ -123,7 +127,7 @@ export function RoadmapContent() {
               documented threat model that meets our security bar.
             </p>
             <div className="mb-9">
-              <div className="mb-10 flex flex-wrap items-center gap-x-6 gap-y-2.5 text-[0.88rem] text-muted-foreground">
+              <div className={`mb-10 flex flex-wrap items-center gap-x-6 gap-y-2.5 ${marketingPageMetaClass}`}>
                 {roadmapLegend.map((item) => (
                   <div key={item.label} className="inline-flex items-center gap-2">
                     <span
@@ -168,7 +172,7 @@ export function RoadmapContent() {
                 ))}
               </div>
             </div>
-            <p className={`mb-5 ${paragraphClass}`}>
+            <p className={`mb-5 ${marketingPageBodyClass}`}>
               If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
             </p>
             <div className="flex flex-wrap items-center gap-2">

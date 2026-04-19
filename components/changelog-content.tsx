@@ -4,7 +4,12 @@ import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { formatBinarySize } from "@/lib/format-binary-size"
-import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
+import {
+  marketingPageBodyClass,
+  marketingPageLeadClass,
+  marketingPageMetaClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 interface ChangelogContentProps {
   releases: Release[]
@@ -60,8 +65,6 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
   const textColorMuted = 'text-muted-foreground'
-  const textColorSubtle = 'text-muted-foreground'
-  const textColorBody = 'text-foreground/90'
   const textColorBodyLight = 'text-muted-foreground'
   const textColorHeading = 'text-foreground'
   const linkColor =
@@ -83,12 +86,8 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const artifactLinkClass = `${linkColor} inline-flex items-center gap-0.5 font-medium`
   const artifactShaBlockClass =
     'mt-2 text-[11px] leading-relaxed text-muted-foreground'
-  const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
-  const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
-  const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
+  const releaseBodyClass = `space-y-2 ${marketingPageBodyClass}`
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
-  const roadmapCtaClass =
-    'inline-flex items-center gap-1 rounded-sm border border-black/5 bg-black/[0.045] px-4 py-2 text-sm font-medium text-foreground shadow-none transition-colors hover:bg-black/[0.08] dark:border-white/5 dark:bg-white/[0.08] dark:hover:bg-white/[0.14] lg:text-base'
   const DownloadArtifacts = ({ release }: { release: Release }) => {
     const hasTarballs = release.tarballs.length > 0
     const hasInstaller = Boolean(release.installer)
@@ -182,7 +181,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           <h1 className={`mb-4 ${marketingPageTitleClass} ${textColor}`}>
             Changelog
           </h1>
-          <p className={`mb-10 max-w-3xl text-sm leading-relaxed ${textColorMuted} lg:mb-12 lg:text-lg`}>
+          <p className={`mb-10 max-w-3xl ${marketingPageLeadClass} lg:mb-12`}>
             All notable changes and releases for Tiles.
           </p>
 
@@ -222,7 +221,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           </span>
                         )}
                       </div>
-                      <p className={`mb-2 text-sm ${textColorSubtle}`}>{release.date}</p>
+                      <p className={`mb-2 ${marketingPageMetaClass}`}>{release.date}</p>
                       <h2 className={`mb-3 text-base font-semibold tracking-tight ${textColorHeading} lg:text-lg`}>
                         {release.title !== release.version ? release.title : `Alpha ${releases.length - index}`}
                       </h2>
@@ -290,7 +289,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         >
                           {release.version}
                         </a>
-                        <p className={`text-sm ${textColorSubtle}`}>{release.date}</p>
+                        <p className={marketingPageMetaClass}>{release.date}</p>
                       </div>
 
                       {/* Center column: dot */}

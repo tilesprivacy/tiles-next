@@ -3,6 +3,11 @@ import { SiteFooter } from "@/components/site-footer"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
 import { Button } from "@/components/ui/button"
+import {
+  marketingPageBodyClass,
+  marketingPageLeadClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
 import { FaGithub } from "react-icons/fa6"
 
@@ -83,10 +88,10 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
       <main className="flex flex-1 flex-col px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto w-full max-w-3xl">
           <section className="w-full">
-            <h1 className="text-[2.8rem] font-semibold leading-[0.96] tracking-[-0.045em] text-foreground sm:text-[3.5rem] lg:text-[4.15rem]">
-              Help keep <span className="tracking-[-0.03em]">Tiles Privacy</span> independent.
+            <h1 className={marketingPageTitleClass}>
+              Help keep <span className="tracking-tight">Tiles Privacy</span> independent.
             </h1>
-            <p className="mt-5 max-w-2xl text-[0.98rem] leading-[1.8] text-black/68 dark:text-white/68 sm:text-lg">
+            <p className={`mt-5 max-w-2xl ${marketingPageLeadClass}`}>
               Tiles is built by a small team working on private, local-first software. Sponsorship helps us keep
               shipping product, maintaining infrastructure, and documenting the work in public.
             </p>
@@ -125,13 +130,13 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <p className="max-w-2xl text-[0.98rem] leading-[1.8] text-black/68 dark:text-white/68">
+              <p className={`max-w-2xl ${marketingPageBodyClass}`}>
                 Sponsorship provides baseline funding for the work already underway and helps us keep building with
                 continuity.
               </p>
               <ul className="mt-5 space-y-3">
                 {SUPPORT_POINTS.map((point) => (
-                  <li key={point} className="flex items-start gap-3 text-[0.98rem] leading-7 text-foreground/88">
+                  <li key={point} className="flex items-start gap-3 text-base leading-7 text-foreground/88">
                     <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-foreground/60" aria-hidden />
                     <span>{point}</span>
                   </li>
@@ -140,7 +145,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <div className="max-w-2xl space-y-4 text-[0.98rem] leading-[1.8] text-black/68 dark:text-white/68">
+              <div className={`max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
                 <div className="flex items-start gap-3">
                   <p>
                     Tiles is part of{" "}
