@@ -115,8 +115,9 @@ export function RoadmapContent() {
               Roadmap
             </h1>
             <p className="mb-8 max-w-3xl text-sm leading-relaxed text-muted-foreground lg:mb-10">
-              The current focus is on building a basic chat experience. In the near future we are adding connector
-              support, introduced only with proper sandboxing, and a documented threat model.
+              Current focus is on building a basic CLI-based chat experience. In the near future, we will add
+              connector support, introduced only with proper sandboxing and a documented threat model, along with a
+              client app.
             </p>
             <div className="mb-10">
               <div className="mb-12 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-muted-foreground">

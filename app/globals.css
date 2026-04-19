@@ -935,9 +935,10 @@ sniper-link[hidden] {
   /* h1 title comes first in visible order */
   [data-book-section] article h1:first-of-type {
     order: 1 !important;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 1.35rem !important;
     padding-left: 0 !important;
     padding-right: 0 !important;
+    line-height: 1.08 !important;
   }
   
   /* Datestamp comes second, right after title */
@@ -955,8 +956,9 @@ sniper-link[hidden] {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
-    margin: 0 0 0.75rem 0 !important;
+    margin: 0 0 1.35rem 0 !important;
     font-size: 0.8125rem !important;
+    line-height: 1.45 !important;
     color: var(--muted-foreground) !important;
     text-align: left !important;
     white-space: nowrap !important;
@@ -990,7 +992,7 @@ sniper-link[hidden] {
     float: none !important;
     display: flex !important;
     width: fit-content !important;
-    margin: 0 0 1.5rem 0 !important;
+    margin: 0 0 2.25rem 0 !important;
   }
   
   /* All other content from main comes after copy button */
