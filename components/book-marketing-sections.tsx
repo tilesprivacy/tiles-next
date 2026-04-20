@@ -142,8 +142,7 @@ export function BookMarketingSections() {
           <div className="max-w-2xl space-y-2">
             <h2 className={sectionHeadingClass}>What makes Tiles different</h2>
             <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:text-base">
-              Our approach combines privacy-focused engineering with consumer convenience. This comparison table keeps
-              the product positioning close to the rest of the documentation.
+              Our approach combines best-in-class privacy-focused engineering with unmatched consumer convenience. See how Tiles compares to other local-first AI assistants.
             </p>
           </div>
 
