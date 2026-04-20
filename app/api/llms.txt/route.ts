@@ -94,7 +94,7 @@ export async function GET(request: Request) {
   sections.push('- Air-gapped installer: Tiles')
   sections.push('- Cross platform: Ollama, LM Studio, Jan; Tiles (not supported)')
   sections.push('- Cloud models: Ollama, Jan')
-  sections.push('- In-house models: Jan')
+  sections.push('- In-house models: Jan, Osaurus')
   sections.push('- Open source: Tiles, Jan; Ollama and LM Studio (partially open source)')
   sections.push('')
   sections.push('='.repeat(80))

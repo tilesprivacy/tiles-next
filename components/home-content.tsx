@@ -69,7 +69,7 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
     { label: "Sync", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "On-device models", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
     { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", osaurus: "check" },
-    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", osaurus: "empty" },
+    { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", osaurus: "check" },
     { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", osaurus: "empty" },
     { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
     { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
