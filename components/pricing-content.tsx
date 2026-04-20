@@ -1,5 +1,5 @@
 import Link from "next/link"
-import Script from "next/script"
+import type { ReactNode } from "react"
 import { Check, ChevronDown } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { PolarEmbeddedCheckoutLink } from "@/components/polar-embedded-checkout-link"
@@ -20,7 +20,7 @@ type PricingPlan = {
 
 type PricingFaq = {
   question: string
-  answer: string
+  answer: ReactNode
 }
 
 const plans: PricingPlan[] = [
@@ -71,8 +71,15 @@ const faqs: PricingFaq[] = [
   },
   {
     question: "Do you support regional purchase parity discounts?",
-    answer:
-      "Yes. We support regional purchase parity discount codes for eligible buyers.",
+    answer: (
+      <>
+        Yes, we do. If you would like a regional purchase parity discount code, please{" "}
+        <a href="mailto:hello@tiles.run" className="underline underline-offset-2 text-foreground hover:opacity-80">
+          email us at hello@tiles.run
+        </a>
+        .
+      </>
+    ),
   },
   {
     question: "How many devices can I use with one license?",
@@ -111,7 +118,6 @@ export function PricingContent() {
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
-      <Script src="https://www.evendeals.com/banner.js" strategy="beforeInteractive" />
       <main className="flex flex-1 flex-col pb-16 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:pb-20 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
         <section className="px-4 sm:px-6 lg:px-12">
           <div className="mx-auto w-full max-w-4xl space-y-14 lg:space-y-16">
