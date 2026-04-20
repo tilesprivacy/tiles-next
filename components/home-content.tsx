@@ -18,8 +18,8 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.03] sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100dvh] px-4 pb-6 pt-[calc(2rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(2.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 sm:pt-[calc(2.5rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(2rem+env(safe-area-inset-top,0px))] lg:pb-10">
-        <div className="mx-auto flex w-full max-w-6xl flex-1 items-center">
+      <main className="flex min-h-[100dvh] px-4 pb-6 pt-[env(safe-area-inset-top,0px)] min-[390px]:px-5 sm:px-6 sm:pb-8 lg:px-12 lg:pb-10">
+        <div className="mx-auto flex w-full max-w-6xl flex-1 items-start pt-10 sm:pt-12 lg:pt-14">
           <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-6 xl:gap-10">
             <div className="relative z-10 flex max-w-[29rem] flex-col items-center gap-5 text-center lg:max-w-[27rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="space-y-2.5 lg:space-y-3">
