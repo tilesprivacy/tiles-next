@@ -34,7 +34,7 @@ const plans: PricingPlan[] = [
     features: [
       "Managed public relays for sync",
       "Support development and relay infrastructure",
-      "More say in what we build next",
+      "Have a say in feature priorities",
       "Community support channel",
     ],
   },
