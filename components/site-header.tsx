@@ -96,12 +96,12 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             : "pt-[calc(0.875rem+env(safe-area-inset-top,0px))] sm:pt-[calc(1rem+env(safe-area-inset-top,0px))] lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]"
         } ${headerChrome} relative`}
       >
-        {/* Left side: Logo and Wordmark */}
+        {/* Left side: Logo */}
         <div className="flex items-center shrink-0">
           <Link
             href="/"
             onClick={onHomeClick}
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3"
+            className="flex items-center transition-opacity hover:opacity-75"
           >
             {themeAware ? (
               <>
@@ -113,14 +113,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             ) : (
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
-            <span
-              className={`notranslate text-[1.38rem] font-semibold leading-none tracking-[-0.028em] sm:text-[1.52rem] lg:text-[1.9rem] ${textColor}`}
-              translate="no"
-              lang="en"
-              aria-label="Tiles"
-            >
-              Tiles
-            </span>
           </Link>
         </div>
 
