@@ -256,15 +256,15 @@
   background-color: var(--background) !important;
 }
 
-/* Book section buttons in dark mode - ensure proper contrast */
+/* Book section inverted CTAs in dark mode use a light surface with dark ink. */
 .dark [data-book-section] header a.bg-foreground,
 .dark [data-book-section] header button.bg-foreground,
 .dark [data-book-section] header [class*="bg-foreground"],
 .dark [data-book-section] header a.bg-white,
 .dark [data-book-section] header button.bg-white,
 .dark [data-book-section] header [class*="bg-white"] {
-  background-color: var(--foreground) !important;
-  color: var(--primary-foreground) !important;
+  background-color: var(--cursor-light-surface) !important;
+  color: var(--cursor-light-ink) !important;
 }
 
 .dark [data-book-section] header a.bg-foreground span,
@@ -273,7 +273,7 @@
 .dark [data-book-section] header a.bg-white span,
 .dark [data-book-section] header button.bg-white span,
 .dark [data-book-section] header [class*="bg-white"] span {
-  color: var(--primary-foreground) !important;
+  color: var(--cursor-light-ink) !important;
 }
 
 .dark [data-book-section] header a.bg-foreground svg,
@@ -282,10 +282,11 @@
 .dark [data-book-section] header a.bg-white svg,
 .dark [data-book-section] header button.bg-white svg,
 .dark [data-book-section] header [class*="bg-white"] svg {
-  fill: var(--primary-foreground) !important;
+  fill: var(--cursor-light-ink) !important;
+  color: var(--cursor-light-ink) !important;
 }
 
-/* Mobile menu buttons in dark mode - ensure proper contrast for book section */
+/* Book-page CTA buttons in dark mode use the same inverted light surface treatment. */
 .dark [data-book-section] button.bg-foreground,
 .dark [data-book-section] button[class*="bg-foreground"],
 .dark [data-book-section] a.bg-foreground,
@@ -294,8 +295,8 @@
 .dark [data-book-section] button[class*="bg-white"],
 .dark [data-book-section] a.bg-white,
 .dark [data-book-section] a[class*="bg-white"] {
-  background-color: var(--foreground) !important;
-  color: var(--primary-foreground) !important;
+  background-color: var(--cursor-light-surface) !important;
+  color: var(--cursor-light-ink) !important;
 }
 
 .dark [data-book-section] button.bg-foreground a,
@@ -310,7 +311,7 @@
 .dark [data-book-section] button[class*="bg-white"] span,
 .dark [data-book-section] a.bg-white span,
 .dark [data-book-section] a[class*="bg-white"] span {
-  color: var(--primary-foreground) !important;
+  color: var(--cursor-light-ink) !important;
 }
 
 .dark [data-book-section] button.bg-foreground svg,
@@ -321,8 +322,8 @@
 .dark [data-book-section] button[class*="bg-white"] svg,
 .dark [data-book-section] a.bg-white svg,
 .dark [data-book-section] a[class*="bg-white"] svg {
-  fill: var(--primary-foreground) !important;
-  color: var(--primary-foreground) !important;
+  fill: var(--cursor-light-ink) !important;
+  color: var(--cursor-light-ink) !important;
 }
 
 /* Book footer - inverted strip on dark book pages uses Cursor light canvas */
