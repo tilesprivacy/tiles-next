@@ -72,34 +72,14 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Tiles')
   sections.push(
-    'Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.',
+    'Private and secure AI assistant for everyday use.',
   )
   sections.push('')
-  sections.push('Tiles is a private and secure AI assistant for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
+  sections.push('Runs locally by default with optional peer-to-peer sync. Built as a fully user-supported, independent open-source project.')
   sections.push('')
-  sections.push('### Frequently asked questions (security)')
-  sections.push('Short answers; full context: /book/security')
+  sections.push('Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
   sections.push('')
-  sections.push('Q: What does local-first mean for Tiles?')
-  sections.push('A: Default experience runs on-device; local server binds to localhost. Config and data live in standard local directories; user data path can be changed.')
-  sections.push('')
-  sections.push('Q: Are chat and account databases stored as plain SQLite files?')
-  sections.push('A: No. Local persistence uses encryption at rest (SQLCipher); passkeys come from secure storage. Does not remove all local risk.')
-  sections.push('')
-  sections.push('Q: How does Tiles handle identity and secret material?')
-  sections.push('A: Public identity is separate from private keys (did:key from Ed25519). Keys and DB passkeys use the OS secure credential store, not plaintext config files.')
-  sections.push('')
-  sections.push('Q: How does device linking and chat sync work?')
-  sections.push('A: User-mediated peer linking (ticket/code, explicit accept/reject). Release builds derive endpoints from stored secret key and verify peer identity. Sync includes caps on downloaded delta size. Networking uses Iroh; when a direct path is not practical, Iroh public relays can help establish the connection (listed as a subprocessor at /sub-processors).')
-  sections.push('')
-  sections.push('Q: Does Tiles include product analytics, and what is logged locally?')
-  sections.push('A: No obvious bundled analytics SDKs. Local logging may include request metadata and bodies under the Tiles data directory (prompts may appear in logs).')
-  sections.push('')
-  sections.push('Q: How do updates, signing, and bundled dependencies relate to trust?')
-  sections.push('A: Updates via GitHub releases and hosted installer depend on release/hosting integrity. macOS package is signed, notarized, stapled. Dependencies pinned; bundled deps are self-contained.')
-  sections.push('')
-  sections.push('Q: How do I report a security vulnerability?')
-  sections.push('A: GitHub Security Advisories or security@tiles.run; see SECURITY.md in the tiles repo.')
+  sections.push('Extended product overview, comparison details, and security FAQ now live on the book index page at /book.')
   sections.push('')
   sections.push('='.repeat(80))
   sections.push('')
@@ -169,6 +149,7 @@ export async function GET(request: Request) {
   // Book Pages
   const bookPages = [
     { path: '', title: 'Tiles Book' },
+    { path: 'overview', title: 'Overview' },
     { path: 'cli', title: 'CLI' },
     { path: 'tilekit', title: 'Tilekit' },
     { path: 'mir', title: 'MIR Extension' },

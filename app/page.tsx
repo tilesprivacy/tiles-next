@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
-import { blogPosts } from "@/lib/blog-posts"
-import { calculateReadingTime } from "@/lib/utils"
+import { SiteFooter } from "@/components/site-footer"
 
 const homeDescription =
   "Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project."
@@ -30,19 +29,10 @@ export const metadata: Metadata = {
 }
 
 export default function Page() {
-  const highlightSlugs = new Set([
-    "ship-it-up",
-    "move-along-python",
-    "introducing-tiles-public-alpha",
-  ])
-
-  const highlightReadTimes = blogPosts
-    .filter((post) => highlightSlugs.has(post.slug))
-    .reduce<Record<string, string>>((acc, post) => {
-      const minutes = calculateReadingTime(post.content)
-      acc[post.slug] = `${minutes} min read`
-      return acc
-    }, {})
-
-  return <HomeContent highlightReadTimes={highlightReadTimes} />
+  return (
+    <div className="relative flex min-h-screen flex-col bg-background">
+      <HomeContent />
+      <SiteFooter showTryTilesCta={false} />
+    </div>
+  )
 }

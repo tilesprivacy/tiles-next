@@ -85,7 +85,7 @@ export default async function BookLayout({
   })
 
   // Keep sidebar aligned with the `/book` mobile card grid.
-  const desiredOrder = ['index', 'manual', 'models', 'memory', 'tilekit', 'mir', 'security', 'community', 'resources', 'licenses']
+  const desiredOrder = ['index', 'overview', 'manual', 'models', 'memory', 'tilekit', 'mir', 'security', 'community', 'resources', 'licenses']
 
   const cardPageSet = new Set(desiredOrder)
 

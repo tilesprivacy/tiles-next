@@ -6,6 +6,13 @@
       "timestamp": true
     }
   },
+  "overview": {
+    "title": "Overview",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "manual": {
     "title": "Manual",
     "theme": {
