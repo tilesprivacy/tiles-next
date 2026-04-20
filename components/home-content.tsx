@@ -5,7 +5,12 @@ import Link from "next/link"
 import { Download } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 export function HomeContent() {
   const alphaPillClass =
@@ -18,7 +23,7 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.03] sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100dvh] px-4 pb-6 pt-[calc(2rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(2.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 sm:pt-[calc(2.5rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(2rem+env(safe-area-inset-top,0px))] lg:pb-10">
+      <main className="flex min-h-[100dvh] px-4 pb-6 pt-[calc(2rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:px-6 sm:pb-8 sm:pt-[calc(2.5rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(3rem+env(safe-area-inset-top,0px))] lg:pb-10">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-center">
           <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-6 xl:gap-10">
             <div className="relative z-10 flex max-w-[29rem] flex-col items-center gap-5 text-center lg:max-w-[27rem] lg:items-start lg:gap-6 lg:text-left">
@@ -37,7 +42,7 @@ export function HomeContent() {
                   <Button
                     asChild
                     variant="ghost"
-                    className={`h-9 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} px-5 text-[0.83rem] font-medium sm:h-10 sm:px-5 sm:text-sm lg:h-10 lg:px-6 lg:text-[0.91rem]`}
+                    className={`h-9 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-[0.83rem] font-medium sm:h-10 sm:px-5 sm:text-sm lg:h-10 lg:px-6 lg:text-[0.91rem]`}
                   >
                     <Link
                       href="/download"
@@ -46,11 +51,11 @@ export function HomeContent() {
                       }}
                       className="group flex items-center gap-2"
                     >
-                      <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+                      <span className={downloadButtonLabelMotionClasses}>
                         Download for macOS
                       </span>
                       <Download
-                        className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
+                        className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4`}
                         aria-hidden
                       />
                     </Link>

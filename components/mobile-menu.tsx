@@ -8,7 +8,12 @@ import { Download, X } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { triggerHaptic } from "@/lib/haptics"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -30,8 +35,8 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   const headerCtaPalette = themeAware
     ? themeAwareHeaderPrimaryCtaClasses
     : `${buttonBg} ${buttonText} ${buttonHover}`
-  const headerCtaLabelClass = 'transition-opacity duration-200 group-hover:opacity-90'
-  const headerCtaIconClass = 'flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
+  const headerCtaLabelClass = downloadButtonLabelMotionClasses
+  const headerCtaIconClass = `flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4`
   const mobileHeaderControlSize = 'h-7 sm:h-8.5'
   const mobileMenuButtonSize = 'h-8 w-8 sm:h-9 sm:w-9'
 
@@ -152,7 +157,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Button
               asChild
               variant="ghost"
-              className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm`}
+              className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} ${downloadButtonMotionClasses} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm`}
             >
               <Link
                 href="/download"

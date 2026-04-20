@@ -6,7 +6,12 @@ import { useTheme } from "next-themes"
 import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
 import { Download } from "lucide-react"
 import { triggerHaptic } from "@/lib/haptics"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
@@ -49,16 +54,14 @@ const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
 }
 
 /** Matches site header Download CTA (same `Button` palette, flat surface like the nav pill) */
-const primaryDownloadButtonClass = `group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-sm px-5 text-sm font-medium transition-all duration-300 will-change-transform hover:scale-[1.02] active:scale-[0.98] ${themeAwareHeaderPrimaryCtaClasses}`
+const primaryDownloadButtonClass = `group inline-flex h-10 w-fit items-center justify-center gap-2 rounded-sm px-5 text-sm font-medium ${downloadButtonMotionClasses} ${themeAwareHeaderPrimaryCtaClasses}`
 
 const downloadButtonAppleIconClass =
-  "origin-right h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110"
+  `origin-right h-3.5 w-auto ${downloadButtonIconMotionClasses}`
 
-const downloadButtonLabelClass =
-  "origin-left transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105"
+const downloadButtonLabelClass = `origin-left ${downloadButtonLabelMotionClasses}`
 
-const downloadButtonArrowIconClass =
-  "h-3.5 w-3.5 shrink-0 transition-transform duration-300 will-change-transform backface-hidden group-hover:translate-y-[1px]"
+const downloadButtonArrowIconClass = `h-3.5 w-3.5 ${downloadButtonIconMotionClasses}`
 
 export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
@@ -170,10 +173,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
     download.sha256 !== "Unavailable"
       ? `${download.sha256.slice(0, 12)}...${download.sha256.slice(-12)}`
       : "Unavailable"
-  const offlineShortenedSha256 =
-    OFFLINE_INSTALLER.sha256 !== "Unavailable"
-      ? `${OFFLINE_INSTALLER.sha256.slice(0, 12)}...${OFFLINE_INSTALLER.sha256.slice(-12)}`
-      : "Unavailable"
+  const offlineShortenedSha256 = `${OFFLINE_INSTALLER.sha256.slice(0, 12)}...${OFFLINE_INSTALLER.sha256.slice(-12)}`
   const offlineChecksumFileUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
   const downloadButtonLabel = isLoadingMetadata
     ? "Loading installer..."

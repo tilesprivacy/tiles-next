@@ -7,7 +7,12 @@ import { memo, useCallback, useEffect, useState } from "react"
 import { Download } from "lucide-react"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 import { usePathname } from "next/navigation"
 
@@ -46,8 +51,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     ? themeAwareHeaderPrimaryCtaClasses
     : `${buttonBg} ${buttonText} ${buttonHover}`
   const hamburgerColor = themeAware ? "bg-foreground" : "bg-black"
-  const headerCtaLabelClass = "transition-opacity duration-200 group-hover:opacity-90"
-  const headerCtaIconClass = "flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4 lg:h-5 lg:w-5"
+  const headerCtaLabelClass = downloadButtonLabelMotionClasses
+  const headerCtaIconClass = `flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4 lg:h-5 lg:w-5`
   const mobileHeaderControlSize = "h-7 sm:h-8.5"
   const mobileMenuButtonSize = "h-8 w-8 sm:h-9 sm:w-9"
   return (
@@ -143,7 +148,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Button
             asChild
             variant="ghost"
-            className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
+            className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} ${downloadButtonMotionClasses} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
           >
             <Link
               href="/download"

@@ -6,6 +6,12 @@ import { Button } from "@/components/ui/button"
 import { Download } from "lucide-react"
 import { memo, useCallback, useState } from 'react'
 import { MobileMenu } from "./mobile-menu"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   return (
@@ -25,7 +31,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
         {/* Buttons - visible on all screen sizes */}
         <Button
           asChild
-          className="h-8 rounded-sm bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
+          className={`h-8 rounded-sm px-3 text-xs font-medium lg:h-10 lg:px-4 lg:text-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
         >
           <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
             {/* Light mode: white Apple logo (on black button) */}
@@ -34,7 +40,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
               alt="Apple"
               width={16}
               height={20}
-              className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 dark:hidden"
+              className={`h-3.5 w-auto ${downloadButtonIconMotionClasses} lg:h-4 dark:hidden`}
             />
             {/* Dark mode: black Apple logo (on white button) */}
             <Image
@@ -42,13 +48,13 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
               alt="Apple"
               width={16}
               height={20}
-              className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
+              className={`hidden h-3.5 w-auto ${downloadButtonIconMotionClasses} lg:h-4 dark:block`}
             />
-            <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
+            <span className={downloadButtonLabelMotionClasses}>
               Download for macOS
             </span>
             <Download
-              className="h-3.5 w-3.5 shrink-0 transition-transform duration-300 will-change-transform backface-hidden group-hover:translate-y-[1px] lg:h-4 lg:w-4"
+              className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} lg:h-4 lg:w-4`}
               aria-hidden
             />
           </Link>
@@ -106,4 +112,3 @@ export function BookHeader() {
     </>
   )
 }
-

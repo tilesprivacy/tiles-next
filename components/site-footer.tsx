@@ -10,7 +10,12 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { Button } from "@/components/ui/button"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 interface SiteFooterProps {
   showTryTilesCta?: boolean
@@ -52,14 +57,14 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 <Button
                   asChild
                   variant="ghost"
-                  className={`mt-7 h-10 rounded-sm ${themeAwareHeaderPrimaryCtaClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
+                  className={`mt-7 h-10 rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
                 >
                   <Link href="/download" className="group flex items-center gap-1.5 sm:gap-2">
-                    <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105">
+                    <span className={downloadButtonLabelMotionClasses}>
                       Download for macOS
                     </span>
                     <Download
-                      className="h-3.5 w-3.5 transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 sm:h-4 sm:w-4"
+                      className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4`}
                       aria-hidden
                     />
                   </Link>
