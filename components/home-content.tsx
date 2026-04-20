@@ -33,7 +33,7 @@ export function HomeContent() {
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.65] text-black/55 dark:text-[#ABABAB] sm:text-[0.94rem] lg:mx-0 lg:max-w-[25rem] lg:text-[0.97rem]">
                   Runs locally by default with optional peer-to-peer sync. Built as a fully user-supported,
-                  independent open-source project.
+                  independent open-source project, based on open standards and decentralized technologies.
                 </p>
               </div>
 

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 // Map of route slugs to page titles
 const pageTitles: Record<string, string> = {
   '': 'Tiles Book',
+  'overview': 'Overview',
   'manual': 'Manual',
   'models': 'Models',
   'memory': 'Memory',

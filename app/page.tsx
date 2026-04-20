@@ -3,7 +3,7 @@ import { HomeContent } from "@/components/home-content"
 import { SiteFooter } from "@/components/site-footer"
 
 const homeDescription =
-  "Your private and secure AI assistant for everyday use. Developed as a fully user-supported, independent open-source project."
+  "Your private and secure AI assistant for everyday use. Built as a fully user-supported, independent open-source project, based on open standards and decentralized technologies."
 
 export const metadata: Metadata = {
   title: "Tiles: Your private and secure Al assistant for everyday use",
