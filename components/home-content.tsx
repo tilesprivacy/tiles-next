@@ -35,9 +35,6 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
           </span>
         </span>
       </p>
-      <p className="max-w-[34ch] text-xs leading-relaxed text-black/55 dark:text-[#9E9E9E] sm:text-[0.8rem]">
-        Expect rough edges, features behind experimental flags, and occasional reliability issues.
-      </p>
     </div>
   )
   const highlightCards = [
@@ -113,23 +110,23 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
       <main className="px-4 pb-6 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[390px]:pt-[calc(5.25rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pb-8 lg:px-12 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] lg:pb-10">
         <div className="mx-auto w-full max-w-6xl">
           {/* Hero Section - Two Pane Layout */}
-          <div className="mb-10 flex flex-col gap-8 min-[390px]:mb-12 sm:mb-14 sm:gap-10 lg:mb-16 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:gap-10">
+          <div className="mb-10 flex flex-col gap-9 min-[390px]:mb-12 sm:mb-14 sm:gap-10 lg:mb-16 lg:grid lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-12">
             {/* Left Pane - Content */}
-            <div className="flex max-w-[33rem] flex-col gap-5 sm:gap-6 lg:gap-6 lg:pr-4">
+            <div className="flex max-w-[34rem] flex-col gap-6 sm:gap-6 lg:gap-7 lg:pr-2">
               {/* Hero copy */}
-              <div className="space-y-3 min-[390px]:space-y-4 sm:space-y-4 lg:space-y-4">
-                <h1 className="max-w-[22ch] font-sans text-[1.95rem] font-semibold leading-[1.1] tracking-tight text-foreground sm:text-[2.2rem] lg:text-[2.6rem]">
+              <div className="space-y-4 sm:space-y-4 lg:space-y-5">
+                <h1 className="max-w-[21ch] font-sans text-[1.95rem] font-semibold leading-[1.04] tracking-tight text-foreground sm:text-[2.2rem] lg:text-[2.7rem]">
                   Private and secure AI assistant for everyday use
                 </h1>
-                <p className="max-w-xl text-base leading-relaxed text-black/65 dark:text-[#B3B3B3] sm:text-base lg:text-lg">
+                <p className="max-w-[34rem] text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3] sm:text-base lg:max-w-[31rem] lg:text-[1.08rem]">
                   Runs locally by default with optional peer-to-peer sync. Built as a fully user-supported,
                   independent open-source project.
                 </p>
               </div>
 
               {/* Primary Call To Action */}
-              <div className="flex flex-col gap-3 sm:gap-3.5 lg:gap-3 w-full">
-                <div className="inline-flex w-fit flex-col items-start gap-2">
+              <div className="flex w-full flex-col gap-3 sm:gap-3.5 lg:gap-4">
+                <div className="inline-flex w-fit flex-col items-start gap-2.5">
                   <Button
                     asChild
                     variant="ghost"
@@ -157,8 +154,8 @@ export function HomeContent({ highlightReadTimes }: HomeContentProps) {
             </div>
 
             {/* Right Pane - Wireframe */}
-            <div className="flex w-full items-center justify-center">
-              <div className="relative mx-auto w-full max-w-[24rem] min-[360px]:max-w-[26rem] min-[430px]:max-w-[30rem] sm:max-w-[34rem] lg:max-w-[35.5rem]">
+            <div className="flex w-full items-center justify-center lg:justify-end">
+              <div className="relative mx-auto w-full max-w-[24rem] min-[360px]:max-w-[26rem] min-[430px]:max-w-[30rem] sm:max-w-[34rem] lg:max-w-[37rem]">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
