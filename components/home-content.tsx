@@ -23,22 +23,22 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-white/[0.03] sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100dvh] px-4 pb-12 pt-[calc(2rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:px-6 sm:pb-8 sm:pt-[calc(2.5rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(3rem+env(safe-area-inset-top,0px))] lg:pb-10">
+      <main className="flex min-h-[100dvh] px-4 pb-12 pt-[calc(2rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:px-6 sm:pb-10 sm:pt-[calc(2.75rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(3.25rem+env(safe-area-inset-top,0px))] lg:pb-12">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-center">
-          <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-6 xl:gap-10">
-            <div className="relative z-10 flex max-w-[29rem] flex-col items-center gap-5 text-center lg:max-w-[27rem] lg:items-start lg:gap-6 lg:text-left">
-              <div className="space-y-2.5 lg:space-y-3">
+          <div className="grid w-full items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 xl:gap-14">
+            <div className="relative z-10 flex max-w-[29rem] flex-col items-center gap-6 text-center lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
+              <div className="space-y-3 lg:space-y-4">
                 <h1 className="max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:max-w-[15ch] lg:text-[3.2rem]">
                   Private and secure AI assistant for everyday use
                 </h1>
-                <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.65] text-black/55 dark:text-[#ABABAB] sm:text-[0.94rem] lg:mx-0 lg:max-w-[25rem] lg:text-[0.97rem]">
-                  Runs locally by default with optional peer-to-peer sync. Built as a fully user-supported,
-                  independent open-source project, based on open standards and decentralized technologies.
+                <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
+                  Runs locally by default with optional peer-to-peer sync. Built as an independent open-source
+                  project, based on standards and decentralized technologies.
                 </p>
               </div>
 
-              <div className="flex w-full flex-col items-center gap-3 lg:items-start">
-                <div className="inline-flex w-fit flex-col items-center gap-2 lg:items-start">
+              <div className="flex w-full flex-col items-center gap-4 lg:items-start">
+                <div className="inline-flex w-fit flex-col items-center gap-2.5 lg:items-start">
                   <Button
                     asChild
                     variant="ghost"
@@ -74,7 +74,7 @@ export function HomeContent() {
 
                 <Link
                   href="/book/overview"
-                  className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.81rem]"
+                  className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.82rem]"
                 >
                   <span>Learn More</span>
                   <svg
@@ -93,7 +93,7 @@ export function HomeContent() {
             </div>
 
             <div className="relative flex w-full items-center justify-center lg:justify-end">
-              <div className="relative mx-auto w-full max-w-[18.5rem] min-[360px]:max-w-[21rem] min-[430px]:max-w-[24rem] sm:max-w-[28rem] lg:mx-0 lg:max-w-[40rem] lg:translate-x-4 xl:max-w-[42rem]">
+              <div className="relative mx-auto w-full max-w-[18.5rem] min-[360px]:max-w-[21rem] min-[430px]:max-w-[24rem] sm:max-w-[28rem] lg:mx-0 lg:max-w-[40rem] lg:translate-x-3 xl:max-w-[42rem]">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"

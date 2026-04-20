@@ -75,7 +75,7 @@ export async function GET(request: Request) {
     'Private and secure AI assistant for everyday use.',
   )
   sections.push('')
-  sections.push('Runs locally by default with optional peer-to-peer sync. Built as a fully user-supported, independent open-source project, based on open standards and decentralized technologies.')
+  sections.push('Runs locally by default with optional peer-to-peer sync. Built as an independent open-source project, based on standards and decentralized technologies.')
   sections.push('')
   sections.push('Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
   sections.push('')
