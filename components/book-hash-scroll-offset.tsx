@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 
 const EXTRA_GAP_PX = 12
 
@@ -32,23 +33,40 @@ function scrollHashTargetIntoView() {
 }
 
 export function BookHashScrollOffset() {
+  const pathname = usePathname()
+  const lastAppliedHashRef = useRef<string | null>(null)
+
   useEffect(() => {
-    const applyHashOffset = () => {
+    const scheduleHashOffset = (force = false) => {
+      const currentHash = window.location.hash
+      if (!currentHash) {
+        lastAppliedHashRef.current = null
+        return
+      }
+
+      if (!force && lastAppliedHashRef.current === currentHash) return
+      lastAppliedHashRef.current = currentHash
+
       // Run after browser/native hash scroll settles.
       requestAnimationFrame(() => {
         requestAnimationFrame(scrollHashTargetIntoView)
       })
     }
 
-    applyHashOffset()
-    window.addEventListener('hashchange', applyHashOffset)
-    window.addEventListener('resize', applyHashOffset)
+    scheduleHashOffset(true)
+
+    const onHashChange = () => {
+      // Hash changed explicitly; allow one fresh correction.
+      lastAppliedHashRef.current = null
+      scheduleHashOffset(true)
+    }
+
+    window.addEventListener('hashchange', onHashChange)
 
     return () => {
-      window.removeEventListener('hashchange', applyHashOffset)
-      window.removeEventListener('resize', applyHashOffset)
+      window.removeEventListener('hashchange', onHashChange)
     }
-  }, [])
+  }, [pathname])
 
   return null
 }

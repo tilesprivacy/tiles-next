@@ -417,9 +417,9 @@
 
 /* Performance optimizations to prevent layout shift and flicker */
 @layer base {
-  /* Ensure smooth page transitions */
+  /* Keep native scrolling predictable across mobile browsers. */
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
 
   /* Prevent layout shift during navigation */
