@@ -6,11 +6,11 @@ export async function GET(request: Request) {
   const baseUrl = `${url.protocol}//${url.host}`
   
   // Helper to convert relative URLs to absolute in HTML content
-  const processContent = (content: string): string => {
+  const processContent = (content: string, slug: string): string => {
     return content
       .replace(/src="\//g, `src="${baseUrl}/`)
       .replace(/href="\//g, `href="${baseUrl}/`)
-      .replace(/href="#/g, `href="${baseUrl}/blog/introducing-tiles-public-alpha#`)
+      .replace(/href="#/g, `href="${baseUrl}/blog/${slug}#`)
   }
   
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
@@ -25,7 +25,7 @@ export async function GET(request: Request) {
     ${blogPosts
       .map(
         (post) => {
-          const processedContent = processContent(post.content)
+          const processedContent = processContent(post.content, post.slug)
           return `    <item>
       <title><![CDATA[${post.title}]]></title>
       <link>${baseUrl}/blog/${post.slug}</link>

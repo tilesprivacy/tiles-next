@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { ReactNode, useEffect, useMemo, useState } from 'react'
-import { FaBluesky, FaLinkedinIn, FaMastodon, FaXTwitter, FaLink } from "react-icons/fa6"
+import { FaBluesky, FaLinkedinIn, FaLink, FaMastodon, FaRedditAlien, FaXTwitter } from "react-icons/fa6"
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
@@ -54,6 +54,8 @@ export function BlogPostContent({
     if (!shareUrl) return ''
     return encodeURIComponent(shareUrl)
   }, [shareUrl])
+
+  const shareTitleEncoded = useMemo(() => encodeURIComponent(title), [title])
 
   const handleCopyLink = () => {
     if (!shareUrl) return
@@ -108,6 +110,15 @@ export function BlogPostContent({
         className="inline-flex items-center justify-center"
       >
         <FaLinkedinIn className={shareIconClass} />
+      </a>
+      <a
+        href={`https://www.reddit.com/submit?url=${shareUrlEncoded}&title=${shareTitleEncoded}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Share on Reddit"
+        className="inline-flex items-center justify-center"
+      >
+        <FaRedditAlien className={shareIconClass} />
       </a>
       <button
         type="button"

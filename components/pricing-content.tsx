@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Script from "next/script"
 import { Check, ChevronDown } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { PolarEmbeddedCheckoutLink } from "@/components/polar-embedded-checkout-link"
@@ -34,7 +35,8 @@ const plans: PricingPlan[] = [
     features: [
       "Managed public relays for sync",
       "Support development and relay infrastructure",
-      "Have a say in feature priorities",
+      "Help shape our roadmap priorities",
+      "Valid for up to 5 devices",
       "Community support channel",
     ],
   },
@@ -50,6 +52,7 @@ const plans: PricingPlan[] = [
       "Self-hosted relays for sync",
       "Featured organization status",
       "Priority support channel",
+      "Valid for up to 5 devices",
     ],
     note: "For bulk purchases and other inquiries, contact us at support@tiles.run",
   },
@@ -57,9 +60,9 @@ const plans: PricingPlan[] = [
 
 const faqs: PricingFaq[] = [
   {
-    question: "Do I have to pay for commercial use?",
+    question: "Do I need a license to use Tiles?",
     answer:
-      "No. You are not required to pay for a commercial license. If you use Tiles for work in an organization, we encourage you to purchase a commercial license to keep Tiles independent and fully user-supported.",
+      "No. Licenses are optional. The Backer license is a one-time purchase meant for hobbyists, students, non-profits, and other non-commercial supporters who want to help fund Tiles. If you use Tiles for work in an organization, we encourage you to purchase a commercial license to keep Tiles independent and fully user-supported. Commercial licenses are renewed yearly.",
   },
   {
     question: "What is your refund policy?",
@@ -67,14 +70,29 @@ const faqs: PricingFaq[] = [
       "Backer licenses and Commercial licenses are non-refundable.",
   },
   {
+    question: "Do you support regional purchase parity discounts?",
+    answer:
+      "Yes. We support regional purchase parity discount codes for eligible buyers.",
+  },
+  {
+    question: "How many devices can I use with one license?",
+    answer:
+      "Each license is valid for up to 5 devices. You do not need to purchase the license again when you move to a new device, as long as you first de-activate it on your old device and then re-activate it on the new one.",
+  },
+  {
+    question: "Can I transfer my license to another device?",
+    answer:
+      "Yes. Simply de-activate the license on your old devices, then re-activate it on your new devices. License transfers do not require a new purchase, provided you stay within the 5-device limit for that license.",
+  },
+  {
     question: "Do you store, access, or process user data?",
     answer:
       "Tiles is your private and secure AI assistant for everyday use. You can use our apps without sharing personal information, and your data is stored locally on your device. Our apps do not collect telemetry data, and we never sell user data.",
   },
   {
-    question: "What benefits does the Backer license grant?",
+    question: "How can I tell whether my license is active?",
     answer:
-      "Backer members get access to managed public relays for sync, help fund relay infrastructure and core development, and have more say in what we build next. Backer support helps keep Tiles fully user-supported and independent from investor influence.",
+      "After you activate a license, Tiles shows a Licensed badge in the interface. If no license is active, the interface shows Unlicensed instead.",
   },
   {
     question: "What do development and infrastructure costs support?",
@@ -93,6 +111,7 @@ export function PricingContent() {
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
+      <Script src="https://www.evendeals.com/banner.js" strategy="beforeInteractive" />
       <main className="flex flex-1 flex-col pb-16 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:pb-20 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
         <section className="px-4 sm:px-6 lg:px-12">
           <div className="mx-auto w-full max-w-4xl space-y-14 lg:space-y-16">

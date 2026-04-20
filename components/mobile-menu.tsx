@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { useEffect } from "react"
-import { Download, X } from "lucide-react"
+import { Download, Key, X } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { triggerHaptic } from "@/lib/haptics"
@@ -151,8 +151,25 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             )}
           </Link>
 
-          {/* Right side: Download CTA and close button */}
+          {/* Right side: Buy, Download CTA and close button */}
           <div className="flex items-center gap-1 whitespace-nowrap sm:gap-1.5 shrink-0">
+            <Button
+              asChild
+              variant="ghost"
+              className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} ${downloadButtonMotionClasses} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm`}
+            >
+              <Link
+                href="/pricing"
+                className="group flex items-center gap-1 sm:gap-1.5"
+                onClick={() => {
+                  triggerHaptic()
+                  onClose()
+                }}
+              >
+                <span className={headerCtaLabelClass}>Buy</span>
+                <Key className={headerCtaIconClass} aria-hidden />
+              </Link>
+            </Button>
             {/* Download Button */}
             <Button
               asChild
