@@ -30,9 +30,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   const headerCtaPalette = themeAware
     ? themeAwareHeaderPrimaryCtaClasses
     : `${buttonBg} ${buttonText} ${buttonHover}`
-  const alphaBadgeClass = themeAware
-    ? 'border border-black/10 bg-black/[0.04] text-black/65 dark:border-white/10 dark:bg-white/[0.06] dark:text-white/70'
-    : 'border border-black/10 bg-black/[0.04] text-black/65'
   const headerCtaLabelClass = 'transition-opacity duration-200 group-hover:opacity-90'
   const headerCtaIconClass = 'flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none transition-opacity duration-200 group-hover:opacity-85 sm:h-4 sm:w-4'
   const mobileHeaderControlSize = 'h-7 sm:h-8.5'
@@ -135,7 +132,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           <Link
             href="/"
             onClick={onClose}
-            className="flex items-center gap-2.5 transition-opacity hover:opacity-75 sm:gap-3"
+            className="flex items-center transition-opacity hover:opacity-75"
           >
             {themeAware ? (
               <>
@@ -147,19 +144,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             ) : (
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10" />
             )}
-            <span
-              className={`notranslate text-[1.38rem] font-semibold leading-none tracking-[-0.045em] sm:text-[1.52rem] ${textColor}`}
-              translate="no"
-              lang="en"
-              aria-label="Tiles"
-            >
-              Tiles
-            </span>
-            <span
-              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[0.58rem] font-medium uppercase tracking-[0.14em] sm:text-[0.62rem] ${alphaBadgeClass}`}
-            >
-              Alpha
-            </span>
           </Link>
 
           {/* Right side: Download CTA and close button */}
