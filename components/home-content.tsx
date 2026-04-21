@@ -51,7 +51,16 @@ export function HomeContent() {
                   >
                     UCANs
                   </a>
-                  ) to keep data and access under your control.
+                  ), with{" "}
+                  <a
+                    href="https://atproto.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
+                  >
+                    ATProto
+                  </a>{" "}
+                  support so your data and access stay yours.
                 </p>
               </div>
 
