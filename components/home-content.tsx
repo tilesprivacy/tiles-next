@@ -27,7 +27,7 @@ export function HomeContent() {
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-center">
           <div className="grid w-full items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-6 text-center lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
-              <div className="space-y-3 lg:space-y-4">
+              <div className="space-y-4 lg:space-y-4">
                 <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.2rem]">
                   Private and secure AI assistant for everyday use
                 </h1>
