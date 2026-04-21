@@ -85,7 +85,7 @@ export async function GET(request: Request) {
     'Private and secure AI assistant for everyday use.',
   )
   sections.push('')
-  sections.push('Runs locally by default with optional peer-to-peer sync. Built as an independent open-source project, based on standards and decentralized technologies.')
+  sections.push('Runs offline by default with optional peer-to-peer sync. Built as an independent open-source project, based on standards and decentralized technologies.')
   sections.push('')
   sections.push('Currently available as a CLI in ALPHA.')
   sections.push('')
