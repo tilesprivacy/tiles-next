@@ -133,14 +133,14 @@ export function HomeContent() {
                     alt="Tiles"
                     width={1200}
                     height={220}
-                    className="h-auto w-full max-w-[14.5rem] min-[360px]:max-w-[15.8rem] sm:max-w-[18.5rem] lg:max-w-[24.5rem] lg:-translate-y-1 dark:hidden"
+                    className="h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[21.5rem] lg:-translate-y-1 dark:hidden"
                   />
                   <Image
                     src="/tiles_banner_outline_wht.svg"
                     alt="Tiles"
                     width={1200}
                     height={220}
-                    className="hidden h-auto w-full max-w-[14.5rem] min-[360px]:max-w-[15.8rem] sm:max-w-[18.5rem] lg:max-w-[24.5rem] lg:-translate-y-1 dark:block"
+                    className="hidden h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[21.5rem] lg:-translate-y-1 dark:block"
                   />
                 </div>
               </div>
