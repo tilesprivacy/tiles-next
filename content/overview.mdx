@@ -4,7 +4,7 @@ description: "Product overview, comparison details, and the security FAQ for Til
 ---
 
 import Link from "next/link"
-import { Check, CircleDashed, Cpu, FileCode, FlaskConical, KeyRound, Package, RefreshCw } from "lucide-react"
+import { Bot, Check, CircleDashed, Cpu, FileCode, FlaskConical, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { ClickableImage as Image } from "@/components/clickable-image"
 
@@ -21,24 +21,26 @@ a privacy-first desktop AI stack.
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
     <div className="flex items-center gap-3">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <Cpu className="h-4 w-4" strokeWidth={1.75} />
+        <Bot className="h-4 w-4" strokeWidth={1.75} />
       </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">On-device Models</h3>
+      <h3 className="text-base font-semibold text-foreground lg:text-lg">Agent Harness</h3>
     </div>
     <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      An opinionated package of prompt, tools, and models optimized for your hardware. Powered by [MLX](https://ml-explore.github.io/mlx/build/html/index.html) on Apple Silicon.
+      Native [Pi](https://pi.dev) agent harness for knowledge work and coding, with extensions for fully customizable
+      workflows across tasks and use cases.
     </p>
   </div>
 
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
     <div className="flex items-center gap-3">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <KeyRound className="h-4 w-4" strokeWidth={1.75} />
+        <span className="text-base font-semibold leading-none">@</span>
       </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">Decentralized Identity</h3>
+      <h3 className="text-base font-semibold text-foreground lg:text-lg">ATProto Support</h3>
     </div>
     <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Locally generated [DIDs](https://github.com/w3c/did), with the private key always stored locally on device.
+      Built on [ATProto](https://atproto.com), with shared public chats stored on your PDS so your conversation data
+      remains portable and under your control.
     </p>
   </div>
 
@@ -79,6 +81,7 @@ a privacy-first desktop AI stack.
       specifications such as Modelfile and Open Responses API.
     </p>
   </div>
+
 </div>
 
 ### CLI onboarding

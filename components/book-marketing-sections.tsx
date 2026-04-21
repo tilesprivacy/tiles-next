@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { Check, CircleDashed, Cpu, FileCode, FlaskConical, KeyRound, Package, RefreshCw } from "lucide-react"
+import { Bot, Check, CircleDashed, Cpu, FileCode, FlaskConical, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 
 const comparisonRows = [
@@ -86,6 +86,20 @@ export function BookMarketingSections() {
         </div>
 
         <div className="mt-7 grid gap-7 sm:mt-8 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
+          <FeatureCard icon={<Bot className="h-4 w-4" strokeWidth={1.75} />} title="Agent Harness">
+            Native{" "}
+            <a
+              href="https://pi.dev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
+            >
+              Pi
+            </a>{" "}
+            agent harness for knowledge work and coding, with extensions for fully customizable workflows across tasks
+            and use cases.
+          </FeatureCard>
+
           <FeatureCard icon={<Cpu className="h-4 w-4" strokeWidth={1.75} />} title="On-device Models">
             An opinionated package of prompt, tools, and models optimized for your hardware. Powered by{" "}
             <a
@@ -99,17 +113,17 @@ export function BookMarketingSections() {
             on Apple Silicon.
           </FeatureCard>
 
-          <FeatureCard icon={<KeyRound className="h-4 w-4" strokeWidth={1.75} />} title="Decentralized Identity">
-            Locally generated{" "}
+          <FeatureCard icon={<span className="text-base font-semibold leading-none">@</span>} title="ATProto Support">
+            Built on{" "}
             <a
-              href="https://github.com/w3c/did"
+              href="https://atproto.com"
               target="_blank"
               rel="noopener noreferrer"
               className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
             >
-              DIDs
+              ATProto
             </a>
-            , with the private key always stored locally on device.
+            , with shared public chats stored on your PDS so your conversation data remains portable and under your control.
           </FeatureCard>
 
           <FeatureCard icon={<RefreshCw className="h-4 w-4" strokeWidth={1.75} />} title="P2P Sync">
@@ -134,6 +148,7 @@ export function BookMarketingSections() {
             Customize local models and agent experiences within Tiles. Built in Rust, based on open-source
             specifications such as Modelfile and Open Responses API.
           </FeatureCard>
+
         </div>
       </section>
 

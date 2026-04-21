@@ -32,7 +32,7 @@ export function HomeContent() {
                   Private and secure AI assistant for everyday use
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
-                  Runs locally by default with encrypted P2P sync. Built on{" "}
+                  Runs on-device models by default with encrypted P2P sync. Built on{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
@@ -41,7 +41,7 @@ export function HomeContent() {
                   >
                     ATProto
                   </a>{" "}
-                  as an independent open-source project, so your data and access are yours.
+                  , so your data and access stay yours.
                 </p>
               </div>
 
@@ -74,23 +74,46 @@ export function HomeContent() {
                   </p>
                 </div>
 
-                <Link
-                  href="/book/overview"
-                  className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.82rem]"
-                >
-                  <span>Learn More</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
-                    aria-hidden
+                <div className="inline-flex items-center gap-3">
+                  <Link
+                    href="/book/overview"
+                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.82rem]"
                   >
-                    <path d="M6 12L10 8L6 4" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </Link>
+                    <span>Learn More</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
+                      aria-hidden
+                    >
+                      <path d="M6 12L10 8L6 4" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </Link>
+                  <span className="h-3 w-px bg-black/12 dark:bg-white/16" aria-hidden />
+                  <a
+                    href="https://github.com/tilesprivacy/tiles"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.82rem]"
+                  >
+                    <span>GitHub</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      className="h-3 w-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden
+                    >
+                      <path d="M6 4h6v6" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M10.5 5.5L4 12" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
 
