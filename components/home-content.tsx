@@ -26,9 +26,9 @@ export function HomeContent() {
       <main className="flex min-h-[100svh] px-4 pb-12 pt-[calc(2rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-10 sm:pt-[calc(2.75rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(3.25rem+env(safe-area-inset-top,0px))] lg:pb-12">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-center">
           <div className="grid w-full items-center gap-10 sm:gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 xl:gap-14">
-            <div className="relative z-10 flex max-w-[29rem] flex-col items-center gap-6 text-center lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
+            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-6 text-center lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
               <div className="space-y-3 lg:space-y-4">
-                <h1 className="max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:max-w-[15ch] lg:text-[3.2rem]">
+                <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.2rem]">
                   Private and secure AI assistant for everyday use
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
@@ -61,14 +61,8 @@ export function HomeContent() {
                     </Link>
                   </Button>
                   <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.65rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.68rem]">
-                    <span className="hidden items-center gap-1.5 lg:inline-flex">
-                      <span className={alphaPillClass}>ALPHA</span>
-                      <span>for macOS 14+ (arm64)</span>
-                    </span>
-                    <span className="inline-flex items-center gap-1.5 lg:hidden">
-                      <span>Currently available in</span>
-                      <span className={alphaPillClass}>ALPHA</span>
-                    </span>
+                    <span>Currently available as a CLI in</span>
+                    <span className={alphaPillClass}>ALPHA</span>
                   </p>
                 </div>
 

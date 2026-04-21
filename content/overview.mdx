@@ -6,6 +6,7 @@ description: "Product overview, comparison details, and the security FAQ for Til
 import Link from "next/link"
 import { Check, CircleDashed, Cpu, FileCode, FlaskConical, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
+import { ClickableImage as Image } from "@/components/clickable-image"
 
 # Overview
 
@@ -79,6 +80,35 @@ a privacy-first desktop AI stack.
     </p>
   </div>
 </div>
+
+### CLI onboarding
+
+This is what the first run looks like when you type `tiles` in your terminal.
+
+<figure style={{ margin: "1.5rem 0", maxWidth: 900 }}>
+  <Image
+    src="/onboardingdemo.png"
+    alt="Tiles onboarding flow in the CLI"
+    width={1726}
+    height={2196}
+    style={{
+      borderRadius: "8px",
+      border: "1px solid var(--nextra-border-color, rgba(0,0,0,0.1))",
+      width: "100%",
+      height: "auto",
+    }}
+  />
+  <figcaption style={{
+    marginTop: "0.75rem",
+    fontSize: "0.875rem",
+    lineHeight: "1.4",
+    color: "var(--nextra-text-color-secondary, #666)",
+    textAlign: "center",
+    fontStyle: "italic"
+  }}>
+    First-run onboarding flow (`tiles`)
+  </figcaption>
+</figure>
 
 ## What makes Tiles different
 
