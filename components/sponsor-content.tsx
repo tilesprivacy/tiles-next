@@ -82,6 +82,17 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
     : 28
   const progressLabel = sponsorsGoal.progressPercent ?? "28%"
   const goalLabel = sponsorsGoal.goalAmountMonthly ?? "GitHub Sponsors goal"
+  const socialProofSponsors = people.sponsorsActive.slice(0, 4)
+  const featuredSponsor = people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
+  const featuredSponsorParts = featuredSponsor ? splitPersonDisplayName(featuredSponsor.name) : null
+  const featuredSponsorLabel = featuredSponsorParts?.handle?.replace(/^@/, "") ?? featuredSponsorParts?.nameWithoutHandle ?? null
+  const otherSponsorsCount = Math.max(0, people.sponsorsActive.length - 1)
+  const socialProofLabel =
+    featuredSponsorLabel && otherSponsorsCount > 0
+      ? `${featuredSponsorLabel} and ${otherSponsorsCount} others sponsor this goal`
+      : featuredSponsorLabel
+        ? `${featuredSponsorLabel} sponsors this goal`
+        : null
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
@@ -126,6 +137,22 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                     aria-hidden
                   />
                 </div>
+                {socialProofLabel ? (
+                  <div className="mt-4 flex items-center gap-3">
+                    <div className="flex items-center -space-x-2">
+                      {socialProofSponsors.map((person, index) => (
+                        <span
+                          key={person.id}
+                          className="inline-flex rounded-full ring-2 ring-background"
+                          style={{ zIndex: socialProofSponsors.length - index }}
+                        >
+                          <PersonAvatar name={person.name} links={person.links} className="shrink-0" />
+                        </span>
+                      ))}
+                    </div>
+                    <p className="text-sm leading-6 text-black/65 dark:text-white/65">{socialProofLabel}</p>
+                  </div>
+                ) : null}
               </div>
             </div>
 
