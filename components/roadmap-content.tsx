@@ -38,7 +38,7 @@ const roadmapTracks: RoadmapTrack[] = [
       { label: 'Hosted Iroh Relay', status: 'planned' },
       { label: 'MIR integration', status: 'planned' },
       { label: 'TEE-based cloud models', status: 'planned' },
-      { label: 'Continuous batching and KV cache improvements', status: 'planned' },
+      { label: 'Inference performance improvements', status: 'planned' },
       { label: 'Modelfile deduplication and caching', status: 'planned' },
     ],
   },

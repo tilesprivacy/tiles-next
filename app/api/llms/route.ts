@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { blogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
+import { getPersonById } from '@/lib/people'
 import fs from 'fs'
 import path from 'path'
 
@@ -29,6 +30,15 @@ function readMdxFile(relativePath: string): string {
   } catch (error) {
     return ''
   }
+}
+
+// Helper to get keywords for blog posts
+function getKeywordsForPost(slug: string): string[] {
+  const keywordMap: Record<string, string[]> = {
+    'ship-it-up': ['Tiles', 'packaging', 'deployment', 'software distribution', 'venvstacks', 'Python packaging'],
+    'move-along-python': ['Python', 'venvstacks', 'portable runtimes', 'Python packaging', 'dependency management', 'Tiles', 'deterministic builds'],
+  }
+  return keywordMap[slug] || []
 }
 
 export async function GET(request: Request) {
@@ -77,7 +87,7 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Runs locally by default with optional peer-to-peer sync. Built as an independent open-source project, based on standards and decentralized technologies.')
   sections.push('')
-  sections.push('Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
+  sections.push('Currently available as a CLI in ALPHA.')
   sections.push('')
   sections.push('Extended product overview, comparison details, and security FAQ now live on the book index page at /book.')
   sections.push('')
@@ -136,9 +146,29 @@ export async function GET(request: Request) {
     sections.push(`## Blog Post: ${post.title} (${baseUrl}/blog/${post.slug})`)
     sections.push('')
     sections.push(`Published: ${post.date.toISOString().split('T')[0]}`)
+
+    // Add author information
+    if (post.author) {
+      const author = getPersonById(post.author)
+      if (author) {
+        sections.push(`Author: ${author.name}`)
+        if (author.links.length > 0) {
+          sections.push(`Author URL: ${author.links[0]}`)
+        }
+      }
+    }
+
     sections.push('')
     sections.push(`Description: ${post.description}`)
     sections.push('')
+
+    // Add keywords for better discoverability
+    const keywords = getKeywordsForPost(post.slug)
+    if (keywords.length > 0) {
+      sections.push(`Keywords: ${keywords.join(', ')}`)
+      sections.push('')
+    }
+
     sections.push('Content:')
     sections.push(stripHtml(post.content))
     sections.push('')
@@ -150,11 +180,15 @@ export async function GET(request: Request) {
   const bookPages = [
     { path: '', title: 'Tiles Book' },
     { path: 'overview', title: 'Overview' },
-    { path: 'cli', title: 'CLI' },
+    { path: 'manual', title: 'Manual' },
+    { path: 'models', title: 'Models' },
     { path: 'tilekit', title: 'Tilekit' },
     { path: 'mir', title: 'MIR Extension' },
     { path: 'security', title: 'Security' },
     { path: 'memory', title: 'Memory' },
+    { path: 'community', title: 'Community' },
+    { path: 'resources', title: 'Resources' },
+    { path: 'licenses', title: 'Licenses' },
   ]
 
   for (const page of bookPages) {
