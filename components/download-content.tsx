@@ -306,8 +306,9 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       </div>
                       <p className={bodyTextClass}>
                         Includes the default{" "}
-                        <span className={`rounded px-1.5 py-0.5 font-mono text-sm ${codeSurfaceClass}`}>
-                          gpt-oss-20b-MXFP4-Q4
+                        <span className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>
+                          <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+                          <span className="font-mono text-sm">gpt-oss-20b-MXFP4-Q4</span>
                         </span>{" "}
                         model bundled for fully offline setup with no additional downloads.
                       </p>
