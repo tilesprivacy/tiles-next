@@ -32,26 +32,8 @@ export function HomeContent() {
                   Private and secure AI assistant for everyday use
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
-                  Runs offline-first with on-device models and E2E-encrypted P2P sync. Built as an independent
-                  open-source project using decentralized identity and authorization (
-                  <a
-                    href="https://www.w3.org/TR/did-1.0/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-                  >
-                    DIDs
-                  </a>
-                  ,{" "}
-                  <a
-                    href="https://github.com/ucan-wg/spec"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-                  >
-                    UCANs
-                  </a>
-                  ), with{" "}
+                  Runs on-device models by default with E2E-encrypted peer-to-peer sync. Built as an independent
+                  open-source project with{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
@@ -60,7 +42,7 @@ export function HomeContent() {
                   >
                     ATProto
                   </a>{" "}
-                  support so your data and access stay yours.
+                  support, so your data and access stay yours.
                 </p>
               </div>
 
