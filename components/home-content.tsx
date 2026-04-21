@@ -41,7 +41,7 @@ export function HomeContent() {
                   >
                     ATProto
                   </a>{" "}
-                  , so your data and access stay yours.
+                  , so you own your data and identity.
                 </p>
               </div>
 
