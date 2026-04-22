@@ -25,10 +25,10 @@ a privacy-first desktop AI stack.
       </span>
       <h3 className="text-base font-semibold text-foreground lg:text-lg">Agent Harness</h3>
     </div>
-    <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       Native [Pi](https://pi.dev) agent harness for knowledge work and coding, with extensions for fully customizable
       workflows across tasks and use cases.
-    </p>
+    </div>
   </div>
 
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
@@ -38,9 +38,9 @@ a privacy-first desktop AI stack.
       </span>
       <h3 className="text-base font-semibold text-foreground lg:text-lg">On-device Models</h3>
     </div>
-    <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       An opinionated package of prompt, tools, and models optimized for your hardware. Powered by [MLX](https://ml-explore.github.io/mlx/build/html/index.html) on Apple Silicon.
-    </p>
+    </div>
   </div>
 
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
@@ -50,10 +50,10 @@ a privacy-first desktop AI stack.
       </span>
       <h3 className="text-base font-semibold text-foreground lg:text-lg">ATProto Support</h3>
     </div>
-    <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       Built on [ATProto](https://atproto.com), with shared public chats stored on your PDS so your conversation data
       remains portable and under your control.
-    </p>
+    </div>
   </div>
 
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
@@ -63,9 +63,9 @@ a privacy-first desktop AI stack.
       </span>
       <h3 className="text-base font-semibold text-foreground lg:text-lg">P2P Sync</h3>
     </div>
-    <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network. Powered by [Iroh's](https://www.iroh.computer/) networking stack.
-    </p>
+    </div>
   </div>
 
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
@@ -75,10 +75,10 @@ a privacy-first desktop AI stack.
       </span>
       <h3 className="text-base font-semibold text-foreground lg:text-lg">Offline Installer</h3>
     </div>
-    <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       Bundled dependencies run in a self contained environment without modifying your system, with a fully offline
       installer available for secure and air gapped installations.
-    </p>
+    </div>
   </div>
 
   <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
@@ -88,10 +88,10 @@ a privacy-first desktop AI stack.
       </span>
       <h3 className="text-base font-semibold text-foreground lg:text-lg">Tilekit SDK</h3>
     </div>
-    <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       Customize local models and agent experiences within Tiles. Built in Rust, based on open-source
       specifications such as Modelfile and Open Responses API.
-    </p>
+    </div>
   </div>
 
 </div>
@@ -121,7 +121,7 @@ This is what the first run looks like when you type `tiles` in your terminal.
     textAlign: "center",
     fontStyle: "italic"
   }}>
-    First-run onboarding flow (`tiles`)
+    {'First-run onboarding flow ('}<code>tiles</code>{')'}
   </figcaption>
 </figure>
 
@@ -141,9 +141,7 @@ Our approach combines best-in-class privacy-focused engineering with unmatched c
     </colgroup>
     <thead>
       <tr>
-        <th className="border-b border-black/10 py-3 pr-4 text-xs font-medium uppercase tracking-[0.2em] text-black/50 dark:border-white/10 dark:text-[#8A8A8A]">
-          Capability
-        </th>
+        <th className="border-b border-black/10 py-3 pr-4 text-xs font-medium uppercase tracking-[0.2em] text-black/50 dark:border-white/10 dark:text-[#8A8A8A]">Capability</th>
         <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">Tiles</th>
         <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">Ollama</th>
         <th className="border-b border-black/10 px-4 py-3 text-sm font-semibold text-foreground dark:border-white/10">LM Studio</th>
@@ -717,58 +715,43 @@ Short answers drawn from our [security documentation](/book/security). For full 
 
 <BookFaq omitHeading className="mt-0">
   <BookFaqItem question="What does local-first mean for Tiles?">
-    <p>
-      Tiles is designed so the default experience runs on-device. The local server binds to <code>localhost</code>,
-      which limits exposed network surface during normal use. Configuration and application data live in standard
-      local directories, and you can change the user data path when needed.
-    </p>
+    Tiles is designed so the default experience runs on-device. The local server binds to <code>localhost</code>,
+    which limits exposed network surface during normal use. Configuration and application data live in standard
+    local directories, and you can change the user data path when needed.
   </BookFaqItem>
   <BookFaqItem question="Are chat and account databases stored as plain SQLite files?">
-    <p>
-      No. Application state is persisted locally with encryption at rest. The Rust build uses SQLCipher-enabled
-      SQLite, and database connections use a passkey from secure storage. That raises the bar against casual
-      inspection of copied files, though it does not remove all local risk.
-    </p>
+    No. Application state is persisted locally with encryption at rest. The Rust build uses SQLCipher-enabled
+    SQLite, and database connections use a passkey from secure storage. That raises the bar against casual
+    inspection of copied files, though it does not remove all local risk.
   </BookFaqItem>
   <BookFaqItem question="How does Tiles handle identity and secret material?">
-    <p>
-      Public identity is separated from private keys. Device and account identity use <code>did:key</code> identifiers
-      from Ed25519 keys. Private keys and database passkeys are stored in the operating system&apos;s secure credential
-      store, not in plaintext app configuration files.
-    </p>
+    Public identity is separated from private keys. Device and account identity use <code>did:key</code> identifiers
+    from Ed25519 keys. Private keys and database passkeys are stored in the operating system&apos;s secure credential
+    store, not in plaintext app configuration files.
   </BookFaqItem>
   <BookFaqItem question="How does device linking and chat sync work?">
-    <p>
-      Peer-to-peer linking is user-mediated, not automatic. One device shows a ticket or local code; the other enters
-      it and explicitly accepts or rejects. In release builds, endpoints derive from your stored secret key, and peer
-      identity is checked against the delivered public key. Sync includes defensive controls, including a maximum size
-      cap for downloaded deltas before they are applied.
-    </p>
-    <p>
-      Sync uses [Iroh](https://www.iroh.computer/) for device-to-device networking. When a direct path is not practical, Iroh&apos;s public relays can help establish
-      the connection; we list that relay use on our <Link href="/sub-processors">sub-processors</Link> page.
-    </p>
+    Peer-to-peer linking is user-mediated, not automatic. One device shows a ticket or local code; the other enters
+    it and explicitly accepts or rejects. In release builds, endpoints derive from your stored secret key, and peer
+    identity is checked against the delivered public key. Sync includes defensive controls, including a maximum size
+    cap for downloaded deltas before they are applied.
+
+    Sync uses [Iroh](https://www.iroh.computer/) for device-to-device networking. When a direct path is not practical, Iroh&apos;s public relays can help establish
+    the connection; we list that relay use on our <Link href="/sub-processors">sub-processors</Link> page.
   </BookFaqItem>
   <BookFaqItem question="Does Tiles include product analytics, and what is logged locally?">
-    <p>
-      The product does not currently bundle obvious analytics SDKs such as Sentry, PostHog, Segment, Mixpanel, or
-      similar telemetry. There is still local logging: the Python server may log request metadata and bodies to files
-      under the Tiles data directory, so prompt content can appear in local logs unless logging changes.
-    </p>
+    The product does not currently bundle obvious analytics SDKs such as Sentry, PostHog, Segment, Mixpanel, or
+    similar telemetry. There is still local logging: the Python server may log request metadata and bodies to files
+    under the Tiles data directory, so prompt content can appear in local logs unless logging changes.
   </BookFaqItem>
   <BookFaqItem question="How do updates, signing, and bundled dependencies relate to trust?">
-    <p>
-      Updates can check GitHub releases and install via the hosted installer script, which depends on release and
-      hosting integrity rather than a stronger built-in end-user verification workflow. Dependencies are pinned and
-      reviewed. The macOS package is code signed, notarized, and stapled. Bundled dependencies are self-contained so
-      normal installation and use do not require live package downloads from the internet.
-    </p>
+    Updates can check GitHub releases and install via the hosted installer script, which depends on release and
+    hosting integrity rather than a stronger built-in end-user verification workflow. Dependencies are pinned and
+    reviewed. The macOS package is code signed, notarized, and stapled. Bundled dependencies are self-contained so
+    normal installation and use do not require live package downloads from the internet.
   </BookFaqItem>
   <BookFaqItem question="How do I report a security vulnerability?">
-    <p>
-      Use the published security policy and private disclosure path. Researchers can use GitHub Security Advisories or
-      email [security@tiles.run](mailto:security@tiles.run), with expectations for acknowledgement, triage,
-      and coordinated disclosure. See [SECURITY.md](https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md).
-    </p>
+    Use the published security policy and private disclosure path. Researchers can use GitHub Security Advisories or
+    email [security@tiles.run](mailto:security@tiles.run), with expectations for acknowledgement, triage,
+    and coordinated disclosure. See [SECURITY.md](https://github.com/tilesprivacy/tiles/blob/main/SECURITY.md).
   </BookFaqItem>
 </BookFaq>

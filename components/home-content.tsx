@@ -32,8 +32,8 @@ export function HomeContent() {
                   Private and secure AI assistant for everyday use
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
-                  Runs on-device models by default with encrypted P2P sync. Your data and identity stay yours locally.
-                  Share chat sessions publicly on{" "}
+                  Runs on-device models by default with encrypted P2P sync, keeping your data and identity local, with
+                  public session sharing on{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
