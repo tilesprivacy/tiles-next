@@ -124,7 +124,8 @@ export function RoadmapContent() {
               Roadmap
             </h1>
             <p className={`mb-7 max-w-[46rem] ${marketingPageLeadClass} lg:mb-9`}>
-              Current focus is on building a basic CLI-based chat experience.
+              We’re starting with the CLI in alpha, with plans to expand to desktop and mobile apps as the product
+              matures.
               <br />
               <br />
               Connector support is planned for the near future. It will be shipped only with proper sandboxing and a

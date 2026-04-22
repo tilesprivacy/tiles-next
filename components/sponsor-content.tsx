@@ -103,8 +103,9 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               Help keep <span className="tracking-tight">Tiles Privacy</span> independent.
             </h1>
             <p className={`mt-5 max-w-2xl ${marketingPageLeadClass}`}>
-              Tiles is built by a small team working on private, local-first software. Sponsorship helps us keep
-              shipping product, maintaining infrastructure, and documenting the work in public.
+              Tiles is built by a small team working on private, local-first software, with a clear mission: to bring
+              privacy technology to everyone. Sponsorship helps us keep shipping product, maintaining infrastructure,
+              and documenting the work in public.
             </p>
 
             <div className="mt-8">
