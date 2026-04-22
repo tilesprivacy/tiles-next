@@ -4,7 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { memo, useCallback, useEffect, useState } from "react"
-import { Download, Key } from "lucide-react"
+import { Download } from "lucide-react"
 import { MobileMenu } from "./mobile-menu"
 import { triggerHaptic } from "@/lib/haptics"
 import {
@@ -143,23 +143,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           </Link>
         </nav>
 
-        {/* Right side: Buy + Download CTA and mobile menu */}
+        {/* Right side: Download CTA and mobile menu */}
         <div className="flex items-center gap-1 whitespace-nowrap sm:gap-1.5 lg:gap-2 shrink-0">
-          <Button
-            asChild
-            variant="ghost"
-            className={`${mobileHeaderControlSize} rounded-sm ${headerCtaPalette} ${downloadButtonMotionClasses} px-2.5 text-xs font-medium sm:px-3.5 sm:text-sm lg:h-9 lg:px-4 lg:text-sm`}
-          >
-            <Link
-              href="/pricing"
-              className="group flex items-center gap-1 sm:gap-1.5 lg:gap-2"
-            >
-              <span className={headerCtaLabelClass}>
-                Buy
-              </span>
-              <Key className={headerCtaIconClass} aria-hidden />
-            </Link>
-          </Button>
           <Button
             asChild
             variant="ghost"
