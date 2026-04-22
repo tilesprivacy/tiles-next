@@ -36,7 +36,7 @@ function SponsorPerson({
   return (
     <div className="flex items-center justify-between gap-3 border-b border-black/6 py-3 last:border-b-0 dark:border-white/8">
       <div className="min-w-0 flex items-center gap-3">
-        <PersonAvatar name={name} links={links} className="shrink-0" />
+        <PersonAvatar name={name} links={links} className="shrink-0" loading="eager" fetchPriority="low" />
         <p className="truncate text-sm text-foreground">
           <span className="font-medium">{nameWithoutHandle}</span>
           {handle ? <span className="ml-1 text-black/45 dark:text-white/45">{handle}</span> : null}
@@ -146,7 +146,13 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                           className="inline-flex rounded-full ring-2 ring-background"
                           style={{ zIndex: socialProofSponsors.length - index }}
                         >
-                          <PersonAvatar name={person.name} links={person.links} className="shrink-0" />
+                          <PersonAvatar
+                            name={person.name}
+                            links={person.links}
+                            className="shrink-0"
+                            loading="eager"
+                            fetchPriority="high"
+                          />
                         </span>
                       ))}
                     </div>

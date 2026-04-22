@@ -3,6 +3,37 @@
 import { useEffect, useState } from "react"
 import { getAvatarUrlFromLinks, getBlueskyHandleFromLinks, getPersonInitials } from "@/lib/person-avatar"
 
+const blueskyAvatarCache = new Map<string, string>()
+const blueskyAvatarRequests = new Map<string, Promise<string>>()
+
+async function resolveBlueskyAvatarUrl(handle: string): Promise<string> {
+  if (blueskyAvatarCache.has(handle)) {
+    return blueskyAvatarCache.get(handle) ?? ""
+  }
+
+  const pendingRequest = blueskyAvatarRequests.get(handle)
+  if (pendingRequest) {
+    return pendingRequest
+  }
+
+  const request = fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(handle)}`)
+    .then((res) => (res.ok ? res.json() : null))
+    .then((data: { avatar?: string } | null) => {
+      const resolvedAvatarUrl = data?.avatar ?? ""
+      blueskyAvatarCache.set(handle, resolvedAvatarUrl)
+      blueskyAvatarRequests.delete(handle)
+      return resolvedAvatarUrl
+    })
+    .catch(() => {
+      blueskyAvatarCache.set(handle, "")
+      blueskyAvatarRequests.delete(handle)
+      return ""
+    })
+
+  blueskyAvatarRequests.set(handle, request)
+  return request
+}
+
 const VARIANT_STYLES = {
   default: {
     img: "h-6 w-6 rounded-full object-cover ring-1 ring-black/10 dark:ring-white/15",
@@ -27,6 +58,8 @@ export function PersonAvatar({
   links,
   className,
   variant = "default",
+  loading = "lazy",
+  fetchPriority = "auto",
 }: {
   name: string
   links: string[]
@@ -34,11 +67,18 @@ export function PersonAvatar({
   className?: string
   /** `blog`: smaller square avatar aligned with blog UI. `inline`: compact inline avatar. `default`: mission / sponsors. */
   variant?: keyof typeof VARIANT_STYLES
+  /** Let callers preload avatars when a later section would otherwise lag on scroll. */
+  loading?: "eager" | "lazy"
+  /** Browser hint for avatar network priority. */
+  fetchPriority?: "auto" | "high" | "low"
 }) {
   const [avatarFailed, setAvatarFailed] = useState(false)
   const staticAvatarUrl = getAvatarUrlFromLinks(links)
   const bskyHandle = getBlueskyHandleFromLinks(links)
-  const [avatarUrl, setAvatarUrl] = useState(staticAvatarUrl)
+  const cachedBlueskyAvatarUrl = bskyHandle && blueskyAvatarCache.has(bskyHandle)
+    ? (blueskyAvatarCache.get(bskyHandle) ?? "")
+    : ""
+  const [avatarUrl, setAvatarUrl] = useState(staticAvatarUrl || cachedBlueskyAvatarUrl)
   const initials = getPersonInitials(name)
 
   useEffect(() => {
@@ -59,11 +99,17 @@ export function PersonAvatar({
       }
     }
 
-    fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(bskyHandle)}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data: { avatar?: string } | null) => {
+    if (blueskyAvatarCache.has(bskyHandle)) {
+      setAvatarUrl(blueskyAvatarCache.get(bskyHandle) ?? "")
+      return () => {
+        cancelled = true
+      }
+    }
+
+    resolveBlueskyAvatarUrl(bskyHandle)
+      .then((resolvedAvatarUrl) => {
         if (cancelled) return
-        setAvatarUrl(data?.avatar ?? "")
+        setAvatarUrl(resolvedAvatarUrl)
       })
       .catch(() => {
         if (cancelled) return
@@ -84,7 +130,9 @@ export function PersonAvatar({
         alt=""
         className={styles.img}
         referrerPolicy="no-referrer"
-        loading="lazy"
+        loading={loading}
+        fetchPriority={fetchPriority}
+        decoding="async"
         onError={() => setAvatarFailed(true)}
       />
     ) : (

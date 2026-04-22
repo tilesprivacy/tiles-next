@@ -57,8 +57,8 @@ const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: 'E2E encrypted P2P sync', status: 'shipped' },
       { label: 'Shared Links', status: 'active' },
-      { label: 'Capability based Sync', status: 'planned' },
       { label: 'Remote Link', status: 'planned' },
+      { label: 'Group Chats', status: 'planned' },
     ],
   },
   {
