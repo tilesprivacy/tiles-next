@@ -25,6 +25,7 @@ const roadmapTracks: RoadmapTrack[] = [
       { label: 'Pi integration', status: 'active' },
       { label: 'Connectors support', status: 'planned' },
       { label: 'Memory support', status: 'planned' },
+      { label: 'Agents Template', status: 'planned' },
       { label: 'Automatic LoRA adapter training', status: 'planned' },
     ],
   },
@@ -47,6 +48,7 @@ const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: 'DID:key based local accounts', status: 'shipped' },
       { label: 'ATProto accounts', status: 'active' },
+      { label: 'Agent Addresses', status: 'planned' },
     ],
   },
   {
