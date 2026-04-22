@@ -32,16 +32,7 @@ export function HomeContent() {
                   Private and secure AI assistant for everyday use
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
-                  Runs on-device models by default with encrypted P2P sync. Built on{" "}
-                  <a
-                    href="https://atproto.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-                  >
-                    ATProto
-                  </a>{" "}
-                  , so you own your data and identity.
+Runs on-device models by default with encrypted P2P sync. Your data and identity stay yours locally. Optional ATProto support.
                 </p>
               </div>
 
