@@ -189,11 +189,18 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
             <Link
-              href="/sponsor"
+              href="/book/manual"
               onClick={onClose}
               className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
-              Sponsor
+              Manual
+            </Link>
+            <Link
+              href="/pricing"
+              onClick={onClose}
+              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+            >
+              Pricing
             </Link>
             <Link
               href="/roadmap"
@@ -217,13 +224,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               Blog
             </Link>
             <Link
-              href="/pricing"
-              onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
-            >
-              Pricing
-            </Link>
-            <Link
               href="/book/tilekit"
               onClick={onClose}
               className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
@@ -231,11 +231,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               Developers
             </Link>
             <Link
-              href="/book/manual"
+              href="/sponsor"
               onClick={onClose}
               className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
-              Manual
+              Sponsor
             </Link>
           </nav>
 

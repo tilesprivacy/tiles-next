@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Link from "next/link"
-import { Bot, Check, CircleDashed, Cpu, FileCode, FlaskConical, Package, RefreshCw } from "lucide-react"
+import { Bot, Check, CircleDashed, Cpu, FileCode, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 
 const comparisonRows = [
@@ -11,12 +11,12 @@ const comparisonRows = [
   { label: "Cloud models", tiles: "empty", ollama: "check", lmStudio: "empty", jan: "check", osaurus: "check" },
   { label: "In-house models", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "check", osaurus: "check" },
   { label: "Modelfile", tiles: "check", ollama: "check", lmStudio: "empty", jan: "empty", osaurus: "empty" },
-  { label: "Agent Harness", tiles: "wip", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
+  { label: "Agent Harness", tiles: "check", ollama: "check", lmStudio: "partial", jan: "empty", osaurus: "check" },
   { label: "Memory", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
   { label: "Connectors", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "check" },
   { label: "Sandbox", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
   { label: "Remote Link", tiles: "empty", ollama: "empty", lmStudio: "check", jan: "empty", osaurus: "check" },
-  { label: "Shared Links", tiles: "empty", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
+  { label: "Shared Links", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
   { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
   { label: "Cross platform", tiles: "empty", ollama: "check", lmStudio: "check", jan: "check", osaurus: "empty" },
   { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", osaurus: "check" },
@@ -27,8 +27,6 @@ function renderComparisonStatus(status: string) {
     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
       {status === "check" ? (
         <Check className="h-4 w-4" strokeWidth={2} aria-hidden />
-      ) : status === "wip" ? (
-        <FlaskConical className="h-3.5 w-3.5 text-black/55 dark:text-[#A0A0A0]" strokeWidth={1.9} aria-hidden />
       ) : status === "partial" ? (
         <CircleDashed className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
       ) : (
@@ -39,9 +37,7 @@ function renderComparisonStatus(status: string) {
       <span className="sr-only">
         {status === "check"
           ? "Supported"
-          : status === "wip"
-            ? "Behind experimental flag"
-            : status === "partial"
+          : status === "partial"
               ? "Partially supported"
               : "Not supported"}
       </span>
@@ -211,10 +207,6 @@ export function BookMarketingSections() {
             <span className="inline-flex items-center gap-2">
               {renderComparisonStatus("partial")}
               <span>Partially supported</span>
-            </span>
-            <span className="inline-flex items-center gap-2">
-              {renderComparisonStatus("wip")}
-              <span>Behind experimental flag</span>
             </span>
             <span className="inline-flex items-center gap-2">
               {renderComparisonStatus("empty")}

@@ -4,7 +4,7 @@ description: "Product overview, comparison details, and the security FAQ for Til
 ---
 
 import Link from "next/link"
-import { Bot, Check, CircleDashed, Cpu, FileCode, FlaskConical, Package, RefreshCw } from "lucide-react"
+import { Bot, Check, CircleDashed, Cpu, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { ClickableImage as Image } from "@/components/clickable-image"
 
@@ -48,11 +48,22 @@ a privacy-first desktop AI stack.
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
         <span className="text-base font-semibold leading-none">@</span>
       </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">ATProto Support</h3>
+      <h3 className="text-base font-semibold text-foreground lg:text-lg">Shared Links</h3>
     </div>
     <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Built on [ATProto](https://atproto.com), with shared public chats stored on your PDS so your conversation data
-      remains portable and under your control.
+      Create a public link to a chat session, published through [ATProto](https://atproto.com).
+    </div>
+  </div>
+
+  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
+    <div className="flex items-center gap-3">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
+        <KeyRound className="h-4 w-4" strokeWidth={1.75} />
+      </span>
+      <h3 className="text-base font-semibold text-foreground lg:text-lg">Decentralized Identity</h3>
+    </div>
+    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+      Locally generated [DIDs](https://www.w3.org/TR/did-core/), with the private key always stored locally on device.
     </div>
   </div>
 
@@ -90,7 +101,7 @@ a privacy-first desktop AI stack.
     </div>
     <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
       Customize local models and agent experiences within Tiles. Built in Rust, based on open-source
-      specifications such as Modelfile and Open Responses API.
+      specifications such as [Modelfile](/book/tilekit#modelfile-reference) and [Open Responses API](https://www.openresponses.org).
     </div>
   </div>
 
@@ -385,8 +396,8 @@ Our approach combines best-in-class privacy-focused engineering with unmatched c
         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">Agent Harness</th>
         <td className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10">
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
-            <FlaskConical className="h-3.5 w-3.5 text-black/55 dark:text-[#A0A0A0]" strokeWidth={1.9} aria-hidden />
-            <span className="sr-only">Behind experimental flag</span>
+            <Check className="h-4 w-4" strokeWidth={2} aria-hidden />
+            <span className="sr-only">Supported</span>
           </span>
         </td>
         <td className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10">
@@ -550,8 +561,8 @@ Our approach combines best-in-class privacy-focused engineering with unmatched c
         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">Shared Links</th>
         <td className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10">
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
-            <span className="text-sm text-black/35 dark:text-[#6B6B6B]" aria-hidden>-</span>
-            <span className="sr-only">Not supported</span>
+            <Check className="h-4 w-4" strokeWidth={2} aria-hidden />
+            <span className="sr-only">Supported</span>
           </span>
         </td>
         <td className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10">
@@ -694,12 +705,6 @@ Our approach combines best-in-class privacy-focused engineering with unmatched c
       <CircleDashed className="h-3.5 w-3.5 text-black/50 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
     </span>
     <span>Partially supported</span>
-  </span>
-  <span className="inline-flex items-center gap-2">
-    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
-      <FlaskConical className="h-3.5 w-3.5 text-black/55 dark:text-[#A0A0A0]" strokeWidth={1.9} aria-hidden />
-    </span>
-    <span>Behind experimental flag</span>
   </span>
   <span className="inline-flex items-center gap-2">
     <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-black/5 text-foreground dark:bg-white/10">
