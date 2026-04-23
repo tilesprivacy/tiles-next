@@ -81,7 +81,7 @@ export async function GET(request: Request) {
   sections.push(`## Homepage (${baseUrl}/)`)
   sections.push('')
   sections.push('Tiles')
-  sections.push('Local-first AI assistant built on zero-trust principles.')
+  sections.push('Local-first AI assistant built with decentralized technologies.')
   sections.push('')
   sections.push('Runs on-device models with encrypted P2P sync, keeping your data and identity local, and support for sharing chats publicly on ATProto.')
   sections.push('')

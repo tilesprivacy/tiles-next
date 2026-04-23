@@ -28,8 +28,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
-  title: "Tiles: Local-first AI assistant built on zero-trust principles",
-  description: "Local-first AI assistant built on zero-trust principles.",
+  title: "Tiles: Local-first AI assistant built with decentralized technologies",
+  description: "Local-first AI assistant built with decentralized technologies.",
   generator: "v0.app",
   manifest: "/manifest.json",
   icons: {
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "Tiles: Local-first AI assistant built on zero-trust principles",
+    title: "Tiles: Local-first AI assistant built with decentralized technologies",
     description: "Built as an independent open-source project, based on standards and decentralized technologies.",
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
@@ -73,15 +73,15 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles: Local-first AI assistant built on zero-trust principles",
+        alt: "Tiles: Local-first AI assistant built with decentralized technologies",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles: Local-first AI assistant built on zero-trust principles",
-    description: "Local-first AI assistant built on zero-trust principles.",
+    title: "Tiles: Local-first AI assistant built with decentralized technologies",
+    description: "Local-first AI assistant built with decentralized technologies.",
     images: ["https://www.tiles.run/api/og"],
   },
 }

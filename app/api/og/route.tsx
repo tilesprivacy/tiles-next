@@ -33,7 +33,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
   const tagline =
-    "Local-first AI assistant built on zero-trust principles"
+    "Local-first AI assistant built with decentralized technologies"
   const fontText = tagline
 
   // Fetch logo/font opportunistically; never fail the OG image if unavailable.
