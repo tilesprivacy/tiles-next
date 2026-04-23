@@ -29,7 +29,7 @@ export function HomeContent() {
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-7 text-center sm:gap-8 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
               <div className="space-y-4 lg:space-y-4">
                 <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.2rem]">
-                  Local-first AI assistant built with decentralized technologies
+                  Local-first private AI for everyday use
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
                   Runs on-device models with encrypted P2P sync, keeping your data and identity local, and support for

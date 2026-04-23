@@ -84,7 +84,7 @@ export async function GET(request: Request) {
     'Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.',
   )
   sections.push('')
-  sections.push('Tiles is a local-first, zero-trust AI assistant for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
+  sections.push('Local-first private AI for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
   sections.push('Runs on-device models with encrypted P2P sync, keeping your data and identity local, and support for sharing chats publicly on ATProto.')
   sections.push('')
   sections.push('Private AI comparison:')
@@ -116,7 +116,7 @@ export async function GET(request: Request) {
   sections.push('')
   sections.push('Tiles Privacy Policy')
   sections.push('')
-  sections.push('Tiles Privacy is a private, local-first AI assistant. All memory, preferences, and usage patterns stay on the user’s own device. The Tiles desktop app does not collect, store, or transmit personal data to Tiles servers.')
+  sections.push('Local-first private AI for everyday use. All memory, preferences, and usage patterns stay on the user’s own device. The Tiles desktop app does not collect, store, or transmit personal data to Tiles servers.')
   sections.push('')
   sections.push('The website tiles.run uses only minimal, standard web tooling for basic functionality and does not rely on third-party analytics or advertising trackers. There is no cross-site tracking or behavioral profiling.')
   sections.push('')

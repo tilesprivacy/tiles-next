@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/tiles_banner_outline_blk.svg",
     coverImageDark: "/tiles_banner_outline_wht.svg",
     coverAlt: "Tiles banner",
-    content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>, a local-first, zero-trust AI assistant for everyday use.</p>
+    content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Local-first private AI for everyday use.</p>
 
 <h2>The Python Problem</h2>
 
