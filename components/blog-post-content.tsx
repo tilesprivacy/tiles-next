@@ -263,7 +263,7 @@ export function BlogPostContent({
           <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
             <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
               <p>
-              Local-first private AI for everyday use.
+                Tiles is a local-first private AI for everyday use.
               </p>
               <p>
                 There are{" "}
