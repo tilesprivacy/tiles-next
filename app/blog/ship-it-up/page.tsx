@@ -324,7 +324,7 @@ codesign --force \\
       <h2>What&apos;s next</h2>
 
       <p>
-        We also ship a fully offline installer that bundles a gpt-oss model, so Tiles can be installed without an internet
+        We also ship a fully offline installer that bundles OpenAI's gpt-oss 20B model, so Tiles can be installed without an internet
         connection. We are working toward making Tiles itself portable, allowing users to carry their model and data and run
         it from a flash drive on any compatible system.
       </p>

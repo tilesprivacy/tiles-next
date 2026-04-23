@@ -127,6 +127,6 @@ codesign --force \\
 
 <h2>What's next</h2>
 
-<p>We also ship a fully offline installer that bundles a gpt-oss model, so Tiles can be installed without an internet connection. We are working toward making Tiles itself portable, allowing users to carry their model and data and run it from a flash drive on any compatible system.</p>
+<p>We also ship a fully offline installer that bundles OpenAI's gpt-oss 20B model, so Tiles can be installed without an internet connection. We are working toward making Tiles itself portable, allowing users to carry their model and data and run it from a flash drive on any compatible system.</p>
 
 <p>The installer requires Rosetta; on Apple Silicon Macs, it is not included by default and must be installed separately. Rosetta translates Intel binaries to run on Apple Silicon. There is a workaround for this, described in the <a href="https://github.com/tilesprivacy/tiles/issues/105" target="_blank" rel="noopener noreferrer">linked GitHub issue</a>.</p>`
