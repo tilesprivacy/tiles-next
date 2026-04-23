@@ -2,27 +2,26 @@ import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
 import { SiteFooter } from "@/components/site-footer"
 
-const homeDescription =
-  "Your private and secure AI assistant for everyday use. Built as an independent open-source project, based on standards and decentralized technologies."
+const homeDescription = "Local-first AI assistant built on zero-trust principles."
 
 export const metadata: Metadata = {
-  title: "Tiles: Your private and secure Al assistant for everyday use",
+  title: "Tiles: Local-first AI assistant built on zero-trust principles",
   description: homeDescription,
   openGraph: {
-    title: "Tiles: Your private and secure Al assistant for everyday use",
+    title: "Tiles: Local-first AI assistant built on zero-trust principles",
     description: homeDescription,
     images: [
       {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles: Your private and secure Al assistant for everyday use",
+        alt: "Tiles: Local-first AI assistant built on zero-trust principles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles: Your private and secure Al assistant for everyday use",
+    title: "Tiles: Local-first AI assistant built on zero-trust principles",
     description: homeDescription,
     images: ["https://www.tiles.run/api/og"],
   },

@@ -84,8 +84,8 @@ export async function GET(request: Request) {
     'Customize local models and agent experiences within Tiles. Built in Rust, based on open-source specifications such as Modelfile and Open Responses API.',
   )
   sections.push('')
-  sections.push('Tiles is a private and secure AI assistant for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
-  sections.push('Runs fully on-device, with optional peer-to-peer sync.')
+  sections.push('Tiles is a local-first, zero-trust AI assistant for everyday use. Download Tiles for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.')
+  sections.push('Runs on-device models with encrypted P2P sync, keeping your data and identity local, and support for sharing chats publicly on ATProto.')
   sections.push('')
   sections.push('Private AI comparison:')
   sections.push('- CLI: Tiles, Ollama, LM Studio, Jan')

@@ -81,11 +81,9 @@ export async function GET(request: Request) {
   sections.push(`## Homepage (${baseUrl}/)`)
   sections.push('')
   sections.push('Tiles')
-  sections.push(
-    'Private and secure AI assistant for everyday use.',
-  )
+  sections.push('Local-first AI assistant built on zero-trust principles.')
   sections.push('')
-  sections.push('Runs offline by default with optional peer-to-peer sync. Built as an independent open-source project, based on standards and decentralized technologies.')
+  sections.push('Runs on-device models with encrypted P2P sync, keeping your data and identity local, and support for sharing chats publicly on ATProto.')
   sections.push('')
   sections.push('Currently available as a CLI in ALPHA.')
   sections.push('')
