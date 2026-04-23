@@ -1131,6 +1131,7 @@ sniper-link[hidden] {
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
 [data-book-section] {
   --book-top-offset: 5.5rem;
+  --book-sidebar-list-offset: 1.25rem;
 }
 
 /* Keep in-page hash targets clear of the fixed site nav on book pages. */
@@ -1142,6 +1143,7 @@ sniper-link[hidden] {
 @media (min-width: 1024px) {
   [data-book-section] {
     --book-top-offset: 7rem;
+    --book-sidebar-list-offset: 3rem;
   }
 
   /* Layout for asides; background only on left nav (TOC uses article background) */
@@ -1171,8 +1173,8 @@ sniper-link[hidden] {
   [data-book-section] .nextra-sidebar .nextra-scrollbar {
     max-height: calc(100dvh - var(--book-top-offset)) !important;
     overflow-y: auto !important;
-    padding-top: 0.5rem !important;
-    scroll-padding-top: 0.5rem !important;
+    padding-top: var(--book-sidebar-list-offset) !important;
+    scroll-padding-top: var(--book-sidebar-list-offset) !important;
     flex: 1 1 auto !important;
     min-height: 0 !important;
   }
