@@ -69,9 +69,6 @@
           font-size: 16px !important;
           line-height: 1.65 !important;
         }
-        .button {
-          width: 100% !important;
-        }
       }
     </style>
   </head>
@@ -310,7 +307,16 @@
                     font-weight: 400;
                   "
                 >
-                  Size: {{{NETWORK_SIZE}}} | SHA256: {{{NETWORK_SHA_SHORT}}}
+                  Size: {{{NETWORK_SIZE}}} | SHA256:
+                  <a
+                    href="{{{NETWORK_CHECKSUM_URL}}}"
+                    style="
+                      color: #e5e5e5;
+                      text-decoration: underline;
+                      text-underline-offset: 4px;
+                    "
+                    >{{{NETWORK_SHA_SHORT}}}</a
+                  >
                 </p>
               </td>
             </tr>
@@ -453,7 +459,16 @@
                     font-weight: 400;
                   "
                 >
-                  Size: {{{OFFLINE_SIZE}}} | SHA256: {{{OFFLINE_SHA_SHORT}}}
+                  Size: {{{OFFLINE_SIZE}}} | SHA256:
+                  <a
+                    href="{{{OFFLINE_CHECKSUM_URL}}}"
+                    style="
+                      color: #e5e5e5;
+                      text-decoration: underline;
+                      text-underline-offset: 4px;
+                    "
+                    >{{{OFFLINE_SHA_SHORT}}}</a
+                  >
                 </p>
               </td>
             </tr>

@@ -62,6 +62,13 @@ function resolveFileName(fileName: string | undefined, downloadUrl: string): str
   return fromUrl?.trim() || "Unavailable"
 }
 
+function buildChecksumUrl(fileName: string): string {
+  if (!fileName || fileName === "Unavailable") {
+    return "Unavailable"
+  }
+  return `https://download.tiles.run/checksums/${fileName}.sha256`
+}
+
 function buildDownloadLinkVariables(
   artifact: Awaited<ReturnType<typeof getDownloadPageNetworkArtifact>>,
 ): DownloadLinkEmailVariables {
@@ -75,6 +82,8 @@ function buildDownloadLinkVariables(
     OFFLINE_INSTALLER.fileName,
     OFFLINE_INSTALLER.downloadUrl,
   )
+  const networkChecksumUrl = buildChecksumUrl(networkFileName)
+  const offlineChecksumUrl = buildChecksumUrl(offlineFileName)
 
   return {
     DOWNLOAD_URL: artifact.downloadUrl,
@@ -82,18 +91,22 @@ function buildDownloadLinkVariables(
     DOWNLOAD_VERSION: networkVersion,
     DOWNLOAD_SIZE: artifact.binarySizeLabel,
     DOWNLOAD_SHA_SHORT: networkShaShort,
+    DOWNLOAD_CHECKSUM_URL: networkChecksumUrl,
     NETWORK_VERSION: networkVersion,
     NETWORK_SIZE: artifact.binarySizeLabel,
     NETWORK_SHA_SHORT: networkShaShort,
+    NETWORK_CHECKSUM_URL: networkChecksumUrl,
     OFFLINE_DOWNLOAD_URL: OFFLINE_INSTALLER.downloadUrl,
     OFFLINE_FILE_NAME: offlineFileName,
     OFFLINE_DOWNLOAD_VERSION: offlineVersion,
     OFFLINE_DOWNLOAD_SIZE: OFFLINE_INSTALLER.binarySizeLabel,
     OFFLINE_DOWNLOAD_SHA_SHORT: offlineShaShort,
+    OFFLINE_DOWNLOAD_CHECKSUM_URL: offlineChecksumUrl,
     OFFLINE_MODEL_NAME,
     OFFLINE_VERSION: offlineVersion,
     OFFLINE_SIZE: OFFLINE_INSTALLER.binarySizeLabel,
     OFFLINE_SHA_SHORT: offlineShaShort,
+    OFFLINE_CHECKSUM_URL: offlineChecksumUrl,
   }
 }
 

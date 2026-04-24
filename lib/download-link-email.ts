@@ -4,18 +4,22 @@ export interface DownloadLinkEmailVariables extends Record<string, string> {
   DOWNLOAD_VERSION: string
   DOWNLOAD_SIZE: string
   DOWNLOAD_SHA_SHORT: string
+  DOWNLOAD_CHECKSUM_URL: string
   NETWORK_VERSION: string
   NETWORK_SIZE: string
   NETWORK_SHA_SHORT: string
+  NETWORK_CHECKSUM_URL: string
   OFFLINE_DOWNLOAD_URL: string
   OFFLINE_FILE_NAME: string
   OFFLINE_DOWNLOAD_VERSION: string
   OFFLINE_DOWNLOAD_SIZE: string
   OFFLINE_DOWNLOAD_SHA_SHORT: string
+  OFFLINE_DOWNLOAD_CHECKSUM_URL: string
   OFFLINE_MODEL_NAME: string
   OFFLINE_VERSION: string
   OFFLINE_SIZE: string
   OFFLINE_SHA_SHORT: string
+  OFFLINE_CHECKSUM_URL: string
 }
 
 function escapeHtml(value: string): string {
@@ -49,7 +53,6 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
         .container { width: 100% !important; max-width: 100% !important; }
         .title { font-size: 34px !important; line-height: 1.12 !important; }
         .body-copy { font-size: 16px !important; line-height: 1.65 !important; }
-        .button { width: 100% !important; }
       }
     </style>
   </head>
@@ -134,7 +137,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             <tr>
               <td style="padding:0 0 18px 0;">
                 <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
-                  Size: {{{NETWORK_SIZE}}} | SHA256: {{{NETWORK_SHA_SHORT}}}
+                  Size: {{{NETWORK_SIZE}}} | SHA256: <a href="{{{NETWORK_CHECKSUM_URL}}}" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">{{{NETWORK_SHA_SHORT}}}</a>
                 </p>
               </td>
             </tr>
@@ -177,7 +180,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             <tr>
               <td style="padding:0 0 18px 0;">
                 <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
-                  Size: {{{OFFLINE_SIZE}}} | SHA256: {{{OFFLINE_SHA_SHORT}}}
+                  Size: {{{OFFLINE_SIZE}}} | SHA256: <a href="{{{OFFLINE_CHECKSUM_URL}}}" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">{{{OFFLINE_SHA_SHORT}}}</a>
                 </p>
               </td>
             </tr>
