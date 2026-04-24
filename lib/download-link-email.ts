@@ -158,8 +158,8 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
               <td style="padding:0 0 48px 0;">
                 <table role="presentation" cellpadding="0" cellspacing="0" class="button">
                   <tr>
-                    <td bgcolor="#f4f4f5" style="border-radius:3px; background-color:#f4f4f5;">
-                      <a href="{{{DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#111111; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
+                    <td bgcolor="#ffffff" style="border-radius:3px; background-color:#ffffff;">
+                      <a href="{{{DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#000000; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
                         <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
                         Download network installer&nbsp; &#8595;
                       </a>
@@ -201,8 +201,8 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
               <td style="padding:0 0 30px 0;">
                 <table role="presentation" cellpadding="0" cellspacing="0" class="button">
                   <tr>
-                    <td bgcolor="#f4f4f5" style="border-radius:3px; background-color:#f4f4f5;">
-                      <a href="{{{OFFLINE_DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#111111; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
+                    <td bgcolor="#ffffff" style="border-radius:3px; background-color:#ffffff;">
+                      <a href="{{{OFFLINE_DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#000000; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
                         <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
                         Download offline installer&nbsp; &#8595;
                       </a>
