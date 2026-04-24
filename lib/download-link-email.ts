@@ -364,11 +364,14 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                       <a href="https://go.tiles.run/discord" aria-label="Discord" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-discord-9ca3af.svg" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
                       </a>
+                      <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-reddit-9ca3af.svg" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
+                      </a>
                       <a href="https://github.com/tilesprivacy" aria-label="GitHub" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-github-9ca3af.svg" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
                       </a>
-                      <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://tiles.run/icon-reddit-9ca3af.svg" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
+                      <a href="https://tangled.org/tiles.run/tiles/" aria-label="Tangled" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-tangled-9ca3af.svg" width="16" height="16" alt="Tangled" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://huggingface.co/tilesprivacy" aria-label="Hugging Face" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-huggingface-9ca3af.svg" width="16" height="16" alt="Hugging Face" style="display:block; width:16px; height:16px;">

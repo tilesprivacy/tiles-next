@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
+import { TangledIcon } from "@/components/tangled-icon"
 import { Button } from "@/components/ui/button"
 import {
   downloadButtonIconMotionClasses,
@@ -194,6 +195,15 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 <FaDiscord className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
+                href="https://www.reddit.com/r/tilesprivacy/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
+                aria-label="Reddit"
+              >
+                <FaRedditAlien className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+              </a>
+              <a
                 href="https://github.com/tilesprivacy"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -203,13 +213,13 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 <FaGithub className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${iconHoverGithub}`} />
               </a>
               <a
-                href="https://www.reddit.com/r/tilesprivacy/"
+                href="https://tangled.org/tiles.run/tiles/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Reddit"
+                aria-label="Tangled"
               >
-                <FaRedditAlien className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <TangledIcon className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://huggingface.co/tilesprivacy"
