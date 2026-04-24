@@ -16,6 +16,7 @@ import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
 import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
+import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from "@/lib/download-page-data"
 
 interface DownloadMetadata {
   version: string
@@ -37,13 +38,6 @@ function extractVersionFromFileName(fileName: string | undefined): string | null
   const match = fileName.match(/tiles-(\d+\.\d+\.\d+)(?:[.-]|$)/i)
   return match?.[1] ?? null
 }
-
-const OFFLINE_INSTALLER = {
-  downloadUrl: "https://download.tiles.run/tiles-0.4.7-full-signed.pkg",
-  fileName: "tiles-0.4.7-full-signed.pkg",
-  binarySizeLabel: "10.31 GB",
-  sha256: "e2fa2d5339d356c023fb1c13fba8a6cf099fedad07f684b7b090d59292c91032",
-} as const
 
 const DEFAULT_DOWNLOAD_METADATA: DownloadMetadata = {
   version: "latest",
@@ -308,7 +302,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         Includes the default{" "}
                         <span className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>
                           <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
-                          <span className="font-mono text-sm">gpt-oss-20b-MXFP4-Q4</span>
+                          <span className="font-mono text-sm">{OFFLINE_MODEL_NAME}</span>
                         </span>{" "}
                         model bundled for fully offline setup with no additional downloads.
                       </p>

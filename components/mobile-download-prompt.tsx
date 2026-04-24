@@ -1,10 +1,10 @@
 "use client"
 
-import { CalendarPlus, Check, Link2, Monitor } from "lucide-react"
+import { Mail, Monitor } from "lucide-react"
+import type { FormEvent } from "react"
 import { useCallback, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
 import { triggerHaptic } from "@/lib/haptics"
-import { FaArrowUpFromBracket } from "react-icons/fa6"
 
 type DownloadIntentEvent = {
   preventDefault: () => void
@@ -12,79 +12,16 @@ type DownloadIntentEvent = {
 
 const MOBILE_DOWNLOAD_PROMPT_SKIP_ATTRIBUTE = "data-skip-mobile-download-prompt"
 
-function padTime(value: number): string {
-  return value.toString().padStart(2, "0")
-}
-
-function toUtcIcsDate(date: Date): string {
-  return [
-    date.getUTCFullYear(),
-    padTime(date.getUTCMonth() + 1),
-    padTime(date.getUTCDate()),
-    "T",
-    padTime(date.getUTCHours()),
-    padTime(date.getUTCMinutes()),
-    padTime(date.getUTCSeconds()),
-    "Z",
-  ].join("")
-}
-
-function resolveReminderWindow(now: Date): { start: Date; end: Date } {
-  const twoHoursFromNow = new Date(now.getTime() + 2 * 60 * 60 * 1000)
-  const start = new Date(twoHoursFromNow)
-  start.setMinutes(0, 0, 0)
-
-  if (start.getTime() < twoHoursFromNow.getTime()) {
-    start.setHours(start.getHours() + 1)
-  }
-
-  const end = new Date(start.getTime() + 15 * 60 * 1000)
-  return { start, end }
-}
-
-function createReminderIcs(): { content: string; fileName: string } {
-  const now = new Date()
-  const { start, end } = resolveReminderWindow(now)
-  const reminderUrl = "https://www.tiles.run"
-  const createdAt = toUtcIcsDate(now)
-  const startAt = toUtcIcsDate(start)
-  const endAt = toUtcIcsDate(end)
-  const uid = `tiles-desktop-reminder-${now.getTime()}@tiles.run`
-  const fileName = `desktop-reminder-${start.getFullYear()}${padTime(start.getMonth() + 1)}${padTime(start.getDate())}.ics`
-
-  const content = [
-    "BEGIN:VCALENDAR",
-    "VERSION:2.0",
-    "PRODID:-//Tiles//Desktop Reminder//EN",
-    "CALSCALE:GREGORIAN",
-    "METHOD:PUBLISH",
-    "BEGIN:VEVENT",
-    `UID:${uid}`,
-    `DTSTAMP:${createdAt}`,
-    `DTSTART:${startAt}`,
-    `DTEND:${endAt}`,
-    "SUMMARY:Download Tiles on your computer",
-    `DESCRIPTION:Continue on desktop. Open ${reminderUrl}`,
-    `URL:${reminderUrl}`,
-    "BEGIN:VALARM",
-    "TRIGGER:PT0M",
-    "ACTION:DISPLAY",
-    "DESCRIPTION:Download Tiles on desktop",
-    "END:VALARM",
-    "END:VEVENT",
-    "END:VCALENDAR",
-  ].join("\r\n")
-
-  return { content, fileName }
-}
-
 function isLikelyMobileDevice(): boolean {
   if (typeof window === "undefined") {
     return false
   }
 
   const userAgent = window.navigator.userAgent
-  const matchesMobileUa = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(userAgent)
+  const matchesMobileUa =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(
+      userAgent,
+    )
   const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches
   const isSmallViewport = window.matchMedia("(max-width: 1024px)").matches
 
@@ -94,12 +31,19 @@ function isLikelyMobileDevice(): boolean {
 interface MobileDownloadPromptOverlayProps {
   isOpen: boolean
   onClose: () => void
-  targetUrl: string
 }
 
-function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownloadPromptOverlayProps) {
-  const [isCopyConfirmed, setIsCopyConfirmed] = useState(false)
+function MobileDownloadPromptOverlay({
+  isOpen,
+  onClose,
+}: MobileDownloadPromptOverlayProps) {
+  const [email, setEmail] = useState("")
+  const [emailStatus, setEmailStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle")
+  const [emailMessage, setEmailMessage] = useState("")
   const [isMounted, setIsMounted] = useState(false)
+  const emailInputId = "mobile-download-email"
   const closePrompt = useCallback(() => {
     triggerHaptic()
     onClose()
@@ -130,51 +74,57 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
     }
   }, [isOpen, onClose])
 
-  const onShare = useCallback(async () => {
-    triggerHaptic()
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Tiles",
-          text: "Open this download page on desktop.",
-          url: targetUrl,
-        })
+  const onEmailSubmit = useCallback(
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault()
+      triggerHaptic()
+
+      const trimmedEmail = email.trim()
+      if (!trimmedEmail) {
+        setEmailStatus("error")
+        setEmailMessage("Enter an email address.")
         return
-      } catch {
-        // If sharing is canceled or fails, keep the prompt open with no extra action.
       }
-    }
 
-    try {
-      await navigator.clipboard.writeText(targetUrl)
-      setIsCopyConfirmed(true)
-      window.setTimeout(() => setIsCopyConfirmed(false), 2000)
-    } catch {}
-  }, [targetUrl])
+      setEmailStatus("loading")
+      setEmailMessage("")
 
-  const onCopyLink = useCallback(async () => {
-    triggerHaptic()
-    try {
-      await navigator.clipboard.writeText(targetUrl)
-      setIsCopyConfirmed(true)
-      window.setTimeout(() => setIsCopyConfirmed(false), 2000)
-    } catch {}
-  }, [targetUrl])
+      try {
+        const response = await fetch("/api/send-download-link", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: trimmedEmail }),
+        })
+        const data = await response.json()
 
-  const onRemind = useCallback(() => {
-    triggerHaptic()
-    const { content, fileName } = createReminderIcs()
-    const blob = new Blob([content], { type: "text/calendar;charset=utf-8" })
-    const blobUrl = URL.createObjectURL(blob)
-    const anchor = document.createElement("a")
-    anchor.href = blobUrl
-    anchor.download = fileName
-    anchor.rel = "noopener noreferrer"
-    anchor.click()
-    window.setTimeout(() => {
-      URL.revokeObjectURL(blobUrl)
-    }, 1000)
-  }, [])
+        if (!response.ok) {
+          throw new Error(data.error || "Unable to send the download link.")
+        }
+
+        setEmailStatus("success")
+        setEmailMessage("Sent. Check your inbox on desktop.")
+      } catch (error) {
+        setEmailStatus("error")
+        setEmailMessage(
+          error instanceof Error
+            ? error.message
+            : "Unable to send the download link.",
+        )
+      }
+    },
+    [email],
+  )
+
+  const onEmailChange = useCallback(
+    (value: string) => {
+      setEmail(value)
+      if (emailStatus !== "idle") {
+        setEmailStatus("idle")
+        setEmailMessage("")
+      }
+    },
+    [emailStatus],
+  )
 
   if (!isOpen || !isMounted) {
     return null
@@ -182,7 +132,7 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[120] flex h-[100dvh] items-end bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
+      className="fixed inset-0 z-[120] flex h-[100dvh] items-end overflow-hidden bg-background/55 text-foreground backdrop-blur-[2px] dark:bg-background/70"
       role="dialog"
       aria-modal="true"
       aria-labelledby="mobile-download-prompt-title"
@@ -193,48 +143,79 @@ function MobileDownloadPromptOverlay({ isOpen, onClose, targetUrl }: MobileDownl
           className="mx-auto w-full max-w-2xl rounded-sm bg-card/65 px-4 pb-4 pt-5 backdrop-blur-2xl dark:bg-card/55"
           onClick={(event) => event.stopPropagation()}
         >
-          <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-full text-foreground">
+          <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-full text-foreground/90">
             <Monitor className="h-5 w-5" aria-hidden />
           </div>
-          <h2 id="mobile-download-prompt-title" className="text-center text-[2.35rem] font-medium leading-tight tracking-[-0.015em]">
+          <h2
+            id="mobile-download-prompt-title"
+            className="text-center text-[2.15rem] font-medium leading-tight tracking-[-0.015em]"
+          >
             Get Tiles for Desktop
           </h2>
-          <p className="mt-2 text-center text-[1.03rem] leading-relaxed text-muted-foreground">
-            Tiles is available only on desktop at this time. Wanna share the link to your computer or save it for
-            later?
+          <p className="mx-auto mt-2 max-w-[26ch] text-center text-[1.02rem] leading-relaxed text-muted-foreground">
+            Tiles is desktop-only for now.
+            <br />
+            Send yourself the download link.
           </p>
 
-          <div className="mt-5 grid grid-cols-3 gap-2.5">
-            <button
-              type="button"
-              onClick={onShare}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-sm bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
+          <form
+            onSubmit={onEmailSubmit}
+            className="mt-5 rounded-sm bg-secondary/65 p-3"
+          >
+            <label
+              htmlFor={emailInputId}
+              className="mb-2 flex items-center gap-1.5 text-sm font-medium text-foreground"
             >
-              <FaArrowUpFromBracket className="h-5 w-5" aria-hidden />
-              <span>Share</span>
-            </button>
-            <button
-              type="button"
-              onClick={onCopyLink}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-sm bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
-            >
-              {isCopyConfirmed ? <Check className="h-5 w-5" aria-hidden /> : <Link2 className="h-5 w-5" aria-hidden />}
-              <span>Copy link</span>
-            </button>
-            <button
-              type="button"
-              onClick={onRemind}
-              className="flex min-h-[84px] flex-col items-center justify-center gap-1.5 rounded-sm bg-secondary/65 px-2 py-3 text-sm font-medium text-foreground transition-colors hover:bg-secondary/80"
-            >
-              <CalendarPlus className="h-5 w-5" aria-hidden />
-              <span>Remind</span>
-            </button>
-          </div>
+              <Mail className="h-4 w-4" aria-hidden />
+              Email address
+            </label>
+            <div className="flex flex-col gap-2.5">
+              <input
+                id={emailInputId}
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(event) => onEmailChange(event.target.value)}
+                disabled={
+                  emailStatus === "loading" || emailStatus === "success"
+                }
+                className="min-h-11 min-w-0 w-full rounded-sm border border-border/70 bg-background/70 px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/75 focus:border-foreground/35 disabled:opacity-60"
+              />
+              <button
+                type="submit"
+                disabled={
+                  emailStatus === "loading" || emailStatus === "success"
+                }
+                className="min-h-12 w-full rounded-sm bg-foreground px-4 text-base font-semibold text-background shadow-[0_6px_20px_rgba(0,0,0,0.28)] transition-colors hover:bg-foreground/90 disabled:opacity-60"
+              >
+                {emailStatus === "loading"
+                  ? "Sending"
+                  : emailStatus === "success"
+                    ? "Sent"
+                    : "Send download link"}
+              </button>
+            </div>
+            {emailMessage ? (
+              <p
+                role="status"
+                aria-live="polite"
+                className={`mt-2 text-xs leading-relaxed ${
+                  emailStatus === "error"
+                    ? "text-red-600 dark:text-red-300"
+                    : "text-muted-foreground"
+                }`}
+              >
+                {emailMessage}
+              </p>
+            ) : null}
+          </form>
 
           <button
             type="button"
             onClick={closePrompt}
-            className="mt-4 w-full rounded-sm bg-foreground py-3 text-base font-medium text-background transition-colors hover:bg-foreground/90"
+            className="mt-2 w-full rounded-sm py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
           >
             Close
           </button>
@@ -253,8 +234,6 @@ export function useMobileDownloadPrompt() {
     setIsMobile(isLikelyMobileDevice())
   }, [])
 
-  const targetUrl = "https://www.tiles.run"
-
   const openMobileDownloadPrompt = useCallback(
     (event?: DownloadIntentEvent) => {
       if (!isMobile) {
@@ -272,7 +251,10 @@ export function useMobileDownloadPrompt() {
   return {
     openMobileDownloadPrompt,
     mobileDownloadPrompt: (
-      <MobileDownloadPromptOverlay isOpen={isOpen} onClose={() => setIsOpen(false)} targetUrl={targetUrl} />
+      <MobileDownloadPromptOverlay
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      />
     ),
   }
 }
@@ -318,11 +300,16 @@ export function GlobalMobileDownloadPrompt() {
       }
 
       const isSameOriginDownloadRoute =
-        url.origin === window.location.origin && (url.pathname === "/download" || url.pathname.startsWith("/download/"))
+        url.origin === window.location.origin &&
+        (url.pathname === "/download" || url.pathname.startsWith("/download/"))
       const isDownloadHost = url.hostname === "download.tiles.run"
       const hasDownloadAttribute = anchor.hasAttribute("download")
 
-      if (!isSameOriginDownloadRoute && !isDownloadHost && !hasDownloadAttribute) {
+      if (
+        !isSameOriginDownloadRoute &&
+        !isDownloadHost &&
+        !hasDownloadAttribute
+      ) {
         return
       }
 
@@ -342,7 +329,6 @@ export function GlobalMobileDownloadPrompt() {
     <MobileDownloadPromptOverlay
       isOpen={isOpen}
       onClose={() => setIsOpen(false)}
-      targetUrl="https://www.tiles.run"
     />
   )
 }
