@@ -160,7 +160,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                   <tr>
                     <td bgcolor="#f4f4f5" style="border-radius:3px; background-color:#f4f4f5;">
                       <a href="{{{DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#111111; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
-                        <img src="https://cdn.simpleicons.org/apple/111111" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
+                        <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
                         Download network installer&nbsp; &#8595;
                       </a>
                     </td>
@@ -203,7 +203,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                   <tr>
                     <td bgcolor="#f4f4f5" style="border-radius:3px; background-color:#f4f4f5;">
                       <a href="{{{OFFLINE_DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#111111; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
-                        <img src="https://cdn.simpleicons.org/apple/111111" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
+                        <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
                         Download offline installer&nbsp; &#8595;
                       </a>
                     </td>
@@ -353,25 +353,25 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                   <tr>
                     <td align="center" style="padding:0 0 18px 0;">
                       <a href="https://x.com/tilesprivacy" aria-label="X" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/x/9ca3af" width="16" height="16" alt="X" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-x-9ca3af.svg" width="16" height="16" alt="X" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://bsky.app/profile/tiles.run" aria-label="Bluesky" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/bluesky/9ca3af" width="16" height="16" alt="Bluesky" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-bluesky-9ca3af.svg" width="16" height="16" alt="Bluesky" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://www.instagram.com/tilesprivacy" aria-label="Instagram" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/instagram/9ca3af" width="16" height="16" alt="Instagram" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-instagram-9ca3af.svg" width="16" height="16" alt="Instagram" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://go.tiles.run/discord" aria-label="Discord" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/discord/9ca3af" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-discord-9ca3af.svg" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://github.com/tilesprivacy" aria-label="GitHub" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/github/9ca3af" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-github-9ca3af.svg" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/reddit/9ca3af" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-reddit-9ca3af.svg" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://huggingface.co/tilesprivacy" aria-label="Hugging Face" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://cdn.simpleicons.org/huggingface/9ca3af" width="16" height="16" alt="Hugging Face" style="display:block; width:16px; height:16px;">
+                        <img src="https://tiles.run/icon-huggingface-9ca3af.svg" width="16" height="16" alt="Hugging Face" style="display:block; width:16px; height:16px;">
                       </a>
                     </td>
                   </tr>
