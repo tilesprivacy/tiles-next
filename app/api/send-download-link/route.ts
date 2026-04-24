@@ -54,6 +54,14 @@ function shortenSha256(sha256: string): string {
   return `${sha256.slice(0, 12)}...${sha256.slice(-12)}`
 }
 
+function resolveFileName(fileName: string | undefined, downloadUrl: string): string {
+  const explicit = fileName?.trim()
+  if (explicit) return explicit
+
+  const fromUrl = downloadUrl.split("/").filter(Boolean).pop()
+  return fromUrl?.trim() || "Unavailable"
+}
+
 function buildDownloadLinkVariables(
   artifact: Awaited<ReturnType<typeof getDownloadPageNetworkArtifact>>,
 ): DownloadLinkEmailVariables {
@@ -62,13 +70,20 @@ function buildDownloadLinkVariables(
   const networkShaShort = shortenSha256(artifact.sha256)
   const offlineVersion = extractVersionFromFileName(OFFLINE_INSTALLER.fileName)
   const offlineShaShort = shortenSha256(OFFLINE_INSTALLER.sha256)
+  const networkFileName = resolveFileName(artifact.fileName, artifact.downloadUrl)
+  const offlineFileName = resolveFileName(
+    OFFLINE_INSTALLER.fileName,
+    OFFLINE_INSTALLER.downloadUrl,
+  )
 
   return {
     DOWNLOAD_URL: artifact.downloadUrl,
+    DOWNLOAD_FILE_NAME: networkFileName,
     NETWORK_VERSION: networkVersion,
     NETWORK_SIZE: artifact.binarySizeLabel,
     NETWORK_SHA_SHORT: networkShaShort,
     OFFLINE_DOWNLOAD_URL: OFFLINE_INSTALLER.downloadUrl,
+    OFFLINE_FILE_NAME: offlineFileName,
     OFFLINE_MODEL_NAME,
     OFFLINE_VERSION: offlineVersion,
     OFFLINE_SIZE: OFFLINE_INSTALLER.binarySizeLabel,
