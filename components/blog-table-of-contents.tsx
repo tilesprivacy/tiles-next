@@ -249,6 +249,19 @@ export function BlogTableOfContents({
         maxHeight: `calc(100dvh - ${stickyTop + 16}px)`,
       }}
     >
+      <a
+        href="#top"
+        className="mb-3 block border-b border-black/10 pb-3 text-sm font-medium uppercase tracking-wide text-black/55 transition-colors hover:text-black dark:border-white/10 dark:text-white/55 dark:hover:text-white"
+        onClick={(e) => {
+          e.preventDefault()
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+          if (window.location.hash) {
+            window.history.replaceState(null, '', window.location.pathname + window.location.search)
+          }
+        }}
+      >
+        TOP ↑
+      </a>
       {navItems}
     </nav>
   )
