@@ -77,7 +77,20 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
               </td>
             </tr>
             <tr>
-              <td style="padding:0 0 23px 0;">
+              <td style="padding:0 0 18px 0;">
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  You were sent this email because you requested a download link from the Tiles mobile website.
+                </p>
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  You can also visit <a href="https://www.tiles.run/download" style="color:#e5e5e5; text-decoration:underline; text-decoration-color:#737373;">tiles.run/download</a> on desktop.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 23px 0; border-bottom:1px solid #262626;"></td>
+            </tr>
+            <tr>
+              <td style="padding:23px 0 23px 0;">
                 <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
                   Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
                 </p>
@@ -147,7 +160,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                   <tr>
                     <td bgcolor="#f4f4f5" style="border-radius:3px; background-color:#f4f4f5;">
                       <a href="{{{DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#111111; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
-                        <img src="https://www.tiles.run/apple-logo.svg" width="11" height="14" alt="" aria-hidden="true" style="display:inline-block; width:11px; height:14px; margin-right:8px; vertical-align:-2px;" />
+                        <img src="https://cdn.simpleicons.org/apple/111111" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
                         Download network installer&nbsp; &#8595;
                       </a>
                     </td>
@@ -190,7 +203,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                   <tr>
                     <td bgcolor="#f4f4f5" style="border-radius:3px; background-color:#f4f4f5;">
                       <a href="{{{OFFLINE_DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#111111; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
-                        <img src="https://www.tiles.run/apple-logo.svg" width="11" height="14" alt="" aria-hidden="true" style="display:inline-block; width:11px; height:14px; margin-right:8px; vertical-align:-2px;" />
+                        <img src="https://cdn.simpleicons.org/apple/111111" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
                         Download offline installer&nbsp; &#8595;
                       </a>
                     </td>
@@ -259,14 +272,14 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             </tr>
 
             <tr>
-              <td style="padding:32px 0 22px 0; border-top:1px solid #262626;">
+              <td style="padding:40px 0 28px 0; border-top:1px solid #262626;">
                 <h2 style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:30px; line-height:1.2; font-weight:500; letter-spacing:0;">
                   Resources
                 </h2>
               </td>
             </tr>
             <tr>
-              <td style="padding:0 0 28px 0;">
+              <td style="padding:0 0 34px 0;">
                 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 10px 0;">
                   <tr>
                     <td align="center" valign="middle" width="24" height="24" style="width:24px; height:24px; border-radius:6px; background-color:#171717; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:24px; font-weight:600;">
@@ -284,7 +297,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
               </td>
             </tr>
             <tr>
-              <td style="padding:0 0 28px 0;">
+              <td style="padding:0 0 34px 0;">
                 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 10px 0;">
                   <tr>
                     <td align="center" valign="middle" width="24" height="24" style="width:24px; height:24px; border-radius:6px; background-color:#171717; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:24px; font-weight:600;">
@@ -302,7 +315,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
               </td>
             </tr>
             <tr>
-              <td style="padding:0 0 36px 0;">
+              <td style="padding:0 0 44px 0;">
                 <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 10px 0;">
                   <tr>
                     <td align="center" valign="middle" width="24" height="24" style="width:24px; height:24px; border-radius:6px; background-color:#171717; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:24px; font-weight:600;">
@@ -321,13 +334,55 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             </tr>
 
             <tr>
-              <td style="padding:24px 0 0 0; border-top:1px solid #262626;">
-                <p style="margin:0 0 10px 0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
-                  Requested from the Tiles mobile download prompt.
-                </p>
-                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
-                  You can also visit <a href="https://www.tiles.run/download" style="color:#e5e5e5; text-decoration:underline; text-decoration-color:#737373;">tiles.run/download</a> on desktop.
-                </p>
+              <td style="padding:30px 0 0 0; border-top:1px solid #262626;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-top:14px;">
+                  <tr>
+                    <td align="center" style="padding:0 0 14px 0;">
+                      <a href="https://www.tiles.run" style="display:inline-block; text-decoration:none;">
+                        <img src="https://www.tiles.run/grey.png" width="28" height="28" alt="Tiles" style="width:28px; max-width:28px; height:28px;">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 18px 0;">
+                      <p style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                        Tiles is a local-first private AI for everyday use
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 18px 0;">
+                      <a href="https://x.com/tilesprivacy" aria-label="X" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/x/9ca3af" width="16" height="16" alt="X" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://bsky.app/profile/tiles.run" aria-label="Bluesky" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/bluesky/9ca3af" width="16" height="16" alt="Bluesky" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://www.instagram.com/tilesprivacy" aria-label="Instagram" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/instagram/9ca3af" width="16" height="16" alt="Instagram" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://go.tiles.run/discord" aria-label="Discord" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/discord/9ca3af" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://github.com/tilesprivacy" aria-label="GitHub" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/github/9ca3af" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/reddit/9ca3af" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://huggingface.co/tilesprivacy" aria-label="Hugging Face" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://cdn.simpleicons.org/huggingface/9ca3af" width="16" height="16" alt="Hugging Face" style="display:block; width:16px; height:16px;">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 4px 0;">
+                      <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6;">
+                        Unsubscribe
+                      </a>
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </table>

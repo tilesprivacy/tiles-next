@@ -140,7 +140,7 @@ function MobileDownloadPromptOverlay({
     >
       <div className="w-full px-2 pb-[max(0.5rem,env(safe-area-inset-bottom,0px))]">
         <div
-          className="mx-auto w-full max-w-2xl rounded-sm bg-card/65 px-4 pb-4 pt-5 backdrop-blur-2xl dark:bg-card/55"
+          className="mx-auto w-full max-w-2xl rounded-sm bg-card px-4 pb-4 pt-5"
           onClick={(event) => event.stopPropagation()}
         >
           <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-full text-foreground/90">
@@ -160,7 +160,7 @@ function MobileDownloadPromptOverlay({
 
           <form
             onSubmit={onEmailSubmit}
-            className="mt-5 rounded-sm bg-secondary/65 p-3"
+            className="mt-5"
           >
             <label
               htmlFor={emailInputId}
@@ -181,7 +181,7 @@ function MobileDownloadPromptOverlay({
                 disabled={
                   emailStatus === "loading" || emailStatus === "success"
                 }
-                className="min-h-11 min-w-0 w-full rounded-sm border border-border/70 bg-background/70 px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/75 focus:border-foreground/35 disabled:opacity-60"
+                className="min-h-11 min-w-0 w-full rounded-sm border border-border bg-background px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/75 focus:border-foreground/35 disabled:opacity-60"
               />
               <button
                 type="submit"
