@@ -1,11 +1,17 @@
 export interface DownloadLinkEmailVariables extends Record<string, string> {
   DOWNLOAD_URL: string
   DOWNLOAD_FILE_NAME: string
+  DOWNLOAD_VERSION: string
+  DOWNLOAD_SIZE: string
+  DOWNLOAD_SHA_SHORT: string
   NETWORK_VERSION: string
   NETWORK_SIZE: string
   NETWORK_SHA_SHORT: string
   OFFLINE_DOWNLOAD_URL: string
   OFFLINE_FILE_NAME: string
+  OFFLINE_DOWNLOAD_VERSION: string
+  OFFLINE_DOWNLOAD_SIZE: string
+  OFFLINE_DOWNLOAD_SHA_SHORT: string
   OFFLINE_MODEL_NAME: string
   OFFLINE_VERSION: string
   OFFLINE_SIZE: string
