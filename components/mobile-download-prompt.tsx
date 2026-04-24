@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Monitor } from "lucide-react"
+import { Monitor } from "lucide-react"
 import type { FormEvent } from "react"
 import { useCallback, useEffect, useState } from "react"
 import { createPortal } from "react-dom"
@@ -158,37 +158,33 @@ function MobileDownloadPromptOverlay({
             Send yourself the download link.
           </p>
 
-          <form
-            onSubmit={onEmailSubmit}
-            className="mt-5"
-          >
+          <form onSubmit={onEmailSubmit} className="mt-5">
             <label
               htmlFor={emailInputId}
-              className="mb-2 flex items-center gap-1.5 text-sm font-medium text-foreground"
+              className="sr-only"
             >
-              <Mail className="h-4 w-4" aria-hidden />
               Email address
             </label>
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-2">
               <input
                 id={emailInputId}
                 type="email"
                 inputMode="email"
                 autoComplete="email"
-                placeholder="you@example.com"
+                placeholder="your@email.com"
                 value={email}
                 onChange={(event) => onEmailChange(event.target.value)}
                 disabled={
                   emailStatus === "loading" || emailStatus === "success"
                 }
-                className="min-h-11 min-w-0 w-full rounded-sm border border-border bg-background px-3 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/75 focus:border-foreground/35 disabled:opacity-60"
+                className="h-10 min-w-0 w-full rounded-none border border-black/15 bg-white px-3 text-sm text-black outline-none transition-colors placeholder:text-black/45 selection:bg-blue-500 selection:text-white focus:border-black/25 focus:ring-2 focus:ring-black/10 disabled:opacity-60 dark:border-[#303030] dark:bg-[#151515] dark:text-[#E6E6E6] dark:placeholder:text-[#8A8A8A] dark:focus:border-white/25 dark:focus:ring-white/20"
               />
               <button
                 type="submit"
                 disabled={
                   emailStatus === "loading" || emailStatus === "success"
                 }
-                className="min-h-12 w-full rounded-sm bg-foreground px-4 text-base font-semibold text-background shadow-[0_6px_20px_rgba(0,0,0,0.28)] transition-colors hover:bg-foreground/90 disabled:opacity-60"
+                className="h-10 w-full rounded-none bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] dark:focus-visible:ring-white/30"
               >
                 {emailStatus === "loading"
                   ? "Sending"
