@@ -123,8 +123,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 
         {/* Centered Desktop Navigation Links */}
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
-          <Link href="/book/manual" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
-            Manual
+          <Link href="/book" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
+            Book
           </Link>
           <Link href="/pricing" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Pricing
@@ -137,9 +137,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           </Link>
           <Link href="/blog" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Blog
-          </Link>
-          <Link href="/book/tilekit" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
-            Developers
           </Link>
           <Link href="/sponsor" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Sponsor

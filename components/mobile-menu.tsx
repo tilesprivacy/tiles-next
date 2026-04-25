@@ -189,11 +189,11 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
           {/* Navigation Links - positioned below header */}
           <nav className="flex flex-col pt-4">
             <Link
-              href="/book/manual"
+              href="/book"
               onClick={onClose}
               className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
-              Manual
+              Book
             </Link>
             <Link
               href="/pricing"
@@ -222,13 +222,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Blog
-            </Link>
-            <Link
-              href="/book/tilekit"
-              onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
-            >
-              Developers
             </Link>
             <Link
               href="/sponsor"

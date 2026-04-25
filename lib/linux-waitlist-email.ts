@@ -68,7 +68,7 @@ export const linuxWaitlistEmailTemplateHtml = `<!doctype html>
                   We're preparing the Linux build and will email you as soon as it is ready to install.
                 </p>
                 <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                  In the meantime, follow our <a href="https://tiles.run/blog" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Blog</a> for product updates.
+                  In the meantime, check out our <a href="https://tiles.run/blog" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Blog</a> and <a href="https://tiles.run/roadmap" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Roadmap</a> for product updates.
                 </p>
               </td>
             </tr>
