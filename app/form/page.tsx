@@ -40,7 +40,7 @@ export default function FormPage() {
               Sign up for Tiles on Linux
             </h1>
             <p className="mx-auto mt-4 max-w-[34rem] text-balance text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:text-[0.99rem]">
-              Sign up to get notified when the Tiles is available for Linux.
+              Sign up to get notified when Tiles CLI is available for Linux.
             </p>
           </header>
 

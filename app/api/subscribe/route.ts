@@ -147,11 +147,6 @@ const verifyLinuxWaitlistContactProperties = async (
   resend: Resend,
   payload: LinuxWaitlistContactPayload,
 ) => {
-  const getResult = await resend.contacts.get({ email: payload.email })
-  if (getResult.error || !getResult.data) {
-    throw new Error(getResult.error?.message || "Could not verify waitlist contact.")
-  }
-
   const expectedProperties: Record<string, string> = {
     tiles_queue: "linux",
     tiles_linux_waitlist: "true",
@@ -161,13 +156,37 @@ const verifyLinuxWaitlistContactProperties = async (
     tiles_form_last_name: payload.lastName || "",
   }
 
-  const savedProperties = (getResult.data as { properties?: Record<string, unknown> }).properties || {}
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+  const attempts = 3
+  const delayMs = 350
 
-  for (const [key, expectedValue] of Object.entries(expectedProperties)) {
-    if (String(savedProperties[key] ?? "") !== expectedValue) {
-      throw new Error(`Contact property not saved correctly: ${key}`)
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const getResult = await resend.contacts.get({ email: payload.email })
+    if (!getResult.error && getResult.data) {
+      const savedProperties =
+        (getResult.data as { properties?: Record<string, unknown> }).properties || {}
+
+      let allMatched = true
+      for (const [key, expectedValue] of Object.entries(expectedProperties)) {
+        if (String(savedProperties[key] ?? "") !== expectedValue) {
+          allMatched = false
+          break
+        }
+      }
+
+      if (allMatched) return true
+    }
+
+    if (attempt < attempts) {
+      await wait(delayMs)
     }
   }
+
+  // Do not block a successful submission if verification lags eventual consistency.
+  console.warn("[Subscribe] Linux waitlist properties verification did not fully match yet", {
+    email: payload.email,
+  })
+  return false
 }
 
 // GET handler for development debugging
