@@ -11,7 +11,7 @@ const bookPages: BookPage[] = [
   {
     number: '01',
     title: 'Overview',
-    description: 'Product overview, comparison details, and concise answers to common security questions.',
+    description: 'Tiles, our consumer product, and Tilekit, the SDK for developers.',
     href: '/book/overview',
   },
   {
