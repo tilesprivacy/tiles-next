@@ -67,7 +67,7 @@ export function LinuxNotifyForm() {
       }
 
       setStatus("success")
-      setMessage("Thank you. We'll send you an email when the Codex app becomes available.")
+      setMessage("Thank you. We'll send you an email when Tiles on Linux becomes available.")
     } catch (error) {
       setStatus("error")
       setMessage(error instanceof Error ? error.message : "Could not submit the form.")
