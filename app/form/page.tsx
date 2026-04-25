@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { LinuxNotifyForm } from "@/components/linux-notify-form"
 import { SiteFooter } from "@/components/site-footer"
 
-const formTitle = "Sign up for the Tiles app"
+const formTitle = "Sign up for Tiles on Linux"
 const formDescription = "Sign up to get notified when the Tiles is available for Linux."
 
 export const metadata: Metadata = {
