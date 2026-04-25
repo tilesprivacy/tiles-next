@@ -95,7 +95,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light dark" />
-        <meta name="apple-mobile-web-app-title" content="Tiles" />
+        <meta name="apple-mobile-web-app-title" content="Tiles Privacy" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
