@@ -161,7 +161,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                     <td bgcolor="#ffffff" style="border-radius:3px; background-color:#ffffff;">
                       <a href="{{{DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#000000; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
                         <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
-                        Download network installer&nbsp; &#8595;
+                        Download network installer
                       </a>
                     </td>
                   </tr>
@@ -204,7 +204,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                     <td bgcolor="#ffffff" style="border-radius:3px; background-color:#ffffff;">
                       <a href="{{{OFFLINE_DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#000000; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
                         <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
-                        Download offline installer&nbsp; &#8595;
+                        Download offline installer
                       </a>
                     </td>
                   </tr>

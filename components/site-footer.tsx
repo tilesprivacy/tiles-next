@@ -156,9 +156,6 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                   <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </a>
-              <Link href="/llms.txt" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
-                LLMs.txt
-              </Link>
             </nav>
           </div>
 

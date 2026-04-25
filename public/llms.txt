@@ -1,0 +1,64 @@
+# Tiles Privacy
+
+> Local-first private AI for everyday use. Tiles ships as a CLI alpha with on-device models, encrypted P2P sync, decentralized identity, and shareable chats.
+
+Last updated: 2026-04-25
+This file follows the llms.txt convention and provides a complete content map for tiles.run.
+Use the links below to fetch canonical page content; each list item includes a short note for quick routing.
+
+## Core Pages
+
+- [Homepage](http://localhost:3000/): Product positioning and core value proposition.
+- [Download](http://localhost:3000/download): Current installers and installation guidance.
+- [Mission](http://localhost:3000/mission): Project mission, contributors, and sponsors.
+- [Pricing](http://localhost:3000/pricing): Licensing and pricing details.
+- [Sponsor](http://localhost:3000/sponsor): Sponsorship options and support details.
+- [Roadmap](http://localhost:3000/roadmap): Planned work and project direction.
+- [Brand](http://localhost:3000/brand): Public brand assets and usage details.
+- [Linux waitlist form](http://localhost:3000/form): Linux availability notifications form.
+
+## Installers And Release Metadata
+
+- [Network installer](https://download.tiles.run/tiles-0.4.7-signed.pkg): Latest macOS installer, version 0.4.7, size 67.75 MB, sha256 2c17999f25d34d78a9e4e21100d8ebdb8daf15fe375a2a10ec8c6f27c2195d9b.
+- [Offline installer](https://download.tiles.run/tiles-0.4.7-full-signed.pkg): Bundled model gpt-oss-20b-MXFP4-Q4, size 10.31 GB, sha256 e2fa2d5339d356c023fb1c13fba8a6cf099fedad07f684b7b090d59292c91032.
+- [Offline installer checksum file](https://download.tiles.run/checksums/tiles-0.4.7-full-signed.pkg.sha256): SHA256 checksum file for offline installer validation.
+- [Changelog](http://localhost:3000/changelog): Release notes and links to previous versions.
+
+## Documentation (Book)
+
+- [Book index](http://localhost:3000/book): Technical docs for Tiles and Tilekit.
+- [Tiles Book](http://localhost:3000/book): Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.
+- [Community](http://localhost:3000/book/community): See how you can make Tiles better.
+- [Licenses](http://localhost:3000/book/licenses): Understand Backer and Commercial licenses, payment terms, and purchasing options.
+- [Manual](http://localhost:3000/book/manual): Command-line interface reference for Tiles, with usage examples and links to additional guides
+- [Memory](http://localhost:3000/book/memory): Our work on memory model research for on-device context and memory management.
+- [MIR Extension](http://localhost:3000/book/mir): Machine Intelligence Resource naming schema extension for AIGC/ML work
+- [Models](http://localhost:3000/book/models): Our approach to model selection and optimization
+- [Overview](http://localhost:3000/book/overview): Tiles, our consumer product, and Tilekit, the SDK for developers.
+- [Resources](http://localhost:3000/book/resources): A living index of resources that inform and inspire our work.
+- [Security](http://localhost:3000/book/security): Security and privacy engineering in Tiles.
+- [Tilekit](http://localhost:3000/book/tilekit): Tilekit CLI usage for Modelfiles, plus the complete reference for the Modelfile parser, grammar, instructions, parameters, and API usage
+
+## Blog
+
+- [Blog index](http://localhost:3000/blog): Blog landing page with all published posts.
+- [Ship it up](http://localhost:3000/blog/ship-it-up): How we package and ship Tiles
+- [Move Along, Python](http://localhost:3000/blog/move-along-python): Deterministic, portable Python runtimes for Tiles using layered venvstacks.
+
+## Legal And Policy
+
+- [Privacy](http://localhost:3000/privacy): Privacy statement for website and product.
+- [Terms](http://localhost:3000/terms): Terms for using Tiles services and website.
+- [Sub-processors](http://localhost:3000/sub-processors): Third-party processors used by the project.
+- [Subprocessors alias](http://localhost:3000/subprocessors): Alias route for subprocessors page.
+
+## Community And Feeds
+
+- [Discord community](https://go.tiles.run/discord): Community support and discussion channel.
+- [RSS feed](http://localhost:3000/api/rss): Syndicated feed for blog content.
+- [GitHub organization](https://github.com/tilesprivacy): Source code and issue tracking.
+
+## Optional
+
+- [Brand assets archive](http://localhost:3000/tiles-brand-assets.zip): Public downloadable branding assets.
+- [Status page](https://status.tiles.run): Service and infrastructure status.

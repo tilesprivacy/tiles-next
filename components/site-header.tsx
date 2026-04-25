@@ -248,3 +248,5 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
 export function SiteHeader(props: SiteHeaderProps) {
   return <SiteHeaderContent {...props} />
 }
+
+export default SiteHeader

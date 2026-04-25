@@ -1,234 +1,118 @@
 import { NextResponse } from 'next/server'
 import { blogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
-import { getPersonById } from '@/lib/people'
+import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import fs from 'fs'
 import path from 'path'
 
-// Helper to strip HTML tags and clean text
-function stripHtml(html: string): string {
-  return html
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ')
-    .trim()
+interface BookPageMeta {
+  slug: string
+  title: string
+  description: string
 }
 
-// Helper to read MDX file content from the book
-function readMdxFile(relativePath: string): string {
+function readBookPages(): BookPageMeta[] {
+  const contentDir = path.join(process.cwd(), 'content')
+
   try {
-    // Book content lives in the `content` directory, mounted at `/book`
-    const filePath = path.join(process.cwd(), 'content', relativePath)
-    const content = fs.readFileSync(filePath, 'utf-8')
-    // Remove frontmatter
-    return content.replace(/^---[\s\S]*?---\n/, '').trim()
-  } catch (error) {
-    return ''
+    const files = fs
+      .readdirSync(contentDir)
+      .filter((file) => file.endsWith('.mdx'))
+      .sort((a, b) => a.localeCompare(b))
+
+    return files
+      .map((file) => {
+        const filePath = path.join(contentDir, file)
+        const raw = fs.readFileSync(filePath, 'utf-8')
+        const titleMatch = raw.match(/^\s*title:\s*["']?(.+?)["']?\s*$/m)
+        const descriptionMatch = raw.match(/^\s*description:\s*["']?(.+?)["']?\s*$/m)
+        const slug = file === 'index.mdx' ? '' : file.replace(/\.mdx$/, '')
+        const title = titleMatch?.[1]?.trim() || (slug ? slug : 'Book')
+        const description = descriptionMatch?.[1]?.trim() || 'Documentation page'
+        return { slug, title, description }
+      })
+      .sort((a, b) => a.slug.localeCompare(b.slug))
+  } catch {
+    return []
   }
 }
 
-// Helper to get keywords for blog posts
-function getKeywordsForPost(slug: string): string[] {
-  const keywordMap: Record<string, string[]> = {
-    'ship-it-up': ['Tiles', 'packaging', 'deployment', 'software distribution', 'venvstacks', 'Python packaging'],
-    'move-along-python': ['Python', 'venvstacks', 'portable runtimes', 'Python packaging', 'dependency management', 'Tiles', 'deterministic builds'],
-  }
-  return keywordMap[slug] || []
+function addSection(lines: string[], heading: string, items: string[]) {
+  lines.push(`## ${heading}`)
+  lines.push('')
+  lines.push(...items)
+  lines.push('')
 }
 
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const baseUrl = `${url.protocol}//${url.host}`
-  const artifact = await getLatestDownloadArtifact()
+  const networkArtifact = await getLatestDownloadArtifact()
+  const offlineChecksumUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
+  const bookPages = readBookPages()
 
-  const sections: string[] = []
+  const lines: string[] = []
 
-  // Header
-  sections.push('# llms.txt for Tiles Privacy')
-  sections.push('# Learn more at https://llmstxt.org/')
-  sections.push('')
-  sections.push('site: Tiles Privacy marketing site (tiles.run)')
-  sections.push('owner: Tiles Privacy')
-  sections.push('contact: hello@tiles.run')
-  sections.push(`last-updated: ${new Date().toISOString().split('T')[0]}`)
-  sections.push('')
-  sections.push('allowed-uses:')
-  sections.push('- Crawl and summarize public pages to help people discover Tiles Privacy offerings.')
-  sections.push('- Short-term caching for inference, classification, and question-answering about the site.')
-  sections.push('- Non-commercial research that keeps excerpts clearly attributed to Tiles Privacy.')
-  sections.push('')
-  sections.push('disallowed-uses:')
-  sections.push('- Training commercial foundation models or synthetic data generators without prior written consent.')
-  sections.push('- Combining our content with third-party data to build user profiles or behavioral dossiers.')
-  sections.push('- Serving our copy or visuals as if they were created by your model without attribution.')
-  sections.push('')
-  sections.push('request:')
-  sections.push('- If your system logs or retains content beyond transient processing, please provide an opt-out or deletion path via the contact above.')
-  sections.push('- Respect any existing robots.txt and rate limits to avoid service disruption.')
-  sections.push('')
-  sections.push('thank-you:')
-  sections.push('We appreciate responsible AI agents that honor privacy, attribution, and user trust.')
-  sections.push('')
-  sections.push('='.repeat(80))
-  sections.push('')
+  lines.push('# Tiles Privacy')
+  lines.push('')
+  lines.push('> Local-first private AI for everyday use. Tiles ships as a CLI alpha with on-device models, encrypted P2P sync, decentralized identity, and shareable chats.')
+  lines.push('')
+  lines.push(`Last updated: ${new Date().toISOString().slice(0, 10)}`)
+  lines.push('This file follows the llms.txt convention and provides a complete content map for tiles.run.')
+  lines.push('Use the links below to fetch canonical page content; each list item includes a short note for quick routing.')
+  lines.push('')
+  addSection(lines, 'Core Pages', [
+    `- [Homepage](${baseUrl}/): Product positioning and core value proposition.`,
+    `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
+    `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
+    `- [Pricing](${baseUrl}/pricing): Licensing and pricing details.`,
+    `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
+    `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
+    `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
+    `- [Linux waitlist form](${baseUrl}/form): Linux availability notifications form.`,
+  ])
 
-  // Home Page
-  sections.push(`## Homepage (${baseUrl}/)`)
-  sections.push('')
-  sections.push('Tiles')
-  sections.push('Local-first private AI for everyday use.')
-  sections.push('')
-  sections.push('Runs on-device models with encrypted P2P sync, keeping your data and identity local, and support for sharing chats publicly on ATProto.')
-  sections.push('')
-  sections.push('Currently available as a CLI in ALPHA.')
-  sections.push('Linux availability notifications: /form')
-  sections.push('')
-  sections.push('Extended product overview, comparison details, and security FAQ now live on the book index page at /book.')
-  sections.push('')
-  sections.push('='.repeat(80))
-  sections.push('')
+  addSection(lines, 'Installers And Release Metadata', [
+    `- [Network installer](${networkArtifact.downloadUrl}): Latest macOS installer, version ${networkArtifact.version}, size ${networkArtifact.binarySizeLabel}, sha256 ${networkArtifact.sha256}.`,
+    `- [Offline installer](${OFFLINE_INSTALLER.downloadUrl}): Bundled model ${OFFLINE_MODEL_NAME}, size ${OFFLINE_INSTALLER.binarySizeLabel}, sha256 ${OFFLINE_INSTALLER.sha256}.`,
+    `- [Offline installer checksum file](${offlineChecksumUrl}): SHA256 checksum file for offline installer validation.`,
+    `- [Changelog](${baseUrl}/changelog): Release notes and links to previous versions.`,
+  ])
 
-  // Linux Notification Form
-  sections.push(`## Linux Notification Form (${baseUrl}/form)`)
-  sections.push('')
-  sections.push('Sign up for the Tiles app')
-  sections.push('')
-  sections.push('Sign up to get notified when the Tiles app is available for Linux.')
-  sections.push('')
-  sections.push('Fields: first name, last name, email, Linux distribution.')
-  sections.push('Linux distribution options: Ubuntu, Debian, Arch Linux, Fedora, Red Hat Enterprise Linux (RHEL), Other.')
-  sections.push('')
-  sections.push('='.repeat(80))
-  sections.push('')
+  addSection(lines, 'Documentation (Book)', [
+    `- [Book index](${baseUrl}/book): Technical docs for Tiles and Tilekit.`,
+    ...bookPages.map((page) => {
+      const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
+      return `- [${page.title}](${pageUrl}): ${page.description}`
+    }),
+  ])
 
-  // Mission Page
-  sections.push(`## Mission (${baseUrl}/mission)`)
-  sections.push('')
-  sections.push('Our mission is to bring privacy technology to everyone.')
-  sections.push('')
-  sections.push('Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you. We strive to deliver the best privacy-focused engineering while also offering unmatched convenience in our consumer products. We believe identity and memory belong together, and Tiles gives you a way to own both through your personal user agent.')
-  sections.push('')
-  sections.push('Founded by Ankesh Bharti (@feynon), an independent researcher and technologist, Tiles is built for privacy conscious users who want intelligence without renting their memory to centralized providers. Our first product is a private and secure AI assistant with offline memory, and an SDK that lets developers customize local models and agent experiences within Tiles.')
-  sections.push('')
-  sections.push('Contributors:')
-  sections.push('Ankesh Bharti, Anandu Pavanan')
-  sections.push('')
-  sections.push('Sponsors:')
-  sections.push('Active: Luke Hubbard, Dietrich Ayala, Xi Zhang, Hugo Duprez, Utkarsh Saxena')
-  sections.push('Past: Boris Mann, Seref Yarar, Curran Dwyer, Goblin Oats')
-  sections.push('')
-  sections.push('='.repeat(80))
-  sections.push('')
+  addSection(lines, 'Blog', [
+    `- [Blog index](${baseUrl}/blog): Blog landing page with all published posts.`,
+    ...blogPosts.map((post) => `- [${post.title}](${baseUrl}/blog/${post.slug}): ${post.description}`),
+  ])
 
-  // Download Installer
-  sections.push(`## Download Installer (${artifact.downloadUrl})`)
-  sections.push('')
-  sections.push('Network installer for macOS:')
-  sections.push('')
-  sections.push(artifact.downloadUrl)
-  sections.push('')
-  sections.push('Offline installer for macOS (bundled model):')
-  sections.push('')
-  sections.push('https://download.tiles.run/tiles-0.4.7-full-signed.pkg')
-  sections.push('SHA256: e2fa2d5339d356c023fb1c13fba8a6cf099fedad07f684b7b090d59292c91032')
-  sections.push('SHA256 file: https://download.tiles.run/checksums/tiles-0.4.7-full-signed.pkg.sha256')
-  sections.push('Size: 10.31 GB')
-  sections.push('')
-  sections.push('='.repeat(80))
-  sections.push('')
+  addSection(lines, 'Legal And Policy', [
+    `- [Privacy](${baseUrl}/privacy): Privacy statement for website and product.`,
+    `- [Terms](${baseUrl}/terms): Terms for using Tiles services and website.`,
+    `- [Sub-processors](${baseUrl}/sub-processors): Third-party processors used by the project.`,
+    `- [Subprocessors alias](${baseUrl}/subprocessors): Alias route for subprocessors page.`,
+  ])
 
-  // Blog Listing Page
-  sections.push(`## Blog (${baseUrl}/blog)`)
-  sections.push('')
-  sections.push('The Tiles Blog')
-  sections.push('Privacy technology for everyone!')
-  sections.push('')
-  sections.push('We\'re building open source privacy technology for personalized software experiences.')
-  sections.push('')
-  sections.push('='.repeat(80))
-  sections.push('')
+  addSection(lines, 'Community And Feeds', [
+    '- [Discord community](https://go.tiles.run/discord): Community support and discussion channel.',
+    `- [RSS feed](${baseUrl}/api/rss): Syndicated feed for blog content.`,
+    `- [GitHub organization](https://github.com/tilesprivacy): Source code and issue tracking.`,
+  ])
 
-  // Blog Posts
-  for (const post of blogPosts) {
-    sections.push(`## Blog Post: ${post.title} (${baseUrl}/blog/${post.slug})`)
-    sections.push('')
-    sections.push(`Published: ${post.date.toISOString().split('T')[0]}`)
+  addSection(lines, 'Optional', [
+    `- [Expanded full context](${baseUrl}/llms-full.txt): Full-text context file for larger LLM context windows.`,
+    `- [Expanded full context (.well-known)](${baseUrl}/.well-known/llms-full.txt): Mirror of llms-full.txt under .well-known.`,
+    `- [Brand assets archive](${baseUrl}/tiles-brand-assets.zip): Public downloadable branding assets.`,
+    `- [Status page](https://status.tiles.run): Service and infrastructure status.`,
+  ])
 
-    // Add author information
-    if (post.author) {
-      const author = getPersonById(post.author)
-      if (author) {
-        sections.push(`Author: ${author.name}`)
-        if (author.links.length > 0) {
-          sections.push(`Author URL: ${author.links[0]}`)
-        }
-      }
-    }
-
-    sections.push('')
-    sections.push(`Description: ${post.description}`)
-    sections.push('')
-
-    // Add keywords for better discoverability
-    const keywords = getKeywordsForPost(post.slug)
-    if (keywords.length > 0) {
-      sections.push(`Keywords: ${keywords.join(', ')}`)
-      sections.push('')
-    }
-
-    sections.push('Content:')
-    sections.push(stripHtml(post.content))
-    sections.push('')
-    sections.push('='.repeat(80))
-    sections.push('')
-  }
-
-  // Book Pages
-  const bookPages = [
-    { path: '', title: 'Tiles Book' },
-    { path: 'overview', title: 'Overview' },
-    { path: 'manual', title: 'Manual' },
-    { path: 'models', title: 'Models' },
-    { path: 'tilekit', title: 'Tilekit' },
-    { path: 'mir', title: 'MIR Extension' },
-    { path: 'security', title: 'Security' },
-    { path: 'memory', title: 'Memory' },
-    { path: 'community', title: 'Community' },
-    { path: 'resources', title: 'Resources' },
-    { path: 'licenses', title: 'Licenses' },
-  ]
-
-  for (const page of bookPages) {
-    const mdxPath = page.path ? `${page.path}.mdx` : 'index.mdx'
-    const content = readMdxFile(mdxPath)
-    
-    if (content) {
-      const urlPath = page.path ? `/book/${page.path}` : '/book'
-      sections.push(`## Book: ${page.title} (${baseUrl}${urlPath})`)
-      sections.push('')
-      // Remove code blocks for cleaner text output
-      const textContent = content
-        .replace(/```[\s\S]*?```/g, '[code block]')
-        .replace(/`[^`]+`/g, (match) => match.replace(/`/g, ''))
-        .split('\n')
-        .map(line => line.trim())
-        .filter(line => line.length > 0)
-        .join('\n')
-      sections.push(textContent)
-      sections.push('')
-      sections.push('='.repeat(80))
-      sections.push('')
-    }
-  }
-
-  const output = sections.join('\n')
-
-  return new NextResponse(output, {
+  return new NextResponse(lines.join('\n'), {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
       'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
