@@ -44,6 +44,8 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#b0b0ba]' : 'text-[#1d1d1f]/60'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/50'
+  const alphaPillClass =
+    "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
 
   return (
     <>
@@ -70,12 +72,16 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                     />
                   </Link>
                 </Button>
-                <p className="mt-2 inline-flex w-fit items-center gap-1.5 whitespace-nowrap pl-1 text-[0.68rem] font-medium text-black/55 dark:text-[#9E9E9E] sm:text-[0.72rem]">
-                  <span className="inline-flex items-center rounded-full border border-black/20 px-1.5 py-0.5 text-[0.62rem] tracking-[0.08em] text-black/60 dark:border-white/25 dark:text-[#B9B9B9] sm:text-[0.66rem]">
-                    ALPHA
-                  </span>
-                  <span>for macOS 14+ (arm64)</span>
+                <p className="mt-2 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.65rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.68rem]">
+                  <span>Currently available as a CLI in</span>
+                  <span className={alphaPillClass}>ALPHA</span>
                 </p>
+                <Link
+                  href="/form"
+                  className="mt-2 text-[0.72rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.76rem]"
+                >
+                  Get notified for Linux
+                </Link>
               </div>
             </section>
           </div>
