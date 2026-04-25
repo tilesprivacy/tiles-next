@@ -12,6 +12,7 @@ const getResendClient = () => {
 }
 
 const SENDER_NAME = "Tiles Privacy"
+const LINUX_WAITLIST_TEMPLATE_ID = "c7599926-3195-4ca5-840b-b3248a6b9524"
 
 // Default email when RESEND_FROM_EMAIL is not set (Resend onboarding address)
 const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
@@ -46,6 +47,66 @@ const extractEmailFromFromEmail = (fromEmail: string): string => {
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
+}
+
+type LinuxWaitlistContactPayload = {
+  email: string
+  firstName: string
+  lastName: string
+  linuxDistributions: string[]
+}
+
+const upsertLinuxWaitlistContact = async (
+  resend: Resend,
+  payload: LinuxWaitlistContactPayload,
+) => {
+  const contactData = {
+    email: payload.email,
+    firstName: payload.firstName || undefined,
+    lastName: payload.lastName || undefined,
+    unsubscribed: false,
+    properties: {
+      tiles_queue: "linux",
+      tiles_linux_waitlist: "true",
+      tiles_waitlist_source: "form",
+      tiles_linux_distributions: payload.linuxDistributions.join(", "),
+      tiles_form_first_name: payload.firstName || "",
+      tiles_form_last_name: payload.lastName || "",
+    },
+  }
+
+  const createResult = await resend.contacts.create(contactData)
+  if (!createResult.error) return
+
+  const createErrorMessage = createResult.error.message?.toLowerCase() || ""
+  const isAlreadyExistsError =
+    createErrorMessage.includes("already") ||
+    createErrorMessage.includes("exists") ||
+    createErrorMessage.includes("duplicate") ||
+    createErrorMessage.includes("409")
+
+  if (!isAlreadyExistsError) {
+    throw new Error(createResult.error.message || "Could not create waitlist contact.")
+  }
+
+  const updateResult = await resend.contacts.update({
+    email: payload.email,
+    firstName: payload.firstName || undefined,
+    lastName: payload.lastName || undefined,
+    unsubscribed: false,
+    properties: {
+      tiles_queue: "linux",
+      tiles_linux_waitlist: "true",
+      tiles_waitlist_source: "form",
+      tiles_linux_distributions: payload.linuxDistributions.join(", "),
+      tiles_form_first_name: payload.firstName || "",
+      tiles_form_last_name: payload.lastName || "",
+    },
+  })
+
+  if (updateResult.error) {
+    throw new Error(updateResult.error.message || "Could not update waitlist contact.")
+  }
 }
 
 // GET handler for development debugging
@@ -85,7 +146,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse and validate request body
-    let body: { email?: string }
+    let body: {
+      firstName?: string
+      lastName?: string
+      email?: string
+      linuxDistributions?: string[]
+      source?: string
+    }
     try {
       body = await request.json()
     } catch (error) {
@@ -95,7 +162,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email } = body
+    const { firstName, lastName, email, linuxDistributions, source } = body
 
     // Validate email is provided
     if (!email || typeof email !== "string") {
@@ -117,14 +184,40 @@ export async function POST(request: NextRequest) {
     // Initialize Resend client
     const resend = getResendClient()
     const fromEmail = getFromEmail()
-    const artifact = await getLatestDownloadArtifact()
+    const isLinuxWaitlist = source === "linux-notify-form"
+    const artifact = isLinuxWaitlist ? null : await getLatestDownloadArtifact()
+    const safeFirstName =
+      typeof firstName === "string" && firstName.trim().length > 0
+        ? firstName.trim()
+        : "there"
+
+    if (isLinuxWaitlist) {
+      if (!Array.isArray(linuxDistributions) || linuxDistributions.length === 0) {
+        return NextResponse.json(
+          { error: "At least one Linux distribution is required." },
+          { status: 400 }
+        )
+      }
+
+      await upsertLinuxWaitlistContact(resend, {
+        email: trimmedEmail,
+        firstName: typeof firstName === "string" ? firstName.trim() : "",
+        lastName: typeof lastName === "string" ? lastName.trim() : "",
+        linuxDistributions: linuxDistributions
+          .filter((item): item is string => typeof item === "string")
+          .map((item) => item.trim())
+          .filter(Boolean),
+      })
+    }
 
     // Send welcome email
     const result = await resend.emails.send({
       from: fromEmail,
       to: trimmedEmail,
-      subject: "Welcome to Tiles Privacy",
-      html: `
+      subject: isLinuxWaitlist ? "Tiles for Linux waitlist" : "Welcome to Tiles Privacy",
+      html: isLinuxWaitlist
+        ? undefined
+        : `
         <!DOCTYPE html>
         <html lang="en">
           <head>
@@ -258,7 +351,7 @@ export async function POST(request: NextRequest) {
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
                           <tr>
                             <td style="padding-bottom: 12px;">
-                              <a href="${artifact.downloadUrl}" class="email-card email-card-dark" style="display: block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 17px; font-weight: 500; -webkit-text-size-adjust: 100%;">
+                              <a href="${artifact?.downloadUrl ?? "https://tiles.run/download"}" class="email-card email-card-dark" style="display: block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 17px; font-weight: 500; -webkit-text-size-adjust: 100%;">
                                 Download Tiles for macOS
                               </a>
                             </td>
@@ -310,6 +403,19 @@ export async function POST(request: NextRequest) {
           </body>
         </html>
       `,
+      template: isLinuxWaitlist
+        ? {
+            id: LINUX_WAITLIST_TEMPLATE_ID,
+            variables: {
+              FIRST_NAME: safeFirstName,
+              LAST_NAME: typeof lastName === "string" ? lastName.trim() : "",
+              EMAIL: trimmedEmail,
+              LINUX_DISTRIBUTIONS: Array.isArray(linuxDistributions)
+                ? linuxDistributions.join(", ")
+                : "",
+            },
+          }
+        : undefined,
     })
 
     // Handle Resend API errors

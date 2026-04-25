@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/blog",
     "/book",
     "/brand",
+    "/form",
     "/privacy",
     "/terms",
     "/sub-processors",
@@ -28,4 +29,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticRoutes, ...blogRoutes]
 }
-

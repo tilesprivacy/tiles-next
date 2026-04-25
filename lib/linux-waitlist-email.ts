@@ -1,0 +1,152 @@
+export interface LinuxWaitlistEmailVariables extends Record<string, string> {
+  FIRST_NAME: string
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
+export const linuxWaitlistEmailTemplateHtml = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="dark">
+    <meta name="supported-color-schemes" content="dark">
+    <title>Tiles for Linux waitlist</title>
+    <style type="text/css">
+      body, table, td, p, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+      table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+      table { border-collapse: collapse !important; }
+      img { -ms-interpolation-mode: bicubic; border: 0; display: block; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+      body { margin: 0 !important; padding: 0 !important; width: 100% !important; min-width: 100% !important; background: #000000 !important; }
+      a { color: inherit; }
+      .preheader { display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0; overflow: hidden; mso-hide: all; }
+      @media only screen and (max-width: 600px) {
+        .page-pad { padding: 22px 24px 52px 24px !important; }
+        .container { width: 100% !important; max-width: 100% !important; }
+        .title { font-size: 34px !important; line-height: 1.12 !important; }
+        .body-copy { font-size: 16px !important; line-height: 1.65 !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; width:100%; min-width:100%; background-color:#000000;">
+    <div class="preheader">You have been added to the Tiles for Linux waitlist.</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; background-color:#000000;">
+      <tr>
+        <td align="center" class="page-pad" style="padding:20px 24px 72px 24px;">
+          <table role="presentation" width="560" cellpadding="0" cellspacing="0" class="container" style="width:560px; max-width:560px;">
+            <tr>
+              <td style="padding:0 0 134px 0;">
+                <a href="https://www.tiles.run" style="display:inline-block; text-decoration:none;">
+                  <img src="https://www.tiles.run/grey.png" width="44" height="44" alt="Tiles" style="width:44px; max-width:44px; height:44px;">
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 21px 0;">
+                <h1 class="title" style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:38px; line-height:1.14; font-weight:650; letter-spacing:0;">
+                  You're on the Linux waitlist
+                </h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 24px 0;">
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Hi {{{FIRST_NAME}}},
+                </p>
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Thanks for signing up for Tiles for Linux. You're on the waitlist.
+                </p>
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  We're preparing the Linux build and will email you as soon as it is ready to install.
+                </p>
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  In the meantime, follow our <a href="https://tiles.run/blog" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Blog</a> for product updates.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 36px 0;">
+                <p class="body-copy" style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.45; font-weight:500;">
+                  - Tiles Privacy &amp; Contributors
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:30px 0 0 0; border-top:1px solid #262626;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-top:14px;">
+                  <tr>
+                    <td align="center" style="padding:0 0 14px 0;">
+                      <a href="https://www.tiles.run" style="display:inline-block; text-decoration:none;">
+                        <img src="https://www.tiles.run/grey.png" width="28" height="28" alt="Tiles" style="width:28px; max-width:28px; height:28px;">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 18px 0;">
+                      <p style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                        Tiles is a local-first private AI for everyday use
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 18px 0;">
+                      <a href="https://x.com/tilesprivacy" aria-label="X" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-x-9ca3af.svg" width="16" height="16" alt="X" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://bsky.app/profile/tiles.run" aria-label="Bluesky" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-bluesky-9ca3af.svg" width="16" height="16" alt="Bluesky" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://www.instagram.com/tilesprivacy" aria-label="Instagram" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-instagram-9ca3af.svg" width="16" height="16" alt="Instagram" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://go.tiles.run/discord" aria-label="Discord" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-discord-9ca3af.svg" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-reddit-9ca3af.svg" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://github.com/tilesprivacy" aria-label="GitHub" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-github-9ca3af.svg" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://tangled.org/tiles.run/tiles/" aria-label="Tangled" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-tangled-9ca3af.svg" width="16" height="16" alt="Tangled" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://huggingface.co/tilesprivacy" aria-label="Hugging Face" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-huggingface-9ca3af.svg" width="16" height="16" alt="Hugging Face" style="display:block; width:16px; height:16px;">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 4px 0;">
+                      <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6;">
+                        Unsubscribe
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`
+
+export function renderLinuxWaitlistEmailHtml(
+  variables: LinuxWaitlistEmailVariables,
+): string {
+  return Object.entries(variables).reduce(
+    (html, [key, value]) =>
+      html.replaceAll(`{{{${key}}}}`, escapeHtml(String(value))),
+    linuxWaitlistEmailTemplateHtml,
+  )
+}
