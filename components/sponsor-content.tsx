@@ -205,7 +205,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </p>
                 </div>
                 <p>
-                  Right now, that work is carried by{" "}
+                  The project is currently maintained by{" "}
                   <InlinePerson
                     name={people.contributorsCore[0]!.name}
                     links={people.contributorsCore[0]!.links}
