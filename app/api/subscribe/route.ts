@@ -65,6 +65,29 @@ const LINUX_WAITLIST_CONTACT_PROPERTIES = [
   { key: "tiles_form_last_name", fallbackValue: "" },
 ] as const
 
+const getLinuxWaitlistContactData = (payload: LinuxWaitlistContactPayload) => ({
+  email: payload.email,
+  firstName: payload.firstName || undefined,
+  lastName: payload.lastName || undefined,
+  unsubscribed: false,
+  properties: {
+    tiles_queue: "linux",
+    tiles_linux_waitlist: "true",
+    tiles_waitlist_source: "form",
+    tiles_linux_distributions: payload.linuxDistributions.join(", "),
+    tiles_form_first_name: payload.firstName || "",
+    tiles_form_last_name: payload.lastName || "",
+  },
+})
+
+const isMissingPropertiesErrorMessage = (message: string) => {
+  const normalized = message.toLowerCase()
+  return (
+    normalized.includes("properties do not exist") ||
+    normalized.includes("one or more properties do not exist")
+  )
+}
+
 const ensureLinuxWaitlistContactProperties = async (resend: Resend) => {
   for (const property of LINUX_WAITLIST_CONTACT_PROPERTIES) {
     const result = await resend.contactProperties.create({
@@ -93,101 +116,49 @@ const upsertLinuxWaitlistContact = async (
   resend: Resend,
   payload: LinuxWaitlistContactPayload,
 ) => {
+  const contactData = getLinuxWaitlistContactData(payload)
+
+  const tryCreateOrUpdate = async () => {
+    const createResult = await resend.contacts.create(contactData)
+    if (!createResult.error) return
+
+    const createErrorMessage = createResult.error.message?.toLowerCase() || ""
+    const isAlreadyExistsError =
+      createErrorMessage.includes("already") ||
+      createErrorMessage.includes("exists") ||
+      createErrorMessage.includes("duplicate") ||
+      createErrorMessage.includes("409")
+
+    if (!isAlreadyExistsError) {
+      throw new Error(createResult.error.message || "Could not create waitlist contact.")
+    }
+
+    const updateResult = await resend.contacts.update({
+      email: payload.email,
+      firstName: payload.firstName || undefined,
+      lastName: payload.lastName || undefined,
+      unsubscribed: false,
+      properties: contactData.properties,
+    })
+
+    if (updateResult.error) {
+      throw new Error(updateResult.error.message || "Could not update waitlist contact.")
+    }
+  }
+
+  try {
+    await tryCreateOrUpdate()
+    return
+  } catch (error) {
+    const message = error instanceof Error ? error.message : ""
+    if (!isMissingPropertiesErrorMessage(message)) {
+      throw error
+    }
+  }
+
+  // Create missing contact properties once, then retry contact upsert.
   await ensureLinuxWaitlistContactProperties(resend)
-
-  const contactData = {
-    email: payload.email,
-    firstName: payload.firstName || undefined,
-    lastName: payload.lastName || undefined,
-    unsubscribed: false,
-    properties: {
-      tiles_queue: "linux",
-      tiles_linux_waitlist: "true",
-      tiles_waitlist_source: "form",
-      tiles_linux_distributions: payload.linuxDistributions.join(", "),
-      tiles_form_first_name: payload.firstName || "",
-      tiles_form_last_name: payload.lastName || "",
-    },
-  }
-
-  const createResult = await resend.contacts.create(contactData)
-  if (!createResult.error) return
-
-  const createErrorMessage = createResult.error.message?.toLowerCase() || ""
-  const isAlreadyExistsError =
-    createErrorMessage.includes("already") ||
-    createErrorMessage.includes("exists") ||
-    createErrorMessage.includes("duplicate") ||
-    createErrorMessage.includes("409")
-
-  if (!isAlreadyExistsError) {
-    throw new Error(createResult.error.message || "Could not create waitlist contact.")
-  }
-
-  const updateResult = await resend.contacts.update({
-    email: payload.email,
-    firstName: payload.firstName || undefined,
-    lastName: payload.lastName || undefined,
-    unsubscribed: false,
-    properties: {
-      tiles_queue: "linux",
-      tiles_linux_waitlist: "true",
-      tiles_waitlist_source: "form",
-      tiles_linux_distributions: payload.linuxDistributions.join(", "),
-      tiles_form_first_name: payload.firstName || "",
-      tiles_form_last_name: payload.lastName || "",
-    },
-  })
-
-  if (updateResult.error) {
-    throw new Error(updateResult.error.message || "Could not update waitlist contact.")
-  }
-}
-
-const verifyLinuxWaitlistContactProperties = async (
-  resend: Resend,
-  payload: LinuxWaitlistContactPayload,
-) => {
-  const expectedProperties: Record<string, string> = {
-    tiles_queue: "linux",
-    tiles_linux_waitlist: "true",
-    tiles_waitlist_source: "form",
-    tiles_linux_distributions: payload.linuxDistributions.join(", "),
-    tiles_form_first_name: payload.firstName || "",
-    tiles_form_last_name: payload.lastName || "",
-  }
-
-  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-  const attempts = 3
-  const delayMs = 350
-
-  for (let attempt = 1; attempt <= attempts; attempt += 1) {
-    const getResult = await resend.contacts.get({ email: payload.email })
-    if (!getResult.error && getResult.data) {
-      const savedProperties =
-        (getResult.data as { properties?: Record<string, unknown> }).properties || {}
-
-      let allMatched = true
-      for (const [key, expectedValue] of Object.entries(expectedProperties)) {
-        if (String(savedProperties[key] ?? "") !== expectedValue) {
-          allMatched = false
-          break
-        }
-      }
-
-      if (allMatched) return true
-    }
-
-    if (attempt < attempts) {
-      await wait(delayMs)
-    }
-  }
-
-  // Do not block a successful submission if verification lags eventual consistency.
-  console.warn("[Subscribe] Linux waitlist properties verification did not fully match yet", {
-    email: payload.email,
-  })
-  return false
+  await tryCreateOrUpdate()
 }
 
 // GET handler for development debugging
@@ -291,7 +262,6 @@ export async function POST(request: NextRequest) {
       }
 
       await upsertLinuxWaitlistContact(resend, linuxPayload)
-      await verifyLinuxWaitlistContactProperties(resend, linuxPayload)
     }
 
     // Send welcome email
