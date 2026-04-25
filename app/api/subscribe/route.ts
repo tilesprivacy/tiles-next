@@ -78,6 +78,7 @@ const ensureLinuxWaitlistContactProperties = async (resend: Resend) => {
     const message = result.error.message?.toLowerCase() || ""
     const isAlreadyExists =
       message.includes("already exists") ||
+      message.includes("already a contact property with this key") ||
       message.includes("already been taken") ||
       message.includes("duplicate") ||
       message.includes("409")
