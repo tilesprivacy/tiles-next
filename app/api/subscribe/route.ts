@@ -56,10 +56,44 @@ type LinuxWaitlistContactPayload = {
   linuxDistributions: string[]
 }
 
+const LINUX_WAITLIST_CONTACT_PROPERTIES = [
+  { key: "tiles_queue", fallbackValue: "linux" },
+  { key: "tiles_linux_waitlist", fallbackValue: "true" },
+  { key: "tiles_waitlist_source", fallbackValue: "form" },
+  { key: "tiles_linux_distributions", fallbackValue: "" },
+  { key: "tiles_form_first_name", fallbackValue: "" },
+  { key: "tiles_form_last_name", fallbackValue: "" },
+] as const
+
+const ensureLinuxWaitlistContactProperties = async (resend: Resend) => {
+  for (const property of LINUX_WAITLIST_CONTACT_PROPERTIES) {
+    const result = await resend.contactProperties.create({
+      key: property.key,
+      type: "string",
+      fallbackValue: property.fallbackValue,
+    })
+
+    if (!result.error) continue
+
+    const message = result.error.message?.toLowerCase() || ""
+    const isAlreadyExists =
+      message.includes("already exists") ||
+      message.includes("already been taken") ||
+      message.includes("duplicate") ||
+      message.includes("409")
+
+    if (!isAlreadyExists) {
+      throw new Error(result.error.message || `Could not create contact property: ${property.key}`)
+    }
+  }
+}
+
 const upsertLinuxWaitlistContact = async (
   resend: Resend,
   payload: LinuxWaitlistContactPayload,
 ) => {
+  await ensureLinuxWaitlistContactProperties(resend)
+
   const contactData = {
     email: payload.email,
     firstName: payload.firstName || undefined,
@@ -106,6 +140,33 @@ const upsertLinuxWaitlistContact = async (
 
   if (updateResult.error) {
     throw new Error(updateResult.error.message || "Could not update waitlist contact.")
+  }
+}
+
+const verifyLinuxWaitlistContactProperties = async (
+  resend: Resend,
+  payload: LinuxWaitlistContactPayload,
+) => {
+  const getResult = await resend.contacts.get({ email: payload.email })
+  if (getResult.error || !getResult.data) {
+    throw new Error(getResult.error?.message || "Could not verify waitlist contact.")
+  }
+
+  const expectedProperties: Record<string, string> = {
+    tiles_queue: "linux",
+    tiles_linux_waitlist: "true",
+    tiles_waitlist_source: "form",
+    tiles_linux_distributions: payload.linuxDistributions.join(", "),
+    tiles_form_first_name: payload.firstName || "",
+    tiles_form_last_name: payload.lastName || "",
+  }
+
+  const savedProperties = (getResult.data as { properties?: Record<string, unknown> }).properties || {}
+
+  for (const [key, expectedValue] of Object.entries(expectedProperties)) {
+    if (String(savedProperties[key] ?? "") !== expectedValue) {
+      throw new Error(`Contact property not saved correctly: ${key}`)
+    }
   }
 }
 
@@ -199,7 +260,7 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      await upsertLinuxWaitlistContact(resend, {
+      const linuxPayload = {
         email: trimmedEmail,
         firstName: typeof firstName === "string" ? firstName.trim() : "",
         lastName: typeof lastName === "string" ? lastName.trim() : "",
@@ -207,7 +268,10 @@ export async function POST(request: NextRequest) {
           .filter((item): item is string => typeof item === "string")
           .map((item) => item.trim())
           .filter(Boolean),
-      })
+      }
+
+      await upsertLinuxWaitlistContact(resend, linuxPayload)
+      await verifyLinuxWaitlistContactProperties(resend, linuxPayload)
     }
 
     // Send welcome email
