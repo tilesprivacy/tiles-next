@@ -205,21 +205,17 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </p>
                 </div>
                 <p>
-                  Tiles is a long-term project. It is being built to last, with steady work on the product,
-                  infrastructure, and research rather than short bursts of activity around launches.
+                  Right now, that work is carried by{" "}
+                  <InlinePerson
+                    name={people.contributorsCore[0]!.name}
+                    links={people.contributorsCore[0]!.links}
+                  />{" "}
+                  and{" "}
+                  <InlinePerson
+                    name={people.contributorsCore[1]!.name}
+                    links={people.contributorsCore[1]!.links}
+                  />. Sponsorship helps us keep building with continuity and focus over the long run.
                 </p>
-                  <p>
-                    Right now, that work is carried by{" "}
-                    <InlinePerson
-                      name={people.contributorsCore[0]!.name}
-                      links={people.contributorsCore[0]!.links}
-                    />{" "}
-                    and{" "}
-                    <InlinePerson
-                      name={people.contributorsCore[1]!.name}
-                      links={people.contributorsCore[1]!.links}
-                    />. Sponsorship helps us keep building with continuity and focus over the long run.
-                  </p>
               </div>
             </div>
 
