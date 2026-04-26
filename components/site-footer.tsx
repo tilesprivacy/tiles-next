@@ -77,7 +77,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                   <span className={alphaPillClass}>ALPHA</span>
                 </p>
                 <Link
-                  href="/form"
+                  href="/linux"
                   className="mt-2 text-[0.72rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.76rem]"
                 >
                   Get notified for Linux

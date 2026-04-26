@@ -69,7 +69,7 @@ export async function GET(request: Request) {
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
-    `- [Linux waitlist form](${baseUrl}/form): Linux availability notifications form.`,
+    `- [Linux waitlist form](${baseUrl}/linux): Linux availability notifications form.`,
   ])
 
   addSection(lines, 'Installers And Release Metadata', [

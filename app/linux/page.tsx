@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: formTitle,
     description: formDescription,
-    url: "https://www.tiles.run/form",
+    url: "https://www.tiles.run/linux",
     type: "website",
     images: [
       {

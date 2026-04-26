@@ -90,7 +90,7 @@ export async function GET(request: Request) {
     'Local-first private AI for everyday use.',
     'Runs on-device models with encrypted P2P sync, keeping data and identity local, with support for sharing chats publicly on ATProto.',
     'Current status: CLI alpha.',
-    `Linux availability form: ${baseUrl}/form`,
+    `Linux availability form: ${baseUrl}/linux`,
   ])
 
   pushSection(lines, `Download (${baseUrl}/download)`, [
