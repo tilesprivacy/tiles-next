@@ -94,7 +94,7 @@ const faqs: PricingFaq[] = [
   {
     question: "Do you store, access, or process user data?",
     answer:
-      "Local-first private AI for everyday use. You can use our apps without sharing personal information, and your data is stored locally on your device. Our apps do not collect telemetry data, and we never sell user data.",
+      "Local-first private AI assistant for everyday use. You can use our apps without sharing personal information, and your data is stored locally on your device. Our apps do not collect telemetry data, and we never sell user data.",
   },
   {
     question: "How can I tell whether my license is active?",

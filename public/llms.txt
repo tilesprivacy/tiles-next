@@ -1,6 +1,6 @@
 # Tiles Privacy
 
-> Local-first private AI for everyday use. Tiles ships as a CLI alpha with on-device models, encrypted P2P sync, decentralized identity, and shareable chats.
+> Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats publicly on ATProto.
 
 Last updated: 2026-04-25
 This file follows the llms.txt convention and provides a complete content map for tiles.run.

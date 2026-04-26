@@ -32,7 +32,7 @@ export default function MoveAlongPythonPage() {
       content={post.content}
     >
       <p>
-        We have been working on Tiles. Local-first private AI for everyday use. To ensure its Python model
+        We have been working on Tiles. Local-first private AI assistant for everyday use. To ensure its Python model
         server starts predictably on any machine, the runtime and dependencies must be deterministic and portable. This
         post walks through how we achieve that with layered venvstacks.
       </p>

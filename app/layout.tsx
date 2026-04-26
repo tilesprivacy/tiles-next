@@ -28,8 +28,8 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
-  title: "Tiles: Local-first private AI for everyday use",
-  description: "Local-first private AI for everyday use.",
+  title: "Tiles: Local-first private AI assistant for everyday use",
+  description: "Local-first private AI assistant for everyday use.",
   generator: "v0.app",
   manifest: "/manifest.json",
   icons: {
@@ -64,8 +64,8 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "Tiles: Local-first private AI for everyday use",
-    description: "Local-first private AI for everyday use.",
+    title: "Tiles: Local-first private AI assistant for everyday use",
+    description: "Local-first private AI assistant for everyday use.",
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
     images: [
@@ -73,15 +73,15 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles: Local-first private AI for everyday use",
+        alt: "Tiles: Local-first private AI assistant for everyday use",
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles: Local-first private AI for everyday use",
-    description: "Local-first private AI for everyday use.",
+    title: "Tiles: Local-first private AI assistant for everyday use",
+    description: "Local-first private AI assistant for everyday use.",
     images: ["https://www.tiles.run/api/og"],
   },
 }

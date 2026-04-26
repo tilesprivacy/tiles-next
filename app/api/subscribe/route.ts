@@ -341,7 +341,7 @@ export async function POST(request: NextRequest) {
                         </h2>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 16px 0; line-height: 1.6;">
-                          Local-first private AI for everyday use. Born from the <a href="https://userandagents.com" class="email-body-link" style="color: #000000; text-decoration: underline;">User &amp; Agents</a> community, Tiles is built for people who want intelligence without renting their memory to centralized providers.
+                          Local-first private AI assistant for everyday use. Born from the <a href="https://userandagents.com" class="email-body-link" style="color: #000000; text-decoration: underline;">User &amp; Agents</a> community, Tiles is built for people who want intelligence without renting their memory to centralized providers.
                         </p>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 32px 0; line-height: 1.6;">

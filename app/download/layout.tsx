@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Download | Tiles",
-  description: "Local-first private AI for everyday use.",
+  description: "Local-first private AI assistant for everyday use.",
   openGraph: {
     title: "Download | Tiles",
-    description: "Local-first private AI for everyday use.",
+    description: "Local-first private AI assistant for everyday use.",
     url: "https://www.tiles.run/download",
     siteName: "Tiles Privacy",
     type: "website",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Download | Tiles",
-    description: "Local-first private AI for everyday use.",
+    description: "Local-first private AI assistant for everyday use.",
     images: ["https://www.tiles.run/api/og"],
   },
 }

@@ -55,7 +55,7 @@ export async function GET(request: Request) {
 
   lines.push('# Tiles Privacy')
   lines.push('')
-  lines.push('> Local-first private AI for everyday use. Tiles ships as a CLI alpha with on-device models, encrypted P2P sync, decentralized identity, and shareable chats.')
+  lines.push('> Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats publicly on ATProto.')
   lines.push('')
   lines.push(`Last updated: ${new Date().toISOString().slice(0, 10)}`)
   lines.push('This file follows the llms.txt convention and provides a complete content map for tiles.run.')
