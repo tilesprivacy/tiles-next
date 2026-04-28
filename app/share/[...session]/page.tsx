@@ -14,23 +14,23 @@ export async function generateMetadata({
 
   return {
     title: "Shared chat session | Tiles",
-    description: "A shared chat session on Tiles.",
+    description: "Shared chat session on Tiles. Powered by ATProto.",
     openGraph: {
       title: "Shared chat session | Tiles",
-      description: "A shared chat session on Tiles.",
+      description: "Shared chat session on Tiles. Powered by ATProto.",
       images: [
         {
           url: imagePath,
           width: 1200,
           height: 630,
-          alt: "Shared chat session | Tiles",
+          alt: "Shared chat session on Tiles. Powered by ATProto.",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: "Shared chat session | Tiles",
-      description: "A shared chat session on Tiles.",
+      description: "Shared chat session on Tiles. Powered by ATProto.",
       images: [imagePath],
     },
   }

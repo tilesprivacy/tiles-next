@@ -113,7 +113,7 @@ export async function GET(request: Request) {
             alignItems: "center",
             justifyContent: "center",
             gap: "20px",
-            marginBottom: "22px",
+            marginBottom: "38px",
           }}
         >
           {logoDataUrl ? (
@@ -140,43 +140,51 @@ export async function GET(request: Request) {
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "10px",
+            gap: "14px",
             lineHeight: 1.2,
             textAlign: "center",
-            whiteSpace: "nowrap",
-            fontSize: 28,
+            fontSize: 32,
             fontWeight: 500,
             color: "rgba(231,231,237,0.88)",
           }}
         >
-          <span>Shared chat from</span>
-          {avatarDataUrl ? (
-            <img
-              src={avatarDataUrl}
-              alt={handleText}
-              width={44}
-              height={44}
-              style={{
-                borderRadius: "9999px",
-                objectFit: "cover",
-                border: "2px solid rgba(255,255,255,0.2)",
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 44,
-                height: 44,
-                borderRadius: "9999px",
-                background: "rgba(255,255,255,0.14)",
-                border: "2px solid rgba(255,255,255,0.2)",
-              }}
-            />
-          )}
-          <span style={{ fontSize: 28, color: "rgba(231,231,237,0.95)" }}>
-            {handleText}
+          <span>Shared chat session on Tiles. Powered by ATProto.</span>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontSize: 28,
+              color: "rgba(231,231,237,0.95)",
+            }}
+          >
+            {avatarDataUrl ? (
+              <img
+                src={avatarDataUrl}
+                alt={handleText}
+                width={44}
+                height={44}
+                style={{
+                  borderRadius: "9999px",
+                  objectFit: "cover",
+                  border: "2px solid rgba(255,255,255,0.2)",
+                }}
+              />
+            ) : (
+              <div
+                style={{
+                  width: 44,
+                  height: 44,
+                  borderRadius: "9999px",
+                  background: "rgba(255,255,255,0.14)",
+                  border: "2px solid rgba(255,255,255,0.2)",
+                }}
+              />
+            )}
+            <span>{handleText}</span>
           </span>
         </div>
       </div>

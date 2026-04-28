@@ -2,15 +2,15 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "Shared chat session | Tiles",
-  description: "A shared chat session on Tiles.",
+  description: "Shared chat session on Tiles. Powered by ATProto.",
   openGraph: {
     title: "Shared chat session | Tiles",
-    description: "A shared chat session on Tiles.",
+    description: "Shared chat session on Tiles. Powered by ATProto.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Shared chat session | Tiles",
-    description: "A shared chat session on Tiles.",
+    description: "Shared chat session on Tiles. Powered by ATProto.",
   },
 }
 
