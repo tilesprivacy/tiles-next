@@ -266,6 +266,14 @@ function buildAtExploreUrl(sourceUri: string): string | null {
   return `https://atexplore.social/${atPath}?mode=simple`
 }
 
+function buildBlueskyProfileUrl(handle: string | null, did: string): string {
+  const normalizedHandle = handle?.trim().replace(/^@+/, "")
+  const profileId = normalizedHandle && normalizedHandle.length > 0
+    ? normalizedHandle
+    : did
+  return `https://bsky.app/profile/${encodeURIComponent(profileId)}`
+}
+
 function MessageBubble({ message }: { message: SharedSessionMessage }) {
   const isAssistant = message.role === "assistant"
 
@@ -406,6 +414,15 @@ export function ShareSessionClient({
     () => buildAtExploreUrl(sharedSession?.sourceUri ?? ""),
     [sharedSession?.sourceUri],
   )
+  const blueskyProfileUrl = useMemo(() => {
+    if (!sharedSession) {
+      return ""
+    }
+    return buildBlueskyProfileUrl(
+      sharedSession.sharedBy.handle,
+      sharedSession.sharedBy.did,
+    )
+  }, [sharedSession])
   useEffect(() => {
     if (!shareToken) {
       setFetchingSourceSuffix(null)
@@ -476,7 +493,17 @@ export function ShareSessionClient({
                   ) : (
                     <span className="h-4 w-4 rounded-full bg-black/15 dark:bg-white/25" aria-hidden />
                   )}
-                  <span className="font-medium text-black/65 dark:text-white/75">{sharedByLabel}</span>
+                  <a
+                    href={blueskyProfileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/20 dark:hover:text-white dark:hover:decoration-white/40"
+                    title="Open Bluesky profile"
+                  >
+                    {sharedSession.sharedBy.handle
+                      ? `@${sharedSession.sharedBy.handle.replace(/^@+/, "")}`
+                      : sharedByLabel}
+                  </a>
                 </span>
               </p>
               <div className="mt-3 flex items-center justify-center gap-2.5 text-xs leading-5 text-black/58 dark:text-white/62 sm:mt-2.5 sm:gap-2">
