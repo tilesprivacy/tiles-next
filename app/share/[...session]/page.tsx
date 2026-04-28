@@ -6,24 +6,24 @@ interface SharePageProps {
 }
 
 export const metadata: Metadata = {
-  title: "Shared Tiles session | Tiles",
-  description: "A shared Tiles chat session.",
+  title: "Shared chat session | Tiles",
+  description: "A shared chat session on Tiles.",
   openGraph: {
-    title: "Shared Tiles session | Tiles",
-    description: "A shared Tiles chat session.",
+    title: "Shared chat session | Tiles",
+    description: "A shared chat session on Tiles.",
     images: [
       {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Shared Tiles session | Tiles",
+        alt: "Shared chat session | Tiles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Shared Tiles session | Tiles",
-    description: "A shared Tiles chat session.",
+    title: "Shared chat session | Tiles",
+    description: "A shared chat session on Tiles.",
     images: ["https://www.tiles.run/api/og"],
   },
 }
