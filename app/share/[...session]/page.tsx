@@ -10,7 +10,7 @@ export async function generateMetadata({
 }: SharePageProps): Promise<Metadata> {
   const { session } = await params
   const shareToken = session.join("/")
-  const imagePath = `/share/${shareToken}/opengraph-image`
+  const imagePath = `/share/opengraph-image?session=${encodeURIComponent(shareToken)}`
 
   return {
     title: "Shared chat session | Tiles",

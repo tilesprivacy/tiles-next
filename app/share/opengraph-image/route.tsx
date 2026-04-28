@@ -11,10 +11,6 @@ export const size = {
 
 export const contentType = "image/png"
 
-interface ShareOpenGraphImageProps {
-  params: Promise<{ session: string[] }>
-}
-
 const DEFAULT_ATPROTO_SERVICE = "https://public.api.bsky.app"
 
 function getDidFromAtUri(uri: string): string | null {
@@ -22,9 +18,9 @@ function getDidFromAtUri(uri: string): string | null {
   return match ? match[1] : null
 }
 
-export default async function Image({ params }: ShareOpenGraphImageProps) {
-  const { session } = await params
-  const shareToken = session.join("/")
+export async function GET(request: Request) {
+  const url = new URL(request.url)
+  const shareToken = url.searchParams.get("session") ?? ""
 
   let handleText = "@unknown"
   let avatarUrl: string | null = null
