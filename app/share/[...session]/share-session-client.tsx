@@ -476,10 +476,10 @@ export function ShareSessionClient({
   return (
     <main className="dark flex h-[100dvh] overflow-hidden bg-[#1f1f1f] px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] text-[#E6E6E8] sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
       <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
-        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))]">
-          <div className="mx-auto w-full max-w-3xl">
-            <header className="px-2 pb-7 pt-4 text-center sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-xs leading-5 text-black/45 dark:text-white/55 sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
+        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] lg:pb-4">
+          <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col">
+            <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-2 pb-7 pt-4 sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
+              <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
                 <span className="inline-flex items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
@@ -506,8 +506,8 @@ export function ShareSessionClient({
                   </a>
                 </span>
               </p>
-              <div className="mt-3 flex items-center justify-center gap-2.5 text-xs leading-5 text-black/58 dark:text-white/62 sm:mt-2.5 sm:gap-2">
-                <span className="max-w-[min(74vw,36rem)] truncate font-medium" title={pageUrl || undefined}>
+              <div className="flex min-w-0 max-w-full items-center justify-end gap-2.5 text-right text-xs leading-5 text-black/58 dark:text-white/62 sm:max-w-[38%] sm:gap-2">
+                <span className="min-w-0 truncate font-medium" title={pageUrl || undefined}>
                   {shareLinkLabel}
                 </span>
                 <button
@@ -540,7 +540,7 @@ export function ShareSessionClient({
               <EmptyState />
             )}
 
-            <footer className="mt-8 border-t border-white/10 pb-4 pt-3 sm:mt-10">
+            <footer className="mt-auto border-t border-white/10 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-3">
               <p className="text-center text-[0.68rem] leading-4 text-white/55 sm:text-[0.72rem]">
                 <span className="block">
                   This conversation is fetched directly from the PDS on the client side, and we do not store copy of the shared conversation on our servers.
