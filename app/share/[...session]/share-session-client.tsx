@@ -47,7 +47,10 @@ function parseAtUri(uri: string): AtUriParts {
 }
 
 function resolveSharedSessionUri(shareToken: string): string {
-  const token = decodeURIComponent(shareToken).replace(/^\/+|\/+$/g, "")
+  const token = decodeURIComponent(shareToken)
+    .trim()
+    .replace(/^\/+|\/+$/g, "")
+    .replace(/\/api\/og$/i, "")
   const normalizedToken = token.replace(/-/g, "+").replace(/_/g, "/")
   const paddedToken = normalizedToken.padEnd(
     normalizedToken.length + ((4 - (normalizedToken.length % 4)) % 4),

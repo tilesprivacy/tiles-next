@@ -45,11 +45,20 @@ export function createSharedSessionPathFromUri(uri: string): string {
     )
   }
 
-  return `/share/${Buffer.from(uri, "utf8").toString("base64")}`
+  const base64UrlToken = Buffer.from(uri, "utf8")
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "")
+
+  return `/share/${base64UrlToken}`
 }
 
 export function resolveSharedSessionUri(shareToken: string): string {
-  const token = decodeURIComponent(shareToken).replace(/^\/+|\/+$/g, "")
+  const token = decodeURIComponent(shareToken)
+    .trim()
+    .replace(/^\/+|\/+$/g, "")
+    .replace(/\/api\/og$/i, "")
   const normalizedToken = token.replace(/-/g, "+").replace(/_/g, "/")
   const paddedToken = normalizedToken.padEnd(
     normalizedToken.length + ((4 - (normalizedToken.length % 4)) % 4),
