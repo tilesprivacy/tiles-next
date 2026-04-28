@@ -27,12 +27,31 @@ export default async function CommercialPurchaseSuccessPage({
       <main className="flex flex-1 items-center px-4 pb-14 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:px-6 sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto w-full max-w-2xl text-center">
           <p className="text-sm font-medium text-muted-foreground">Thanks for your support</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          <h1 className="mb-4 mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
             Commercial license confirmed
           </h1>
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Thank you for supporting Tiles. Your commercial license purchase was successful.
-          </p>
+          <div className="mx-auto mt-2 max-w-xl space-y-3 text-base leading-relaxed text-muted-foreground">
+            <p>
+              Please check your email for your license key. You can also access and manage your purchases in the{" "}
+              <a
+                href="https://polar.sh/tilesprivacy/portal/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2 text-foreground hover:opacity-80"
+              >
+                Tiles Privacy Customer Portal
+              </a>
+              .
+            </p>
+            <p>
+              To activate your license, run <code className="font-mono text-foreground">tiles activate &lt;license-key&gt;</code>. Learn
+              more on the{" "}
+              <Link href="/book/licenses" className="underline underline-offset-2 text-foreground hover:opacity-80">
+                licenses page
+              </Link>
+              .
+            </p>
+          </div>
           {checkoutId ? (
             <p className="mt-2 text-sm text-muted-foreground">
               Checkout ID: <span className="font-mono text-foreground">{checkoutId}</span>

@@ -1369,6 +1369,24 @@ sniper-link[hidden] {
   }
 }
 
+/* Explicitly prefer browser-native scrollbars where applied. */
+.native-scrollbar {
+  scrollbar-width: auto;
+  -ms-overflow-style: auto;
+}
+
+.native-scrollbar::-webkit-scrollbar {
+  width: auto;
+  height: auto;
+}
+
+.native-scrollbar::-webkit-scrollbar-track,
+.native-scrollbar::-webkit-scrollbar-thumb {
+  background: auto;
+  border-radius: initial;
+  border: initial;
+}
+
 /* Google Translate widget is driven by footer selector only. */
 .tiles-google-translate-root {
   position: absolute;

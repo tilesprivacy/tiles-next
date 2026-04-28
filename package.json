@@ -16,6 +16,7 @@
     "serve:upload-file": "npm --prefix serve run upload:file --"
   },
   "dependencies": {
+    "@atproto/api": "^0.19.11",
     "@hookform/resolvers": "^3.10.0",
     "@polar-sh/checkout": "^0.2.0",
     "@polar-sh/nextjs": "^0.9.5",

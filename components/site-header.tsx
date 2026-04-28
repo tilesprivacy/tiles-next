@@ -25,6 +25,7 @@ interface SiteHeaderProps {
 
 const SiteHeaderChrome = memo(function SiteHeaderChrome({
   themeAware,
+  isSharePage,
   isBannerVisible,
   onDismissBanner,
   onOpenMenu,
@@ -32,16 +33,19 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onHomeClick,
 }: {
   themeAware: boolean
+  isSharePage: boolean
   isBannerVisible: boolean
   onDismissBanner: () => void
   onOpenMenu: () => void
   onDownloadClick: (event: { preventDefault: () => void }) => void
   onHomeClick: (event: { preventDefault: () => void }) => void
 }) {
-  const headerChrome = themeAware
-    ? "bg-background border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-    : "bg-white border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-  const textColor = themeAware ? "text-foreground" : "text-black"
+  const headerChrome = isSharePage
+    ? "bg-[#1f1f1f] border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+    : themeAware
+      ? "bg-background border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+      : "bg-white border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+  const textColor = isSharePage ? "text-[#EDEDEF]" : themeAware ? "text-foreground" : "text-black"
   const textColorHover = themeAware ? "hover:text-foreground/65" : "hover:text-black/65"
   // Buttons: black bg in light mode, white bg in dark mode (using dark: utilities for themeAware)
   const buttonBg = themeAware ? "bg-foreground" : "bg-black"
@@ -106,9 +110,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Link
             href="/"
             onClick={onHomeClick}
-            className="flex items-center transition-opacity hover:opacity-75"
+            className="flex items-center gap-2 transition-opacity hover:opacity-75 sm:gap-2.5"
           >
-            {themeAware ? (
+            {isSharePage ? (
+              <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
+            ) : themeAware ? (
               <>
                 {/* Light mode logo */}
                 <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11 dark:hidden" />
@@ -118,11 +124,20 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             ) : (
               <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-9 w-9 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             )}
+            {isSharePage ? (
+              <span className={`text-base font-semibold tracking-[-0.02em] sm:text-lg ${textColor}`}>
+                Tiles
+              </span>
+            ) : null}
           </Link>
         </div>
 
         {/* Centered Desktop Navigation Links */}
-        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex">
+        <nav
+          className={`absolute left-1/2 hidden -translate-x-1/2 items-center gap-6 lg:flex ${
+            isSharePage ? "lg:hidden" : ""
+          }`}
+        >
           <Link href="/book" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Book
           </Link>
@@ -162,18 +177,20 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             </Link>
           </Button>
           {/* Hamburger Menu Button - Mobile Only */}
-          <button
-            onClick={onOpenMenu}
-            className={`lg:hidden inline-flex ${mobileMenuButtonSize} shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60`}
-            aria-label="Open navigation menu"
-            type="button"
-          >
-            <span className="flex flex-col items-center justify-center gap-1.5">
-              <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
-              <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
-              <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
-            </span>
-          </button>
+          {isSharePage ? null : (
+            <button
+              onClick={onOpenMenu}
+              className={`lg:hidden inline-flex ${mobileMenuButtonSize} shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60`}
+              aria-label="Open navigation menu"
+              type="button"
+            >
+              <span className="flex flex-col items-center justify-center gap-1.5">
+                <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
+                <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
+                <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
+              </span>
+            </button>
+          )}
         </div>
       </header>
     </>
@@ -185,6 +202,11 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isBannerVisible, setIsBannerVisible] = useState(false)
   const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const pathname = usePathname()
+  const isSharePage = pathname?.startsWith("/share") ?? false
+  if (isSharePage) {
+    return null
+  }
+
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
     const dismissed = window.localStorage.getItem("tilesBannerDismissed")
@@ -226,6 +248,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
     <>
       <SiteHeaderChrome
         themeAware={themeAware}
+        isSharePage={isSharePage}
         isBannerVisible={isBannerVisible}
         onDismissBanner={handleDismissBanner}
         onOpenMenu={openMenu}
@@ -234,12 +257,14 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
       />
 
       {/* Mobile Menu */}
-      <MobileMenu
-        isOpen={isMenuOpen}
-        onClose={closeMenu}
-        themeAware={themeAware}
-        hasBanner={isBannerVisible}
-      />
+      {isSharePage ? null : (
+        <MobileMenu
+          isOpen={isMenuOpen}
+          onClose={closeMenu}
+          themeAware={themeAware}
+          hasBanner={isBannerVisible}
+        />
+      )}
       {mobileDownloadPrompt}
     </>
   )
