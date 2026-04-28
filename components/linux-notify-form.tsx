@@ -75,7 +75,7 @@ export function LinuxNotifyForm() {
   }
 
   const fieldClasses =
-    "h-10 rounded-none border-black/15 bg-white text-sm shadow-none focus-visible:border-black/25 focus-visible:ring-black/10 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#E6E6E6] dark:focus-visible:border-white/25 dark:focus-visible:ring-white/20"
+    "h-10 rounded-sm border-black/15 bg-white text-sm shadow-none focus-visible:border-black/25 focus-visible:ring-black/10 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#E6E6E6] dark:focus-visible:border-white/25 dark:focus-visible:ring-white/20"
 
   return (
     <form onSubmit={handleSubmit} className="w-full space-y-4 sm:space-y-5">
@@ -153,7 +153,7 @@ export function LinuxNotifyForm() {
         <Button
           type="submit"
           disabled={status === "loading" || status === "success"}
-          className="h-10 rounded-none bg-black px-6 text-sm font-medium text-white shadow-none hover:bg-black/90 disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2]"
+          className="h-10 rounded-sm bg-black px-6 text-sm font-medium text-white shadow-none hover:bg-black/90 disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2]"
         >
           {status === "loading" ? "Submitting..." : status === "success" ? "Submitted" : "Submit"}
         </Button>

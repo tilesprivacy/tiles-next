@@ -32,9 +32,9 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
 
   const isDarkFooter = !mounted || resolvedTheme === 'dark'
 
-  // Footer colors follow the page theme so the footer and body share the same surface.
-  const footerBg = isDarkFooter ? 'bg-[#111114]' : 'bg-[#f7f7fa]'
-  const borderColor = isDarkFooter ? 'border-white/10' : 'border-black/8'
+  // Footer always matches the page surface in both themes.
+  const footerBg = 'bg-background'
+  const borderColor = isDarkFooter ? 'border-white/18' : 'border-black/8'
   const textColor = isDarkFooter ? 'text-[#e7e7ed]' : 'text-[#1d1d1f]'
   const textColorHover = isDarkFooter ? 'hover:text-[#c6c6cf]' : 'hover:text-[#1d1d1f]/65'
   const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'

@@ -1,6 +1,7 @@
 import { generateStaticParamsFor, importPage } from 'nextra/pages'
 import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
 import { BookPageNavigation } from '@/components/book-page-navigation'
+import { notFound } from 'next/navigation'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath')
 
@@ -8,6 +9,9 @@ export async function generateMetadata(props: {
   params: Promise<{ mdxPath: string[] }>
 }) {
   const params = await props.params
+  if (params.mdxPath.includes('licenses')) {
+    notFound()
+  }
   const { metadata } = await importPage(params.mdxPath)
 
   // Extract the page title - handle both string and object formats
@@ -59,6 +63,9 @@ export default async function Page(props: {
   params: Promise<{ mdxPath: string[] }>
 }) {
   const params = await props.params
+  if (params.mdxPath.includes('licenses')) {
+    notFound()
+  }
   const { default: MDXContent, toc, metadata, sourceCode } = await importPage(
     params.mdxPath
   )

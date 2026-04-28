@@ -297,7 +297,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
       <span id="footer-language-selector-label" className="sr-only">
         Select language
       </span>
-      <div className={`inline-flex w-full items-center rounded-none p-1 ${trackClass}`}>
+      <div className={`inline-flex w-full items-center rounded-sm p-1 ${trackClass}`}>
         <div className="relative flex w-full min-w-0 items-center">
           <Globe
             className={`pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
@@ -310,7 +310,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((open) => !open)}
-            className={`h-[22px] w-full min-w-0 truncate rounded-none border-0 bg-transparent py-0 pl-9 pr-8 text-left text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
+            className={`h-[22px] w-full min-w-0 truncate rounded-sm border-0 bg-transparent py-0 pl-9 pr-8 text-left text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             translate="no"
             title={selectedOption.label}
           >
@@ -326,7 +326,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
       </div>
       {isOpen ? (
         <div
-          className={`absolute bottom-full left-0 z-50 mb-2 w-[min(16rem,calc(100vw-3rem))] sm:left-0 sm:w-[min(16rem,85vw)] overflow-hidden rounded-none border p-1.5 ${dropdownSurfaceClass}`}
+          className={`absolute bottom-full left-0 z-50 mb-2 w-[min(16rem,calc(100vw-3rem))] sm:left-0 sm:w-[min(16rem,85vw)] overflow-hidden rounded-lg border p-1.5 ${dropdownSurfaceClass}`}
           role="presentation"
         >
           <ul role="listbox" aria-labelledby="footer-language-selector-label" className="max-h-64 overflow-y-auto">
@@ -339,7 +339,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
                     role="option"
                     aria-selected={isSelected}
                     onClick={() => onLanguageChange(option.value)}
-                    className={`w-full rounded-none px-3 py-2 text-left text-sm transition-colors ${
+                    className={`w-full rounded-sm px-3 py-2 text-left text-sm transition-colors ${
                       isSelected ? optionActiveClass : optionIdleClass
                     }`}
                     translate="no"

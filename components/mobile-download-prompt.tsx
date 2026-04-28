@@ -177,14 +177,14 @@ function MobileDownloadPromptOverlay({
                 disabled={
                   emailStatus === "loading" || emailStatus === "success"
                 }
-                className="h-10 min-w-0 w-full rounded-none border border-black/15 bg-white px-3 text-sm text-black outline-none transition-colors placeholder:text-black/45 selection:bg-blue-500 selection:text-white focus:border-black/25 focus:ring-2 focus:ring-black/10 disabled:opacity-60 dark:border-[#303030] dark:bg-[#151515] dark:text-[#E6E6E6] dark:placeholder:text-[#8A8A8A] dark:focus:border-white/25 dark:focus:ring-white/20"
+                className="h-10 min-w-0 w-full rounded-sm border border-black/15 bg-white px-3 text-sm text-black outline-none transition-colors placeholder:text-black/45 selection:bg-blue-500 selection:text-white focus:border-black/25 focus:ring-2 focus:ring-black/10 disabled:opacity-60 dark:border-[#303030] dark:bg-[#151515] dark:text-[#E6E6E6] dark:placeholder:text-[#8A8A8A] dark:focus:border-white/25 dark:focus:ring-white/20"
               />
               <button
                 type="submit"
                 disabled={
                   emailStatus === "loading" || emailStatus === "success"
                 }
-                className="h-10 w-full rounded-none bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] dark:focus-visible:ring-white/30"
+                className="h-10 w-full rounded-sm bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:opacity-50 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] dark:focus-visible:ring-white/30"
               >
                 {emailStatus === "loading"
                   ? "Sending"

@@ -34,9 +34,9 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
 
   if (!mounted) {
     return (
-      <div className={`inline-flex items-center rounded-none ${bgColor} p-1 pointer-events-none`} aria-hidden="true">
+      <div className={`inline-flex items-center rounded-sm ${bgColor} p-1 pointer-events-none`} aria-hidden="true">
         {[0, 1, 2].map((index) => (
-          <span key={index} className={`inline-flex items-center ${sizeClasses} rounded-none font-medium`}>
+          <span key={index} className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium`}>
             {/* Keep the pre-hydration footprint identical to avoid footer jumps. */}
             <span className={`${iconSize} opacity-0`} />
           </span>
@@ -46,11 +46,11 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
   }
 
   return (
-    <div className={`inline-flex items-center rounded-none ${bgColor} p-1`}>
+    <div className={`inline-flex items-center rounded-sm ${bgColor} p-1`}>
       <button
         type="button"
         onClick={() => setTheme('light')}
-        className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
+        className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 ${
           resolvedTheme === 'light' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`
@@ -69,7 +69,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
       <button
         type="button"
         onClick={() => setTheme('dark')}
-        className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
+        className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 ${
           resolvedTheme === 'dark' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`
@@ -88,7 +88,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm' }: ThemeSwitcherPr
       <button
         type="button"
         onClick={() => setTheme('system')}
-        className={`inline-flex items-center ${sizeClasses} rounded-none font-medium transition-all duration-200 ${
+        className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 ${
           theme === 'system' 
             ? `${activeBg} ${activeText}` 
             : `${inactiveText} ${hoverText}`

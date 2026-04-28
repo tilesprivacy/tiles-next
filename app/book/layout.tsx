@@ -28,7 +28,7 @@ export default async function BookLayout({
   const pageMap = await getPageMap()
 
   // Filter out unwanted routes from the sidebar
-  const excludedRoutes = ['/', '/mission', '/download', '/explore', '/blog', '/changelog', '/privacy', '/sub-processors', '/subprocessors', '/terms', '/pricing']
+  const excludedRoutes = ['/', '/mission', '/download', '/explore', '/blog', '/changelog', '/privacy', '/sub-processors', '/subprocessors', '/terms', '/pricing', '/licenses']
   
   const filterPageMap = (items: typeof pageMap): typeof pageMap => {
     return items
@@ -85,7 +85,7 @@ export default async function BookLayout({
   })
 
   // Keep sidebar aligned with the `/book` mobile card grid.
-  const desiredOrder = ['index', 'overview', 'manual', 'models', 'memory', 'tilekit', 'mir', 'security', 'community', 'resources', 'licenses']
+  const desiredOrder = ['index', 'overview', 'manual', 'models', 'memory', 'tilekit', 'mir', 'security', 'community', 'resources']
 
   const cardPageSet = new Set(desiredOrder)
 

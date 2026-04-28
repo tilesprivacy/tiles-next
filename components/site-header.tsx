@@ -141,9 +141,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Link href="/book" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Book
           </Link>
-          <Link href="/pricing" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
-            Pricing
-          </Link>
           <Link href="/roadmap" className={`text-sm font-medium tracking-[0.01em] ${textColor} transition-colors ${textColorHover}`}>
             Roadmap
           </Link>
@@ -203,9 +200,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const pathname = usePathname()
   const isSharePage = pathname?.startsWith("/share") ?? false
-  if (isSharePage) {
-    return null
-  }
 
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
@@ -243,6 +237,10 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
     },
     [pathname],
   )
+
+  if (isSharePage) {
+    return null
+  }
 
   return (
     <>
