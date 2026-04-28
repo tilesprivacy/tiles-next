@@ -336,7 +336,7 @@ function ShareFloatingDownloadBar() {
               <span className="truncate text-sm font-semibold tracking-[-0.01em] text-[#e7e7ed] sm:text-base">
                 Tiles
               </span>
-              <span className="hidden text-xs text-white/45 sm:inline">
+              <span className="hidden text-xs text-white/55 sm:inline">
                 Local-first private AI assistant for everyday use
               </span>
             </span>
@@ -479,7 +479,7 @@ export function ShareSessionClient({
         <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))]">
           <div className="mx-auto w-full max-w-3xl">
             <header className="px-2 pb-7 pt-4 text-center sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-xs leading-5 text-black/45 dark:text-white/45 sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
+              <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-xs leading-5 text-black/45 dark:text-white/55 sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
                 <span className="inline-flex items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
@@ -497,7 +497,7 @@ export function ShareSessionClient({
                     href={blueskyProfileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/20 dark:hover:text-white dark:hover:decoration-white/40"
+                    className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
                     title="Open Bluesky profile"
                   >
                     {sharedSession.sharedBy.handle
@@ -541,7 +541,7 @@ export function ShareSessionClient({
             )}
 
             <footer className="mt-8 border-t border-white/10 pb-4 pt-3 sm:mt-10">
-              <p className="text-center text-[0.68rem] leading-4 text-white/42 sm:text-[0.72rem]">
+              <p className="text-center text-[0.68rem] leading-4 text-white/55 sm:text-[0.72rem]">
                 <span className="block">
                   This conversation is fetched directly from the PDS on the client side, and we do not store copy of the shared conversation on our servers.
                 </span>
@@ -552,7 +552,7 @@ export function ShareSessionClient({
                       href={atExploreUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline decoration-white/20 underline-offset-2 transition-colors hover:text-white/55 hover:decoration-white/35"
+                      className="underline decoration-white/25 underline-offset-2 transition-colors hover:text-white/70 hover:decoration-white/40"
                     >
                       {sharedSession.sourceUri}
                     </a>
