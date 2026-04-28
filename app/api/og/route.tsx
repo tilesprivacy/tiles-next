@@ -12,6 +12,30 @@ export const size = {
 
 export const contentType = "image/png"
 
+async function toDataUrl(url: string): Promise<string | null> {
+  try {
+    const response = await fetch(url)
+    if (!response.ok) {
+      return null
+    }
+
+    const contentType = response.headers.get("content-type") ?? "image/png"
+    const buffer = await response.arrayBuffer()
+    const bytes = new Uint8Array(buffer)
+    const chunkSize = 8192
+    let binary = ""
+    for (let i = 0; i < bytes.length; i += chunkSize) {
+      const chunk = bytes.subarray(i, i + chunkSize)
+      for (let j = 0; j < chunk.length; j++) {
+        binary += String.fromCharCode(chunk[j])
+      }
+    }
+    return `data:${contentType};base64,${btoa(binary)}`
+  } catch {
+    return null
+  }
+}
+
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@400;600;700&text=${encodeURIComponent(text)}`
   const css = await (await fetch(url)).text()
@@ -37,25 +61,7 @@ export async function GET(request: Request) {
   const fontText = tagline
 
   // Fetch logo/font opportunistically; never fail the OG image if unavailable.
-  let logoDataUrl: string | null = null
-  try {
-    const logoResponse = await fetch(`${origin}/logo.png`)
-    if (logoResponse.ok) {
-      const logoBuffer = await logoResponse.arrayBuffer()
-      const bytes = new Uint8Array(logoBuffer)
-      const chunkSize = 8192
-      let binary = ""
-      for (let i = 0; i < bytes.length; i += chunkSize) {
-        const chunk = bytes.subarray(i, i + chunkSize)
-        for (let j = 0; j < chunk.length; j++) {
-          binary += String.fromCharCode(chunk[j])
-        }
-      }
-      logoDataUrl = `data:image/png;base64,${btoa(binary)}`
-    }
-  } catch {
-    logoDataUrl = null
-  }
+  const logoDataUrl = await toDataUrl(`${origin}/icon-mark-light.svg`)
 
   let geistFontData: ArrayBuffer | null = null
   try {
@@ -74,8 +80,8 @@ export async function GET(request: Request) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#FAFAFA",
-          color: "#000000",
+          backgroundColor: "#000000",
+          color: "#f2f2f4",
           fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
         }}
       >
@@ -104,7 +110,7 @@ export async function GET(request: Request) {
                 width: 200,
                 height: 200,
                 borderRadius: 9999,
-                backgroundColor: "#000000",
+                backgroundColor: "rgba(255,255,255,0.12)",
                 color: "#FFFFFF",
                 display: "flex",
                 alignItems: "center",
@@ -131,7 +137,7 @@ export async function GET(request: Request) {
                 fontSize: 32,
                 fontWeight: 400,
                 lineHeight: 1.25,
-                color: "#1A1A1A",
+                color: "rgba(231,231,237,0.9)",
                 maxWidth: 900,
               }}
             >

@@ -62,7 +62,7 @@
 
 /* Dark theme: Apple-like neutral palette */
 .dark {
-  --background: #000000;
+  --background: #1f1f1f;
   --foreground: #f5f5f7;
   --card: #101010;
   --card-foreground: #f5f5f7;
@@ -125,7 +125,7 @@
 }
 
 .dark [data-book-section] {
-  --nextra-bg: 0 0 0;
+  --nextra-bg: 31 31 31;
   --sidebar: var(--background);
   --sidebar-accent: var(--muted);
   --sidebar-border: var(--border);
