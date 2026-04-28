@@ -321,22 +321,22 @@ function ErrorState({ message }: { message: string }) {
 
 function ShareFloatingDownloadBar() {
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] z-[60] px-2.5 sm:bottom-4 sm:px-4">
-      <div className="mx-auto w-full max-w-3xl sm:max-w-[42rem]">
-        <div className="pointer-events-auto flex items-center justify-between gap-3 rounded-sm border border-white/10 bg-[#1f1f1f] px-3 py-2.5 shadow-[0_4px_12px_rgba(0,0,0,0.2)] sm:px-4 sm:py-2.5">
-          <Link href="/" className="flex min-w-0 items-center gap-2.5 transition-opacity hover:opacity-85 sm:gap-3">
+    <div className="pointer-events-none fixed inset-x-0 bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] z-[60] px-3 sm:bottom-4 sm:px-4">
+      <div className="mx-auto w-full max-w-[38rem]">
+        <div className="pointer-events-auto flex items-center justify-between gap-2 rounded-[0.9rem] border border-white/10 bg-[#1f1f1f]/95 px-2.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.22)] backdrop-blur-sm sm:gap-3 sm:px-3 sm:py-2">
+          <Link href="/" className="flex min-w-0 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5">
             <Image
               src="/grey.png"
               alt="Tiles"
               width={40}
               height={40}
-              className="h-7 w-7 shrink-0 sm:h-8 sm:w-8"
+              className="h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7"
             />
-            <span className="inline-flex min-w-0 items-center gap-2">
-              <span className="truncate text-[1.05rem] font-semibold tracking-[-0.02em] text-[#e7e7ed] sm:text-lg">
+            <span className="inline-flex min-w-0 items-center gap-1.5 sm:gap-2">
+              <span className="truncate text-sm font-semibold tracking-[-0.01em] text-[#e7e7ed] sm:text-base">
                 Tiles
               </span>
-              <span className="hidden text-sm text-white/55 sm:inline">
+              <span className="hidden text-xs text-white/45 sm:inline">
                 Local-first private AI assistant for everyday use
               </span>
             </span>
@@ -344,7 +344,7 @@ function ShareFloatingDownloadBar() {
 
           <Link
             href="/download"
-            className="inline-flex h-9 shrink-0 items-center justify-center rounded-sm border border-white/14 bg-white/[0.05] px-3.5 text-sm font-semibold text-[#e7e7ed] transition-colors hover:bg-white/[0.1] sm:h-10 sm:px-4"
+            className="inline-flex h-8 shrink-0 items-center justify-center rounded-[0.65rem] border border-white/10 bg-white/[0.035] px-3 text-xs font-medium text-[#e7e7ed]/90 transition-colors hover:bg-white/[0.08] hover:text-[#e7e7ed] sm:h-8 sm:px-3.5 sm:text-sm"
           >
             Download
           </Link>
