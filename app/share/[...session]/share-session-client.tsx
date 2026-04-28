@@ -234,6 +234,7 @@ function shortenShareLinkLabel(rawUrl: string): string {
 
   try {
     const parsed = new URL(rawUrl)
+    const displayHost = parsed.host.replace(/^www\./, "")
     const simplifiedPath = parsed.pathname.startsWith("/share/")
       ? (() => {
           const token = parsed.pathname.slice("/share/".length)
@@ -245,7 +246,7 @@ function shortenShareLinkLabel(rawUrl: string): string {
       : parsed.pathname.length > 20
         ? `${parsed.pathname.slice(0, 20)}...${parsed.pathname.slice(-6)}`
         : parsed.pathname
-    return `${parsed.host}${simplifiedPath}`
+    return `${displayHost}${simplifiedPath}`
   } catch {
     return rawUrl.length > 42
       ? `${rawUrl.slice(0, 26)}...${rawUrl.slice(-8)}`
@@ -268,7 +269,7 @@ function MessageBubble({ message }: { message: SharedSessionMessage }) {
   return (
     <div className={`flex w-full ${isAssistant ? "justify-start" : "justify-end"}`}>
       <div
-        className={`max-w-[92%] rounded-sm px-4 py-3 text-sm leading-7 sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
+        className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-7 sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
           isAssistant
             ? "bg-transparent text-[#E6E6E8]"
             : "bg-white/[0.085] text-[#EDEDEF]"
@@ -311,7 +312,7 @@ function ShareFloatingDownloadBar() {
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] z-[60] px-2.5 sm:bottom-4 sm:px-4">
       <div className="mx-auto w-full max-w-3xl sm:max-w-[42rem]">
-        <div className="pointer-events-auto flex items-center justify-between gap-3 rounded-sm border border-white/8 bg-[#1f1f1f] px-3 py-2.5 shadow-[0_10px_22px_rgba(0,0,0,0.28)] sm:px-4 sm:py-2.5">
+        <div className="pointer-events-auto flex items-center justify-between gap-3 rounded-sm border border-white/10 bg-[#1f1f1f] px-3 py-2.5 shadow-[0_4px_12px_rgba(0,0,0,0.2)] sm:px-4 sm:py-2.5">
           <Link href="/" className="flex min-w-0 items-center gap-2.5 transition-opacity hover:opacity-85 sm:gap-3">
             <Image
               src="/grey.png"
@@ -320,11 +321,11 @@ function ShareFloatingDownloadBar() {
               height={40}
               className="h-7 w-7 shrink-0 sm:h-8 sm:w-8"
             />
-            <span className="inline-flex min-w-0 items-center gap-2.5">
-              <span className="truncate text-lg font-semibold tracking-[-0.02em] text-[#e7e7ed] sm:text-xl">
+            <span className="inline-flex min-w-0 items-center gap-2">
+              <span className="truncate text-[1.05rem] font-semibold tracking-[-0.02em] text-[#e7e7ed] sm:text-lg">
                 Tiles
               </span>
-              <span className="hidden text-sm text-[#b0b0ba] sm:inline">
+              <span className="hidden text-sm text-white/55 sm:inline">
                 Local-first private AI assistant for everyday use
               </span>
             </span>
@@ -332,7 +333,7 @@ function ShareFloatingDownloadBar() {
 
           <Link
             href="/download"
-            className="inline-flex h-9 shrink-0 items-center justify-center rounded-sm border border-white/16 bg-white/[0.06] px-3.5 text-sm font-semibold text-[#e7e7ed] transition-colors hover:bg-white/[0.12] sm:h-10 sm:px-4"
+            className="inline-flex h-9 shrink-0 items-center justify-center rounded-sm border border-white/14 bg-white/[0.05] px-3.5 text-sm font-semibold text-[#e7e7ed] transition-colors hover:bg-white/[0.1] sm:h-10 sm:px-4"
           >
             Download
           </Link>
@@ -350,7 +351,7 @@ export function ShareSessionClient({
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [pageUrl, setPageUrl] = useState<string>("")
   const [copiedLink, setCopiedLink] = useState(false)
-  const [fetchingSourceLabel, setFetchingSourceLabel] = useState("at://...")
+  const [fetchingSourceSuffix, setFetchingSourceSuffix] = useState<string | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -404,14 +405,15 @@ export function ShareSessionClient({
   )
   useEffect(() => {
     if (!shareToken) {
-      setFetchingSourceLabel("at://...")
+      setFetchingSourceSuffix(null)
       return
     }
 
     try {
-      setFetchingSourceLabel(resolveSharedSessionUri(shareToken))
+      const resolvedUri = resolveSharedSessionUri(shareToken)
+      setFetchingSourceSuffix(resolvedUri.replace(/^at:\/\//, ""))
     } catch {
-      setFetchingSourceLabel("at://...")
+      setFetchingSourceSuffix(null)
     }
   }, [shareToken])
 
@@ -429,8 +431,20 @@ export function ShareSessionClient({
       <main className="dark flex h-[100dvh] overflow-hidden bg-[#1f1f1f] px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] text-[#E6E6E8] sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
           <div className="flex min-h-0 flex-1 items-center justify-center">
-            <p className="max-w-2xl text-center text-sm text-white/55">
-              Loading shared chat {fetchingSourceLabel}
+            <p className="w-full text-center text-sm text-white/55">
+              <span className="inline-flex max-w-full items-center whitespace-nowrap">
+                <span>Loading shared chat at://</span>
+                <span
+                  className={`ml-1 inline-block w-[24ch] overflow-hidden text-left font-mono sm:w-[34ch] ${
+                    fetchingSourceSuffix
+                      ? "truncate text-white/60"
+                      : "animate-pulse rounded-sm bg-white/15 text-transparent"
+                  }`}
+                  aria-hidden={!fetchingSourceSuffix}
+                >
+                  {fetchingSourceSuffix ?? "did:plc:placeholder/run.tiles.session/placeholder"}
+                </span>
+              </span>
             </p>
           </div>
         </section>
@@ -444,22 +458,6 @@ export function ShareSessionClient({
       <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
         <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))]">
           <div className="mx-auto w-full max-w-3xl">
-            <p className="truncate pb-2 pt-1 text-center font-mono text-[0.6rem] leading-4 text-white/28 sm:text-[0.66rem]">
-              <span>View source </span>
-              {atExploreUrl ? (
-                <a
-                  href={atExploreUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline decoration-white/20 underline-offset-2 transition-colors hover:text-white/45 hover:decoration-white/35"
-                >
-                  {sharedSession.sourceUri}
-                </a>
-              ) : (
-                <span>{sharedSession.sourceUri}</span>
-              )}
-            </p>
-
             <header className="px-2 pb-7 pt-4 text-center sm:px-2 sm:pb-8 sm:pt-4">
               <p className="flex flex-wrap items-center justify-center gap-x-2 gap-y-2 text-xs leading-5 text-black/45 dark:text-white/45 sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
@@ -514,7 +512,24 @@ export function ShareSessionClient({
 
             <footer className="mt-8 border-t border-white/10 pb-4 pt-3 sm:mt-10">
               <p className="text-center text-[0.68rem] leading-4 text-white/42 sm:text-[0.72rem]">
-                Tiles can make mistakes. Check important info.
+                <span className="block">
+                  This conversation is fetched directly from the PDS on the client side, and we do not store copy of the shared conversation on our servers.
+                </span>
+                <span className="mt-1 block">
+                  <span>View source </span>
+                  {atExploreUrl ? (
+                    <a
+                      href={atExploreUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-white/20 underline-offset-2 transition-colors hover:text-white/55 hover:decoration-white/35"
+                    >
+                      {sharedSession.sourceUri}
+                    </a>
+                  ) : (
+                    <span>{sharedSession.sourceUri}</span>
+                  )}
+                </span>
               </p>
             </footer>
           </div>
