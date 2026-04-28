@@ -140,18 +140,18 @@ export async function GET(request: Request) {
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "14px",
+            gap: "10px",
             lineHeight: 1.2,
             textAlign: "center",
-            fontSize: 32,
+            whiteSpace: "nowrap",
+            fontSize: 28,
             fontWeight: 500,
             color: "rgba(231,231,237,0.88)",
           }}
         >
-          <span>Shared chat session on Tiles. Powered by ATProto.</span>
+          <span>Shared chat session by</span>
           <span
             style={{
               display: "flex",
