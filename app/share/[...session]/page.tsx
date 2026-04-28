@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { getSharedSession } from "@/lib/shared-session"
 import { ShareSessionClient } from "./share-session-client"
 
 interface SharePageProps {
@@ -42,5 +43,15 @@ export const revalidate = 0
 export default async function SharePage({ params }: SharePageProps) {
   const { session } = await params
   const shareToken = session.join("/")
-  return <ShareSessionClient shareToken={shareToken} />
+
+  try {
+    const sharedSession = await getSharedSession(shareToken)
+    return <ShareSessionClient initialSharedSession={sharedSession} />
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error
+        ? error.message
+        : "Unable to load this shared session."
+    return <ShareSessionClient initialErrorMessage={errorMessage} />
+  }
 }
