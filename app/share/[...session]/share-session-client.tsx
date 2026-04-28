@@ -327,8 +327,7 @@ export function ShareSessionClient({
             <footer className="mt-auto border-t border-white/10 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-3">
               <p className="text-center text-[0.68rem] leading-4 text-white/55 sm:text-[0.72rem]">
                 <span className="block">
-                  This conversation is fetched from the PDS at request time, and
-                  we do not store a copy of the shared conversation on our
+                  We do not store a copy of the shared conversation on our
                   servers.
                 </span>
                 <span className="mt-1 block">

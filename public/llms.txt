@@ -1,6 +1,6 @@
 # Tiles Privacy
 
-> Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats publicly on ATProto.
+> Runs on on-device models, keeps your data and identity local with encrypted peer-to-peer sync, and supports sharing chats publicly on AT Proto.
 
 Last updated: 2026-04-25
 This file follows the llms.txt convention and provides a complete content map for tiles.run.

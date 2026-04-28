@@ -55,7 +55,7 @@ export async function GET(request: Request) {
 
   lines.push('# Tiles Privacy')
   lines.push('')
-  lines.push('> Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats publicly on ATProto.')
+  lines.push('> Runs on on-device models, keeps your data and identity local with encrypted peer-to-peer sync, and supports sharing chats publicly on AT Proto.')
   lines.push('')
   lines.push(`Last updated: ${new Date().toISOString().slice(0, 10)}`)
   lines.push('This file follows the llms.txt convention and provides a complete content map for tiles.run.')
