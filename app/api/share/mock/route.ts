@@ -13,6 +13,7 @@ interface MockSharedSessionResponse {
   name: string
   createdAt: string
   sourceUri: string
+  modelsUsed: string[]
   sharedBy: {
     did: string
     handle: string
@@ -73,6 +74,7 @@ export async function GET(request: Request) {
     name,
     createdAt: new Date().toISOString(),
     sourceUri: "at://did:plc:mockaccount123/run.tiles.session/mockrkey123",
+    modelsUsed: ["mlx-community/Qwen3.5-4B-MLX-4bit"],
     sharedBy: {
       did: "did:plc:mockaccount123",
       handle: "mockuser.bsky.social",

@@ -79,6 +79,10 @@ function buildBlueskyProfileUrl(handle: string | null, did: string): string {
   return `https://bsky.app/profile/${encodeURIComponent(profileId)}`
 }
 
+function buildHuggingFaceModelUrl(modelId: string): string {
+  return `https://huggingface.co/${encodeURIComponent(modelId).replace(/%2F/g, "/")}`
+}
+
 function isSafeMarkdownUrl(url: string): boolean {
   const trimmedUrl = url.trim()
 
@@ -702,6 +706,7 @@ export function ShareSessionClient({
       sharedSession.sharedBy.did,
     )
   }, [sharedSession])
+
   if (errorMessage) {
     return (
       <main className="dark flex h-[100dvh] overflow-hidden bg-[#1f1f1f] pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] text-[#E6E6E8] lg:min-h-screen lg:overflow-visible lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
@@ -763,6 +768,27 @@ export function ShareSessionClient({
                       : sharedByLabel}
                   </a>
                 </span>
+                {sharedSession.modelsUsed.length > 0 ? (
+                  <>
+                    <span>using</span>
+                    <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">
+                      {sharedSession.modelsUsed.map((modelId, index) => (
+                        <span key={modelId}>
+                          {index > 0 ? <span className="mr-1">,</span> : null}
+                          <a
+                            href={buildHuggingFaceModelUrl(modelId)}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
+                            title="Open model on Hugging Face"
+                          >
+                            {modelId}
+                          </a>
+                        </span>
+                      ))}
+                    </span>
+                  </>
+                ) : null}
               </p>
               <div className="flex min-w-0 max-w-full items-center justify-end gap-2.5 text-right text-xs leading-5 text-black/58 dark:text-white/62 sm:max-w-[38%] sm:gap-2">
                 <span

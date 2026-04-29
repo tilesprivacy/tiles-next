@@ -12,6 +12,7 @@ export interface SharedSession {
   name: string
   createdAt: string | null
   sourceUri: string
+  modelsUsed: string[]
   sharedBy: {
     did: string
     handle: string | null
@@ -97,6 +98,17 @@ function parseAtUri(uri: string): AtUriParts {
 
 function readString(value: unknown): string | null {
   return typeof value === "string" && value.trim() ? value : null
+}
+
+function normalizeModelsUsed(value: unknown): string[] {
+  if (!Array.isArray(value)) {
+    return []
+  }
+
+  return value.flatMap((entry) => {
+    const model = readString(entry)
+    return model ? [model] : []
+  })
 }
 
 function noStoreFetch(
@@ -258,6 +270,7 @@ export async function getSharedSession(
     name: readString(record.name) ?? "Shared session",
     createdAt: readString(record.created_at),
     sourceUri,
+    modelsUsed: normalizeModelsUsed(record.models_used),
     sharedBy,
     messages: normalizeMessages(record.contents),
   }
