@@ -830,6 +830,21 @@ export function ShareSessionClient({
     window.localStorage.setItem("share-page-theme", isDark ? "dark" : "light")
   }, [isDark])
 
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return
+    }
+
+    const root = document.documentElement
+    const hadDarkBeforeMount = root.classList.contains("dark")
+
+    root.classList.toggle("dark", isDark)
+
+    return () => {
+      root.classList.toggle("dark", hadDarkBeforeMount)
+    }
+  }, [isDark])
+
   const sharedByLabel = useMemo(
     () => (sharedSession ? getSharedByLabel(sharedSession) : ""),
     [sharedSession],
