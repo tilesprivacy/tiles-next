@@ -3,7 +3,7 @@
 import { AlertCircle, Check, ChevronDown, Copy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import type { ReactNode } from "react"
 import type { SharedSession, SharedSessionMessage } from "@/lib/shared-session"
 
@@ -774,6 +774,8 @@ export function ShareSessionClient({
   const [pageUrl, setPageUrl] = useState<string>("")
   const [copiedLink, setCopiedLink] = useState(false)
   const [isDark, setIsDark] = useState(false)
+  const [themeReady, setThemeReady] = useState(false)
+  const hadDarkBeforeMountRef = useRef<boolean | null>(null)
 
   useEffect(() => {
     if (!mockApiUrl) {
@@ -815,35 +817,36 @@ export function ShareSessionClient({
     setPageUrl(window.location.href)
   }, [])
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return
-    }
-    const storedTheme = window.localStorage.getItem("share-page-theme")
-    setIsDark(storedTheme === "dark")
-  }, [])
-
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      return
-    }
-    window.localStorage.setItem("share-page-theme", isDark ? "dark" : "light")
-  }, [isDark])
-
-  useEffect(() => {
-    if (typeof document === "undefined") {
+  useLayoutEffect(() => {
+    if (typeof window === "undefined" || typeof document === "undefined") {
       return
     }
 
     const root = document.documentElement
-    const hadDarkBeforeMount = root.classList.contains("dark")
+    hadDarkBeforeMountRef.current = root.classList.contains("dark")
 
-    root.classList.toggle("dark", isDark)
+    const storedTheme = window.localStorage.getItem("share-page-theme")
+    const shouldUseDark = storedTheme === "dark"
+    setIsDark(shouldUseDark)
+    root.classList.toggle("dark", shouldUseDark)
+    setThemeReady(true)
 
     return () => {
-      root.classList.toggle("dark", hadDarkBeforeMount)
+      if (hadDarkBeforeMountRef.current === null) {
+        return
+      }
+      root.classList.toggle("dark", hadDarkBeforeMountRef.current)
     }
-  }, [isDark])
+  }, [])
+
+  useEffect(() => {
+    if (!themeReady || typeof window === "undefined" || typeof document === "undefined") {
+      return
+    }
+
+    window.localStorage.setItem("share-page-theme", isDark ? "dark" : "light")
+    document.documentElement.classList.toggle("dark", isDark)
+  }, [isDark, themeReady])
 
   const sharedByLabel = useMemo(
     () => (sharedSession ? getSharedByLabel(sharedSession) : ""),
@@ -866,6 +869,15 @@ export function ShareSessionClient({
       sharedSession.sharedBy.did,
     )
   }, [sharedSession])
+
+  if (!themeReady) {
+    return (
+      <main
+        data-shared-session-page
+        className="flex h-[100dvh] bg-[#fbfbfd] text-[#1d1d1f]"
+      />
+    )
+  }
 
   if (errorMessage) {
     return (
