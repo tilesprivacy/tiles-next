@@ -926,7 +926,7 @@ export function ShareSessionClient({
         <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] print:overflow-visible print:pb-4 lg:pb-4">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col">
             <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-2 pb-7 pt-4 print:flex-nowrap sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
+              <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 pl-1 text-left text-xs leading-5 text-black/45 dark:text-white/55 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:pl-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
                 <span className="inline-flex items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
@@ -1001,28 +1001,30 @@ export function ShareSessionClient({
               <EmptyState />
             )}
 
-            <footer className="mt-auto border-t border-black/10 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-3 dark:border-white/10">
-              <p className="text-center text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
-                <span className="block">
-                  We do not store a copy of the shared conversation on our
-                  servers.
-                </span>
-                <span className="mt-1 block">
-                  <span>View source </span>
-                  {atExploreUrl ? (
-                    <a
-                      href={atExploreUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/70 dark:hover:decoration-white/40"
-                    >
-                      {sharedSession.sourceUri}
-                    </a>
-                  ) : (
-                    <span>{sharedSession.sourceUri}</span>
-                  )}
-                </span>
-              </p>
+            <footer className="mt-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-5">
+              <div className="border-t border-black/10 pt-3 dark:border-white/10">
+                <p className="text-center text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
+                  <span className="block">
+                    We do not store a copy of the shared conversation on our
+                    servers.
+                  </span>
+                  <span className="mt-1 block">
+                    <span>View source </span>
+                    {atExploreUrl ? (
+                      <a
+                        href={atExploreUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/70 dark:hover:decoration-white/40"
+                      >
+                        {sharedSession.sourceUri}
+                      </a>
+                    ) : (
+                      <span>{sharedSession.sourceUri}</span>
+                    )}
+                  </span>
+                </p>
+              </div>
             </footer>
           </div>
         </div>
