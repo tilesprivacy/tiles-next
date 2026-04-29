@@ -14,8 +14,6 @@ import {
 } from "@/lib/header-primary-cta-classes"
 
 const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: () => void }) {
-  const mobileMenuButtonSurface =
-    "rounded-[0.65rem] bg-foreground/[0.06] hover:bg-foreground/[0.1] active:bg-foreground/[0.12]"
   return (
     <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 bg-background">
       {/* Logo */}
@@ -87,7 +85,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
         {/* Hamburger Menu Button - Mobile Only */}
         <button
           onClick={onOpenMenu}
-          className={`lg:hidden inline-flex h-8 w-8 items-center justify-center ${mobileMenuButtonSurface} touch-manipulation p-0 transition-colors focus:outline-none focus:ring-0 active:outline-none lg:h-10 lg:w-10`}
+          className="lg:hidden inline-flex h-8 w-8 items-center justify-center touch-manipulation border-none bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus:outline-none focus:ring-0 active:opacity-60 lg:h-10 lg:w-10"
           aria-label="Open navigation menu"
           type="button"
         >
