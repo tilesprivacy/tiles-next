@@ -1335,8 +1335,8 @@ sniper-link[hidden] {
     page-break-inside: avoid !important;
   }
 
-  /* Print readable typography for themed pages. */
-  * {
+  /* Print readable typography for blog/book themed pages. */
+  :where([data-book-section], .blog-article-container, .blog-article-content) * {
     color: #000 !important;
     background: transparent !important;
     box-shadow: none !important;
@@ -1367,6 +1367,25 @@ sniper-link[hidden] {
   blockquote {
     orphans: 3;
     widows: 3;
+  }
+}
+
+/* Shared session page print overrides: preserve active on-screen theme. */
+@media print {
+  [data-shared-session-page],
+  [data-shared-session-page] * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  [data-shared-session-page] .share-floating-download-bar {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  [data-shared-session-page] footer {
+    display: block !important;
+    visibility: visible !important;
   }
 }
 

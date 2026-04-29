@@ -1,6 +1,6 @@
 "use client"
 
-import { AlertCircle, Check, ChevronDown, Copy } from "lucide-react"
+import { AlertCircle, Check, ChevronDown, Copy, Moon, Sun } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
@@ -115,7 +115,7 @@ function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode[] {
       nodes.push(
         <code
           key={`${keyPrefix}-code-${match.index}`}
-          className="rounded-sm bg-white/10 px-1 py-0.5 font-mono text-[0.86em] text-white/88"
+          className="rounded-sm bg-black/[0.08] px-1 py-0.5 font-mono text-[0.86em] text-black/80 dark:bg-white/10 dark:text-white/88"
         >
           {token.slice(1, -1)}
         </code>,
@@ -124,7 +124,7 @@ function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode[] {
       nodes.push(
         <strong
           key={`${keyPrefix}-strong-${match.index}`}
-          className="font-semibold text-white/95"
+          className="font-semibold text-black/90 dark:text-white/95"
         >
           {renderInlineMarkdown(
             token.slice(2, -2),
@@ -136,7 +136,7 @@ function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode[] {
       nodes.push(
         <em
           key={`${keyPrefix}-em-${match.index}`}
-          className="italic text-white/90"
+          className="italic text-black/80 dark:text-white/90"
         >
           {renderInlineMarkdown(
             token.slice(1, -1),
@@ -164,7 +164,7 @@ function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode[] {
                 ? undefined
                 : "noopener noreferrer"
             }
-            className="font-medium text-white underline decoration-white/25 underline-offset-4 transition-colors hover:text-white/80 hover:decoration-white/45"
+            className="font-medium text-black underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/80 hover:decoration-black/45 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/45"
           >
             {renderInlineMarkdown(label, `${keyPrefix}-link-${match.index}`)}
           </a>
@@ -253,7 +253,7 @@ function MarkdownMessage({ content }: { content: string }) {
       blocks.push(
         <pre
           key={`code-${index}`}
-          className="overflow-x-auto rounded-md border border-white/10 bg-black/25 p-3 text-[0.82rem] leading-6 text-white/82"
+          className="overflow-x-auto rounded-md border border-black/10 bg-black/5 p-3 text-[0.82rem] leading-6 text-black/80 dark:border-white/10 dark:bg-black/25 dark:text-white/82"
         >
           <code>{codeLines.join("\n")}</code>
         </pre>,
@@ -262,7 +262,7 @@ function MarkdownMessage({ content }: { content: string }) {
     }
 
     if (/^---+$/.test(trimmed)) {
-      blocks.push(<hr key={`hr-${index}`} className="border-white/10" />)
+      blocks.push(<hr key={`hr-${index}`} className="border-black/10 dark:border-white/10" />)
       index += 1
       continue
     }
@@ -273,8 +273,8 @@ function MarkdownMessage({ content }: { content: string }) {
       const level = headingMatch[1].length
       const headingClass =
         level <= 2
-          ? "text-base font-semibold leading-6 text-white/95"
-          : "text-sm font-semibold leading-6 text-white/92"
+          ? "text-base font-semibold leading-6 text-black/90 dark:text-white/95"
+          : "text-sm font-semibold leading-6 text-black/85 dark:text-white/92"
 
       blocks.push(
         <p key={`heading-${index}`} className={headingClass}>
@@ -308,15 +308,15 @@ function MarkdownMessage({ content }: { content: string }) {
       blocks.push(
         <div
           key={`table-${index}`}
-          className="overflow-x-auto rounded-md border border-white/10"
+          className="overflow-x-auto rounded-md border border-black/10 dark:border-white/10"
         >
           <table className="min-w-full border-collapse text-left text-[0.78rem] leading-5">
-            <thead className="bg-white/[0.045] text-white/84">
+            <thead className="bg-black/[0.045] text-black/75 dark:bg-white/[0.045] dark:text-white/84">
               <tr>
                 {headerCells.map((cell, cellIndex) => (
                   <th
                     key={`table-${index}-head-${cellIndex}`}
-                    className="border-b border-white/10 px-3 py-2 font-medium"
+                    className="border-b border-black/10 px-3 py-2 font-medium dark:border-white/10"
                   >
                     {renderInlineMarkdown(
                       cell,
@@ -326,7 +326,7 @@ function MarkdownMessage({ content }: { content: string }) {
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/10 text-white/72">
+            <tbody className="divide-y divide-black/10 text-black/72 dark:divide-white/10 dark:text-white/72">
               {rows.map((row, rowIndex) => (
                 <tr key={`table-${index}-row-${rowIndex}`}>
                   {headerCells.map((_, cellIndex) => (
@@ -405,7 +405,7 @@ function MarkdownMessage({ content }: { content: string }) {
           <ol
             key={`list-${index}`}
             start={orderedStart}
-            className="list-decimal space-y-2 pl-5 text-white/80"
+            className="list-decimal space-y-2 pl-5 text-black/80 dark:text-white/80"
           >
             {items.map((item, itemIndex) => (
               <li
@@ -419,7 +419,7 @@ function MarkdownMessage({ content }: { content: string }) {
         ) : (
           <ul
             key={`list-${index}`}
-            className="list-disc space-y-2 pl-5 text-white/80"
+            className="list-disc space-y-2 pl-5 text-black/80 dark:text-white/80"
           >
             {items.map((item, itemIndex) => (
               <li
@@ -514,17 +514,17 @@ function ReasoningDisclosure({ content }: { content: string }) {
       <button
         type="button"
         onClick={() => setExpanded((current) => !current)}
-        className="group flex w-full items-center gap-2 text-left text-[0.95rem] font-medium leading-6 text-white/36 transition-colors hover:text-white/52"
+        className="group flex w-full items-center gap-2 text-left text-[0.95rem] font-medium leading-6 text-black/40 transition-colors hover:text-black/60 dark:text-white/36 dark:hover:text-white/52"
         aria-expanded={expanded}
       >
         <span>Reasoning details</span>
         <ChevronDown
-          className={`h-4 w-4 transition-transform group-hover:text-white/60 ${expanded ? "rotate-180" : ""}`}
+          className={`h-4 w-4 transition-transform group-hover:text-black/70 dark:group-hover:text-white/60 ${expanded ? "rotate-180" : ""}`}
           aria-hidden
         />
       </button>
       {expanded ? (
-        <div className="mt-4 border-l-2 border-white/24 pl-5 text-[0.95rem] leading-7 text-white/70">
+        <div className="mt-4 border-l-2 border-black/20 pl-5 text-[0.95rem] leading-7 text-black/75 dark:border-white/24 dark:text-white/70">
           <MarkdownMessage content={content} />
         </div>
       ) : null}
@@ -563,7 +563,7 @@ function MessageMetaRow({
   const copyPayload = answerToCopy.length > 0 ? answerToCopy : message.content
 
   return (
-    <div className="mt-3 flex items-center gap-2 text-[0.78rem] text-white/48">
+    <div className="mt-3 flex items-center gap-2 text-[0.78rem] text-black/45 dark:text-white/48">
       <button
         type="button"
         onClick={() => {
@@ -572,7 +572,7 @@ function MessageMetaRow({
             window.setTimeout(() => setCopied(false), 1200)
           })
         }}
-        className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-white/48 transition-colors hover:text-white/70"
+        className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-black/45 transition-colors hover:text-black/70 dark:text-white/48 dark:hover:text-white/70"
         aria-label="Copy response"
         title="Copy response"
       >
@@ -589,7 +589,7 @@ function MessageMetaRow({
             href={buildHuggingFaceModelUrl(modelLabel)}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline decoration-white/20 underline-offset-2 transition-colors hover:text-white/70 hover:decoration-white/35"
+            className="underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/35 dark:decoration-white/20 dark:hover:text-white/70 dark:hover:decoration-white/35"
           >
             {modelLabel}
           </a>
@@ -610,13 +610,13 @@ function MessageBubble({
 
   return (
     <div
-      className={`flex w-full ${isAssistant ? "justify-start" : "justify-end"}`}
+      className={`flex w-full print:px-2 ${isAssistant ? "justify-start" : "justify-end"}`}
     >
       <div
-        className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-7 sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
+        className={`max-w-[92%] break-inside-avoid rounded-2xl px-4 py-3 text-sm leading-7 print:max-w-[94%] sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
           isAssistant
-            ? "bg-transparent text-[#E6E6E8]"
-            : "bg-white/[0.085] text-[#EDEDEF]"
+            ? "bg-transparent text-[#2e2f33] print:bg-transparent dark:text-[#E6E6E8]"
+            : "bg-black/[0.045] text-[#2b2c31] print:bg-black/[0.045] dark:bg-white/[0.085] dark:text-[#EDEDEF] dark:print:bg-white/[0.085]"
         }`}
       >
         <ChatMessageContent message={message} />
@@ -628,8 +628,8 @@ function MessageBubble({
 
 function EmptyState() {
   return (
-    <div className="flex min-h-0 flex-1 items-center justify-center rounded-sm border border-dashed border-white/12 px-6 text-center">
-      <p className="max-w-sm text-sm leading-6 text-[#A8A8A8]">
+    <div className="flex min-h-0 flex-1 items-center justify-center rounded-sm border border-dashed border-black/12 px-6 text-center dark:border-white/12">
+      <p className="max-w-sm text-sm leading-6 text-[#6b6b6f] dark:text-[#A8A8A8]">
         This shared session was found, but it does not contain displayable user
         or assistant messages yet.
       </p>
@@ -640,51 +640,96 @@ function EmptyState() {
 function ErrorState({ message }: { message: string }) {
   return (
     <div className="mx-auto flex h-full w-full max-w-xl flex-col items-center justify-center px-6 text-center">
-      <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-sm border border-white/10 bg-[#101010] text-white/65">
+      <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-sm border border-black/10 bg-black/5 text-black/60 dark:border-white/10 dark:bg-[#101010] dark:text-white/65">
         <AlertCircle className="h-4 w-4" aria-hidden />
       </div>
-      <h1 className="text-2xl font-semibold tracking-[-0.035em] text-[#EDEDEF] sm:text-3xl">
+      <h1 className="text-2xl font-semibold tracking-[-0.035em] text-[#1d1d1f] dark:text-[#EDEDEF] sm:text-3xl">
         Shared session unavailable
       </h1>
-      <p className="mt-3 max-w-md text-sm leading-6 text-[#A8A8A8]">
+      <p className="mt-3 max-w-md text-sm leading-6 text-[#6b6b6f] dark:text-[#A8A8A8]">
         {message}
       </p>
     </div>
   )
 }
 
-function ShareFloatingDownloadBar() {
+function ShareFloatingDownloadBar({
+  isDark,
+  onToggleTheme,
+}: {
+  isDark: boolean
+  onToggleTheme: () => void
+}) {
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] z-[60] px-3 sm:bottom-4 sm:px-4">
+    <div className="share-floating-download-bar pointer-events-none fixed inset-x-0 bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] z-[60] px-3 print:hidden sm:bottom-4 sm:px-4">
       <div className="mx-auto w-full max-w-[38rem]">
-        <div className="pointer-events-auto flex items-center justify-between gap-2 rounded-[0.9rem] border border-white/10 bg-[#1f1f1f]/95 px-2.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.22)] backdrop-blur-sm sm:gap-3 sm:px-3 sm:py-2">
+        <div
+          className={`pointer-events-auto flex items-center justify-between gap-2 rounded-[0.9rem] border px-2.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:gap-3 sm:px-3 sm:py-2 ${
+            isDark
+              ? "border-white/10 bg-[#1f1f1f]/95"
+              : "border-black/10 bg-white/95"
+          }`}
+        >
           <Link
             href="/"
             className="flex min-w-0 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5"
           >
             <Image
-              src="/grey.png"
+              src="/icon-mark-dark.svg"
               alt="Tiles"
               width={40}
               height={40}
-              className="h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7"
+              className={`h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7 ${isDark ? "" : "invert"}`}
             />
             <span className="inline-flex min-w-0 items-center gap-1.5 sm:gap-2">
-              <span className="truncate text-sm font-semibold tracking-[-0.01em] text-[#e7e7ed] sm:text-base">
+              <span
+                className={`truncate text-sm font-semibold tracking-[-0.01em] sm:text-base ${
+                  isDark ? "text-[#e7e7ed]" : "text-[#1d1d1f]"
+                }`}
+              >
                 Tiles
               </span>
-              <span className="hidden text-xs text-white/55 sm:inline">
+              <span
+                className={`max-w-[9.5rem] truncate text-xs sm:hidden ${
+                  isDark ? "text-white/55" : "text-black/55"
+                }`}
+              >
+                Local-first private AI
+              </span>
+              <span
+                className={`hidden text-xs sm:inline ${
+                  isDark ? "text-white/55" : "text-black/55"
+                }`}
+              >
                 Local-first private AI assistant for everyday use
               </span>
             </span>
           </Link>
-
-          <Link
-            href="/download"
-            className="inline-flex h-8 shrink-0 items-center justify-center rounded-[0.65rem] border border-white/10 bg-white/[0.035] px-3 text-xs font-medium text-[#e7e7ed]/90 transition-colors hover:bg-white/[0.08] hover:text-[#e7e7ed] sm:h-8 sm:px-3.5 sm:text-sm"
-          >
-            Download
-          </Link>
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <button
+              type="button"
+              onClick={onToggleTheme}
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-[0.65rem] transition-colors ${
+                isDark
+                  ? "text-[#e7e7ed]/90 hover:text-[#e7e7ed]"
+                  : "text-[#1d1d1f]/85 hover:text-[#1d1d1f]"
+              }`}
+              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
+              title={isDark ? "Switch to light theme" : "Switch to dark theme"}
+            >
+              {isDark ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
+            </button>
+            <Link
+              href="/download"
+              className={`inline-flex h-8 items-center justify-center rounded-[0.65rem] border px-3 text-xs font-medium transition-colors sm:px-3.5 sm:text-sm ${
+                isDark
+                  ? "border-white/10 bg-white/[0.035] text-[#e7e7ed]/90 hover:bg-white/[0.08] hover:text-[#e7e7ed]"
+                  : "border-black/10 bg-black/[0.03] text-[#1d1d1f]/85 hover:bg-black/[0.06] hover:text-[#1d1d1f]"
+              }`}
+            >
+              Try Tiles
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -704,6 +749,7 @@ export function ShareSessionClient({
   )
   const [pageUrl, setPageUrl] = useState<string>("")
   const [copiedLink, setCopiedLink] = useState(false)
+  const [isDark, setIsDark] = useState(false)
 
   useEffect(() => {
     if (!mockApiUrl) {
@@ -745,6 +791,21 @@ export function ShareSessionClient({
     setPageUrl(window.location.href)
   }, [])
 
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
+    const storedTheme = window.localStorage.getItem("share-page-theme")
+    setIsDark(storedTheme === "dark")
+  }, [])
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
+    window.localStorage.setItem("share-page-theme", isDark ? "dark" : "light")
+  }, [isDark])
+
   const sharedByLabel = useMemo(
     () => (sharedSession ? getSharedByLabel(sharedSession) : ""),
     [sharedSession],
@@ -769,34 +830,49 @@ export function ShareSessionClient({
 
   if (errorMessage) {
     return (
-      <main className="dark flex h-[100dvh] overflow-hidden bg-[#1f1f1f] pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] text-[#E6E6E8] lg:min-h-screen lg:overflow-visible lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
+      <main
+        data-shared-session-page
+        className={`${isDark ? "dark bg-[#1f1f1f] text-[#E6E6E8]" : "bg-[#fbfbfd] text-[#1d1d1f]"} flex h-[100dvh] overflow-hidden pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] print:h-auto print:overflow-visible lg:min-h-screen lg:overflow-visible lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]`}
+      >
         <ErrorState message={errorMessage} />
-        <ShareFloatingDownloadBar />
+        <ShareFloatingDownloadBar
+          isDark={isDark}
+          onToggleTheme={() => setIsDark((current) => !current)}
+        />
       </main>
     )
   }
 
   if (!sharedSession) {
     return (
-      <main className="dark flex h-[100dvh] overflow-hidden bg-[#1f1f1f] px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] text-[#E6E6E8] sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
+      <main
+        data-shared-session-page
+        className={`${isDark ? "dark bg-[#1f1f1f] text-[#E6E6E8]" : "bg-[#fbfbfd] text-[#1d1d1f]"} flex h-[100dvh] overflow-hidden px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] print:h-auto print:overflow-visible sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]`}
+      >
         <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
           <div className="flex min-h-0 flex-1 items-center justify-center">
-            <p className="w-full text-center text-sm text-white/55">
+            <p className="w-full text-center text-sm text-black/55 dark:text-white/55">
               <span className="inline-flex max-w-full items-center whitespace-nowrap">
                 <span>Loading shared chat...</span>
               </span>
             </p>
           </div>
         </section>
-        <ShareFloatingDownloadBar />
+        <ShareFloatingDownloadBar
+          isDark={isDark}
+          onToggleTheme={() => setIsDark((current) => !current)}
+        />
       </main>
     )
   }
 
   return (
-    <main className="dark flex h-[100dvh] overflow-hidden bg-[#1f1f1f] px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] text-[#E6E6E8] sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]">
+    <main
+      data-shared-session-page
+      className={`${isDark ? "dark bg-[#1f1f1f] text-[#E6E6E8]" : "bg-[#fbfbfd] text-[#1d1d1f]"} flex h-[100dvh] overflow-hidden px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] print:h-auto print:overflow-visible sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]`}
+    >
       <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
-        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] lg:pb-4">
+        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] print:overflow-visible print:pb-4 lg:pb-4">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col">
             <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-2 pb-7 pt-4 sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
               <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
@@ -874,8 +950,8 @@ export function ShareSessionClient({
               <EmptyState />
             )}
 
-            <footer className="mt-auto border-t border-white/10 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-3">
-              <p className="text-center text-[0.68rem] leading-4 text-white/55 sm:text-[0.72rem]">
+            <footer className="mt-auto border-t border-black/10 pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-3 dark:border-white/10">
+              <p className="text-center text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
                 <span className="block">
                   We do not store a copy of the shared conversation on our
                   servers.
@@ -887,7 +963,7 @@ export function ShareSessionClient({
                       href={atExploreUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline decoration-white/25 underline-offset-2 transition-colors hover:text-white/70 hover:decoration-white/40"
+                      className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/70 dark:hover:decoration-white/40"
                     >
                       {sharedSession.sourceUri}
                     </a>
@@ -900,7 +976,10 @@ export function ShareSessionClient({
           </div>
         </div>
       </section>
-      <ShareFloatingDownloadBar />
+      <ShareFloatingDownloadBar
+        isDark={isDark}
+        onToggleTheme={() => setIsDark((current) => !current)}
+      />
     </main>
   )
 }
