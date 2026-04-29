@@ -1,6 +1,6 @@
 "use client"
 
-import { AlertCircle, Check, ChevronDown, Copy, Moon, Sun } from "lucide-react"
+import { AlertCircle, Check, ChevronDown, Copy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useState } from "react"
@@ -613,7 +613,7 @@ function MessageBubble({
       className={`flex w-full print:px-2 ${isAssistant ? "justify-start" : "justify-end"}`}
     >
       <div
-        className={`max-w-[92%] break-inside-avoid rounded-2xl px-4 py-3 text-sm leading-7 print:max-w-[94%] sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
+        className={`max-w-[92%] break-inside-avoid rounded-2xl px-4 py-3 text-sm leading-7 print:max-w-[94%] print:break-inside-auto sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
           isAssistant
             ? "bg-transparent text-[#2e2f33] print:bg-transparent dark:text-[#E6E6E8]"
             : "bg-black/[0.045] text-[#2b2c31] print:bg-black/[0.045] dark:bg-white/[0.085] dark:text-[#EDEDEF] dark:print:bg-white/[0.085]"
@@ -675,7 +675,7 @@ function ShareFloatingDownloadBar({
             className="flex min-w-0 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5"
           >
             <Image
-              src="/icon-mark-dark.svg"
+              src="/icon-mark-transparent-white.svg"
               alt="Tiles"
               width={40}
               height={40}
@@ -717,7 +717,31 @@ function ShareFloatingDownloadBar({
               aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
               title={isDark ? "Switch to light theme" : "Switch to dark theme"}
             >
-              {isDark ? <Sun className="h-4 w-4" aria-hidden /> : <Moon className="h-4 w-4" aria-hidden />}
+              {isDark ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden
+                >
+                  <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.061l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M7.455 2.004a.75.75 0 01.26.77 7 7 0 009.958 7.967.75.75 0 011.067.853A8.5 8.5 0 116.647 1.921a.75.75 0 01.808.083z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              )}
             </button>
             <Link
               href="/download"
@@ -874,8 +898,8 @@ export function ShareSessionClient({
       <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
         <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] print:overflow-visible print:pb-4 lg:pb-4">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col">
-            <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-2 pb-7 pt-4 sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
+            <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-2 pb-7 pt-4 print:flex-nowrap sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
+              <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
                 <span className="inline-flex items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
