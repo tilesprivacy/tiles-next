@@ -506,21 +506,21 @@ function ReasoningDisclosure({ content }: { content: string }) {
   const [expanded, setExpanded] = useState(false)
 
   return (
-    <div className="rounded-md border border-white/10 bg-white/[0.035]">
+    <div>
       <button
         type="button"
         onClick={() => setExpanded((current) => !current)}
-        className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-xs font-medium text-white/62 transition-colors hover:text-white/82"
+        className="group flex w-full items-center gap-2 text-left text-[0.95rem] font-medium leading-6 text-white/36 transition-colors hover:text-white/52"
         aria-expanded={expanded}
       >
-        <span>Reasoning</span>
+        <span>Reasoning details</span>
         <ChevronDown
-          className={`h-3.5 w-3.5 transition-transform ${expanded ? "rotate-180" : ""}`}
+          className={`h-4 w-4 transition-transform group-hover:text-white/60 ${expanded ? "rotate-180" : ""}`}
           aria-hidden
         />
       </button>
       {expanded ? (
-        <div className="border-t border-white/10 px-3 py-3 text-white/70">
+        <div className="mt-4 border-l-2 border-white/24 pl-5 text-[0.95rem] leading-7 text-white/70">
           <MarkdownMessage content={content} />
         </div>
       ) : null}
@@ -535,7 +535,7 @@ function ChatMessageContent({ message }: { message: SharedSessionMessage }) {
       : { reasoning: null, answer: message.content }
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-6">
       {reasoning ? <ReasoningDisclosure content={reasoning} /> : null}
       {answer ? <MarkdownMessage content={answer} /> : null}
     </div>
