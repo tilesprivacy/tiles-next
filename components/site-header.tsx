@@ -58,7 +58,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const headerCtaLabelClass = downloadButtonLabelMotionClasses
   const headerCtaIconClass = `flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4 lg:h-5 lg:w-5`
   const mobileHeaderControlSize = "h-7 sm:h-8.5"
-  const mobileMenuButtonSize = "h-8 w-8 sm:h-9 sm:w-9"
+  const mobileMenuButtonSize = "h-7 w-7 sm:h-8 sm:w-8"
   return (
     <>
       {isBannerVisible && (
@@ -156,7 +156,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         </nav>
 
         {/* Right side: Download CTA and mobile menu */}
-        <div className="flex items-center gap-1 whitespace-nowrap sm:gap-1.5 lg:gap-2 shrink-0">
+        <div className="flex items-center gap-1 whitespace-nowrap sm:gap-1 lg:gap-2 shrink-0">
           <Button
             asChild
             variant="ghost"
@@ -164,7 +164,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           >
             <Link
               href="/download"
-              className="group flex items-center gap-1 sm:gap-1.5 lg:gap-2"
+              className="group flex items-center gap-1 sm:gap-1 lg:gap-2"
               onClick={onDownloadClick}
             >
               <span className={headerCtaLabelClass}>
@@ -181,10 +181,10 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               aria-label="Open navigation menu"
               type="button"
             >
-              <span className="flex flex-col items-center justify-center gap-1.5">
-                <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
-                <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
-                <span className={`block h-px w-5 rounded-full ${hamburgerColor} transition-all duration-300`} />
+              <span className="flex flex-col items-center justify-center gap-1">
+                <span className={`block h-px w-4 rounded-full ${hamburgerColor} transition-all duration-300`} />
+                <span className={`block h-px w-4 rounded-full ${hamburgerColor} transition-all duration-300`} />
+                <span className={`block h-px w-4 rounded-full ${hamburgerColor} transition-all duration-300`} />
               </span>
             </button>
           )}

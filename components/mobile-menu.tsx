@@ -38,7 +38,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
   const headerCtaLabelClass = downloadButtonLabelMotionClasses
   const headerCtaIconClass = `flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4`
   const mobileHeaderControlSize = 'h-7 sm:h-8.5'
-  const mobileMenuButtonSize = 'h-8 w-8 sm:h-9 sm:w-9'
+  const mobileMenuButtonSize = 'h-7 w-7 sm:h-8 sm:w-8'
 
   // Social icon colors - theme-aware using dark: utilities
   const iconBaseColor = themeAware ? 'text-foreground/40 dark:text-muted-foreground' : 'text-black/40'
@@ -179,7 +179,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               aria-label="Close navigation menu"
               type="button"
             >
-              <X className={`h-5 w-5 ${themeAware ? 'text-foreground' : 'text-black'}`} aria-hidden />
+              <X className={`h-4 w-4 ${themeAware ? 'text-foreground' : 'text-black'}`} aria-hidden />
             </button>
           </div>
         </div>
@@ -187,39 +187,39 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
         {/* Content area - flex to push social icons to bottom */}
         <div className="flex-1 flex flex-col">
           {/* Navigation Links - positioned below header */}
-          <nav className="flex flex-col pt-4">
+          <nav className="flex flex-col pt-2">
             <Link
               href="/book"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-xl font-medium tracking-tight ${textColor} py-2.5 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Book
             </Link>
             <Link
               href="/roadmap"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-xl font-medium tracking-tight ${textColor} py-2.5 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Roadmap
             </Link>
             <Link
               href="/changelog"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-xl font-medium tracking-tight ${textColor} py-2.5 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Changelog
             </Link>
             <Link
               href="/blog"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-xl font-medium tracking-tight ${textColor} py-2.5 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Blog
             </Link>
             <Link
               href="/sponsor"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-xl font-medium tracking-tight ${textColor} py-2.5 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Sponsor
             </Link>
