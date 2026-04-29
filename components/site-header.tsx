@@ -59,6 +59,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const headerCtaIconClass = `flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4 lg:h-5 lg:w-5`
   const mobileHeaderControlSize = "h-7 sm:h-8.5"
   const mobileMenuButtonSize = "h-8 w-8 sm:h-9 sm:w-9"
+  const hamburgerButtonSurface = themeAware
+    ? "rounded-[0.65rem] bg-foreground/[0.06] hover:bg-foreground/[0.1] active:bg-foreground/[0.12]"
+    : "rounded-[0.65rem] bg-black/[0.06] hover:bg-black/[0.1] active:bg-black/[0.12]"
   return (
     <>
       {isBannerVisible && (
@@ -177,7 +180,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           {isSharePage ? null : (
             <button
               onClick={onOpenMenu}
-              className={`lg:hidden inline-flex ${mobileMenuButtonSize} shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60`}
+              className={`lg:hidden inline-flex ${mobileMenuButtonSize} ${hamburgerButtonSurface} shrink-0 touch-manipulation items-center justify-center border-0 p-0 transition-colors focus-visible:ring-0`}
               aria-label="Open navigation menu"
               type="button"
             >

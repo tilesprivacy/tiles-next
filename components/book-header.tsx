@@ -14,6 +14,8 @@ import {
 } from "@/lib/header-primary-cta-classes"
 
 const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: () => void }) {
+  const mobileMenuButtonSurface =
+    "rounded-[0.65rem] bg-foreground/[0.06] hover:bg-foreground/[0.1] active:bg-foreground/[0.12]"
   return (
     <header className="fixed inset-x-0 top-0 z-40 flex items-center justify-between px-4 pb-3 pt-4 lg:px-6 lg:pb-4 lg:pt-6 bg-background">
       {/* Logo */}
@@ -85,13 +87,15 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
         {/* Hamburger Menu Button - Mobile Only */}
         <button
           onClick={onOpenMenu}
-          className="lg:hidden flex flex-col justify-center items-center gap-1.5 touch-manipulation outline-none border-none bg-transparent shadow-none focus:outline-none focus:ring-0 active:outline-none h-8 lg:h-10"
+          className={`lg:hidden inline-flex h-8 w-8 items-center justify-center ${mobileMenuButtonSurface} touch-manipulation p-0 transition-colors focus:outline-none focus:ring-0 active:outline-none lg:h-10 lg:w-10`}
           aria-label="Open navigation menu"
           type="button"
         >
-          <span className="block w-5 h-0.5 bg-black dark:bg-white" />
-          <span className="block w-5 h-0.5 bg-black dark:bg-white" />
-          <span className="block w-5 h-0.5 bg-black dark:bg-white" />
+          <span className="flex flex-col items-center justify-center gap-1.5">
+            <span className="block h-px w-5 rounded-full bg-foreground transition-all duration-300" />
+            <span className="block h-px w-5 rounded-full bg-foreground transition-all duration-300" />
+            <span className="block h-px w-5 rounded-full bg-foreground transition-all duration-300" />
+          </span>
         </button>
       </div>
     </header>

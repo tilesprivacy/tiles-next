@@ -191,35 +191,35 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
             <Link
               href="/book"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Book
             </Link>
             <Link
               href="/roadmap"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Roadmap
             </Link>
             <Link
               href="/changelog"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Changelog
             </Link>
             <Link
               href="/blog"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Blog
             </Link>
             <Link
               href="/sponsor"
               onClick={onClose}
-              className={`text-[1.75rem] font-medium tracking-tight ${textColor} py-4 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
+              className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
             >
               Sponsor
             </Link>

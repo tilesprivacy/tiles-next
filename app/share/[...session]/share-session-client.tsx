@@ -546,7 +546,66 @@ function ChatMessageContent({ message }: { message: SharedSessionMessage }) {
   )
 }
 
-function MessageBubble({ message }: { message: SharedSessionMessage }) {
+function MessageMetaRow({
+  message,
+  modelLabel,
+}: {
+  message: SharedSessionMessage
+  modelLabel: string | null
+}) {
+  const [copied, setCopied] = useState(false)
+
+  if (message.role !== "assistant") {
+    return null
+  }
+
+  const answerToCopy = splitReasoningContent(message.content).answer.trim()
+  const copyPayload = answerToCopy.length > 0 ? answerToCopy : message.content
+
+  return (
+    <div className="mt-3 flex items-center gap-2 text-[0.78rem] text-white/48">
+      <button
+        type="button"
+        onClick={() => {
+          void navigator.clipboard.writeText(copyPayload).then(() => {
+            setCopied(true)
+            window.setTimeout(() => setCopied(false), 1200)
+          })
+        }}
+        className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-white/48 transition-colors hover:text-white/70"
+        aria-label="Copy response"
+        title="Copy response"
+      >
+        {copied ? (
+          <Check className="h-3.5 w-3.5" aria-hidden />
+        ) : (
+          <Copy className="h-3.5 w-3.5" aria-hidden />
+        )}
+      </button>
+      {modelLabel ? (
+        <span className="truncate">
+          Generated with{" "}
+          <a
+            href={buildHuggingFaceModelUrl(modelLabel)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-white/20 underline-offset-2 transition-colors hover:text-white/70 hover:decoration-white/35"
+          >
+            {modelLabel}
+          </a>
+        </span>
+      ) : null}
+    </div>
+  )
+}
+
+function MessageBubble({
+  message,
+  modelLabel,
+}: {
+  message: SharedSessionMessage
+  modelLabel: string | null
+}) {
   const isAssistant = message.role === "assistant"
 
   return (
@@ -561,6 +620,7 @@ function MessageBubble({ message }: { message: SharedSessionMessage }) {
         }`}
       >
         <ChatMessageContent message={message} />
+        <MessageMetaRow message={message} modelLabel={modelLabel} />
       </div>
     </div>
   )
@@ -768,27 +828,6 @@ export function ShareSessionClient({
                       : sharedByLabel}
                   </a>
                 </span>
-                {sharedSession.modelsUsed.length > 0 ? (
-                  <>
-                    <span>using</span>
-                    <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                      {sharedSession.modelsUsed.map((modelId, index) => (
-                        <span key={modelId}>
-                          {index > 0 ? <span className="mr-1">,</span> : null}
-                          <a
-                            href={buildHuggingFaceModelUrl(modelId)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
-                            title="Open model on Hugging Face"
-                          >
-                            {modelId}
-                          </a>
-                        </span>
-                      ))}
-                    </span>
-                  </>
-                ) : null}
               </p>
               <div className="flex min-w-0 max-w-full items-center justify-end gap-2.5 text-right text-xs leading-5 text-black/58 dark:text-white/62 sm:max-w-[38%] sm:gap-2">
                 <span
@@ -827,6 +866,7 @@ export function ShareSessionClient({
                   <MessageBubble
                     key={`${message.role}-${index}`}
                     message={message}
+                    modelLabel={sharedSession.modelsUsed[0] ?? null}
                   />
                 ))}
               </div>
