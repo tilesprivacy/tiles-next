@@ -3,6 +3,8 @@ title: "Manual"
 description: "Command-line interface reference for Tiles, with usage examples and links to additional guides"
 ---
 
+import { ClickableImage as Image } from '@/components/clickable-image'
+
 # Manual
 
 Commands in this section are for regular users. Most day-to-day behavior is also available as slash commands inside the chat REPL.
@@ -138,13 +140,80 @@ Slash commands give you fast, keyboard-first control over Tiles in interactive c
 
 ### Sharing Commands
 
-These commands require an active ATProto login. See `tiles at login <handle>` in the ATProto section under Command Line Options.
+These commands require an active ATProto login. See [#ATProto (`tiles at`)](#atproto-tiles-at).
 
 - `/share` (via ATProto)  
   Create a shareable link for the current session.
 
 - `/share <sessionId>` (via ATProto)  
   Create a shareable link for a specific session.
+
+View this shared chat example at [tiles.run/share/YXQ6Ly9k...zbWtxYTZzajdhZTJt](https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbWtxYTZzajdhZTJt). Tiles does not store a copy of the shared conversation on our servers, and the shared content is fetched directly from the user's PDS.
+
+<figure style={{ margin: '1.25rem 0 0 0' }}>
+  <Image
+    src="/lightshare.png"
+    alt="Shared chat link screen in light theme"
+    width={720}
+    height={478}
+    className="hidden w-full md:block dark:hidden"
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto'
+    }}
+  />
+  <Image
+    src="/darkshare.png"
+    alt="Shared chat link screen in dark theme"
+    width={720}
+    height={478}
+    className="hidden w-full md:dark:block"
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto'
+    }}
+  />
+  <Image
+    src="/lightsharemobile.png"
+    alt="Shared chat link screen in light theme on mobile"
+    width={390}
+    height={844}
+    className="w-full md:hidden dark:hidden"
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto'
+    }}
+  />
+  <Image
+    src="/dakrsharemobile.png"
+    alt="Shared chat link screen in dark theme on mobile"
+    width={390}
+    height={844}
+    className="hidden w-full md:hidden dark:block"
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto'
+    }}
+  />
+  <figcaption style={{
+    marginTop: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.4',
+    color: 'var(--nextra-text-color-secondary, #666)',
+    textAlign: 'center',
+    fontStyle: 'italic'
+  }}>
+    Shared chat link screen shown after running a `/share` command.
+  </figcaption>
+</figure>
 
 ## Uninstall Tiles (macOS)
 
