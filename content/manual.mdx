@@ -5,15 +5,13 @@ description: "Command-line interface reference for Tiles, with usage examples an
 
 # Manual
 
-Reminder: this is in alpha.
-
-Enjoy these sample commands in lieu of a formal doc.
-
-## Tiles
-
 Commands in this section are for regular users. Most day-to-day behavior is also available as slash commands inside the chat REPL.
 
-Commands are grouped by subcommand family: the base `tiles` command, identity, data layout, models, updates, then peer-to-peer linking and sync.
+## Command Line Options
+
+### Tiles
+
+Commands are grouped by subcommand family: the base `tiles` command, identity, data layout, models, updates, ATProto linking for sharing, then peer-to-peer linking and sync.
 
 ### Main command (`tiles`)
 
@@ -39,12 +37,12 @@ tiles account set-nickname
 tiles account
 ```
 
-### Data directory (`tiles data`)
+### Data folder (`tiles data`)
 
-Where Tiles stores local data.
+Where Tiles stores local data files.
 
 ```bash
-tiles data set-path <path>   # Set data directory
+tiles data set-path <path>   # Set data folder
 ```
 
 ```bash
@@ -53,17 +51,15 @@ tiles data set-path ~/.tiles/data
 
 ### Run models (`tiles run`)
 
-Start a chat session with a model; optional Modelfile path and experimental memory flag.
+Start a chat session with a model; optional Modelfile path.
 
 ```bash
 tiles run [MODELFILE_PATH]   # Default model if path omitted
-tiles run -m                 # Experimental memory model
 ```
 
 ```bash
 tiles run
 tiles run ./path/to/Modelfile
-tiles run -m
 ```
 
 ### App updates (`tiles update`)
@@ -111,6 +107,45 @@ On the **other** device, run **`tiles sync`** with the listener’s **DID** so t
 
 When a sync run finishes, you should get a notification on the devices involved.
 
+### ATProto (`tiles at`)
+
+ATProto is currently used to share chat sessions.
+
+- `tiles at login <handle>`: log in with your ATProto handle (for example, `alice.bsky.social`) via browser OAuth.
+- `tiles at logout`: log out of the current ATProto account.
+
+```bash
+tiles at login alice.bsky.social
+tiles at logout
+```
+
+Authentication currently uses a localhost callback (`127.0.0.1:8988`), and session state is stored locally in the Tiles database.
+
+## Slash commands
+
+Slash commands give you fast, keyboard-first control over Tiles in interactive chat. Type `/?` or `/help` in the prompt to open available commands and quickly run actions like checking session state, resuming prior sessions, and sharing chats without leaving the terminal. Use `/bye` to exit the chat session.
+
+### Session Commands
+
+- `/status`  
+  Show the current session state.
+
+- `/sessions`  
+  List available sessions in local storage.
+
+- `/resume <sessionId>`  
+  Resume a specific session by ID.
+
+### Sharing Commands
+
+These commands require an active ATProto login. See `tiles at login <handle>` in the ATProto section under Command Line Options.
+
+- `/share` (via ATProto)  
+  Create a shareable link for the current session.
+
+- `/share <sessionId>` (via ATProto)  
+  Create a shareable link for a specific session.
+
 ## Uninstall Tiles (macOS)
 
 The full macOS uninstall procedure now lives in a dedicated skill file that includes stop steps, installed-path cleanup, data-path cleanup, optional receipt and keychain cleanup, and warnings for destructive commands.
@@ -120,3 +155,4 @@ We are actively working on an official Tiles uninstaller.
 To use it with coding agents (for example Claude Code or Codex), share the skill file URL in your prompt and ask the agent to follow it step by step while adapting only paths that differ on your machine.
 
 Read and download it here: [`https://tiles.run/tiles-uninstaller-skill/SKILL.md`](https://tiles.run/tiles-uninstaller-skill/SKILL.md).
+
