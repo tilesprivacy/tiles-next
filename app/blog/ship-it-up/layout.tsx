@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Ship it up | Tiles Blog",
     description: "How we package and ship Tiles",
     images: ["https://www.tiles.run/shipitup.png"],
-    creator: "@madclaws",
+    creator: "@madcla.ws",
   },
   other: {
     "article:author": "Anandu Pavanan",
@@ -68,7 +68,7 @@ export default function BlogPostLayout({
           "@type": "Person",
           "@id": "https://www.tiles.run/blog/ship-it-up#author",
           name: "Anandu Pavanan",
-          url: author?.links[0] || "https://github.com/madclaws",
+          url: author?.links[0] || "https://bsky.app/profile/madcla.ws",
         },
         publisher: {
           "@type": "Organization",

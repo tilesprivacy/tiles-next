@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     title: "Move Along, Python | Tiles Blog",
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
     images: ["https://www.tiles.run/tiles_banner_outline_blk.svg"],
-    creator: "@madclaws",
+    creator: "@madcla.ws",
   },
   other: {
     "article:author": "Anandu Pavanan",
@@ -68,7 +68,7 @@ export default function BlogPostLayout({
           "@type": "Person",
           "@id": "https://www.tiles.run/blog/move-along-python#author",
           name: "Anandu Pavanan",
-          url: author?.links[0] || "https://github.com/madclaws",
+          url: author?.links[0] || "https://bsky.app/profile/madcla.ws",
         },
         publisher: {
           "@type": "Organization",

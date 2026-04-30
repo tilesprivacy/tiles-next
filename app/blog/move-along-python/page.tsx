@@ -199,7 +199,6 @@ export default function MoveAlongPythonPage() {
 
       <p>Overall, we are satisfied with this approach for now.</p>
 
-      <p>Till then, keep on tiling.</p>
     </BlogPostContent>
   )
 }
