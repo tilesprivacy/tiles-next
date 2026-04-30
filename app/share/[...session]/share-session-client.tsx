@@ -1,11 +1,12 @@
 "use client"
 
-import { AlertCircle, Check, ChevronDown, Copy } from "lucide-react"
+import { AlertCircle, Check, ChevronDown, Copy, Download } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import type { ReactNode } from "react"
+import { Streamdown } from "streamdown"
 import type { SharedSession, SharedSessionMessage } from "@/lib/shared-session"
+import { cn } from "@/lib/utils"
 
 interface ShareSessionClientProps {
   mockApiUrl?: string
@@ -100,374 +101,114 @@ function isSafeMarkdownUrl(url: string): boolean {
   }
 }
 
-function renderInlineMarkdown(text: string, keyPrefix: string): ReactNode[] {
-  const nodes: ReactNode[] = []
-  const pattern = /(`[^`]+`|\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\([^)]+\))/g
-  let lastIndex = 0
-  let match: RegExpExecArray | null
-
-  while ((match = pattern.exec(text)) !== null) {
-    const [token] = match
-
-    if (match.index > lastIndex) {
-      nodes.push(text.slice(lastIndex, match.index))
-    }
-
-    if (token.startsWith("`") && token.endsWith("`")) {
-      nodes.push(
-        <code
-          key={`${keyPrefix}-code-${match.index}`}
-          className="rounded-sm bg-black/[0.08] px-1 py-0.5 font-mono text-[0.86em] text-black/80 dark:bg-white/10 dark:text-white/88"
-        >
-          {token.slice(1, -1)}
-        </code>,
-      )
-    } else if (token.startsWith("**") && token.endsWith("**")) {
-      nodes.push(
-        <strong
-          key={`${keyPrefix}-strong-${match.index}`}
-          className="font-semibold text-black/90 dark:text-white/95"
-        >
-          {renderInlineMarkdown(
-            token.slice(2, -2),
-            `${keyPrefix}-strong-${match.index}`,
-          )}
-        </strong>,
-      )
-    } else if (token.startsWith("*") && token.endsWith("*")) {
-      nodes.push(
-        <em
-          key={`${keyPrefix}-em-${match.index}`}
-          className="italic text-black/80 dark:text-white/90"
-        >
-          {renderInlineMarkdown(
-            token.slice(1, -1),
-            `${keyPrefix}-em-${match.index}`,
-          )}
-        </em>,
-      )
-    } else {
-      const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/)
-      const label = linkMatch?.[1] ?? token
-      const href = linkMatch?.[2]?.trim() ?? ""
-
-      nodes.push(
-        isSafeMarkdownUrl(href) ? (
-          <a
-            key={`${keyPrefix}-link-${match.index}`}
-            href={href}
-            target={
-              href.startsWith("/") || href.startsWith("#")
-                ? undefined
-                : "_blank"
-            }
-            rel={
-              href.startsWith("/") || href.startsWith("#")
-                ? undefined
-                : "noopener noreferrer"
-            }
-            className="font-medium text-black underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/80 hover:decoration-black/45 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/45"
-          >
-            {renderInlineMarkdown(label, `${keyPrefix}-link-${match.index}`)}
-          </a>
-        ) : (
-          token
-        ),
-      )
-    }
-
-    lastIndex = match.index + token.length
-  }
-
-  if (lastIndex < text.length) {
-    nodes.push(text.slice(lastIndex))
-  }
-
-  return nodes
+function transformShareMarkdownUrl(url: string): string | null {
+  return isSafeMarkdownUrl(url) ? url : null
 }
 
-function splitTableRow(line: string): string[] {
-  return line
+function sanitizeTranscriptFilenamePart(value: string): string {
+  return value
     .trim()
-    .replace(/^\||\|$/g, "")
-    .split("|")
-    .map((cell) => cell.trim())
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 48)
 }
 
-function isTableDivider(line: string): boolean {
-  const cells = splitTableRow(line)
-  return cells.length > 1 && cells.every((cell) => /^:?-{3,}:?$/.test(cell))
-}
-
-function alignTableRowCells(cells: string[], columnCount: number): string[] {
-  if (cells.length === columnCount) {
-    return cells
-  }
-
-  if (cells.length < columnCount) {
-    return [
-      ...cells,
-      ...Array.from({ length: columnCount - cells.length }, () => ""),
-    ]
-  }
-
-  if (columnCount <= 2) {
-    return [cells[0], cells.slice(1).join(" | ")].slice(0, columnCount)
-  }
-
-  return [
-    cells[0],
-    cells.slice(1, cells.length - (columnCount - 2)).join(" | "),
-    ...cells.slice(cells.length - (columnCount - 2)),
+function buildMarkdownTranscript(
+  sharedSession: SharedSession,
+  sharedByLabel: string,
+  pageUrl: string,
+): string {
+  const lines = [
+    `# ${sharedSession.name || "Shared Tiles conversation"}`,
+    "",
+    `- Shared by: ${sharedByLabel}`,
+    `- Created: ${sharedSession.createdAt}`,
+    `- Source: ${sharedSession.sourceUri}`,
+    ...(pageUrl ? [`- Share link: ${pageUrl}`] : []),
+    ...(sharedSession.modelsUsed.length > 0
+      ? [`- Models: ${sharedSession.modelsUsed.join(", ")}`]
+      : []),
+    "",
+    "---",
+    "",
   ]
+
+  sharedSession.messages.forEach((message, index) => {
+    const roleLabel = message.role === "assistant" ? "Assistant" : "User"
+    lines.push(`## ${index + 1}. ${roleLabel}`, "", message.content.trim(), "")
+  })
+
+  return `${lines.join("\n").trim()}\n`
+}
+
+function downloadMarkdownTranscript(
+  sharedSession: SharedSession,
+  sharedByLabel: string,
+  pageUrl: string,
+): void {
+  const transcript = buildMarkdownTranscript(
+    sharedSession,
+    sharedByLabel,
+    pageUrl,
+  )
+  const filenameBase =
+    sanitizeTranscriptFilenamePart(sharedSession.name) ||
+    sanitizeTranscriptFilenamePart(sharedSession.sessionId) ||
+    "tiles-shared-chat"
+  const blob = new Blob([transcript], {
+    type: "text/markdown;charset=utf-8",
+  })
+  const url = URL.createObjectURL(blob)
+  const anchor = document.createElement("a")
+
+  anchor.href = url
+  anchor.download = `${filenameBase}.md`
+  document.body.append(anchor)
+  anchor.click()
+  anchor.remove()
+  URL.revokeObjectURL(url)
 }
 
 function MarkdownMessage({ content }: { content: string }) {
   const normalizedContent = content.replace(/\r\n?/g, "\n")
-  const lines = normalizedContent.split("\n")
-  const blocks: ReactNode[] = []
-  let index = 0
 
-  while (index < lines.length) {
-    const line = lines[index]
-    const trimmed = line.trim()
+  return (
+    <Streamdown
+      mode="static"
+      className="share-markdown break-words"
+      urlTransform={transformShareMarkdownUrl}
+      controls={{ table: true, code: false, mermaid: false }}
+      lineNumbers={false}
+      components={{
+        a: ({ href, children, className, node: _node, ...props }) => {
+          const safeHref =
+            typeof href === "string" && isSafeMarkdownUrl(href)
+              ? href
+              : undefined
+          const isLocal =
+            safeHref?.startsWith("/") || safeHref?.startsWith("#")
 
-    if (!trimmed) {
-      index += 1
-      continue
-    }
-
-    const fenceMatch = trimmed.match(/^```(\w+)?\s*$/)
-
-    if (fenceMatch) {
-      const codeLines: string[] = []
-      index += 1
-
-      while (index < lines.length && !lines[index].trim().startsWith("```")) {
-        codeLines.push(lines[index])
-        index += 1
-      }
-
-      if (index < lines.length) {
-        index += 1
-      }
-
-      blocks.push(
-        <pre
-          key={`code-${index}`}
-          className="overflow-x-auto rounded-md border border-black/10 bg-black/5 p-3 text-[0.82rem] leading-6 text-black/80 dark:border-white/10 dark:bg-black/25 dark:text-white/82"
-        >
-          <code>{codeLines.join("\n")}</code>
-        </pre>,
-      )
-      continue
-    }
-
-    if (/^---+$/.test(trimmed)) {
-      blocks.push(<hr key={`hr-${index}`} className="border-black/10 dark:border-white/10" />)
-      index += 1
-      continue
-    }
-
-    const headingMatch = trimmed.match(/^(#{1,4})\s+(.+)$/)
-
-    if (headingMatch) {
-      const level = headingMatch[1].length
-      const headingClass =
-        level <= 2
-          ? "text-base font-semibold leading-6 text-black/90 dark:text-white/95"
-          : "text-sm font-semibold leading-6 text-black/85 dark:text-white/92"
-
-      blocks.push(
-        <p key={`heading-${index}`} className={headingClass}>
-          {renderInlineMarkdown(headingMatch[2], `heading-${index}`)}
-        </p>,
-      )
-      index += 1
-      continue
-    }
-
-    if (
-      line.includes("|") &&
-      index + 1 < lines.length &&
-      isTableDivider(lines[index + 1])
-    ) {
-      const headerCells = splitTableRow(line)
-      const rows: string[][] = []
-      index += 2
-
-      while (
-        index < lines.length &&
-        lines[index].includes("|") &&
-        lines[index].trim()
-      ) {
-        rows.push(
-          alignTableRowCells(splitTableRow(lines[index]), headerCells.length),
-        )
-        index += 1
-      }
-
-      blocks.push(
-        <div
-          key={`table-${index}`}
-          className="overflow-x-auto rounded-md border border-black/10 dark:border-white/10"
-        >
-          <table className="min-w-full border-collapse text-left text-[0.78rem] leading-5">
-            <thead className="bg-black/[0.045] text-black/75 dark:bg-white/[0.045] dark:text-white/84">
-              <tr>
-                {headerCells.map((cell, cellIndex) => (
-                  <th
-                    key={`table-${index}-head-${cellIndex}`}
-                    className="border-b border-black/10 px-3 py-2 font-medium dark:border-white/10"
-                  >
-                    {renderInlineMarkdown(
-                      cell,
-                      `table-${index}-head-${cellIndex}`,
-                    )}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-black/10 text-black/72 dark:divide-white/10 dark:text-white/72">
-              {rows.map((row, rowIndex) => (
-                <tr key={`table-${index}-row-${rowIndex}`}>
-                  {headerCells.map((_, cellIndex) => (
-                    <td
-                      key={`table-${index}-cell-${rowIndex}-${cellIndex}`}
-                      className="px-3 py-2 align-top"
-                    >
-                      {renderInlineMarkdown(
-                        row[cellIndex] ?? "",
-                        `table-${index}-cell-${rowIndex}-${cellIndex}`,
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>,
-      )
-      continue
-    }
-
-    const listMatch = trimmed.match(/^((?:[-*])|\d+\.)\s+(.+)$/)
-
-    if (listMatch) {
-      const ordered = /^\d+\.$/.test(listMatch[1])
-      const orderedStart = ordered ? Number.parseInt(listMatch[1], 10) : 1
-      const items: string[] = []
-
-      while (index < lines.length) {
-        const currentLine = lines[index]
-        const currentMatch = currentLine
-          .trim()
-          .match(/^((?:[-*])|\d+\.)\s+(.+)$/)
-
-        if (!currentMatch || /^\d+\.$/.test(currentMatch[1]) !== ordered) {
-          break
-        }
-
-        const itemLines = [currentMatch[2]]
-        index += 1
-
-        while (index < lines.length && lines[index].trim()) {
-          const continuationLine = lines[index]
-          const continuationTrimmed = continuationLine.trim()
-          const continuationListMatch = continuationTrimmed.match(
-            /^((?:[-*])|\d+\.)\s+(.+)$/,
+          return (
+            <a
+              {...props}
+              href={safeHref}
+              target={isLocal ? undefined : "_blank"}
+              rel={isLocal ? undefined : "noopener noreferrer"}
+              className={cn(
+                "font-medium text-black underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/80 hover:decoration-black/45 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/45",
+                className,
+              )}
+            >
+              {children}
+            </a>
           )
-          const continuationOrdered =
-            continuationListMatch !== null &&
-            /^\d+\.$/.test(continuationListMatch[1])
-          const isIndentedContinuation = /^\s+/.test(continuationLine)
-
-          if (
-            continuationTrimmed.match(/^```/) ||
-            continuationTrimmed.match(/^(#{1,4})\s+.+$/) ||
-            /^---+$/.test(continuationTrimmed) ||
-            (continuationLine.includes("|") &&
-              index + 1 < lines.length &&
-              isTableDivider(lines[index + 1])) ||
-            (continuationListMatch &&
-              (continuationOrdered === ordered || !isIndentedContinuation))
-          ) {
-            break
-          }
-
-          itemLines.push(continuationTrimmed.replace(/^[-*]\s+/, ""))
-          index += 1
-        }
-
-        items.push(itemLines.join("\n"))
-      }
-
-      blocks.push(
-        ordered ? (
-          <ol
-            key={`list-${index}`}
-            start={orderedStart}
-            className="list-decimal space-y-2 pl-5 text-black/80 dark:text-white/80"
-          >
-            {items.map((item, itemIndex) => (
-              <li
-                key={`list-${index}-${itemIndex}`}
-                className="whitespace-pre-wrap pl-1"
-              >
-                {renderInlineMarkdown(item, `list-${index}-${itemIndex}`)}
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <ul
-            key={`list-${index}`}
-            className="list-disc space-y-2 pl-5 text-black/80 dark:text-white/80"
-          >
-            {items.map((item, itemIndex) => (
-              <li
-                key={`list-${index}-${itemIndex}`}
-                className="whitespace-pre-wrap pl-1"
-              >
-                {renderInlineMarkdown(item, `list-${index}-${itemIndex}`)}
-              </li>
-            ))}
-          </ul>
-        ),
-      )
-      continue
-    }
-
-    const paragraphLines: string[] = [trimmed]
-    index += 1
-
-    while (index < lines.length && lines[index].trim()) {
-      const nextLine = lines[index]
-      const nextTrimmed = nextLine.trim()
-
-      if (
-        nextTrimmed.match(/^```/) ||
-        nextTrimmed.match(/^(#{1,4})\s+.+$/) ||
-        nextTrimmed.match(/^((?:[-*])|\d+\.)\s+.+$/) ||
-        /^---+$/.test(nextTrimmed) ||
-        (nextLine.includes("|") &&
-          index + 1 < lines.length &&
-          isTableDivider(lines[index + 1]))
-      ) {
-        break
-      }
-
-      paragraphLines.push(nextTrimmed)
-      index += 1
-    }
-
-    blocks.push(
-      <p key={`paragraph-${index}`} className="whitespace-pre-wrap break-words">
-        {renderInlineMarkdown(paragraphLines.join("\n"), `paragraph-${index}`)}
-      </p>,
-    )
-  }
-
-  return <div className="space-y-3 break-words">{blocks}</div>
+        },
+      }}
+    >
+      {normalizedContent}
+    </Streamdown>
+  )
 }
 
 function splitReasoningContent(content: string): {
@@ -1042,6 +783,21 @@ export function ShareSessionClient({
                   ) : (
                     <Copy className="h-3.5 w-3.5" aria-hidden />
                   )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    downloadMarkdownTranscript(
+                      sharedSession,
+                      sharedByLabel,
+                      pageUrl,
+                    )
+                  }
+                  className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-black/62 transition-colors hover:text-black dark:text-white/62 dark:hover:text-white"
+                  aria-label="Download transcript as Markdown"
+                  title="Download transcript"
+                >
+                  <Download className="h-3.5 w-3.5" aria-hidden />
                 </button>
               </div>
             </header>

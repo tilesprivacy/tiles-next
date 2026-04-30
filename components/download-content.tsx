@@ -187,6 +187,14 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or
                 more.
               </p>
+              <p className={bodyTextClass}>
+                <strong>Status: Alpha</strong>
+              </p>
+              <p className={bodyTextClass}>
+                Tiles is currently alpha-quality software. It is usable for everyday tasks, though you may encounter
+                bugs and performance issues. Tilekit, the developer SDK, is experimental, not a current priority, and
+                intended for exploratory use, not production.
+              </p>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (
                 <p className={`text-sm ${textColorSubtle}`}>
