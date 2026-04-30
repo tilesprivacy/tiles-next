@@ -516,7 +516,7 @@ function ReasoningDisclosure({ content }: { content: string }) {
       <button
         type="button"
         onClick={() => setExpanded((current) => !current)}
-        className="group flex w-full items-center gap-2 text-left text-[0.95rem] font-medium leading-6 text-black/40 transition-colors hover:text-black/60 dark:text-white/36 dark:hover:text-white/52"
+        className="group flex w-full items-center gap-2 text-left text-[0.95rem] font-medium leading-6 text-black/60 transition-colors hover:text-black/80 dark:text-white/60 dark:hover:text-white/80"
         aria-expanded={expanded}
       >
         <span>Reasoning details</span>
@@ -565,7 +565,7 @@ function MessageMetaRow({
   const copyPayload = answerToCopy.length > 0 ? answerToCopy : message.content
 
   return (
-    <div className="mt-3 flex items-center gap-2 text-[0.78rem] text-black/45 dark:text-white/48">
+    <div className="mt-3 flex items-center gap-2 text-[0.78rem] text-black/60 dark:text-white/65">
       <button
         type="button"
         onClick={() => {
@@ -574,7 +574,7 @@ function MessageMetaRow({
             window.setTimeout(() => setCopied(false), 1200)
           })
         }}
-        className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-black/45 transition-colors hover:text-black/70 dark:text-white/48 dark:hover:text-white/70"
+        className="inline-flex h-5 w-5 items-center justify-center rounded-sm text-black/60 transition-colors hover:text-black/80 dark:text-white/65 dark:hover:text-white/80"
         aria-label="Copy response"
         title="Copy response"
       >
@@ -710,26 +710,26 @@ function ShareFloatingDownloadBar({
             </span>
           </Link>
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-            <div
-              className={`inline-flex items-center rounded-[0.65rem] p-0.5 ${
-                isDark ? "bg-white/[0.06]" : "bg-black/[0.06]"
-              }`}
-            >
-              <button
-                type="button"
-                onClick={() => onSetThemePreference("light")}
-                className={`inline-flex h-7 w-7 items-center justify-center rounded-[0.5rem] transition-colors ${
+            <button
+              type="button"
+              onClick={() =>
+                onSetThemePreference(
                   themePreference === "light"
-                    ? isDark
-                      ? "bg-white text-black"
-                      : "bg-black text-white"
-                    : isDark
-                      ? "text-[#e7e7ed]/80 hover:text-[#e7e7ed]"
-                      : "text-[#1d1d1f]/75 hover:text-[#1d1d1f]"
-                }`}
-                aria-label="Light theme"
-                title="Light theme"
-              >
+                    ? "dark"
+                    : themePreference === "dark"
+                      ? "system"
+                      : "light",
+                )
+              }
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-[0.65rem] transition-colors ${
+                isDark
+                  ? "text-[#e7e7ed]/90 hover:text-[#e7e7ed]"
+                  : "text-[#1d1d1f]/85 hover:text-[#1d1d1f]"
+              }`}
+              aria-label={`Theme: ${themePreference}. Click to switch theme`}
+              title={`Theme: ${themePreference}`}
+            >
+              {themePreference === "light" ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -739,22 +739,7 @@ function ShareFloatingDownloadBar({
                 >
                   <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.061l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z" />
                 </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => onSetThemePreference("dark")}
-                className={`inline-flex h-7 w-7 items-center justify-center rounded-[0.5rem] transition-colors ${
-                  themePreference === "dark"
-                    ? isDark
-                      ? "bg-white text-black"
-                      : "bg-black text-white"
-                    : isDark
-                      ? "text-[#e7e7ed]/80 hover:text-[#e7e7ed]"
-                      : "text-[#1d1d1f]/75 hover:text-[#1d1d1f]"
-                }`}
-                aria-label="Dark theme"
-                title="Dark theme"
-              >
+              ) : themePreference === "dark" ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -768,22 +753,7 @@ function ShareFloatingDownloadBar({
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
-              <button
-                type="button"
-                onClick={() => onSetThemePreference("system")}
-                className={`inline-flex h-7 w-7 items-center justify-center rounded-[0.5rem] transition-colors ${
-                  themePreference === "system"
-                    ? isDark
-                      ? "bg-white text-black"
-                      : "bg-black text-white"
-                    : isDark
-                      ? "text-[#e7e7ed]/80 hover:text-[#e7e7ed]"
-                      : "text-[#1d1d1f]/75 hover:text-[#1d1d1f]"
-                }`}
-                aria-label="System theme"
-                title="System theme"
-              >
+              ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -797,8 +767,8 @@ function ShareFloatingDownloadBar({
                     clipRule="evenodd"
                   />
                 </svg>
-              </button>
-            </div>
+              )}
+            </button>
             <Link
               href="/download"
               className={`inline-flex h-8 items-center justify-center rounded-[0.65rem] border px-2.5 text-xs font-medium transition-colors sm:px-3.5 sm:text-sm ${
@@ -1015,7 +985,7 @@ export function ShareSessionClient({
         <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-4 print:overflow-visible print:pb-4">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col overflow-x-hidden">
             <header className="grid gap-3 px-1 pb-7 pt-4 print:flex print:flex-nowrap sm:flex sm:flex-wrap sm:items-start sm:justify-between sm:gap-x-6 sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:pl-1 sm:text-[0.8rem]">
+              <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:pl-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
                 <span className="inline-flex min-w-0 items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
@@ -1045,7 +1015,7 @@ export function ShareSessionClient({
                   </a>
                 </span>
               </p>
-              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/58 dark:text-white/62 sm:max-w-[38%] sm:justify-end sm:gap-2 sm:text-right">
+              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/68 dark:text-white/72 sm:max-w-[38%] sm:justify-end sm:gap-2 sm:text-right">
                 <span
                   className="min-w-0 truncate font-medium"
                   title={pageUrl || undefined}
