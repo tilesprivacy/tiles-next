@@ -256,16 +256,16 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                               <ul className={releaseBodyClass}>
                                 {section.changes.map((change, i) => (
                                   <li key={i}>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-start gap-2">
                                       <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                      <span>{renderTextWithCode(change.text)}</span>
+                                      <span className="min-w-0">{renderTextWithCode(change.text)}</span>
                                     </div>
                                     {change.subItems && change.subItems.length > 0 && (
                                       <ul className="ml-4 mt-1.5 space-y-1.5">
                                         {change.subItems.map((subItem, j) => (
-                                          <li key={j} className="flex items-center gap-2">
+                                          <li key={j} className="flex items-start gap-2">
                                             <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                            <span className={textColorBodyLight}>{renderTextWithCode(subItem)}</span>
+                                            <span className={`min-w-0 ${textColorBodyLight}`}>{renderTextWithCode(subItem)}</span>
                                           </li>
                                         ))}
                                       </ul>
@@ -349,16 +349,16 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                 <ul className={releaseBodyClass}>
                                   {section.changes.map((change, i) => (
                                     <li key={i}>
-                                      <div className="flex items-center gap-2">
+                                      <div className="flex items-start gap-2">
                                         <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                        <span>{renderTextWithCode(change.text)}</span>
+                                        <span className="min-w-0">{renderTextWithCode(change.text)}</span>
                                       </div>
                                       {change.subItems && change.subItems.length > 0 && (
                                         <ul className="ml-4 mt-1.5 space-y-1.5">
                                           {change.subItems.map((subItem, j) => (
-                                            <li key={j} className="flex items-center gap-2">
+                                            <li key={j} className="flex items-start gap-2">
                                               <span className={`h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                              <span className={textColorBodyLight}>{renderTextWithCode(subItem)}</span>
+                                              <span className={`min-w-0 ${textColorBodyLight}`}>{renderTextWithCode(subItem)}</span>
                                             </li>
                                           ))}
                                         </ul>
