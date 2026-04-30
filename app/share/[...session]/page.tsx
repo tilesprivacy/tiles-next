@@ -6,18 +6,34 @@ interface SharePageProps {
   params: Promise<{ session: string[] }>
 }
 
+function getSharedSessionTitle(handle: string | null): string {
+  const trimmedHandle = handle?.trim().replace(/^@+/, "")
+
+  return trimmedHandle
+    ? `Shared chat session by @${trimmedHandle} | Tiles`
+    : "Shared chat session | Tiles"
+}
+
 export async function generateMetadata({
   params,
 }: SharePageProps): Promise<Metadata> {
   const { session } = await params
   const shareToken = session.join("/")
   const imagePath = `https://www.tiles.run/api/share/og?session=${encodeURIComponent(shareToken)}`
+  let title = "Shared chat session | Tiles"
+
+  try {
+    const sharedSession = await getSharedSession(shareToken)
+    title = getSharedSessionTitle(sharedSession.sharedBy.handle)
+  } catch {
+    title = "Shared chat session | Tiles"
+  }
 
   return {
-    title: "Shared chat session | Tiles",
+    title,
     description: "Shared chat session on Tiles. Powered by ATProto.",
     openGraph: {
-      title: "Shared chat session | Tiles",
+      title,
       description: "Shared chat session on Tiles. Powered by ATProto.",
       images: [
         {
@@ -30,7 +46,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: "Shared chat session | Tiles",
+      title,
       description: "Shared chat session on Tiles. Powered by ATProto.",
       images: [imagePath],
     },
