@@ -13,6 +13,8 @@ interface ShareSessionClientProps {
   initialErrorMessage?: string | null
 }
 
+type ShareThemePreference = "light" | "dark" | "system"
+
 async function getSharedSessionFromMockApi(
   mockApiUrl: string,
 ): Promise<SharedSession> {
@@ -610,10 +612,10 @@ function MessageBubble({
 
   return (
     <div
-      className={`flex w-full print:px-2 ${isAssistant ? "justify-start" : "justify-end"}`}
+      className={`flex w-full min-w-0 print:px-2 ${isAssistant ? "justify-start" : "justify-end"}`}
     >
       <div
-        className={`max-w-[92%] break-inside-avoid rounded-2xl px-4 py-3 text-sm leading-7 print:max-w-[94%] print:break-inside-auto sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
+        className={`min-w-0 max-w-[calc(100vw-2rem)] break-inside-avoid rounded-2xl px-4 py-3 text-sm leading-7 print:max-w-[94%] print:break-inside-auto sm:max-w-[78%] sm:px-5 sm:text-[0.95rem] ${
           isAssistant
             ? "bg-transparent text-[#2e2f33] print:bg-transparent dark:text-[#E6E6E8]"
             : "bg-black/[0.045] text-[#2b2c31] print:bg-black/[0.045] dark:bg-white/[0.085] dark:text-[#EDEDEF] dark:print:bg-white/[0.085]"
@@ -654,17 +656,19 @@ function ErrorState({ message }: { message: string }) {
 }
 
 function ShareFloatingDownloadBar({
+  themePreference,
   isDark,
-  onToggleTheme,
+  onSetThemePreference,
 }: {
+  themePreference: ShareThemePreference
   isDark: boolean
-  onToggleTheme: () => void
+  onSetThemePreference: (nextTheme: ShareThemePreference) => void
 }) {
   return (
     <div className="share-floating-download-bar pointer-events-none fixed inset-x-0 bottom-[max(0.65rem,env(safe-area-inset-bottom,0px))] z-[60] px-3 print:hidden sm:bottom-4 sm:px-4">
       <div className="mx-auto w-full max-w-[38rem]">
         <div
-          className={`pointer-events-auto flex items-center justify-between gap-2 rounded-[0.9rem] border px-2.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:gap-3 sm:px-3 sm:py-2 ${
+          className={`pointer-events-auto flex min-w-0 items-center justify-between gap-2 rounded-[0.9rem] border px-2.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur-sm sm:gap-3 sm:px-3 sm:py-2 ${
             isDark
               ? "border-white/10 bg-[#1f1f1f]/95"
               : "border-black/10 bg-white/95"
@@ -672,7 +676,7 @@ function ShareFloatingDownloadBar({
         >
           <Link
             href="/"
-            className="flex min-w-0 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5"
+            className="flex min-w-0 flex-1 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5"
           >
             <Image
               src="/icon-mark-transparent-white.svg"
@@ -681,16 +685,16 @@ function ShareFloatingDownloadBar({
               height={40}
               className={`h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7 ${isDark ? "" : "invert"}`}
             />
-            <span className="inline-flex min-w-0 items-center gap-1.5 sm:gap-2">
+            <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 sm:gap-2">
               <span
-                className={`truncate text-sm font-semibold tracking-[-0.01em] sm:text-base ${
+                className={`shrink-0 text-sm font-semibold tracking-[-0.01em] sm:text-base ${
                   isDark ? "text-[#e7e7ed]" : "text-[#1d1d1f]"
                 }`}
               >
                 Tiles
               </span>
               <span
-                className={`max-w-[9.5rem] truncate text-xs sm:hidden ${
+                className={`hidden min-w-0 truncate text-xs min-[430px]:inline sm:hidden ${
                   isDark ? "text-white/55" : "text-black/55"
                 }`}
               >
@@ -705,19 +709,27 @@ function ShareFloatingDownloadBar({
               </span>
             </span>
           </Link>
-          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
-            <button
-              type="button"
-              onClick={onToggleTheme}
-              className={`inline-flex h-8 w-8 items-center justify-center rounded-[0.65rem] transition-colors ${
-                isDark
-                  ? "text-[#e7e7ed]/90 hover:text-[#e7e7ed]"
-                  : "text-[#1d1d1f]/85 hover:text-[#1d1d1f]"
+          <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+            <div
+              className={`inline-flex items-center rounded-[0.65rem] p-0.5 ${
+                isDark ? "bg-white/[0.06]" : "bg-black/[0.06]"
               }`}
-              aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
-              title={isDark ? "Switch to light theme" : "Switch to dark theme"}
             >
-              {isDark ? (
+              <button
+                type="button"
+                onClick={() => onSetThemePreference("light")}
+                className={`inline-flex h-7 w-7 items-center justify-center rounded-[0.5rem] transition-colors ${
+                  themePreference === "light"
+                    ? isDark
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : isDark
+                      ? "text-[#e7e7ed]/80 hover:text-[#e7e7ed]"
+                      : "text-[#1d1d1f]/75 hover:text-[#1d1d1f]"
+                }`}
+                aria-label="Light theme"
+                title="Light theme"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -727,7 +739,22 @@ function ShareFloatingDownloadBar({
                 >
                   <path d="M10 2a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 2zM10 15a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 15zM10 7a3 3 0 100 6 3 3 0 000-6zM15.657 5.404a.75.75 0 10-1.06-1.06l-1.061 1.06a.75.75 0 001.06 1.061l1.06-1.06zM6.464 14.596a.75.75 0 10-1.06-1.06l-1.06 1.06a.75.75 0 001.06 1.06l1.06-1.06zM18 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0118 10zM5 10a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 015 10zM14.596 15.657a.75.75 0 001.06-1.06l-1.06-1.061a.75.75 0 10-1.06 1.06l1.06 1.06zM5.404 6.464a.75.75 0 001.06-1.06l-1.06-1.06a.75.75 0 10-1.061 1.06l1.06 1.06z" />
                 </svg>
-              ) : (
+              </button>
+              <button
+                type="button"
+                onClick={() => onSetThemePreference("dark")}
+                className={`inline-flex h-7 w-7 items-center justify-center rounded-[0.5rem] transition-colors ${
+                  themePreference === "dark"
+                    ? isDark
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : isDark
+                      ? "text-[#e7e7ed]/80 hover:text-[#e7e7ed]"
+                      : "text-[#1d1d1f]/75 hover:text-[#1d1d1f]"
+                }`}
+                aria-label="Dark theme"
+                title="Dark theme"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
@@ -741,11 +768,40 @@ function ShareFloatingDownloadBar({
                     clipRule="evenodd"
                   />
                 </svg>
-              )}
-            </button>
+              </button>
+              <button
+                type="button"
+                onClick={() => onSetThemePreference("system")}
+                className={`inline-flex h-7 w-7 items-center justify-center rounded-[0.5rem] transition-colors ${
+                  themePreference === "system"
+                    ? isDark
+                      ? "bg-white text-black"
+                      : "bg-black text-white"
+                    : isDark
+                      ? "text-[#e7e7ed]/80 hover:text-[#e7e7ed]"
+                      : "text-[#1d1d1f]/75 hover:text-[#1d1d1f]"
+                }`}
+                aria-label="System theme"
+                title="System theme"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  className="h-4 w-4"
+                  aria-hidden
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.484-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
             <Link
               href="/download"
-              className={`inline-flex h-8 items-center justify-center rounded-[0.65rem] border px-3 text-xs font-medium transition-colors sm:px-3.5 sm:text-sm ${
+              className={`inline-flex h-8 items-center justify-center rounded-[0.65rem] border px-2.5 text-xs font-medium transition-colors sm:px-3.5 sm:text-sm ${
                 isDark
                   ? "border-white/10 bg-white/[0.035] text-[#e7e7ed]/90 hover:bg-white/[0.08] hover:text-[#e7e7ed]"
                   : "border-black/10 bg-black/[0.03] text-[#1d1d1f]/85 hover:bg-black/[0.06] hover:text-[#1d1d1f]"
@@ -773,6 +829,8 @@ export function ShareSessionClient({
   )
   const [pageUrl, setPageUrl] = useState<string>("")
   const [copiedLink, setCopiedLink] = useState(false)
+  const [themePreference, setThemePreference] =
+    useState<ShareThemePreference>("system")
   const [isDark, setIsDark] = useState(false)
   const [themeReady, setThemeReady] = useState(false)
   const hadDarkBeforeMountRef = useRef<boolean | null>(null)
@@ -826,7 +884,15 @@ export function ShareSessionClient({
     hadDarkBeforeMountRef.current = root.classList.contains("dark")
 
     const storedTheme = window.localStorage.getItem("share-page-theme")
-    const shouldUseDark = storedTheme === "dark"
+    const parsedTheme: ShareThemePreference =
+      storedTheme === "light" || storedTheme === "dark" || storedTheme === "system"
+        ? storedTheme
+        : "system"
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    const shouldUseDark =
+      parsedTheme === "system" ? mediaQuery.matches : parsedTheme === "dark"
+
+    setThemePreference(parsedTheme)
     setIsDark(shouldUseDark)
     root.classList.toggle("dark", shouldUseDark)
     setThemeReady(true)
@@ -844,9 +910,30 @@ export function ShareSessionClient({
       return
     }
 
-    window.localStorage.setItem("share-page-theme", isDark ? "dark" : "light")
-    document.documentElement.classList.toggle("dark", isDark)
-  }, [isDark, themeReady])
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+    const shouldUseDark =
+      themePreference === "system"
+        ? mediaQuery.matches
+        : themePreference === "dark"
+
+    setIsDark(shouldUseDark)
+    document.documentElement.classList.toggle("dark", shouldUseDark)
+    window.localStorage.setItem("share-page-theme", themePreference)
+
+    if (themePreference !== "system") {
+      return
+    }
+
+    const handleSystemThemeChange = (event: MediaQueryListEvent) => {
+      setIsDark(event.matches)
+      document.documentElement.classList.toggle("dark", event.matches)
+    }
+
+    mediaQuery.addEventListener("change", handleSystemThemeChange)
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange)
+    }
+  }, [themePreference, themeReady])
 
   const sharedByLabel = useMemo(
     () => (sharedSession ? getSharedByLabel(sharedSession) : ""),
@@ -887,8 +974,9 @@ export function ShareSessionClient({
       >
         <ErrorState message={errorMessage} />
         <ShareFloatingDownloadBar
+          themePreference={themePreference}
           isDark={isDark}
-          onToggleTheme={() => setIsDark((current) => !current)}
+          onSetThemePreference={setThemePreference}
         />
       </main>
     )
@@ -910,8 +998,9 @@ export function ShareSessionClient({
           </div>
         </section>
         <ShareFloatingDownloadBar
+          themePreference={themePreference}
           isDark={isDark}
-          onToggleTheme={() => setIsDark((current) => !current)}
+          onSetThemePreference={setThemePreference}
         />
       </main>
     )
@@ -920,15 +1009,15 @@ export function ShareSessionClient({
   return (
     <main
       data-shared-session-page
-      className={`${isDark ? "dark bg-[#1f1f1f] text-[#E6E6E8]" : "bg-[#fbfbfd] text-[#1d1d1f]"} flex h-[100dvh] overflow-hidden px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] print:h-auto print:overflow-visible sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]`}
+      className={`${isDark ? "dark bg-[#1f1f1f] text-[#E6E6E8]" : "bg-[#fbfbfd] text-[#1d1d1f]"} flex h-[100dvh] overflow-hidden px-4 pb-[calc(6.75rem+env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] print:h-auto print:overflow-visible print:pb-0 sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]`}
     >
-      <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col">
-        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] print:overflow-visible print:pb-4 lg:pb-4">
-          <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col">
-            <header className="flex flex-wrap items-start justify-between gap-x-6 gap-y-4 px-2 pb-7 pt-4 print:flex-nowrap sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 pl-1 text-left text-xs leading-5 text-black/45 dark:text-white/55 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:pl-1 sm:text-[0.8rem]">
+      <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col overflow-hidden">
+        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-4 print:overflow-visible print:pb-4">
+          <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col overflow-x-hidden">
+            <header className="grid gap-3 px-1 pb-7 pt-4 print:flex print:flex-nowrap sm:flex sm:flex-wrap sm:items-start sm:justify-between sm:gap-x-6 sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
+              <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/45 dark:text-white/55 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:pl-1 sm:text-[0.8rem]">
                 <span>This is a copy of a conversation between Tiles and</span>
-                <span className="inline-flex items-center gap-1.5">
+                <span className="inline-flex min-w-0 items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
                     <img
                       src={sharedSession.sharedBy.avatarUrl}
@@ -947,7 +1036,7 @@ export function ShareSessionClient({
                     href={blueskyProfileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
+                    className="min-w-0 truncate font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
                     title="Open Bluesky profile"
                   >
                     {sharedSession.sharedBy.handle
@@ -956,7 +1045,7 @@ export function ShareSessionClient({
                   </a>
                 </span>
               </p>
-              <div className="flex min-w-0 max-w-full items-center justify-end gap-2.5 text-right text-xs leading-5 text-black/58 dark:text-white/62 sm:max-w-[38%] sm:gap-2">
+              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/58 dark:text-white/62 sm:max-w-[38%] sm:justify-end sm:gap-2 sm:text-right">
                 <span
                   className="min-w-0 truncate font-medium"
                   title={pageUrl || undefined}
@@ -988,7 +1077,7 @@ export function ShareSessionClient({
             </header>
 
             {sharedSession.messages.length > 0 ? (
-              <div className="flex flex-col gap-6 py-5 sm:gap-7 sm:py-3">
+              <div className="flex min-w-0 flex-col gap-6 py-5 sm:gap-7 sm:py-3">
                 {sharedSession.messages.map((message, index) => (
                   <MessageBubble
                     key={`${message.role}-${index}`}
@@ -1001,7 +1090,7 @@ export function ShareSessionClient({
               <EmptyState />
             )}
 
-            <footer className="mt-auto pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))] pt-5">
+            <footer className="mt-auto pt-5">
               <div className="border-t border-black/10 pt-3 dark:border-white/10">
                 <p className="text-center text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
                   <span className="block">
@@ -1030,8 +1119,9 @@ export function ShareSessionClient({
         </div>
       </section>
       <ShareFloatingDownloadBar
+        themePreference={themePreference}
         isDark={isDark}
-        onToggleTheme={() => setIsDark((current) => !current)}
+        onSetThemePreference={setThemePreference}
       />
     </main>
   )

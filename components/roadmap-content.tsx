@@ -22,8 +22,8 @@ const roadmapTracks: RoadmapTrack[] = [
   {
     label: 'Harness',
     items: [
-      { label: 'Pi integration', status: 'active' },
-      { label: 'Connectors', status: 'planned' },
+      { label: 'Pi integration', status: 'shipped' },
+      { label: 'Connectors', status: 'active' },
       { label: 'Memory', status: 'planned' },
       { label: 'Agent Templates', status: 'planned' },
       { label: 'Agent to Agent communication', status: 'planned' },
@@ -50,7 +50,7 @@ const roadmapTracks: RoadmapTrack[] = [
     label: 'Identity',
     items: [
       { label: 'DID:key based local accounts', status: 'shipped' },
-      { label: 'ATProto accounts', status: 'active' },
+      { label: 'ATProto accounts', status: 'shipped' },
       { label: 'Agent Addresses', status: 'planned' },
     ],
   },
@@ -58,7 +58,7 @@ const roadmapTracks: RoadmapTrack[] = [
     label: 'Sync',
     items: [
       { label: 'E2E encrypted P2P sync', status: 'shipped' },
-      { label: 'Shared Links', status: 'active' },
+      { label: 'Shared Links', status: 'shipped' },
       { label: 'Remote Link', status: 'planned' },
       { label: 'Group Chats', status: 'planned' },
     ],
@@ -68,7 +68,7 @@ const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: 'Notarized builds', status: 'shipped' },
       { label: 'Encrypted SQLite database', status: 'shipped' },
-      { label: 'Agent Sandbox', status: 'planned' },
+      { label: 'Agent Sandbox', status: 'active' },
       {
         label: 'Inference runtime hardening',
         status: 'planned',
