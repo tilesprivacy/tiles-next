@@ -84,8 +84,17 @@ export default {
       return json({ ok: true });
     }
 
-    if ((request.method === "GET" || request.method === "HEAD") && url.pathname.startsWith("/checksums/")) {
+    if (request.method === "GET" || request.method === "HEAD") {
+      // Public file serving for download host (pkg files, checksums, license, etc.).
+      // Keep all /sync routes token-protected and POST-only.
+      if (url.pathname.startsWith("/sync/")) {
+        return json({ error: "Not found" }, 404);
+      }
+
       const key = url.pathname.replace(/^\/+/, "");
+      if (!key) {
+        return json({ error: "Not found" }, 404);
+      }
       return serveBucketObject(request, key, env);
     }
 
