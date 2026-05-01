@@ -41,9 +41,9 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
   const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
 
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
-  const newsletterDescriptionColor = isDarkFooter ? 'text-[#b0b0ba]' : 'text-[#1d1d1f]/60'
+  const newsletterDescriptionColor = isDarkFooter ? 'text-[#b0b0ba]' : 'text-[#1d1d1f]/74'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
-  const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/50'
+  const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
   const alphaPillClass =
     "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
 
@@ -72,7 +72,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                     />
                   </Link>
                 </Button>
-                <p className="mt-2 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.65rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.68rem]">
+                <p className="mt-2 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.65rem] font-medium text-black/62 dark:text-[#9A9A9A] sm:text-[0.68rem]">
                   <span>Currently available as a CLI in</span>
                   <span className={alphaPillClass}>ALPHA</span>
                 </p>
@@ -295,7 +295,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 data-skip-mobile-download-prompt="true"
-                className="underline underline-offset-2 transition-opacity hover:opacity-80"
+                className="underline underline-offset-2 transition-opacity hover:opacity-100"
               >
                 https://download.tiles.run/LICENSE.txt
               </a>
