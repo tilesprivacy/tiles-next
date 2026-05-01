@@ -50,11 +50,17 @@ export function BookTocScrollSync() {
       })
     }
 
+    let lastActiveId = ''
+    let rafId = 0
+
     const sync = () => {
       const headings = getHeadings()
       if (headings.length === 0) {
-        setActiveSlug('')
-        syncAriaCurrent('')
+        if (lastActiveId !== '') {
+          lastActiveId = ''
+          setActiveSlug('')
+          syncAriaCurrent('')
+        }
         return
       }
 
@@ -71,31 +77,45 @@ export function BookTocScrollSync() {
         }
       }
 
+      if (activeId === lastActiveId) {
+        return
+      }
+
+      lastActiveId = activeId
       setActiveSlug(activeId)
       syncAriaCurrent(activeId)
     }
 
-    const onScroll = () => sync()
-
-    sync()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', sync)
-
-    const onHashChange = () => {
-      window.requestAnimationFrame(() => {
+    const scheduleSync = () => {
+      if (rafId) return
+      rafId = window.requestAnimationFrame(() => {
+        rafId = 0
         sync()
       })
     }
+
+    const onScroll = () => scheduleSync()
+
+    sync()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', scheduleSync)
+
+    const onHashChange = () => {
+      scheduleSync()
+    }
     window.addEventListener('hashchange', onHashChange)
 
-    const t0 = window.setTimeout(sync, 0)
-    const t1 = window.setTimeout(sync, 120)
+    const t0 = window.setTimeout(scheduleSync, 0)
+    const t1 = window.setTimeout(scheduleSync, 120)
 
     return () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId)
+      }
       window.clearTimeout(t0)
       window.clearTimeout(t1)
       window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', sync)
+      window.removeEventListener('resize', scheduleSync)
       window.removeEventListener('hashchange', onHashChange)
       setActiveSlug('')
     }
