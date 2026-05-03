@@ -255,7 +255,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
           aria-label="Roadmap and notes"
         >
           <div
-            className="box-border flex w-[100dvw] shrink-0 flex-col overflow-y-auto overflow-x-hidden pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]"
+            className="box-border flex min-h-0 w-[100dvw] shrink-0 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]"
           >
             <main className="flex-1 px-4 pb-16 lg:px-8">
               <section
@@ -368,11 +368,11 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
           </div>
 
           <aside
-            className="box-border flex w-[min(100dvw,28rem)] shrink-0 flex-col border-l border-black/10 bg-background dark:border-white/10"
+            className="box-border flex h-full min-h-0 w-[min(100dvw,28rem)] shrink-0 flex-col overflow-hidden border-l border-black/10 bg-background pt-[env(safe-area-inset-top,0px)] dark:border-white/10"
             aria-label="Roadmap item notes"
           >
             {selectedSlug && paneHeading ? (
-              <div className="sticky top-0 z-10 flex items-center justify-between gap-3 border-b border-black/8 bg-background/95 px-3 py-2 backdrop-blur-sm sm:px-4 dark:border-white/10 dark:bg-background/95">
+              <div className="z-10 flex shrink-0 items-center justify-between gap-3 border-b border-black/8 bg-background/95 px-3 py-2 backdrop-blur-sm sm:px-4 dark:border-white/10 dark:bg-background/95">
                 <nav
                   aria-label="Roadmap item location"
                   className="min-w-0 flex-1 pr-1"
@@ -410,7 +410,10 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
                 </div>
               </div>
             ) : null}
-            <div ref={notesPaneScrollRef} className="min-h-0 flex-1 overflow-y-auto px-4 py-6">
+            <div
+              ref={notesPaneScrollRef}
+              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 py-6"
+            >
               {selectedSlug && paneMarkdown ? (
                 <RoadmapNotesMarkdown content={paneMarkdown} permalinkPrefix={notesPermalinkPrefix} />
               ) : (

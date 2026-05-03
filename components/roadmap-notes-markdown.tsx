@@ -55,18 +55,7 @@ function extractPlainText(children: ReactNode): string {
   return out.trim()
 }
 
-function makeHeadingIdAllocator() {
-  const counts = new Map<string, number>()
-  return (plainHeading: string) => {
-    const base = slugifyHeadingText(plainHeading)
-    const n = counts.get(base) ?? 0
-    counts.set(base, n + 1)
-    return n === 0 ? base : `${base}-${n}`
-  }
-}
-
 function createHeadingComponents(
-  idForHeading: (plain: string) => string,
   permalinkPrefix: string | undefined,
 ): Pick<Components, "h1" | "h2" | "h3" | "h4" | "h5" | "h6"> {
   const linkClass =
@@ -77,8 +66,7 @@ function createHeadingComponents(
     className: string,
   ): NonNullable<Components["h2"]> => {
     return ({ children, node: _node, ...props }) => {
-      const plain = extractPlainText(children)
-      const id = idForHeading(plain)
+      const id = slugifyHeadingText(extractPlainText(children))
       const hash = `#${id}`
       const href = permalinkPrefix ? `${permalinkPrefix}${hash}` : hash
       return (
@@ -232,12 +220,11 @@ export function RoadmapNotesMarkdown({
   const normalized = content.replace(/\r\n?/g, "\n").trim()
 
   const components = useMemo<Components>(() => {
-    const idForHeading = makeHeadingIdAllocator()
     return {
       ...staticMarkdownComponents,
-      ...createHeadingComponents(idForHeading, permalinkPrefix),
+      ...createHeadingComponents(permalinkPrefix),
     }
-  }, [normalized, permalinkPrefix])
+  }, [permalinkPrefix])
 
   return (
     <div className="roadmap-notes-markdown max-w-none break-words text-foreground">
