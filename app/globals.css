@@ -122,10 +122,14 @@
   color: rgb(255 255 255 / 0.82);
 }
 
+/* Lists: outside markers + no extra inset so top-level copy lines up with paragraphs.
+   Streamdown adds list-inside; override so bullets sit in the gutter instead of indenting body text. */
 .share-markdown :where([data-streamdown='ordered-list'], [data-streamdown='unordered-list']) {
   display: grid;
   gap: 0.5rem;
-  padding-left: 1.25rem;
+  padding-left: 0;
+  margin-left: 0;
+  list-style-position: outside;
   color: rgb(0 0 0 / 0.8);
 }
 
@@ -133,8 +137,13 @@
   color: rgb(255 255 255 / 0.8);
 }
 
+.share-markdown [data-streamdown='list-item'] :where([data-streamdown='ordered-list'], [data-streamdown='unordered-list']) {
+  padding-left: 1.125rem;
+  margin-left: 0;
+}
+
 .share-markdown [data-streamdown='list-item'] {
-  padding-left: 0.25rem;
+  padding-left: 0;
 }
 
 .share-markdown [data-streamdown='horizontal-rule'] {

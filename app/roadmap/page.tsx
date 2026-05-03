@@ -1,5 +1,7 @@
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import { RoadmapContent } from "@/components/roadmap-content"
+import { getRoadmapNotesMap } from "@/lib/roadmap-notes-server"
 
 export const metadata: Metadata = {
   title: "Roadmap | Tiles",
@@ -27,5 +29,12 @@ export const metadata: Metadata = {
 }
 
 export default function RoadmapPage() {
-  return <RoadmapContent />
+  const notesBySlug = getRoadmapNotesMap()
+  return (
+    <Suspense
+      fallback={<div className="min-h-[100dvh] bg-background" aria-hidden="true" />}
+    >
+      <RoadmapContent notesBySlug={notesBySlug} />
+    </Suspense>
+  )
 }
