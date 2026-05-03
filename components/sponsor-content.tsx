@@ -68,10 +68,10 @@ function InlinePerson({
       href={primaryLink}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative top-[0.04em] inline-flex items-center gap-1.5 whitespace-nowrap align-baseline text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+      className="inline-flex items-center gap-1.5 whitespace-nowrap align-middle leading-[inherit] text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
     >
-      <PersonAvatar name={name} links={links} variant="inline" className="shrink-0" />
-      <span className="font-medium">{handle ?? name}</span>
+      <PersonAvatar name={name} links={links} variant="inline" className="inline-flex shrink-0" />
+      <span className="font-medium leading-[inherit]">{handle ?? name}</span>
     </a>
   )
 }
@@ -210,7 +210,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                     name={people.contributorsCore[0]!.name}
                     links={people.contributorsCore[0]!.links}
                   />{" "}
-                  and{" "}
+                  <span className="align-middle leading-[inherit]">and</span>{" "}
                   <InlinePerson
                     name={people.contributorsCore[1]!.name}
                     links={people.contributorsCore[1]!.links}
