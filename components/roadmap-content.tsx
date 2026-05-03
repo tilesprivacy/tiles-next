@@ -267,10 +267,6 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
                   <p className={`mb-7 max-w-[46rem] ${marketingPageLeadClass} lg:mb-9`}>
                     We’re starting with the CLI in alpha, with plans to expand to desktop and mobile apps as the product
                     matures.
-                    <br />
-                    <br />
-                    Connector support is planned for the near future. It will be shipped only with proper sandboxing and a
-                    documented threat model that meets our security bar.
                   </p>
                   <p className={`mb-6 ${marketingPageMetaClass}`}>
                     Select an item to open markdown notes in the right-hand panel. Scroll the page horizontally to move
