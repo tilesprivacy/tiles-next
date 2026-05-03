@@ -41,7 +41,6 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Offline Installer", status: "shipped" },
       { label: "Hosted Iroh Relay", status: "planned" },
       { label: "Tilekit App Server", status: "planned" },
-      { label: "Automatic context management", status: "planned" },
       { label: "Inference performance improvements", status: "planned" },
       { label: "Apple Foundation Model", status: "planned" },
       { label: "MIR integration", status: "planned" },

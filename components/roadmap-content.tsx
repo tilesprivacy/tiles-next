@@ -15,7 +15,7 @@ import {
 } from "@/lib/marketing-page-title-classes"
 import { RoadmapNotesMarkdown } from "@/components/roadmap-notes-markdown"
 import { cn } from "@/lib/utils"
-import { X } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 
@@ -153,6 +153,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
   const selectItem = useCallback(
     (slug: string) => {
       setSelectedSlug(slug)
+      notesPaneScrollRef.current?.scrollTo({ top: 0, behavior: "auto" })
       const next = new URLSearchParams(searchParams.toString())
       next.set("item", slug)
       router.replace(`${pathname}?${next.toString()}`, { scroll: false })
@@ -364,15 +365,24 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
           </div>
 
           <aside
-            className="box-border flex h-full min-h-0 w-[min(100dvw,28rem)] shrink-0 flex-col overflow-hidden border-l border-black/10 bg-background pt-[env(safe-area-inset-top,0px)] dark:border-white/10"
+            className="box-border flex h-full min-h-0 w-[min(100dvw,28rem)] shrink-0 flex-col overflow-hidden border-l border-black/10 bg-background pt-[calc(4.5rem+env(safe-area-inset-top,0px))] dark:border-white/10 lg:pt-[env(safe-area-inset-top,0px)]"
             aria-label="Roadmap item notes"
           >
             {selectedSlug && paneHeading ? (
               <div className="z-10 flex shrink-0 items-center justify-between gap-3 border-b border-black/8 bg-background/95 px-3 py-2 backdrop-blur-sm sm:px-4 dark:border-white/10 dark:bg-background/95">
-                <nav
-                  aria-label="Roadmap item location"
-                  className="min-w-0 flex-1 pr-1"
-                >
+                <div className="flex min-w-0 flex-1 items-center gap-2 pr-1">
+                  <button
+                    type="button"
+                    onClick={clearSelection}
+                    className="inline-flex size-8 shrink-0 items-center justify-center rounded-sm text-foreground/60 transition-colors hover:bg-black/[0.06] hover:text-foreground dark:hover:bg-white/[0.08]"
+                    aria-label="Back to roadmap"
+                  >
+                    <ArrowLeft className="size-4" strokeWidth={1.75} aria-hidden="true" />
+                  </button>
+                  <nav
+                    aria-label="Roadmap item location"
+                    className="min-w-0 flex-1"
+                  >
                   <ol className="flex min-w-0 list-none flex-wrap items-center gap-x-1 gap-y-0.5 p-0 text-[0.7rem] leading-snug">
                     <li className="min-w-0 truncate font-medium text-foreground/75">
                       {paneHeading.track}
@@ -384,7 +394,8 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
                       {paneHeading.label}
                     </li>
                   </ol>
-                </nav>
+                  </nav>
+                </div>
                 <div className="flex shrink-0 items-center gap-2">
                   <a
                     href={roadmapNoteEditUrl(selectedSlug)}
@@ -395,14 +406,6 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
                     <span className="truncate">Edit on GitHub</span>
                     <ExternalLinkIcon />
                   </a>
-                  <button
-                    type="button"
-                    onClick={clearSelection}
-                    className="inline-flex size-9 shrink-0 items-center justify-center rounded-sm text-foreground/55 transition-colors hover:bg-black/[0.06] hover:text-foreground dark:hover:bg-white/[0.08]"
-                    aria-label="Close notes pane"
-                  >
-                    <X className="size-4" strokeWidth={1.75} aria-hidden="true" />
-                  </button>
                 </div>
               </div>
             ) : null}
@@ -414,8 +417,8 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
                 <RoadmapNotesMarkdown content={paneMarkdown} permalinkPrefix={notesPermalinkPrefix} />
               ) : (
                 <p className={`${marketingPageBodyClass} text-foreground/70`}>
-                  Choose a roadmap item on the left. On desktop, drag or swipe the page horizontally to move between
-                  this panel and the roadmap. Press Escape to clear the selection.
+                  Select a roadmap item to open its notes here. Drag or swipe horizontally to move between the roadmap
+                  and notes panels. Press Escape to return to the roadmap.
                 </p>
               )}
             </div>
