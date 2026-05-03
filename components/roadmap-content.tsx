@@ -418,7 +418,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
               ) : (
                 <p className={`${marketingPageBodyClass} text-foreground/70`}>
                   Select a roadmap item to open its notes here. Drag or swipe horizontally to move between the roadmap
-                  and notes panels. Press Escape to return to the roadmap.
+                  and notes panels.
                 </p>
               )}
             </div>
