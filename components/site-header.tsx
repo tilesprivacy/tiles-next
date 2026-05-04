@@ -44,9 +44,10 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     : themeAware
       ? "text-[#64B5F6]"
       : "text-[#64B5F6]"
+  const navItemHeightClass = "h-8"
   const navTextMetricsClass = "text-[0.92rem] font-medium leading-5 tracking-normal"
   const wordmarkTextMetricsClass = "text-[1.04rem] font-medium leading-5 tracking-[-0.005em]"
-  const baseLinkClass = `shrink-0 px-1 py-1 ${navTextMetricsClass} transition-colors ${textColor} ${textColorHover}`
+  const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${navTextMetricsClass} transition-colors ${textColor} ${textColorHover}`
 
   const isRouteActive = (href: string) => {
     if (href === "/book") return pathname === "/book" || pathname.startsWith("/book/")
@@ -118,7 +119,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
               )}
               <span
-                className={`inline-flex shrink-0 items-center px-1 py-1 ${wordmarkTextMetricsClass} ${textColor}`}
+                className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${wordmarkTextMetricsClass} ${textColor}`}
               >
                 Tiles
               </span>
