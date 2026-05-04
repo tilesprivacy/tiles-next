@@ -108,7 +108,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               and documenting the work in public.
             </p>
 
-            <div className="mt-8 border-t border-black/8 pt-8 dark:border-white/10">
+            <div className="mt-8 pt-8">
               <div className="max-w-xl">
                 <div className="flex items-end gap-4">
                   <p className="text-4xl font-semibold tracking-[-0.05em] text-foreground">{progressLabel}</p>

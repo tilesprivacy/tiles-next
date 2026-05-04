@@ -244,20 +244,19 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
   }, [selectedSlug, paneMarkdown, scrollNotesPaneToHash])
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-background">
+    <div
+      className="fixed inset-x-0 bottom-0 overflow-hidden bg-background top-[calc(3.3rem+env(safe-area-inset-top,0px))] lg:top-[calc(4rem+env(safe-area-inset-top,0px))]"
+    >
       <div
         ref={horizontalScrollRef}
-        className="flex-1 overflow-x-auto overflow-y-visible"
+        className="flex h-full flex-row overflow-x-auto overflow-y-hidden"
         id="roadmap-horizontal-scroll"
       >
         <div
-          className="flex min-h-[100dvh] w-max max-w-none flex-row"
+          className="flex w-[100dvw] shrink-0 flex-col overflow-x-hidden overflow-y-auto pt-[5.2rem] lg:pt-[7.5rem]"
           role="region"
-          aria-label="Roadmap and notes"
+          aria-label="Roadmap"
         >
-          <div
-            className="box-border flex w-[100dvw] shrink-0 flex-col overflow-x-hidden pt-[calc(2rem+env(safe-area-inset-top,0px))] lg:pt-[calc(3rem+env(safe-area-inset-top,0px))]"
-          >
             <main className="flex-1 px-4 pb-16 lg:px-8">
               <section
                 id="roadmap"
@@ -365,11 +364,11 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
           </div>
 
           <aside
-            className="box-border flex h-full min-h-0 w-[min(100dvw,28rem)] shrink-0 flex-col overflow-hidden border-l border-black/10 bg-background pt-[env(safe-area-inset-top,0px)] dark:border-white/10"
+            className="flex w-[min(100dvw,28rem)] shrink-0 flex-col overflow-y-hidden border-l border-black/10 bg-background dark:border-white/10"
             aria-label="Roadmap item notes"
           >
             {selectedSlug && paneHeading ? (
-              <div className="z-10 flex shrink-0 items-center justify-between gap-3 border-b border-black/8 bg-background/95 px-3 py-2 backdrop-blur-sm sm:px-4 dark:border-white/10 dark:bg-background/95">
+              <div className="flex shrink-0 items-center justify-between gap-3 border-b border-black/8 bg-background/95 px-3 py-2 backdrop-blur-sm sm:px-4 dark:border-white/10 dark:bg-background/95">
                 <div className="flex min-w-0 flex-1 items-center gap-2 pr-1">
                   <button
                     type="button"
@@ -411,7 +410,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
             ) : null}
             <div
               ref={notesPaneScrollRef}
-              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 pt-6 pb-14 sm:pb-10 lg:pb-6"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 pt-4 pb-14 sm:pb-10 lg:pb-6"
             >
               {selectedSlug && paneMarkdown ? (
                 <RoadmapNotesMarkdown content={paneMarkdown} permalinkPrefix={notesPermalinkPrefix} />
@@ -425,6 +424,5 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
           </aside>
         </div>
       </div>
-    </div>
   )
 }

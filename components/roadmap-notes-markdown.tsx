@@ -70,7 +70,7 @@ function createHeadingComponents(
       const hash = `#${id}`
       const href = permalinkPrefix ? `${permalinkPrefix}${hash}` : hash
       return (
-        <Tag id={id} className={cn(className, "scroll-mt-28")} {...props}>
+        <Tag id={id} className={cn(className, "scroll-mt-12")} {...props}>
           <a href={href} className={linkClass}>
             {children}
           </a>

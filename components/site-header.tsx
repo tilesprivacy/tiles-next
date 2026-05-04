@@ -31,8 +31,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const headerChrome = isSharePage
     ? "bg-[#1f1f1f] border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
     : themeAware
-      ? "bg-transparent text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-      : "bg-transparent text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+      ? "bg-background text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+      : "bg-white text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
   const textColor = isSharePage ? "text-[#EDEDEF]" : themeAware ? "text-foreground" : "text-black"
   const textColorHover = isSharePage
     ? "hover:text-[#EDEDEF]/70"
@@ -92,7 +92,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       )}
 
       <header
-        className={`site-header-chrome relative z-50 w-full max-w-none border-0 border-transparent shadow-none ring-0 outline-none ${
+        className={`site-header-chrome fixed inset-x-0 top-0 z-50 w-full max-w-none border-0 border-transparent shadow-none ring-0 outline-none ${
           isBannerVisible
             ? "mt-[calc(2rem+env(safe-area-inset-top,0px))] lg:mt-[calc(2.25rem+env(safe-area-inset-top,0px))]"
             : ""

@@ -23,7 +23,7 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100svh] px-4 pb-16 pt-[calc(4.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(5.75rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(3.25rem+env(safe-area-inset-top,0px))] lg:pb-12">
+      <main className="flex min-h-[100svh] px-4 pb-16 pt-[calc(9rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(5rem+env(safe-area-inset-top,0px))] lg:pb-12">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-start lg:items-center">
           <div className="grid w-full items-center gap-14 sm:gap-16 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-7 text-center sm:gap-8 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
