@@ -44,7 +44,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     : themeAware
       ? "text-[#64B5F6]"
       : "text-[#64B5F6]"
-  const baseLinkClass = `shrink-0 px-1 py-0.5 text-sm font-medium tracking-[0.01em] transition-colors ${textColor} ${textColorHover}`
+  const navTextMetricsClass = "text-[0.92rem] font-medium leading-5 tracking-normal"
+  const wordmarkTextMetricsClass = "text-[1.04rem] font-medium leading-5 tracking-[-0.005em]"
+  const baseLinkClass = `shrink-0 px-1 py-1 ${navTextMetricsClass} transition-colors ${textColor} ${textColorHover}`
 
   const isRouteActive = (href: string) => {
     if (href === "/book") return pathname === "/book" || pathname.startsWith("/book/")
@@ -99,34 +101,36 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         } ${headerChrome}`}
       >
         <div className="w-full overflow-x-auto overscroll-x-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max items-center gap-6 px-[max(0.8rem,env(safe-area-inset-left,0px))] py-[max(0.65rem,env(safe-area-inset-top,0px))] pr-[max(0.8rem,env(safe-area-inset-right,0px))] sm:gap-7 sm:px-[max(1rem,env(safe-area-inset-left,0px))] sm:py-[max(0.7rem,env(safe-area-inset-top,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] lg:gap-8 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))]">
+          <div className="flex min-w-max items-center gap-5 px-[max(0.8rem,env(safe-area-inset-left,0px))] py-[max(0.65rem,env(safe-area-inset-top,0px))] pr-[max(0.8rem,env(safe-area-inset-right,0px))] sm:gap-6 sm:px-[max(1rem,env(safe-area-inset-left,0px))] sm:py-[max(0.7rem,env(safe-area-inset-top,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] lg:gap-7 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))]">
             <Link
               href="/"
               onClick={onHomeClick}
               className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75 sm:gap-2.5"
             >
               {isSharePage ? (
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
               ) : themeAware ? (
                 <>
-                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 dark:hidden" />
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="hidden h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 dark:block" />
+                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 dark:hidden" />
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="hidden h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 dark:block" />
                 </>
               ) : (
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
               )}
-              <span className={`shrink-0 text-base font-medium leading-none tracking-[-0.012em] sm:text-[1.05rem] ${textColor}`}>
+              <span
+                className={`inline-flex shrink-0 items-center px-1 py-1 ${wordmarkTextMetricsClass} ${textColor}`}
+              >
                 Tiles
               </span>
             </Link>
 
-            <nav className="flex min-w-max items-center gap-6 sm:gap-7 lg:gap-8">
+            <nav className="flex min-w-max items-center gap-5 sm:gap-6 lg:gap-7">
+              <Link href="/download" onClick={triggerHaptic} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
+              <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/roadmap" className={`${baseLinkClass} ${isRouteActive("/roadmap") ? activeLinkClass : ""}`}>Roadmap</Link>
               <Link href="/changelog" className={`${baseLinkClass} ${isRouteActive("/changelog") ? activeLinkClass : ""}`}>Changelog</Link>
-              <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
-              <Link href="/download" onClick={triggerHaptic} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
             </nav>
           </div>
         </div>
