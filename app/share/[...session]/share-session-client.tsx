@@ -820,11 +820,10 @@ export function ShareSessionClient({
               <div className="border-t border-black/10 pt-3 dark:border-white/10">
                 <p className="text-center text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
                   <span className="block">
-                    We do not store a copy of the shared conversation on our
-                    servers.
+                    We do not store a copy of the shared conversation on our servers.
                   </span>
                   <span className="mt-1 block">
-                    <span>View source </span>
+                    <span>Data is fetched from the user's personal data server (PDS) </span>
                     {atExploreUrl ? (
                       <a
                         href={atExploreUrl}
@@ -837,6 +836,7 @@ export function ShareSessionClient({
                     ) : (
                       <span>{sharedSession.sourceUri}</span>
                     )}
+                    <span>.</span>
                   </span>
                 </p>
               </div>
