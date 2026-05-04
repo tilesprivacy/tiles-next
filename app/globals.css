@@ -588,11 +588,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Prevent layout shift from images */
-  img {
-    content-visibility: auto;
-  }
-
   /* Optimize navigation links for smooth transitions */
   a {
     text-decoration-skip-ink: auto;
@@ -919,7 +914,7 @@ form[data-theme="light"] sniper-link::part(button) {
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
   border: 1px solid var(--border);
   background-color: var(--card);
@@ -946,7 +941,7 @@ form[data-theme="dark"] sniper-link::part(button) {
   border-radius: var(--radius-sm);
   font-size: 0.875rem;
   font-weight: 500;
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   cursor: pointer;
   border: 1px solid var(--border);
   background-color: var(--sidebar);
@@ -974,6 +969,15 @@ sniper-link::part(image) {
 /* Hide Sniper Link when provider is not recognized */
 sniper-link[hidden] {
   display: none !important;
+}
+
+/* iOS Safari: isolate newsletter paint work from page scroll. */
+@supports (-webkit-touch-callout: none) {
+  .site-footer-newsletter {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    contain: layout paint;
+  }
 }
 
 /* Constrain main content column width for better readability */
