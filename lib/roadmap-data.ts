@@ -64,10 +64,11 @@ export const roadmapTracks: RoadmapTrack[] = [
     ],
   },
   {
-    label: "Sync",
+    label: "Collaboration",
     items: [
       { label: "E2E encrypted P2P sync", status: "shipped" },
       { label: "Shared Links", status: "shipped" },
+      { label: "PII filtered session export", status: "planned" },
       { label: "Remote Link", status: "planned" },
       { label: "Group Chats", status: "planned" },
     ],
