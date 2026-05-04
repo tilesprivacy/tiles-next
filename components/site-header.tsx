@@ -31,18 +31,18 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const headerChrome = isSharePage
     ? "bg-[#1f1f1f] border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
     : themeAware
-      ? "bg-black text-white dark:bg-white dark:text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-      : "bg-black text-white border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-  const textColor = isSharePage ? "text-[#EDEDEF]" : themeAware ? "text-white dark:text-black" : "text-white"
+      ? "bg-transparent text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+      : "bg-transparent text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+  const textColor = isSharePage ? "text-[#EDEDEF]" : themeAware ? "text-foreground" : "text-black"
   const textColorHover = isSharePage
     ? "hover:text-[#EDEDEF]/70"
     : themeAware
-      ? "hover:text-white/70 dark:hover:text-black/70"
-      : "hover:text-white/70"
+      ? "hover:text-foreground/70"
+      : "hover:text-black/70"
   const activeLinkClass = isSharePage
     ? "text-[#64B5F6]"
     : themeAware
-      ? "text-[#64B5F6] dark:text-[#64B5F6]"
+      ? "text-[#64B5F6]"
       : "text-[#64B5F6]"
   const baseLinkClass = `shrink-0 px-1 py-0.5 text-sm font-medium tracking-[0.01em] transition-colors ${textColor} ${textColorHover}`
 
@@ -109,8 +109,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10" />
               ) : themeAware ? (
                 <>
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 dark:hidden" />
-                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="hidden h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 dark:block" />
+                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 dark:hidden" />
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="hidden h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10 dark:block" />
                 </>
               ) : (
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-8 w-8 sm:h-9 sm:w-9 lg:h-10 lg:w-10" />

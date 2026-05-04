@@ -34,14 +34,14 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
 
   // Footer always matches the page surface in both themes.
   const footerBg = 'bg-background'
-  const borderColor = isDarkFooter ? 'border-white/18' : 'border-black/8'
+  const borderColor = isDarkFooter ? 'border-white/12' : 'border-black/8'
   const textColor = isDarkFooter ? 'text-[#e7e7ed]' : 'text-[#1d1d1f]'
   const textColorHover = isDarkFooter ? 'hover:text-[#c6c6cf]' : 'hover:text-[#1d1d1f]/65'
   const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
   const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
 
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
-  const newsletterDescriptionColor = isDarkFooter ? 'text-[#b0b0ba]' : 'text-[#1d1d1f]/74'
+  const newsletterDescriptionColor = isDarkFooter ? 'text-[#b8b8c2]' : 'text-[#1d1d1f]/70'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
   const alphaPillClass =
@@ -88,12 +88,12 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
         </section>
       )}
 
-      <footer className={`relative z-10 border-t ${borderColor} ${footerBg} px-6 lg:px-12 py-10 lg:py-12`}>
-        <div className="mx-auto max-w-6xl flex flex-col gap-10 lg:gap-12">
-        <section className={`grid gap-8 border-b pb-10 lg:grid-cols-[minmax(0,1fr)_minmax(330px,420px)] lg:items-end lg:gap-x-12 lg:gap-y-0 lg:pb-12 ${borderColor}`}>
-          <div className="max-w-xl space-y-3">
+      <footer className={`relative z-10 border-t ${borderColor} ${footerBg} px-6 py-9 lg:px-12 lg:py-11`}>
+        <div className="mx-auto flex max-w-6xl flex-col gap-9 lg:gap-10">
+        <section className={`grid gap-7 border-b pb-9 lg:grid-cols-[minmax(0,1fr)_minmax(320px,400px)] lg:items-end lg:gap-x-10 lg:gap-y-0 lg:pb-10 ${borderColor}`}>
+          <div className="max-w-xl space-y-2.5">
             <div className="flex items-center gap-2.5">
-              <h3 className={`text-lg font-semibold tracking-tight lg:text-xl ${newsletterHeadingColor}`}>
+              <h3 className={`text-lg font-medium tracking-tight lg:text-[1.1rem] ${newsletterHeadingColor}`}>
                 Stay updated
               </h3>
               <a
@@ -106,8 +106,8 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 <FaRss className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
               </a>
             </div>
-            <p className={`text-sm leading-relaxed lg:text-base ${newsletterDescriptionColor}`}>
-              Get updates on product releases, privacy research, and engineering.
+            <p className={`text-sm leading-relaxed lg:text-[0.95rem] ${newsletterDescriptionColor}`}>
+              Get updates on new releases, privacy research, and performance engineering.
             </p>
             <p className={`text-xs ${newsletterDescriptionColor}`}>
               No spam. Unsubscribe anytime.
@@ -122,9 +122,9 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
         </section>
 
         {/* Main content grouped by priority: navigation first, then community links */}
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-10">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-9">
           <div>
-            <nav aria-label="Footer links" className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs sm:text-sm md:gap-x-6">
+            <nav aria-label="Footer links" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm md:gap-x-5">
               <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
                 Subprocessors
               </Link>
@@ -160,7 +160,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
           </div>
 
           <div className="lg:text-right">
-            <div className="flex flex-wrap items-center gap-4 sm:gap-4 lg:justify-end lg:gap-5">
+            <div className="flex flex-wrap items-center gap-3.5 sm:gap-3.5 lg:justify-end lg:gap-4">
               <a
                 href="https://x.com/tilesprivacy"
                 target="_blank"
@@ -168,7 +168,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="X (Twitter)"
               >
-                <FaXTwitter className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${iconHoverTwitter}`} />
+                <FaXTwitter className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${iconHoverTwitter}`} />
               </a>
               <a
                 href="https://bsky.app/profile/tiles.run"
@@ -177,7 +177,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Bluesky"
               >
-                <FaBluesky className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <FaBluesky className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://www.instagram.com/tilesprivacy"
@@ -186,7 +186,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Instagram"
               >
-                <FaInstagram className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <FaInstagram className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://go.tiles.run/discord"
@@ -195,7 +195,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Discord"
               >
-                <FaDiscord className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <FaDiscord className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://www.reddit.com/r/tilesprivacy/"
@@ -204,7 +204,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Reddit"
               >
-                <FaRedditAlien className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <FaRedditAlien className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://github.com/tilesprivacy"
@@ -213,7 +213,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="GitHub"
               >
-                <FaGithub className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${iconHoverGithub}`} />
+                <FaGithub className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${iconHoverGithub}`} />
               </a>
               <a
                 href="https://tangled.org/tiles.run"
@@ -222,7 +222,7 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Tangled"
               >
-                <TangledIcon className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <TangledIcon className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
               </a>
               <a
                 href="https://huggingface.co/tilesprivacy"
@@ -231,15 +231,15 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
                 className="group inline-flex items-center justify-center p-1.5 -m-1.5"
                 aria-label="Hugging Face"
               >
-                <SiHuggingface className={`h-4 w-4 sm:h-5 sm:w-5 ${textColor} transition-colors ${textColorHover}`} />
+                <SiHuggingface className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
               </a>
             </div>
           </div>
         </div>
 
         {/* Bottom section - controls and legal details */}
-        <div className={`border-t ${borderColor} pt-9 sm:pt-10 space-y-7 sm:space-y-6`}>
-          <div className={`flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-6 text-[10px] sm:text-xs ${textColor}`}>
+        <div className={`border-t ${borderColor} space-y-6 pt-8 sm:space-y-5 sm:pt-9`}>
+          <div className={`flex flex-col gap-5 text-[10px] sm:flex-row sm:items-start sm:justify-between sm:gap-6 sm:text-xs ${textColor}`}>
             <div className="flex min-w-0 flex-col gap-4 sm:gap-3">
               <p className="whitespace-nowrap leading-snug sm:leading-normal">© 2026 Tiles Privacy & Contributors.</p>
               <div className="flex flex-col items-start gap-y-3 sm:gap-y-2">
@@ -280,13 +280,13 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
             </div>
 
             {/* Preferences stay close to legal/meta info so they are easy to find */}
-            <div className="shrink-0 self-start sm:self-start sm:pt-0.5 flex items-center gap-2.5">
+            <div className="flex shrink-0 items-center gap-2.5 self-start sm:self-start sm:pt-0.5">
               <FooterLanguageSelector variant={themeSwitcherVariant} />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
             </div>
           </div>
 
-          <div className={`text-[10px] leading-relaxed sm:text-xs space-y-2.5 sm:space-y-1.5 ${licenseTextColor}`}>
+          <div className={`space-y-2 text-[10px] leading-relaxed sm:space-y-1.5 sm:text-xs ${licenseTextColor}`}>
             <p>
               Disclosure: The Tiles AI assistant runs natively as a CLI, not a web app. All code for the Tiles AI
               assistant is handwritten and reviewed by humans, with readability and security as baseline requirements.
