@@ -332,6 +332,16 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                 </p>
               </td>
             </tr>
+            <tr>
+              <td style="padding:0 0 36px 0;">
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  If you’d like to get in touch with the team, either ahead of the release or after, you can always find us on the #tiles channel in User &amp; Agents Discord.
+                </p>
+                <p class="body-copy" style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.45; font-weight:500;">
+                  - Tiles Privacy &amp; Contributors
+                </p>
+              </td>
+            </tr>
 
             <tr>
               <td style="padding:30px 0 0 0; border-top:1px solid #262626;">
