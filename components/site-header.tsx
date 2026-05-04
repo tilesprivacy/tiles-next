@@ -119,7 +119,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
               )}
               <span
-                className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${wordmarkTextMetricsClass} ${textColor}`}
+                className={`inline-flex ${navItemHeightClass} shrink-0 -translate-y-px items-center px-1 ${wordmarkTextMetricsClass} ${textColor}`}
               >
                 Tiles
               </span>
