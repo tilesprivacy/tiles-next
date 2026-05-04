@@ -108,21 +108,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               and documenting the work in public.
             </p>
 
-            <div className="mt-8">
-              <Button
-                asChild
-                className="h-10 rounded-sm bg-foreground px-4 text-sm font-medium text-background hover:bg-foreground/90"
-              >
-                <a href="https://github.com/sponsors/tilesprivacy" target="_blank" rel="noopener noreferrer">
-                  <span className="inline-flex items-center gap-2">
-                    <FaGithub className="h-4 w-4" aria-hidden />
-                    Sponsor on GitHub
-                  </span>
-                </a>
-              </Button>
-            </div>
-
-            <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
+            <div className="mt-8 border-t border-black/8 pt-8 dark:border-white/10">
               <div className="max-w-xl">
                 <div className="flex items-end gap-4">
                   <p className="text-4xl font-semibold tracking-[-0.05em] text-foreground">{progressLabel}</p>
@@ -161,6 +147,20 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </div>
                 ) : null}
               </div>
+            </div>
+
+            <div className="mt-8">
+              <Button
+                asChild
+                className="h-10 rounded-sm bg-foreground px-4 text-sm font-medium text-background hover:bg-foreground/90"
+              >
+                <a href="https://github.com/sponsors/tilesprivacy" target="_blank" rel="noopener noreferrer">
+                  <span className="inline-flex items-center gap-2">
+                    <FaGithub className="h-4 w-4" aria-hidden />
+                    Sponsor on GitHub
+                  </span>
+                </a>
+              </Button>
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">

@@ -244,19 +244,19 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
   }, [selectedSlug, paneMarkdown, scrollNotesPaneToHash])
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col overflow-hidden bg-background">
+    <div className="relative flex min-h-[100dvh] flex-col bg-background">
       <div
         ref={horizontalScrollRef}
-        className="min-h-0 flex-1 overflow-x-auto overflow-y-hidden"
+        className="flex-1 overflow-x-auto overflow-y-visible"
         id="roadmap-horizontal-scroll"
       >
         <div
-          className="flex h-[calc(100dvh-env(safe-area-inset-bottom,0px))] min-h-[100dvh] w-max max-w-none flex-row"
+          className="flex min-h-[100dvh] w-max max-w-none flex-row"
           role="region"
           aria-label="Roadmap and notes"
         >
           <div
-            className="box-border flex min-h-0 w-[100dvw] shrink-0 flex-col overflow-y-auto overflow-x-hidden overscroll-y-contain pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]"
+            className="box-border flex w-[100dvw] shrink-0 flex-col overflow-x-hidden pt-[calc(2rem+env(safe-area-inset-top,0px))] lg:pt-[calc(3rem+env(safe-area-inset-top,0px))]"
           >
             <main className="flex-1 px-4 pb-16 lg:px-8">
               <section
@@ -411,7 +411,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
             ) : null}
             <div
               ref={notesPaneScrollRef}
-              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 py-6"
+              className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 pt-6 pb-14 sm:pb-10 lg:pb-6"
             >
               {selectedSlug && paneMarkdown ? (
                 <RoadmapNotesMarkdown content={paneMarkdown} permalinkPrefix={notesPermalinkPrefix} />
