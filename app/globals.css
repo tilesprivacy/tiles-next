@@ -973,7 +973,7 @@ sniper-link[hidden] {
 
 /* iOS Safari: isolate newsletter paint work from page scroll. */
 @supports (-webkit-touch-callout: none) {
-  .site-footer-newsletter {
+  footer.relative.z-10 > .mx-auto.max-w-6xl > section:first-child {
     transform: translateZ(0);
     backface-visibility: hidden;
     contain: layout paint;
