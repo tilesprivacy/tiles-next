@@ -68,7 +68,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "E2E encrypted P2P sync", status: "shipped" },
       { label: "Shared Links", status: "shipped" },
-      { label: "PII filtered session export", status: "planned" },
+      { label: "Privacy Filter for shared sessions", status: "planned" },
       { label: "Remote Link", status: "planned" },
       { label: "Group Chats", status: "planned" },
     ],
