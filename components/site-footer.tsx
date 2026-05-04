@@ -287,6 +287,15 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
           </div>
 
           <div className={`text-[10px] leading-relaxed sm:text-xs space-y-2.5 sm:space-y-1.5 ${licenseTextColor}`}>
+            <p>
+              Disclosure: The Tiles AI assistant runs natively as a CLI, not a web app. All code for the Tiles AI
+              assistant is handwritten and reviewed by humans, with readability and security as baseline requirements.
+              Design assets and the Tiles CLI codebase are human-created, with the exception of test cases developed
+              with AI assistance. The Tiles Privacy website surfaces are AI-generated presentation only and contain no
+              business logic. All assistant functionality resides in the native application, and the site includes no
+              authentication, account modification, or other attack-prone interactive features. The site stores no
+              user data.
+            </p>
             <p>This work is dual-licensed under the MIT and Apache 2.0 licenses.</p>
             <p>
               To view a copy of this license, visit{" "}
