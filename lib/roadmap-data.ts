@@ -39,6 +39,7 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Mac backend with MLX", status: "shipped" },
       { label: "Modelfile", status: "shipped" },
       { label: "Inference performance improvements", status: "active" },
+      { label: "Linux backend with llama.cpp", status: "active" },
       { label: "Apple Foundation Model", status: "planned" },
       { label: "MIR integration", status: "planned" },
       { label: "TEE-based cloud models", status: "planned" },
@@ -49,7 +50,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     label: "Infrastructure",
     items: [
       { label: "Offline Installer", status: "shipped" },
-      { label: "Tilekit App Server", status: "planned" },
+      { label: "Tilekit App Server", status: "active" },
       { label: "Hosted Iroh Relay", status: "planned" },
       { label: "ATProto Lexicons", status: "planned" },
     ],
