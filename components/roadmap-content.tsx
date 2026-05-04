@@ -365,7 +365,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
           </div>
 
           <aside
-            className="box-border flex h-full min-h-0 w-[min(100dvw,28rem)] shrink-0 flex-col overflow-hidden border-l border-black/10 bg-background pt-[calc(4.5rem+env(safe-area-inset-top,0px))] dark:border-white/10 lg:pt-[env(safe-area-inset-top,0px)]"
+            className="box-border flex h-full min-h-0 w-[min(100dvw,28rem)] shrink-0 flex-col overflow-hidden border-l border-black/10 bg-background pt-[env(safe-area-inset-top,0px)] dark:border-white/10"
             aria-label="Roadmap item notes"
           >
             {selectedSlug && paneHeading ? (

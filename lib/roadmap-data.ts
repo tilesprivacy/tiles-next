@@ -34,18 +34,24 @@ export const roadmapTracks: RoadmapTrack[] = [
     ],
   },
   {
-    label: "Infrastructure",
+    label: "Inference",
     items: [
       { label: "Mac backend with MLX", status: "shipped" },
       { label: "Modelfile", status: "shipped" },
-      { label: "Offline Installer", status: "shipped" },
-      { label: "Hosted Iroh Relay", status: "planned" },
-      { label: "Tilekit App Server", status: "planned" },
-      { label: "Inference performance improvements", status: "planned" },
+      { label: "Inference performance improvements", status: "active" },
       { label: "Apple Foundation Model", status: "planned" },
       { label: "MIR integration", status: "planned" },
       { label: "TEE-based cloud models", status: "planned" },
       { label: "Modelfile deduplication and caching", status: "planned" },
+    ],
+  },
+  {
+    label: "Infrastructure",
+    items: [
+      { label: "Offline Installer", status: "shipped" },
+      { label: "Tilekit App Server", status: "planned" },
+      { label: "Hosted Iroh Relay", status: "planned" },
+      { label: "ATProto Lexicons", status: "planned" },
     ],
   },
   {
