@@ -68,7 +68,6 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "E2E encrypted P2P sync", status: "shipped" },
       { label: "Shared Links", status: "shipped" },
-      { label: "Privacy Filter for shared sessions", status: "planned" },
       { label: "Remote Link", status: "planned" },
       { label: "Group Chats", status: "planned" },
     ],
@@ -79,6 +78,7 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Notarized builds", status: "shipped" },
       { label: "Encrypted SQLite database", status: "shipped" },
       { label: "Agent Sandbox", status: "active" },
+      { label: "Privacy Filter for shared sessions", status: "planned" },
       { label: "Inference runtime hardening", status: "planned" },
     ],
   },
