@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { type FormEvent, useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from "next-themes"
 import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
@@ -14,7 +14,6 @@ import {
 import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
-import { useMobileDownloadPrompt } from "@/components/mobile-download-prompt"
 import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from "@/lib/download-page-data"
 
 interface DownloadMetadata {
@@ -56,14 +55,23 @@ const downloadButtonLabelClass = `origin-left ${downloadButtonLabelMotionClasses
 
 export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
-  const { openMobileDownloadPrompt, mobileDownloadPrompt } = useMobileDownloadPrompt()
   const [mounted, setMounted] = useState(false)
+  const [isMobileClient, setIsMobileClient] = useState(false)
   const [isLoadingMetadata, setIsLoadingMetadata] = useState(!Boolean(initialDownload?.downloadUrl))
   const [metadataLoadFailed, setMetadataLoadFailed] = useState(false)
   const [download, setDownload] = useState<DownloadMetadata>(initialDownload ?? DEFAULT_DOWNLOAD_METADATA)
+  const [email, setEmail] = useState("")
+  const [emailStatus, setEmailStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
+  const [emailMessage, setEmailMessage] = useState("")
 
   useEffect(() => {
     setMounted(true)
+    const userAgent = window.navigator.userAgent
+    const matchesMobileUa =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile/i.test(userAgent)
+    const isCoarsePointer = window.matchMedia("(pointer: coarse)").matches
+    const isSmallViewport = window.matchMedia("(max-width: 1024px)").matches
+    setIsMobileClient(matchesMobileUa || (isCoarsePointer && isSmallViewport))
   }, [])
 
   useEffect(() => {
@@ -171,6 +179,49 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
     : hasDownloadUrl
       ? "Download network installer"
       : "Download unavailable"
+
+  async function onSendDownloadLinkEmail(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    triggerHaptic()
+
+    const trimmedEmail = email.trim()
+    if (!trimmedEmail) {
+      setEmailStatus("error")
+      setEmailMessage("Enter an email address.")
+      return
+    }
+
+    setEmailStatus("loading")
+    setEmailMessage("")
+
+    try {
+      const response = await fetch("/api/send-download-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: trimmedEmail }),
+      })
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || "Unable to send the download link.")
+      }
+
+      setEmailStatus("success")
+      setEmailMessage("Sent. Check your inbox on desktop.")
+    } catch (error) {
+      setEmailStatus("error")
+      setEmailMessage(error instanceof Error ? error.message : "Unable to send the download link.")
+    }
+  }
+
+  function onEmailChange(value: string) {
+    setEmail(value)
+    if (emailStatus !== "idle") {
+      setEmailStatus("idle")
+      setEmailMessage("")
+    }
+  }
+
   return (
     <div className={`relative flex min-h-[100dvh] flex-col ${bgColor}`}>
       {/* Main Content - Split Screen */}
@@ -244,13 +295,11 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                       {hasDownloadUrl ? (
                         <a
                           href={download.downloadUrl}
-                          onClick={(event) => {
-                            if (openMobileDownloadPrompt(event)) {
-                              return
-                            }
+                          onClick={() => {
                             triggerHaptic()
                           }}
                           download={download.fileName}
+                          data-skip-mobile-download-prompt="true"
                           className={primaryDownloadButtonClass}
                         >
                           <Image
@@ -331,13 +380,11 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     <div className="pt-4">
                       <a
                         href={OFFLINE_INSTALLER.downloadUrl}
-                        onClick={(event) => {
-                          if (openMobileDownloadPrompt(event)) {
-                            return
-                          }
+                        onClick={() => {
                           triggerHaptic()
                         }}
                         download={OFFLINE_INSTALLER.fileName}
+                        data-skip-mobile-download-prompt="true"
                         className={primaryDownloadButtonClass}
                       >
                         <Image
@@ -363,6 +410,52 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                   Offline installer builds aren&apos;t published for every release. Check the release version above to
                   confirm which build each installer includes.
                 </p>
+                {isMobileClient ? (
+                  <div className="pt-2">
+                    <div className="space-y-2">
+                      <p className={`font-medium ${textColor}`}>Send installer links to email</p>
+                      <p className={bodyTextClass}>On mobile right now? Send download links to your inbox and continue on desktop.</p>
+                    </div>
+                    <form onSubmit={onSendDownloadLinkEmail} className="mt-3 flex flex-col gap-2">
+                      <label htmlFor="mobile-download-email-inline" className="sr-only">
+                        Email address
+                      </label>
+                      <input
+                        id="mobile-download-email-inline"
+                        type="email"
+                        inputMode="email"
+                        autoComplete="email"
+                        placeholder="Email address"
+                        value={email}
+                        onChange={(event) => onEmailChange(event.target.value)}
+                        disabled={emailStatus === "loading" || emailStatus === "success"}
+                        className="h-10 min-w-0 w-full rounded-sm border border-border bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground selection:bg-blue-500 selection:text-white focus:border-foreground/25 focus:ring-2 focus:ring-foreground/10 disabled:cursor-not-allowed disabled:opacity-60"
+                      />
+                      <button
+                        type="submit"
+                        disabled={emailStatus === "loading" || emailStatus === "success"}
+                        className="h-10 w-full rounded-sm bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] dark:focus-visible:ring-white/30"
+                      >
+                        {emailStatus === "loading"
+                          ? "Sending..."
+                          : emailStatus === "success"
+                            ? "Link sent"
+                            : "Send link"}
+                      </button>
+                      {emailMessage ? (
+                        <p
+                          role="status"
+                          aria-live="polite"
+                          className={`text-xs leading-relaxed ${
+                            emailStatus === "error" ? "text-red-600 dark:text-red-300" : "text-muted-foreground"
+                          }`}
+                        >
+                          {emailMessage}
+                        </p>
+                      ) : null}
+                    </form>
+                  </div>
+                ) : null}
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   By downloading and using Tiles, you agree to the{" "}
                   <Link href="/terms" className="underline underline-offset-4">
@@ -472,7 +565,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
         </div>
       </main>
 
-      {mobileDownloadPrompt}
       <SiteFooter showTryTilesCta={false} />
     </div>
   )

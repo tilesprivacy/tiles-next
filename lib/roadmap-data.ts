@@ -37,10 +37,10 @@ export const roadmapTracks: RoadmapTrack[] = [
     label: "Inference",
     items: [
       { label: "Mac backend with MLX", status: "shipped" },
+      { label: "Apple Foundation Model", status: "active" },
       { label: "Modelfile", status: "shipped" },
       { label: "Inference performance improvements", status: "active" },
       { label: "Linux backend with llama.cpp", status: "active" },
-      { label: "Apple Foundation Model", status: "planned" },
       { label: "MIR integration", status: "planned" },
       { label: "TEE-based cloud models", status: "planned" },
       { label: "Modelfile deduplication and caching", status: "planned" },
