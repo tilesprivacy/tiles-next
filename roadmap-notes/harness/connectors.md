@@ -1,4 +1,4 @@
-# References
+# Implementation
 
 - Implementation note: We are going to use [Pi extensions](https://pi.dev/docs/latest/extensions) for connectors while [Pi packages](https://pi.dev/docs/latest/packages) for Agent Templates.
 
