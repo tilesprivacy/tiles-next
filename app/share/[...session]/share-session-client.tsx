@@ -518,7 +518,7 @@ function ShareFloatingDownloadBar({
                   : "border-black/10 bg-black/[0.03] text-[#1d1d1f]/85 hover:bg-black/[0.06] hover:text-[#1d1d1f]"
               }`}
             >
-              Try Tiles
+              Run locally
             </Link>
           </div>
         </div>
