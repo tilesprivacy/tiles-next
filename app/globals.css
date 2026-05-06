@@ -75,7 +75,7 @@
 
 .share-markdown [data-streamdown^='heading-'] {
   margin: 0;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.5rem;
   color: rgb(0 0 0 / 0.9);
 }
@@ -554,6 +554,19 @@
   * {
     @apply border-border outline-ring/50;
   }
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-weight: 500;
+  }
+  :where(h1, h2, h3, h4, h5, h6).font-semibold {
+    font-weight: 500 !important;
+  }
+  :where(h1, h2, h3, h4, h5, h6).font-bold {
+    font-weight: 600 !important;
+  }
+  :where(h1, h2, h3, h4, h5, h6).font-extrabold,
+  :where(h1, h2, h3, h4, h5, h6).font-black {
+    font-weight: 700 !important;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
@@ -1011,7 +1024,7 @@ sniper-link[hidden] {
   box-sizing: border-box;
   font-family: inherit;
   font-size: 1.875rem !important;
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   line-height: 1.25 !important;
   letter-spacing: -0.025em !important;
 }

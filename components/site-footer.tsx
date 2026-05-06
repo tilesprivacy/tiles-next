@@ -46,15 +46,15 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
     <footer className="relative z-10 bg-transparent px-4 py-5 sm:px-6 lg:px-12 lg:py-6">
       <div className="mx-auto w-full max-w-6xl">
         {showDownloadCta && (
-          <section className="mb-8 text-center sm:mb-9 lg:mb-11">
+          <section className="mb-16 text-center sm:mb-20 lg:mb-24">
             <div className="mx-auto flex max-w-2xl flex-col items-center">
-              <h2 className="text-[1.15rem] font-medium tracking-tight text-foreground sm:text-[1.3rem] lg:text-[1.35rem]">
+              <h2 className="text-[1.28rem] font-medium tracking-tight text-foreground sm:text-[1.45rem] lg:text-[1.52rem]">
                 Try Tiles now.
               </h2>
               <Button
                 asChild
                 variant="ghost"
-                className="mt-3 h-9 rounded-sm bg-black px-4 text-[0.82rem] font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] sm:h-9.5 sm:px-4.5 sm:text-[0.84rem]"
+                className="mt-3 h-9.5 rounded-sm bg-black px-5 text-[0.9rem] font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] sm:h-10 sm:px-5.5 sm:text-[0.94rem]"
               >
                 <Link href="/download" className="group flex items-center gap-1.5 sm:gap-2">
                   <span>Download for macOS</span>
@@ -64,13 +64,13 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
                   />
                 </Link>
               </Button>
-              <p className="mt-1.5 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.62rem] font-medium text-black/58 dark:text-[#9A9A9A] sm:text-[0.66rem]">
+              <p className="mt-1.5 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.72rem] font-medium text-black/58 dark:text-[#9A9A9A] sm:text-[0.76rem]">
                 <span>Currently available as a CLI in</span>
                 <span className={alphaPillClass}>ALPHA</span>
               </p>
               <Link
                 href="/linux"
-                className="mt-1.5 text-[0.68rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/72 hover:decoration-black/35 dark:text-[#A4A4A4] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/35 sm:text-[0.72rem]"
+                className="mt-1.5 text-[0.78rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/72 hover:decoration-black/35 dark:text-[#A4A4A4] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/35 sm:text-[0.82rem]"
               >
                 Get notified for Linux
               </Link>
