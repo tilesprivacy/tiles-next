@@ -49,7 +49,7 @@ export default function FormPage() {
           </div>
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter showDownloadCta={false} />
     </div>
   )
 }
