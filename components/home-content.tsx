@@ -141,30 +141,17 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-7">
+      <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-8 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-9">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-start lg:items-center">
-          <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-8 xl:gap-12">
-            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-7 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
+          <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-10 xl:gap-14">
+            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-4 text-center sm:gap-5 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-5 lg:text-left">
               <div className="space-y-3.5 lg:space-y-4">
                 <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.92rem] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground sm:text-[2.5rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.25rem]">
                   Local-first private AI assistant for everyday use
                 </h1>
-                <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
-                  Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports
-                  sharing chats publicly on{" "}
-                  <a
-                    href="https://atproto.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-                  >
-                    ATProto
-                  </a>
-                  .
-                </p>
               </div>
 
-              <div className="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-4">
+              <div className="flex w-full flex-col items-center gap-3.5 lg:items-start lg:gap-3.5">
                 <div className="inline-flex w-fit flex-col items-center gap-2.5 lg:items-start">
                   <Button
                     asChild
@@ -243,7 +230,7 @@ export function HomeContent() {
             </div>
 
             <div className="relative flex w-full items-center justify-center lg:justify-end">
-              <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[38.5rem] lg:translate-x-2 xl:max-w-[40rem]">
+              <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37.5rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
