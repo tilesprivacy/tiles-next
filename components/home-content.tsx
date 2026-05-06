@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Check, Copy, Download, Key } from "lucide-react"
+import { Check, Copy, Download, KeyRound } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
@@ -356,8 +356,8 @@ export function HomeContent() {
             </ul>
           </div>
 
-          <div className="mt-3 flex items-center justify-center lg:-ml-12 lg:mt-1 lg:justify-start" aria-hidden>
-            <Key className="h-40 w-40 text-black/12 dark:text-white/12 sm:h-44 sm:w-44 lg:h-32 lg:w-32" strokeWidth={1.15} />
+          <div className="mt-4 flex items-center justify-center lg:-ml-[15rem] lg:mt-2 lg:justify-start" aria-hidden>
+            <KeyRound className="h-48 w-48 text-black/12 dark:text-white/12 sm:h-52 sm:w-52 lg:h-44 lg:w-44" strokeWidth={1.05} />
           </div>
         </div>
       </section>
