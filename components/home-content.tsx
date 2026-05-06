@@ -131,7 +131,7 @@ export function HomeContent() {
                   alt="Tiles Interface Wireframe"
                   width={800}
                   height={600}
-                  className="h-auto w-full drop-shadow-[0_24px_60px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_28px_80px_rgba(0,0,0,0.42)]"
+                  className="h-auto w-full drop-shadow-[0_24px_60px_rgba(0,0,0,0.12)] dark:drop-shadow-none"
                   priority
                 />
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-[8%] sm:px-[9%]">
