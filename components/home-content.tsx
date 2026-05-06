@@ -23,15 +23,15 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100svh] px-4 pb-16 pt-[calc(9rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:px-12 lg:pt-[calc(5rem+env(safe-area-inset-top,0px))] lg:pb-12">
+      <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-7">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-start lg:items-center">
-          <div className="grid w-full items-center gap-14 sm:gap-16 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-10 xl:gap-14">
-            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-7 text-center sm:gap-8 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-7 lg:text-left">
-              <div className="space-y-4 lg:space-y-4">
-                <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.2rem]">
+          <div className="grid w-full items-center gap-10 sm:gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-8 xl:gap-12">
+            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-7 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
+              <div className="space-y-3.5 lg:space-y-4">
+                <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.92rem] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground sm:text-[2.5rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.25rem]">
                   Local-first private AI assistant for everyday use
                 </h1>
-                <p className="mx-auto max-w-[31rem] text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:mx-0 lg:max-w-[26rem] lg:text-[0.99rem]">
+                <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
                   Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports
                   sharing chats publicly on{" "}
                   <a
@@ -46,7 +46,7 @@ export function HomeContent() {
                 </p>
               </div>
 
-              <div className="flex w-full flex-col items-center gap-5 lg:items-start lg:gap-4">
+              <div className="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-4">
                 <div className="inline-flex w-fit flex-col items-center gap-2.5 lg:items-start">
                   <Button
                     asChild
@@ -69,13 +69,13 @@ export function HomeContent() {
                       />
                     </Link>
                   </Button>
-                  <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.65rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.68rem]">
+                  <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
                     <span>Currently available as a CLI in</span>
                     <span className={alphaPillClass}>ALPHA</span>
                   </p>
                   <Link
                     href="/linux"
-                    className="text-[0.72rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.76rem]"
+                    className="text-[0.74rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.8rem]"
                   >
                     Get notified for Linux
                   </Link>
@@ -84,7 +84,7 @@ export function HomeContent() {
                 <div className="inline-flex items-center gap-3">
                   <Link
                     href="/book/overview"
-                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.82rem]"
+                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.85rem]"
                   >
                     <span>Learn More</span>
                     <svg
@@ -104,7 +104,7 @@ export function HomeContent() {
                     href="https://github.com/tilesprivacy/tiles"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.82rem]"
+                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.85rem]"
                   >
                     <span>GitHub</span>
                     <svg
@@ -125,7 +125,7 @@ export function HomeContent() {
             </div>
 
             <div className="relative flex w-full items-center justify-center lg:justify-end">
-              <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[40rem] lg:translate-x-3 xl:max-w-[42rem]">
+              <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[38.5rem] lg:translate-x-2 xl:max-w-[40rem]">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
@@ -140,14 +140,14 @@ export function HomeContent() {
                     alt="Tiles"
                     width={1200}
                     height={220}
-                    className="h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[21.5rem] lg:-translate-y-1 dark:hidden"
+                    className="h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:hidden"
                   />
                   <Image
                     src="/tiles_banner_outline_wht.svg"
                     alt="Tiles"
                     width={1200}
                     height={220}
-                    className="hidden h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[21.5rem] lg:-translate-y-1 dark:block"
+                    className="hidden h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:block"
                   />
                 </div>
               </div>

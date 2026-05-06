@@ -31,7 +31,7 @@ export default function Page() {
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
       <HomeContent />
-      <SiteFooter showTryTilesCta={false} />
+      <SiteFooter showDownloadCta={false} />
     </div>
   )
 }

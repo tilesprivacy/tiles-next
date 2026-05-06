@@ -5,6 +5,7 @@ import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { ReactNode, useEffect, useMemo, useState } from 'react'
 import { FaBluesky, FaLinkedinIn, FaLink, FaMastodon, FaRedditAlien, FaXTwitter } from "react-icons/fa6"
+import { FaRss } from "react-icons/fa6"
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
 import { ReadingTime } from "@/components/reading-time"
@@ -12,6 +13,7 @@ import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
+import NewsletterForm from "@/components/newsletter-form"
 
 interface BlogPostContentProps {
   title: string
@@ -252,13 +254,6 @@ export function BlogPostContent({
             <div className="hidden xl:block" aria-hidden="true" />
           </div>
 
-          {shareActions && (
-            <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
-              <p className={shareLabelClass}>Share this:</p>
-              {shareActions}
-            </div>
-          )}
-
           {/* Blog Footer Text */}
           <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
             <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
@@ -277,6 +272,36 @@ export function BlogPostContent({
               </p>
             </div>
           </div>
+
+          {shareActions && (
+            <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
+              <p className={shareLabelClass}>Share this:</p>
+              {shareActions}
+            </div>
+          )}
+
+          <section className="mt-12 border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:max-w-[44rem] lg:mx-auto lg:py-7">
+            <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-[0.95rem] font-medium tracking-tight text-black dark:text-white">Stay updated</h2>
+                  <a
+                    href="/api/rss"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-black transition-colors hover:text-black/65 dark:text-[#e7e7ed] dark:hover:text-[#c6c6cf]"
+                    aria-label="RSS Feed for blog posts"
+                  >
+                    <FaRss className="h-4 w-4" />
+                  </a>
+                </div>
+                <p className="text-[0.84rem] leading-6 text-black/70 dark:text-[#b8b8c2]">
+                  Get updates on releases, privacy research, and performance engineering.
+                </p>
+              </div>
+              <NewsletterForm className="w-full lg:max-w-[24rem]" />
+            </div>
+          </section>
 
         </div>
       </main>

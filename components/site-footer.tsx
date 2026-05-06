@@ -11,18 +11,13 @@ import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
 import { Button } from "@/components/ui/button"
-import {
-  downloadButtonIconMotionClasses,
-  downloadButtonLabelMotionClasses,
-  downloadButtonMotionClasses,
-  themeAwareHeaderPrimaryCtaClasses,
-} from "@/lib/header-primary-cta-classes"
 
 interface SiteFooterProps {
-  showTryTilesCta?: boolean
+  showNewsletterCta?: boolean
+  showDownloadCta?: boolean
 }
 
-export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
+export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -48,262 +43,167 @@ export function SiteFooter({ showTryTilesCta = true }: SiteFooterProps) {
     "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
 
   return (
-    <>
-      {showTryTilesCta && (
-        <section className="bg-background px-4 sm:px-6 lg:px-12">
-          <div className="mx-auto w-full max-w-6xl">
-            <section className="border-t border-black/10 pb-16 pt-12 text-center dark:border-white/10 sm:pb-20 sm:pt-16 lg:pb-24 lg:pt-20">
-              <div className="mx-auto flex max-w-2xl flex-col items-center">
-                <h2 className="text-5xl font-medium tracking-tight text-foreground sm:text-6xl lg:text-[4.2rem]">
-                  Try Tiles now.
-                </h2>
-                <Button
-                  asChild
-                  variant="ghost"
-                  className={`mt-7 h-10 rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-sm font-medium sm:mt-8 sm:h-11 sm:px-6 sm:text-base`}
-                >
-                  <Link href="/download" className="group flex items-center gap-1.5 sm:gap-2">
-                    <span className={downloadButtonLabelMotionClasses}>
-                      Download for macOS
-                    </span>
-                    <Download
-                      className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4`}
-                      aria-hidden
-                    />
-                  </Link>
-                </Button>
-                <p className="mt-2 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.65rem] font-medium text-black/62 dark:text-[#9A9A9A] sm:text-[0.68rem]">
-                  <span>Currently available as a CLI in</span>
-                  <span className={alphaPillClass}>ALPHA</span>
-                </p>
-                <Link
-                  href="/linux"
-                  className="mt-2 text-[0.72rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.76rem]"
-                >
-                  Get notified for Linux
+    <footer className="relative z-10 bg-transparent px-4 py-5 sm:px-6 lg:px-12 lg:py-6">
+      <div className="mx-auto w-full max-w-6xl">
+        {showDownloadCta && (
+          <section className="mb-8 text-center sm:mb-9 lg:mb-11">
+            <div className="mx-auto flex max-w-2xl flex-col items-center">
+              <h2 className="text-[1.15rem] font-medium tracking-tight text-foreground sm:text-[1.3rem] lg:text-[1.35rem]">
+                Try Tiles now.
+              </h2>
+              <Button
+                asChild
+                variant="ghost"
+                className="mt-3 h-9 rounded-sm bg-black px-4 text-[0.82rem] font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] sm:h-9.5 sm:px-4.5 sm:text-[0.84rem]"
+              >
+                <Link href="/download" className="group flex items-center gap-1.5 sm:gap-2">
+                  <span>Download for macOS</span>
+                  <Download
+                    className="h-3.5 w-3.5 sm:h-3.5 sm:w-3.5"
+                    aria-hidden
+                  />
                 </Link>
-              </div>
-            </section>
-          </div>
-        </section>
-      )}
-
-      <footer className={`relative z-10 border-t ${borderColor} ${footerBg} px-6 py-9 lg:px-12 lg:py-11`}>
-        <div className="mx-auto flex max-w-6xl flex-col gap-9 lg:gap-10">
-        <section className={`grid gap-7 border-b pb-9 lg:grid-cols-[minmax(0,1fr)_minmax(320px,400px)] lg:items-end lg:gap-x-10 lg:gap-y-0 lg:pb-10 ${borderColor}`}>
-          <div className="max-w-xl space-y-2.5">
-            <div className="flex items-center gap-2.5">
-              <h3 className={`text-lg font-medium tracking-tight lg:text-[1.1rem] ${newsletterHeadingColor}`}>
-                Stay updated
-              </h3>
-              <a
-                href="/api/rss"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center"
-                aria-label="RSS Feed for blog posts"
+              </Button>
+              <p className="mt-1.5 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.62rem] font-medium text-black/58 dark:text-[#9A9A9A] sm:text-[0.66rem]">
+                <span>Currently available as a CLI in</span>
+                <span className={alphaPillClass}>ALPHA</span>
+              </p>
+              <Link
+                href="/linux"
+                className="mt-1.5 text-[0.68rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/72 hover:decoration-black/35 dark:text-[#A4A4A4] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/35 sm:text-[0.72rem]"
               >
-                <FaRss className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
-              </a>
+                Get notified for Linux
+              </Link>
             </div>
-            <p className={`text-sm leading-relaxed lg:text-[0.95rem] ${newsletterDescriptionColor}`}>
-              Get updates on new releases, privacy research, and performance engineering.
-            </p>
-            <p className={`text-xs ${newsletterDescriptionColor}`}>
-              No spam. Unsubscribe anytime.
-            </p>
-          </div>
-          <div className="w-full">
-            <NewsletterForm
-              surface={isDarkFooter ? "dark" : "light"}
-              className="w-full"
-            />
-          </div>
-        </section>
+          </section>
+        )}
 
-        {/* Main content grouped by priority: navigation first, then community links */}
-        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start lg:gap-9">
-          <div>
-            <nav aria-label="Footer links" className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs sm:text-sm md:gap-x-5">
-              <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
-                Subprocessors
-              </Link>
-              <Link href="/terms" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
-                Terms
-              </Link>
-              <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
-                Privacy
-              </Link>
-              <Link href="/brand" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>
-                Brand
-              </Link>
-              <a
-                href="https://status.tiles.run"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap inline-flex items-center gap-1`}
-              >
-                Status
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="h-2.5 w-2.5 shrink-0"
-                  aria-hidden
+        {showNewsletterCta && (
+          <section className="mb-6 lg:mb-7">
+            <div className="mx-auto w-full max-w-3xl">
+              <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className={`text-[0.95rem] font-medium tracking-tight ${newsletterHeadingColor}`}>Stay updated</h3>
+                    <a
+                      href="/api/rss"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center ${textColor} transition-colors ${textColorHover}`}
+                      aria-label="RSS Feed for blog posts"
+                    >
+                      <FaRss className="h-4 w-4" />
+                    </a>
+                  </div>
+                  <p className={`text-[0.84rem] leading-6 ${newsletterDescriptionColor}`}>
+                    Get updates on releases, privacy research, and performance engineering.
+                  </p>
+                </div>
+                <NewsletterForm surface={isDarkFooter ? "dark" : "light"} className="w-full lg:max-w-[24rem]" />
+              </div>
+            </div>
+          </section>
+        )}
+
+        <div className="mt-1 flex flex-col gap-4 text-center lg:hidden">
+          <nav aria-label="Footer links" className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1.5 text-xs">
+            <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Subprocessors</Link>
+            <Link href="/terms" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Terms</Link>
+            <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Privacy</Link>
+            <Link href="/brand" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Brand</Link>
+            <a
+              href="https://status.tiles.run"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap inline-flex items-center gap-1`}
+            >
+              Status
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+          </nav>
+
+          <div className="flex flex-wrap items-center justify-center gap-2.5">
+            <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="X (Twitter)">
+              <FaXTwitter className={`h-4 w-4 ${textColor} transition-colors ${iconHoverTwitter}`} />
+            </a>
+            <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Bluesky">
+              <FaBluesky className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+            </a>
+            <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Discord">
+              <FaDiscord className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+            </a>
+            <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="GitHub">
+              <FaGithub className={`h-4 w-4 ${textColor} transition-colors ${iconHoverGithub}`} />
+            </a>
+            <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Tangled">
+              <TangledIcon className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+            </a>
+            <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Hugging Face">
+              <SiHuggingface className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+            </a>
+          </div>
+
+          <div className="flex items-center justify-center gap-2">
+            <FooterLanguageSelector variant={themeSwitcherVariant} compact />
+            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" />
+          </div>
+
+          <p className={`text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
+        </div>
+
+        <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:text-left">
+          <div className="flex flex-col items-start gap-2">
+            <p className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
+            <div className="flex items-center justify-center gap-2">
+              <FooterLanguageSelector variant={themeSwitcherVariant} compact />
+              <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" />
+            </div>
+          </div>
+
+          <div className="flex min-w-0 flex-col items-end gap-3 justify-self-end">
+              <nav aria-label="Footer links" className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 text-xs leading-5">
+                <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Subprocessors</Link>
+                <Link href="/terms" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Terms</Link>
+                <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Privacy</Link>
+                <Link href="/brand" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Brand</Link>
+                <a
+                  href="https://status.tiles.run"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap inline-flex items-center gap-1`}
                 >
-                  <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-            </nav>
-          </div>
+                  Status
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
+                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              </nav>
 
-          <div className="lg:text-right">
-            <div className="flex flex-wrap items-center gap-3.5 sm:gap-3.5 lg:justify-end lg:gap-4">
-              <a
-                href="https://x.com/tilesprivacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="X (Twitter)"
-              >
-                <FaXTwitter className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${iconHoverTwitter}`} />
-              </a>
-              <a
-                href="https://bsky.app/profile/tiles.run"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Bluesky"
-              >
-                <FaBluesky className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
-              </a>
-              <a
-                href="https://www.instagram.com/tilesprivacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Instagram"
-              >
-                <FaInstagram className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
-              </a>
-              <a
-                href="https://go.tiles.run/discord"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Discord"
-              >
-                <FaDiscord className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
-              </a>
-              <a
-                href="https://www.reddit.com/r/tilesprivacy/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Reddit"
-              >
-                <FaRedditAlien className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
-              </a>
-              <a
-                href="https://github.com/tilesprivacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="GitHub"
-              >
-                <FaGithub className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${iconHoverGithub}`} />
-              </a>
-              <a
-                href="https://tangled.org/tiles.run"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Tangled"
-              >
-                <TangledIcon className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
-              </a>
-              <a
-                href="https://huggingface.co/tilesprivacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center justify-center p-1.5 -m-1.5"
-                aria-label="Hugging Face"
-              >
-                <SiHuggingface className={`h-4 w-4 sm:h-[18px] sm:w-[18px] ${textColor} transition-colors ${textColorHover}`} />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom section - controls and legal details */}
-        <div className={`border-t ${borderColor} space-y-6 pt-8 sm:space-y-5 sm:pt-9`}>
-          <div className={`flex flex-col gap-5 text-[10px] sm:flex-row sm:items-start sm:justify-between sm:gap-6 sm:text-xs ${textColor}`}>
-            <div className="flex min-w-0 flex-col gap-4 sm:gap-3">
-              <p className="whitespace-nowrap leading-snug sm:leading-normal">© 2026 Tiles Privacy & Contributors.</p>
-              <div className="flex flex-col items-start gap-y-3 sm:gap-y-2">
-                {/*
-                <p className="inline-flex flex-wrap items-center gap-x-1 gap-y-0.5 leading-snug sm:leading-normal">
-                  <span>Built on</span>
-                  <a
-                    href="https://atproto.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="the Atmosphere"
-                    className={`${textColor} transition-colors ${textColorHover}`}
-                  >
-                    the ATmosphere
-                  </a>
-                </p>
-                */}
-                <p className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5 leading-snug sm:leading-normal">
-                  <span>A</span>
-                  <a
-                    href="https://userandagents.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="U&A"
-                    className="inline-flex items-center"
-                  >
-                    <img
-                      src="/ua-logo.svg"
-                      alt="U&A"
-                      width={40}
-                      height={20}
-                      className="h-4 sm:h-5 w-auto"
-                    />
-                  </a>
-                  <span>network project.</span>
-                </p>
+              <div className="flex flex-wrap items-center justify-end gap-2.5">
+                <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="X (Twitter)">
+                  <FaXTwitter className={`h-4 w-4 ${textColor} transition-colors ${iconHoverTwitter}`} />
+                </a>
+                <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Bluesky">
+                  <FaBluesky className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+                </a>
+                <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Discord">
+                  <FaDiscord className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+                </a>
+                <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="GitHub">
+                  <FaGithub className={`h-4 w-4 ${textColor} transition-colors ${iconHoverGithub}`} />
+                </a>
+                <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Tangled">
+                  <TangledIcon className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+                </a>
+                <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Hugging Face">
+                  <SiHuggingface className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+                </a>
               </div>
-            </div>
-
-            {/* Preferences stay close to legal/meta info so they are easy to find */}
-            <div className="flex shrink-0 items-center gap-2.5 self-start sm:self-start sm:pt-0.5">
-              <FooterLanguageSelector variant={themeSwitcherVariant} />
-              <ThemeSwitcher variant={themeSwitcherVariant} size="sm" />
-            </div>
-          </div>
-
-          <div className={`space-y-2 text-[10px] leading-relaxed sm:space-y-1.5 sm:text-xs ${licenseTextColor}`}>
-            <p>This work is dual-licensed under the MIT and Apache 2.0 licenses.</p>
-            <p>
-              To view a copy of this license, visit{" "}
-              <a
-                href="https://download.tiles.run/LICENSE.txt"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-skip-mobile-download-prompt="true"
-                className="underline underline-offset-2 transition-opacity hover:opacity-100"
-              >
-                https://download.tiles.run/LICENSE.txt
-              </a>
-            </p>
           </div>
         </div>
-        </div>
-      </footer>
-    </>
+      </div>
+    </footer>
   )
 }

@@ -156,9 +156,10 @@ function tryApplyGoogleCombo(language: string) {
 type FooterLanguageSelectorProps = {
   /** Matches `ThemeSwitcher` `variant` for the footer surface (`dark` = dark footer band). */
   variant: 'light' | 'dark'
+  compact?: boolean
 }
 
-export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps) {
+export function FooterLanguageSelector({ variant, compact = false }: FooterLanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
   const [isOpen, setIsOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -202,6 +203,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   const optionActiveClass = isLightVariant ? 'bg-black/5 text-black' : 'bg-white/10 text-white'
   const optionIdleClass = isLightVariant ? 'hover:bg-black/5 text-black/85' : 'hover:bg-white/10 text-white/90'
   const selectedOption = LANGUAGE_OPTIONS.find((option) => option.value === selectedLanguage) ?? LANGUAGE_OPTIONS[0]
+  const selectedLanguageCode = selectedOption.value.split('-')[0].toUpperCase()
 
   useEffect(() => {
     restoreScrollAfterTranslateReload()
@@ -290,7 +292,9 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
   return (
     <div
       ref={rootRef}
-      className="relative shrink-0 notranslate w-[min(14rem,calc(100vw-9.5rem))] sm:w-[min(14.25rem,calc(100vw-10rem))]"
+      className={`relative shrink-0 notranslate ${
+        compact ? 'w-auto' : 'w-[min(14rem,calc(100vw-9.5rem))] sm:w-[min(14.25rem,calc(100vw-10rem))]'
+      }`}
       translate="no"
     >
       <div id={GOOGLE_ELEMENT_ID} className="tiles-google-translate-root" />
@@ -300,7 +304,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
       <div className={`inline-flex w-full items-center rounded-sm p-1 ${trackClass}`}>
         <div className="relative flex w-full min-w-0 items-center">
           <Globe
-            className={`pointer-events-none absolute left-2.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 ${iconMutedClass}`}
+            className={`pointer-events-none absolute ${compact ? 'left-1.5' : 'left-2.5'} top-1/2 ${compact ? 'h-3 w-3' : 'h-3.5 w-3.5'} -translate-y-1/2 ${iconMutedClass}`}
             aria-hidden
           />
           <button
@@ -310,14 +314,16 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((open) => !open)}
-            className={`h-[22px] w-full min-w-0 truncate rounded-sm border-0 bg-transparent py-0 pl-9 pr-8 text-left text-[11px] font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
+            className={`h-[22px] ${
+              compact ? 'w-[66px] pl-6 pr-5 text-center text-[10px]' : 'w-full pl-9 pr-8 text-left text-[11px]'
+            } min-w-0 truncate rounded-sm border-0 bg-transparent py-0 font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             translate="no"
-            title={selectedOption.label}
+            title={compact ? `Language: ${selectedOption.label}` : selectedOption.label}
           >
-            {selectedOption.label}
+            {compact ? selectedLanguageCode : selectedOption.label}
           </button>
           <ChevronDown
-            className={`pointer-events-none absolute right-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 transition-transform ${iconMutedClass} ${
+            className={`pointer-events-none absolute ${compact ? 'right-1.5 h-3 w-3' : 'right-2 h-3.5 w-3.5'} top-1/2 -translate-y-1/2 transition-transform ${iconMutedClass} ${
               isOpen ? 'rotate-180' : ''
             }`}
             aria-hidden
@@ -345,7 +351,7 @@ export function FooterLanguageSelector({ variant }: FooterLanguageSelectorProps)
                     translate="no"
                     lang={option.value}
                   >
-                    {option.label}
+                    {option.value.split('-')[0].toUpperCase()} - {option.label}
                   </button>
                 </li>
               )
