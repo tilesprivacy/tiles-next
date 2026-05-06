@@ -17,15 +17,21 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   themeAware,
   isSharePage,
   isBannerVisible,
+  isMobileMenuOpen,
   onDismissBanner,
   onHomeClick,
+  onOpenMobileMenu,
+  onCloseMobileMenu,
   pathname,
 }: {
   themeAware: boolean
   isSharePage: boolean
   isBannerVisible: boolean
+  isMobileMenuOpen: boolean
   onDismissBanner: () => void
   onHomeClick: (event: { preventDefault: () => void }) => void
+  onOpenMobileMenu: () => void
+  onCloseMobileMenu: () => void
   pathname: string
 }) {
   const headerChrome = isSharePage
@@ -47,7 +53,18 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const navItemHeightClass = "h-8"
   const navTextMetricsClass = "text-[0.92rem] font-medium leading-5 tracking-normal"
   const wordmarkTextMetricsClass = "text-[1.04rem] font-medium leading-5 tracking-[-0.005em]"
+  const mobileProminentWordmarkClass =
+    "text-[1.22rem] font-semibold leading-6 tracking-[-0.012em] lg:text-[1.04rem] lg:font-medium lg:leading-5 lg:tracking-[-0.005em]"
   const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${navTextMetricsClass} transition-colors ${textColor} ${textColorHover}`
+  const mobileMenuTopOffsetClass = isBannerVisible
+    ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
+    : "top-0"
+  const mobileLogoClass = "h-10 w-10"
+  const mobileIconButtonClass = `inline-flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60 ${textColor}`
+  const mobileMenuGlyphColorClass = isSharePage ? "bg-[#EDEDEF]" : themeAware ? "bg-foreground" : "bg-black"
+  const mobileMenuLinkClass = `inline-flex min-h-11 items-center text-[1.7rem] font-normal leading-[1.2] tracking-[-0.015em] ${textColor} transition-colors ${textColorHover}`
+  const mobileInlinePaddingClass =
+    "px-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:px-[max(1.25rem,env(safe-area-inset-left,0px))] sm:pr-[max(1.25rem,env(safe-area-inset-right,0px))]"
 
   const isRouteActive = (href: string) => {
     if (href === "/book") return pathname === "/book" || pathname.startsWith("/book/")
@@ -101,8 +118,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             : ""
         } ${headerChrome}`}
       >
-        <div className="w-full overflow-x-auto overscroll-x-contain [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex min-w-max items-center gap-5 px-[max(0.8rem,env(safe-area-inset-left,0px))] py-[max(0.65rem,env(safe-area-inset-top,0px))] pr-[max(0.8rem,env(safe-area-inset-right,0px))] sm:gap-6 sm:px-[max(1rem,env(safe-area-inset-left,0px))] sm:py-[max(0.7rem,env(safe-area-inset-top,0px))] sm:pr-[max(1rem,env(safe-area-inset-right,0px))] lg:gap-7 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))]">
+        <div className="w-full">
+          <div className={`flex min-h-[3.35rem] items-center pb-1.5 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] sm:pb-1.5 sm:pt-[calc(0.5rem+env(safe-area-inset-top,0px))] lg:min-h-0 lg:gap-7 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))] ${mobileInlinePaddingClass}`}>
             <Link
               href="/"
               onClick={onHomeClick}
@@ -112,18 +129,32 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
               ) : themeAware ? (
                 <>
-                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 dark:hidden" />
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="hidden h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9 dark:block" />
+                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} />
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} />
                 </>
               ) : (
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
               )}
-              <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${wordmarkTextMetricsClass} ${textColor}`}>
+              <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
                 Tiles
               </span>
             </Link>
 
-            <nav className="flex min-w-max items-center gap-5 sm:gap-6 lg:gap-7">
+            <button
+              onClick={onOpenMobileMenu}
+              className={`ml-auto ${mobileIconButtonClass} lg:hidden`}
+              aria-label="Open navigation menu"
+              aria-expanded={isMobileMenuOpen}
+              type="button"
+            >
+              <span className="flex flex-col items-center justify-center gap-1.5" aria-hidden>
+                <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
+                <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
+                <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
+              </span>
+            </button>
+
+            <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:flex lg:gap-7">
               <Link href="/download" onClick={triggerHaptic} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
@@ -134,12 +165,58 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           </div>
         </div>
       </header>
+      <div
+        className={`fixed inset-x-0 bottom-0 z-[60] overflow-y-auto lg:hidden ${mobileMenuTopOffsetClass} ${
+          isMobileMenuOpen ? "block" : "hidden"
+        } ${headerChrome}`}
+        aria-hidden={!isMobileMenuOpen}
+      >
+        <div className={`flex min-h-[3.35rem] items-center justify-between pb-1.5 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] sm:pb-1.5 sm:pt-[calc(0.5rem+env(safe-area-inset-top,0px))] ${mobileInlinePaddingClass}`}>
+          <Link
+            href="/"
+            onClick={onCloseMobileMenu}
+            className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75"
+          >
+            {themeAware ? (
+              <>
+                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden`} />
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block`} />
+              </>
+            ) : (
+              <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
+            )}
+            <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
+              Tiles
+            </span>
+          </Link>
+          <button
+            onClick={onCloseMobileMenu}
+            className={mobileIconButtonClass}
+            aria-label="Close navigation menu"
+            type="button"
+          >
+            <span className="relative block h-6 w-6" aria-hidden>
+              <span className={`absolute left-1/2 top-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full ${mobileMenuGlyphColorClass}`} />
+              <span className={`absolute left-1/2 top-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full ${mobileMenuGlyphColorClass}`} />
+            </span>
+          </button>
+        </div>
+        <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
+          <Link href="/download" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Download</Link>
+          <Link href="/book" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Book</Link>
+          <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
+          <Link href="/roadmap" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Roadmap</Link>
+          <Link href="/changelog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Changelog</Link>
+          <Link href="/sponsor" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Sponsor</Link>
+        </nav>
+      </div>
     </>
   )
 })
 
 function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isBannerVisible, setIsBannerVisible] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSharePage = pathname?.startsWith("/share") ?? false
 
@@ -169,6 +246,73 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
     [pathname],
   )
 
+  const handleOpenMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(true)
+  }, [])
+
+  const handleCloseMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false)
+  }, [])
+
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const body = document.body
+    const html = document.documentElement
+
+    if (!isMobileMenuOpen) return
+
+    const scrollY = window.scrollY || window.pageYOffset
+    const prev = {
+      bodyOverflow: body.style.overflow,
+      bodyPosition: body.style.position,
+      bodyTop: body.style.top,
+      bodyLeft: body.style.left,
+      bodyRight: body.style.right,
+      bodyWidth: body.style.width,
+      htmlOverflow: html.style.overflow,
+      htmlScrollBehavior: html.style.scrollBehavior,
+    }
+
+    html.style.overflow = "hidden"
+    body.style.overflow = "hidden"
+    body.style.position = "fixed"
+    body.style.top = `-${scrollY}px`
+    body.style.left = "0"
+    body.style.right = "0"
+    body.style.width = "100%"
+
+    return () => {
+      html.style.overflow = prev.htmlOverflow
+      body.style.overflow = prev.bodyOverflow
+      body.style.position = prev.bodyPosition
+      body.style.top = prev.bodyTop
+      body.style.left = prev.bodyLeft
+      body.style.right = prev.bodyRight
+      body.style.width = prev.bodyWidth
+      html.style.scrollBehavior = "auto"
+      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" })
+      requestAnimationFrame(() => {
+        html.style.scrollBehavior = prev.htmlScrollBehavior
+      })
+    }
+  }, [isMobileMenuOpen])
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMobileMenuOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleEscape)
+    return () => window.removeEventListener("keydown", handleEscape)
+  }, [])
+
   if (isSharePage) {
     return null
   }
@@ -179,8 +323,11 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         themeAware={themeAware}
         isSharePage={isSharePage}
         isBannerVisible={isBannerVisible}
+        isMobileMenuOpen={isMobileMenuOpen}
         onDismissBanner={handleDismissBanner}
         onHomeClick={handleHomeClick}
+        onOpenMobileMenu={handleOpenMobileMenu}
+        onCloseMobileMenu={handleCloseMobileMenu}
         pathname={pathname ?? ""}
       />
     </>
