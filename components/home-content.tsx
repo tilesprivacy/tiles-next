@@ -143,15 +143,28 @@ export function HomeContent() {
 
       <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-8 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-9">
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-start lg:items-center">
-          <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-10 xl:gap-14">
-            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-4 text-center sm:gap-5 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-5 lg:text-left">
+          <div className="grid w-full items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
+            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="space-y-3.5 lg:space-y-4">
                 <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.92rem] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground sm:text-[2.5rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.25rem]">
                   Local-first private AI assistant for everyday use
                 </h1>
+                <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
+                  Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports
+                  sharing chats publicly on{" "}
+                  <a
+                    href="https://atproto.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
+                  >
+                    ATProto
+                  </a>
+                  .
+                </p>
               </div>
 
-              <div className="flex w-full flex-col items-center gap-3.5 lg:items-start lg:gap-3.5">
+              <div className="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-4">
                 <div className="inline-flex w-fit flex-col items-center gap-2.5 lg:items-start">
                   <Button
                     asChild
@@ -184,47 +197,6 @@ export function HomeContent() {
                   >
                     Get notified for Linux
                   </Link>
-                </div>
-
-                <div className="inline-flex items-center gap-3">
-                  <Link
-                    href="/book/overview"
-                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.85rem]"
-                  >
-                    <span>Learn More</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      className="h-3 w-3 transition-transform duration-200 group-hover:translate-x-0.5"
-                      aria-hidden
-                    >
-                      <path d="M6 12L10 8L6 4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </Link>
-                  <span className="h-3 w-px bg-black/12 dark:bg-white/16" aria-hidden />
-                  <a
-                    href="https://github.com/tilesprivacy/tiles"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group inline-flex items-center gap-1 text-[0.79rem] font-medium text-black/50 transition-colors hover:text-black/70 dark:text-[#8F8F95] dark:hover:text-[#A8A8A8] sm:text-[0.85rem]"
-                  >
-                    <span>GitHub</span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      className="h-3 w-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                      aria-hidden
-                    >
-                      <path d="M6 4h6v6" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M10.5 5.5L4 12" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </a>
                 </div>
               </div>
             </div>
