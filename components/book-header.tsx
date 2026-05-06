@@ -51,7 +51,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
               className={`hidden h-3.5 w-auto ${downloadButtonIconMotionClasses} lg:h-4 dark:block`}
             />
             <span className={downloadButtonLabelMotionClasses}>
-              Download for macOS
+              Download Tiles
             </span>
             <Download
               className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} lg:h-4 lg:w-4`}

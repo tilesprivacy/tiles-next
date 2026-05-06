@@ -179,7 +179,7 @@ export function HomeContent() {
                       className="group flex items-center gap-2"
                     >
                       <span className={downloadButtonLabelMotionClasses}>
-                        Download for macOS
+                        Download Tiles
                       </span>
                       <Download
                         className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4`}
@@ -188,8 +188,8 @@ export function HomeContent() {
                     </Link>
                   </Button>
                   <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
-                    <span>Currently available as a CLI in</span>
                     <span className={alphaPillClass}>ALPHA</span>
+                    <span>for macOS 14+ with Apple Silicon (M1 or better).</span>
                   </p>
                   <Link
                     href="/linux"
