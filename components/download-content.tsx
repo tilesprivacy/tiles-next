@@ -565,7 +565,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
         </div>
       </main>
 
-      <SiteFooter showDownloadCta={false} />
+      <SiteFooter />
     </div>
   )
 }

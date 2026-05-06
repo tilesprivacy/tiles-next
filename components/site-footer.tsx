@@ -1,7 +1,6 @@
 'use client'
 
 import Link from "next/link"
-import { Download } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
@@ -10,14 +9,12 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
-import { Button } from "@/components/ui/button"
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
-  showDownloadCta?: boolean
 }
 
-export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }: SiteFooterProps) {
+export function SiteFooter({ showNewsletterCta = false }: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -39,45 +36,9 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#b8b8c2]' : 'text-[#1d1d1f]/70'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
-  const alphaPillClass =
-    "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
-
   return (
     <footer className="relative z-10 bg-transparent px-4 py-5 sm:px-6 lg:px-12 lg:py-6">
       <div className="mx-auto w-full max-w-6xl">
-        {showDownloadCta && (
-          <section className="mb-16 text-center sm:mb-20 lg:mb-24">
-            <div className="mx-auto flex max-w-2xl flex-col items-center">
-              <h2 className="text-[1.28rem] font-medium tracking-tight text-foreground sm:text-[1.45rem] lg:text-[1.52rem]">
-                Try Tiles now.
-              </h2>
-              <Button
-                asChild
-                variant="ghost"
-                className="mt-3 h-9.5 rounded-sm bg-black px-5 text-[0.9rem] font-medium text-white transition-colors hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] sm:h-10 sm:px-5.5 sm:text-[0.94rem]"
-              >
-                <Link href="/download" className="group flex items-center gap-1.5 sm:gap-2">
-                  <span>Download for macOS</span>
-                  <Download
-                    className="h-3.5 w-3.5 sm:h-3.5 sm:w-3.5"
-                    aria-hidden
-                  />
-                </Link>
-              </Button>
-              <p className="mt-1.5 inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.72rem] font-medium text-black/58 dark:text-[#9A9A9A] sm:text-[0.76rem]">
-                <span>Currently available as a CLI in</span>
-                <span className={alphaPillClass}>ALPHA</span>
-              </p>
-              <Link
-                href="/linux"
-                className="mt-1.5 text-[0.78rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/72 hover:decoration-black/35 dark:text-[#A4A4A4] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/35 sm:text-[0.82rem]"
-              >
-                Get notified for Linux
-              </Link>
-            </div>
-          </section>
-        )}
-
         {showNewsletterCta && (
           <section className="mb-6 lg:mb-7">
             <div className="mx-auto w-full max-w-3xl">
