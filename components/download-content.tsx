@@ -235,7 +235,8 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 Download Tiles Alpha
               </h1>
               <p className={bodyTextClass}>
-                Public ALPHA for macOS 12+ (arm64). Recommended: 16 GB unified memory or more.
+                Public alpha for macOS 14+ with Apple Silicon (M1 or better). Recommended: 16 GB unified memory or
+                more.
               </p>
               <p className={bodyTextClass}>
                 <strong>Status: Alpha</strong>
@@ -564,7 +565,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
         </div>
       </main>
 
-      <SiteFooter />
+      <SiteFooter showDownloadCta={false} />
     </div>
   )
 }

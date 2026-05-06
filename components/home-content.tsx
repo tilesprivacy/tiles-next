@@ -164,8 +164,8 @@ export function HomeContent() {
                 </p>
               </div>
 
-              <div className="flex w-full flex-col items-center gap-4 lg:items-start lg:gap-4">
-                <div className="inline-flex w-fit flex-col items-center gap-2.5 lg:items-start">
+              <div className="flex w-full flex-col items-center gap-5 lg:items-start lg:gap-5">
+                <div className="inline-flex w-fit flex-col items-center gap-3.5 lg:items-start">
                   <Button
                     asChild
                     variant="ghost"

@@ -1,20 +1,30 @@
 'use client'
 
 import Link from "next/link"
+import { Download } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
+import { triggerHaptic } from "@/lib/haptics"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
+  showDownloadCta?: boolean
 }
 
-export function SiteFooter({ showNewsletterCta = false }: SiteFooterProps) {
+export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -36,8 +46,10 @@ export function SiteFooter({ showNewsletterCta = false }: SiteFooterProps) {
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#b8b8c2]' : 'text-[#1d1d1f]/70'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
+  const alphaPillClass =
+    "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
   return (
-    <footer className="relative z-10 bg-transparent px-4 py-5 sm:px-6 lg:px-12 lg:py-6">
+    <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
       <div className="mx-auto w-full max-w-6xl">
         {showNewsletterCta && (
           <section className="mb-6 lg:mb-7">
@@ -62,6 +74,45 @@ export function SiteFooter({ showNewsletterCta = false }: SiteFooterProps) {
                 </div>
                 <NewsletterForm surface={isDarkFooter ? "dark" : "light"} className="w-full lg:max-w-[24rem]" />
               </div>
+            </div>
+          </section>
+        )}
+
+        {showDownloadCta && (
+          <section className="mb-11 flex flex-col items-center gap-4 text-center lg:mb-14 lg:gap-5">
+            <h2 className="text-balance text-[2rem] font-semibold leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[2.4rem]">
+              Try Tiles now.
+            </h2>
+            <div className="inline-flex w-fit flex-col items-center gap-3">
+              <Button
+                asChild
+                variant="ghost"
+                className={`h-9 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-[0.83rem] font-medium sm:h-10 sm:px-5 sm:text-sm lg:h-10 lg:px-6 lg:text-[0.91rem]`}
+              >
+                <Link
+                  href="/download"
+                  onClick={() => {
+                    triggerHaptic()
+                  }}
+                  className="group flex items-center gap-2"
+                >
+                  <span className={downloadButtonLabelMotionClasses}>Download Tiles</span>
+                  <Download
+                    className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4`}
+                    aria-hidden
+                  />
+                </Link>
+              </Button>
+              <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
+                <span className={alphaPillClass}>ALPHA</span>
+                <span>for macOS 14+ with Apple Silicon (M1 or better).</span>
+              </p>
+              <Link
+                href="/linux"
+                className="text-[0.74rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.8rem]"
+              >
+                Get notified for Linux
+              </Link>
             </div>
           </section>
         )}
