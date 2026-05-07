@@ -48,6 +48,7 @@ const featureCards = [
       "Loading sessions from data folder",
       "> /help for shortcuts",
     ],
+    shareLink: undefined,
   },
   {
     command: "tiles sync <did>",
@@ -74,6 +75,7 @@ const featureCards = [
       "Discovering local peers",
       "Sync complete",
     ],
+    shareLink: undefined,
   },
   {
     command: "/share",
@@ -103,6 +105,69 @@ const featureCards = [
       "/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3",
   },
 ] as const
+
+const showTechCircuitBackground = false
+
+function TechCircuitBackground() {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 620 460"
+      className="absolute right-[-16rem] top-[4.75rem] h-[22rem] w-[30rem] text-black/[0.055] dark:text-white/[0.06] sm:right-[-8rem] sm:top-[4.5rem] sm:h-[28rem] sm:w-[38rem] sm:text-black/[0.07] sm:dark:text-white/[0.075] lg:right-[-5rem] lg:top-[3.5rem] xl:right-[-2rem]"
+      fill="none"
+    >
+      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.4">
+        <path d="M20 78H120L154 112H236L268 80H362" />
+        <path d="M82 142H198L232 176H362L412 126H548" />
+        <path d="M38 232H132L176 188H270L318 236H476L536 176H602" />
+        <path d="M128 320H252L312 260H408L462 314H574" />
+        <path d="M218 34V112" />
+        <path d="M318 236V390" />
+        <path d="M460 48V126" />
+        <path d="M534 176V286" />
+        <path d="M154 112V168" />
+        <path d="M412 126V196" />
+        <path d="M252 320V410" />
+        <path d="M92 86V192H44" />
+        <path d="M372 82H446L490 38H586" />
+        <path d="M420 364H532L592 424" />
+      </g>
+      <g fill="currentColor">
+        <circle cx="20" cy="78" r="3.5" />
+        <circle cx="120" cy="78" r="3.5" />
+        <circle cx="362" cy="80" r="3.5" />
+        <circle cx="82" cy="142" r="3.5" />
+        <circle cx="548" cy="126" r="3.5" />
+        <circle cx="38" cy="232" r="3.5" />
+        <circle cx="602" cy="176" r="3.5" />
+        <circle cx="128" cy="320" r="3.5" />
+        <circle cx="574" cy="314" r="3.5" />
+        <circle cx="218" cy="34" r="3.5" />
+        <circle cx="318" cy="390" r="3.5" />
+        <circle cx="460" cy="48" r="3.5" />
+        <circle cx="534" cy="286" r="3.5" />
+        <circle cx="44" cy="192" r="3.5" />
+        <circle cx="586" cy="38" r="3.5" />
+        <circle cx="592" cy="424" r="3.5" />
+        <rect x="284" y="206" width="18" height="18" rx="2" />
+        <rect x="498" y="154" width="16" height="16" rx="2" />
+        <rect x="170" y="296" width="15" height="15" rx="2" />
+        <rect x="382" y="102" width="12" height="12" rx="2" />
+      </g>
+      <g stroke="currentColor" strokeLinecap="round" strokeWidth="1.1">
+        <path d="M34 116H72" />
+        <path d="M34 128H72" />
+        <path d="M34 140H72" />
+        <path d="M474 212H520" />
+        <path d="M474 224H520" />
+        <path d="M474 236H520" />
+        <path d="M214 356H270" />
+        <path d="M214 368H270" />
+        <path d="M214 380H270" />
+      </g>
+    </svg>
+  )
+}
 
 export function HomeContent() {
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null)
@@ -136,6 +201,7 @@ export function HomeContent() {
   return (
     <div className="relative isolate bg-background">
       <div className="pointer-events-none absolute inset-0 h-[100svh] sm:h-[100dvh]">
+        {showTechCircuitBackground ? <TechCircuitBackground /> : null}
         <div className="absolute left-1/2 top-[18%] h-[18rem] w-[18rem] -translate-x-1/2 rounded-full bg-black/[0.035] blur-3xl dark:bg-transparent sm:h-[24rem] sm:w-[24rem] lg:left-[62%] lg:top-[28%] lg:h-[30rem] lg:w-[30rem] lg:translate-x-0" />
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
@@ -273,41 +339,49 @@ export function HomeContent() {
                 </div>
                 <Link
                   href={card.ctaHref}
-                  className="inline-flex items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45"
+                  className="hidden items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45 xl:inline-flex"
                 >
                   {card.ctaLabel} →
                 </Link>
 
               </div>
 
-              <div className="overflow-hidden rounded-2xl border border-black/8 bg-background dark:border-white/10">
-                <div className="flex h-10 items-center gap-2 px-3.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]/85" aria-hidden />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]/85" aria-hidden />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]/85" aria-hidden />
+              <div className="space-y-4">
+                <div className="overflow-hidden rounded-2xl border border-black/8 bg-background dark:border-white/10">
+                  <div className="flex h-10 items-center gap-2 px-3.5">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]/85" aria-hidden />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]/85" aria-hidden />
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#28C840]/85" aria-hidden />
+                  </div>
+                  <div className="space-y-1 px-4 py-4 sm:px-5 sm:py-5">
+                    {card.terminalLines.map((line) => (
+                      <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
+                        {line}
+                      </p>
+                    ))}
+                    {card.shareLink ? (
+                      <p className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
+                        <a
+                          href={card.shareLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
+                          aria-label="Open shared session link"
+                        >
+                          <span className="sm:hidden">tiles.run/share/…xeTI3</span>
+                          <span className="hidden sm:inline">tiles.run/share/YXQ6…xeTI3</span>
+                        </a>{" "}
+                        copied to clipboard
+                      </p>
+                    ) : null}
+                  </div>
                 </div>
-                <div className="space-y-1 px-4 py-4 sm:px-5 sm:py-5">
-                  {card.terminalLines.map((line) => (
-                    <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
-                      {line}
-                    </p>
-                  ))}
-                  {card.shareLink ? (
-                    <p className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
-                      <a
-                        href={card.shareLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
-                        aria-label="Open shared session link"
-                      >
-                        <span className="sm:hidden">tiles.run/share/…xeTI3</span>
-                        <span className="hidden sm:inline">tiles.run/share/YXQ6…xeTI3</span>
-                      </a>{" "}
-                      copied to clipboard
-                    </p>
-                  ) : null}
-                </div>
+                <Link
+                  href={card.ctaHref}
+                  className="inline-flex items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45 xl:hidden"
+                >
+                  {card.ctaLabel} →
+                </Link>
               </div>
             </article>
           ))}
