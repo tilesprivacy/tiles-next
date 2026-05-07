@@ -137,9 +137,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
                 )}
               </span>
-              <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
-                Tiles
-              </span>
             </Link>
 
             <button
@@ -188,9 +185,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               ) : (
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
               )}
-            </span>
-            <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
-              Tiles
             </span>
           </Link>
           <button
