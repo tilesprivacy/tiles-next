@@ -119,7 +119,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         } ${headerChrome}`}
       >
         <div className="w-full">
-          <div className={`flex min-h-[3.35rem] items-center pb-1.5 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] sm:pb-1.5 sm:pt-[calc(0.5rem+env(safe-area-inset-top,0px))] lg:min-h-0 lg:gap-7 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))] ${mobileInlinePaddingClass}`}>
+          <div className={`relative flex min-h-[3.35rem] items-center pb-1.5 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] sm:pb-1.5 sm:pt-[calc(0.5rem+env(safe-area-inset-top,0px))] lg:min-h-0 lg:gap-7 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))] ${mobileInlinePaddingClass}`}>
             <Link
               href="/"
               onClick={onHomeClick}
@@ -137,6 +137,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
                 )}
               </span>
+              <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
+                Tiles
+              </span>
             </Link>
 
             <button
@@ -153,7 +156,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               </span>
             </button>
 
-            <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:flex lg:gap-7">
+            <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:gap-7">
               <Link href="/download" onClick={triggerHaptic} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
@@ -185,6 +188,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               ) : (
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
               )}
+            </span>
+            <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
+              Tiles
             </span>
           </Link>
           <button
