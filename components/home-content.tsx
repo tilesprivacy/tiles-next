@@ -293,16 +293,19 @@ export function HomeContent() {
                     </p>
                   ))}
                   {card.shareLink ? (
-                    <a
-                      href={card.shareLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex max-w-full items-center rounded-md border border-black/10 bg-black/[0.03] px-2.5 py-1.5 font-mono text-[0.83rem] leading-[1.5] text-black/68 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/85 hover:decoration-black/45 dark:border-white/15 dark:bg-white/[0.03] dark:text-[#C8C8C8] dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/45"
-                      aria-label="Open shared session link"
-                    >
-                      <span className="truncate sm:hidden">tiles.run/share/…ZTJt</span>
-                      <span className="hidden truncate sm:inline">tiles.run/share/YXQ6…ZTJt</span>
-                    </a>
+                    <p className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
+                      <a
+                        href={card.shareLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
+                        aria-label="Open shared session link"
+                      >
+                        <span className="sm:hidden">tiles.run/share/…ZTJt</span>
+                        <span className="hidden sm:inline">tiles.run/share/YXQ6…ZTJt</span>
+                      </a>{" "}
+                      copied to clipboard
+                    </p>
                   ) : null}
                 </div>
               </div>
