@@ -36,7 +36,7 @@ export default function FormPage() {
       <main className="flex min-h-[calc(100dvh-4.5rem)] bg-background px-5 pb-10 pt-[calc(5rem+env(safe-area-inset-top,0px))] text-foreground sm:min-h-[calc(100dvh-5rem)] sm:px-8 sm:pb-14 sm:pt-9 lg:min-h-[calc(100dvh-5.5rem)] lg:px-12 lg:pb-16 lg:pt-4">
         <div className="mx-auto flex w-full max-w-4xl flex-col justify-center gap-7 sm:gap-9 lg:gap-10">
           <header className="text-center">
-            <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[0.98] tracking-[-0.048em] text-foreground sm:text-[2.4rem] lg:text-[3.2rem]">
+            <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground sm:text-[2.4rem] lg:text-[3.2rem]">
               Sign up for Tiles on Linux
             </h1>
             <p className="mx-auto mt-4 max-w-[34rem] text-balance text-[0.91rem] leading-[1.72] text-black/55 dark:text-[#ABABAB] sm:text-[0.95rem] lg:text-[0.99rem]">

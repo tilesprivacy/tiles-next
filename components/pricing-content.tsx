@@ -122,7 +122,7 @@ export function PricingContent() {
         <section className="px-4 sm:px-6 lg:px-12">
           <div className="mx-auto w-full max-w-4xl space-y-14 lg:space-y-16">
             <div className="space-y-3 pt-4 text-center sm:space-y-4 sm:pt-8 lg:pt-10">
-              <h1 className="inline-block text-3xl font-bold tracking-tight text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-4xl">
+              <h1 className="inline-block font-sans text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-4xl">
                 Free without limits.
               </h1>
               <p className="mx-auto max-w-xl text-xl font-semibold leading-snug text-foreground/90 sm:text-2xl">

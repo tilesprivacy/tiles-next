@@ -353,9 +353,24 @@
 }
 
 .dark [data-book-section] p,
-.dark [data-book-section] li,
-.dark [data-book-section] span:not([class*="token"]) {
-  color: var(--foreground) !important;
+.dark [data-book-section] li {
+  color: var(--muted-foreground) !important;
+}
+
+/* Keep book article typography thin and readable like the main site. */
+[data-book-section] article :where(p, li) {
+  color: color-mix(in srgb, var(--foreground) 68%, transparent) !important;
+  font-weight: 400 !important;
+  line-height: 1.72 !important;
+}
+
+.dark [data-book-section] article :where(p, li) {
+  color: color-mix(in srgb, var(--foreground) 72%, transparent) !important;
+}
+
+[data-book-section] article :where(h2, h3) {
+  font-weight: 500 !important;
+  letter-spacing: -0.018em !important;
 }
 
 /* Right “On this page” TOC (Nextra 4: nav.nextra-toc sibling of article; not aside) */

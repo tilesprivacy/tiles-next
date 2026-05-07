@@ -386,7 +386,7 @@ function ErrorState({ message }: { message: string }) {
       <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-sm border border-black/10 bg-black/5 text-black/60 dark:border-white/10 dark:bg-[#101010] dark:text-white/65">
         <AlertCircle className="h-4 w-4" aria-hidden />
       </div>
-      <h1 className="text-2xl font-semibold tracking-[-0.035em] text-[#1d1d1f] dark:text-[#EDEDEF] sm:text-3xl">
+      <h1 className="font-sans text-2xl font-semibold leading-[1.08] tracking-[-0.035em] text-[#1d1d1f] dark:text-[#EDEDEF] sm:text-3xl">
         Shared session unavailable
       </h1>
       <p className="mt-3 max-w-md text-sm leading-6 text-[#6b6b6f] dark:text-[#A8A8A8]">

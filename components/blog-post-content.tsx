@@ -149,24 +149,24 @@ export function BlogPostContent({
         <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
           {/* Blog Title */}
           <div className="mb-8 lg:mb-12 lg:max-w-[44rem] lg:mx-auto">
-            <h1 className="text-3xl font-semibold text-black dark:text-white mb-4 lg:text-5xl lg:mb-4 tracking-tight">
+            <h1 className="mb-4 font-sans text-[clamp(2rem,6vw,3.2rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mb-4">
               {title}
             </h1>
-            <p className="text-base text-black/50 dark:text-white/50 lg:text-lg mb-4 lg:mb-4">
+            <p className="mb-4 text-[0.98rem] leading-[1.65] text-black/56 dark:text-white/56 lg:mb-4 lg:text-[1.06rem]">
               {description}
             </p>
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-3">
-                <p className="text-sm text-black/40 dark:text-white/40 lg:text-base">{date}</p>
+                <p className="text-sm text-black/42 dark:text-white/42 lg:text-[0.95rem]">{date}</p>
                 <span className="text-black/20 dark:text-white/20">·</span>
                 <ReadingTime 
                   content={content} 
-                  className="text-sm text-black/40 dark:text-white/40 lg:text-base"
+                  className="text-sm text-black/42 dark:text-white/42 lg:text-[0.95rem]"
                 />
               </div>
               {author && (
                 <div className="mt-0.5 flex items-center gap-1.5">
-                  <span className="text-sm text-black/40 dark:text-white/40 lg:text-base">By</span>
+                  <span className="text-sm text-black/42 dark:text-white/42 lg:text-[0.95rem]">By</span>
                   <PersonAvatar
                     name={author.name}
                     links={author.links}
@@ -175,8 +175,8 @@ export function BlogPostContent({
                   />
                   <BlogAuthorDisplayName
                     fullName={author.name}
-                    className="text-sm text-black/60 dark:text-white/60 lg:text-base"
-                    handleClassName="text-black/45 dark:text-white/45"
+                    className="text-sm text-black/58 dark:text-white/58 lg:text-[0.95rem]"
+                    handleClassName="text-black/44 dark:text-white/44"
                   />
                   <SocialLinks
                     name={author.name}
@@ -235,8 +235,8 @@ export function BlogPostContent({
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
               <div className="blog-article-content space-y-4 text-base leading-7 text-black/70 dark:text-white/70 lg:space-y-6 lg:text-[1.03rem] lg:leading-7 relative z-10
-                [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:text-black dark:[&_h2]:text-white [&_h2]:mb-4 lg:[&_h2]:text-2xl lg:[&_h2]:mb-5 [&_h2]:tracking-tight
-                [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-black dark:[&_h3]:text-white [&_h3]:mb-3 lg:[&_h3]:text-xl lg:[&_h3]:mb-4
+                [&_h2]:text-xl [&_h2]:font-medium [&_h2]:text-black/90 dark:[&_h2]:text-white/90 [&_h2]:mb-4 lg:[&_h2]:text-[1.72rem] lg:[&_h2]:mb-5 [&_h2]:tracking-[-0.02em]
+                [&_h3]:text-[1.02rem] [&_h3]:font-medium [&_h3]:text-black/82 dark:[&_h3]:text-white/82 [&_h3]:mb-3 lg:[&_h3]:text-[1.12rem] lg:[&_h3]:mb-4 [&_h3]:tracking-[-0.012em]
                 [&_hr]:border-black/10 dark:[&_hr]:border-white/10 [&_hr]:my-8 lg:[&_hr]:my-10
                 [&_strong]:font-semibold [&_strong]:text-black dark:[&_strong]:text-white
                 [&_a]:text-black dark:[&_a]:text-white [&_a]:hover:text-black/80 dark:[&_a]:hover:text-white/80 [&_a]:underline

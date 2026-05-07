@@ -84,7 +84,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
             )}
           </div>
 
-          <h2 className="text-xl font-semibold tracking-tight text-black transition-colors group-hover:text-black/75 dark:text-white dark:group-hover:text-white/80 sm:text-2xl lg:text-3xl">
+          <h2 className="text-[1.18rem] font-medium tracking-[-0.02em] text-black/90 transition-colors group-hover:text-black/72 dark:text-white/90 dark:group-hover:text-white/76 sm:text-[1.36rem] lg:text-[1.82rem]">
             {post.title}
           </h2>
 

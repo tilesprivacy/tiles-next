@@ -105,8 +105,6 @@ const featureCards = [
 
 export function HomeContent() {
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null)
-  const alphaPillClass =
-    "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
 
   const handleCopyCommand = (command: string) => {
     if (typeof window === "undefined") return
@@ -189,15 +187,20 @@ export function HomeContent() {
                       />
                     </Link>
                   </Button>
-                  <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
-                    <span className={alphaPillClass}>ALPHA</span>
-                    <span>for macOS 14+ with Apple Silicon (M1 or better).</span>
+                  <p className="inline-flex w-fit items-center whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
+                    Alpha • macOS 14+ • Apple Silicon (M1+)
                   </p>
                   <Link
                     href="/linux"
                     className="text-[0.74rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.8rem]"
                   >
                     Get notified for Linux
+                  </Link>
+                  <Link
+                    href="/book/overview#private-ai-comparison"
+                    className="text-[0.74rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/74 hover:decoration-black/40 dark:text-[#9D9D9D] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/40 sm:text-[0.8rem]"
+                  >
+                    See how Tiles compares to Ollama and others →
                   </Link>
                 </div>
               </div>
@@ -308,11 +311,15 @@ export function HomeContent() {
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>Your identity and data are portable and user-owned</span>
+                <span>You own your data and identity</span>
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
                 <span>Sync across devices securely</span>
+              </li>
+              <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
+                <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+                <span>Comes with fully offline installer for air gapped usage</span>
               </li>
             </ul>
           </div>

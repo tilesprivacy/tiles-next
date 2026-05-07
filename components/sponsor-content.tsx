@@ -18,12 +18,6 @@ interface SponsorContentProps {
   }
 }
 
-const SUPPORT_POINTS = [
-  "Baseline funding to support two full-time contributors",
-  "Helps us cover infrastructure costs for AI compute and relays",
-  "Support a shared research agenda",
-]
-
 function SponsorPerson({
   name,
   links,
@@ -103,9 +97,8 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               Help keep <span className="tracking-tight">Tiles Privacy</span> independent.
             </h1>
             <p className={`mt-5 max-w-2xl ${marketingPageLeadClass}`}>
-              Tiles is built by a small team working on private, local-first software, with a clear mission: to bring
-              privacy technology to everyone. Sponsorship helps us keep shipping product, maintaining infrastructure,
-              and documenting the work in public.
+              Tiles is built by a small independent team working on private, local-first software, with a clear mission: to bring
+              privacy technology to everyone. Sponsorship helps us keep doing that.
             </p>
 
             <div className="mt-8 pt-8">
@@ -115,7 +108,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <p className="pb-1 text-sm leading-6 text-black/65 dark:text-white/65">{goalLabel}</p>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-black/65 dark:text-white/65">
-                  Current GitHub Sponsors progress toward the published monthly goal.
+                  Baseline funding to support two full-time contributors
                 </p>
                 <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
                   <div
@@ -164,21 +157,9 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <p className={`max-w-2xl ${marketingPageBodyClass}`}>
-                Sponsorship provides baseline funding for the work already underway and helps us keep building with
-                continuity.
-              </p>
-              <ul className="mt-5 space-y-3">
-                {SUPPORT_POINTS.map((point) => (
-                  <li key={point} className="flex items-start gap-3 text-base leading-7 text-foreground/88">
-                    <span className="mt-3 h-1 w-1 shrink-0 rounded-full bg-foreground/60" aria-hidden />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
+              <h2 className="mb-4 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+                About us
+              </h2>
               <div className={`max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
                 <div className="flex items-start gap-3">
                   <p>
@@ -214,13 +195,13 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <InlinePerson
                     name={people.contributorsCore[1]!.name}
                     links={people.contributorsCore[1]!.links}
-                  />. Sponsorship helps us keep building with continuity and focus over the long run.
+                  />.
                 </p>
               </div>
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <p className="text-sm leading-6 text-black/60 dark:text-white/60">
+              <p className="text-sm leading-6 text-foreground">
                 We’re grateful to the people who have supported the project so far.
               </p>
               <div className="mt-6 grid gap-10 lg:grid-cols-2">

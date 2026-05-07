@@ -125,18 +125,17 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               onClick={onHomeClick}
               className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75 sm:gap-2.5"
             >
-              {isSharePage ? (
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
-              ) : themeAware ? (
-                <>
-                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} />
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} />
-                </>
-              ) : (
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
-              )}
-              <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
-                Tiles
+              <span className="relative inline-flex shrink-0">
+                {isSharePage ? (
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
+                ) : themeAware ? (
+                  <>
+                    <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} />
+                    <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} />
+                  </>
+                ) : (
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
+                )}
               </span>
             </Link>
 
@@ -177,16 +176,15 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             onClick={onCloseMobileMenu}
             className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75"
           >
-            {themeAware ? (
-              <>
-                <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden`} />
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block`} />
-              </>
-            ) : (
-              <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
-            )}
-            <span className={`inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${mobileProminentWordmarkClass} ${textColor}`}>
-              Tiles
+            <span className="relative inline-flex shrink-0">
+              {themeAware ? (
+                <>
+                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden`} />
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block`} />
+                </>
+              ) : (
+                <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
+              )}
             </span>
           </Link>
           <button
