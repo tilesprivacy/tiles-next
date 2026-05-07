@@ -98,8 +98,9 @@ const featureCards = [
       "> /share",
       "Writing to ATProto PDS",
       "Creating shareable link",
-      "Link copied to clipboard",
     ],
+    shareLink:
+      "https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbWtxYTZzajdhZTJt",
   },
 ] as const
 
@@ -291,6 +292,21 @@ export function HomeContent() {
                       {line}
                     </p>
                   ))}
+                  {card.shareLink ? (
+                    <p className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
+                      <a
+                        href={card.shareLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
+                        aria-label="Open shared session link"
+                      >
+                        <span className="sm:hidden">tiles.run/share/…ZTJt</span>
+                        <span className="hidden sm:inline">tiles.run/share/YXQ6…ZTJt</span>
+                      </a>{" "}
+                      copied to clipboard
+                    </p>
+                  ) : null}
                 </div>
               </div>
             </article>
