@@ -1327,15 +1327,23 @@ header[data-tiles-site-header] {
   z-index: 50 !important;
 }
 
-header[data-tiles-site-header] [data-mobile-header-actions] {
-  display: flex !important;
-  align-items: center;
+@media (max-width: 1023px) {
+  header[data-tiles-site-header] [data-mobile-header-actions] {
+    display: flex !important;
+    align-items: center;
+  }
+
+  header[data-tiles-site-header] [data-mobile-download-cta],
+  header[data-tiles-site-header] [data-mobile-menu-trigger] {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 
-header[data-tiles-site-header] [data-mobile-download-cta],
-header[data-tiles-site-header] [data-mobile-menu-trigger] {
-  visibility: visible;
-  opacity: 1;
+@media (min-width: 1024px) {
+  header[data-tiles-site-header] [data-mobile-header-actions] {
+    display: none !important;
+  }
 }
 
 /* Keep in-page hash targets clear of the fixed site nav on book pages. */
