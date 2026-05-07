@@ -145,9 +145,11 @@ export function HomeContent() {
         <div className="mx-auto flex w-full max-w-6xl flex-1 items-start lg:items-center">
           <div className="grid w-full items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
-              <div className="space-y-3.5 lg:space-y-4">
-                <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.92rem] font-semibold leading-[1.03] tracking-[-0.035em] text-foreground sm:text-[2.5rem] lg:mx-0 lg:max-w-[15ch] lg:text-[3.25rem]">
-                  Local-first private AI assistant for everyday use
+              <div className="mx-auto w-[88%] max-w-[26rem] space-y-3.5 lg:mx-0 lg:w-full lg:space-y-4">
+                <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.3rem,7.2vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mx-0 lg:max-w-[15ch]">
+                  <span className="block lg:hidden">Local-first private</span>
+                  <span className="block lg:hidden">AI assistant</span>
+                  <span className="hidden lg:block">Local-first private AI assistant</span>
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
                   Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports
@@ -242,7 +244,7 @@ export function HomeContent() {
             >
               <div className="space-y-5">
                 <div className="space-y-3.5">
-                  <h2 className="text-balance text-[2.1rem] font-semibold leading-[1.03] tracking-[-0.03em] text-foreground sm:text-[2.35rem] lg:text-[2.75rem]">
+                  <h2 className="text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
                     {card.heading}
                   </h2>
                   <p className="max-w-[32rem] text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
@@ -296,7 +298,7 @@ export function HomeContent() {
       <section className="relative z-10 px-4 pb-16 pt-3 min-[390px]:px-5 sm:px-6 sm:pb-20 lg:px-12 lg:pb-24">
         <div className="mx-auto grid w-full max-w-6xl items-start gap-12 py-4 sm:py-6 lg:grid-cols-[minmax(0,1fr)_10rem] lg:gap-3 lg:py-5">
           <div className="space-y-5 lg:max-w-[52rem] lg:pl-1">
-            <h2 className="max-w-[24ch] text-balance text-[2.1rem] font-semibold leading-[1.03] tracking-[-0.03em] text-foreground sm:text-[2.35rem] lg:text-[2.75rem]">
+            <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
               Private by design
             </h2>
             <ul className="max-w-[42rem] space-y-4">
