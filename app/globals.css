@@ -1319,6 +1319,25 @@ sniper-link[hidden] {
   --book-sidebar-list-offset: 1.25rem;
 }
 
+/* Keep the global site header fixed even when book theme CSS is active. */
+header[data-tiles-site-header] {
+  position: fixed !important;
+  inset-inline: 0 !important;
+  top: 0 !important;
+  z-index: 50 !important;
+}
+
+header[data-tiles-site-header] [data-mobile-header-actions] {
+  display: flex !important;
+  align-items: center;
+}
+
+header[data-tiles-site-header] [data-mobile-download-cta],
+header[data-tiles-site-header] [data-mobile-menu-trigger] {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* Keep in-page hash targets clear of the fixed site nav on book pages. */
 [data-book-section] article :where(h1, h2, h3, h4, h5, h6)[id],
 [data-book-section] article :where([id]):target {

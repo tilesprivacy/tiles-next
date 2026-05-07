@@ -5,6 +5,8 @@ import Image from "next/image"
 import { memo, useCallback, useEffect, useState } from "react"
 import { triggerHaptic } from "@/lib/haptics"
 import { usePathname } from "next/navigation"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { Download } from "lucide-react"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -23,6 +25,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onOpenMobileMenu,
   onCloseMobileMenu,
   pathname,
+  showMobileDownloadCta,
 }: {
   themeAware: boolean
   isSharePage: boolean
@@ -33,6 +36,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   onOpenMobileMenu: () => void
   onCloseMobileMenu: () => void
   pathname: string
+  showMobileDownloadCta: boolean
 }) {
   const headerChrome = isSharePage
     ? "bg-[#1f1f1f] border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
@@ -112,7 +116,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       )}
 
       <header
-        className={`site-header-chrome fixed inset-x-0 top-0 z-50 w-full max-w-none border-0 border-transparent shadow-none ring-0 outline-none ${
+        data-tiles-site-header
+        className={`site-header-chrome !fixed !inset-x-0 !top-0 !z-50 w-full max-w-none border-0 border-transparent shadow-none ring-0 outline-none ${
           isBannerVisible
             ? "mt-[calc(2rem+env(safe-area-inset-top,0px))] lg:mt-[calc(2.25rem+env(safe-area-inset-top,0px))]"
             : ""
@@ -139,19 +144,33 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               </span>
             </Link>
 
-            <button
-              onClick={onOpenMobileMenu}
-              className={`ml-auto ${mobileIconButtonClass} lg:hidden`}
-              aria-label="Open navigation menu"
-              aria-expanded={isMobileMenuOpen}
-              type="button"
-            >
-              <span className="flex flex-col items-center justify-center gap-1.5" aria-hidden>
-                <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
-                <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
-                <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
-              </span>
-            </button>
+            <div data-mobile-header-actions className="ml-auto flex items-center gap-1.5 sm:gap-2 lg:hidden">
+              {showMobileDownloadCta ? (
+                <Link
+                  href="/download"
+                  onClick={triggerHaptic}
+                  data-mobile-download-cta
+                  className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
+                >
+                  Download
+                  <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                </Link>
+              ) : null}
+              <button
+                onClick={onOpenMobileMenu}
+                data-mobile-menu-trigger
+                className={mobileIconButtonClass}
+                aria-label="Open navigation menu"
+                aria-expanded={isMobileMenuOpen}
+                type="button"
+              >
+                <span className="flex flex-col items-center justify-center gap-1.5" aria-hidden>
+                  <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
+                  <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
+                  <span className={`block h-[2px] w-6 rounded-full ${mobileMenuGlyphColorClass}`} />
+                </span>
+              </button>
+            </div>
 
             <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:gap-7">
               <Link href="/download" onClick={triggerHaptic} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
@@ -217,6 +236,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSharePage = pathname?.startsWith("/share") ?? false
+  const showMobileDownloadCta = pathname !== "/"
 
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
@@ -327,6 +347,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
         onOpenMobileMenu={handleOpenMobileMenu}
         onCloseMobileMenu={handleCloseMobileMenu}
         pathname={pathname ?? ""}
+        showMobileDownloadCta={showMobileDownloadCta}
       />
     </>
   )

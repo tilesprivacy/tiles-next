@@ -100,7 +100,7 @@ const featureCards = [
       "Creating shareable link",
     ],
     shareLink:
-      "https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbWtxYTZzajdhZTJt",
+      "/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3",
   },
 ] as const
 
@@ -301,8 +301,8 @@ export function HomeContent() {
                         className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
                         aria-label="Open shared session link"
                       >
-                        <span className="sm:hidden">tiles.run/share/…ZTJt</span>
-                        <span className="hidden sm:inline">tiles.run/share/YXQ6…ZTJt</span>
+                        <span className="sm:hidden">tiles.run/share/…xeTI3</span>
+                        <span className="hidden sm:inline">tiles.run/share/YXQ6…xeTI3</span>
                       </a>{" "}
                       copied to clipboard
                     </p>

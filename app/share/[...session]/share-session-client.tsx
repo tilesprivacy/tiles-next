@@ -426,23 +426,23 @@ function ShareFloatingDownloadBar({
               height={40}
               className={`h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7 ${isDark ? "" : "invert"}`}
             />
-            <span className="inline-flex min-w-0 flex-1 items-center gap-1.5 sm:gap-2">
+            <span className="inline-flex min-w-0 flex-1 items-baseline gap-1.5 sm:gap-2">
               <span
-                className={`shrink-0 text-sm font-semibold tracking-[-0.01em] sm:text-base ${
+                className={`shrink-0 text-sm font-semibold leading-none tracking-[-0.01em] sm:text-base ${
                   isDark ? "text-[#e7e7ed]" : "text-[#1d1d1f]"
                 }`}
               >
                 Tiles
               </span>
               <span
-                className={`hidden min-w-0 truncate text-xs min-[430px]:inline sm:hidden ${
+                className={`ml-0.5 hidden min-w-0 truncate text-xs leading-none min-[430px]:inline sm:hidden ${
                   isDark ? "text-white/55" : "text-black/55"
                 }`}
               >
                 Local-first private AI
               </span>
               <span
-                className={`hidden text-xs sm:inline ${
+                className={`ml-0.5 hidden text-xs leading-none sm:inline ${
                   isDark ? "text-white/55" : "text-black/55"
                 }`}
               >
@@ -518,7 +518,7 @@ function ShareFloatingDownloadBar({
                   : "border-black/10 bg-black/[0.03] text-[#1d1d1f]/85 hover:bg-black/[0.06] hover:text-[#1d1d1f]"
               }`}
             >
-              Run locally
+              Download
             </Link>
           </div>
         </div>
