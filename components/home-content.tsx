@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Check, Copy, Download, Key } from "lucide-react"
+import { AtSign, Check, Copy, Download } from "lucide-react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { triggerHaptic } from "@/lib/haptics"
@@ -77,7 +77,7 @@ const featureCards = [
   },
   {
     command: "/share",
-    heading: "Share chats publicly on ATProto",
+    heading: "Share chats publicly",
     description: (
       <>
         Create a public link to a chat session, published through{" "}
@@ -318,30 +318,26 @@ export function HomeContent() {
         <div className="mx-auto grid w-full max-w-6xl items-start gap-12 py-4 sm:py-6 lg:grid-cols-[minmax(0,1fr)_10rem] lg:gap-3 lg:py-5">
           <div className="space-y-5 lg:max-w-[52rem] lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
-              Private by design
+              Built on Atmosphere
             </h2>
             <ul className="max-w-[42rem] space-y-4">
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>Runs entirely offline</span>
+                <span>Your data lives on your PDS</span>
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>You own your data and identity</span>
+                <span>Apps connect to you, not the other way around</span>
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>Sync across devices securely</span>
-              </li>
-              <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
-                <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>Comes with fully offline installer for air gapped usage</span>
+                <span>No starting over when apps change or disappear</span>
               </li>
             </ul>
           </div>
 
           <div className="mt-4 flex items-center justify-center lg:-ml-[15rem] lg:mt-2 lg:justify-start" aria-hidden>
-            <Key
+            <AtSign
               className="h-48 w-48 text-black dark:text-white sm:h-52 sm:w-52 lg:h-44 lg:w-44"
               strokeWidth={1.05}
               style={{ opacity: 0.12 }}
