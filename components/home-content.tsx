@@ -364,7 +364,6 @@ export function HomeContent() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
-                          aria-label="Open shared session link"
                         >
                           <span className="sm:hidden">tiles.run/share/…xeTI3</span>
                           <span className="hidden sm:inline">tiles.run/share/YXQ6…xeTI3</span>
