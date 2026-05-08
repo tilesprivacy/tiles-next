@@ -33,8 +33,8 @@ export const metadata: Metadata = {
 export default function FormPage() {
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
-      <main className="flex min-h-[calc(100dvh-4.5rem)] bg-background px-5 pb-10 pt-[calc(5rem+env(safe-area-inset-top,0px))] text-foreground sm:min-h-[calc(100dvh-5rem)] sm:px-8 sm:pb-14 sm:pt-9 lg:min-h-[calc(100dvh-5.5rem)] lg:px-12 lg:pb-16 lg:pt-4">
-        <div className="mx-auto flex w-full max-w-4xl flex-col justify-center gap-7 sm:gap-9 lg:gap-10">
+      <main className="flex flex-1 flex-col bg-background px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] text-foreground sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-7 sm:gap-9 lg:gap-10">
           <header className="text-center">
             <h1 className="mx-auto max-w-[18ch] text-balance font-sans text-[1.95rem] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground sm:text-[2.4rem] lg:text-[3.2rem]">
               Sign up for Tiles on Linux
