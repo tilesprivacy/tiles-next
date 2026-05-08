@@ -28,7 +28,12 @@ const featureCards = [
         >
           Pi
         </a>{" "}
-        agent harness for knowledge work and coding, powered on-device by{" "}
+        agent harness for knowledge work and coding, built around{" "}
+        <span className="inline-flex items-center gap-1.5 rounded bg-black/[0.045] px-1.5 py-0.5 align-baseline dark:bg-white/[0.08]">
+          <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+          <span className="font-mono text-[0.95em]">gpt-oss-20b</span>
+        </span>{" "}
+        powered on-device by{" "}
         <a
           href="https://ml-explore.github.io/mlx/build/html/index.html"
           target="_blank"
