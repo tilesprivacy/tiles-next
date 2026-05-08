@@ -92,7 +92,7 @@ export function BookMarketingSections() {
             >
               Pi
             </a>{" "}
-            agent harness for knowledge work and coding, with extensions for fully customizable workflows across tasks
+            agent harness for knowledge work, with extensions for fully customizable workflows across tasks
             and use cases.
           </FeatureCard>
 
