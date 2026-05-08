@@ -46,8 +46,6 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#b8b8c2]' : 'text-[#1d1d1f]/70'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
-  const alphaPillClass =
-    "inline-flex items-center rounded-full border border-black/15 bg-black/[0.03] px-1.5 py-0.5 text-[0.62rem] tracking-[0.12em] text-black/60 dark:border-white/15 dark:bg-white/[0.04] dark:text-[#B9B9B9] sm:text-[0.66rem]"
   return (
     <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
       <div className="mx-auto w-full max-w-6xl">
@@ -103,9 +101,8 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
                   />
                 </Link>
               </Button>
-              <p className="inline-flex w-fit items-center gap-1.5 whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
-                <span className={alphaPillClass}>ALPHA</span>
-                <span>for macOS 14+ with Apple Silicon (M1 or better).</span>
+              <p className="inline-flex w-fit items-center whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
+                Alpha • macOS 14+ • Apple Silicon (M1+)
               </p>
               <Link
                 href="/linux"
