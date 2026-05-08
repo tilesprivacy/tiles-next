@@ -339,15 +339,13 @@ export function HomeContent() {
                 </div>
                 <Link
                   href={card.ctaHref}
-                  className="hidden items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45 xl:inline-flex"
+                  className="inline-flex items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45"
                 >
                   {card.ctaLabel} →
                 </Link>
-
               </div>
 
-              <div className="space-y-4">
-                <div className="overflow-hidden rounded-2xl border border-black/8 bg-background dark:border-white/10">
+              <div className="overflow-hidden rounded-2xl border border-black/8 bg-background dark:border-white/10">
                   <div className="flex h-10 items-center gap-2 px-3.5">
                     <span className="h-2.5 w-2.5 rounded-full bg-[#FF5F57]/85" aria-hidden />
                     <span className="h-2.5 w-2.5 rounded-full bg-[#FEBC2E]/85" aria-hidden />
@@ -376,13 +374,6 @@ export function HomeContent() {
                     ) : null}
                   </div>
                 </div>
-                <Link
-                  href={card.ctaHref}
-                  className="inline-flex items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45 xl:hidden"
-                >
-                  {card.ctaLabel} →
-                </Link>
-              </div>
             </article>
           ))}
         </div>
