@@ -60,6 +60,15 @@ tiles run
 tiles run ./path/to/Modelfile
 ```
 
+Create a new Modelfile by adding a plain text file named `Modelfile`:
+
+```text
+FROM mlx-community/Qwen3.5-4B-MLX-4bit
+SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
+```
+
+Use any `mlx-community/` model hosted on Hugging Face in the `FROM` field. Other model hosts and namespaces are not supported there right now.
+
 ### App updates (`tiles update`)
 
 ```bash
