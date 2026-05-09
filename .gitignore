@@ -55,3 +55,6 @@ coverage
 
 # Generated temp files
 serve/tmp/
+.cursor/hooks/state/continual-learning.json
+/.cursor
+/.cursor
