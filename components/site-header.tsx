@@ -148,7 +148,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               {showMobileDownloadCta ? (
                 <Link
                   href="/download"
-                  onClick={triggerHaptic}
+                  onClick={() => {
+                    triggerHaptic()
+                  }}
                   data-mobile-download-cta
                   className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
                 >
@@ -173,7 +175,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             </div>
 
             <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:gap-7">
-              <Link href="/download" onClick={triggerHaptic} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
+              <Link href="/download" onClick={() => {
+                triggerHaptic()
+              }} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/roadmap" className={`${baseLinkClass} ${isRouteActive("/roadmap") ? activeLinkClass : ""}`}>Roadmap</Link>
@@ -206,17 +210,33 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               )}
             </span>
           </Link>
-          <button
-            onClick={onCloseMobileMenu}
-            className={mobileIconButtonClass}
-            aria-label="Close navigation menu"
-            type="button"
-          >
-            <span className="relative block h-6 w-6" aria-hidden>
-              <span className={`absolute left-1/2 top-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full ${mobileMenuGlyphColorClass}`} />
-              <span className={`absolute left-1/2 top-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full ${mobileMenuGlyphColorClass}`} />
-            </span>
-          </button>
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            {showMobileDownloadCta ? (
+              <Link
+                href="/download"
+                onClick={() => {
+                  triggerHaptic()
+                  onCloseMobileMenu()
+                }}
+                data-mobile-menu-download-cta
+                className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
+              >
+                Download
+                <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              </Link>
+            ) : null}
+            <button
+              onClick={onCloseMobileMenu}
+              className={mobileIconButtonClass}
+              aria-label="Close navigation menu"
+              type="button"
+            >
+              <span className="relative block h-6 w-6" aria-hidden>
+                <span className={`absolute left-1/2 top-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-full ${mobileMenuGlyphColorClass}`} />
+                <span className={`absolute left-1/2 top-1/2 block h-[2px] w-6 -translate-x-1/2 -translate-y-1/2 -rotate-45 rounded-full ${mobileMenuGlyphColorClass}`} />
+              </span>
+            </button>
+          </div>
         </div>
         <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
           <Link href="/download" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Download</Link>
