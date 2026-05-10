@@ -34,8 +34,6 @@ const plans: PricingPlan[] = [
     learnMoreHref: "/book/licenses#backer",
     features: [
       "Managed public relays for sync",
-      "Support development and relay infrastructure",
-      "Help shape our roadmap priorities",
       "Valid for up to 5 devices",
       "Community support channel",
     ],
@@ -51,8 +49,8 @@ const plans: PricingPlan[] = [
     features: [
       "Self-hosted relays for sync",
       "Featured organization status",
-      "Priority support channel",
       "Valid for up to 5 devices",
+      "Priority support channel",
     ],
     note: "For bulk purchases and other inquiries, contact us at support@tiles.run",
   },
@@ -110,11 +108,11 @@ const faqs: PricingFaq[] = [
 
 export function PricingContent() {
   const cardClass =
-    "flex min-h-[500px] flex-col rounded-sm border border-border bg-card p-6 text-card-foreground shadow-none sm:p-7"
+    "flex min-h-[500px] flex-col rounded-sm border border-border bg-card p-6 text-foreground shadow-none sm:p-7 dark:border-white/10 dark:bg-accent"
   const primaryCardButtonClass =
     `h-10 w-full rounded-sm px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
   const secondaryCardButtonClass =
-    "h-10 w-full rounded-sm border-border bg-secondary px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
+    "h-10 w-full rounded-sm px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
@@ -122,7 +120,7 @@ export function PricingContent() {
         <section className="px-4 sm:px-6 lg:px-12">
           <div className="mx-auto w-full max-w-4xl space-y-14 lg:space-y-16">
             <div className="space-y-3 pt-4 text-center sm:space-y-4 sm:pt-8 lg:pt-10">
-              <h1 className="inline-block font-sans text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-foreground underline decoration-emerald-500 decoration-[4px] underline-offset-[8px] sm:text-4xl">
+              <h1 className="inline-block font-sans text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-foreground underline decoration-primary decoration-[4px] underline-offset-[8px] sm:text-4xl">
                 Free without limits.
               </h1>
               <p className="mx-auto max-w-xl text-xl font-semibold leading-snug text-foreground/90 sm:text-2xl">
@@ -147,12 +145,12 @@ export function PricingContent() {
                   key={plan.name}
                   className={cardClass}
                 >
-                  <h3 className="text-[1.75rem] font-semibold tracking-tight text-card-foreground">{plan.name}</h3>
+                  <h3 className="text-[1.75rem] font-semibold tracking-tight text-foreground">{plan.name}</h3>
                   <p className="mt-2 text-sm font-normal tracking-[0.03em] text-muted-foreground">
                     {plan.description}
                   </p>
                   <div className="mt-6 flex items-end gap-2">
-                    <p className="text-5xl font-bold tabular-nums leading-none text-card-foreground sm:text-[3.25rem]">{plan.price}</p>
+                    <p className="text-5xl font-bold tabular-nums leading-none text-foreground sm:text-[3.25rem]">{plan.price}</p>
                     <p className="pb-1 text-sm font-medium tracking-[0.08em] text-muted-foreground">USD</p>
                   </div>
                   <p className="mt-3 text-base font-normal leading-relaxed text-muted-foreground">{plan.cadence}</p>
@@ -180,10 +178,10 @@ export function PricingContent() {
                     </Button>
                   </div>
                   <div className="mt-8 flex flex-1 flex-col">
-                    <ul className="space-y-3 text-base leading-relaxed text-card-foreground">
+                    <ul className="space-y-3 text-base leading-relaxed text-foreground">
                       {plan.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-2.5">
-                          <Check className="mt-1 h-5 w-5 shrink-0 text-emerald-400" aria-hidden />
+                          <Check className="mt-1 h-5 w-5 shrink-0 text-primary" aria-hidden />
                           <span>{feature}</span>
                         </li>
                       ))}

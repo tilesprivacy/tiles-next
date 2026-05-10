@@ -62,6 +62,12 @@ const bookPages: BookPage[] = [
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',
   },
+  {
+    number: '10',
+    title: 'Licenses',
+    description: 'Backer and Commercial licenses, payment terms, and purchasing options.',
+    href: '/book/licenses',
+  },
 ]
 
 export function BookMobileNav() {
