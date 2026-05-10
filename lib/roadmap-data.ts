@@ -27,7 +27,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "Open Responses", status: "shipped" },
       { label: "Harmony renderer", status: "shipped" },
-      { label: "Pi integration", status: "shipped" },
+      { label: "Pi Agent Harness", status: "shipped" },
       { label: "Connectors", status: "active" },
       { label: "Memory", status: "planned" },
       { label: "Agent Templates", status: "planned" },
