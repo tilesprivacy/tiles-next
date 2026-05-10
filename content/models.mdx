@@ -5,12 +5,8 @@ description: "Our approach to model selection and optimization"
 
 # Models
 
-Our approach to model selection is to use the most suitable model for each task, within the constraints of the supported hardware. Currently, Tiles is designed to handle everyday tasks, with plans to expand into more domain-specific use cases over time. We provide a carefully tested combination of system prompts, tools, and models, so users do not need to manage model selection or scaffolding themselves.
+The local inference landscape moves quickly, and excellent new projects appear constantly. Our approach is narrower on purpose. Instead of chasing every release, we focus on one deeply integrated model at a time within the constraints of the supported hardware. Currently, Tiles is designed to handle everyday tasks, with plans to expand into more domain-specific use cases over time. We provide a carefully tested combination of model, inference parameters, and agent harness, so users do not need to manage model selection or scaffolding themselves.
 
 We use <span className="inline-flex items-center gap-1 align-baseline"><img src="/openai-logo.svg" alt="OpenAI logo" className="h-3.5 w-3.5" />[`gpt-oss-20b`](https://openai.com/index/introducing-gpt-oss/)</span> as the primary model for everyday tasks, with the [Harmony renderer](https://developers.openai.com/cookbook/articles/openai-harmony/) and support for the [Open Responses API](https://www.openresponses.org/) to ensure optimal inference efficiency. Its Mixture of Experts architecture activates roughly 4B parameters at inference time out of 21B total parameters, providing a strong balance between quality and efficiency.
 
-Memory capacity and memory bandwidth, not peak FLOPs, are the primary constraints for local inference. Personal computing assistants typically operate at batch_size = 1, where throughput is limited by memory movement rather than raw compute.
-
-We started with Apple Silicon hardware because it offers strong memory unit economics relative to competing platforms, due to its unified memory architecture and high memory bandwidth per dollar.
-
-This setup requires 16 GB of unified memory to run optimally. Adoption should not be a constraint, as all Macs shipped from late 2024 onward include 16 GB of base memory.
+That narrow focus gives us room to validate more deeply. We aim to compare against official outputs, run long-context tests, and integrate the model directly into the agent harness to see whether it actually holds up in real use. The exact model can change as the landscape evolves, but the constraint stays fixed: local inference should be credible on everyday personal machines and Mac Studios, starting at 16 GB of unified memory for everyday productivity tasks rather than coding-focused benchmarks.
