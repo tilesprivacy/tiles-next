@@ -9,6 +9,26 @@ import { ClickableImage as Image } from '@/components/clickable-image'
 
 Our long term goal is to solve memory in pursuit of software personalization through decentralized memory networks. We plan to use parametric approaches similar to those described in the [Memory Layers at Scale](https://arxiv.org/abs/2412.09764) paper by the FAIR research team at Meta. We test these experiments by deploying them in Tiles, where users can try them and provide real-world feedback. This feedback informs our ongoing research and is incrementally incorporated into future builds.
 
+## Inference Time Memory Module
+
+<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', marginTop: '1rem', marginBottom: '1.5rem' }}>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
+    <span style={{ 
+      padding: '0.25rem 0.75rem', 
+      borderRadius: '6px', 
+      fontSize: '0.75rem', 
+      fontWeight: '600', 
+      textTransform: 'uppercase',
+      letterSpacing: '0.5px'
+    }} className="bg-[#DDEBFF] text-[#1F5FA8] dark:bg-[#243B5A] dark:text-[#BFD8FF]">Napkin Sketch</span>
+  </div>
+  <span className="text-sm font-medium text-muted-foreground">May 2026 - Present</span>
+</div>
+
+An extremely simple inference-time memory module that treats memory management as a series of LLM calls and agent loops over a markdown-based file tree. We plan to build it around the Pi agent harness and package the [nanomem](https://github.com/openanonymity/nanomem) project as an integrated [Pi extension](https://pi.dev/docs/latest/extensions). The memory state is stored locally and encrypted on-device, and all user queries can be augmented with the minimal relevant context before being sent to the model.
+
+This setup also supports selective disclosure of memory content, giving users control over what information is shared with the model. Regardless of context size, LLMs generally perform better when provided only the most relevant context rather than excessive information that diffuses attention across unrelated details. One of the recurring frustrations users have expressed with ChatGPT’s memory feature is that it can feel like an uncontrolled dossier injected into every conversation. Our approach instead focuses on tightly scoped, inference-time retrieval, where only the minimal context required for the task is surfaced to the model.
+
 ## Memory Model Trained with Online RL
 
 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', marginTop: '1rem', marginBottom: '1.5rem' }}>
