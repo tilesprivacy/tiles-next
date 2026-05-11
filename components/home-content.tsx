@@ -392,7 +392,7 @@ export function HomeContent() {
             <ul className="max-w-[42rem] space-y-4">
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>Your data lives on your PDS</span>
+                <span>You control who hosts your Personal Data Server (PDS).</span>
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
