@@ -179,10 +179,12 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                       />
                       <span>User &amp; Agents</span>
                     </a>{" "}
-                    network. The shared goal is to empower people by designing and building software that provides
-                    agency, control, and choice in our digital lives. We strive to deliver the best privacy-focused
-                    engineering while also offering unmatched convenience in our consumer products. We believe identity
-                    and memory belong together, and Tiles gives you a way to own both through your personal user agent.
+                    network. The shared goal is to empower people by designing and building software that provides agency,
+                    control, and choice in our digital lives. We believe that privacy adoption at scale{" "}
+                    <em>must work backwards</em> from preserving utility. This means negligible impact on user experience,
+                    model intelligence, throughput, latency, tool use & agentic capabilities, and web access. With Tiles,
+                    we aim to deliver “just works” experiences through best-in-class privacy-focused engineering while
+                    offering unmatched convenience in our consumer products.
                   </p>
                 </div>
                 <p>

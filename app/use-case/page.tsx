@@ -211,9 +211,6 @@ export default function UseCasesPage() {
             <p className={`mt-5 max-w-xl ${marketingPageLeadClass}`}>
               Explore how people use Tiles for private work, research, and everyday AI workflows.
             </p>
-            <p className="mt-8 text-sm leading-6 text-black/55 dark:text-white/55">
-              Tap a chat to view shared conversation.
-            </p>
           </div>
         </section>
 

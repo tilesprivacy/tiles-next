@@ -1,8 +1,6 @@
 "use client"
 
-import { cn } from "@/lib/utils"
 import type { Components } from "react-markdown"
-import { Children, isValidElement, useMemo, type ReactNode } from "react"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 
@@ -23,73 +21,13 @@ function roadmapUrlTransform(url: string): string | undefined {
   return isSafeMarkdownUrl(url) ? url : undefined
 }
 
-/** GFM-style slug: stable, lowercase, hyphenated (matches common “copy link” expectations). */
-function slugifyHeadingText(text: string): string {
-  const base = text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\p{L}\p{N}\s-]/gu, "")
-    .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "")
-  return base || "section"
-}
-
-function extractPlainText(children: ReactNode): string {
-  let out = ""
-  Children.forEach(children, (child) => {
-    if (child == null || typeof child === "boolean") {
-      return
-    }
-    if (typeof child === "string" || typeof child === "number") {
-      out += String(child)
-      return
-    }
-    if (isValidElement(child)) {
-      const props = child.props as { children?: ReactNode }
-      if (props.children != null) {
-        out += extractPlainText(props.children)
-      }
-    }
-  })
-  return out.trim()
-}
-
-function createHeadingComponents(
-  permalinkPrefix: string | undefined,
-): Pick<Components, "h1" | "h2" | "h3" | "h4" | "h5" | "h6"> {
-  const linkClass =
-    "text-inherit no-underline decoration-foreground/30 underline-offset-[0.2em] hover:underline"
-
-  const make = (
-    Tag: "h1" | "h2" | "h3" | "h4" | "h5" | "h6",
-    className: string,
-  ): NonNullable<Components["h2"]> => {
-    return ({ children, node: _node, ...props }) => {
-      const id = slugifyHeadingText(extractPlainText(children))
-      const hash = `#${id}`
-      const href = permalinkPrefix ? `${permalinkPrefix}${hash}` : hash
-      return (
-        <Tag id={id} className={cn(className, "scroll-mt-12")} {...props}>
-          <a href={href} className={linkClass}>
-            {children}
-          </a>
-        </Tag>
-      )
-    }
-  }
-
-  return {
-    h1: make("h1", "mb-2 mt-0 text-base font-semibold leading-snug tracking-[-0.02em] text-foreground first:mt-0"),
-    h2: make(
-      "h2",
-      "mb-2 mt-5 text-[0.95rem] font-semibold leading-snug tracking-[-0.02em] text-foreground first:mt-0",
-    ),
-    h3: make("h3", "mb-1.5 mt-4 text-[0.875rem] font-semibold leading-snug text-foreground first:mt-0"),
-    h4: make("h4", "mb-1.5 mt-3 text-[0.85rem] font-semibold leading-snug text-foreground first:mt-0"),
-    h5: make("h5", "mb-1 mt-3 text-[0.82rem] font-semibold leading-snug text-foreground first:mt-0"),
-    h6: make("h6", "mb-1 mt-3 text-[0.8rem] font-semibold leading-snug text-foreground/95 first:mt-0"),
-  }
+const hiddenHeadingComponents: Pick<Components, "h1" | "h2" | "h3" | "h4" | "h5" | "h6"> = {
+  h1: () => null,
+  h2: () => null,
+  h3: () => null,
+  h4: () => null,
+  h5: () => null,
+  h6: () => null,
 }
 
 const staticMarkdownComponents: Omit<Components, "h1" | "h2" | "h3" | "h4" | "h5" | "h6"> = {
@@ -211,7 +149,6 @@ const staticMarkdownComponents: Omit<Components, "h1" | "h2" | "h3" | "h4" | "h5
 
 export function RoadmapNotesMarkdown({
   content,
-  permalinkPrefix,
 }: {
   content: string
   /** Full path+query before the hash, e.g. `/roadmap?item=security%2Fagent-sandbox` */
@@ -219,16 +156,13 @@ export function RoadmapNotesMarkdown({
 }) {
   const normalized = content.replace(/\r\n?/g, "\n").trim()
 
-  const components = useMemo<Components>(() => {
-    return {
-      ...staticMarkdownComponents,
-      ...createHeadingComponents(permalinkPrefix),
-    }
-  }, [permalinkPrefix])
-
   return (
     <div className="roadmap-notes-markdown max-w-none break-words text-foreground">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} urlTransform={roadmapUrlTransform} components={components}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        urlTransform={roadmapUrlTransform}
+        components={{ ...staticMarkdownComponents, ...hiddenHeadingComponents }}
+      >
         {normalized}
       </ReactMarkdown>
     </div>

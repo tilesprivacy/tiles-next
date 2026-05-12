@@ -38,6 +38,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   pathname: string
   showMobileDownloadCta: boolean
 }) {
+  const isHomePage = pathname === "/"
   const headerChrome = isSharePage
     ? "bg-[#1f1f1f] border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
     : themeAware
@@ -132,7 +133,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75 sm:gap-2.5"
             >
               <span className="relative inline-flex shrink-0">
-                {isSharePage ? (
+                {isHomePage ? (
+                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
+                ) : isSharePage ? (
                   <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
                 ) : themeAware ? (
                   <>

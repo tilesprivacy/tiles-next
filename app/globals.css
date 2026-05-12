@@ -300,6 +300,11 @@
   background-color: var(--sidebar) !important;
 }
 
+[data-book-section] .nextra-sidebar-footer:has(button),
+[data-book-section] .nextra-sidebar-footer:has([aria-label*="theme" i]) {
+  display: none !important;
+}
+
 /*
  * Nextra theme-docs sidebar links use x:text-gray-* / primary-* utilities.
  * Override to site sidebar tokens so the left nav matches book chrome.
