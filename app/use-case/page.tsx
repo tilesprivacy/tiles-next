@@ -91,11 +91,11 @@ const conversationCards: ConversationCard[] = [
 
 function ConversationCardView({ card }: { card: ConversationCard }) {
   const cardClass =
-    "group mb-3 flex break-inside-avoid flex-col rounded-lg bg-black/[0.045] p-[1.125rem] text-left transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-black/[0.075] hover:shadow-sm dark:bg-white/[0.09] dark:hover:bg-white/[0.13] sm:p-5"
+    "group mb-3 flex break-inside-avoid flex-col rounded-lg bg-[#3f3f3f] p-[1.125rem] text-left text-white transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#414141] hover:shadow-sm focus-visible:bg-[#414141] dark:bg-[#3f3f3f] dark:hover:bg-[#414141] dark:focus-visible:bg-[#414141] sm:p-5"
   const content = (
     <>
-      <h2 className="text-[0.98rem] font-semibold leading-snug tracking-[-0.02em] text-foreground">{card.title}</h2>
-      <p className="mt-4 text-[0.82rem] leading-6 text-black/68 dark:text-white/68">{card.prompt}</p>
+      <h2 className="text-[0.98rem] font-semibold leading-snug tracking-[-0.02em] text-white">{card.title}</h2>
+      <p className="mt-4 text-[0.82rem] leading-6 text-white/72">{card.prompt}</p>
       {card.href ? (
         <span
           className="mt-5 flex h-8 w-8 shrink-0 items-center justify-center self-end rounded-md bg-foreground text-background opacity-100 shadow-sm transition-transform duration-200 group-hover:-translate-y-0.5 group-focus-visible:-translate-y-0.5"
@@ -141,8 +141,8 @@ export default function UseCasesPage() {
           </div>
         </section>
 
-        <section className="mx-auto w-full max-w-6xl pb-12">
-          <div className="columns-1 gap-3 sm:columns-2 lg:columns-3">
+        <section className="mx-auto w-full max-w-none pb-12">
+          <div className="columns-1 gap-3 sm:columns-2 lg:columns-3 [&:has(:focus-visible)>:not(:focus-visible)]:bg-[#383838] [&:has(:hover)>:not(:hover)]:bg-[#383838]">
             {conversationCards.map((card) => (
               <ConversationCardView key={card.title} card={card} />
             ))}
