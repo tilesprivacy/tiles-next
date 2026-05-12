@@ -81,7 +81,7 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Encrypted SQLite database", status: "shipped" },
       { label: "Agent Sandbox", status: "active" },
       { label: "Privacy Filter for shared sessions", status: "planned" },
-      { label: "Inference runtime hardening", status: "planned" },
+      { label: "Runtime hardening", status: "planned" },
       { label: "Post-quantum cryptography", status: "planned" },
     ],
   },
