@@ -65,7 +65,6 @@ export async function GET(request: Request) {
     `- [Homepage](${baseUrl}/): Product positioning and core value proposition.`,
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
-    `- [Pricing](${baseUrl}/pricing): Licensing and pricing details.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,

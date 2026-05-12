@@ -119,7 +119,6 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
             <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Subprocessors</Link>
             <Link href="/terms" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Terms</Link>
             <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Privacy</Link>
-            <Link href="/pricing" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Pricing</Link>
             <Link href="/brand" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Brand</Link>
             <a
               href="https://status.tiles.run"
@@ -177,7 +176,6 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
                 <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Subprocessors</Link>
                 <Link href="/terms" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Terms</Link>
                 <Link href="/privacy" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Privacy</Link>
-                <Link href="/pricing" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Pricing</Link>
                 <Link href="/brand" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Brand</Link>
                 <a
                   href="https://status.tiles.run"

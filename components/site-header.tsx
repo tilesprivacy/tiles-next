@@ -77,7 +77,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (href === "/sponsor") return pathname === "/sponsor" || pathname.startsWith("/sponsor/")
     if (href === "/download") return pathname === "/download" || pathname.startsWith("/download/")
-    if (href === "/pricing") return pathname === "/pricing" || pathname.startsWith("/pricing/")
     return pathname === href
   }
 
@@ -183,7 +182,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/roadmap" className={`${baseLinkClass} ${isRouteActive("/roadmap") ? activeLinkClass : ""}`}>Roadmap</Link>
               <Link href="/changelog" className={`${baseLinkClass} ${isRouteActive("/changelog") ? activeLinkClass : ""}`}>Changelog</Link>
-              <Link href="/pricing" className={`${baseLinkClass} ${isRouteActive("/pricing") ? activeLinkClass : ""}`}>Pricing</Link>
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
             </nav>
           </div>
@@ -246,7 +244,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
           <Link href="/roadmap" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Roadmap</Link>
           <Link href="/changelog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Changelog</Link>
-          <Link href="/pricing" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Pricing</Link>
           <Link href="/sponsor" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Sponsor</Link>
         </nav>
       </div>

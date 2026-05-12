@@ -149,7 +149,6 @@ export async function GET(request: Request) {
   pushSection(lines, 'Additional URLs', [
     `- Privacy: ${baseUrl}/privacy`,
     `- Terms: ${baseUrl}/terms`,
-    `- Pricing: ${baseUrl}/pricing`,
     `- Roadmap: ${baseUrl}/roadmap`,
     `- Sponsor: ${baseUrl}/sponsor`,
     `- Brand: ${baseUrl}/brand`,

@@ -45,7 +45,7 @@ export function PricingSuccessContent({ variant }: { variant: PricingSuccessVari
                 <Link href={c.licenseAnchor}>{c.licenseLabel}</Link>
               </Button>
               <Button asChild variant="secondary" size="lg" className={secondaryButtonClass}>
-                <Link href="/pricing">Back to pricing</Link>
+                <Link href="/download">Download Tiles</Link>
               </Button>
             </div>
             <p className="pt-4 text-sm text-muted-foreground">
