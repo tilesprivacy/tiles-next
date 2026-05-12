@@ -43,29 +43,9 @@ const conversationCards: ConversationCard[] = [
     href: sharedScienceConversationPath,
   },
   {
-    title: "Brainstorm research questions",
-    prompt:
-      "I am a medical researcher in pediatric radiology. Based on this dataset and top-tier journal standards, what compelling research questions, analyses, or novel angles could become a publishable paper?",
-  },
-  {
     title: "Apply a mathematical model to your research",
     prompt:
       "Tell me about the ordinary differential equation model. How might it be used to predict oocyte consumption in the ovary?",
-  },
-  {
-    title: "Find scientific literature",
-    prompt:
-      "I am an academic pathologist with a research focus in GI pathology. Summarize current work on transcription factors in high-grade neuroendocrine carcinomas and note references in the GI literature.",
-  },
-  {
-    title: "Get personalized coaching",
-    prompt:
-      "Act like a certified health coach and ask me one question at a time about my current exercise, nutrition, supplements, and goals so we can build a plan.",
-  },
-  {
-    title: "Customize your workout plan",
-    prompt:
-      "Create a six-week progression plan for strength and weight-loss workouts. Keep sessions under 40 minutes and include low-impact cardio.",
   },
   {
     title: "Make a budget",
@@ -73,14 +53,29 @@ const conversationCards: ConversationCard[] = [
       "I want to set up a budget. I do not know how to do that, but I want a weekly budget and to be mindful of what I am spending.",
   },
   {
-    title: "Get discount codes",
+    title: "Brainstorm research questions",
     prompt:
-      "Find discount codes for these jeans. Add the item to my cart, scan the web for codes, test each one, and give me the best discount.",
+      "I am a medical researcher in pediatric radiology. Based on this dataset and top-tier journal standards, what compelling research questions, analyses, or novel angles could become a publishable paper?",
+  },
+  {
+    title: "Get personalized coaching",
+    prompt:
+      "Act like a certified health coach and ask me one question at a time about my current exercise, nutrition, supplements, and goals so we can build a plan.",
   },
   {
     title: "Audit your spending habits",
     prompt:
       "Audit my spending habits. Show me where I might be wasting money and how to avoid it.",
+  },
+  {
+    title: "Find scientific literature",
+    prompt:
+      "I am an academic pathologist with a research focus in GI pathology. Summarize current work on transcription factors in high-grade neuroendocrine carcinomas and note references in the GI literature.",
+  },
+  {
+    title: "Customize your workout plan",
+    prompt:
+      "Create a six-week progression plan for strength and weight-loss workouts. Keep sessions under 40 minutes and include low-impact cardio.",
   },
   {
     title: "Take inventory of your subscriptions",
