@@ -76,6 +76,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     if (href === "/changelog") return pathname === "/changelog" || pathname.startsWith("/changelog/")
     if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (href === "/sponsor") return pathname === "/sponsor" || pathname.startsWith("/sponsor/")
+    if (href === "/use-case") return pathname === "/use-case" || pathname.startsWith("/use-case/")
     if (href === "/download") return pathname === "/download" || pathname.startsWith("/download/")
     return pathname === href
   }
@@ -175,15 +176,26 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             </div>
 
             <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:gap-7">
-              <Link href="/download" onClick={() => {
-                triggerHaptic()
-              }} className={`${baseLinkClass} ${isRouteActive("/download") ? activeLinkClass : ""}`}>Download</Link>
+              <Link href="/use-case" className={`${baseLinkClass} ${isRouteActive("/use-case") ? activeLinkClass : ""}`}>Use Cases</Link>
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/roadmap" className={`${baseLinkClass} ${isRouteActive("/roadmap") ? activeLinkClass : ""}`}>Roadmap</Link>
               <Link href="/changelog" className={`${baseLinkClass} ${isRouteActive("/changelog") ? activeLinkClass : ""}`}>Changelog</Link>
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
             </nav>
+
+            <div className="ml-auto hidden items-center lg:flex">
+              <Link
+                href="/download"
+                onClick={() => {
+                  triggerHaptic()
+                }}
+                className={`inline-flex h-9 items-center justify-center gap-2 rounded-sm px-4 text-[0.86rem] font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
+              >
+                Download
+                <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              </Link>
+            </div>
           </div>
         </div>
       </header>
@@ -240,6 +252,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         </div>
         <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
           <Link href="/download" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Download</Link>
+          <Link href="/use-case" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Use Cases</Link>
           <Link href="/book" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Book</Link>
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
           <Link href="/roadmap" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Roadmap</Link>
