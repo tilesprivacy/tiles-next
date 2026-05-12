@@ -226,20 +226,18 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             </span>
           </Link>
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {showMobileDownloadCta ? (
-              <Link
-                href="/download"
-                onClick={() => {
-                  triggerHaptic()
-                  onCloseMobileMenu()
-                }}
-                data-mobile-menu-download-cta
-                className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
-              >
-                Download
-                <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              </Link>
-            ) : null}
+            <Link
+              href="/download"
+              onClick={() => {
+                triggerHaptic()
+                onCloseMobileMenu()
+              }}
+              data-mobile-menu-download-cta
+              className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
+            >
+              Download
+              <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+            </Link>
             <button
               onClick={onCloseMobileMenu}
               className={mobileIconButtonClass}
@@ -254,7 +252,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           </div>
         </div>
         <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
-          <Link href="/download" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Download</Link>
           <Link href="/use-case" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Use Cases</Link>
           <Link href="/book" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Book</Link>
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
