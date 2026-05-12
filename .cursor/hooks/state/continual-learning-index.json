@@ -468,6 +468,10 @@
       "lastProcessedAt": "2026-05-10T18:48:58.208Z",
       "mtimeMs": 1777619462746.1047
     },
+    "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/48a90dbf-1dc8-4917-8fc0-4af6f76079a5/subagents/4ed90d96-780c-4c01-8754-ded31d070697.jsonl": {
+      "lastProcessedAt": "2026-05-12T17:09:32.085911Z",
+      "mtimeMs": 1778605681753.8298
+    },
     "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/49fe1a80-da0b-4e69-b031-548fed3b9845/49fe1a80-da0b-4e69-b031-548fed3b9845.jsonl": {
       "lastProcessedAt": "2026-05-10T18:48:58.208Z",
       "mtimeMs": 1774361178322.45
@@ -745,12 +749,20 @@
       "mtimeMs": 1775737248639.266
     },
     "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/6e1c41ab-4739-45bb-a1d2-b480574b88d5/6e1c41ab-4739-45bb-a1d2-b480574b88d5.jsonl": {
-      "lastProcessedAt": "2026-05-12T15:01:44.191897Z",
-      "mtimeMs": 1778598023000.6042
+      "lastProcessedAt": "2026-05-12T17:09:32.085911Z",
+      "mtimeMs": 1778605767248.3394
+    },
+    "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/6e1c41ab-4739-45bb-a1d2-b480574b88d5/subagents/48a90dbf-1dc8-4917-8fc0-4af6f76079a5.jsonl": {
+      "lastProcessedAt": "2026-05-12T17:09:32.085911Z",
+      "mtimeMs": 1778605663050.302
     },
     "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/6e1c41ab-4739-45bb-a1d2-b480574b88d5/subagents/c4b931b8-9b17-4e6f-a29a-d732f078a9ab.jsonl": {
-      "lastProcessedAt": "2026-05-12T15:01:44.191897Z",
-      "mtimeMs": 1778598042853.5728
+      "lastProcessedAt": "2026-05-12T17:09:32.085911Z",
+      "mtimeMs": 1778598115907.3872
+    },
+    "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/6e1c41ab-4739-45bb-a1d2-b480574b88d5/subagents/f735b2a8-ea90-484b-9763-33c17a081694.jsonl": {
+      "lastProcessedAt": "2026-05-12T17:09:32.085911Z",
+      "mtimeMs": 1778605723780.887
     },
     "/Users/feynon/.cursor/projects/Users-feynon-Projects-tiles-next/agent-transcripts/6f1c65bd-0f39-4931-b946-b8ad634f0ac5/6f1c65bd-0f39-4931-b946-b8ad634f0ac5.jsonl": {
       "lastProcessedAt": "2026-05-10T18:48:58.208Z",
