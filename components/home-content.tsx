@@ -232,7 +232,7 @@ export function HomeContent() {
                   >
                     ATProto
                   </a>
-                  .
+                  . Fully open source.
                 </p>
               </div>
 
