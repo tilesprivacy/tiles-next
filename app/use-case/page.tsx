@@ -45,35 +45,58 @@ const conversationCards: ConversationCard[] = [
     tall: true,
   },
   {
-    title: "Draft a research brief",
+    title: "Brainstorm research questions",
     prompt:
-      "Use these notes to draft a private research brief. Pull out the key claims, open questions, risks, and the next three steps for review.",
-  },
-  {
-    title: "Plan an offline model run",
-    prompt:
-      "Help me prepare a repeatable local model evaluation. Define the prompt set, scoring rubric, constraints, and summary format.",
-  },
-  {
-    title: "Turn meeting notes into action",
-    prompt:
-      "Clean up these raw meeting notes. Extract decisions, owners, deadlines, unresolved questions, and a concise follow-up message.",
-  },
-  {
-    title: "Review sensitive copy locally",
-    prompt:
-      "Make this launch copy clearer while preserving the claims. Flag risky wording, tighten the tone, and provide a final draft.",
+      "I am a medical researcher in pediatric radiology. Based on this dataset and top-tier journal standards, what compelling research questions, analyses, or novel angles could become a publishable paper?",
     tall: true,
   },
   {
-    title: "Explore a technical tradeoff",
+    title: "Apply a mathematical model to your research",
     prompt:
-      "Compare these two implementation approaches. Explain the tradeoffs, migration concerns, likely failure modes, and recommended test plan.",
+      "Tell me about the ordinary differential equation model. How might it be used to predict oocyte consumption in the ovary?",
   },
   {
-    title: "Summarize long documents",
+    title: "Find scientific literature",
     prompt:
-      "Extract the important points from this long document. Keep citations where possible and separate confirmed facts from uncertain claims.",
+      "I am an academic pathologist with a research focus in GI pathology. Summarize current work on transcription factors in high-grade neuroendocrine carcinomas and note references in the GI literature.",
+    tall: true,
+  },
+  {
+    title: "Get personalized coaching",
+    prompt:
+      "Act like a certified health coach and ask me one question at a time about my current exercise, nutrition, supplements, and goals so we can build a plan.",
+  },
+  {
+    title: "Customize your workout plan",
+    prompt:
+      "Create a six-week progression plan for strength and weight-loss workouts. Keep sessions under 40 minutes and include low-impact cardio.",
+    tall: true,
+  },
+  {
+    title: "Review your form from a photo",
+    prompt:
+      "Can you take a look at my form and do a form check for me? How am I doing?",
+  },
+  {
+    title: "Make a budget",
+    prompt:
+      "I want to set up a budget. I do not know how to do that, but I want a weekly budget and to be mindful of what I am spending.",
+  },
+  {
+    title: "Get discount codes",
+    prompt:
+      "Find discount codes for these jeans. Add the item to my cart, scan the web for codes, test each one, and give me the best discount.",
+    tall: true,
+  },
+  {
+    title: "Audit your spending habits",
+    prompt:
+      "Audit my spending habits. Show me where I might be wasting money and how to avoid it.",
+  },
+  {
+    title: "Take inventory of your subscriptions",
+    prompt:
+      "Identify all subscriptions and recurring charges in my transactions and tell me what to cancel or keep.",
   },
 ]
 
@@ -230,7 +253,7 @@ export default function UseCasesPage() {
           </p>
         </section>
       </main>
-      <SiteFooter />
+      <SiteFooter showDownloadCta={false} />
     </div>
   )
 }
