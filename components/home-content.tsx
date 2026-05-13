@@ -315,7 +315,7 @@ export function HomeContent() {
           {featureCards.map((card) => (
             <article
               key={card.command}
-              className="grid gap-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start lg:gap-12"
+              className="grid gap-6 min-[820px]:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] min-[820px]:items-start min-[820px]:gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-12"
             >
               <div className="space-y-5">
                 <div className="space-y-3.5">
