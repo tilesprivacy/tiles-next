@@ -327,7 +327,7 @@ export function HomeContent() {
                   </p>
                 </div>
 
-                <div className="inline-flex w-full max-w-[29rem] items-center justify-between rounded-xl border border-black/6 bg-black/[0.035] px-4 py-3 dark:border-white/10 dark:bg-white/[0.04]">
+                <div className="flex w-full max-w-[29rem] items-center justify-between rounded-xl border border-black/6 bg-black/[0.035] px-4 py-3 dark:border-white/10 dark:bg-white/[0.04]">
                   <code className="truncate font-mono text-[0.95rem] text-black/78 dark:text-[#DADADA]">{card.command}</code>
                   <button
                     type="button"
