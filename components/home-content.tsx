@@ -417,13 +417,13 @@ export function HomeContent() {
                 >
                   AT Protocol
                 </a>{" "}
-                (atproto), an open decentralized protocol for social applications and portable identity.
+                (ATProto), an open decentralized protocol for social applications and portable identity.
               </p>
               <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
                 For Tiles, this means social features do not need to live inside a closed platform. Shared chats, group
                 conversations, public memory spaces, and community extensions can plug into an existing social graph already
                 used by tens of millions of people. Instead of creating another siloed network, Tiles can build on open
-                identity, portable accounts, and interoperable social interactions across the wider atproto ecosystem.
+                identity, portable accounts, and interoperable social interactions across the wider ATProto ecosystem.
               </p>
               <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
                 For the full picture, see the{" "}
@@ -433,7 +433,7 @@ export function HomeContent() {
                   rel="noopener noreferrer"
                   className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
                 >
-                  official atproto stack overview
+                  official ATProto stack overview
                 </a>
                 .
               </p>
