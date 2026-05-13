@@ -134,7 +134,14 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             >
               <span className="relative inline-flex shrink-0">
                 {isHomePage ? (
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
+                  themeAware ? (
+                    <>
+                      <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} />
+                      <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} />
+                    </>
+                  ) : (
+                    <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
+                  )
                 ) : isSharePage ? (
                   <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
                 ) : themeAware ? (
