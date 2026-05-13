@@ -384,8 +384,8 @@ export function HomeContent() {
       </section>
 
       <section className="relative z-10 px-4 pb-20 pt-12 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-16 lg:px-12 lg:pb-28 lg:pt-20">
-        <div className="mx-auto grid w-full max-w-6xl items-start gap-12 py-6 sm:gap-14 sm:py-10 lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-center lg:gap-8 lg:py-12 xl:gap-10">
-          <div className="space-y-6 sm:space-y-7 lg:max-w-[52rem] lg:pl-1">
+        <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 py-6 sm:gap-14 sm:py-10 lg:flex-row lg:items-start lg:gap-12 lg:py-12 xl:gap-14">
+          <div className="w-full max-w-[52rem] shrink-0 space-y-6 sm:space-y-7 lg:w-auto lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
               Built on Atmosphere
             </h2>
@@ -440,7 +440,10 @@ export function HomeContent() {
             </div>
           </div>
 
-          <div className="mt-8 flex items-center justify-center sm:mt-10 lg:mt-0 lg:justify-center lg:pl-3 lg:pr-2 xl:pl-5 xl:pr-4" aria-hidden>
+          <div
+            className="mt-8 flex w-full min-w-0 flex-1 items-center justify-center px-6 min-[390px]:px-8 sm:mt-10 sm:px-10 lg:mt-0 lg:items-start lg:justify-center lg:px-0 lg:pt-0.5"
+            aria-hidden
+          >
             <AtSign
               className="h-48 w-48 text-black dark:text-white sm:h-52 sm:w-52 lg:h-44 lg:w-44"
               strokeWidth={1.05}
