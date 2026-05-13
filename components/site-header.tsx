@@ -45,22 +45,27 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       ? "bg-background text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
       : "bg-white text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
   const textColor = isSharePage ? "text-[#EDEDEF]" : themeAware ? "text-foreground" : "text-black"
+  const desktopLinkTone = isSharePage
+    ? "text-[#EDEDEF]/82"
+    : themeAware
+      ? "text-foreground/68"
+      : "text-black/68"
   const textColorHover = isSharePage
-    ? "hover:text-[#EDEDEF]/70"
+    ? "hover:text-[#EDEDEF]"
     : themeAware
-      ? "hover:text-foreground/70"
-      : "hover:text-black/70"
+      ? "hover:text-foreground"
+      : "hover:text-black"
   const activeLinkClass = isSharePage
-    ? "text-[#64B5F6]"
+    ? "!text-[#EDEDEF]"
     : themeAware
-      ? "text-[#64B5F6]"
-      : "text-[#64B5F6]"
+      ? "!text-foreground"
+      : "!text-black"
   const navItemHeightClass = "h-8"
-  const navTextMetricsClass = "text-[0.92rem] font-medium leading-5 tracking-normal"
+  const navTextMetricsClass = "text-[0.94rem] font-normal leading-5 tracking-[-0.006em]"
   const wordmarkTextMetricsClass = "text-[1.04rem] font-medium leading-5 tracking-[-0.005em]"
   const mobileProminentWordmarkClass =
     "text-[1.22rem] font-semibold leading-6 tracking-[-0.012em] lg:text-[1.04rem] lg:font-medium lg:leading-5 lg:tracking-[-0.005em]"
-  const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-1 ${navTextMetricsClass} transition-colors ${textColor} ${textColorHover}`
+  const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-0.5 ${navTextMetricsClass} ${desktopLinkTone} transition-colors duration-200 ${textColorHover}`
   const mobileMenuTopOffsetClass = isBannerVisible
     ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
     : "top-0"
@@ -126,11 +131,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         } ${headerChrome}`}
       >
         <div className="w-full">
-          <div className={`relative flex min-h-[3.35rem] items-center pb-1.5 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] sm:pb-1.5 sm:pt-[calc(0.5rem+env(safe-area-inset-top,0px))] lg:min-h-0 lg:gap-7 lg:px-[max(1.3rem,env(safe-area-inset-left,0px))] lg:py-[max(0.75rem,env(safe-area-inset-top,0px))] lg:pr-[max(1.3rem,env(safe-area-inset-right,0px))] ${mobileInlinePaddingClass}`}>
+          <div className={`relative flex min-h-[3.35rem] items-center pb-1.5 pt-[calc(0.45rem+env(safe-area-inset-top,0px))] sm:pb-1.5 sm:pt-[calc(0.5rem+env(safe-area-inset-top,0px))] lg:min-h-0 lg:gap-8 lg:px-[max(2rem,env(safe-area-inset-left,0px))] lg:py-[max(1.1rem,env(safe-area-inset-top,0px))] lg:pr-[max(2rem,env(safe-area-inset-right,0px))] xl:px-[max(2.6rem,env(safe-area-inset-left,0px))] xl:pr-[max(2.6rem,env(safe-area-inset-right,0px))] ${mobileInlinePaddingClass}`}>
             <Link
               href="/"
               onClick={onHomeClick}
-              className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75 sm:gap-2.5"
+              className="flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-75"
             >
               <span className="relative inline-flex shrink-0">
                 {isHomePage ? (
@@ -152,6 +157,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 ) : (
                   <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
                 )}
+              </span>
+              <span className={`hidden lg:inline-flex ${wordmarkTextMetricsClass} ${textColor}`}>
+                Tiles
               </span>
             </Link>
 
@@ -185,7 +193,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               </button>
             </div>
 
-            <nav className="hidden min-w-max items-center gap-5 sm:gap-6 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 lg:gap-7">
+            <nav className="hidden min-w-max items-center gap-8 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 xl:gap-10">
               <Link href="/use-case" className={`${baseLinkClass} ${isRouteActive("/use-case") ? activeLinkClass : ""}`}>Use Cases</Link>
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
@@ -200,7 +208,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 onClick={() => {
                   triggerHaptic()
                 }}
-                className={`inline-flex h-9 items-center justify-center gap-2 rounded-sm px-4 text-[0.86rem] font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
+                className={`inline-flex h-9 items-center justify-center gap-2 rounded-full px-[1.15rem] text-[0.88rem] font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
               >
                 Download
                 <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />

@@ -86,21 +86,21 @@ const conversationCards: ConversationCard[] = [
 
 function ConversationCardView({ card }: { card: ConversationCard }) {
   const cardClass =
-    "group mb-3 flex break-inside-avoid flex-col rounded-lg bg-[#3f3f3f] p-[1.125rem] text-left text-white transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#414141] hover:shadow-sm focus-visible:bg-[#414141] dark:bg-[#3f3f3f] dark:hover:bg-[#414141] dark:focus-visible:bg-[#414141] sm:p-5"
+    "group mb-3 flex break-inside-avoid flex-col rounded-lg bg-[#F3F3F3] p-[1.125rem] text-left text-black transition-[background-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:bg-[#F3F3F3] hover:shadow-sm focus-visible:bg-[#F3F3F3] dark:bg-[#3f3f3f] dark:text-white dark:hover:bg-[#414141] dark:focus-visible:bg-[#414141] sm:p-5"
   const content = (
     <>
-      <h2 className="text-[0.98rem] font-semibold leading-snug tracking-[-0.02em] text-white">{card.title}</h2>
-      <p className="mt-4 text-[0.82rem] leading-6 text-white/72">{card.prompt}</p>
+      <h2 className="text-[0.98rem] font-semibold leading-snug tracking-[-0.02em] text-black dark:text-white">{card.title}</h2>
+      <p className="mt-4 text-[0.82rem] leading-6 text-black/62 dark:text-white/72">{card.prompt}</p>
       {card.href ? (
         <span
-          className="mt-5 flex h-8 w-8 shrink-0 items-center justify-center self-end rounded-md bg-foreground text-background opacity-100 shadow-sm transition-transform duration-200 group-hover:-translate-y-0.5 group-focus-visible:-translate-y-0.5"
+          className="mt-5 flex h-8 w-8 shrink-0 translate-y-1 items-center justify-center self-end rounded-full bg-black text-white opacity-0 shadow-sm transition-[opacity,transform] duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100 dark:bg-foreground dark:text-background"
           aria-hidden="true"
         >
-          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
+          <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none">
             <path
-              d="M6 3.5 10.5 8 6 12.5M10.5 8H2.5"
+              d="M10 15V5M10 5 5.75 9.25M10 5l4.25 4.25"
               stroke="currentColor"
-              strokeWidth="1.7"
+              strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -133,11 +133,14 @@ export default function UseCasesPage() {
             <p className={`mt-5 max-w-xl ${marketingPageLeadClass}`}>
               Explore how people use Tiles for private work, research, and everyday AI workflows.
             </p>
+            <p className="mt-7 text-[0.82rem] font-medium leading-5 text-black/46 dark:text-white/46">
+              Tap a chat to view shared conversation.
+            </p>
           </div>
         </section>
 
         <section className="mx-auto w-full max-w-none pb-12">
-          <div className="columns-1 gap-3 sm:columns-2 lg:columns-3 [&:has(:focus-visible)>:not(:focus-visible)]:bg-[#383838] [&:has(:hover)>:not(:hover)]:bg-[#383838]">
+          <div className="columns-1 gap-3 sm:columns-2 lg:columns-3 [&:has(:focus-visible)>:not(:focus-visible)]:bg-[#F7F7F7] [&:has(:hover)>:not(:hover)]:bg-[#F7F7F7] dark:[&:has(:focus-visible)>:not(:focus-visible)]:bg-[#383838] dark:[&:has(:hover)>:not(:hover)]:bg-[#383838]">
             {conversationCards.map((card) => (
               <ConversationCardView key={card.title} card={card} />
             ))}
