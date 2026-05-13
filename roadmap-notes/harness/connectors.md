@@ -1,11 +1,12 @@
 # References
 
 - [Connectors without confiding. Conifer](https://confer.to/blog/2026/04/connectors/)
-
-# Implementation
+- [Proxy encrypted requests through your backend](https://docs.tinfoil.sh/guides/proxy-server)
+- [How We Implemented Private AI Web Search](https://tinfoil.sh/blog/2026-01-22-private-ai-web-search)
+# Implementation details 
 
 - We are going to use [Pi extensions](https://pi.dev/docs/latest/extensions) for connectors while [Pi packages](https://pi.dev/docs/latest/packages) for Agent Templates.
-- Registry for skills and extensions with [npmx](https://npmx.dev)
+- Social features for published Pi skills and extensions with [npmx](https://npmx.dev)
 
 ## Core
 
@@ -26,6 +27,3 @@
   - [Through MCP server](https://docs.tinfoil.sh/guides/mcp-websearch)
     - Cons: $20 + usage fees for secure enclave container hosting the MCP server
     - Pros: Ability to control tool calls (perfect for usage with a custom agent harness like ours)
-  - Implementation detail:
-    - [Proxy encrypted requests through your backend](https://docs.tinfoil.sh/guides/proxy-server)
-    - [How We Implemented Private AI Web Search](https://tinfoil.sh/blog/2026-01-22-private-ai-web-search)
