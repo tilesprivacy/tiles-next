@@ -384,8 +384,8 @@ export async function POST(request: NextRequest) {
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
                           <tr>
                             <td>
-                              <a href="https://tiles.run/changelog" class="email-card email-card-light" style="display: block; background-color: #f5f5f5; background-color: rgba(0, 0, 0, 0.03); color: #000000; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 16px; font-weight: 500; -webkit-text-size-adjust: 100%;">
-                                View the Changelog
+                              <a href="https://tiles.run/releases" class="email-card email-card-light" style="display: block; background-color: #f5f5f5; background-color: rgba(0, 0, 0, 0.03); color: #000000; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 16px; font-weight: 500; -webkit-text-size-adjust: 100%;">
+                                View Releases
                               </a>
                             </td>
                           </tr>

@@ -5,31 +5,31 @@ import type { Metadata } from "next"
 export const dynamic = "force-dynamic"
 
 export const metadata: Metadata = {
-  title: "Changelog | Tiles",
+  title: "Releases | Tiles",
   description: "All notable changes and releases for Tiles.",
   openGraph: {
-    title: "Changelog | Tiles",
+    title: "Releases | Tiles",
     description: "All notable changes and releases for Tiles.",
-    url: "https://www.tiles.run/changelog",
+    url: "https://www.tiles.run/releases",
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og?page=changelog",
+        url: "https://www.tiles.run/api/og?page=releases",
         width: 1200,
         height: 630,
-        alt: "Changelog | Tiles",
+        alt: "Releases | Tiles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Changelog | Tiles",
+    title: "Releases | Tiles",
     description: "All notable changes and releases for Tiles.",
-    images: ["https://www.tiles.run/api/og?page=changelog"],
+    images: ["https://www.tiles.run/api/og?page=releases"],
   },
 }
 
-export default async function ChangelogPage() {
+export default async function ReleasesPage() {
   let releases: Release[] = []
   let error: string | null = null
 

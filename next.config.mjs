@@ -88,6 +88,11 @@ const nextConfig = {
         destination: '/book/tilekit',
         permanent: true,
       },
+      {
+        source: '/changelog',
+        destination: '/releases',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {

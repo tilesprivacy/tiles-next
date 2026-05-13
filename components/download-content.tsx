@@ -550,8 +550,8 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Releases</h3>
                     <p className={bodyTextClass}>
                       Need an older build? Browse the{" "}
-                      <Link href="/changelog#releases" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
-                        changelog page
+                      <Link href="/releases#releases" className={`${textColorLink} underline underline-offset-2 transition-colors`}>
+                        releases page
                       </Link>{" "}
                       to download previous versions.
                     </p>

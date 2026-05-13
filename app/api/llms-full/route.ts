@@ -160,7 +160,7 @@ export async function GET(request: Request) {
     `- Use Cases: ${baseUrl}/use-case`,
     `- Sponsor: ${baseUrl}/sponsor`,
     `- Brand: ${baseUrl}/brand`,
-    `- Changelog: ${baseUrl}/changelog`,
+    `- Releases: ${baseUrl}/releases`,
     `- Sub-processors: ${baseUrl}/sub-processors`,
     `- RSS: ${baseUrl}/api/rss`,
   ])

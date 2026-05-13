@@ -191,7 +191,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
       <main className="flex-1 px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto max-w-3xl">
           <h1 className={`mb-4 ${marketingPageTitleClass} ${textColor}`}>
-            Changelog
+            Releases
           </h1>
           <p className={`mb-10 max-w-3xl ${marketingPageLeadClass} lg:mb-12`}>
             All notable changes and releases for Tiles.
@@ -200,7 +200,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
           {error ? (
             <div className={`rounded-sm ${errorBg} p-4 ${errorText}`}>{error}</div>
           ) : (
-            <div className="relative">
+            <div id="releases" className="relative scroll-mt-28 lg:scroll-mt-40">
               {/* Timeline line */}
               <div className={`absolute left-[124px] top-0 hidden h-full w-px ${timelineBg} md:block`} />
 

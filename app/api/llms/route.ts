@@ -76,7 +76,7 @@ export async function GET(request: Request) {
     `- [Network installer](${networkArtifact.downloadUrl}): Latest macOS installer, version ${networkArtifact.version}, size ${networkArtifact.binarySizeLabel}, sha256 ${networkArtifact.sha256}.`,
     `- [Offline installer](${OFFLINE_INSTALLER.downloadUrl}): Bundled model ${OFFLINE_MODEL_NAME}, size ${OFFLINE_INSTALLER.binarySizeLabel}, sha256 ${OFFLINE_INSTALLER.sha256}.`,
     `- [Offline installer checksum file](${offlineChecksumUrl}): SHA256 checksum file for offline installer validation.`,
-    `- [Changelog](${baseUrl}/changelog): Release notes and links to previous versions.`,
+    `- [Releases](${baseUrl}/releases): Release notes and links to previous versions.`,
   ])
 
   addSection(lines, 'Documentation (Book)', [

@@ -22,7 +22,7 @@ Use the links below to fetch canonical page content; each list item includes a s
 - [Network installer](https://download.tiles.run/tiles-0.4.7-signed.pkg): Latest macOS installer, version 0.4.7, size 67.75 MB, sha256 2c17999f25d34d78a9e4e21100d8ebdb8daf15fe375a2a10ec8c6f27c2195d9b.
 - [Offline installer](https://download.tiles.run/tiles-0.4.7-full-signed.pkg): Bundled model gpt-oss-20b-MXFP4-Q4, size 10.31 GB, sha256 e2fa2d5339d356c023fb1c13fba8a6cf099fedad07f684b7b090d59292c91032.
 - [Offline installer checksum file](https://download.tiles.run/checksums/tiles-0.4.7-full-signed.pkg.sha256): SHA256 checksum file for offline installer validation.
-- [Changelog](http://localhost:3000/changelog): Release notes and links to previous versions.
+- [Releases](http://localhost:3000/releases): Release notes and links to previous versions.
 
 ## Documentation (Book)
 

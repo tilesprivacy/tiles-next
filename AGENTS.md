@@ -81,8 +81,8 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 ## Learned Workspace Facts
 
 - Tilekit SDK documentation uses the standard book route `/book/tilekit` (navigation, links, and generated metadata should stay consistent with that path rather than a separate top-level `/tilekit` alias).
-- Previous Tiles releases are linked from `/changelog#releases` and should be referred to as the changelog page in copy; offline (full) macOS installer builds are not published for every release and may lag the latest network installer, so reflect that in download and changelog copy when relevant.
-- Subscription emails sent via Resend should use the visible sender name “Tiles Privacy” (display name with the from address still driven by env).
+- Previous Tiles releases are linked from `/releases#releases` and should be referred to as the releases page in copy; offline (full) macOS installer builds are not published for every release and may lag the latest network installer, so reflect that in download and releases copy when relevant.
+- Subscription emails sent via Resend should use the visible sender name "Tiles Privacy" (display name with the from address still driven by env). In brand or legal-style UI where an organization name is needed, use "Tiles Privacy" rather than "Tiles Assistant" or "Tiles AI."
 - Latest network `.pkg` metadata comes from GitHub via `getLatestDownloadArtifact`; keep `FALLBACK_ARTIFACT` in `lib/download-artifact.ts` aligned with the current release when the API path fails.
 - Fixed header and mobile menu on Android Chrome edge-to-edge need `viewport-fit=cover` and `env(safe-area-inset-*)` on chrome, overlay, and main top padding; avoid global `header` rules that use `contain` or `transform`, which can break full-width `position: fixed` on narrow viewports.
 - On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.
