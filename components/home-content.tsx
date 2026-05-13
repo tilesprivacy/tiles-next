@@ -383,13 +383,13 @@ export function HomeContent() {
         </div>
       </section>
 
-      <section className="relative z-10 px-4 pb-16 pt-3 min-[390px]:px-5 sm:px-6 sm:pb-20 lg:px-12 lg:pb-24">
-        <div className="mx-auto grid w-full max-w-6xl items-start gap-12 py-4 sm:py-6 lg:grid-cols-[minmax(0,1fr)_10rem] lg:gap-3 lg:py-5">
-          <div className="space-y-5 lg:max-w-[52rem] lg:pl-1">
+      <section className="relative z-10 px-4 pb-20 pt-12 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-16 lg:px-12 lg:pb-28 lg:pt-20">
+        <div className="mx-auto grid w-full max-w-6xl items-start gap-12 py-6 sm:gap-14 sm:py-10 lg:grid-cols-[minmax(0,1fr)_10rem] lg:gap-3 lg:py-12">
+          <div className="space-y-6 sm:space-y-7 lg:max-w-[52rem] lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
               Built on Atmosphere
             </h2>
-            <ul className="max-w-[42rem] space-y-4">
+            <ul className="max-w-[42rem] space-y-4 sm:space-y-5">
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
                 <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
                 <span>You control who hosts your Personal Data Server (PDS).</span>
@@ -403,9 +403,44 @@ export function HomeContent() {
                 <span>No starting over when apps change or disappear</span>
               </li>
             </ul>
+            <div className="max-w-[42rem] space-y-3.5 pt-6 sm:space-y-4 sm:pt-8">
+              <h3 className="text-[0.9rem] font-medium leading-snug tracking-[-0.01em] text-foreground/75">
+                What&apos;s the Atmosphere?
+              </h3>
+              <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
+                The Atmosphere is the growing network of apps built on the{" "}
+                <a
+                  href="https://atproto.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
+                >
+                  AT Protocol
+                </a>{" "}
+                (atproto), an open decentralized protocol for social applications and portable identity.
+              </p>
+              <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
+                For Tiles, this means social features do not need to live inside a closed platform. Shared chats, group
+                conversations, public memory spaces, and community extensions can plug into an existing social graph already
+                used by tens of millions of people. Instead of creating another siloed network, Tiles can build on open
+                identity, portable accounts, and interoperable social interactions across the wider atproto ecosystem.
+              </p>
+              <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
+                For the full picture, see the{" "}
+                <a
+                  href="https://atproto.com/guides/the-at-stack"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
+                >
+                  official atproto stack overview
+                </a>
+                .
+              </p>
+            </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-center lg:-ml-[15rem] lg:mt-2 lg:justify-start" aria-hidden>
+          <div className="mt-8 flex items-center justify-center sm:mt-10 lg:mt-0 lg:-ml-[15rem] lg:justify-start lg:self-start lg:pt-1" aria-hidden>
             <AtSign
               className="h-48 w-48 text-black dark:text-white sm:h-52 sm:w-52 lg:h-44 lg:w-44"
               strokeWidth={1.05}
