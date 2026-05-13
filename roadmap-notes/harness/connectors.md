@@ -4,7 +4,8 @@
 
 # Implementation
 
-- Implementation note: We are going to use [Pi extensions](https://pi.dev/docs/latest/extensions) for connectors while [Pi packages](https://pi.dev/docs/latest/packages) for Agent Templates.
+- We are going to use [Pi extensions](https://pi.dev/docs/latest/extensions) for connectors while [Pi packages](https://pi.dev/docs/latest/packages) for Agent Templates.
+- Registry for skills and extensions with [npmx](https://npmx.dev)
 
 ## Core
 
