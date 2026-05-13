@@ -132,7 +132,7 @@ export function BookMarketingSections() {
             >
               Iroh&rsquo;s
             </a>{" "}
-            networking stack.
+            QUIC networking stack.
           </FeatureCard>
 
           <FeatureCard icon={<Package className="h-4 w-4" strokeWidth={1.75} />} title="Offline Installer">

@@ -69,7 +69,7 @@ const featureCards = [
         >
           Iroh&apos;s
         </a>{" "}
-        networking stack.
+        QUIC networking stack.
       </>
     ),
     ctaLabel: "Create your link",
