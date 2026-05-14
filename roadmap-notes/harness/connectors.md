@@ -24,9 +24,8 @@
 
 There are 3 ways we can add web search to Tiles, from easiest to hardest:
 
-  - No extension support needed: use capyu/pi-exa via tool calls + skills (requires an API key) [RECOMMENDED FOR DEMO]
-  - Extension support needed: use the najibninaba/pi-exa-search extension (requires an API key) [NOT RECOMMENDED DUE TO THE EFFORT]
-  - Extension support needed: use nicobalion/pi-mcp-adapter + the Exa MCP endpoint (does not require an API key) [IDEAL SETUP]
+  - Use capyu/pi-exa (requires an API key) [RECOMMENDED FOR DEMO, MINIMAL]
+  - Use nicobalion/pi-mcp-adapter + the Exa MCP endpoint (does not require an API key) [IDEAL SETUP]
 
 1. [Tinfoil Private Web Search](https://docs.tinfoil.sh/guides/web-search)
   - Through Private Inference API
