@@ -3,10 +3,17 @@
 import { AlertCircle, Check, ChevronDown, Copy, Download } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { createMathPlugin } from "@streamdown/math"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Streamdown } from "streamdown"
+import "katex/dist/katex.min.css"
+import { normalizeShareMathMarkdown } from "@/lib/normalize-share-math-markdown"
 import type { SharedSession, SharedSessionMessage } from "@/lib/shared-session"
 import { cn } from "@/lib/utils"
+
+const shareMathPlugin = createMathPlugin({
+  singleDollarTextMath: true,
+})
 
 interface ShareSessionClientProps {
   mockApiUrl?: string
@@ -170,13 +177,17 @@ function downloadMarkdownTranscript(
 }
 
 function MarkdownMessage({ content }: { content: string }) {
-  const normalizedContent = content.replace(/\r\n?/g, "\n")
+  const normalizedContent = useMemo(
+    () => normalizeShareMathMarkdown(content.replace(/\r\n?/g, "\n")),
+    [content],
+  )
 
   return (
     <Streamdown
       mode="static"
       className="share-markdown break-words"
       urlTransform={transformShareMarkdownUrl}
+      plugins={{ math: shareMathPlugin }}
       controls={{ table: true, code: false, mermaid: false }}
       lineNumbers={false}
       components={{
