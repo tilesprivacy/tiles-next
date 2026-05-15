@@ -456,7 +456,7 @@ function ShareFloatingDownloadBar({
                   isDark ? "text-white/55" : "text-black/55"
                 }`}
               >
-                Local-first private AI assistant for everyday use
+                Local-first private AI assistant
               </span>
             </span>
           </Link>

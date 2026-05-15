@@ -5,7 +5,6 @@ import { SocialLinks } from "@/components/social-links"
 import { Button } from "@/components/ui/button"
 import {
   marketingPageBodyClass,
-  marketingPageLeadClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
@@ -96,10 +95,15 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             <h1 className={marketingPageTitleClass}>
               Help keep <span className="tracking-tight">Tiles Privacy</span> independent.
             </h1>
-            <p className={`mt-5 max-w-2xl ${marketingPageLeadClass}`}>
-              Tiles is built by a small independent team working on private, local-first software, with a clear mission: to bring
-              privacy technology to everyone. Sponsorship helps us keep doing that.
-            </p>
+            <div className={`mt-5 max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
+              <p>
+                We&apos;re a small team of two working hard to bring privacy technology to everyone, starting with Tiles, a
+                local-first AI assistant. If you like Tiles, please consider supporting our work.
+              </p>
+              <p>
+                Your tips help accelerate Tiles&apos; development and keep both developers fed. Your support means a lot!
+              </p>
+            </div>
 
             <div className="mt-8 pt-8">
               <div className="max-w-xl">
