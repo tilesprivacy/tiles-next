@@ -41,7 +41,7 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Mac backend with MLX", status: "shipped" },
       { label: "Modelfile", status: "shipped" },
       { label: "Linux backend with llama.cpp", status: "active" },
-      { label: "Apple Foundation Model", status: "shipped" },
+      { label: "Apple Foundation Model", status: "planned" },
       { label: "TEE-based cloud models", status: "planned" },
       { label: "MIR integration", status: "planned" },
       { label: "Modelfile deduplication and caching", status: "planned" },
@@ -69,7 +69,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "E2E encrypted P2P sync", status: "shipped" },
       { label: "Shared Links", status: "shipped" },
-      { label: "Remote Link", status: "planned" },
+      { label: "Remote Link", status: "active" },
       { label: "Group Chats", status: "planned" },
     ],
   },
@@ -78,7 +78,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "Notarized builds", status: "shipped" },
       { label: "Encrypted SQLite database", status: "shipped" },
-      { label: "Sandbox", status: "shipped" },
+      { label: "Sandbox", status: "active" },
       { label: "Privacy Filter for shared sessions", status: "planned" },
       { label: "Runtime hardening", status: "planned" },
       { label: "Post-quantum cryptography", status: "planned" },

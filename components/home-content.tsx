@@ -60,16 +60,16 @@ const featureCards = [
     heading: "Sync your chats P2P",
     description: (
       <>
-        Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network, with{" "}
+        Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, using{" "}
         <a
           href="https://www.iroh.computer/"
           target="_blank"
           rel="noopener noreferrer"
           className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
         >
-          Iroh&apos;s
+          Iroh
         </a>{" "}
-        QUIC networking stack.
+        with locally generated decentralized identifiers (DIDs).
       </>
     ),
     ctaLabel: "Create your link",
