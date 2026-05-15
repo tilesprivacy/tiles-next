@@ -29,7 +29,7 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Harmony renderer", status: "shipped" },
       { label: "Pi Agent Harness", status: "shipped" },
       { label: "Connectors", status: "active" },
-      { label: "Memory", status: "planned" },
+      { label: "Memory", status: "active" },
       { label: "Agent Templates", status: "planned" },
       { label: "Agent to Agent communication", status: "planned" },
       { label: "Automatic LoRA adapter training", status: "planned" },
@@ -40,9 +40,8 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "Mac backend with MLX", status: "shipped" },
       { label: "Modelfile", status: "shipped" },
-      { label: "Apple Foundation Model", status: "active" },
-      { label: "Inference performance improvements", status: "active" },
       { label: "Linux backend with llama.cpp", status: "active" },
+      { label: "Apple Foundation Model", status: "shipped" },
       { label: "TEE-based cloud models", status: "planned" },
       { label: "MIR integration", status: "planned" },
       { label: "Modelfile deduplication and caching", status: "planned" },
@@ -53,8 +52,8 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "Offline Installer", status: "shipped" },
       { label: "Tilekit App Server", status: "active" },
+      { label: "ATProto Lexicons", status: "active" },
       { label: "Hosted Iroh Relay", status: "planned" },
-      { label: "ATProto Lexicons", status: "planned" },
     ],
   },
   {
@@ -79,7 +78,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "Notarized builds", status: "shipped" },
       { label: "Encrypted SQLite database", status: "shipped" },
-      { label: "Agent Sandbox", status: "active" },
+      { label: "Sandbox", status: "shipped" },
       { label: "Privacy Filter for shared sessions", status: "planned" },
       { label: "Runtime hardening", status: "planned" },
       { label: "Post-quantum cryptography", status: "planned" },

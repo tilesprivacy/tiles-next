@@ -179,7 +179,7 @@ export function RoadmapNotesMarkdown({
   content,
 }: {
   content: string
-  /** Full path+query before the hash, e.g. `/roadmap?item=security%2Fagent-sandbox` */
+  /** Full path+query before the hash, e.g. `/roadmap?item=security%2Fsandbox` */
   permalinkPrefix?: string
 }) {
   const normalized = content.replace(/\r\n?/g, "\n").trim()
