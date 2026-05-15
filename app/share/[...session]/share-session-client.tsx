@@ -66,13 +66,12 @@ function shortenShareLinkLabel(rawUrl: string): string {
   }
 }
 
-function buildAtExploreUrl(sourceUri: string): string | null {
+function buildAtprotoAtUriUrl(sourceUri: string): string | null {
   if (!sourceUri.startsWith("at://")) {
     return null
   }
 
-  const atPath = sourceUri.slice("at://".length)
-  return `https://atexplore.social/${atPath}?mode=simple`
+  return `https://atproto.at/uri/${encodeURIComponent(sourceUri)}`
 }
 
 function buildBlueskyProfileUrl(handle: string | null, did: string): string {
@@ -654,8 +653,8 @@ export function ShareSessionClient({
   const shareLinkLabel = useMemo(() => {
     return shortenShareLinkLabel(pageUrl)
   }, [pageUrl])
-  const atExploreUrl = useMemo(
-    () => buildAtExploreUrl(sharedSession?.sourceUri ?? ""),
+  const atprotoUriUrl = useMemo(
+    () => buildAtprotoAtUriUrl(sharedSession?.sourceUri ?? ""),
     [sharedSession?.sourceUri],
   )
   const blueskyProfileUrl = useMemo(() => {
@@ -824,9 +823,9 @@ export function ShareSessionClient({
                   </span>
                   <span className="mt-1 block">
                     <span>Data is fetched from the user's personal data server (PDS) </span>
-                    {atExploreUrl ? (
+                    {atprotoUriUrl ? (
                       <a
-                        href={atExploreUrl}
+                        href={atprotoUriUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/70 dark:hover:decoration-white/40"
