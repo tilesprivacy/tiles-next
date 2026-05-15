@@ -36,9 +36,7 @@ An extremely simple inference-time memory module that treats memory management a
     color: 'var(--nextra-text-color-secondary, #666)',
     textAlign: 'center',
     fontStyle: 'italic'
-  }}>
-    User input prompt can be revised to add the minimally necessary context before request gets processed by the model
-  </figcaption>
+  }}>User input prompt can be revised to add the minimally necessary context before request gets processed by the model, from <a href="https://openanonymity.ai/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '2px' }}>The Open Anonymity Project</a>.</figcaption>
 </figure>
 
 This setup also supports selective disclosure of memory content, giving users control over what information is shared with the model. Regardless of context size, LLMs generally perform better when provided only the most relevant context rather than excessive information that diffuses attention across unrelated details. One of the recurring frustrations users have expressed with ChatGPT’s memory feature is that it can feel like an uncontrolled dossier injected into every conversation. Our approach instead focuses on tightly scoped, inference-time retrieval, where only the minimal context required for the task is surfaced to the model.
