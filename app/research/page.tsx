@@ -95,7 +95,7 @@ export default function ResearchPage() {
             </section>
           </div>
 
-          <div className="research-page-content">
+          <div className="research-page-content border-t border-black/10 pt-6 dark:border-white/10 sm:pt-9 lg:pt-10">
             <p className={`max-w-2xl ${marketingPageBodyClass}`}>
               Privacy adoption at scale must work backwards from preserving utility. This research is a series of
               progressive experiments exploring decentralized software technologies to uncover primitives that preserve
@@ -124,7 +124,7 @@ export default function ResearchPage() {
           </div>
         </div>
       </main>
-      <SiteFooter showDownloadCta={false} />
+      <SiteFooter />
     </div>
   )
 }

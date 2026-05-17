@@ -119,7 +119,7 @@ export function ResearchExplorationContent({
         </div>
       </main>
 
-      <SiteFooter showDownloadCta={false} />
+      <SiteFooter />
     </div>
   )
 }

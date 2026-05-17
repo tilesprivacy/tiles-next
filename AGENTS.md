@@ -104,7 +104,7 @@ export default UseCasesPage
 - Product harness copy should describe Tiles as for “knowledge work” without appending “and coding” on the homepage, overview page, and book marketing sections (keep surrounding sentences smooth).
 - On homepage feature cards, keep the CTA link (for example “Run models →”) directly under the inline CLI command box (`tiles run <modelfile>`), not only beneath the terminal window column, on every breakpoint. For the lower homepage “Built on Atmosphere” band in `components/home-content.tsx`, keep the section heading and three check bullets as the primary stack, then place longer AT Protocol or Atmosphere explainer copy below as supplemental prose with smaller or more muted typography, not as a bordered card or callout panel.
 - For anchors that display the full share URL as visible text, avoid an `aria-label` that overrides the accessible name away from that visible text (screen readers should include the URL text).
-- On `/research`, Active and Archived project carousels should match the `/blog` listing carousel layout pixel-for-pixel, and each exploration at `/research/[slug]` should use the same article body typography and MDX treatment as blog posts.
+- On `/research` and `/research/[slug]`, mirror `/blog` patterns: Active and Archived project carousels pixel-for-pixel with the blog listing carousel; exploration pages use the same article body typography and MDX treatment as blog posts; enable the footer download CTA; use the same newsletter CTA, share component, and post-newsletter border separator on the listing as on `/blog` while keeping the hero newsletter CTA; omit line separators between individual project entries but keep the separator above Archived Projects.
 
 ## Learned Workspace Facts
 

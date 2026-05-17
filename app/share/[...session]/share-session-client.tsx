@@ -7,6 +7,7 @@ import { createMathPlugin } from "@streamdown/math"
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
 import { Streamdown } from "streamdown"
 import "katex/dist/katex.min.css"
+import { SharePageQrCode } from "@/components/share-page-qr-code"
 import { normalizeShareMathMarkdown } from "@/lib/normalize-share-math-markdown"
 import type { SharedSession, SharedSessionMessage } from "@/lib/shared-session"
 import { cn } from "@/lib/utils"
@@ -766,7 +767,8 @@ export function ShareSessionClient({
                   </a>
                 </span>
               </p>
-              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/68 dark:text-white/72 sm:max-w-[38%] sm:justify-end sm:gap-2 sm:text-right">
+              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/68 dark:text-white/72 sm:max-w-[42%] sm:justify-end sm:gap-2 sm:text-right">
+                <SharePageQrCode url={pageUrl} className="print:shadow-none" />
                 <span
                   className="min-w-0 truncate font-medium"
                   title={pageUrl || undefined}
