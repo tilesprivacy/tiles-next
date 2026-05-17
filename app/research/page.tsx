@@ -32,11 +32,11 @@ function ResearchSectionHeader({
 export const metadata: Metadata = {
   title: "Research | Tiles",
   description:
-    "Progressive experiments on decentralized software, AT Protocol with local models, and on-device memory research.",
+    "Research on decentralized software to identify useful primitives before integrating successful ideas into Tiles.",
   openGraph: {
     title: "Research | Tiles",
     description:
-      "Progressive experiments on decentralized software, AT Protocol with local models, and on-device memory research.",
+      "Research on decentralized software to identify useful primitives before integrating successful ideas into Tiles.",
     url: "https://www.tiles.run/research",
     type: "website",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Research | Tiles",
     description:
-      "Progressive experiments on decentralized software, AT Protocol with local models, and on-device memory research.",
+      "Research on decentralized software to identify useful primitives before integrating successful ideas into Tiles.",
     images: ["https://www.tiles.run/api/og"],
   },
 }
