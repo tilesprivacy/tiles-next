@@ -66,7 +66,7 @@ export async function GET(request: Request) {
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
-    `- [Research](${baseUrl}/research): Progressive experiments connecting AT Protocol with local models and decentralized software.`,
+    `- [Research](${baseUrl}/research): Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
     `- [Linux waitlist form](${baseUrl}/linux): Linux availability notifications form.`,

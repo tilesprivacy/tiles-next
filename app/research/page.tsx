@@ -32,11 +32,11 @@ function ResearchSectionHeader({
 export const metadata: Metadata = {
   title: "Research | Tiles",
   description:
-    "Research on decentralized software to identify useful primitives before integrating successful ideas into Tiles.",
+    "Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.",
   openGraph: {
     title: "Research | Tiles",
     description:
-      "Research on decentralized software to identify useful primitives before integrating successful ideas into Tiles.",
+      "Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.",
     url: "https://www.tiles.run/research",
     type: "website",
     images: [
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Research | Tiles",
     description:
-      "Research on decentralized software to identify useful primitives before integrating successful ideas into Tiles.",
+      "Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.",
     images: ["https://www.tiles.run/api/og"],
   },
 }
@@ -69,9 +69,10 @@ export default function ResearchPage() {
 
           <div className="research-page-content">
             <p className={`max-w-2xl ${marketingPageBodyClass}`}>
-              Privacy adoption at scale must work backwards from preserving utility. This research explores the
-              possibilities enabled by decentralized software technologies and aims to identify useful primitives before
-              integrating successful ideas into Tiles.
+              Privacy adoption at scale must work backwards from preserving utility. This research is a series of
+              progressive experiments exploring decentralized software technologies to uncover primitives that preserve
+              utility while strengthening user ownership. Successful ideas from these explorations will eventually be
+              adopted into Tiles.
             </p>
 
             <section aria-labelledby="active-projects-heading" className="mt-12 lg:mt-14">
