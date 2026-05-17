@@ -11,9 +11,9 @@ An extremely simple inference-time memory module that treats memory management a
 
 ## Selective memory
 
-This setup also supports selective disclosure of memory content, giving users control over what information is shared with the model. Regardless of context size, LLMs generally perform better when provided only the most relevant context rather than excessive information that diffuses attention across unrelated details. One of the recurring frustrations users have expressed with ChatGPT’s memory feature is that it can feel like an uncontrolled dossier injected into every conversation. Our approach instead focuses on tightly scoped, inference-time retrieval, where only the minimal context required for the task is surfaced to the model.
+This setup supports selective disclosure of memory content, giving users control over what information is shared with the model. Rather than injecting a persistent global memory into every interaction, memory is retrieved at inference time and only the minimal relevant context is surfaced.
 
-<figure style={{ margin: '1.25rem 0 1.5rem 0' }}>
+<figure>
   <Image src="/oamemory.png" alt="Memory agent revising a user prompt with minimal added context before model inference." width={2254} height={1956} style={{ borderRadius: '12px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
   <figcaption style={{
     marginTop: '0.75rem',
@@ -22,7 +22,7 @@ This setup also supports selective disclosure of memory content, giving users co
     color: 'var(--nextra-text-color-secondary, #666)',
     textAlign: 'center',
     fontStyle: 'italic'
-  }}>User input prompt can be revised to add the minimally necessary context before request gets processed by the model, from <a href="https://openanonymity.ai/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '2px' }}>The Open Anonymity Project</a>.</figcaption>
+  }}>User queries can be revised to add the minimally necessary context before the request is processed by the model, from <a href="https://openanonymity.ai/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '2px' }}>The Open Anonymity Project</a>.</figcaption>
 </figure>
 
 ## P2P Memory Sync

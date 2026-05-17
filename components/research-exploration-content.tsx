@@ -38,29 +38,29 @@ export function ResearchExplorationContent({
     <div className="relative flex min-h-screen flex-col bg-background">
       <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:px-12">
         <div className="relative w-full max-w-[90rem] py-8 lg:py-14">
-          <div className="mx-auto mb-12 max-w-[44rem] lg:mb-16">
+          <div className="mx-auto mb-12 flex max-w-[44rem] flex-col gap-6 lg:mb-16 lg:gap-7">
             <h1 className="max-w-[15ch] font-sans text-[clamp(2.15rem,5vw,2.9rem)] font-semibold leading-[1.08] tracking-[-0.032em] text-foreground sm:max-w-[18ch] lg:max-w-[20ch]">
               {entry.title}
             </h1>
-            <p className="mt-7 max-w-[39rem] text-[0.98rem] leading-[1.75] text-black/52 dark:text-white/52 lg:mt-8 lg:text-[1.02rem]">
+            <p className="max-w-[39rem] text-[0.98rem] leading-[1.75] text-black/52 dark:text-white/52 lg:text-[1.02rem]">
               {entry.description}
             </p>
 
-            <div className="mt-7 flex flex-col gap-3 lg:mt-8">
-              <div className="flex flex-wrap items-center gap-3.5">
-                {entry.badge ? (
-                  <span
-                    className={`inline-flex rounded px-2.5 py-0.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${badgeClassName[entry.badge]}`}
-                  >
-                    {badgeLabel[entry.badge]}
-                  </span>
-                ) : null}
-                {entry.badge ? <span className="text-black/20 dark:text-white/20">·</span> : null}
-                <p className="text-[0.84rem] text-black/40 dark:text-white/40 lg:text-[0.92rem]">{monthLabel}</p>
-              </div>
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              <span className="font-mono text-[0.78rem] tabular-nums text-black/52 dark:text-white/52 sm:text-[0.84rem]">
+                {monthLabel}
+              </span>
+              {entry.badge ? (
+                <span
+                  className={`inline-flex rounded px-2.5 py-0.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${badgeClassName[entry.badge]}`}
+                >
+                  {badgeLabel[entry.badge]}
+                </span>
+              ) : null}
+            </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                {authors.map((author) => {
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              {authors.map((author) => {
                   const { nameWithoutHandle, handle } = splitPersonDisplayName(author.name)
 
                   return (
@@ -87,7 +87,6 @@ export function ResearchExplorationContent({
                     </span>
                   )
                 })}
-              </div>
             </div>
           </div>
 

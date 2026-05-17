@@ -18,13 +18,24 @@ interface BlogTableOfContentsProps {
   contentSelector?: string
   mode?: 'desktop' | 'mobile'
   introId?: string
-  introLabel?: string
   mobileTitle?: string
   navAriaLabel?: string
   enableResearchSectionNumbers?: boolean
 }
 
 const DEFAULT_INTRO_ID = 'blog-content-start'
+
+function getMinHeadingLevel(items: TocItem[]): 2 | 3 | 4 {
+  if (items.length === 0) return 2
+  return Math.min(...items.map((item) => item.level)) as 2 | 3 | 4
+}
+
+function getTocItemIndentClass(level: 2 | 3 | 4, minHeadingLevel: 2 | 3 | 4): string {
+  const depth = level - minHeadingLevel
+  if (depth <= 0) return ''
+  if (depth === 1) return 'pl-4'
+  return 'pl-8'
+}
 
 function slugify(text: string): string {
   return text
@@ -38,7 +49,6 @@ export function BlogTableOfContents({
   contentSelector = '.blog-article-content',
   mode = 'desktop',
   introId = DEFAULT_INTRO_ID,
-  introLabel = 'Introduction',
   mobileTitle = 'Table of Contents',
   navAriaLabel = 'Table of contents',
   enableResearchSectionNumbers = false,
@@ -125,7 +135,7 @@ export function BlogTableOfContents({
       const offset = getScrollOffset()
       const scrollAnchor = window.scrollY + offset + 1
 
-      let nextActiveId = introId
+      let nextActiveId = ''
       for (const heading of headings) {
         const headingTop = window.scrollY + heading.getBoundingClientRect().top
         if (headingTop <= scrollAnchor) {
@@ -192,34 +202,16 @@ export function BlogTableOfContents({
     return null
   }
 
-  const isIntroActive = activeId === introId
+  const minHeadingLevel = getMinHeadingLevel(items)
   const navItems = (
-    <>
-      <a
-        href={`#${introId}`}
-        className={`mb-3 block text-sm font-medium transition-colors ${
-          isIntroActive
-            ? 'text-black dark:text-white'
-            : 'text-black/55 hover:text-black dark:text-white/55 dark:hover:text-white'
-        }`}
-        onClick={(e) => {
-          e.preventDefault()
-          setActiveId(introId)
-          scrollToId(introId)
-        }}
-      >
-        {introLabel}
-      </a>
-      <ul className="space-y-2.5">
-        {items.map((item) => {
+    <ul className="space-y-2.5">
+      {items.map((item) => {
           const isActive = activeId === item.id
 
           return (
             <li
               key={item.id}
-              className={
-                item.level === 4 ? 'pl-8' : item.level === 3 ? 'pl-4' : ''
-              }
+              className={getTocItemIndentClass(item.level, minHeadingLevel)}
             >
               <a
                 href={`#${item.id}`}
@@ -248,8 +240,7 @@ export function BlogTableOfContents({
             </li>
           )
         })}
-      </ul>
-    </>
+    </ul>
   )
 
   if (mode === 'mobile') {

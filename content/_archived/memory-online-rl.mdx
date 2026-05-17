@@ -13,7 +13,7 @@ The broader local inference ecosystem moves quickly, and new releases constantly
 
 Tiles `0.4.7` is the last release that includes this experiment; later versions removed this code path. To test it, download Tiles `0.4.7` from the [0.4.7 release](/releases#0.4.7) (or use any earlier release) and run `tiles run -m`.
 
-#### Implementation
+## Implementation
 
 The agent works with Obsidian-like directories of Markdown files as its knowledge base. These files are both human-readable and hyperlinked. The core protocol is defined in a single system prompt. The source is available [here](https://github.com/firstbatchxyz/mem-agent-mcp/blob/main/agent/system_prompt.txt).
 
@@ -54,7 +54,7 @@ Dria trained a fine-tuned model so the agent strictly adheres to the enforced pr
   </figure>
 </div>
 
-#### Response Structure
+## Response Structure
 
 The model's response is split into three structured sections:
 
@@ -62,7 +62,7 @@ The model's response is split into three structured sections:
 - `<python>`: executable code that calls predefined functions  
 - `<reply>`: final output after memory interaction  
 
-#### Execution
+## Execution
 
 The Python block is executed in a sandbox, and its results are returned as `<result>` tags. This is how the agent forms its reasoning to action loop.
 

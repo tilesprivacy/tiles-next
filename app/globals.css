@@ -389,10 +389,16 @@
   letter-spacing: -0.018em !important;
 }
 
-/* Memory agent diagram: smaller than full column on research exploration pages */
+/* Memory agent diagram: centered, ~85% of article column width on research exploration pages */
 .research-exploration-article.research-memory-mdx figure:has(img[alt*="Memory agent"]) {
-  max-width: 32rem;
-  margin-inline: auto;
+  width: 88%;
+  max-width: none;
+  margin: 1.5rem auto 1.75rem;
+}
+
+.research-exploration-article.research-memory-mdx figure:has(img[alt*="Memory agent"]) > div {
+  display: block;
+  width: 100%;
 }
 
 .research-exploration-article.research-memory-mdx figure:has(img[alt*="Memory agent"]) img {
