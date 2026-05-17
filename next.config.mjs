@@ -93,6 +93,11 @@ const nextConfig = {
         destination: '/releases',
         permanent: true,
       },
+      {
+        source: '/book/memory',
+        destination: '/research/memory-model-trained-with-online-rl',
+        permanent: true,
+      },
     ]
   },
   async rewrites() {

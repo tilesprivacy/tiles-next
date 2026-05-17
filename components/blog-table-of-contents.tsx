@@ -1,19 +1,30 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
+import {
+  createResearchSectionNumberState,
+  resolveResearchSectionNumber,
+  type ResearchHeadingLevel,
+} from '@/lib/research-section-numbering'
 
 interface TocItem {
   id: string
   text: string
-  level: 2 | 3
+  level: 2 | 3 | 4
+  sectionNumber?: string
 }
 
 interface BlogTableOfContentsProps {
   contentSelector?: string
   mode?: 'desktop' | 'mobile'
+  introId?: string
+  introLabel?: string
+  mobileTitle?: string
+  navAriaLabel?: string
+  enableResearchSectionNumbers?: boolean
 }
 
-const INTRO_ID = 'blog-content-start'
+const DEFAULT_INTRO_ID = 'blog-content-start'
 
 function slugify(text: string): string {
   return text
@@ -26,6 +37,11 @@ function slugify(text: string): string {
 export function BlogTableOfContents({
   contentSelector = '.blog-article-content',
   mode = 'desktop',
+  introId = DEFAULT_INTRO_ID,
+  introLabel = 'Introduction',
+  mobileTitle = 'Table of Contents',
+  navAriaLabel = 'Table of contents',
+  enableResearchSectionNumbers = false,
 }: BlogTableOfContentsProps) {
   const [items, setItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
@@ -63,10 +79,10 @@ export function BlogTableOfContents({
     if (!root) return
 
     // Ensure there is a stable anchor at the beginning of article content.
-    root.id = INTRO_ID
+    root.id = introId
 
     const headings = Array.from(
-      root.querySelectorAll('h2, h3'),
+      root.querySelectorAll('h2, h3, h4'),
     ) as HTMLHeadingElement[]
 
     if (headings.length === 0) {
@@ -75,9 +91,12 @@ export function BlogTableOfContents({
     }
 
     const usedIds = new Map<string, number>()
+    const numberState = enableResearchSectionNumbers ? createResearchSectionNumberState() : null
+
     const tocItems: TocItem[] = headings.map((heading) => {
       const text = heading.textContent?.trim() || ''
-      const level = heading.tagName === 'H3' ? 3 : 2
+      const level: ResearchHeadingLevel =
+        heading.tagName === 'H4' ? 4 : heading.tagName === 'H3' ? 3 : 2
       const baseId = heading.id || slugify(text) || 'section'
       const duplicateCount = usedIds.get(baseId) ?? 0
       const id = duplicateCount === 0 ? baseId : `${baseId}-${duplicateCount + 1}`
@@ -88,14 +107,25 @@ export function BlogTableOfContents({
         heading.id = id
       }
 
-      return { id: heading.id, text, level }
+      let sectionNumber: string | undefined
+      if (numberState) {
+        sectionNumber = resolveResearchSectionNumber(numberState, level, {
+          explorationNumber: heading.getAttribute('data-exploration-number'),
+          presetSectionNumber: heading.getAttribute('data-section-number'),
+        })
+        heading.setAttribute('data-section-number', sectionNumber)
+      } else {
+        heading.removeAttribute('data-section-number')
+      }
+
+      return { id: heading.id, text, level, sectionNumber }
     })
 
     const getActiveIdFromScroll = () => {
       const offset = getScrollOffset()
       const scrollAnchor = window.scrollY + offset + 1
 
-      let nextActiveId = INTRO_ID
+      let nextActiveId = introId
       for (const heading of headings) {
         const headingTop = window.scrollY + heading.getBoundingClientRect().top
         if (headingTop <= scrollAnchor) {
@@ -124,7 +154,7 @@ export function BlogTableOfContents({
       window.removeEventListener('scroll', syncActiveState)
       window.removeEventListener('resize', syncActiveState)
     }
-  }, [contentSelector, getScrollOffset])
+  }, [contentSelector, enableResearchSectionNumbers, getScrollOffset, introId])
 
   useEffect(() => {
     const hashId = window.location.hash.replace('#', '')
@@ -162,11 +192,11 @@ export function BlogTableOfContents({
     return null
   }
 
-  const isIntroActive = activeId === INTRO_ID
+  const isIntroActive = activeId === introId
   const navItems = (
     <>
       <a
-        href={`#${INTRO_ID}`}
+        href={`#${introId}`}
         className={`mb-3 block text-sm font-medium transition-colors ${
           isIntroActive
             ? 'text-black dark:text-white'
@@ -174,18 +204,23 @@ export function BlogTableOfContents({
         }`}
         onClick={(e) => {
           e.preventDefault()
-          setActiveId(INTRO_ID)
-          scrollToId(INTRO_ID)
+          setActiveId(introId)
+          scrollToId(introId)
         }}
       >
-        Introduction
+        {introLabel}
       </a>
       <ul className="space-y-2.5">
         {items.map((item) => {
           const isActive = activeId === item.id
 
           return (
-            <li key={item.id} className={item.level === 3 ? 'pl-4' : ''}>
+            <li
+              key={item.id}
+              className={
+                item.level === 4 ? 'pl-8' : item.level === 3 ? 'pl-4' : ''
+              }
+            >
               <a
                 href={`#${item.id}`}
                 className={`block text-sm leading-snug transition-colors ${
@@ -199,7 +234,16 @@ export function BlogTableOfContents({
                   scrollToId(item.id)
                 }}
               >
-                {item.text}
+                {item.sectionNumber ? (
+                  <>
+                    <span className="tabular-nums text-black/45 dark:text-white/45">
+                      {item.sectionNumber}
+                    </span>{' '}
+                    {item.text}
+                  </>
+                ) : (
+                  item.text
+                )}
               </a>
             </li>
           )
@@ -211,7 +255,7 @@ export function BlogTableOfContents({
   if (mode === 'mobile') {
     return (
       <nav
-        aria-label="Table of contents"
+        aria-label={navAriaLabel}
         className="rounded-sm border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.04]"
       >
         <button
@@ -219,9 +263,9 @@ export function BlogTableOfContents({
           onClick={() => setIsExpanded((current) => !current)}
           className="flex w-full items-center justify-between text-left"
           aria-expanded={isExpanded}
-          aria-controls="blog-mobile-toc-list"
+          aria-controls={`${introId}-mobile-toc-list`}
         >
-          <span className="text-[1.15rem] font-medium text-black/60 dark:text-white/60">Table of Contents</span>
+          <span className="text-[1.15rem] font-medium text-black/60 dark:text-white/60">{mobileTitle}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
@@ -232,7 +276,7 @@ export function BlogTableOfContents({
           </svg>
         </button>
         {isExpanded ? (
-          <div id="blog-mobile-toc-list" className="mt-3.5">
+          <div id={`${introId}-mobile-toc-list`} className="mt-3.5">
             {navItems}
           </div>
         ) : null}
@@ -242,7 +286,7 @@ export function BlogTableOfContents({
 
   return (
     <nav
-      aria-label="Table of contents"
+      aria-label={navAriaLabel}
       className="sticky overflow-y-auto pr-4"
       style={{
         top: `${stickyTop}px`,

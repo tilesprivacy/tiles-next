@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { blogPosts } from "@/lib/blog-posts"
+import { RESEARCH_LOG_ENTRIES } from "@/lib/research-log"
 
 const baseUrl = "https://www.tiles.run"
 
@@ -8,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/mission",
     "/blog",
+    "/research",
     "/releases",
     "/book",
     "/brand",
@@ -28,5 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticRoutes, ...blogRoutes]
+  const researchRoutes: MetadataRoute.Sitemap = RESEARCH_LOG_ENTRIES.map((entry) => ({
+    url: `${baseUrl}/research/${entry.id}`,
+    lastModified: new Date(entry.startedAt),
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }))
+
+  return [...staticRoutes, ...blogRoutes, ...researchRoutes]
 }

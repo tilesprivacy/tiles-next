@@ -51,6 +51,11 @@ const VARIANT_STYLES = {
     initials:
       "inline-flex h-5 w-5 items-center justify-center rounded-sm bg-black/[0.04] text-[9px] font-medium tracking-tight text-black/45 dark:bg-white/[0.06] dark:text-white/45",
   },
+  research: {
+    img: "h-11 w-11 rounded-full object-cover ring-1 ring-black/10 dark:ring-white/15 sm:h-10 sm:w-10",
+    initials:
+      "inline-flex h-11 w-11 items-center justify-center rounded-full bg-black/[0.06] text-sm font-semibold text-black/60 ring-1 ring-black/10 dark:bg-white/[0.08] dark:text-white/70 dark:ring-white/15 sm:h-10 sm:w-10",
+  },
 } as const
 
 export function PersonAvatar({
@@ -65,7 +70,7 @@ export function PersonAvatar({
   links: string[]
   /** Optional wrapper class (e.g. shrink-0). */
   className?: string
-  /** `blog`: smaller square avatar aligned with blog UI. `inline`: compact inline avatar. `default`: mission / sponsors. */
+  /** `blog`: smaller square avatar aligned with blog UI. `inline`: compact inline avatar. `research`: larger research metadata avatar. */
   variant?: keyof typeof VARIANT_STYLES
   /** Let callers preload avatars when a later section would otherwise lag on scroll. */
   loading?: "eager" | "lazy"

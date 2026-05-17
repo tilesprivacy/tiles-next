@@ -1,0 +1,22 @@
+---
+title: "Inference Time Memory Module"
+description: "Inference-time memory module research."
+---
+
+import { ClickableImage as Image } from '@/components/clickable-image'
+
+An extremely simple inference-time memory module that treats memory management as a series of LLM calls and agent loops over a markdown-based file tree. We plan to build it around the Pi agent harness and package the [nanomem](https://github.com/openanonymity/nanomem) project as an integrated [Pi extension](https://pi.dev/docs/latest/extensions). The memory state is stored locally and encrypted on-device, and all user queries can be augmented with the minimal relevant context before being sent to the model.
+
+<figure style={{ margin: '1.25rem 0 1.5rem 0' }}>
+  <Image src="/oamemory.png" alt="Memory agent revising a user prompt with minimal added context before model inference." width={2254} height={1956} style={{ borderRadius: '12px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
+  <figcaption style={{
+    marginTop: '0.75rem',
+    fontSize: '0.875rem',
+    lineHeight: '1.4',
+    color: 'var(--nextra-text-color-secondary, #666)',
+    textAlign: 'center',
+    fontStyle: 'italic'
+  }}>User input prompt can be revised to add the minimally necessary context before request gets processed by the model, from <a href="https://openanonymity.ai/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '2px' }}>The Open Anonymity Project</a>.</figcaption>
+</figure>
+
+This setup also supports selective disclosure of memory content, giving users control over what information is shared with the model. Regardless of context size, LLMs generally perform better when provided only the most relevant context rather than excessive information that diffuses attention across unrelated details. One of the recurring frustrations users have expressed with ChatGPT’s memory feature is that it can feel like an uncontrolled dossier injected into every conversation. Our approach instead focuses on tightly scoped, inference-time retrieval, where only the minimal context required for the task is surfaced to the model.

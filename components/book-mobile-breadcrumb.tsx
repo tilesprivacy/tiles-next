@@ -9,7 +9,6 @@ const pageTitles: Record<string, string> = {
   'overview': 'Overview',
   'manual': 'Manual',
   'models': 'Models',
-  'memory': 'Memory',
   'tilekit': 'Tilekit',
   'mir': 'MIR Extension',
   'security': 'Security',

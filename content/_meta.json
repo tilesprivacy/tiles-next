@@ -27,13 +27,6 @@
       "timestamp": true
     }
   },
-  "memory": {
-    "title": "Memory",
-    "theme": {
-      "copyPage": true,
-      "timestamp": true
-    }
-  },
   "tilekit": {
     "title": "Tilekit",
     "theme": {

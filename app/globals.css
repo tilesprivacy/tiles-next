@@ -389,6 +389,44 @@
   letter-spacing: -0.018em !important;
 }
 
+/* Memory agent diagram: smaller than full column on research exploration pages */
+.research-exploration-article.research-memory-mdx figure:has(img[alt*="Memory agent"]) {
+  max-width: 32rem;
+  margin-inline: auto;
+}
+
+.research-exploration-article.research-memory-mdx figure:has(img[alt*="Memory agent"]) img {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.research-exploration-article.research-memory-mdx h4 {
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.75rem !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.012em !important;
+  line-height: 1.35 !important;
+  color: var(--foreground) !important;
+}
+
+@media (min-width: 640px) {
+  .research-exploration-article.research-memory-mdx h4 {
+    font-size: 1.125rem !important;
+  }
+}
+
+.research-page-content :where(h2, h3, h4)[id] {
+  scroll-margin-top: calc(5.5rem + env(safe-area-inset-top, 0px) + 1rem);
+}
+
+@media (min-width: 1280px) {
+  .research-page-content :where(h2, h3, h4)[id] {
+    scroll-margin-top: calc(7rem + env(safe-area-inset-top, 0px) + 1rem);
+  }
+}
+
 /* Right “On this page” TOC (Nextra 4: nav.nextra-toc sibling of article; not aside) */
 [data-book-section] nav[aria-label="table of contents"] a,
 [data-book-section] nav.nextra-toc a,

@@ -1,61 +1,9 @@
 ---
-title: "Memory"
-description: "Our work on memory model research for on-device context and memory management."
+title: "Memory Model Trained with Online RL"
+description: "On-device memory model trained with online reinforcement learning."
 ---
 
 import { ClickableImage as Image } from '@/components/clickable-image'
-
-# Memory
-
-Our long term goal is to solve memory in pursuit of software personalization through decentralized memory networks. We plan to use parametric approaches similar to those described in the [Memory Layers at Scale](https://arxiv.org/abs/2412.09764) paper by the FAIR research team at Meta. We test these experiments by deploying them in Tiles, where users can try them and provide real-world feedback. This feedback informs our ongoing research and is incrementally incorporated into future builds.
-
-## Inference Time Memory Module
-
-<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', marginTop: '1rem', marginBottom: '1.5rem' }}>
-  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-    <span style={{ 
-      padding: '0.25rem 0.75rem', 
-      borderRadius: '6px', 
-      fontSize: '0.75rem', 
-      fontWeight: '600', 
-      textTransform: 'uppercase',
-      letterSpacing: '0.5px'
-    }} className="bg-[#DDEBFF] text-[#1F5FA8] dark:bg-[#243B5A] dark:text-[#BFD8FF]">Napkin Sketch</span>
-  </div>
-  <span className="text-sm font-medium text-muted-foreground">May 2026 - Present</span>
-</div>
-
-An extremely simple inference-time memory module that treats memory management as a series of LLM calls and agent loops over a markdown-based file tree. We plan to build it around the Pi agent harness and package the [nanomem](https://github.com/openanonymity/nanomem) project as an integrated [Pi extension](https://pi.dev/docs/latest/extensions). The memory state is stored locally and encrypted on-device, and all user queries can be augmented with the minimal relevant context before being sent to the model.
-
-<figure style={{ margin: '1.25rem 0 1.5rem 0' }}>
-  <Image src="/oamemory.png" alt="Memory agent revising a user prompt with minimal added context before model inference." width={2254} height={1956} style={{ borderRadius: '12px', border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))', width: '100%', height: 'auto' }} />
-  <figcaption style={{
-    marginTop: '0.75rem',
-    fontSize: '0.875rem',
-    lineHeight: '1.4',
-    color: 'var(--nextra-text-color-secondary, #666)',
-    textAlign: 'center',
-    fontStyle: 'italic'
-  }}>User input prompt can be revised to add the minimally necessary context before request gets processed by the model, from <a href="https://openanonymity.ai/" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'underline', textUnderlineOffset: '2px' }}>The Open Anonymity Project</a>.</figcaption>
-</figure>
-
-This setup also supports selective disclosure of memory content, giving users control over what information is shared with the model. Regardless of context size, LLMs generally perform better when provided only the most relevant context rather than excessive information that diffuses attention across unrelated details. One of the recurring frustrations users have expressed with ChatGPT’s memory feature is that it can feel like an uncontrolled dossier injected into every conversation. Our approach instead focuses on tightly scoped, inference-time retrieval, where only the minimal context required for the task is surfaced to the model.
-
-## Memory Model Trained with Online RL
-
-<div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem', marginTop: '1rem', marginBottom: '1.5rem' }}>
-  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-    <span style={{ 
-      padding: '0.25rem 0.75rem', 
-      borderRadius: '6px', 
-      fontSize: '0.75rem', 
-      fontWeight: '600', 
-      textTransform: 'uppercase',
-      letterSpacing: '0.5px'
-    }} className="bg-[#E8D5F2] text-[#6B2E99] dark:bg-[#3A2A4A] dark:text-[#D4C5E8]">Experimental Prototype</span>
-  </div>
-  <span style={{ fontSize: '0.875rem', color: 'var(--nextra-primary-500, #888)' }}>January 2026 - March 2026</span>
-</div>
 
 Our first experiment explores bundling a fine-tuned model to manage context and memories locally on-device using hyperlinked Markdown files. Currently, we use the [mem-agent](https://huggingface.co/driaforall/mem-agent) model from [Dria](https://dria.co/), based on [`qwen3-4B-thinking-2507`](https://github.com/QwenLM/Qwen3?tab=readme-ov-file#qwen3-2507), and are in the process of training our initial in-house memory models. Read more about their training process and scaffolding design in their paper [here](https://huggingface.co/blog/driaforall/mem-agent-blog).
 
@@ -65,7 +13,7 @@ The broader local inference ecosystem moves quickly, and new releases constantly
 
 Tiles `0.4.7` is the last release that includes this experiment; later versions removed this code path. To test it, download Tiles `0.4.7` from the [0.4.7 release](/releases#0.4.7) (or use any earlier release) and run `tiles run -m`.
 
-### Implementation
+#### Implementation
 
 The agent works with Obsidian-like directories of Markdown files as its knowledge base. These files are both human-readable and hyperlinked. The core protocol is defined in a single system prompt. The source is available [here](https://github.com/firstbatchxyz/mem-agent-mcp/blob/main/agent/system_prompt.txt).
 
@@ -106,7 +54,7 @@ Dria trained a fine-tuned model so the agent strictly adheres to the enforced pr
   </figure>
 </div>
 
-### Response Structure
+#### Response Structure
 
 The model's response is split into three structured sections:
 
@@ -114,7 +62,7 @@ The model's response is split into three structured sections:
 - `<python>`: executable code that calls predefined functions  
 - `<reply>`: final output after memory interaction  
 
-### Execution
+#### Execution
 
 The Python block is executed in a sandbox, and its results are returned as `<result>` tags. This is how the agent forms its reasoning to action loop.
 
