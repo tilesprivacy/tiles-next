@@ -148,7 +148,7 @@ export function BlogPostContent({
         {/* Bottom Card - Blog Post Content */}
         <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
           {/* Blog Title */}
-          <div className="mb-8 lg:mb-12 lg:max-w-[44rem] lg:mx-auto">
+          <div className="mx-auto mb-8 max-w-[44rem] lg:mb-12">
             <h1 className="mb-4 font-sans text-[clamp(2rem,6vw,3.2rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mb-4">
               {title}
             </h1>
@@ -166,7 +166,6 @@ export function BlogPostContent({
               </div>
               {author && (
                 <div className="mt-0.5 flex items-center gap-1.5">
-                  <span className="text-sm text-black/42 dark:text-white/42 lg:text-[0.95rem]">By</span>
                   <PersonAvatar
                     name={author.name}
                     links={author.links}
@@ -191,7 +190,7 @@ export function BlogPostContent({
           </div>
 
           {/* Cover Image */}
-          <div className="mb-8 lg:mb-16 lg:max-w-[44rem] lg:mx-auto">
+          <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16">
             {coverImageDark ? (
               <>
                 <Image
@@ -220,7 +219,7 @@ export function BlogPostContent({
             )}
           </div>
 
-          <div className="mb-8 lg:mb-16 lg:max-w-[44rem] lg:mx-auto xl:hidden">
+          <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16 xl:hidden">
             <BlogTableOfContents mode="mobile" />
           </div>
 
@@ -255,7 +254,7 @@ export function BlogPostContent({
           </div>
 
           {/* Blog Footer Text */}
-          <div className="mt-16 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
+          <div className="mx-auto mt-16 max-w-[44rem] lg:mt-20">
             <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:space-y-3 lg:text-sm mb-8 lg:mb-10">
               <p>
                 Tiles is a local-first private AI for everyday use.
@@ -274,13 +273,13 @@ export function BlogPostContent({
           </div>
 
           {shareActions && (
-            <div className="mt-14 lg:mt-20 lg:max-w-[44rem] lg:mx-auto">
+            <div className="mx-auto mt-14 max-w-[44rem] lg:mt-20">
               <p className={shareLabelClass}>Share this:</p>
               {shareActions}
             </div>
           )}
 
-          <section className="mt-12 border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:max-w-[44rem] lg:mx-auto lg:py-7">
+          <section className="mx-auto mt-12 max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:py-7">
             <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">

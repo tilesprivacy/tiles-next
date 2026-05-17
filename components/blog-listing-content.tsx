@@ -68,7 +68,6 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
             <span>{formatDate(post.date)}</span>
             {author && (
               <span className="inline-flex items-center gap-1.5">
-                <span>By</span>
                 <PersonAvatar
                   name={author.name}
                   links={author.links}
