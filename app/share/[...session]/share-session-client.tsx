@@ -736,39 +736,14 @@ export function ShareSessionClient({
       <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col overflow-hidden">
         <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] print:overflow-visible print:pb-4">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col overflow-x-hidden">
-            <header className="grid gap-3 px-1 pb-7 pt-4 print:flex print:flex-nowrap sm:flex sm:flex-wrap sm:items-start sm:justify-between sm:gap-x-6 sm:gap-y-2 sm:px-2 sm:pb-8 sm:pt-4">
-              <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:max-w-[60%] sm:gap-x-1.5 sm:gap-y-1 sm:pl-1 sm:text-[0.8rem]">
-                <span>This is a copy of a conversation between Tiles and</span>
-                <span className="inline-flex min-w-0 items-center gap-1.5">
-                  {sharedSession.sharedBy.avatarUrl ? (
-                    <img
-                      src={sharedSession.sharedBy.avatarUrl}
-                      alt={sharedByLabel}
-                      className="h-4 w-4 rounded-full object-cover"
-                      loading="lazy"
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <span
-                      className="h-4 w-4 rounded-full bg-black/15 dark:bg-white/25"
-                      aria-hidden
-                    />
-                  )}
-                  <a
-                    href={blueskyProfileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="min-w-0 truncate font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
-                    title="Open Bluesky profile"
-                  >
-                    {sharedSession.sharedBy.handle
-                      ? `@${sharedSession.sharedBy.handle.replace(/^@+/, "")}`
-                      : sharedByLabel}
-                  </a>
-                </span>
-              </p>
-              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/68 dark:text-white/72 sm:max-w-[42%] sm:justify-end sm:gap-2 sm:text-right">
-                <SharePageQrCode url={pageUrl} className="print:shadow-none" />
+            <header className="relative flex flex-col gap-3 px-4 pb-7 pt-4 pr-[5.75rem] print:flex-row print:flex-nowrap print:items-start print:justify-between print:gap-x-6 print:px-2 print:pr-2 sm:px-5 sm:pb-8 sm:pr-[6.25rem] sm:pt-4">
+              <SharePageQrCode
+                url={pageUrl}
+                isDark={isDark}
+                size={80}
+                className="absolute right-0 top-0 print:static print:float-right"
+              />
+              <div className="flex min-w-0 max-w-full items-center justify-start gap-2.5 text-left text-xs leading-5 text-black/68 dark:text-white/72 print:max-w-[42%] sm:gap-2">
                 <span
                   className="min-w-0 truncate font-medium"
                   title={pageUrl || undefined}
@@ -812,6 +787,36 @@ export function ShareSessionClient({
                   <Download className="h-3.5 w-3.5" aria-hidden />
                 </button>
               </div>
+              <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
+                <span>This is a copy of a conversation between Tiles and</span>
+                <span className="inline-flex min-w-0 items-center gap-1.5">
+                  {sharedSession.sharedBy.avatarUrl ? (
+                    <img
+                      src={sharedSession.sharedBy.avatarUrl}
+                      alt={sharedByLabel}
+                      className="h-4 w-4 rounded-full object-cover"
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <span
+                      className="h-4 w-4 rounded-full bg-black/15 dark:bg-white/25"
+                      aria-hidden
+                    />
+                  )}
+                  <a
+                    href={blueskyProfileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="min-w-0 truncate font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
+                    title="Open Bluesky profile"
+                  >
+                    {sharedSession.sharedBy.handle
+                      ? `@${sharedSession.sharedBy.handle.replace(/^@+/, "")}`
+                      : sharedByLabel}
+                  </a>
+                </span>
+              </p>
             </header>
 
             {sharedSession.messages.length > 0 ? (
