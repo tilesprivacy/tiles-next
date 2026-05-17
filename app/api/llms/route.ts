@@ -64,7 +64,6 @@ export async function GET(request: Request) {
   addSection(lines, 'Core Pages', [
     `- [Homepage](${baseUrl}/): Product positioning and core value proposition.`,
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
-    `- [Use Cases](${baseUrl}/use-case): Sample public and placeholder conversations for private, local-first work.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,

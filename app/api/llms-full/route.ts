@@ -107,13 +107,6 @@ export async function GET(request: Request) {
     `SHA256 file: ${offlineChecksumUrl}`,
   ])
 
-  pushSection(lines, `Use Cases (${baseUrl}/use-case)`, [
-    'Sample Tiles conversations for private, local-first work.',
-    'Includes a shared public conversation by @madcla.ws comparing brief explanations of chemistry and physics.',
-    `Shared conversation: ${baseUrl}/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3`,
-    'Additional placeholder cards cover research briefs, local model runs, meeting notes, sensitive copy review, technical tradeoffs, and long-document summaries.',
-  ])
-
   pushSection(lines, `Mission (${baseUrl}/mission)`, [
     'Our mission is to bring privacy technology to everyone.',
     'Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you.',
@@ -157,7 +150,6 @@ export async function GET(request: Request) {
     `- Privacy: ${baseUrl}/privacy`,
     `- Terms: ${baseUrl}/terms`,
     `- Roadmap: ${baseUrl}/roadmap`,
-    `- Use Cases: ${baseUrl}/use-case`,
     `- Sponsor: ${baseUrl}/sponsor`,
     `- Brand: ${baseUrl}/brand`,
     `- Releases: ${baseUrl}/releases`,

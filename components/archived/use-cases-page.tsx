@@ -6,7 +6,7 @@ import { marketingPageLeadClass } from "@/lib/marketing-page-title-classes"
 const sharedScienceConversationPath =
   "/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3"
 
-export const metadata: Metadata = {
+export const useCasesPageMetadata: Metadata = {
   title: "Use Cases | Tiles",
   description: "Explore how people use Tiles for private work, research, and everyday AI workflows.",
   openGraph: {
@@ -121,7 +121,7 @@ function ConversationCardView({ card }: { card: ConversationCard }) {
   return <article className={cardClass}>{content}</article>
 }
 
-export default function UseCasesPage() {
+export function UseCasesPage() {
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
       <main className="flex-1 px-4 pb-16 pt-[calc(6.75rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(5.5rem+env(safe-area-inset-top,0px))]">
