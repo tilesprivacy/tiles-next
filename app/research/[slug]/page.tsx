@@ -23,33 +23,33 @@ export async function generateMetadata({ params }: ResearchExplorationPageProps)
   }
 
   const pageUrl = `${baseUrl}/research/${entry.id}`
-  const coverImage = entry.coverImage || "/og-image.jpg"
+  const ogTitle = `${entry.title} | Research | Tiles`
 
   return {
-    title: `${entry.title} | Research | Tiles`,
+    title: ogTitle,
     description: entry.description,
     alternates: {
       canonical: pageUrl,
     },
     openGraph: {
-      title: `${entry.title} | Research | Tiles`,
+      title: ogTitle,
       description: entry.description,
       url: pageUrl,
       type: "article",
       images: [
         {
-          url: `${baseUrl}${coverImage}`,
+          url: "/api/og",
           width: 1200,
           height: 630,
-          alt: entry.coverAlt || entry.title,
+          alt: ogTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${entry.title} | Research | Tiles`,
+      title: ogTitle,
       description: entry.description,
-      images: [`${baseUrl}${coverImage}`],
+      images: ["/api/og"],
     },
   }
 }
