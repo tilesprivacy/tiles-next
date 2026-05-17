@@ -9,7 +9,7 @@ import { Streamdown } from "streamdown"
 import "katex/dist/katex.min.css"
 import { SharePageQrCode } from "@/components/share-page-qr-code"
 import { normalizeShareMathMarkdown } from "@/lib/normalize-share-math-markdown"
-import type { SharedSession, SharedSessionMessage } from "@/lib/shared-session"
+import { getSharedSession, type SharedSession, type SharedSessionMessage } from "@/lib/shared-session"
 import { cn } from "@/lib/utils"
 
 const shareMathPlugin = createMathPlugin({
@@ -18,7 +18,8 @@ const shareMathPlugin = createMathPlugin({
 
 interface ShareSessionClientProps {
   mockApiUrl?: string
-  initialSharedSession?: SharedSession | null
+  initialSharedSession?: SharedSession | null,
+  shareToken?: string,
   initialErrorMessage?: string | null
 }
 
@@ -541,6 +542,7 @@ function ShareFloatingDownloadBar({
 export function ShareSessionClient({
   mockApiUrl,
   initialSharedSession = null,
+  shareToken="",
   initialErrorMessage = null,
 }: ShareSessionClientProps) {
   const [sharedSession, setSharedSession] = useState<SharedSession | null>(
@@ -561,7 +563,6 @@ export function ShareSessionClient({
     if (!mockApiUrl) {
       return
     }
-
     let cancelled = false
     setSharedSession(null)
     setErrorMessage(null)
@@ -594,6 +595,23 @@ export function ShareSessionClient({
     if (typeof window === "undefined") {
       return
     }
+    // const readFragment = () => {
+    //   const fragment = window.location.hash.slice(1)
+    //   return fragment ? decodeURIComponent(fragment) : null
+    // }
+
+    // const fragment = readFragment()
+    // console.log("fragments", fragment)
+
+      const load = async () => {
+      const fragment = decodeURIComponent(window.location.hash.slice(1))
+      console.log("fragments", fragment);
+      const sharedSession = await getSharedSession(shareToken, fragment)
+
+      setSharedSession(sharedSession)
+    }
+
+    load()
     setPageUrl(window.location.href)
   }, [])
 
