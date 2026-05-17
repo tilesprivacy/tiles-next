@@ -18,11 +18,13 @@ const badgeClassName: Record<ResearchExplorationBadge, string> = {
     'bg-[#DDEBFF] text-[#1F5FA8] dark:bg-[#243B5A] dark:text-[#BFD8FF]',
   'experimental-prototype':
     'bg-[#E8D5F2] text-[#6B2E99] dark:bg-[#3A2A4A] dark:text-[#D4C5E8]',
+  wip: 'bg-black/[0.06] text-black/62 dark:bg-white/[0.1] dark:text-white/72',
 }
 
 const badgeLabel: Record<ResearchExplorationBadge, string> = {
   'napkin-sketch': 'NAPKIN SKETCH',
   'experimental-prototype': 'EXPERIMENTAL PROTOTYPE',
+  wip: 'WIP',
 }
 
 export function ResearchExplorationContent({

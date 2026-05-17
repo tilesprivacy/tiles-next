@@ -6,7 +6,10 @@
  * Cite explorations by month (for example "May 2026") rather than a numeric index.
  */
 
-export type ResearchExplorationBadge = "napkin-sketch" | "experimental-prototype"
+export type ResearchExplorationBadge =
+  | "napkin-sketch"
+  | "experimental-prototype"
+  | "wip"
 
 export type ResearchLogEntryKind = "inline" | "mdx"
 
@@ -64,7 +67,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     authorIds: ["anandu-pavanan", "ankesh-bharti"],
     logMonth: "2026-05",
     startedAt: "2026-05-01",
-    badge: "napkin-sketch",
+    badge: "wip",
     period: "May 2026 - Present",
     kind: "mdx",
     mdxSlug: "memory-inference-time",
@@ -80,7 +83,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     authorIds: ["anandu-pavanan", "ankesh-bharti"],
     logMonth: "2026-05",
     startedAt: "2026-05-16",
-    badge: "napkin-sketch",
+    badge: "wip",
     period: "May 2026 - Present",
     kind: "inline",
     coverImage: "/og-image.jpg",
