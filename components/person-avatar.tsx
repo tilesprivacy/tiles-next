@@ -1,14 +1,19 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import { getAvatarUrlFromLinks, getBlueskyHandleFromLinks, getPersonInitials } from "@/lib/person-avatar"
+import { useEffect, useMemo, useState } from "react"
+import {
+  getAvatarUrlCandidates,
+  getBlueskyHandleFromLinks,
+  getPersonInitials,
+} from "@/lib/person-avatar"
 
 const blueskyAvatarCache = new Map<string, string>()
 const blueskyAvatarRequests = new Map<string, Promise<string>>()
 
 async function resolveBlueskyAvatarUrl(handle: string): Promise<string> {
-  if (blueskyAvatarCache.has(handle)) {
-    return blueskyAvatarCache.get(handle) ?? ""
+  const cached = blueskyAvatarCache.get(handle)
+  if (cached) {
+    return cached
   }
 
   const pendingRequest = blueskyAvatarRequests.get(handle)
@@ -16,16 +21,19 @@ async function resolveBlueskyAvatarUrl(handle: string): Promise<string> {
     return pendingRequest
   }
 
-  const request = fetch(`https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(handle)}`)
+  const request = fetch(
+    `https://public.api.bsky.app/xrpc/app.bsky.actor.getProfile?actor=${encodeURIComponent(handle)}`,
+  )
     .then((res) => (res.ok ? res.json() : null))
     .then((data: { avatar?: string } | null) => {
       const resolvedAvatarUrl = data?.avatar ?? ""
-      blueskyAvatarCache.set(handle, resolvedAvatarUrl)
+      if (resolvedAvatarUrl) {
+        blueskyAvatarCache.set(handle, resolvedAvatarUrl)
+      }
       blueskyAvatarRequests.delete(handle)
       return resolvedAvatarUrl
     })
     .catch(() => {
-      blueskyAvatarCache.set(handle, "")
       blueskyAvatarRequests.delete(handle)
       return ""
     })
@@ -77,68 +85,71 @@ export function PersonAvatar({
   /** Browser hint for avatar network priority. */
   fetchPriority?: "auto" | "high" | "low"
 }) {
-  const [avatarFailed, setAvatarFailed] = useState(false)
-  const staticAvatarUrl = getAvatarUrlFromLinks(links)
+  const staticCandidates = useMemo(() => getAvatarUrlCandidates(links), [links])
   const bskyHandle = getBlueskyHandleFromLinks(links)
-  const cachedBlueskyAvatarUrl = bskyHandle && blueskyAvatarCache.has(bskyHandle)
-    ? (blueskyAvatarCache.get(bskyHandle) ?? "")
-    : ""
-  const [avatarUrl, setAvatarUrl] = useState(staticAvatarUrl || cachedBlueskyAvatarUrl)
+  const [avatarCandidates, setAvatarCandidates] = useState<string[]>(staticCandidates)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [exhaustedCandidates, setExhaustedCandidates] = useState(false)
   const initials = getPersonInitials(name)
 
   useEffect(() => {
     let cancelled = false
-    setAvatarFailed(false)
+    setActiveIndex(0)
+    setExhaustedCandidates(false)
+    setAvatarCandidates(staticCandidates)
 
-    if (staticAvatarUrl) {
-      setAvatarUrl(staticAvatarUrl)
+    if (!bskyHandle) {
       return () => {
         cancelled = true
       }
     }
 
-    if (!bskyHandle) {
-      setAvatarUrl("")
-      return () => {
-        cancelled = true
-      }
+    const appendCandidate = (url: string) => {
+      if (!url || cancelled) return
+      setAvatarCandidates((current) => (current.includes(url) ? current : [...current, url]))
     }
 
     if (blueskyAvatarCache.has(bskyHandle)) {
-      setAvatarUrl(blueskyAvatarCache.get(bskyHandle) ?? "")
+      appendCandidate(blueskyAvatarCache.get(bskyHandle) ?? "")
       return () => {
         cancelled = true
       }
     }
 
     resolveBlueskyAvatarUrl(bskyHandle)
-      .then((resolvedAvatarUrl) => {
-        if (cancelled) return
-        setAvatarUrl(resolvedAvatarUrl)
-      })
+      .then(appendCandidate)
       .catch(() => {
-        if (cancelled) return
-        setAvatarUrl("")
+        // Fall through to initials when every candidate fails.
       })
 
     return () => {
       cancelled = true
     }
-  }, [bskyHandle, staticAvatarUrl])
+  }, [bskyHandle, staticCandidates])
 
+  const activeAvatarUrl = avatarCandidates[activeIndex]
   const styles = VARIANT_STYLES[variant]
 
+  const handleImageError = () => {
+    if (activeIndex < avatarCandidates.length - 1) {
+      setActiveIndex((current) => current + 1)
+      return
+    }
+    setExhaustedCandidates(true)
+  }
+
   const inner =
-    avatarUrl && !avatarFailed ? (
+    activeAvatarUrl && !exhaustedCandidates ? (
       <img
-        src={avatarUrl}
+        key={activeAvatarUrl}
+        src={activeAvatarUrl}
         alt=""
         className={styles.img}
         referrerPolicy="no-referrer"
         loading={loading}
         fetchPriority={fetchPriority}
         decoding="async"
-        onError={() => setAvatarFailed(true)}
+        onError={handleImageError}
       />
     ) : (
       <span className={styles.initials}>{initials}</span>

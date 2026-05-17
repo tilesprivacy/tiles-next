@@ -28,6 +28,8 @@ export interface ResearchLogEntry {
   badge?: ResearchExplorationBadge
   period?: string
   kind: ResearchLogEntryKind
+  /** Optional long-form copy for `kind: "inline"` article bodies (hero/listing use `description`). */
+  body?: string
   /** Archived MDX slug under `content/_archived/`. */
   mdxSlug?: string
   coverImage?: string
@@ -78,7 +80,9 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     id: "local-models-meet-at-protocol",
     title: "Local models meet AT Protocol",
     description:
-      "Experiments with ATProto Lexicon schemas, the PDS, schema translation, and generative UI for local AI assistants.",
+      "Experiments with ATProto Lexicon schemas, PDS, schema translation, and generative UI for local AI assistants.",
+    body:
+      "We want to build AI around convenience first. Privacy alone is rarely something people actively buy, so the challenge is expanding the frontier of convenience without compromising user ownership. One area that feels promising is using schemas like ATProto Lexicons to power generative interfaces, where interactions could require only a single API call instead of coordinating across many separate endpoints. Combined with local models reducing network latency, this creates the possibility of extremely fast generative interfaces that connect and operate across different applications. Rather than selling privacy itself, the goal is to make the most convenient experience also happen to preserve user agency by default.",
     status: "active",
     authorIds: ["anandu-pavanan", "ankesh-bharti"],
     logMonth: "2026-05",

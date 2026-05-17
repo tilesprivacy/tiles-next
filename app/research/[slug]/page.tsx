@@ -67,7 +67,7 @@ export default async function ResearchExplorationPage({ params }: ResearchExplor
       {entry.kind === "mdx" && entry.mdxSlug ? (
         <ResearchLogMdx slug={entry.mdxSlug} />
       ) : (
-        <p>{entry.description}</p>
+        <p>{entry.body ?? entry.description}</p>
       )}
     </ResearchExplorationContent>
   )
