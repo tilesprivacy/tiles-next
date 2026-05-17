@@ -10,6 +10,7 @@ import {
   type ResearchExplorationBadge,
   type ResearchLogEntry,
 } from '@/lib/research-log'
+import { ArticleShareAndNewsletter } from '@/components/article-share-and-newsletter'
 import { SiteFooter } from '@/components/site-footer'
 
 const badgeClassName: Record<ResearchExplorationBadge, string> = {
@@ -110,6 +111,11 @@ export function ResearchExplorationContent({
             <div className="hidden xl:block" aria-hidden="true" />
           </div>
 
+          <ArticleShareAndNewsletter
+            title={entry.title}
+            moreLinkHref="/research"
+            moreLinkLabel="more research explorations"
+          />
         </div>
       </main>
 

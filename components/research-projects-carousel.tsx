@@ -26,11 +26,11 @@ export function ResearchProjectsCarousel({ entries }: { entries: ResearchLogEntr
   if (entries.length === 0) return null
 
   return (
-    <div className="divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
+    <>
       {entries.map((entry) => (
         <ResearchProjectEntry key={entry.id} entry={entry} />
       ))}
-    </div>
+    </>
   )
 }
 
