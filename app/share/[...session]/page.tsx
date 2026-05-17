@@ -61,8 +61,8 @@ export default async function SharePage({ params }: SharePageProps) {
   const shareToken = session.join("/")
 
   try {
-    const sharedSession = await getSharedSession(shareToken)
-    return <ShareSessionClient initialSharedSession={sharedSession} />
+    // const sharedSession = await getSharedSession(shareToken)
+    return <ShareSessionClient shareToken={shareToken} />
   } catch (error) {
     const errorMessage =
       error instanceof Error

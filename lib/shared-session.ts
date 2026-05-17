@@ -1,5 +1,5 @@
 import { AtpAgent } from "@atproto/api"
-
+import sodium from "libsodium-wrappers"
 export type SharedSessionMessageRole = "user" | "assistant"
 
 export interface SharedSessionMessage {
@@ -56,6 +56,8 @@ export function createSharedSessionPathFromUri(uri: string): string {
 }
 
 export function resolveSharedSessionUri(shareToken: string): string {
+
+  console.log("sharePath", shareToken);
   const token = decodeURIComponent(shareToken)
     .trim()
     .replace(/^\/+|\/+$/g, "")
@@ -259,11 +261,49 @@ async function resolveAtprotoService(repo: string): Promise<string> {
 
 export async function getSharedSession(
   sharePath: string,
+  fragment: string | null
 ): Promise<SharedSession> {
   const sourceUri = resolveSharedSessionUri(sharePath)
+  console.log("sourceuri", sourceUri);
   const { repo } = parseAtUri(sourceUri)
   const record = await getRecord(sourceUri)
   const sharedBy = await getActorProfile(repo)
+  // console.log("record", record);
+  // console.log(record["enc_content"]);
+  if (record["enc_content"] !== undefined) {
+    console.log("This is an encrypted session");
+    // encrypted stuff, lets decrypt
+
+    if (fragment != null) {
+      let fragments = fragment?.split(".")
+      console.log("fragments", fragments);
+      let nonce_bytes = sodium.from_base64(fragments[0], sodium.base64_variants.ORIGINAL);
+      let key_bytes = sodium.from_base64(fragments[1], sodium.base64_variants.ORIGINAL);
+      //@ts-ignore
+      let ciphertxt = sodium.from_base64(record["enc_content"], sodium.base64_variants.ORIGINAL);
+      console.log("nonce_length", nonce_bytes.length);
+      console.log("key_length", key_bytes.length);
+      const additional_data = null;
+      const decrypted_data = sodium.crypto_aead_xchacha20poly1305_ietf_decrypt(null, ciphertxt, additional_data, nonce_bytes, key_bytes
+      );
+      const text = new TextDecoder().decode(decrypted_data);
+      const obj = JSON.parse(text);
+      console.log(obj);
+      // convert them to chacha stuff, make the key, decrypt
+      // parse to json
+      //
+      return {
+        sessionId: readString(obj.session_id) ?? "shared-session",
+        name: readString(obj.name) ?? "Shared session",
+        createdAt: readString(obj.created_at),
+        sourceUri,
+        modelsUsed: normalizeModelsUsed(obj.models_used),
+        sharedBy,
+        messages: normalizeMessages(obj.contents),
+      }
+    }
+
+  }
 
   return {
     sessionId: readString(record.session_id) ?? "shared-session",
