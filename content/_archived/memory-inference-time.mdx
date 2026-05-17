@@ -5,7 +5,7 @@ description: "Inference-time memory module research."
 
 import { ClickableImage as Image } from '@/components/clickable-image'
 
-## Implementation
+## Design
 
 An extremely simple inference-time memory module that treats memory management as a series of LLM calls and agent loops over a markdown-based file tree. We plan to build it around the Pi agent harness and package the [nanomem](https://github.com/openanonymity/nanomem) project as an integrated [Pi extension](https://pi.dev/docs/latest/extensions). The memory state is stored locally and encrypted on-device, and all user queries can be augmented with the minimal relevant context before being sent to the model.
 

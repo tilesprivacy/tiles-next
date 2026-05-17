@@ -9,8 +9,6 @@ Our first experiment explores bundling a fine-tuned model to manage context and 
 
 These models use a human-readable external memory stored as Markdown, along with learned policies trained via reinforcement learning on synthetically generated data. These policies decide when to call Python functions that retrieve, update, or clarify memory, allowing the assistant to maintain and refine persistent knowledge across sessions.
 
-The broader local inference ecosystem moves quickly, and new releases constantly pull attention toward the next implementation target. Our approach is narrower on purpose. We would rather validate one model deeply than skim many: compare against official outputs, run long-context evaluations, and integrate enough agent behavior to tell whether the system is genuinely usable. The specific model will change over time, but the constraint stays fixed. We are aiming for local inference that is credible on high-end personal machines and Mac Studios, starting at 128 GB of memory.
-
 Tiles `0.4.7` is the last release that includes this experiment; later versions removed this code path. To test it, download Tiles `0.4.7` from the [0.4.7 release](/releases#0.4.7) (or use any earlier release) and run `tiles run -m`.
 
 ## Implementation
