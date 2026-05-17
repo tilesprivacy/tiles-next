@@ -113,6 +113,19 @@ export function formatResearchStartedAtLabel(startedAt: string): string {
   return researchDateFormatter.format(new Date(Date.UTC(year, month - 1, day)))
 }
 
+const researchListingMonthYearFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+})
+
+/** Short month + year for research listings (for example "Apr 2026"). */
+export function formatResearchListingMonthYear(logMonth: string): string {
+  const [year, month] = logMonth.split("-").map((part) => Number.parseInt(part, 10))
+  if (!year || !month) return logMonth
+  return researchListingMonthYearFormatter.format(new Date(Date.UTC(year, month - 1, 1)))
+}
+
 export function getResearchLogMonthId(logMonth: string): string {
   return `research-${logMonth}`
 }

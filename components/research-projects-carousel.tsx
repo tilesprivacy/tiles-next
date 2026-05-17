@@ -5,7 +5,7 @@ import { PersonAvatar } from '@/components/person-avatar'
 import { getResearchAuthors } from '@/lib/research-authors'
 import { splitPersonDisplayName } from '@/lib/people'
 import {
-  formatResearchLogMonthLabel,
+  formatResearchListingMonthYear,
   type ResearchExplorationBadge,
   type ResearchLogEntry,
 } from '@/lib/research-log'
@@ -36,30 +36,29 @@ export function ResearchProjectsCarousel({ entries }: { entries: ResearchLogEntr
 
 function ResearchProjectEntry({ entry }: { entry: ResearchLogEntry }) {
   const authors = getResearchAuthors(entry)
+  const monthYear = formatResearchListingMonthYear(entry.logMonth)
 
   return (
     <Link href={`/research/${entry.id}`} className="group block">
       <article className="py-6 sm:py-9">
-        <div className="mb-5 flex items-start justify-between gap-5 text-[0.7rem] font-medium uppercase tracking-[0.14em] text-black/40 dark:text-white/40 sm:mb-6">
+        <div className="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-5">
+          <span className="font-mono text-[0.78rem] tabular-nums text-black/52 dark:text-white/52 sm:text-[0.84rem]">
+            {monthYear}
+          </span>
           {entry.badge ? (
             <span
-              className={`rounded px-2.5 py-0.5 text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${badgeClassName[entry.badge]}`}
+              className={`inline-flex rounded px-2.5 py-0.5 font-mono text-[0.7rem] font-semibold uppercase tracking-[0.12em] ${badgeClassName[entry.badge]}`}
             >
               {badgeLabel[entry.badge]}
             </span>
-          ) : (
-            <span />
-          )}
-          <span className="shrink-0 pt-1 text-right">{formatResearchLogMonthLabel(entry.logMonth)}</span>
+          ) : null}
         </div>
 
-        <div className="max-w-full sm:max-w-[74%]">
-          <h3 className="text-[1.18rem] font-medium leading-tight tracking-[-0.02em] text-black/90 transition-colors group-hover:text-black/72 dark:text-white/90 dark:group-hover:text-white/76 sm:text-[1.36rem] lg:text-[1.82rem]">
-            {entry.title}
-          </h3>
-        </div>
+        <h3 className="text-[1.18rem] font-medium leading-tight tracking-[-0.02em] text-black/90 transition-colors group-hover:text-black/72 dark:text-white/90 dark:group-hover:text-white/76 sm:text-[1.36rem] lg:text-[1.82rem]">
+          {entry.title}
+        </h3>
 
-        <p className="mt-3 max-w-[42rem] line-clamp-3 text-[0.92rem] leading-6 text-black/60 dark:text-white/60 sm:max-w-[78%] sm:line-clamp-2 sm:text-[0.98rem] sm:leading-7">
+        <p className="mt-3 line-clamp-3 text-[0.92rem] leading-6 text-black/60 dark:text-white/60 sm:line-clamp-2 sm:text-[0.98rem] sm:leading-7">
           {entry.description}
         </p>
 
@@ -86,7 +85,7 @@ function ResearchProjectEntry({ entry }: { entry: ResearchLogEntry }) {
           })}
         </div>
 
-        <p className="pt-2.5 text-xs font-medium text-black/68 transition-colors group-hover:text-black dark:text-white/68 dark:group-hover:text-white lg:text-sm">
+        <p className="pt-4 text-xs font-medium text-black/68 transition-colors group-hover:text-black dark:text-white/68 dark:group-hover:text-white sm:pt-5 lg:text-sm">
           Read research →
         </p>
       </article>
