@@ -8,6 +8,8 @@ const rustLogoClass =
   "inline-flex h-[1.12em] w-[1.12em] shrink-0 items-center align-[-0.12em] transition-opacity hover:opacity-75"
 const mlxLogoClass =
   "inline-flex h-[0.62em] shrink-0 items-center align-[-0.06em] transition-opacity hover:opacity-75"
+const piLogoClass =
+  "inline-flex h-[1.12em] w-[1.12em] shrink-0 items-center align-[-0.12em] transition-opacity hover:opacity-75"
 
 function techLogoImageClass(variant: TechAttributionVariant) {
   return variant === "dark"
@@ -88,6 +90,15 @@ export function TechAttribution({
         containerClass={rustLogoClass}
       />
       <MlxLogo variant={variant} />
+      <TechLogo
+        href="https://pi.dev"
+        src="/icon-pi.svg"
+        label="Pi"
+        width={800}
+        height={800}
+        variant={variant}
+        containerClass={piLogoClass}
+      />
       <TechLogo
         href="https://atproto.com"
         src="/icon-atproto.png"
