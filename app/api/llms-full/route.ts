@@ -88,7 +88,7 @@ export async function GET(request: Request) {
   pushSection(lines, `Homepage (${baseUrl}/)`, [
     'Tiles',
     'Local-first private AI assistant for everyday use.',
-    'Runs on on-device models, keeps your data and identity local with encrypted peer-to-peer sync, and supports sharing chats publicly on AT Proto.',
+    'Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats with ATProto.',
     'Current status: CLI alpha.',
     `Linux availability form: ${baseUrl}/linux`,
   ])

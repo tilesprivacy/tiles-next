@@ -11,6 +11,7 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
+import { TechAttribution } from "@/components/tech-attribution"
 import { triggerHaptic } from "@/lib/haptics"
 import {
   downloadButtonIconMotionClasses,
@@ -159,12 +160,15 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
             <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" />
           </div>
 
+          <TechAttribution className="justify-center" variant={themeSwitcherVariant} />
+
           <p className={`text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
         </div>
 
         <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:text-left">
           <div className="flex flex-col items-start gap-2">
             <p className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
+            <TechAttribution className="justify-start" variant={themeSwitcherVariant} />
             <div className="flex items-center justify-center gap-2">
               <FooterLanguageSelector variant={themeSwitcherVariant} compact />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" />

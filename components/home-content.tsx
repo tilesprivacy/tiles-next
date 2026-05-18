@@ -84,10 +84,10 @@ const featureCards = [
   },
   {
     command: "/share",
-    heading: "Share chats publicly",
+    heading: "Share chats with friends",
     description: (
       <>
-        Create a public link to a chat session, published through{" "}
+        Create a public or private link to a chat session, published through{" "}
         <a
           href="https://atproto.com"
           target="_blank"
@@ -223,7 +223,7 @@ export function HomeContent() {
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
                   Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports
-                  sharing chats publicly on{" "}
+                  sharing chats with{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
