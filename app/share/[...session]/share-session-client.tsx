@@ -835,12 +835,16 @@ export function ShareSessionClient({
 
             <footer className="mt-auto pt-5">
               <div className="border-t border-black/10 pt-3 dark:border-white/10">
-                <p className="text-center text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
+                <p className="text-left text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
                   <span className="block">
                     We do not store a copy of the shared conversation on our servers.
                   </span>
                   <span className="mt-1 block">
-                    <span>Data is fetched from the user's personal data server (PDS) </span>
+                    For private links, the key material isn&apos;t sent to the server. Instead, it is appended to the
+                    URL and used to decrypt the chat transcript stored on the personal data server (PDS).
+                  </span>
+                  <span className="mt-1 block">
+                    <span>Data is fetched from the user&apos;s PDS </span>
                     {atprotoUriUrl ? (
                       <a
                         href={atprotoUriUrl}
