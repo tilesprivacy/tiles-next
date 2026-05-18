@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/tiles_banner_outline_blk.svg",
     coverImageDark: "/tiles_banner_outline_wht.svg",
     coverAlt: "Tiles banner",
-    content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Local-first private AI assistant for everyday use.</p>
+    content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto.</p>
 
 <h2>The Python Problem</h2>
 

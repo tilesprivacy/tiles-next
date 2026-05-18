@@ -12,6 +12,7 @@ import {
   FaXTwitter,
 } from 'react-icons/fa6'
 import NewsletterForm from '@/components/newsletter-form'
+import { TILES_PRODUCT_DESCRIPTION_SHORT } from '@/lib/product-description'
 
 interface ArticleShareAndNewsletterProps {
   title: string
@@ -132,7 +133,7 @@ export function ArticleShareAndNewsletter({
     <>
       <div className="mx-auto mt-16 max-w-[44rem] lg:mt-20">
         <div className="mb-8 space-y-2 text-xs text-black/60 dark:text-white/60 lg:mb-10 lg:space-y-3 lg:text-sm">
-          <p>Tiles is a local-first private AI for everyday use.</p>
+          <p>{TILES_PRODUCT_DESCRIPTION_SHORT}</p>
           <p>
             There are{' '}
             <Link

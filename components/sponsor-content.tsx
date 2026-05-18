@@ -98,7 +98,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             <div className={`mt-5 max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
               <p>
                 We&apos;re a small team of two working hard to bring privacy technology to everyone, starting with Tiles, a
-                local-first AI assistant. If you like Tiles, please consider supporting our work.
+                local-first private AI assistant. If you like Tiles, please consider supporting our work.
               </p>
               <p>
                 Your tips help accelerate Tiles&apos; development and keep both developers fed. Your support means a lot!

@@ -1,3 +1,5 @@
+import { TILES_PRODUCT_DESCRIPTION } from "@/lib/product-description"
+
 export interface LinuxWaitlistEmailVariables extends Record<string, string> {
   FIRST_NAME: string
 }
@@ -95,7 +97,7 @@ export const linuxWaitlistEmailTemplateHtml = `<!doctype html>
                   <tr>
                     <td align="center" style="padding:0 0 18px 0;">
                       <p style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
-                        Tiles is a local-first private AI for everyday use
+                        ${TILES_PRODUCT_DESCRIPTION}
                       </p>
                     </td>
                   </tr>

@@ -3,6 +3,7 @@ import { blogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
 import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
+import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import fs from 'fs'
 import path from 'path'
 
@@ -87,8 +88,7 @@ export async function GET(request: Request) {
 
   pushSection(lines, `Homepage (${baseUrl}/)`, [
     'Tiles',
-    'Local-first private AI assistant for everyday use.',
-    'Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats with ATProto.',
+    TILES_PRODUCT_DESCRIPTION,
     'Current status: CLI alpha.',
     `Linux availability form: ${baseUrl}/linux`,
   ])

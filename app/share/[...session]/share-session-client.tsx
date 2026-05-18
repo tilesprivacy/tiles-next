@@ -450,14 +450,14 @@ function ShareFloatingDownloadBar({
                   isDark ? "text-white/55" : "text-black/55"
                 }`}
               >
-                Local-first private AI
+                Own your AI
               </span>
               <span
                 className={`ml-0.5 hidden text-xs leading-none sm:inline ${
                   isDark ? "text-white/55" : "text-black/55"
                 }`}
               >
-                Local-first private AI assistant
+                Own your AI
               </span>
             </span>
           </Link>

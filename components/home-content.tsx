@@ -12,6 +12,11 @@ import {
   downloadButtonMotionClasses,
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
+import {
+  AT_PROTO_LABEL,
+  productDescriptionAfterAtProtoLink,
+  productDescriptionBeforeAtProtoLink,
+} from "@/lib/product-description"
 
 const featureCards = [
   {
@@ -216,23 +221,20 @@ export function HomeContent() {
           <div className="grid w-full items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] space-y-3.5 lg:mx-0 lg:w-full lg:space-y-4">
-                <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.3rem,7.2vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mx-0 lg:max-w-[15ch]">
-                  <span className="block lg:hidden">Local-first private</span>
-                  <span className="block lg:hidden">AI assistant</span>
-                  <span className="hidden lg:block">Local-first private AI assistant</span>
+                <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.3rem,7.2vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mx-0 lg:max-w-[12ch]">
+                  Own your AI
                 </h1>
                 <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
-                  Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports
-                  sharing chats with{" "}
+                  {productDescriptionBeforeAtProtoLink()}
                   <a
                     href="https://atproto.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
                   >
-                    ATProto
+                    {AT_PROTO_LABEL}
                   </a>
-                  . Fully open source.
+                  {productDescriptionAfterAtProtoLink()}
                 </p>
               </div>
 

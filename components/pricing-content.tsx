@@ -4,6 +4,7 @@ import { Check, ChevronDown } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { PolarEmbeddedCheckoutLink } from "@/components/polar-embedded-checkout-link"
 import { Button } from "@/components/ui/button"
+import { TILES_PRODUCT_DESCRIPTION } from "@/lib/product-description"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 type PricingPlan = {
@@ -92,7 +93,7 @@ const faqs: PricingFaq[] = [
   {
     question: "Do you store, access, or process user data?",
     answer:
-      "Local-first private AI assistant for everyday use. You can use our apps without sharing personal information, and your data is stored locally on your device. Our apps do not collect telemetry data, and we never sell user data.",
+      `${TILES_PRODUCT_DESCRIPTION} You can use our apps without sharing personal information, and your data is stored locally on your device. Our apps do not collect telemetry data, and we never sell user data.`,
   },
   {
     question: "How can I tell whether my license is active?",

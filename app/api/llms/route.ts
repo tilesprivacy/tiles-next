@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { blogPosts } from '@/lib/blog-posts'
+import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
 import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import fs from 'fs'
@@ -55,7 +56,7 @@ export async function GET(request: Request) {
 
   lines.push('# Tiles Privacy')
   lines.push('')
-  lines.push('> Runs on-device models with encrypted P2P sync, keeping your data and identity local, and supports sharing chats with ATProto.')
+  lines.push(`> ${TILES_PRODUCT_DESCRIPTION}`)
   lines.push('')
   lines.push(`Last updated: ${new Date().toISOString().slice(0, 10)}`)
   lines.push('This file follows the llms.txt convention and provides a complete content map for tiles.run.')
