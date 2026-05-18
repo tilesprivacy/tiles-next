@@ -157,9 +157,10 @@ type FooterLanguageSelectorProps = {
   /** Matches `ThemeSwitcher` `variant` for the footer surface (`dark` = dark footer band). */
   variant: 'light' | 'dark'
   compact?: boolean
+  tone?: 'default' | 'quiet'
 }
 
-export function FooterLanguageSelector({ variant, compact = false }: FooterLanguageSelectorProps) {
+export function FooterLanguageSelector({ variant, compact = false, tone = 'default' }: FooterLanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
   const [isOpen, setIsOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -192,11 +193,12 @@ export function FooterLanguageSelector({ variant, compact = false }: FooterLangu
 
   // Track + text colors aligned with `components/theme-switcher.tsx` (segmented control shell).
   const isLightVariant = variant === 'light'
-  const trackClass = isLightVariant ? 'bg-black/10' : 'bg-white/10'
+  const quiet = tone === 'quiet'
+  const trackClass = isLightVariant ? (quiet ? 'bg-black/[0.055]' : 'bg-black/10') : (quiet ? 'bg-white/[0.07]' : 'bg-white/10')
   const selectClasses = isLightVariant
-    ? 'text-black/85 focus-visible:ring-black/25'
-    : 'text-white/90 focus-visible:ring-white/25'
-  const iconMutedClass = isLightVariant ? 'text-black/60' : 'text-white/60'
+    ? `${quiet ? 'text-black/68' : 'text-black/85'} focus-visible:ring-black/25`
+    : `${quiet ? 'text-white/70' : 'text-white/90'} focus-visible:ring-white/25`
+  const iconMutedClass = isLightVariant ? (quiet ? 'text-black/45' : 'text-black/60') : (quiet ? 'text-white/45' : 'text-white/60')
   const dropdownSurfaceClass = isLightVariant
     ? 'border-black/10 bg-white text-black shadow-[0_8px_30px_rgba(0,0,0,0.14)]'
     : 'border-white/15 bg-[#101010] text-white shadow-[0_8px_30px_rgba(0,0,0,0.45)]'
@@ -301,10 +303,10 @@ export function FooterLanguageSelector({ variant, compact = false }: FooterLangu
       <span id="footer-language-selector-label" className="sr-only">
         Select language
       </span>
-      <div className={`inline-flex w-full items-center rounded-sm p-1 ${trackClass}`}>
+      <div className={`inline-flex w-full items-center rounded-sm ${quiet ? 'p-0.5' : 'p-1'} ${trackClass}`}>
         <div className="relative flex w-full min-w-0 items-center">
           <Globe
-            className={`pointer-events-none absolute ${compact ? 'left-1.5' : 'left-2.5'} top-1/2 ${compact ? 'h-3 w-3' : 'h-3.5 w-3.5'} -translate-y-1/2 ${iconMutedClass}`}
+            className={`pointer-events-none absolute ${compact ? 'left-1.5' : 'left-2.5'} top-1/2 ${compact || quiet ? 'h-3 w-3' : 'h-3.5 w-3.5'} -translate-y-1/2 ${iconMutedClass}`}
             aria-hidden
           />
           <button
@@ -314,7 +316,7 @@ export function FooterLanguageSelector({ variant, compact = false }: FooterLangu
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((open) => !open)}
-            className={`h-[22px] ${
+            className={`${quiet ? 'h-5' : 'h-[22px]'} ${
               compact ? 'w-[66px] pl-6 pr-5 text-center text-[10px]' : 'w-full pl-9 pr-8 text-left text-[11px]'
             } min-w-0 truncate rounded-sm border-0 bg-transparent py-0 font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             translate="no"

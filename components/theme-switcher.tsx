@@ -7,9 +7,10 @@ interface ThemeSwitcherProps {
   variant?: 'light' | 'dark' | 'auto'
   size?: 'sm' | 'md'
   mode?: 'segmented' | 'toggle'
+  tone?: 'default' | 'quiet'
 }
 
-export function ThemeSwitcher({ variant = 'auto', size = 'sm', mode = 'segmented' }: ThemeSwitcherProps) {
+export function ThemeSwitcher({ variant = 'auto', size = 'sm', mode = 'segmented', tone = 'default' }: ThemeSwitcherProps) {
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -21,10 +22,11 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm', mode = 'segmented
 
   // Determine colors based on variant
   const isLightVariant = variant === 'light' || (variant === 'auto' && !isDark)
-  const bgColor = isLightVariant ? 'bg-black/10' : 'bg-white/10'
+  const quiet = tone === 'quiet'
+  const bgColor = isLightVariant ? (quiet ? 'bg-black/[0.055]' : 'bg-black/10') : (quiet ? 'bg-white/[0.07]' : 'bg-white/10')
   const activeBg = isLightVariant ? 'bg-black' : 'bg-white'
   const activeText = isLightVariant ? 'text-white' : 'text-black'
-  const inactiveText = isLightVariant ? 'text-black/60' : 'text-white/60'
+  const inactiveText = isLightVariant ? (quiet ? 'text-black/45' : 'text-black/60') : (quiet ? 'text-white/50' : 'text-white/60')
   const hoverText = isLightVariant ? 'hover:text-black' : 'hover:text-white'
 
   const sizeClasses = size === 'sm' 
@@ -38,7 +40,7 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm', mode = 'segmented
       return (
         <span
           aria-hidden="true"
-          className={`inline-flex items-center justify-center rounded-sm ${bgColor} p-1.5 ${iconSize} pointer-events-none`}
+          className={`inline-flex items-center justify-center rounded-sm ${bgColor} ${quiet ? 'p-1' : 'p-1.5'} ${iconSize} pointer-events-none`}
         />
       )
     }
@@ -65,8 +67,10 @@ export function ThemeSwitcher({ variant = 'auto', size = 'sm', mode = 'segmented
       effectiveMode === 'light' ? 'dark' : effectiveMode === 'dark' ? 'system' : 'light'
 
     const focusRing = isLightVariant ? 'focus-visible:ring-black/25' : 'focus-visible:ring-white/25'
-    const shell = isLightVariant ? 'bg-black/10 text-black/70 hover:text-black' : 'bg-white/10 text-white/75 hover:text-white'
-    const iconButtonClass = `inline-flex items-center justify-center rounded-sm p-1.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${shell}`
+    const shell = isLightVariant
+      ? `${bgColor} ${quiet ? 'text-black/55' : 'text-black/70'} hover:text-black`
+      : `${bgColor} ${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
+    const iconButtonClass = `inline-flex items-center justify-center rounded-sm ${quiet ? 'p-1' : 'p-1.5'} transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${shell}`
 
     return (
       <button

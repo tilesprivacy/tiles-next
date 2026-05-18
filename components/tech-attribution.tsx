@@ -3,11 +3,11 @@ import Image from "next/image"
 type TechAttributionVariant = "light" | "dark"
 
 const techLogoClass =
-  "inline-flex h-[1em] shrink-0 items-center align-[-0.12em] transition-opacity hover:opacity-70"
+  "inline-flex h-[1em] shrink-0 items-center align-[-0.12em] transition-opacity hover:opacity-75"
 const rustLogoClass =
-  "inline-flex h-[1.15em] w-[1.15em] shrink-0 items-center align-[-0.12em] transition-opacity hover:opacity-70"
+  "inline-flex h-[1.12em] w-[1.12em] shrink-0 items-center align-[-0.12em] transition-opacity hover:opacity-75"
 const mlxLogoClass =
-  "inline-flex h-[0.62em] shrink-0 items-center align-[-0.06em] transition-opacity hover:opacity-70"
+  "inline-flex h-[0.62em] shrink-0 items-center align-[-0.06em] transition-opacity hover:opacity-75"
 
 function techLogoImageClass(variant: TechAttributionVariant) {
   return variant === "dark"
@@ -74,10 +74,10 @@ export function TechAttribution({
   const textColor = variant === "dark" ? "text-[#9A9A9A]" : "text-black/55"
 
   return (
-    <p
-      className={`flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[0.74rem] font-medium leading-relaxed ${textColor} sm:text-[0.78rem] ${className}`}
+    <div
+      className={`flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[0.72rem] font-medium leading-none ${textColor} sm:text-[0.76rem] ${className}`}
     >
-      <span>Written in</span>
+      <span className="leading-5">Built with</span>
       <TechLogo
         href="https://www.rust-lang.org"
         src="/icon-rust.svg"
@@ -87,11 +87,7 @@ export function TechAttribution({
         variant={variant}
         containerClass={rustLogoClass}
       />
-      <span>, powered by</span>
-      <TechLogo href="https://pi.dev" src="/icon-pi.svg" label="Pi" width={800} height={800} variant={variant} />
-      <span>,</span>
       <MlxLogo variant={variant} />
-      <span>,</span>
       <TechLogo
         href="https://atproto.com"
         src="/icon-atproto.png"
@@ -100,9 +96,7 @@ export function TechAttribution({
         height={48}
         variant={variant}
       />
-      <span>, and</span>
       <TechLogo href="https://www.iroh.computer" src="/icon-iroh-mark.svg" label="Iroh" width={64} height={64} variant={variant} />
-      <span>.</span>
-    </p>
+    </div>
   )
 }
