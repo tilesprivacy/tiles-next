@@ -112,7 +112,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     id: "using-iroh-tunnels-to-access-local-agents-remotely",
     title: "Using Iroh Tunnels to access local agents remotely",
     description:
-      "Safely exposing local services to the internet via Iroh tunnels and a lightweight edge control plane that bridges standard HTTP traffic with the QUIC-based tunnel network.",
+      "Safely exposing local services like inference and AI generated artifacts to the internet via Iroh tunnels and a lightweight edge proxy that bridges standard HTTP traffic with the QUIC network.",
     status: "active",
     authorIds: ["anandu-pavanan", "ankesh-bharti"],
     logMonth: "2026-05",
