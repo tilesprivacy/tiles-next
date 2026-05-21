@@ -1,14 +1,14 @@
 import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
 import { SiteFooter } from "@/components/site-footer"
-import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
+import { TILES_HOMEPAGE_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 
 export const metadata: Metadata = {
   title: TILES_SITE_TITLE,
-  description: TILES_PRODUCT_DESCRIPTION,
+  description: TILES_HOMEPAGE_DESCRIPTION,
   openGraph: {
     title: TILES_SITE_TITLE,
-    description: TILES_PRODUCT_DESCRIPTION,
+    description: TILES_HOMEPAGE_DESCRIPTION,
     images: [
       {
         url: "https://www.tiles.run/api/og",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: TILES_SITE_TITLE,
-    description: TILES_PRODUCT_DESCRIPTION,
+    description: TILES_HOMEPAGE_DESCRIPTION,
     images: ["https://www.tiles.run/api/og"],
   },
 }

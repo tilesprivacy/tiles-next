@@ -66,7 +66,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     description:
       "Simple inference-time memory module that treats memory management as a series of LLM calls and agent loops over a markdown-based file tree.",
     status: "active",
-    authorIds: ["anandu-pavanan", "ankesh-bharti"],
+    authorIds: ["ankesh-bharti"],
     logMonth: "2026-05",
     startedAt: "2026-05-01",
     badge: "wip",
@@ -80,7 +80,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     id: "local-models-meet-at-protocol",
     title: "Local models meet AT Protocol",
     description:
-      "Experiments with ATProto Lexicon schemas, PDS, schema translation, and generative UI for local AI assistants.",
+      "Experiments with ATProto Lexicon schema translation and generative UI for local AI assistants.",
     body:
       "We want to build AI around convenience first. Privacy alone is rarely something people actively buy, so the challenge is expanding the frontier of convenience without compromising user ownership. One area that feels promising is using schemas like ATProto Lexicons to power generative interfaces, where many interactions could potentially be reduced to a single typed request against a shared interface rather than coordinating across multiple bespoke APIs. Combined with local models reducing network latency, this creates the possibility of extremely fast generative interfaces that connect and operate across different applications. Rather than selling privacy itself, the goal is to make the most convenient experience also happen to preserve user agency by default.",
     status: "active",
@@ -92,6 +92,36 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     kind: "inline",
     coverImage: "/og-image.jpg",
     coverAlt: "Local models meet AT Protocol",
+  },
+  {
+    id: "local-first-ai-agent-sandboxes",
+    title: "Local-first agent sandboxes",
+    description:
+      "Agent collaboration with microVM-based sandboxes and DID/UCANs for secure, collaborative workflows.",
+    status: "active",
+    authorIds: ["anandu-pavanan", "ankesh-bharti"],
+    logMonth: "2026-05",
+    startedAt: "2026-05-21",
+    badge: "wip",
+    period: "May 2026 - Present",
+    kind: "inline",
+    coverImage: "/og-image.jpg",
+    coverAlt: "Local-first agent sandboxes",
+  },
+  {
+    id: "using-iroh-tunnels-to-access-local-agents-remotely",
+    title: "Using Iroh Tunnels to access local agents remotely",
+    description:
+      "Safely exposing local services to the internet via Iroh tunnels and a lightweight edge control plane that bridges standard HTTP traffic with the QUIC-based tunnel network.",
+    status: "active",
+    authorIds: ["anandu-pavanan", "ankesh-bharti"],
+    logMonth: "2026-05",
+    startedAt: "2026-05-22",
+    badge: "wip",
+    period: "May 2026 - Present",
+    kind: "inline",
+    coverImage: "/og-image.jpg",
+    coverAlt: "Using Iroh Tunnels to access local agents remotely",
   },
 ] as const
 
