@@ -44,6 +44,10 @@ export interface ResearchLogMonthGroup {
   entries: ResearchLogEntry[]
 }
 
+/** `/research` intro, page metadata, and LLM index copy. */
+export const RESEARCH_PAGE_INTRO =
+  "Privacy adoption at scale must work backwards from preserving utility. This research is a series of progressive experiments exploring decentralized software technologies toward that goal. Successful outcomes from this research will eventually be integrated into Tiles." as const
+
 export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
   {
     id: "memory-model-trained-with-online-rl",

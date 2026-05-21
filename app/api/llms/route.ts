@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { blogPosts } from '@/lib/blog-posts'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
+import { RESEARCH_PAGE_INTRO } from '@/lib/research-log'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
 import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import fs from 'fs'
@@ -67,7 +68,7 @@ export async function GET(request: Request) {
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
-    `- [Research](${baseUrl}/research): Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.`,
+    `- [Research](${baseUrl}/research): ${RESEARCH_PAGE_INTRO}`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
     `- [Linux waitlist form](${baseUrl}/linux): Linux availability notifications form.`,

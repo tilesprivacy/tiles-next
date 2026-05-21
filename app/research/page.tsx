@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer"
 import {
   getArchivedResearchEntries,
   getActiveResearchEntries,
+  RESEARCH_PAGE_INTRO,
 } from "@/lib/research-log"
 import {
   marketingPageBodyClass,
@@ -33,12 +34,10 @@ function ResearchSectionHeader({
 
 export const metadata: Metadata = {
   title: "Research | Tiles",
-  description:
-    "Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.",
+  description: RESEARCH_PAGE_INTRO,
   openGraph: {
     title: "Research | Tiles",
-    description:
-      "Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.",
+    description: RESEARCH_PAGE_INTRO,
     url: "https://www.tiles.run/research",
     type: "website",
     images: [
@@ -53,8 +52,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Research | Tiles",
-    description:
-      "Progressive experiments exploring decentralized software technologies to identify the primitives needed for privacy adoption without sacrificing utility.",
+    description: RESEARCH_PAGE_INTRO,
     images: ["https://www.tiles.run/api/og"],
   },
 }
@@ -96,12 +94,7 @@ export default function ResearchPage() {
           </div>
 
           <div className="research-page-content border-t border-black/10 pt-6 dark:border-white/10 sm:pt-9 lg:pt-10">
-            <p className={`max-w-2xl ${marketingPageBodyClass}`}>
-              Privacy adoption at scale must work backwards from preserving utility. This research is a series of
-              progressive experiments exploring decentralized software technologies to uncover primitives that preserve
-              utility while strengthening user ownership. Successful ideas from these explorations will eventually be
-              adopted into Tiles.
-            </p>
+            <p className={`max-w-2xl ${marketingPageBodyClass}`}>{RESEARCH_PAGE_INTRO}</p>
 
             <section aria-labelledby="active-projects-heading" className="mt-12 lg:mt-14">
               <ResearchSectionHeader
