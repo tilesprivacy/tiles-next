@@ -595,17 +595,8 @@ export function ShareSessionClient({
     if (typeof window === "undefined") {
       return
     }
-    // const readFragment = () => {
-    //   const fragment = window.location.hash.slice(1)
-    //   return fragment ? decodeURIComponent(fragment) : null
-    // }
-
-    // const fragment = readFragment()
-    // console.log("fragments", fragment)
-
       const load = async () => {
       const fragment = decodeURIComponent(window.location.hash.slice(1))
-      console.log("fragments", fragment);
       const sharedSession = await getSharedSession(shareToken, fragment)
 
       setSharedSession(sharedSession)
