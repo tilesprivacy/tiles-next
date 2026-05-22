@@ -1,9 +1,12 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
-import { SiteHeader } from "@/components/site-header"
+import { ThemeFavicon } from "@/components/theme-favicon"
+import SiteHeader from "@/components/site-header"
+import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
+import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 import "./globals.css"
 
 const geist = Geist({
@@ -17,18 +20,52 @@ const geistMono = Geist_Mono({
   preload: true,
 })
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
-  title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
-  description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+  title: TILES_SITE_TITLE,
+  description: TILES_PRODUCT_DESCRIPTION,
   generator: "v0.app",
+  manifest: "/manifest.json",
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      {
+        url: "/icon-dark-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-light-96x96.png",
+        sizes: "96x96",
+        type: "image/png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon-dark-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icon-light-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      { url: "/favicon.ico" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
-    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+    title: TILES_SITE_TITLE,
+    description: TILES_PRODUCT_DESCRIPTION,
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
     images: [
@@ -36,15 +73,15 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles Privacy – Your private and secure AI assistant for everyday use",
+        alt: TILES_SITE_TITLE,
       },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles Privacy – Your private and secure AI assistant for everyday use",
-    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+    title: TILES_SITE_TITLE,
+    description: TILES_PRODUCT_DESCRIPTION,
     images: ["https://www.tiles.run/api/og"],
   },
 }
@@ -58,6 +95,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="color-scheme" content="light dark" />
+        <meta name="apple-mobile-web-app-title" content="Tiles Privacy" />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -84,6 +122,8 @@ export default function RootLayout({
           disableTransitionOnChange
           storageKey="tiles-theme"
         >
+          <ThemeFavicon />
+          <SiteOfflineCacheRegistrar />
           <SiteHeader themeAware />
           {children}
         </ThemeProvider>

@@ -1,6 +1,7 @@
 import { Resend } from "resend"
 import { NextRequest, NextResponse } from "next/server"
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
+import { TILES_PRODUCT_DESCRIPTION } from "@/lib/product-description"
 
 // Initialize Resend client with API key from environment
 const getResendClient = () => {
@@ -12,6 +13,7 @@ const getResendClient = () => {
 }
 
 const SENDER_NAME = "Tiles Privacy"
+const LINUX_WAITLIST_TEMPLATE_ID = "c7599926-3195-4ca5-840b-b3248a6b9524"
 
 // Default email when RESEND_FROM_EMAIL is not set (Resend onboarding address)
 const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
@@ -46,6 +48,118 @@ const extractEmailFromFromEmail = (fromEmail: string): string => {
 const isValidEmail = (email: string): boolean => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   return emailRegex.test(email)
+}
+
+type LinuxWaitlistContactPayload = {
+  email: string
+  firstName: string
+  lastName: string
+  linuxDistributions: string[]
+}
+
+const LINUX_WAITLIST_CONTACT_PROPERTIES = [
+  { key: "tiles_queue", fallbackValue: "linux" },
+  { key: "tiles_linux_waitlist", fallbackValue: "true" },
+  { key: "tiles_waitlist_source", fallbackValue: "form" },
+  { key: "tiles_linux_distributions", fallbackValue: "" },
+  { key: "tiles_form_first_name", fallbackValue: "" },
+  { key: "tiles_form_last_name", fallbackValue: "" },
+] as const
+
+const getLinuxWaitlistContactData = (payload: LinuxWaitlistContactPayload) => ({
+  email: payload.email,
+  firstName: payload.firstName || undefined,
+  lastName: payload.lastName || undefined,
+  unsubscribed: false,
+  properties: {
+    tiles_queue: "linux",
+    tiles_linux_waitlist: "true",
+    tiles_waitlist_source: "form",
+    tiles_linux_distributions: payload.linuxDistributions.join(", "),
+    tiles_form_first_name: payload.firstName || "",
+    tiles_form_last_name: payload.lastName || "",
+  },
+})
+
+const isMissingPropertiesErrorMessage = (message: string) => {
+  const normalized = message.toLowerCase()
+  return (
+    normalized.includes("properties do not exist") ||
+    normalized.includes("one or more properties do not exist")
+  )
+}
+
+const ensureLinuxWaitlistContactProperties = async (resend: Resend) => {
+  for (const property of LINUX_WAITLIST_CONTACT_PROPERTIES) {
+    const result = await resend.contactProperties.create({
+      key: property.key,
+      type: "string",
+      fallbackValue: property.fallbackValue,
+    })
+
+    if (!result.error) continue
+
+    const message = result.error.message?.toLowerCase() || ""
+    const isAlreadyExists =
+      message.includes("already exists") ||
+      message.includes("already a contact property with this key") ||
+      message.includes("already been taken") ||
+      message.includes("duplicate") ||
+      message.includes("409")
+
+    if (!isAlreadyExists) {
+      throw new Error(result.error.message || `Could not create contact property: ${property.key}`)
+    }
+  }
+}
+
+const upsertLinuxWaitlistContact = async (
+  resend: Resend,
+  payload: LinuxWaitlistContactPayload,
+) => {
+  const contactData = getLinuxWaitlistContactData(payload)
+
+  const tryCreateOrUpdate = async () => {
+    const createResult = await resend.contacts.create(contactData)
+    if (!createResult.error) return
+
+    const createErrorMessage = createResult.error.message?.toLowerCase() || ""
+    const isAlreadyExistsError =
+      createErrorMessage.includes("already") ||
+      createErrorMessage.includes("exists") ||
+      createErrorMessage.includes("duplicate") ||
+      createErrorMessage.includes("409")
+
+    if (!isAlreadyExistsError) {
+      throw new Error(createResult.error.message || "Could not create waitlist contact.")
+    }
+
+    const updateResult = await resend.contacts.update({
+      email: payload.email,
+      firstName: payload.firstName || undefined,
+      lastName: payload.lastName || undefined,
+      unsubscribed: false,
+      properties: contactData.properties,
+    })
+
+    if (updateResult.error) {
+      throw new Error(updateResult.error.message || "Could not update waitlist contact.")
+    }
+  }
+
+  try {
+    await tryCreateOrUpdate()
+    return
+  } catch (error) {
+    const message = error instanceof Error ? error.message : ""
+    if (!isMissingPropertiesErrorMessage(message)) {
+      throw error
+    }
+  }
+
+  // Create missing contact properties once, then retry contact upsert.
+  await ensureLinuxWaitlistContactProperties(resend)
+  await tryCreateOrUpdate()
 }
 
 // GET handler for development debugging
@@ -85,7 +199,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse and validate request body
-    let body: { email?: string }
+    let body: {
+      firstName?: string
+      lastName?: string
+      email?: string
+      linuxDistributions?: string[]
+      source?: string
+    }
     try {
       body = await request.json()
     } catch (error) {
@@ -95,7 +215,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { email } = body
+    const { firstName, lastName, email, linuxDistributions, source } = body
 
     // Validate email is provided
     if (!email || typeof email !== "string") {
@@ -117,14 +237,42 @@ export async function POST(request: NextRequest) {
     // Initialize Resend client
     const resend = getResendClient()
     const fromEmail = getFromEmail()
-    const artifact = await getLatestDownloadArtifact()
+    const isLinuxWaitlist = source === "linux-notify-form"
+    const artifact = isLinuxWaitlist ? null : await getLatestDownloadArtifact()
+    const safeFirstName =
+      typeof firstName === "string" && firstName.trim().length > 0
+        ? firstName.trim()
+        : "there"
+
+    if (isLinuxWaitlist) {
+      if (!Array.isArray(linuxDistributions) || linuxDistributions.length === 0) {
+        return NextResponse.json(
+          { error: "At least one Linux distribution is required." },
+          { status: 400 }
+        )
+      }
+
+      const linuxPayload = {
+        email: trimmedEmail,
+        firstName: typeof firstName === "string" ? firstName.trim() : "",
+        lastName: typeof lastName === "string" ? lastName.trim() : "",
+        linuxDistributions: linuxDistributions
+          .filter((item): item is string => typeof item === "string")
+          .map((item) => item.trim())
+          .filter(Boolean),
+      }
+
+      await upsertLinuxWaitlistContact(resend, linuxPayload)
+    }
 
     // Send welcome email
     const result = await resend.emails.send({
       from: fromEmail,
       to: trimmedEmail,
-      subject: "Welcome to Tiles Privacy",
-      html: `
+      subject: isLinuxWaitlist ? "Tiles for Linux waitlist" : "Welcome to Tiles Privacy",
+      html: isLinuxWaitlist
+        ? undefined
+        : `
         <!DOCTYPE html>
         <html lang="en">
           <head>
@@ -194,7 +342,7 @@ export async function POST(request: NextRequest) {
                         </h2>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 16px 0; line-height: 1.6;">
-                          Tiles is a private and secure AI assistant for everyday use. Born from the <a href="https://userandagents.com" class="email-body-link" style="color: #000000; text-decoration: underline;">User &amp; Agents</a> community, Tiles is built for people who want intelligence without renting their memory to centralized providers.
+                          ${TILES_PRODUCT_DESCRIPTION} Born from the <a href="https://userandagents.com" class="email-body-link" style="color: #000000; text-decoration: underline;">User &amp; Agents</a> community, Tiles is built for people who want intelligence without renting their memory to centralized providers.
                         </p>
                         
                         <p class="email-body" style="color: #666666; font-size: 17px; margin: 0 0 32px 0; line-height: 1.6;">
@@ -237,8 +385,8 @@ export async function POST(request: NextRequest) {
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse; margin-bottom: 32px;">
                           <tr>
                             <td>
-                              <a href="https://tiles.run/changelog" class="email-card email-card-light" style="display: block; background-color: #f5f5f5; background-color: rgba(0, 0, 0, 0.03); color: #000000; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 16px; font-weight: 500; -webkit-text-size-adjust: 100%;">
-                                View the Changelog
+                              <a href="https://tiles.run/releases" class="email-card email-card-light" style="display: block; background-color: #f5f5f5; background-color: rgba(0, 0, 0, 0.03); color: #000000; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 16px; font-weight: 500; -webkit-text-size-adjust: 100%;">
+                                View Releases
                               </a>
                             </td>
                           </tr>
@@ -258,7 +406,7 @@ export async function POST(request: NextRequest) {
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width: 100%; border-collapse: collapse;">
                           <tr>
                             <td style="padding-bottom: 12px;">
-                              <a href="${artifact.downloadUrl}" class="email-card email-card-dark" style="display: block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 17px; font-weight: 500; -webkit-text-size-adjust: 100%;">
+                              <a href="${artifact?.downloadUrl ?? "https://tiles.run/download"}" class="email-card email-card-dark" style="display: block; background-color: #000000; color: #ffffff; text-decoration: none; padding: 16px 20px; border-radius: 16px; font-size: 17px; font-weight: 500; -webkit-text-size-adjust: 100%;">
                                 Download Tiles for macOS
                               </a>
                             </td>
@@ -296,6 +444,11 @@ export async function POST(request: NextRequest) {
                         <p class="email-body" style="color: #000000; font-size: 15px; margin: 0; font-weight: 500; line-height: 1.5;">
                           Tiles Privacy & Contributors
                         </p>
+                        <p style="margin: 18px 0 0 0; line-height: 1;">
+                          <a href="https://tangled.org/tiles.run/tiles/" aria-label="Tangled" style="display: inline-block; text-decoration: none;">
+                            <img src="https://tiles.run/icon-tangled-9ca3af.svg" width="16" height="16" alt="Tangled" style="display: block; width: 16px; height: 16px;" />
+                          </a>
+                        </p>
                       </td>
                     </tr>
                   </table>
@@ -305,6 +458,19 @@ export async function POST(request: NextRequest) {
           </body>
         </html>
       `,
+      template: isLinuxWaitlist
+        ? {
+            id: LINUX_WAITLIST_TEMPLATE_ID,
+            variables: {
+              FIRST_NAME: safeFirstName,
+              LAST_NAME: typeof lastName === "string" ? lastName.trim() : "",
+              EMAIL: trimmedEmail,
+              LINUX_DISTRIBUTIONS: Array.isArray(linuxDistributions)
+                ? linuxDistributions.join(", ")
+                : "",
+            },
+          }
+        : undefined,
     })
 
     // Handle Resend API errors

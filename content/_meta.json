@@ -6,6 +6,13 @@
       "timestamp": true
     }
   },
+  "overview": {
+    "title": "Overview",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "manual": {
     "title": "Manual",
     "theme": {
@@ -20,15 +27,8 @@
       "timestamp": true
     }
   },
-  "memory": {
-    "title": "Memory",
-    "theme": {
-      "copyPage": true,
-      "timestamp": true
-    }
-  },
-  "modelfile": {
-    "title": "Modelfile",
+  "tilekit": {
+    "title": "Tilekit",
     "theme": {
       "copyPage": true,
       "timestamp": true
@@ -36,6 +36,13 @@
   },
   "mir": {
     "title": "MIR Extension",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
+  "security": {
+    "title": "Security",
     "theme": {
       "copyPage": true,
       "timestamp": true
@@ -50,6 +57,13 @@
   },
   "resources": {
     "title": "Resources",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
+  "licenses": {
+    "title": "Licenses",
     "theme": {
       "copyPage": true,
       "timestamp": true
@@ -74,4 +88,3 @@
     }
   }
 }
-

@@ -27,11 +27,14 @@ export default function MoveAlongPythonPage() {
       date={formattedDate}
       authorId={post.author}
       coverImage={post.coverImage ?? "/og-image.jpg"}
+      coverImageDark={post.coverImageDark ?? post.coverImage ?? "/og-image.jpg"}
       coverAlt={post.coverAlt ?? post.title}
       content={post.content}
     >
       <p>
-        We have been working on Tiles, a private and secure AI assistant for everyday use. To ensure its Python model
+        We have been working on Tiles. Tiles is a local-first private AI assistant that runs on-device models with
+        encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto. To ensure its
+        Python model
         server starts predictably on any machine, the runtime and dependencies must be deterministic and portable. This
         post walks through how we achieve that with layered venvstacks.
       </p>
@@ -198,8 +201,6 @@ export default function MoveAlongPythonPage() {
 
       <p>Overall, we are satisfied with this approach for now.</p>
 
-      <p>Till then, keep on tiling.</p>
     </BlogPostContent>
   )
 }
-

@@ -3,16 +3,20 @@
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import Link from "next/link"
+import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
 import { people } from "@/lib/people"
+import { cn } from "@/lib/utils"
 
 interface MissionSectionProps {
   title: string
   /** Use compact layout (e.g. on landing page). Default false = full mission page layout. */
   compact?: boolean
+  /** Merged into the full-page `<main>` wrapper (compact layout ignores this). */
+  className?: string
 }
 
-export function MissionSection({ title, compact = false }: MissionSectionProps) {
+export function MissionSection({ title, compact = false, className }: MissionSectionProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -42,12 +46,15 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
 
   function Person({ name, links }: { name: string; links: string[] }) {
     return (
-      <div className={`flex items-center gap-2 sm:gap-2.5 text-xs sm:text-sm ${textColorMuted} lg:text-base leading-relaxed`}>
-        <span>{renderDisplayName(name)}</span>
+      <div className={`flex items-center justify-between gap-3 text-xs sm:text-sm ${textColorMuted} lg:text-base leading-relaxed`}>
+        <div className="min-w-0 flex items-center gap-2 sm:gap-2.5">
+          <PersonAvatar name={name} links={links} className="inline-flex shrink-0" />
+          <span className="truncate">{renderDisplayName(name)}</span>
+        </div>
         <SocialLinks
           name={name}
           links={links}
-          className="flex items-center gap-1 sm:gap-1.5"
+          className="ml-2 flex flex-shrink-0 items-center justify-end gap-1.5 sm:gap-2"
           linkClassName={linkColorMuted}
           iconClassName="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
         />
@@ -58,7 +65,11 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
   const content = (
     <>
       <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl">
-        <h2 className={`text-3xl font-bold text-left ${textColor} mb-6 sm:mb-8 md:mb-10 lg:mb-12 lg:text-5xl`}>{title}</h2>
+        <h2
+          className={`mb-6 text-left text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] ${textColor} sm:mb-8 sm:text-[4.25rem] md:mb-10 lg:mb-12 lg:text-6xl`}
+        >
+          {title}
+        </h2>
         <div className={`space-y-4 sm:space-y-6 text-sm leading-relaxed ${textColorBody} sm:text-base md:space-y-6 lg:space-y-8 lg:text-lg lg:leading-relaxed`}>
           <p className={`text-base font-medium ${textColor} lg:text-xl`}>
             Our mission is to bring privacy technology to everyone.
@@ -112,7 +123,9 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
             </a>
             ), an independent researcher and technologist, Tiles is
             built for privacy conscious users who want intelligence without renting their memory to centralized
-            providers. Our first product is a private, secure AI assistant for everyday use, along with an SDK that enables developers to customize local models and agent experiences within Tiles.
+            providers. Our first product is Tiles, a local-first private AI assistant that runs on-device models with
+            encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto, along with an
+            SDK that enables developers to customize local models and agent experiences within Tiles.
           </p>
 
           <p>
@@ -146,6 +159,18 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
                   ))}
                 </div>
               </div>
+              {people.contributorsCommunity.length > 0 && (
+                <div>
+                  <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>
+                    Community
+                  </h4>
+                  <div className="space-y-2 sm:space-y-2.5">
+                    {people.contributorsCommunity.map((person) => (
+                      <Person key={person.name} name={person.name} links={person.links} />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -177,8 +202,8 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
 
   if (compact) {
     return (
-      <section className="w-full mt-14 lg:mt-20 border-t border-black/[0.06] dark:border-white/[0.06] pt-20 lg:pt-28 pb-20 lg:pb-28 [contain:layout_style] transform-gpu">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-start gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 w-full">
+      <section className="mt-12 w-full border-t border-black/[0.06] pt-14 pb-16 [contain:layout_style] transform-gpu dark:border-white/[0.06] sm:mt-14 sm:pt-16 sm:pb-20 lg:mt-20 lg:pt-28 lg:pb-28">
+        <div className="flex w-full flex-col items-start justify-start gap-8 sm:gap-10 lg:flex-row lg:items-center lg:gap-16 xl:gap-20">
           {content}
         </div>
       </section>
@@ -186,7 +211,12 @@ export function MissionSection({ title, compact = false }: MissionSectionProps) 
   }
 
   return (
-    <main className="flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto">
+    <main
+      className={cn(
+        "flex flex-1 flex-col lg:flex-row items-start lg:items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-16 lg:pb-32 lg:pt-20 w-full max-w-7xl mx-auto",
+        className,
+      )}
+    >
       {content}
     </main>
   )

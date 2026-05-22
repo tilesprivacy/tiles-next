@@ -7,10 +7,10 @@ export async function generateMetadata() {
   const { metadata } = await importPage([])
 
   const canonicalTabTitle =
-    'Tiles Book: Technical documentation for the models, infrastructure, and cryptography powering Tiles.'
+    'Tiles Book: Technical documentation for Tiles and Tilekit'
   const ogTitle = canonicalTabTitle
   const description =
-    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Tilekit SDK.'
+    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.'
   // Use absolute title for the index page so it does not depend on a child heading.
   return {
     ...metadata,
@@ -58,4 +58,3 @@ export default async function BookIndexPage() {
     </Wrapper>
   )
 }
-

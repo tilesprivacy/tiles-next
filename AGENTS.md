@@ -3,6 +3,7 @@
 ## Layout Preferences
 
 ### Mobile View
+
 - **No scrolling**: The mobile view should never scroll. All content must fit within a single viewport (`100dvh`).
 - Use `h-[100dvh]` with `overflow-hidden` to enforce this constraint.
 - Content should be vertically centered and adjust flexibly to fit the screen.
@@ -10,6 +11,7 @@
 ## Footer Consistency
 
 ### Footer Links
+
 - All footers across pages (home, about, etc.) must remain consistent.
 - The developer link should always be:
   - **Text**: "Book"
@@ -18,6 +20,7 @@
 ## llms.txt Endpoint Maintenance
 
 ### Automatic Content Synchronization
+
 - The `/llms.txt` endpoint is **dynamically generated** from all website content via `app/api/llms/route.ts`.
 - The endpoint automatically includes:
   - Homepage content
@@ -28,36 +31,91 @@
 - **No manual updates needed**: The endpoint automatically reflects all content changes.
 
 ### When Content is Updated
+
 Whenever you update any of the following, the `/llms.txt` endpoint will automatically reflect those changes:
+
 - **Page content**: Any changes to `app/*/page.tsx` files (home, mission, download, blog)
 - **Blog posts**: Updates to `lib/blog-posts.ts` or blog post content
 - **Book pages**: Changes to any `content/*.mdx` files
 - **Contributors/Sponsors**: Updates to the mission page contributors or sponsors sections
 
 ### Verification
+
 - After making content changes, verify the `/llms.txt` endpoint reflects the updates by:
   1. Starting the development server: `npm run dev` (or equivalent)
   2. Visiting `http://localhost:3000/llms.txt` to see the generated content
   3. Checking that all updated content appears correctly in the text output
 
 ### Static File (if present)
+
 - If a static `public/llms.txt` file exists, it should be **removed** or **ignored** in favor of the dynamic endpoint.
 - The dynamic endpoint at `/llms.txt` (via rewrite from `/api/llms`) is the source of truth.
 
 ## Hero Wireframe Image (Next.js Image)
 
 ### Implementation
+
 - The hero MacBook wireframe is served as **WebP** (`public/wireframe.webp`) for fast first load. The source asset is the large SVG at `public/wireframe.svg` (embedded PNG); `wireframe.webp` is generated from it.
 - The hero uses **Next.js `<Image>`** with `src="/wireframe.webp"`, `priority` (for LCP), and fixed dimensions (800×600) for layout stability.
 
 ### Regenerating the WebP
+
 - If you change `public/wireframe.svg`, run: `npm run generate:wireframe`
 - This overwrites `public/wireframe.webp`.
+
+## Archived Use Cases Page (`/use-case`)
+
+The public **Use Cases** page is intentionally **offline**. Source is preserved in `components/archived/use-cases-page.tsx` (exports `UseCasesPage` and `useCasesPageMetadata`). Do not delete that file when cleaning routes.
+
+### Restore checklist
+
+1. **Route**: Create `app/use-case/page.tsx`:
+
+```tsx
+import type { Metadata } from "next"
+import { UseCasesPage, useCasesPageMetadata } from "@/components/archived/use-cases-page"
+
+export const metadata: Metadata = useCasesPageMetadata
+
+export default UseCasesPage
+```
+
+2. **Navigation**: In `components/site-header.tsx`, restore desktop and mobile **Use Cases** links to `/use-case`, and restore `isRouteActive` handling for `/use-case` in `isRouteActive`.
+3. **Sitemap**: Add `"/use-case"` back to `staticRoutes` in `app/sitemap.ts`.
+4. **LLM indexes**: Re-add the Use Cases bullet in `app/api/llms/route.ts` (`Core Pages`) and the Use Cases section plus Additional URLs line in `app/api/llms-full/route.ts` (mirror the archived page copy: shared science chat at `/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3`, placeholder conversation cards).
+5. **Verify**: `npm run dev`, open `/use-case`, confirm nav highlight, footer (`showDownloadCta={false}`), and `/llms.txt` entry.
+
+### Layout notes when live
+
+- Conversation cards stay content-sized; linked cards need enough internal spacing for the always-visible arrow so it does not crowd the title or prompt.
+- Footer uses `showDownloadCta={false}` on this page.
 
 ## Learned User Preferences
 
 - Legal copy near download buttons should be styled as minimal subtext (matching the homepage pattern) instead of prominent body text.
+- On book pages, keep floating controls (for example Copy link) below the site header in stacking order and hide them before they would sit in the header region so scrollable content does not read as sitting behind the nav, ensure in-page anchor/section jumps land below the fixed header instead of clipping under the top nav, and keep `/book` overview intro paragraphs on the same body typography scale as other book MDX pages.
+- On the website changelog, remove raw GitHub issue identifiers like `#110` or comma-separated issue lists from release-note copy, rewrite the remaining sentence so it still reads naturally, and when cleaning `lib/releases.ts` remove dangling trailing connectors (for example ending in "in", "via", "through", or "under") after issue-reference cleanup so each line remains grammatical.
+- Avoid em dashes in website and email marketing copy; prefer plain punctuation or sentence breaks instead.
+- Keep the footer minimal but leave enough vertical rhythm in the copyright/credits/theme band on small screens so it does not read cramped; on narrow layouts, align the theme switcher and language switcher to the start of the row on mobile so they stay with left-stacked copy, language switcher labels should remain in their original language names, and changing language should not cause page position or layout shift on desktop or mobile. The subtext under the footer download CTA should stay aligned with the homepage hero platform line. Footer `TechAttribution` tech logos (Rust, Pi, MLX, Iroh) should share uniform `h-[1em]` sizing via shared classes without per-logo overrides.
+- In public blog copy, prefer plain phrasing such as “macOS binary” over insider jargon like “Mach-O” unless the post is explicitly aimed at readers who need that precision; in download and changelog copy, prefer the label “Offline Installer” instead of alternatives like “Full installer” or “Portable Packaging.”
+- On `/blog` bylines, keep the avatar unbordered, place it between “By” and the author name, and keep the author name on a new line with clear spacing on both mobile and desktop.
+- Site light and dark palettes should track the sensibility of the Cursor marketing blog (see [https://cursor.com/blog](https://cursor.com/blog)), including book sidebar surfaces so they feel native to the same theme system; the default site dark background should be `#1F1F1F` (matching the share page), and the site Open Graph image should use a black background with the share-style logo while keeping the existing text. The primary top navigation should use solid theme background when theme-aware (for example `bg-background`), with no backdrop blur and no bottom border or hairline separator; active routes should read through typography or color emphasis rather than pill-shaped highlights. When theme-aware, the homepage wordmark should use the same asset pairing as inner pages: `/lighticon.png` in light mode and `/grey.png` in dark mode (using `/grey.png` alone on light surfaces washes the logo out). On `/share`, show a theme-aware QR for the share URL at the top-right of the header (large enough to scan easily; scrolls with the page, not fixed) with a transparent background and contrasting modules (white on dark, black on light); stack the header vertically so the share link plus copy/download actions row comes first, the “This is a copy of a conversation…” disclaimer sits directly below it at every breakpoint, and both rows share consistent horizontal inset with the message column while header right padding keeps copy from sitting under the QR; for anchors that display the full share URL as visible text, avoid an `aria-label` that overrides the accessible name away from that visible text; keep footer/legal text fully visible above the floating bar with enough bottom clearance. On the 404 page (`components/not-found-content.tsx`), keep copy minimal (404 label, “Page not found”, and a single “Back to home” link) and use `SiteFooter showDownloadCta={false}`; book 404s use `app/book/not-found.tsx` with `variant="book"` so the book layout footer is not duplicated.
+- Primary “Download Tiles” actions on the homepage and download flows should use the shared `themeAwareHeaderPrimaryCtaClasses` from `lib/header-primary-cta-classes.ts` so they match the theme-aware top navigation pills and do not drift, and on the homepage mobile layout the subtext under the primary download should read as `ALPHA` rendered as a pill followed by “for macOS 14+ with Apple Silicon (M1 or better).” (keep any desktop platform line as the wide-breakpoint variant in `components/home-content.tsx`).
+- Product harness copy should describe Tiles as for “knowledge work” without appending “and coding” on the homepage, overview page, and book marketing sections (keep surrounding sentences smooth). Hero and tagline copy should say sharing chats “with ATProto,” not “publicly on ATProto.”
+- On homepage feature cards, keep the CTA link (for example “Run models →”) directly under the inline CLI command box (`tiles run <modelfile>`), not only beneath the terminal window column, on every breakpoint. For the lower homepage “Built on Atmosphere” band in `components/home-content.tsx`, keep the section heading and three check bullets as the primary stack, then place longer AT Protocol or Atmosphere explainer copy below as supplemental prose with smaller or more muted typography, not as a bordered card or callout panel.
+- On `/research` and `/research/[slug]`, mirror `/blog` patterns: Active and Archived project carousels pixel-for-pixel with the blog listing carousel; exploration pages use the same article body typography and MDX treatment as blog posts; enable the footer download CTA; use the same newsletter CTA, share component, and post-newsletter border separator on the listing as on `/blog` while keeping the hero newsletter CTA; omit line separators between individual project entries but keep the separator above Archived Projects.
 
 ## Learned Workspace Facts
 
-- Previous Tiles releases are linked from the changelog page at `/changelog#releases` and should be referred to as the changelog page in copy.
+- Tilekit SDK documentation uses the standard book route `/book/tilekit` (navigation, links, and generated metadata should stay consistent with that path rather than a separate top-level `/tilekit` alias).
+- Previous Tiles releases are linked from `/releases#releases` and should be referred to as the releases page in copy; offline (full) macOS installer builds are not published for every release and may lag the latest network installer, so reflect that in download and releases copy when relevant.
+- Subscription emails sent via Resend should use the visible sender name "Tiles Privacy" (display name with the from address still driven by env). In brand or legal-style UI where an organization name is needed, use "Tiles Privacy" rather than "Tiles Assistant" or "Tiles AI."
+- Latest network `.pkg` metadata comes from GitHub via `getLatestDownloadArtifact`; keep `FALLBACK_ARTIFACT` in `lib/download-artifact.ts` aligned with the current release when the API path fails.
+- Fixed header and mobile menu on Android Chrome edge-to-edge need `viewport-fit=cover` and `env(safe-area-inset-*)` on chrome, overlay, and main top padding; avoid global `header` rules that use `contain` or `transform`, which can break full-width `position: fixed` on narrow viewports. Keep the sticky site header above the footer (`components/site-header.tsx` uses `z-50`, `components/site-footer.tsx` uses `z-10`) so mobile scroll does not let the footer paint over the nav; overlays such as the mobile menu and download prompt keep higher z-index values.
+- On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.
+- On `/share`, link footer `at://` source URIs to `https://atproto.at/uri/` with the full URI URL-encoded (not atexplore.social). Render assistant LaTeX via Streamdown with `@streamdown/math` after normalizing Tiles `\(...\)` / `\[...\]` delimiters through `lib/normalize-share-math-markdown.ts`.
+- Footer Google Translate wiring lives in `components/footer-language-selector.tsx`; restoring English clears `googtrans` across host variants then drives the hidden `.goog-te-combo` back to the empty “original” option (avoid full reload so scroll position stays stable). If the combo is not ready yet, the same RAF poll as other languages runs, with reload only as a last-resort timeout fallback. Footer `TechAttribution` should take an explicit light/dark `variant` from `SiteFooter` theme state instead of `dark:` Tailwind classes so it stays aligned with the blocking theme script and avoids hydration mismatches.
+- Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme. Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned.
+- Keep paired content sources in sync: the homepage Private AI comparison table in `components/home-content.tsx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix; license plan feature bullets in `components/pricing-content.tsx` should stay aligned with the “What it includes” sections in `content/licenses.mdx`; the public `/pricing` page is intentionally hidden, so keep pricing out of nav, sitemap, and LLM indexes and point Polar return/cancel flows to `/download`; the public `/use-case` page is intentionally offline with implementation archived in `components/archived/use-cases-page.tsx` (see **Archived Use Cases Page** above for restore steps), so keep it out of nav, sitemap, and LLM indexes until restored; `content/licenses.mdx` should keep the Polar checkout details focused on the Customer portal with the live `https://polar.sh/tilesprivacy/portal/` link for license keys, renewals, billing, and purchase details; and each roadmap item in `lib/roadmap-data.ts` needs a matching `roadmap-notes/<track>/<item>.md` file because missing notes throw at runtime. The roadmap notes markdown pane uses `components/roadmap-notes-markdown.tsx`; register real heading components for `h1`–`h6` (mapping them to null hides every Markdown heading in that pane). Research explorations are defined in `lib/research-log.ts` (append new entries only to the end of `RESEARCH_LOG_ENTRIES`, cite explorations by month rather than a numeric index, and keep `/research` listing metadata aligned with the Research bullet in `app/api/llms/route.ts`); former `/book/memory` content lives on `/research` routes and archived MDX under `content/_archived/`.
+- Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing  `@handle`, which the UI shows as a distinct handle segment instead of stripping it silently. Some posts duplicate byline markup in their own `app/blog/*/page.tsx`; keep those copies aligned when changing `components/blog-post-content.tsx`.
+- Banner wordmark SVGs exported on oversized artboards can add large transparent margins; cropping the SVG `viewBox` (or similar) is often needed when tightening whitespace around homepage or about-page banner sections. Favicon SVGs should use a square viewport for common audits. In static `public/index.html`, use root-relative asset URLs; Next.js does not substitute `%PUBLIC_URL%` (unlike CRA). Files named `icon-dark-*` / `icon-mark-dark.svg` are dark glyphs for light browser chrome; `icon-light-*` / `icon-mark-light.svg` are light glyphs for dark chrome, so pair `prefers-color-scheme: light` with dark-named assets and vice versa when wiring tab favicons or metadata. The offline site service worker in `public/site-sw.js` has historically applied cache-first handling to broad image classes, which can leave logos and favicons stale after deploys until cache versioning or per-path fetch rules are updated; pair any worker changes with sensible `Cache-Control` on key public branding files in `next.config.mjs` when refreshed assets must reach returning visitors.

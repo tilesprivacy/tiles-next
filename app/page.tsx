@@ -1,28 +1,36 @@
 import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
+import { SiteFooter } from "@/components/site-footer"
+import { TILES_HOMEPAGE_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 
 export const metadata: Metadata = {
-  title: "Tiles: Your private and secure AI assistant for everyday use",
+  title: TILES_SITE_TITLE,
+  description: TILES_HOMEPAGE_DESCRIPTION,
   openGraph: {
-    title: "Tiles",
-    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+    title: TILES_SITE_TITLE,
+    description: TILES_HOMEPAGE_DESCRIPTION,
     images: [
       {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles - Your private and secure AI assistant for everyday use",
+        alt: TILES_SITE_TITLE,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles",
-    description: "Your private and secure AI assistant for everyday use. Developed as an independent open source project, made possible by wonderful sponsors.",
+    title: TILES_SITE_TITLE,
+    description: TILES_HOMEPAGE_DESCRIPTION,
     images: ["https://www.tiles.run/api/og"],
   },
 }
 
 export default function Page() {
-  return <HomeContent />
+  return (
+    <div className="relative flex min-h-screen flex-col bg-background">
+      <HomeContent />
+      <SiteFooter />
+    </div>
+  )
 }

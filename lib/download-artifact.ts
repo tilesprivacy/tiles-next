@@ -17,12 +17,12 @@ const githubHeaders = {
 }
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
-  version: "0.4.3",
-  fileName: "tiles-0.4.3-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.3-signed.pkg",
-  binarySizeBytes: 79153404,
-  binarySizeLabel: "75.49 MB",
-  sha256: "e972bddfc063818f4c08a42eccf32ab33d9145b1c267404d9c233c51b86dd2d3",
+  version: "0.4.7",
+  fileName: "tiles-0.4.7-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.4.7-signed.pkg",
+  binarySizeBytes: 71040022,
+  binarySizeLabel: "67.78 MB",
+  sha256: "2c17999f25d34d78a9e4e21100d8ebdb8daf15fe375a2a10ec8c6f27c2195d9b",
 }
 
 function extractSha256Digest(asset: any): string {
@@ -72,4 +72,3 @@ export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
     return FALLBACK_ARTIFACT
   }
 }
-

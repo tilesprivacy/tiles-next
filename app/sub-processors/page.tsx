@@ -22,7 +22,7 @@ export default function SubProcessorsPage() {
           <h3>Vercel</h3>
           <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
             <p>
-              <span className="font-medium subprocessor-label">Purpose:</span> Server hosting
+              <span className="font-medium subprocessor-label">Purpose:</span> Website hosting
             </p>
             <p>
               <span className="font-medium subprocessor-label">Location:</span> US
@@ -31,6 +31,28 @@ export default function SubProcessorsPage() {
               <span className="font-medium subprocessor-label">Reference:</span>{" "}
               <a
                 href="https://vercel.com/legal/dpa"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors"
+              >
+                DPA
+              </a>
+            </p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <h3>Iroh</h3>
+          <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
+            <p>
+              <span className="font-medium subprocessor-label">Purpose:</span> Public relays for peer-to-peer networking
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Location:</span> US
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Reference:</span>{" "}
+              <a
+                href="https://www.iroh.computer/legal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="underline transition-colors"
@@ -63,10 +85,32 @@ export default function SubProcessorsPage() {
           </div>
         </div>
         <div className="space-y-2">
+          <h3>Polar</h3>
+          <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
+            <p>
+              <span className="font-medium subprocessor-label">Purpose:</span> Payment processing
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Location:</span> US
+            </p>
+            <p>
+              <span className="font-medium subprocessor-label">Reference:</span>{" "}
+              <a
+                href="https://polar.sh/legal/data-processing-addendum"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors"
+              >
+                DPA
+              </a>
+            </p>
+          </div>
+        </div>
+        <div className="space-y-2">
           <h3>GitHub</h3>
           <div className="space-y-1.5 text-sm sm:text-base subprocessor-value">
             <p>
-              <span className="font-medium subprocessor-label">Purpose:</span> Source code hosting and issue tracking
+              <span className="font-medium subprocessor-label">Purpose:</span> Source code hosting, issue tracking, and collecting sponsorships
             </p>
             <p>
               <span className="font-medium subprocessor-label">Location:</span> US

@@ -3,8 +3,15 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
+import { Download } from "lucide-react"
 import { memo, useCallback, useState } from 'react'
 import { MobileMenu } from "./mobile-menu"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonLabelMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   return (
@@ -24,7 +31,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
         {/* Buttons - visible on all screen sizes */}
         <Button
           asChild
-          className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
+          className={`h-8 rounded-sm px-3 text-xs font-medium lg:h-10 lg:px-4 lg:text-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
         >
           <Link href="/download" className="group flex items-center gap-1.5 lg:gap-2">
             {/* Light mode: white Apple logo (on black button) */}
@@ -33,7 +40,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
               alt="Apple"
               width={16}
               height={20}
-              className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 dark:hidden"
+              className={`h-3.5 w-auto ${downloadButtonIconMotionClasses} lg:h-4 dark:hidden`}
             />
             {/* Dark mode: black Apple logo (on white button) */}
             <Image
@@ -41,16 +48,20 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
               alt="Apple"
               width={16}
               height={20}
-              className="h-3.5 w-auto transition-transform duration-300 will-change-transform backface-hidden group-hover:scale-110 lg:h-4 hidden dark:block"
+              className={`hidden h-3.5 w-auto ${downloadButtonIconMotionClasses} lg:h-4 dark:block`}
             />
-            <span className="transition-all duration-300 will-change-transform backface-hidden group-hover:scale-105 group-active:scale-105">
-              Download for macOS
+            <span className={downloadButtonLabelMotionClasses}>
+              Download Tiles
             </span>
+            <Download
+              className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} lg:h-4 lg:w-4`}
+              aria-hidden
+            />
           </Link>
         </Button>
         <Button
           asChild
-          className="h-8 rounded-full bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
+          className="h-8 rounded-sm bg-foreground px-3 text-xs font-medium text-background hover:bg-foreground/90 dark:bg-foreground dark:text-background dark:hover:bg-foreground/90 lg:h-10 lg:px-4 lg:text-sm"
         >
           <a
             href="https://github.com/sponsors/tilesprivacy"
@@ -74,13 +85,15 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
         {/* Hamburger Menu Button - Mobile Only */}
         <button
           onClick={onOpenMenu}
-          className="lg:hidden flex flex-col justify-center items-center gap-1.5 touch-manipulation outline-none border-none bg-transparent shadow-none focus:outline-none focus:ring-0 active:outline-none h-8 lg:h-10"
+          className="lg:hidden inline-flex h-8 w-8 items-center justify-center touch-manipulation border-none bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus:outline-none focus:ring-0 active:opacity-60 lg:h-10 lg:w-10"
           aria-label="Open navigation menu"
           type="button"
         >
-          <span className="block w-5 h-0.5 bg-black dark:bg-white" />
-          <span className="block w-5 h-0.5 bg-black dark:bg-white" />
-          <span className="block w-5 h-0.5 bg-black dark:bg-white" />
+          <span className="flex flex-col items-center justify-center gap-1.5">
+            <span className="block h-px w-5 rounded-full bg-foreground transition-all duration-300" />
+            <span className="block h-px w-5 rounded-full bg-foreground transition-all duration-300" />
+            <span className="block h-px w-5 rounded-full bg-foreground transition-all duration-300" />
+          </span>
         </button>
       </div>
     </header>
@@ -101,4 +114,3 @@ export function BookHeader() {
     </>
   )
 }
-

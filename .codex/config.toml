@@ -1,0 +1,4 @@
+[memories]
+generate_memories = true
+use_memories = true
+no_memories_if_mcp_or_web_search = false

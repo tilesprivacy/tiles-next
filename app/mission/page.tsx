@@ -2,10 +2,10 @@ import type { Metadata } from "next"
 import { MissionContent } from "@/components/mission-content"
 
 export const metadata: Metadata = {
-  title: "Tiles Mission",
+  title: "Mission | Tiles",
   description: "Bringing privacy technology to everyone.",
   openGraph: {
-    title: "Tiles Mission",
+    title: "Mission | Tiles",
     description: "Bringing privacy technology to everyone.",
     type: "website",
     images: [
@@ -13,13 +13,13 @@ export const metadata: Metadata = {
         url: "https://www.tiles.run/api/og",
         width: 1200,
         height: 630,
-        alt: "Tiles Mission",
+        alt: "Mission | Tiles",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tiles Mission",
+    title: "Mission | Tiles",
     description: "Bringing privacy technology to everyone.",
     images: ["https://www.tiles.run/api/og"],
   },

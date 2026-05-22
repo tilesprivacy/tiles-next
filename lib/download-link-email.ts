@@ -1,0 +1,400 @@
+import { TILES_PRODUCT_DESCRIPTION } from "@/lib/product-description"
+
+export interface DownloadLinkEmailVariables extends Record<string, string> {
+  DOWNLOAD_URL: string
+  DOWNLOAD_FILE_NAME: string
+  DOWNLOAD_VERSION: string
+  DOWNLOAD_SIZE: string
+  DOWNLOAD_SHA_SHORT: string
+  DOWNLOAD_CHECKSUM_URL: string
+  NETWORK_VERSION: string
+  NETWORK_SIZE: string
+  NETWORK_SHA_SHORT: string
+  NETWORK_CHECKSUM_URL: string
+  OFFLINE_DOWNLOAD_URL: string
+  OFFLINE_FILE_NAME: string
+  OFFLINE_DOWNLOAD_VERSION: string
+  OFFLINE_DOWNLOAD_SIZE: string
+  OFFLINE_DOWNLOAD_SHA_SHORT: string
+  OFFLINE_DOWNLOAD_CHECKSUM_URL: string
+  OFFLINE_MODEL_NAME: string
+  OFFLINE_VERSION: string
+  OFFLINE_SIZE: string
+  OFFLINE_SHA_SHORT: string
+  OFFLINE_CHECKSUM_URL: string
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+}
+
+export const downloadLinkEmailTemplateHtml = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="color-scheme" content="dark">
+    <meta name="supported-color-schemes" content="dark">
+    <title>Your Tiles download link</title>
+    <style type="text/css">
+      body, table, td, p, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+      table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+      table { border-collapse: collapse !important; }
+      img { -ms-interpolation-mode: bicubic; border: 0; display: block; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+      body { margin: 0 !important; padding: 0 !important; width: 100% !important; min-width: 100% !important; background: #000000 !important; }
+      a { color: inherit; }
+      .preheader { display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0; overflow: hidden; mso-hide: all; }
+      @media only screen and (max-width: 600px) {
+        .page-pad { padding: 22px 24px 52px 24px !important; }
+        .container { width: 100% !important; max-width: 100% !important; }
+        .title { font-size: 34px !important; line-height: 1.12 !important; }
+        .body-copy { font-size: 16px !important; line-height: 1.65 !important; }
+      }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; width:100%; min-width:100%; background-color:#000000;">
+    <div class="preheader">Open this email on your Mac to install Tiles Alpha.</div>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; background-color:#000000;">
+      <tr>
+        <td align="center" class="page-pad" style="padding:20px 24px 72px 24px;">
+          <table role="presentation" width="560" cellpadding="0" cellspacing="0" class="container" style="width:560px; max-width:560px;">
+            <tr>
+              <td style="padding:0 0 134px 0;">
+                <a href="https://www.tiles.run" style="display:inline-block; text-decoration:none;">
+                  <img src="https://www.tiles.run/grey.png" width="44" height="44" alt="Tiles" style="width:44px; max-width:44px; height:44px;">
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 21px 0;">
+                <h1 class="title" style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:38px; line-height:1.14; font-weight:650; letter-spacing:0;">
+                  Download Tiles Alpha
+                </h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 18px 0;">
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  You were sent this email because you requested a download link from the Tiles mobile website.
+                </p>
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  You can also visit <a href="https://www.tiles.run/download" style="color:#e5e5e5; text-decoration:underline; text-decoration-color:#737373;">tiles.run/download</a> on desktop.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 23px 0; border-bottom:1px solid #262626;"></td>
+            </tr>
+            <tr>
+              <td style="padding:23px 0 23px 0;">
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Public Alpha for macOS 14+ on Apple Silicon Macs (M1 or newer). Recommended: 16 GB unified memory or more.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 48px 0;">
+                <p style="margin:0; color:#9ca3af; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.5; font-weight:400;">
+                  Current build: v{{{NETWORK_VERSION}}}
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 0 10px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.4; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;">
+                  Step 1
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 12px 0;">
+                <h2 style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:18px; line-height:1.35; font-weight:500; letter-spacing:0;">
+                  Download your installer
+                </h2>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 28px 0;">
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Choose the installer that best fits your setup.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 0 13px 0;">
+                <p style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:17px; line-height:1.45; font-weight:500;">
+                  Network installer
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 9px 0;">
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Small package that includes the required runtime. You will be prompted to download the model during onboarding.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 7px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                  Release: v{{{NETWORK_VERSION}}}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 18px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                  Size: {{{NETWORK_SIZE}}} | SHA256: <a href="{{{NETWORK_CHECKSUM_URL}}}" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">{{{NETWORK_SHA_SHORT}}}</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 48px 0;">
+                <table role="presentation" cellpadding="0" cellspacing="0" class="button">
+                  <tr>
+                    <td bgcolor="#ffffff" style="border-radius:3px; background-color:#ffffff;">
+                      <a href="{{{DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#000000; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
+                        <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
+                        Download network installer
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 0 13px 0;">
+                <p style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:17px; line-height:1.45; font-weight:500;">
+                  Offline installer
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 9px 0;">
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Includes the default <span style="display:inline-block; color:#f5f5f5; background-color:#171717; border:1px solid #3f3f46; border-radius:4px; padding:1px 7px; font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace; font-size:14px; line-height:20px;">{{{OFFLINE_MODEL_NAME}}}</span> model bundled for fully offline setup with no additional downloads.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 7px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                  Release: v{{{OFFLINE_VERSION}}}
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 18px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                  Size: {{{OFFLINE_SIZE}}} | SHA256: <a href="{{{OFFLINE_CHECKSUM_URL}}}" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">{{{OFFLINE_SHA_SHORT}}}</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 30px 0;">
+                <table role="presentation" cellpadding="0" cellspacing="0" class="button">
+                  <tr>
+                    <td bgcolor="#ffffff" style="border-radius:3px; background-color:#ffffff;">
+                      <a href="{{{OFFLINE_DOWNLOAD_URL}}}" style="display:inline-block; padding:11px 20px; color:#000000; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:18px; font-weight:500; text-decoration:none; border-radius:3px;">
+                        <img src="https://tiles.run/icon-apple-111111.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:8px; vertical-align:-2px;" />
+                        Download offline installer
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:0 0 14px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
+                  Offline installer builds aren't published for every release. Check the release version above to confirm which build each installer includes.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 40px 0;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
+                  By downloading and using Tiles, you agree to the <a href="https://tiles.run/terms" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">terms</a> and <a href="https://tiles.run/privacy" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">privacy statement</a>.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:24px 0 10px 0; border-top:1px solid #262626;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.4; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;">
+                  Step 2
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 8px 0;">
+                <h2 style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:18px; line-height:1.35; font-weight:500; letter-spacing:0;">
+                  Go through the installer setup
+                </h2>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 30px 0;">
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Open the downloaded installer and complete the install wizard. The installer adds the tiles command to your system.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:24px 0 10px 0; border-top:1px solid #262626;">
+                <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.4; font-weight:600; letter-spacing:0.14em; text-transform:uppercase;">
+                  Step 3
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 8px 0;">
+                <h2 style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:18px; line-height:1.35; font-weight:500; letter-spacing:0;">
+                  Run tiles command
+                </h2>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 40px 0;">
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Open Terminal and run tiles. Then follow the CLI onboarding to set up your account and start using the chat interface. If you installed the network version, you will be prompted to choose and download a model.
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:40px 0 28px 0; border-top:1px solid #262626;">
+                <h2 style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:30px; line-height:1.2; font-weight:500; letter-spacing:0;">
+                  Resources
+                </h2>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 34px 0;">
+                <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 10px 0;">
+                  <tr>
+                    <td align="center" valign="middle" width="24" height="24" style="width:24px; height:24px; border-radius:6px; background-color:#171717; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:24px; font-weight:600;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" style="display:block; margin:5px auto;">
+                        <path d="M4 6.5C4 5.67 4.67 5 5.5 5H10.5C11.88 5 13 6.12 13 7.5V19C13 17.9 12.1 17 11 17H5.5C4.67 17 4 16.33 4 15.5V6.5Z" stroke="#d4d4d8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M20 6.5C20 5.67 19.33 5 18.5 5H13.5C12.12 5 11 6.12 11 7.5V19C11 17.9 11.9 17 13 17H18.5C19.33 17 20 16.33 20 15.5V6.5Z" stroke="#d4d4d8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </td>
+                  </tr>
+                </table>
+                <h3 style="margin:0 0 8px 0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:18px; line-height:1.35; font-weight:500;">Manual</h3>
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Need usage instructions? Check out the <a href="https://tiles.run/book/manual" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Manual</a> in the book for step-by-step guidance.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 44px 0;">
+                <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 10px 0;">
+                  <tr>
+                    <td align="center" valign="middle" width="24" height="24" style="width:24px; height:24px; border-radius:6px; background-color:#171717; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:24px; font-weight:600;">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" style="display:block; margin:5px auto;">
+                        <circle cx="12" cy="12" r="7.5" stroke="#d4d4d8" stroke-width="1.6" />
+                        <path d="M12 8.5V12.5L14.8 14.3" stroke="#d4d4d8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </td>
+                  </tr>
+                </table>
+                <h3 style="margin:0 0 8px 0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:18px; line-height:1.35; font-weight:500;">Releases</h3>
+                <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  Need an older build? Browse the <a href="https://tiles.run/releases#releases" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">releases page</a> to download previous versions.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:0 0 36px 0;">
+                <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                  If you’d like to get in touch with the team, either ahead of the release or after, you can always find us on the #tiles channel in User &amp; Agents Discord.
+                </p>
+                <p class="body-copy" style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.45; font-weight:500;">
+                  - Tiles Privacy &amp; Contributors
+                </p>
+              </td>
+            </tr>
+
+            <tr>
+              <td style="padding:30px 0 0 0; border-top:1px solid #262626;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-top:14px;">
+                  <tr>
+                    <td align="center" style="padding:0 0 14px 0;">
+                      <a href="https://www.tiles.run" style="display:inline-block; text-decoration:none;">
+                        <img src="https://www.tiles.run/grey.png" width="28" height="28" alt="Tiles" style="width:28px; max-width:28px; height:28px;">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 18px 0;">
+                      <p style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                        ${TILES_PRODUCT_DESCRIPTION}
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 18px 0;">
+                      <a href="https://x.com/tilesprivacy" aria-label="X" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-x-9ca3af.svg" width="16" height="16" alt="X" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://bsky.app/profile/tiles.run" aria-label="Bluesky" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-bluesky-9ca3af.svg" width="16" height="16" alt="Bluesky" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://www.instagram.com/tilesprivacy" aria-label="Instagram" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-instagram-9ca3af.svg" width="16" height="16" alt="Instagram" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://go.tiles.run/discord" aria-label="Discord" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-discord-9ca3af.svg" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-reddit-9ca3af.svg" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://github.com/tilesprivacy" aria-label="GitHub" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-github-9ca3af.svg" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://tangled.org/tiles.run/tiles/" aria-label="Tangled" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-tangled-9ca3af.svg" width="16" height="16" alt="Tangled" style="display:block; width:16px; height:16px;">
+                      </a>
+                      <a href="https://huggingface.co/tilesprivacy" aria-label="Hugging Face" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                        <img src="https://tiles.run/icon-huggingface-9ca3af.svg" width="16" height="16" alt="Hugging Face" style="display:block; width:16px; height:16px;">
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center" style="padding:0 0 4px 0;">
+                      <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6;">
+                        Unsubscribe
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`
+
+export function renderDownloadLinkEmailHtml(
+  variables: DownloadLinkEmailVariables,
+): string {
+  return Object.entries(variables).reduce(
+    (html, [key, value]) =>
+      html.replaceAll(`{{{${key}}}}`, escapeHtml(String(value))),
+    downloadLinkEmailTemplateHtml,
+  )
+}

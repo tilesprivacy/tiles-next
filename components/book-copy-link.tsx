@@ -54,17 +54,30 @@ export function BookCopyLink() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const style: CSSProperties | null = useMemo(() => {
-    if (!anchorRect) return null
-    const safeTop = Math.max(0, headerBottom) + 8
-    // Hide the control as soon as its anchor reaches the top header zone.
-    if (anchorRect.top <= safeTop) return null
     const isMobile = viewportWidth > 0 && viewportWidth <= 1023
+    const safeTop = Math.max(0, headerBottom) + 8
+    const mobileOffset = 16
+
+    if (isMobile) {
+      return {
+        position: 'fixed',
+        top: `${safeTop + mobileOffset}px`,
+        left: '16px',
+        zIndex: 30,
+        pointerEvents: 'auto',
+      }
+    }
+
+    if (!anchorRect) return null
+    // In desktop mode the control visually follows the source anchor, so hide it
+    // once that anchor enters the header zone. On mobile it stays viewport-pinned.
+    if (anchorRect.top <= safeTop) return null
     const preferredLeft = anchorRect.left - 12
     const hasRoomOnLeft = preferredLeft >= 160
 
     // Keep a consistent "attached companion control" appearance:
     // prefer left side of Copy page control; if no room (narrow viewports), drop below.
-    if (!isMobile && hasRoomOnLeft) {
+    if (hasRoomOnLeft) {
       return {
         position: 'fixed',
         top: `${Math.max(safeTop, anchorRect.top + anchorRect.height / 2)}px`,
@@ -149,16 +162,11 @@ export function BookCopyLink() {
       raf = requestAnimationFrame(() => {
         const mobileMenuOpen = isMobileMenuOpen()
         setMenuOpen(mobileMenuOpen)
-        if (mobileMenuOpen) {
+        if (mobileMenuOpen && window.innerWidth > 1023) {
           setAnchorRect(null)
           return
         }
 
-        const copyPageContainer = findCopyPageContainer()
-        if (!copyPageContainer) {
-          setAnchorRect(null)
-          return
-        }
         const header = document.querySelector('[data-book-section] header')
         if (header instanceof HTMLElement) {
           setHeaderBottom(header.getBoundingClientRect().bottom)
@@ -166,6 +174,12 @@ export function BookCopyLink() {
           setHeaderBottom(0)
         }
         setViewportWidth(window.innerWidth)
+
+        const copyPageContainer = findCopyPageContainer()
+        if (!copyPageContainer) {
+          setAnchorRect(null)
+          return
+        }
         setAnchorRect(copyPageContainer.getBoundingClientRect())
       })
     }
@@ -202,7 +216,9 @@ export function BookCopyLink() {
     }
   }, [pathname])
 
-  if (!style || menuOpen) return null
+  const shouldHideForMenu = menuOpen && viewportWidth > 1023
+
+  if (!style || shouldHideForMenu) return null
 
   return createPortal(
     <div

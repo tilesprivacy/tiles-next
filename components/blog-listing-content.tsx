@@ -4,6 +4,15 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
+import NewsletterForm from "@/components/newsletter-form"
+import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
+import { PersonAvatar } from "@/components/person-avatar"
+import { FaRss } from "react-icons/fa6"
+import {
+  marketingPageBodyClass,
+  marketingPageMetaClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 import { getPersonById } from "@/lib/people"
 
 interface BlogPost {
@@ -13,6 +22,7 @@ interface BlogPost {
   date: Date
   author?: string
   coverImage?: string
+  coverImageDark?: string
   coverAlt?: string
 }
 
@@ -35,9 +45,11 @@ function formatDate(date: Date): string {
   return `Published ${diffDays} days ago (${dateStr})`
 }
 
-function getPostImage(post: BlogPost): { src: string; alt: string } {
+function getPostImage(post: BlogPost): { src: string; srcDark: string; alt: string } {
+  const src = post.coverImage || "/og-image.jpg"
   return {
-    src: post.coverImage || "/og-image.jpg",
+    src,
+    srcDark: post.coverImageDark || src,
     alt: post.coverAlt || post.title,
   }
 }
@@ -45,29 +57,37 @@ function getPostImage(post: BlogPost): { src: string; alt: string } {
 function BlogPostEntry({ post }: { post: BlogPost }) {
   const image = getPostImage(post)
   const [imageSrc, setImageSrc] = useState(image.src)
+  const [imageSrcDark, setImageSrcDark] = useState(image.srcDark)
   const author = post.author ? getPersonById(post.author) : null
 
   return (
     <Link href={`/blog/${post.slug}`} className="group block">
       <article className="grid grid-cols-[minmax(0,1fr)_6.5rem] items-start gap-4 py-6 sm:grid-cols-[minmax(0,1fr)_9.5rem] sm:gap-6 sm:py-9 lg:grid-cols-[minmax(0,1fr)_11rem]">
         <div className="space-y-3 sm:space-y-4">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-black/45 dark:text-white/45 lg:text-sm">
+          <div className={`flex flex-col gap-2 sm:gap-2.5 ${marketingPageMetaClass}`}>
             <span>{formatDate(post.date)}</span>
             {author && (
-              <>
-                <span className="text-black/25 dark:text-white/25">·</span>
-                <span>
-                  By <span className="text-black/60 dark:text-white/60">{author.name.replace(/\s@[^ ]+$/, "")}</span>
-                </span>
-              </>
+              <span className="inline-flex items-center gap-1.5">
+                <PersonAvatar
+                  name={author.name}
+                  links={author.links}
+                  variant="blog"
+                  className="inline-flex shrink-0"
+                />
+                <BlogAuthorDisplayName
+                  fullName={author.name}
+                  className="text-black/60 dark:text-white/60"
+                  handleClassName="text-black/45 dark:text-white/45"
+                />
+              </span>
             )}
           </div>
 
-          <h2 className="text-xl font-semibold tracking-tight text-black transition-colors group-hover:text-black/75 dark:text-white dark:group-hover:text-white/80 sm:text-2xl lg:text-3xl">
+          <h2 className="text-[1.18rem] font-medium tracking-[-0.02em] text-black/90 transition-colors group-hover:text-black/72 dark:text-white/90 dark:group-hover:text-white/76 sm:text-[1.36rem] lg:text-[1.82rem]">
             {post.title}
           </h2>
 
-          <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">
+          <p className={marketingPageBodyClass}>
             {post.description}
           </p>
 
@@ -84,8 +104,17 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               width={900}
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
               onError={() => setImageSrc("/og-image.jpg")}
+            />
+            <Image
+              src={imageSrcDark}
+              alt={image.alt}
+              width={900}
+              height={900}
+              sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
+              className="hidden h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] dark:block"
+              onError={() => setImageSrcDark("/og-image.jpg")}
             />
           </div>
         </div>
@@ -97,20 +126,39 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
 export function BlogListingContent({ posts }: BlogListingContentProps) {
   return (
     <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
-      {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center gap-12 px-6 pb-28 pt-16 sm:px-8 lg:gap-20 lg:px-10 lg:pb-24 lg:pt-28 xl:px-12">
-        {/* Top Card - Logo and Title */}
-        <div className="w-full max-w-[48rem] pt-20 pb-8 lg:pt-24 lg:pb-12">
-          {/* Blog Title */}
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-black dark:text-white lg:text-6xl tracking-tight mb-5 lg:mb-7">The Tiles Blog</h1>
-            <p className="text-base text-black/50 dark:text-white/50 lg:text-xl">Privacy technology for everyone!</p>
+      <main className="flex flex-1 flex-col px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
+        <div className="mx-auto w-full max-w-3xl">
+          <div className="mb-10 lg:mb-12">
+            <h1 className={`mb-4 ${marketingPageTitleClass}`}>
+              Blog
+            </h1>
+            <section className="mx-auto w-full max-w-3xl pb-1">
+              <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-[0.95rem] font-medium tracking-tight text-black dark:text-white">Stay updated</h2>
+                    <a
+                      href="/api/rss"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center text-black transition-colors hover:text-black/65 dark:text-[#e7e7ed] dark:hover:text-[#c6c6cf]"
+                      aria-label="RSS Feed for blog posts"
+                    >
+                      <FaRss className="h-4 w-4" />
+                    </a>
+                  </div>
+                  <p className="text-[0.84rem] leading-6 text-black/70 dark:text-[#b8b8c2]">
+                    Get updates on releases, privacy research, and performance engineering.
+                  </p>
+                </div>
+                <NewsletterForm className="w-full lg:max-w-[24rem]" />
+              </div>
+            </section>
           </div>
         </div>
 
-        {/* Bottom Card - Blog Posts */}
-        <div className="w-full max-w-[48rem] flex-1 space-y-12 pt-10 pb-4 lg:space-y-16 lg:pt-16 lg:pb-10">
-          <div className="border-y border-black/10 dark:border-white/10 divide-y divide-black/10 dark:divide-white/10">
+        <div className="mx-auto w-full max-w-3xl flex-1 pb-4 lg:pb-10">
+          <div className="divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
             {posts.map((post) => (
               <BlogPostEntry key={post.slug} post={post} />
             ))}

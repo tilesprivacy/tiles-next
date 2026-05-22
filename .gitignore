@@ -40,6 +40,7 @@ next-env.d.ts
 # IDE
 .idea
 .vscode
+.cursor/
 *.swp
 *.swo
 .DS_Store
@@ -51,3 +52,9 @@ coverage
 # Misc
 *.log
 *.local
+
+# Generated temp files
+serve/tmp/
+.cursor/hooks/state/continual-learning.json
+/.cursor
+/.cursor

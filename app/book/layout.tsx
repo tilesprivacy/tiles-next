@@ -7,16 +7,17 @@ import { BookBreadcrumbLink } from '@/components/book-breadcrumb-link'
 import { BookMobileBreadcrumb } from '@/components/book-mobile-breadcrumb'
 import { BookDatestampMover } from '@/components/book-datestamp-mover'
 import { BookCodeHighlightFix } from '@/components/book-code-highlight-fix'
-import { BookCopyLink } from '@/components/book-copy-link'
 import { BookScrollToTop } from '@/components/book-scroll-to-top'
+import { BookHashScrollOffset } from '@/components/book-hash-scroll-offset'
+import { BookTocScrollSync } from '@/components/book-toc-scroll-sync'
 
 export const metadata = {
   title: {
     template: '%s | Tiles Book',
-    default: 'Privacy technology for everyone! | Tiles Book',
+    default: 'Tiles Book: Technical documentation for Tiles and Tilekit',
   },
   description:
-    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer offering, and Tilekit, the developer-facing, Rust-based Tilekit SDK.',
+    'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.',
 }
 
 export default async function BookLayout({
@@ -27,7 +28,7 @@ export default async function BookLayout({
   const pageMap = await getPageMap()
 
   // Filter out unwanted routes from the sidebar
-  const excludedRoutes = ['/', '/mission', '/download', '/explore', '/blog', '/changelog', '/privacy', '/sub-processors', '/subprocessors', '/terms']
+  const excludedRoutes = ['/', '/mission', '/download', '/explore', '/blog', '/releases', '/privacy', '/sub-processors', '/subprocessors', '/terms', '/pricing']
   
   const filterPageMap = (items: typeof pageMap): typeof pageMap => {
     return items
@@ -68,11 +69,8 @@ export default async function BookLayout({
   // Filter the pageMap to only include book-related content
   const filteredPageMap = filterPageMap(pageMap)
 
-  // Currently no route transformation is needed; work directly on the filtered map
-  const transformedPageMap = filteredPageMap
-
   // Flatten the "book" folder if it exists - extract its children to the top level
-  const flattenedPageMap = transformedPageMap.flatMap((item) => {
+  const flattenedPageMap = filteredPageMap.flatMap((item) => {
     // If this is a folder named "book" or has route "/book", extract its children
     if ('children' in item && Array.isArray(item.children)) {
       const name = 'name' in item ? item.name : ''
@@ -86,11 +84,19 @@ export default async function BookLayout({
     return [item]
   })
 
-  // Define the correct order from _meta.json
-  const desiredOrder = ['index', 'manual', 'models', 'memory', 'modelfile', 'mir', 'community', 'resources', 'contact']
+  // Keep sidebar aligned with the `/book` mobile card grid.
+  const desiredOrder = ['index', 'overview', 'manual', 'models', 'tilekit', 'mir', 'security', 'community', 'resources', 'licenses']
+
+  const cardPageSet = new Set(desiredOrder)
+
+  // Keep only pages that are represented in the mobile card navigation.
+  const cardOnlyPageMap = flattenedPageMap.filter((item) => {
+    const name = 'name' in item ? (item.name as string) : ''
+    return cardPageSet.has(name)
+  })
 
   // Sort the pageMap according to the desired order
-  const finalPageMap = flattenedPageMap.sort((a, b) => {
+  const finalPageMap = cardOnlyPageMap.sort((a, b) => {
     const aName = 'name' in a ? (a.name as string) : ''
     const bName = 'name' in b ? (b.name as string) : ''
 
@@ -114,10 +120,11 @@ export default async function BookLayout({
     <div className="relative flex min-h-screen flex-col bg-background" data-book-section>
       <BookBreadcrumbLink />
       <BookDatestampMover />
-      <BookCopyLink />
       <BookCodeHighlightFix />
       <BookScrollToTop />
-      <div className="pt-28 lg:pt-32">
+      <BookHashScrollOffset />
+      <BookTocScrollSync />
+      <div className="pt-[calc(5.5rem+env(safe-area-inset-top,0px))] lg:pt-[calc(7rem+env(safe-area-inset-top,0px))]">
         <BookMobileBreadcrumb />
         <Layout
           pageMap={finalPageMap}

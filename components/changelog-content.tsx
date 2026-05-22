@@ -1,11 +1,15 @@
 'use client'
-
 import { SiteFooter } from "@/components/site-footer"
 import type { Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { triggerHaptic } from "@/lib/haptics"
 import { formatBinarySize } from "@/lib/format-binary-size"
+import {
+  marketingPageBodyClass,
+  marketingPageLeadClass,
+  marketingPageMetaClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 interface ChangelogContentProps {
   releases: Release[]
@@ -28,7 +32,7 @@ const ExternalLinkIcon = () => (
 )
 
 // Helper function to render text with inline code
-const renderTextWithCode = (text: string, isDark: boolean) => {
+const renderTextWithCode = (text: string) => {
   const parts = text.split(/(`[^`]+`)/)
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
@@ -36,9 +40,7 @@ const renderTextWithCode = (text: string, isDark: boolean) => {
       return (
         <code
           key={index}
-          className={`px-1.5 py-0.5 rounded text-sm font-mono ${
-            isDark ? 'bg-[#1a1a1a] text-[#E6E6E6]' : 'bg-gray-100 text-gray-800'
-          }`}
+          className="rounded border border-border bg-muted px-1.5 py-0.5 font-mono text-sm text-foreground"
         >
           {code}
         </code>
@@ -47,6 +49,18 @@ const renderTextWithCode = (text: string, isDark: boolean) => {
     return part
   })
 }
+
+const normalizeSubItems = (subItems?: string[]) =>
+  (subItems ?? []).map((item) => item.trim()).filter((item) => item.length > 0)
+
+const normalizeSectionChanges = (changes: Release["sections"][number]["changes"]) =>
+  changes
+    .map((change) => ({
+      ...change,
+      text: change.text.trim(),
+      subItems: normalizeSubItems(change.subItems),
+    }))
+    .filter((change) => change.text.length > 0)
 
 const getReleaseAnchorId = (version: string) => version.replace(/^v/, "")
 
@@ -60,148 +74,112 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
   const isDark = mounted && resolvedTheme === 'dark'
 
-  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'
-  const textColorMuted = isDark ? 'text-[#B3B3B3]' : 'text-black/60'
-  const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-gray-400'
-  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-gray-600'
-  const textColorBodyLight = isDark ? 'text-[#8A8A8A]' : 'text-gray-500'
-  const textColorHeading = isDark ? 'text-[#E6E6E6]' : 'text-gray-900'
-  const linkColor = isDark ? 'text-[#B3B3B3] hover:text-[#E6E6E6]' : 'text-gray-700 hover:text-gray-900'
-  const badgeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-gray-100'
-  const badgeText = isDark ? 'text-[#B3B3B3]' : 'text-gray-700'
-  const badgeTextLight = isDark ? 'text-[#8A8A8A]' : 'text-gray-600'
-  const timelineBg = isDark ? 'bg-[#2a2a2a]' : 'bg-gray-200'
-  const dotBg = isDark ? 'bg-[#E6E6E6]' : 'bg-black'
-  const dotRing = isDark ? 'ring-[#121212]' : 'ring-white'
-  const bulletBg = isDark ? 'bg-[#8A8A8A]' : 'bg-gray-400'
-  const bulletBgLight = isDark ? 'bg-[#5a5a5a]' : 'bg-gray-300'
+  const textColorMuted = 'text-muted-foreground'
+  const textColorBodyLight = 'text-muted-foreground'
+  const textColorHeading = 'text-foreground'
+  const linkColor =
+    'font-medium text-foreground underline decoration-foreground/35 underline-offset-2 transition-colors hover:decoration-foreground'
+  const badgeBg = 'bg-muted'
+  const badgeText = 'text-foreground'
+  const badgeTextLight = 'text-muted-foreground'
+  const timelineBg = 'bg-border'
+  const dotBg = 'bg-foreground'
+  const dotRing = 'ring-background'
+  const bulletBg = 'bg-muted-foreground'
+  const bulletBgLight = 'bg-border'
   const errorBg = isDark ? 'bg-red-900/30' : 'bg-red-50'
   const errorText = isDark ? 'text-red-400' : 'text-red-600'
-  const codeBg = isDark ? 'bg-[#1a1a1a]' : 'bg-[#f5f5f5]'
-  const codeText = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
-  const copyButtonBg = isDark ? 'bg-[#1a1a1a] hover:bg-[#252525]' : 'bg-[#f5f5f5] hover:bg-[#e5e5e5]'
-  const copyIconColor = isDark ? 'text-[#8A8A8A] hover:text-[#E6E6E6]' : 'text-black/50 hover:text-black/80'
-  const sectionHeadingClass = `mb-3 text-lg font-semibold tracking-tight ${textColor} lg:mb-4 lg:text-xl`
-  const paragraphClass = `text-sm leading-relaxed ${textColorBody} lg:text-base`
-  const releaseBodyClass = `space-y-2 text-sm leading-relaxed ${textColorBody}`
+  /** Legacy changelog card look: soft gray in light, charcoal in dark. */
+  const artifactCardClass =
+    'rounded-sm border border-black/5 bg-black/[0.035] px-3 py-2.5 text-sm text-foreground shadow-none dark:border-white/5 dark:bg-white/[0.06]'
+  const artifactKindClass = 'text-xs font-medium text-muted-foreground'
+  const artifactLinkClass = `${linkColor} inline-flex items-center gap-0.5 font-medium`
+  const artifactShaBlockClass =
+    'mt-2 text-[11px] leading-relaxed text-muted-foreground'
+  const releaseBodyClass = `space-y-2 ${marketingPageBodyClass}`
   const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
-  const tarballMetaClass = `text-xs ${textColorBodyLight} lg:text-sm`
-
   const DownloadArtifacts = ({ release }: { release: Release }) => {
-    const [copied, setCopied] = useState(false)
     const hasTarballs = release.tarballs.length > 0
     const hasInstaller = Boolean(release.installer)
-    const installScript = `curl -fsSL https://raw.githubusercontent.com/tilesprivacy/tiles/${release.version}/scripts/install.sh | sh`
+    const hasFullInstaller = Boolean(release.fullInstaller)
 
-    const handleCopy = async () => {
-      await navigator.clipboard.writeText(installScript)
-      triggerHaptic()
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-
-    if (!hasTarballs && !hasInstaller) {
+    if (!hasTarballs && !hasInstaller && !hasFullInstaller) {
       return null
     }
 
     return (
-      <div className={`mb-4 mt-1 space-y-2 ${tarballMetaClass}`}>
+      <div className="mb-4 mt-1 space-y-2.5">
         {release.installer && (
-          <div className={`rounded-xl ${codeBg} px-3 py-2.5`}>
-            <div className="flex flex-wrap items-center gap-x-2">
-              <span>Installer:</span>
+          <div className={artifactCardClass}>
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:gap-y-1">
+              <span className={`shrink-0 ${artifactKindClass}`}>Network installer</span>
               <a
                 href={release.installer.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+                className={artifactLinkClass}
               >
                 {release.installer.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(release.installer.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+              <span className={`text-xs tabular-nums ${textColorMuted}`}>
+                ({formatBinarySize(release.installer.sizeBytes, { unknownLabel: "Unknown size" })})
+              </span>
             </div>
-            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-              <span>SHA256:</span>
-              <span className="font-mono text-[11px] break-all">{release.installer.sha256}</span>
-            </div>
+            <p className={artifactShaBlockClass}>
+              <span className="select-none">SHA256 </span>
+              <span className="break-all font-mono text-foreground">{release.installer.sha256}</span>
+            </p>
           </div>
         )}
 
-        <div className={`rounded-xl ${codeBg} p-0 max-w-full overflow-hidden`}>
-          <div className="flex items-start">
-            <div className="flex-1 min-w-0 px-3 py-2.5">
-              <div className="mb-1">Install script:</div>
-              <code className={`font-mono ${codeText} text-xs lg:text-sm break-all`}>
-                {installScript}
-              </code>
-              <div className={`mt-2 flex items-center gap-1 text-xs ${linkColor}`}>
-                <a
-                  href={`https://github.com/tilesprivacy/tiles/blob/${release.version}/scripts/install.sh`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-0.5 transition-colors"
-                >
-                  View script source
-                  <ExternalLinkIcon />
-                </a>
-              </div>
+        {release.fullInstaller && (
+          <div className={artifactCardClass}>
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:gap-y-1">
+              <span className={`shrink-0 ${artifactKindClass}`}>Offline installer</span>
+              <a
+                href={release.fullInstaller.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={artifactLinkClass}
+              >
+                {release.fullInstaller.name}
+                <ExternalLinkIcon />
+              </a>
+              <span className={`text-xs tabular-nums ${textColorMuted}`}>
+                ({formatBinarySize(release.fullInstaller.sizeBytes, { unknownLabel: "Unknown size" })})
+              </span>
             </div>
-            <button
-              onClick={handleCopy}
-              className={`flex-shrink-0 flex items-center justify-center ${copyButtonBg} rounded-r-xl transition-colors px-3 py-2.5`}
-              aria-label="Copy install command"
-              title={copied ? "Copied!" : "Copy install command"}
-            >
-              {copied ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="h-4 w-4 text-green-600"
-                >
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className={`h-4 w-4 ${copyIconColor} transition-colors`}
-                >
-                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-              )}
-            </button>
+            <p className={artifactShaBlockClass}>
+              <span className="select-none">SHA256 </span>
+              <span className="break-all font-mono text-foreground">{release.fullInstaller.sha256}</span>
+            </p>
           </div>
-        </div>
+        )}
 
         {release.tarballs.map((tarball) => (
-          <div key={tarball.name} className={`rounded-xl ${codeBg} px-3 py-2.5`}>
-            <div className="flex flex-wrap items-center gap-x-2">
-              <span>Tarball:</span>
+          <div key={tarball.name} className={artifactCardClass}>
+            <div className="flex flex-col gap-1.5 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-2 sm:gap-y-1">
+              <span className={`shrink-0 ${artifactKindClass}`}>Tarball</span>
               <a
                 href={tarball.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
+                className={artifactLinkClass}
               >
                 {tarball.name}
                 <ExternalLinkIcon />
               </a>
-              <span>({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})</span>
+              <span className={`text-xs tabular-nums ${textColorMuted}`}>
+                ({formatBinarySize(tarball.sizeBytes, { unknownLabel: "Unknown size" })})
+              </span>
             </div>
-            <div className="mt-1 flex flex-wrap items-baseline gap-x-2">
-              <span>SHA256:</span>
-              <span className="font-mono text-[11px] break-all">{tarball.sha256}</span>
-            </div>
+            <p className={artifactShaBlockClass}>
+              <span className="select-none">SHA256 </span>
+              <span className="break-all font-mono text-foreground">{tarball.sha256}</span>
+            </p>
           </div>
         ))}
       </div>
@@ -210,103 +188,19 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
   return (
     <div className={`relative flex min-h-screen flex-col ${bgColor}`}>
-      <main className="flex-1 px-4 pb-16 pt-32 lg:px-8 lg:pt-44">
+      <main className="flex-1 px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto max-w-3xl">
-          <h1 className={`mb-4 text-3xl font-bold tracking-tight ${textColor} lg:mb-5 lg:text-5xl`}>
-            Changelog
+          <h1 className={`mb-4 ${marketingPageTitleClass} ${textColor}`}>
+            Releases
           </h1>
-          <p className={`mb-10 text-base ${textColorMuted} lg:mb-12 lg:text-xl`}>
+          <p className={`mb-10 max-w-3xl ${marketingPageLeadClass} lg:mb-12`}>
             All notable changes and releases for Tiles.
           </p>
 
-          {/* Status */}
-          <section
-            id="status"
-            className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 scroll-mt-28 lg:mb-12 lg:pb-12 lg:scroll-mt-40"
-          >
-            <h2 className={sectionHeadingClass}>
-              <a href="#status">
-                Status
-              </a>
-            </h2>
-            <p className={paragraphClass}>
-              Tiles is currently in alpha. We are focused on making the assistant faster, more reliable, and genuinely useful in daily workflows. Alongside improving the core experience, we are steadily expanding its capabilities and exposing more control through the Tilekit SDK so developers can shape and extend what Tiles can do. Expect rapid iteration with security and correctness as the baseline.
-            </p>
-          </section>
-
-          {/* Roadmap */}
-          <section
-            id="roadmap"
-            className="mb-10 border-b border-black/5 pb-10 dark:border-white/10 scroll-mt-28 lg:mb-12 lg:pb-12 lg:scroll-mt-40"
-          >
-            <h2 className={sectionHeadingClass}>
-              <a href="#roadmap">
-                Roadmap
-              </a>
-            </h2>
-            <h3 className={`mb-3 text-sm font-medium ${textColorMuted} lg:text-base`}>
-              H1 2026
-            </h3>
-            <ul className={`mb-5 list-disc space-y-1.5 pl-5 text-sm leading-relaxed ${textColorBody} lg:text-base`}>
-              <li>ATProto-based identity with support for Personal Data Servers (PDS)</li>
-              <li>Peer-to-peer encrypted sync</li>
-              <li>Agentic harness built with Pi</li>
-              <li>MLS-based group chats</li>
-              <li>Chunk-based deduplication and caching for Modelfile-generated models</li>
-            </ul>
-            <p className={`mb-5 ${paragraphClass}`}>
-              If you would like to influence how we implement this roadmap, join the discussion in our RFCs.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="https://github.com/orgs/tilesprivacy/projects/4"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
-              >
-                Track progress
-                <ExternalLinkIcon />
-              </a>
-              <a
-                href="https://github.com/orgs/tilesprivacy/discussions"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-1 rounded-2xl bg-black/[0.03] px-5 py-3 text-sm font-medium transition-colors dark:bg-white/[0.05] ${linkColor} hover:underline lg:text-base`}
-              >
-                View the RFCs
-                <ExternalLinkIcon />
-              </a>
-            </div>
-          </section>
-
-          <section
-            id="releases"
-            className="mb-8 scroll-mt-28 lg:mb-10 lg:scroll-mt-40"
-          >
-            <h2 className={sectionHeadingClass}>
-              <a href="#releases">
-                Releases
-              </a>
-            </h2>
-            <p className={`text-sm leading-relaxed ${textColorBodyLight} lg:text-base`}>
-              The format is based on{" "}
-              <a
-                href="https://keepachangelog.com/en/1.1.0/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center gap-0.5 font-medium ${linkColor} underline underline-offset-2`}
-              >
-                Keep a Changelog convention
-                <ExternalLinkIcon />
-              </a>
-              .
-            </p>
-          </section>
-
           {error ? (
-            <div className={`rounded-lg ${errorBg} p-4 ${errorText}`}>{error}</div>
+            <div className={`rounded-sm ${errorBg} p-4 ${errorText}`}>{error}</div>
           ) : (
-            <div className="relative">
+            <div id="releases" className="relative scroll-mt-28 lg:scroll-mt-40">
               {/* Timeline line */}
               <div className={`absolute left-[124px] top-0 hidden h-full w-px ${timelineBg} md:block`} />
 
@@ -339,7 +233,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                           </span>
                         )}
                       </div>
-                      <p className={`mb-2 text-sm ${textColorSubtle}`}>{release.date}</p>
+                      <p className={`mb-2 ${marketingPageMetaClass}`}>{release.date}</p>
                       <h2 className={`mb-3 text-base font-semibold tracking-tight ${textColorHeading} lg:text-lg`}>
                         {release.title !== release.version ? release.title : `Alpha ${releases.length - index}`}
                       </h2>
@@ -368,22 +262,27 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                       <DownloadArtifacts release={release} />
                       {release.sections.length > 0 && (
                         <div className="space-y-5">
-                          {release.sections.map((section, sectionIndex) => (
+                          {release.sections.map((section, sectionIndex) => {
+                            const visibleChanges = normalizeSectionChanges(section.changes)
+                            if (visibleChanges.length === 0) {
+                              return null
+                            }
+                            return (
                             <section key={`${release.version}-${section.title}-${sectionIndex}`} className="space-y-2">
                               <h3 className={releaseSectionHeadingClass}>{section.title}</h3>
                               <ul className={releaseBodyClass}>
-                                {section.changes.map((change, i) => (
+                                {visibleChanges.map((change, i) => (
                                   <li key={i}>
                                     <div className="flex items-start gap-2">
-                                      <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                      <span>{renderTextWithCode(change.text, isDark)}</span>
+                                      <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
+                                      <span className="min-w-0">{renderTextWithCode(change.text)}</span>
                                     </div>
-                                    {change.subItems && change.subItems.length > 0 && (
+                                    {change.subItems.length > 0 && (
                                       <ul className="ml-4 mt-1.5 space-y-1.5">
                                         {change.subItems.map((subItem, j) => (
                                           <li key={j} className="flex items-start gap-2">
-                                            <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                            <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
+                                            <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
+                                            <span className={`min-w-0 ${textColorBodyLight}`}>{renderTextWithCode(subItem)}</span>
                                           </li>
                                         ))}
                                       </ul>
@@ -392,7 +291,8 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                 ))}
                               </ul>
                             </section>
-                          ))}
+                            )
+                          })}
                         </div>
                       )}
                     </div>
@@ -407,7 +307,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         >
                           {release.version}
                         </a>
-                        <p className={`text-sm ${textColorSubtle}`}>{release.date}</p>
+                        <p className={marketingPageMetaClass}>{release.date}</p>
                       </div>
 
                       {/* Center column: dot */}
@@ -461,22 +361,27 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
 
                         {release.sections.length > 0 && (
                           <div className="space-y-5">
-                            {release.sections.map((section, sectionIndex) => (
+                            {release.sections.map((section, sectionIndex) => {
+                              const visibleChanges = normalizeSectionChanges(section.changes)
+                              if (visibleChanges.length === 0) {
+                                return null
+                              }
+                              return (
                               <section key={`${release.version}-${section.title}-${sectionIndex}`} className="space-y-2">
                                 <h3 className={releaseSectionHeadingClass}>{section.title}</h3>
                                 <ul className={releaseBodyClass}>
-                                  {section.changes.map((change, i) => (
+                                  {visibleChanges.map((change, i) => (
                                     <li key={i}>
                                       <div className="flex items-start gap-2">
-                                        <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                        <span>{renderTextWithCode(change.text, isDark)}</span>
+                                        <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
+                                        <span className="min-w-0">{renderTextWithCode(change.text)}</span>
                                       </div>
-                                      {change.subItems && change.subItems.length > 0 && (
+                                      {change.subItems.length > 0 && (
                                         <ul className="ml-4 mt-1.5 space-y-1.5">
                                           {change.subItems.map((subItem, j) => (
                                             <li key={j} className="flex items-start gap-2">
-                                              <span className={`mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                              <span className={textColorBodyLight}>{renderTextWithCode(subItem, isDark)}</span>
+                                              <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
+                                              <span className={`min-w-0 ${textColorBodyLight}`}>{renderTextWithCode(subItem)}</span>
                                             </li>
                                           ))}
                                         </ul>
@@ -485,7 +390,8 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                                   ))}
                                 </ul>
                               </section>
-                            ))}
+                              )
+                            })}
                           </div>
                         )}
                       </div>

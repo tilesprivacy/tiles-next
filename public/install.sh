@@ -3,17 +3,18 @@ set -euo pipefail
 
 ENV="prod" # prod is another env, try taking it from github env
 REPO="tilesprivacy/tiles"
-# VERSION="${TILES_VERSION:-latest}"
-VERSION="0.4.4"
-# INSTALL_DIR="$HOME/.local/bin"           # CLI install location
+
+VERSION="0.4.9"
+
 INSTALL_DIR="/usr/local/bin"           # CLI install location
-# SERVER_DIR="$HOME/.local/lib/tiles/server"         # Python server folder
-# MODELFILE_DIR="$HOME/.local/lib/tiles/modelfiles"  # Python server folder
 
 SERVER_DIR="/usr/local/share/tiles/server"         # Python server folder
-MODELFILE_DIR="/usr/local/share/tiles/modelfiles"  # Python server folder
+MODELFILE_DIR="/usr/local/share/tiles/modelfiles"  # Modelfile server folder
+
+PI_DIR="/usr/local/share/tiles/pi"
 
 TMPDIR="$(mktemp -d)"
+
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
 
@@ -49,6 +50,16 @@ rm -rf "${MODELFILE_DIR}"
 mkdir -p "${MODELFILE_DIR}"
 
 cp -r "${TMPDIR}/modelfiles"/* "${MODELFILE_DIR}/"
+
+
+log "Installing PI artifacts ..."
+
+rm -rf "${PI_DIR}"
+
+mkdir -p "${PI_DIR}"
+
+cp -r "${TMPDIR}/pi"/* "${PI_DIR}/"
+
 
 log "📦 Installing Python server to ${SERVER_DIR}..."
 rm -rf "${SERVER_DIR}"
