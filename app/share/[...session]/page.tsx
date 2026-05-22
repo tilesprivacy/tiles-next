@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { getSharedSession } from "@/lib/shared-session"
+import { getAtprotoData, getSharedSession } from "@/lib/shared-session"
 import { ShareSessionClient } from "./share-session-client"
 
 interface SharePageProps {
@@ -23,8 +23,9 @@ export async function generateMetadata({
   let title = "Shared chat session | Tiles"
 
   try {
-    const sharedSession = await getSharedSession(shareToken)
-    title = getSharedSessionTitle(sharedSession.sharedBy.handle)
+
+    const at_data = await getAtprotoData(shareToken);
+    title = getSharedSessionTitle(at_data.sharedBy.handle)
   } catch {
     title = "Shared chat session | Tiles"
   }
@@ -61,7 +62,6 @@ export default async function SharePage({ params }: SharePageProps) {
   const shareToken = session.join("/")
 
   try {
-    // const sharedSession = await getSharedSession(shareToken)
     return <ShareSessionClient shareToken={shareToken} />
   } catch (error) {
     const errorMessage =
