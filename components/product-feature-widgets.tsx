@@ -19,18 +19,14 @@ function FeatureWidget({
   if (variant === "home") {
     return (
       <article className="min-w-0">
-        <div className="flex items-start gap-3.5 sm:gap-4">
-          <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center text-black/38 dark:text-[#8A8A8A] sm:mt-1 sm:h-9 sm:w-9">
+        <div className="flex items-center gap-3 text-[1.02rem] sm:gap-3.5 sm:text-[1.06rem]">
+          <span className="flex h-[1.25em] w-[1.25em] shrink-0 items-center justify-center text-black/38 dark:text-[#8A8A8A] [&>span]:text-[1.25em] [&>span]:leading-none [&>span]:font-semibold [&_svg]:h-[1.25em] [&_svg]:w-[1.25em] [&_svg]:stroke-[1.85]">
             {icon}
           </span>
-          <div className="min-w-0 space-y-2 sm:space-y-2.5">
-            <h3 className="text-[1.02rem] font-semibold tracking-[-0.02em] text-foreground sm:text-[1.06rem]">
-              {title}
-            </h3>
-            <div className="max-w-[32rem] text-[0.98rem] leading-[1.58] text-black/58 dark:text-[#ADADAD] sm:text-[1rem] sm:leading-[1.55]">
-              {children}
-            </div>
-          </div>
+          <h3 className="min-w-0 font-semibold tracking-[-0.02em] text-foreground">{title}</h3>
+        </div>
+        <div className="mt-2.5 max-w-[32rem] text-[0.98rem] leading-[1.58] text-black/58 dark:text-[#ADADAD] sm:mt-3 sm:text-[1rem] sm:leading-[1.55]">
+          {children}
         </div>
       </article>
     )
@@ -39,7 +35,7 @@ function FeatureWidget({
   return (
     <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
       <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
           {icon}
         </span>
         <h3 className="text-base font-semibold text-foreground lg:text-lg">{title}</h3>
@@ -70,7 +66,7 @@ export function ProductFeatureWidgets({
 
   return (
     <div className={[gridClass, className].filter(Boolean).join(" ")}>
-      <FeatureWidget variant={variant} icon={<Bot className="h-4 w-4" strokeWidth={1.75} />} title="Agent Harness">
+      <FeatureWidget variant={variant} icon={<Bot strokeWidth={1.75} />} title="Agent Harness">
         Native{" "}
         <a href="https://pi.dev" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           Pi
@@ -92,7 +88,7 @@ export function ProductFeatureWidgets({
         .
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<Cpu className="h-4 w-4" strokeWidth={1.75} />} title="On-device Models">
+      <FeatureWidget variant={variant} icon={<Cpu strokeWidth={1.75} />} title="On-device Models">
         Sensible default on-device models with{" "}
         <Link href="/book/tilekit#modelfile-reference" className={featureLinkClass}>
           Modelfile
@@ -109,7 +105,7 @@ export function ProductFeatureWidgets({
         on Apple Silicon.
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<KeyRound className="h-4 w-4" strokeWidth={1.75} />} title="Decentralized Identity">
+      <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="Decentralized Identity">
         Locally generated{" "}
         <a href="https://www.w3.org/TR/did-core/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           DIDs
@@ -117,7 +113,7 @@ export function ProductFeatureWidgets({
         , with the private key always stored locally on device.
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<RefreshCw className="h-4 w-4" strokeWidth={1.75} />} title="P2P Sync">
+      <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
         Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network, with{" "}
         <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           Iroh&apos;s
@@ -127,7 +123,7 @@ export function ProductFeatureWidgets({
 
       <FeatureWidget
         variant={variant}
-        icon={<span className="text-base font-semibold leading-none">@</span>}
+        icon={<span>@</span>}
         title="Shared Links"
       >
         Create a public or private link to a chat session, published through{" "}
@@ -137,13 +133,13 @@ export function ProductFeatureWidgets({
         .
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<Package className="h-4 w-4" strokeWidth={1.75} />} title="Offline Installer">
+      <FeatureWidget variant={variant} icon={<Package strokeWidth={1.75} />} title="Offline Installer">
         Fully offline installer for secure, air-gapped installations.
       </FeatureWidget>
 
       <FeatureWidget
         variant={variant}
-        icon={<FileCode className="h-4 w-4" strokeWidth={1.75} />}
+        icon={<FileCode strokeWidth={1.75} />}
         title={
           <Link
             href="/book/tilekit"
