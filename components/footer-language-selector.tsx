@@ -302,7 +302,11 @@ export function FooterLanguageSelector({
     <div
       ref={rootRef}
       className={`relative shrink-0 notranslate ${
-        compact ? 'w-auto' : 'w-[min(14rem,calc(100vw-9.5rem))] sm:w-[min(14.25rem,calc(100vw-10rem))]'
+        compact
+          ? touchFriendly
+            ? 'h-6 w-auto overflow-visible'
+            : 'w-auto'
+          : 'w-[min(14rem,calc(100vw-9.5rem))] sm:w-[min(14.25rem,calc(100vw-10rem))]'
       }`}
       translate="no"
     >
@@ -311,7 +315,7 @@ export function FooterLanguageSelector({
         Select language
       </span>
       <div
-        className={`inline-flex items-center rounded-sm ${trackClass} ${
+        className={`inline-flex items-center rounded-sm leading-none ${trackClass} ${
           touchFriendly && compact ? 'h-6' : `w-full ${quiet ? 'p-0.5' : 'p-1'}`
         }`}
       >

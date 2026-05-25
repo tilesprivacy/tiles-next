@@ -402,17 +402,23 @@ export function HomeContent() {
             <h2 className="max-w-[18ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
               Features
             </h2>
-            <TechAttribution
-              variant={techAttributionVariant}
-              size="intro"
-              className="!flex-nowrap max-w-[42rem] justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-black/62 dark:text-[#B1B1B1]"
-            />
+            <p className="max-w-[32rem] text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
+              Local models, device identity, encrypted sync, offline packaging, and developer tooling in one
+              privacy-first stack.
+            </p>
           </div>
           <ProductFeatureWidgets variant="home" className="mt-10 sm:mt-12 lg:mt-14" />
+          <div aria-label="Technology stack" className="mt-14 sm:mt-16 lg:mt-20">
+            <TechAttribution
+              variant={techAttributionVariant}
+              size="lg"
+              className="!flex-nowrap justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-black/48 dark:text-[#9A9A9A]"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="relative z-10 border-t border-black/8 px-4 pb-20 pt-12 min-[390px]:px-5 dark:border-white/10 sm:px-6 sm:pb-24 sm:pt-16 lg:px-12 lg:pb-28 lg:pt-20">
+      <section className="relative z-10 px-4 pb-20 pt-16 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-24">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 py-6 sm:gap-14 sm:py-10 lg:flex-row lg:items-center lg:gap-12 lg:py-12 xl:gap-14">
           <div className="w-full max-w-[52rem] shrink-0 space-y-6 sm:space-y-7 lg:w-auto lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">

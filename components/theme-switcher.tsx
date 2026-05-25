@@ -47,12 +47,14 @@ export function ThemeSwitcher({
   if (!mounted) {
     if (mode === 'toggle') {
       const placeholderClass = touchFriendly
-        ? 'relative inline-flex h-6 w-6 shrink-0 items-center justify-center'
+        ? `inline-flex h-6 shrink-0 items-center rounded-sm ${bgColor}`
         : `inline-flex items-center justify-center rounded-sm ${bgColor} ${togglePadding} ${iconSize}`
       return (
         <span aria-hidden="true" className={`${placeholderClass} pointer-events-none`}>
           {touchFriendly ? (
-            <span className={`inline-flex items-center justify-center rounded-sm ${bgColor} ${togglePadding} ${iconSize}`} />
+            <span className="relative flex h-6 w-6 items-center justify-center">
+              <span className={`inline-flex h-5 w-5 items-center justify-center ${iconSize} opacity-0`} />
+            </span>
           ) : null}
         </span>
       )
@@ -103,17 +105,25 @@ export function ThemeSwitcher({
     const themeTitle = `Theme: ${effectiveMode.toUpperCase()} (click for ${nextMode.toUpperCase()})`
 
     if (touchFriendly) {
+      const touchIconClass = `inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${
+        isLightVariant
+          ? `${quiet ? 'text-black/55' : 'text-black/70'} hover:text-black`
+          : `${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
+      }`
+
       return (
-        <div className="relative inline-flex h-6 w-6 shrink-0 items-center justify-center">
-          <button
-            type="button"
-            onClick={() => setTheme(nextMode)}
-            className={`absolute -inset-[calc((2.75rem-1.5rem)/2)] inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border-0 bg-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing}`}
-            aria-label={themeLabel}
-            title={themeTitle}
-          >
-            <span className={`${iconButtonClass} h-6 w-6 shrink-0`}>{themeIcon}</span>
-          </button>
+        <div className={`inline-flex shrink-0 items-center rounded-sm leading-none ${bgColor} h-6`}>
+          <div className="relative flex h-6 w-6 items-center justify-center">
+            <button
+              type="button"
+              onClick={() => setTheme(nextMode)}
+              className={`absolute -inset-[calc((2.75rem-1.5rem)/2)] z-[1] inline-flex min-h-11 min-w-11 items-center justify-center rounded-sm border-0 bg-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing}`}
+              aria-label={themeLabel}
+              title={themeTitle}
+            >
+              <span className={touchIconClass}>{themeIcon}</span>
+            </button>
+          </div>
         </div>
       )
     }

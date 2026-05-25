@@ -21,10 +21,16 @@ import {
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
+  /** Landing pages use homepage section typography; default matches blog listing. */
+  newsletterCtaLayout?: 'default' | 'landing'
   showDownloadCta?: boolean
 }
 
-export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }: SiteFooterProps) {
+export function SiteFooter({
+  showNewsletterCta = false,
+  newsletterCtaLayout = 'default',
+  showDownloadCta = true,
+}: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -53,7 +59,37 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
   return (
     <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
       <div className="mx-auto w-full max-w-6xl">
-        {showNewsletterCta && (
+        {showNewsletterCta && newsletterCtaLayout === 'landing' ? (
+          <section className="mb-11 lg:mb-14">
+            <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+              <div className="max-w-[32rem] space-y-3 sm:space-y-3.5">
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-2 sm:gap-x-2.5">
+                  <h2 className="max-w-[18ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
+                    Stay updated
+                  </h2>
+                  <a
+                    href="/api/rss"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm ${textColor} transition-colors ${textColorHover}`}
+                    aria-label="RSS Feed for blog posts"
+                  >
+                    <FaRss className="h-[1.35rem] w-[1.35rem] sm:h-7 sm:w-7" aria-hidden />
+                  </a>
+                </div>
+                <p className="text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
+                  Get updates on releases, privacy research, and performance engineering.
+                </p>
+              </div>
+              <NewsletterForm
+                surface={isDarkFooter ? 'dark' : 'light'}
+                className="w-full lg:max-w-[28rem] lg:shrink-0"
+              />
+            </div>
+          </section>
+        ) : null}
+
+        {showNewsletterCta && newsletterCtaLayout === 'default' ? (
           <section className="mb-6 lg:mb-7">
             <div className="mx-auto w-full max-w-3xl">
               <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
@@ -74,11 +110,11 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
                     Get updates on releases, privacy research, and performance engineering.
                   </p>
                 </div>
-                <NewsletterForm surface={isDarkFooter ? "dark" : "light"} className="w-full lg:max-w-[24rem]" />
+                <NewsletterForm surface={isDarkFooter ? 'dark' : 'light'} className="w-full lg:max-w-[24rem]" />
               </div>
             </div>
           </section>
-        )}
+        ) : null}
 
         {showDownloadCta && (
           <section className="mb-11 flex flex-col items-center gap-4 text-center lg:mb-14 lg:gap-5">

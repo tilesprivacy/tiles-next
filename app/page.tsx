@@ -30,7 +30,7 @@ export default function Page() {
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
       <HomeContent />
-      <SiteFooter />
+      <SiteFooter showDownloadCta={false} showNewsletterCta newsletterCtaLayout="landing" />
     </div>
   )
 }
