@@ -11,7 +11,6 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 import NewsletterForm from "@/components/newsletter-form"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
-import { TechAttribution } from "@/components/tech-attribution"
 import { triggerHaptic } from "@/lib/haptics"
 import {
   downloadButtonIconMotionClasses,
@@ -47,6 +46,10 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
   const newsletterDescriptionColor = isDarkFooter ? 'text-[#b8b8c2]' : 'text-[#1d1d1f]/70'
   const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
+  const footerSocialLinkClass =
+    'group inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm transition-colors'
+  const footerSocialIconClass = 'h-4 w-4 transition-colors'
+
   return (
     <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
       <div className="mx-auto w-full max-w-6xl">
@@ -118,8 +121,6 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
         <div className="mt-1 flex flex-col items-center gap-3.5 text-center lg:hidden">
           <p className={`text-xs leading-5 ${licenseTextColor}`}>© 2026 Tiles Privacy & Contributors.</p>
 
-          <TechAttribution className="justify-center" variant={themeSwitcherVariant} />
-
           <div className="flex flex-col items-center gap-2.5">
             <nav aria-label="Footer links" className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1.5 text-xs">
               <Link href="/sub-processors" className={`${textColor} transition-colors ${textColorHover} whitespace-nowrap`}>Subprocessors</Link>
@@ -139,41 +140,40 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
               </a>
             </nav>
 
-            <div className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
-              <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="X (Twitter)">
-                <FaXTwitter className={`h-4 w-4 ${textColor} transition-colors ${iconHoverTwitter}`} />
+            <div className="-mx-1.5 flex flex-wrap items-center justify-center overflow-visible py-0.5">
+              <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="X (Twitter)">
+                <FaXTwitter className={`${footerSocialIconClass} ${textColor} ${iconHoverTwitter}`} />
               </a>
-              <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Bluesky">
-                <FaBluesky className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Bluesky">
+                <FaBluesky className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
-              <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Discord">
-                <FaDiscord className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Discord">
+                <FaDiscord className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
-              <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="GitHub">
-                <FaGithub className={`h-4 w-4 ${textColor} transition-colors ${iconHoverGithub}`} />
+              <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="GitHub">
+                <FaGithub className={`${footerSocialIconClass} ${textColor} ${iconHoverGithub}`} />
               </a>
-              <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Tangled">
-                <TangledIcon className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Tangled">
+                <TangledIcon className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
-              <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Hugging Face">
-                <SiHuggingface className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Hugging Face">
+                <SiHuggingface className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-2">
-            <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" />
-            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" />
+          <div className="-mx-1 flex h-6 items-center justify-center gap-2 overflow-visible">
+            <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />
+            <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" touchFriendly />
           </div>
         </div>
 
         <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:text-left">
           <div className="flex flex-col items-start gap-2.5">
             <p className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
-            <TechAttribution className="justify-start" variant={themeSwitcherVariant} />
-            <div className="flex items-center justify-start gap-2">
-              <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" />
-              <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" />
+            <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
+              <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />
+              <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" touchFriendly />
             </div>
           </div>
 
@@ -196,24 +196,24 @@ export function SiteFooter({ showNewsletterCta = false, showDownloadCta = true }
               </a>
             </nav>
 
-            <div className="flex flex-wrap items-center justify-end gap-x-2.5 gap-y-1">
-              <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="X (Twitter)">
-                <FaXTwitter className={`h-4 w-4 ${textColor} transition-colors ${iconHoverTwitter}`} />
+            <div className="-mx-1.5 flex flex-wrap items-center justify-end overflow-visible py-0.5">
+              <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="X (Twitter)">
+                <FaXTwitter className={`${footerSocialIconClass} ${textColor} ${iconHoverTwitter}`} />
               </a>
-              <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Bluesky">
-                <FaBluesky className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Bluesky">
+                <FaBluesky className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
-              <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Discord">
-                <FaDiscord className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Discord">
+                <FaDiscord className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
-              <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="GitHub">
-                <FaGithub className={`h-4 w-4 ${textColor} transition-colors ${iconHoverGithub}`} />
+              <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="GitHub">
+                <FaGithub className={`${footerSocialIconClass} ${textColor} ${iconHoverGithub}`} />
               </a>
-              <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Tangled">
-                <TangledIcon className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Tangled">
+                <TangledIcon className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
-              <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" className="group inline-flex items-center justify-center p-1.5 -m-1.5" aria-label="Hugging Face">
-                <SiHuggingface className={`h-4 w-4 ${textColor} transition-colors ${textColorHover}`} />
+              <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" className={footerSocialLinkClass} aria-label="Hugging Face">
+                <SiHuggingface className={`${footerSocialIconClass} ${textColor} ${textColorHover}`} />
               </a>
             </div>
           </div>

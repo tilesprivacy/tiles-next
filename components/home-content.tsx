@@ -3,8 +3,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { AtSign, Check, Copy, Download } from "lucide-react"
-import { useState } from "react"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
+import { TechAttribution } from "@/components/tech-attribution"
 import { triggerHaptic } from "@/lib/haptics"
 import {
   downloadButtonIconMotionClasses,
@@ -12,6 +14,7 @@ import {
   downloadButtonMotionClasses,
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
+import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
 import {
   AT_PROTO_LABEL,
   productDescriptionAfterAtProtoLink,
@@ -62,7 +65,7 @@ const featureCards = [
   },
   {
     command: "tiles sync <did>",
-    heading: "Sync your chats P2P",
+    heading: "Sync your data P2P",
     description: (
       <>
         Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, using{" "}
@@ -180,7 +183,15 @@ function TechCircuitBackground() {
 }
 
 export function HomeContent() {
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
   const [copiedCommand, setCopiedCommand] = useState<string | null>(null)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const techAttributionVariant = !mounted || resolvedTheme === "dark" ? "dark" : "light"
 
   const handleCopyCommand = (command: string) => {
     if (typeof window === "undefined") return
@@ -385,7 +396,23 @@ export function HomeContent() {
         </div>
       </section>
 
-      <section className="relative z-10 px-4 pb-20 pt-12 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-16 lg:px-12 lg:pb-28 lg:pt-20">
+      <section className="relative z-10 px-4 pb-12 pt-8 min-[390px]:px-5 sm:px-6 sm:pb-16 sm:pt-10 lg:px-12 lg:pb-20 lg:pt-12">
+        <div className="mx-auto w-full max-w-6xl">
+          <div className="space-y-3.5 sm:space-y-4">
+            <h2 className="max-w-[18ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
+              Features
+            </h2>
+            <TechAttribution
+              variant={techAttributionVariant}
+              size="intro"
+              className="!flex-nowrap max-w-[42rem] justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-black/62 dark:text-[#B1B1B1]"
+            />
+          </div>
+          <ProductFeatureWidgets variant="home" className="mt-10 sm:mt-12 lg:mt-14" />
+        </div>
+      </section>
+
+      <section className="relative z-10 border-t border-black/8 px-4 pb-20 pt-12 min-[390px]:px-5 dark:border-white/10 sm:px-6 sm:pb-24 sm:pt-16 lg:px-12 lg:pb-28 lg:pt-20">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 py-6 sm:gap-14 sm:py-10 lg:flex-row lg:items-center lg:gap-12 lg:py-12 xl:gap-14">
           <div className="w-full max-w-[52rem] shrink-0 space-y-6 sm:space-y-7 lg:w-auto lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">

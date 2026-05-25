@@ -158,9 +158,16 @@ type FooterLanguageSelectorProps = {
   variant: 'light' | 'dark'
   compact?: boolean
   tone?: 'default' | 'quiet'
+  /** Minimum 44px tap target for footer and other touch-first surfaces. */
+  touchFriendly?: boolean
 }
 
-export function FooterLanguageSelector({ variant, compact = false, tone = 'default' }: FooterLanguageSelectorProps) {
+export function FooterLanguageSelector({
+  variant,
+  compact = false,
+  tone = 'default',
+  touchFriendly = false,
+}: FooterLanguageSelectorProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<string>('en')
   const [isOpen, setIsOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -303,10 +310,20 @@ export function FooterLanguageSelector({ variant, compact = false, tone = 'defau
       <span id="footer-language-selector-label" className="sr-only">
         Select language
       </span>
-      <div className={`inline-flex w-full items-center rounded-sm ${quiet ? 'p-0.5' : 'p-1'} ${trackClass}`}>
-        <div className="relative flex w-full min-w-0 items-center">
+      <div
+        className={`inline-flex items-center rounded-sm ${trackClass} ${
+          touchFriendly && compact ? 'h-6' : `w-full ${quiet ? 'p-0.5' : 'p-1'}`
+        }`}
+      >
+        <div
+          className={`relative flex min-w-0 items-center ${
+            touchFriendly && compact ? 'h-6 w-[66px]' : 'w-full'
+          }`}
+        >
           <Globe
-            className={`pointer-events-none absolute ${compact ? 'left-1.5' : 'left-2.5'} top-1/2 ${compact || quiet ? 'h-3 w-3' : 'h-3.5 w-3.5'} -translate-y-1/2 ${iconMutedClass}`}
+            className={`pointer-events-none absolute ${compact ? 'left-1.5' : 'left-2.5'} top-1/2 ${
+              compact || quiet ? 'h-3 w-3' : 'h-3.5 w-3.5'
+            } -translate-y-1/2 ${iconMutedClass}`}
             aria-hidden
           />
           <button
@@ -316,8 +333,16 @@ export function FooterLanguageSelector({ variant, compact = false, tone = 'defau
             aria-haspopup="listbox"
             aria-expanded={isOpen}
             onClick={() => setIsOpen((open) => !open)}
-            className={`${quiet ? 'h-5' : 'h-[22px]'} ${
-              compact ? 'w-[66px] pl-6 pr-5 text-center text-[10px]' : 'w-full pl-9 pr-8 text-left text-[11px]'
+            className={`${
+              touchFriendly && compact
+                ? 'absolute -inset-y-[calc((2.75rem-1.5rem)/2)] left-0 right-0 z-[1] flex min-h-11 items-center justify-center'
+                : touchFriendly
+                  ? 'min-h-11'
+                  : quiet
+                    ? 'h-5'
+                    : 'h-[22px]'
+            } ${
+              compact ? 'w-full pl-6 pr-5 text-center text-[10px]' : 'w-full pl-9 pr-8 text-left text-[11px]'
             } min-w-0 truncate rounded-sm border-0 bg-transparent py-0 font-medium leading-none transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${selectClasses}`}
             translate="no"
             title={compact ? `Language: ${selectedOption.label}` : selectedOption.label}

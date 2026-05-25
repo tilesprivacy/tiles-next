@@ -66,20 +66,31 @@ function MlxLogo({ variant }: { variant: TechAttributionVariant }) {
   )
 }
 
+type TechAttributionSize = "default" | "lg" | "intro"
+
+const sizeClasses: Record<TechAttributionSize, string> = {
+  default: "gap-x-2 gap-y-1.5 text-[0.72rem] font-medium leading-none sm:text-[0.76rem]",
+  lg: "gap-x-3 gap-y-2 text-[0.8125rem] font-medium leading-none sm:gap-x-3.5 sm:text-[0.9rem] lg:text-[0.96rem]",
+  intro:
+    "gap-x-2.5 gap-y-2 text-[0.98rem] font-normal leading-[1.55] sm:gap-x-3 sm:text-[1rem]",
+}
+
 export function TechAttribution({
   className = "",
   variant = "dark",
+  size = "default",
 }: {
   className?: string
   variant?: TechAttributionVariant
+  size?: TechAttributionSize
 }) {
   const textColor = variant === "dark" ? "text-[#9A9A9A]" : "text-black/55"
 
   return (
     <div
-      className={`flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[0.72rem] font-medium leading-none ${textColor} sm:text-[0.76rem] ${className}`}
+      className={`flex flex-wrap items-center ${sizeClasses[size]} ${textColor} ${className}`}
     >
-      <span className="leading-5">Built with</span>
+      <span className={size === "intro" ? "leading-[1.55]" : "leading-5"}>Built with</span>
       <TechLogo
         href="https://www.rust-lang.org"
         src="/icon-rust.svg"

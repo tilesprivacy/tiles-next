@@ -4,9 +4,10 @@ description: "Tiles, our consumer product, and Tilekit, the SDK for developers."
 ---
 
 import Link from "next/link"
-import { Bot, Check, CircleDashed, Cpu, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
+import { Check, CircleDashed } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { ClickableImage as Image } from "@/components/clickable-image"
+import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
 
 # Overview
 
@@ -18,107 +19,8 @@ Tiles is currently alpha-quality software. It is usable for everyday tasks, thou
 
 ## Features
 
-<div className="not-prose mt-7 grid gap-7 sm:mt-8 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12">
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <Bot className="h-4 w-4" strokeWidth={1.75} />
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">Agent Harness</h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Native [Pi](https://pi.dev) agent harness for knowledge work, built around <span className="inline-flex items-center gap-1.5 rounded bg-black/[0.045] px-1.5 py-0.5 align-baseline dark:bg-white/[0.08]"><img src="/openai-logo.svg" alt="OpenAI logo" className="h-3.5 w-3.5 shrink-0" /> <span className="font-mono text-[0.95em]">gpt-oss-20b</span></span> powered on-device by [MLX](https://ml-explore.github.io/mlx/build/html/index.html).
-    </div>
-  </div>
-
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <Cpu className="h-4 w-4" strokeWidth={1.75} />
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">On-device Models</h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Sensible default on-device models with [Modelfile](/book/tilekit#modelfile-reference) support for building and sharing weights. Powered by [MLX](https://ml-explore.github.io/mlx/build/html/index.html) on Apple Silicon.
-    </div>
-  </div>
-
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <KeyRound className="h-4 w-4" strokeWidth={1.75} />
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">Decentralized Identity</h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Locally generated [DIDs](https://www.w3.org/TR/did-core/), with the private key always stored locally on device.
-    </div>
-  </div>
-
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <RefreshCw className="h-4 w-4" strokeWidth={1.75} />
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">P2P Sync</h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network, with [Iroh's](https://www.iroh.computer/) QUIC networking stack.
-    </div>
-  </div>
-
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <span className="text-base font-semibold leading-none">@</span>
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">Shared Links</h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Create a public or private link to a chat session, published through [ATProto](https://atproto.com).
-    </div>
-  </div>
-
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <Package className="h-4 w-4" strokeWidth={1.75} />
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">Offline Installer</h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Fully offline installer for secure, air-gapped installations.
-    </div>
-  </div>
-
-  <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-    <div className="flex items-center gap-3">
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-        <FileCode className="h-4 w-4" strokeWidth={1.75} />
-      </span>
-      <h3 className="text-base font-semibold text-foreground lg:text-lg">
-        <Link href="/book/tilekit" className="inline-flex items-baseline gap-1 !no-underline decoration-transparent hover:!no-underline">
-          <span>Developer SDK</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 12 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            className="inline-block h-2.5 w-2.5 align-baseline opacity-70"
-            aria-hidden="true"
-          >
-            <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </Link>
-      </h3>
-    </div>
-    <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-      Use Tilekit as an app-server runtime to integrate identity, memory, sync, and agent templates in your own app, built with open standards like
-      [Open Responses API](https://www.openresponses.org).
-    </div>
-  </div>
-
+<div className="not-prose mt-7 sm:mt-8">
+  <ProductFeatureWidgets />
 </div>
 
 <div id="private-ai-comparison" />
@@ -723,10 +625,24 @@ Watch a quick demo of Tiles:
 
 <figure style={{ margin: '1.25rem auto', maxWidth: 900 }}>
   <Image
-    src="/newcli.png"
-    alt="Tiles CLI onboarding screen in the terminal"
-    width={1726}
-    height={2196}
+    src="/clilight.png"
+    alt="Tiles CLI onboarding screen in the terminal (light theme)"
+    width={875}
+    height={1798}
+    className="w-full dark:hidden"
+    style={{
+      borderRadius: '8px',
+      border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
+      width: '100%',
+      height: 'auto'
+    }}
+  />
+  <Image
+    src="/clidark.png"
+    alt="Tiles CLI onboarding screen in the terminal (dark theme)"
+    width={780}
+    height={1864}
+    className="hidden w-full dark:block"
     style={{
       borderRadius: '8px',
       border: '1px solid var(--nextra-border-color, rgba(0,0,0,0.1))',
