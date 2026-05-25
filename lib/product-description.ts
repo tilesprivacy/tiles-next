@@ -1,5 +1,5 @@
 export const TILES_PRODUCT_DESCRIPTION =
-  "Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto." as const
+  "Tiles is a local-first AI assistant that runs models on your device, syncs privately across devices, and lets you share chats through ATProto." as const
 
 /** Homepage metadata and default Open Graph image tagline. */
 export const TILES_HOMEPAGE_DESCRIPTION =

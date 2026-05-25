@@ -227,9 +227,9 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-8 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-14 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-9">
-        <div className="mx-auto flex w-full max-w-6xl flex-1 items-start lg:items-center">
-          <div className="grid w-full items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
+      <main className="flex min-h-[100svh] px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-12 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-24">
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 sm:gap-14 lg:gap-16">
+          <div className="grid w-full flex-1 items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] space-y-3.5 lg:mx-0 lg:w-full lg:space-y-4">
                 <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.3rem,7.2vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mx-0 lg:max-w-[12ch]">
@@ -279,13 +279,13 @@ export function HomeContent() {
                     href="/linux"
                     className="text-[0.74rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.8rem]"
                   >
-                    Get notified for Linux
+                    Join the Linux waitlist
                   </Link>
                   <Link
                     href="/book/overview#private-ai-comparison"
                     className="text-[0.74rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/74 hover:decoration-black/40 dark:text-[#9D9D9D] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/40 sm:text-[0.8rem]"
                   >
-                    See how Tiles compares to Ollama and others →
+                    Compare with Ollama and others
                   </Link>
                 </div>
               </div>
@@ -320,10 +320,20 @@ export function HomeContent() {
               </div>
             </div>
           </div>
+
+          <div className="relative z-10 w-full space-y-4 text-[0.8rem] font-medium leading-[1.45] text-black/58 dark:text-[#A8A8A8] sm:space-y-5 sm:text-[0.84rem] lg:text-[0.86rem]">
+            <ProductFeatureWidgets variant="home" />
+            <TechAttribution
+              variant={techAttributionVariant}
+              size="hero"
+              className="max-w-full !flex-nowrap justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-inherit"
+              aria-label="Technology stack"
+            />
+          </div>
         </div>
       </main>
 
-      <section className="relative z-10 px-4 pb-12 min-[390px]:px-5 sm:px-6 sm:pb-16 lg:px-12 lg:pb-20">
+      <section className="relative z-10 px-4 pb-16 pt-14 min-[390px]:px-5 sm:px-6 sm:pb-20 sm:pt-20 lg:px-12 lg:pb-24 lg:pt-24">
         <div className="mx-auto w-full max-w-6xl space-y-20 sm:space-y-16 lg:space-y-20">
           {featureCards.map((card) => (
             <article
@@ -396,33 +406,11 @@ export function HomeContent() {
         </div>
       </section>
 
-      <section className="relative z-10 px-4 pb-12 pt-8 min-[390px]:px-5 sm:px-6 sm:pb-16 sm:pt-10 lg:px-12 lg:pb-20 lg:pt-12">
-        <div className="mx-auto w-full max-w-6xl">
-          <div className="space-y-3.5 sm:space-y-4">
-            <h2 className="max-w-[18ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
-              Features
-            </h2>
-            <p className="max-w-[32rem] text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
-              Local models, device identity, encrypted sync, offline packaging, and developer tooling in one
-              privacy-first stack.
-            </p>
-          </div>
-          <ProductFeatureWidgets variant="home" className="mt-10 sm:mt-12 lg:mt-14" />
-          <div aria-label="Technology stack" className="mt-14 sm:mt-16 lg:mt-20">
-            <TechAttribution
-              variant={techAttributionVariant}
-              size="lg"
-              className="!flex-nowrap justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-black/48 dark:text-[#9A9A9A]"
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="relative z-10 px-4 pb-20 pt-16 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-24">
+      <section className="relative z-10 px-4 pb-20 pt-14 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-24">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 py-6 sm:gap-14 sm:py-10 lg:flex-row lg:items-center lg:gap-12 lg:py-12 xl:gap-14">
           <div className="w-full max-w-[52rem] shrink-0 space-y-6 sm:space-y-7 lg:w-auto lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
-              Built on Atmosphere
+              Designed for Atmosphere
             </h2>
             <ul className="max-w-[42rem] space-y-4 sm:space-y-5">
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">

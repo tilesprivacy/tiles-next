@@ -470,7 +470,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 <p className="text-xs leading-relaxed text-muted-foreground">
                   Looking for Linux?{" "}
                   <Link href="/linux" className="underline underline-offset-4">
-                    Get notified for Linux
+                    Join the Linux waitlist
                   </Link>
                   .
                 </p>

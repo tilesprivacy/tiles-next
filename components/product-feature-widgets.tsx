@@ -19,14 +19,13 @@ function FeatureWidget({
   if (variant === "home") {
     return (
       <article className="min-w-0">
-        <div className="flex items-center gap-3 text-[1.02rem] sm:gap-3.5 sm:text-[1.06rem]">
-          <span className="flex h-[1.25em] w-[1.25em] shrink-0 items-center justify-center text-black/38 dark:text-[#8A8A8A] [&>span]:text-[1.25em] [&>span]:leading-none [&>span]:font-semibold [&_svg]:h-[1.25em] [&_svg]:w-[1.25em] [&_svg]:stroke-[1.85]">
+        <div className="flex items-center gap-2.5 text-inherit sm:gap-2.5">
+          <span className="flex h-[1.15em] w-[1.15em] shrink-0 items-center justify-center text-inherit [&>span]:text-[1.15em] [&>span]:leading-none [&>span]:font-semibold [&_svg]:h-[1.15em] [&_svg]:w-[1.15em] [&_svg]:stroke-[1.8]">
             {icon}
           </span>
-          <h3 className="min-w-0 font-semibold tracking-[-0.02em] text-foreground">{title}</h3>
-        </div>
-        <div className="mt-2.5 max-w-[32rem] text-[0.98rem] leading-[1.58] text-black/58 dark:text-[#ADADAD] sm:mt-3 sm:text-[1rem] sm:leading-[1.55]">
-          {children}
+          <h3 className="min-w-0 tracking-[-0.01em] [&_a]:text-inherit [&_a]:no-underline [&_a]:transition-opacity [&_a]:hover:opacity-80">
+            {title}
+          </h3>
         </div>
       </article>
     )
@@ -61,7 +60,7 @@ export function ProductFeatureWidgets({
   const featureLinkClass = variant === "home" ? homeFeatureLinkClass : bookFeatureLinkClass
   const gridClass =
     variant === "home"
-      ? "grid grid-cols-1 gap-11 sm:gap-12 min-[900px]:grid-cols-2 min-[900px]:gap-x-12 min-[900px]:gap-y-14 lg:gap-x-14 lg:gap-y-16 xl:gap-x-16 [&>*:last-child:nth-child(odd)]:min-[900px]:col-span-2 [&>*:last-child:nth-child(odd)]:min-[900px]:max-w-[34rem]"
+      ? "grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-4 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-4 min-[1180px]:grid-cols-7 min-[1180px]:gap-x-6"
       : "grid gap-7 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12"
 
   return (
