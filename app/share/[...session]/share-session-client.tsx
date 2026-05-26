@@ -818,10 +818,11 @@ export function ShareSessionClient({
               <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
                 <span>
                   {sharedSession.isPrivateLink
-                    ? "This is a private copy of a conversation between Tiles and"
-                    : "This is a public copy of a conversation between Tiles and"}
+                    ? "This is a private copy of a conversation between Tiles"
+                    : "This is a public copy of a conversation between Tiles"}
                 </span>
-                <span className="inline-flex min-w-0 items-center gap-1.5">
+                <span className="inline-flex min-w-0 items-center gap-1.5 whitespace-nowrap">
+                  <span aria-hidden>and</span>
                   {sharedSession.sharedBy.avatarUrl ? (
                     <img
                       src={sharedSession.sharedBy.avatarUrl}
