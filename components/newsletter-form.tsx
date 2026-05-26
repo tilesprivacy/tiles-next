@@ -100,13 +100,15 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
     }
   }
 
+  const controlSizeClasses = "!box-border !h-10 !min-h-10 !rounded-sm !py-0"
+
   const inputClasses = isDark
-    ? "!h-10 !rounded-sm !bg-[#151515] !border-[#303030] !text-[#E6E6E6] placeholder:!text-[#8A8A8A] focus-visible:!ring-white/20 focus-visible:!border-white/25"
-    : "!h-10 !rounded-sm !bg-white !border-black/15 !text-black placeholder:!text-black/45 focus-visible:!ring-black/10 focus-visible:!border-black/25"
+    ? "!bg-[#151515] !border-[#303030] !text-[#E6E6E6] placeholder:!text-[#8A8A8A] focus-visible:!ring-white/20 focus-visible:!border-white/25"
+    : "!bg-white !border-black/15 !text-black placeholder:!text-black/45 focus-visible:!ring-black/10 focus-visible:!border-black/25"
 
   const buttonClasses = isDark
-    ? "!h-10 !bg-white !text-black hover:!bg-[#F2F2F2] focus-visible:!ring-white/30"
-    : "!h-10 !bg-black !text-white hover:!bg-black/90 focus-visible:!ring-black/20"
+    ? "!bg-white !text-black hover:!bg-[#F2F2F2] focus-visible:!ring-white/30"
+    : "!bg-black !text-white hover:!bg-black/90 focus-visible:!ring-black/20"
 
   const messageClasses =
     status === "error"
@@ -131,7 +133,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
           <label htmlFor={emailInputId} className="sr-only">
             Email address
           </label>
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-stretch">
             <Input
               id={emailInputId}
               type="email"
@@ -150,7 +152,8 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
               onKeyDown={handleKeyDown}
               disabled={status === "loading"}
               className={cn(
-                "text-sm selection:!bg-blue-500 selection:!text-white",
+                "text-sm leading-none selection:!bg-blue-500 selection:!text-white",
+                controlSizeClasses,
                 inputClasses,
               )}
             />
@@ -158,7 +161,8 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
               type="submit"
               disabled={status === "loading" || status === "success"}
               className={cn(
-                "w-full !rounded-sm px-5 text-sm font-medium disabled:opacity-50 sm:w-auto",
+                "w-full px-4 text-sm font-medium leading-none disabled:opacity-50 sm:w-auto",
+                controlSizeClasses,
                 buttonClasses,
               )}
             >

@@ -2,13 +2,13 @@
 
 import Link from "next/link"
 import { Download } from "lucide-react"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss, FaRedditAlien } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
-import NewsletterForm from "@/components/newsletter-form"
+import { NewsletterCta } from "@/components/newsletter-cta"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
 import { triggerHaptic } from "@/lib/haptics"
@@ -21,7 +21,7 @@ import {
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
-  /** Landing pages use homepage section typography; default matches blog listing. */
+  /** Landing pages use the same minimal newsletter row with slightly more footer spacing. */
   newsletterCtaLayout?: 'default' | 'landing'
   showDownloadCta?: boolean
 }
@@ -40,17 +40,12 @@ export function SiteFooter({
 
   const isDarkFooter = !mounted || resolvedTheme === 'dark'
 
-  // Footer always matches the page surface in both themes.
-  const footerBg = 'bg-background'
-  const borderColor = isDarkFooter ? 'border-white/12' : 'border-black/8'
   const textColor = isDarkFooter ? 'text-[#e7e7ed]' : 'text-[#1d1d1f]'
   const textColorHover = isDarkFooter ? 'hover:text-[#c6c6cf]' : 'hover:text-[#1d1d1f]/65'
   const iconHoverTwitter = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
   const iconHoverGithub = isDarkFooter ? 'group-hover:text-[#c6c6cf]' : 'group-hover:text-[#1d1d1f]/70'
 
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
-  const newsletterDescriptionColor = isDarkFooter ? 'text-[#b8b8c2]' : 'text-[#1d1d1f]/70'
-  const newsletterHeadingColor = isDarkFooter ? '!text-[#e7e7ed]' : '!text-[#1d1d1f]'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
   const footerSocialLinkClass =
     'group inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm transition-colors'
@@ -60,58 +55,15 @@ export function SiteFooter({
     <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
       <div className="mx-auto w-full max-w-6xl">
         {showNewsletterCta && newsletterCtaLayout === 'landing' ? (
-          <section className="mb-11 lg:mb-14">
-            <div className="flex flex-col gap-6 sm:gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-              <div className="max-w-[32rem] space-y-3 sm:space-y-3.5">
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-2 sm:gap-x-2.5">
-                  <h2 className="max-w-[18ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
-                    Stay updated
-                  </h2>
-                  <a
-                    href="/api/rss"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm ${textColor} transition-colors ${textColorHover}`}
-                    aria-label="RSS Feed for blog posts"
-                  >
-                    <FaRss className="h-[1.35rem] w-[1.35rem] sm:h-7 sm:w-7" aria-hidden />
-                  </a>
-                </div>
-                <p className="text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
-                  Get updates on releases, privacy research, and performance engineering.
-                </p>
-              </div>
-              <NewsletterForm
-                surface={isDarkFooter ? 'dark' : 'light'}
-                className="w-full lg:max-w-[28rem] lg:shrink-0"
-              />
-            </div>
+          <section className="mb-8 lg:mb-10">
+            <NewsletterCta surface={isDarkFooter ? 'dark' : 'light'} formClassName="lg:shrink-0" />
           </section>
         ) : null}
 
         {showNewsletterCta && newsletterCtaLayout === 'default' ? (
           <section className="mb-6 lg:mb-7">
             <div className="mx-auto w-full max-w-3xl">
-              <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className={`text-[0.95rem] font-medium tracking-tight ${newsletterHeadingColor}`}>Stay updated</h3>
-                    <a
-                      href="/api/rss"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center ${textColor} transition-colors ${textColorHover}`}
-                      aria-label="RSS Feed for blog posts"
-                    >
-                      <FaRss className="h-4 w-4" />
-                    </a>
-                  </div>
-                  <p className={`text-[0.84rem] leading-6 ${newsletterDescriptionColor}`}>
-                    Get updates on releases, privacy research, and performance engineering.
-                  </p>
-                </div>
-                <NewsletterForm surface={isDarkFooter ? 'dark' : 'light'} className="w-full lg:max-w-[24rem]" />
-              </div>
+              <NewsletterCta surface={isDarkFooter ? 'dark' : 'light'} />
             </div>
           </section>
         ) : null}

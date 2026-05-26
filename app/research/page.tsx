@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
-import { FaRss } from "react-icons/fa6"
-import NewsletterForm from "@/components/newsletter-form"
+import { NewsletterCta } from "@/components/newsletter-cta"
 import { ResearchProjectsCarousel } from "@/components/research-projects-carousel"
 import { SiteFooter } from "@/components/site-footer"
 import {
@@ -68,28 +67,7 @@ export default function ResearchPage() {
           <div className="mb-10 lg:mb-12">
             <h1 className={`mb-4 ${marketingPageTitleClass}`}>Research</h1>
             <section className="mx-auto w-full max-w-3xl pb-1">
-              <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-[0.95rem] font-medium tracking-tight text-black dark:text-white">
-                      Stay updated
-                    </h2>
-                    <a
-                      href="/api/rss"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-black transition-colors hover:text-black/65 dark:text-[#e7e7ed] dark:hover:text-[#c6c6cf]"
-                      aria-label="RSS Feed for blog posts"
-                    >
-                      <FaRss className="h-4 w-4" />
-                    </a>
-                  </div>
-                  <p className="text-[0.84rem] leading-6 text-black/70 dark:text-[#b8b8c2]">
-                    Get updates on releases, privacy research, and performance engineering.
-                  </p>
-                </div>
-                <NewsletterForm className="w-full lg:max-w-[24rem]" />
-              </div>
+              <NewsletterCta />
             </section>
           </div>
 

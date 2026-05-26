@@ -29,10 +29,13 @@ interface ShareMockPageProps {
     turns?: string
     sessionId?: string
     name?: string
+    private?: string
   }>
 }
 
-export default async function ShareMockPage({ searchParams }: ShareMockPageProps) {
+export default async function ShareMockPage({
+  searchParams,
+}: ShareMockPageProps) {
   const params = searchParams ? await searchParams : undefined
   const query = new URLSearchParams()
 
@@ -44,6 +47,9 @@ export default async function ShareMockPage({ searchParams }: ShareMockPageProps
   }
   if (params?.name) {
     query.set("name", params.name)
+  }
+  if (params?.private) {
+    query.set("private", params.private)
   }
 
   const queryString = query.toString()

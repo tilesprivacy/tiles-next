@@ -11,6 +11,7 @@ interface MockSharedSessionResponse {
   schemaVersion: "1.0"
   sessionId: string
   name: string
+  isPrivateLink: boolean
   createdAt: string
   sourceUri: string
   modelsUsed: string[]
@@ -72,6 +73,7 @@ export async function GET(request: Request) {
     schemaVersion: "1.0",
     sessionId,
     name,
+    isPrivateLink: url.searchParams.get("private") === "1",
     createdAt: new Date().toISOString(),
     sourceUri: "at://did:plc:mockaccount123/run.tiles.session/mockrkey123",
     modelsUsed: ["mlx-community/Qwen3.5-4B-MLX-4bit"],
@@ -79,7 +81,8 @@ export async function GET(request: Request) {
       did: "did:plc:mockaccount123",
       handle: "mockuser.bsky.social",
       displayName: "Mock User",
-      avatarUrl: "https://api.dicebear.com/9.x/identicon/svg?seed=tiles-mock-user",
+      avatarUrl:
+        "https://api.dicebear.com/9.x/identicon/svg?seed=tiles-mock-user",
     },
     messages: buildMockMessages(turns),
   }

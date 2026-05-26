@@ -1,17 +1,26 @@
 import type { Metadata } from "next"
-import { getAtprotoData, getSharedSession } from "@/lib/shared-session"
+import {
+  getAtprotoData,
+  isEncryptedSharedSessionRecord,
+} from "@/lib/shared-session"
 import { ShareSessionClient } from "./share-session-client"
 
 interface SharePageProps {
   params: Promise<{ session: string[] }>
 }
 
-function getSharedSessionTitle(handle: string | null): string {
+function getSharedSessionTitle(
+  handle: string | null,
+  isPrivateLink = false,
+): string {
   const trimmedHandle = handle?.trim().replace(/^@+/, "")
+  const prefix = isPrivateLink
+    ? "Private shared chat session"
+    : "Shared chat session"
 
   return trimmedHandle
-    ? `Shared chat session by @${trimmedHandle} | Tiles`
-    : "Shared chat session | Tiles"
+    ? `${prefix} by @${trimmedHandle} | Tiles`
+    : `${prefix} | Tiles`
 }
 
 export async function generateMetadata({
@@ -21,34 +30,39 @@ export async function generateMetadata({
   const shareToken = session.join("/")
   const imagePath = `https://www.tiles.run/api/share/og?session=${encodeURIComponent(shareToken)}`
   let title = "Shared chat session | Tiles"
+  let description = "Shared chat session on Tiles. Powered by ATProto."
 
   try {
-
-    const at_data = await getAtprotoData(shareToken);
-    title = getSharedSessionTitle(at_data.sharedBy.handle)
+    const at_data = await getAtprotoData(shareToken)
+    const isPrivateLink = isEncryptedSharedSessionRecord(at_data.record)
+    title = getSharedSessionTitle(at_data.sharedBy.handle, isPrivateLink)
+    description = isPrivateLink
+      ? "Private shared chat session on Tiles. Encrypted data is stored on ATProto and key material stays in the link."
+      : "Shared chat session on Tiles. Powered by ATProto."
   } catch {
     title = "Shared chat session | Tiles"
+    description = "Shared chat session on Tiles. Powered by ATProto."
   }
 
   return {
     title,
-    description: "Shared chat session on Tiles. Powered by ATProto.",
+    description,
     openGraph: {
       title,
-      description: "Shared chat session on Tiles. Powered by ATProto.",
+      description,
       images: [
         {
           url: imagePath,
           width: 1200,
           height: 630,
-          alt: "Shared chat session on Tiles. Powered by ATProto.",
+          alt: description,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title,
-      description: "Shared chat session on Tiles. Powered by ATProto.",
+      description,
       images: [imagePath],
     },
   }

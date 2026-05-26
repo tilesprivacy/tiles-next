@@ -81,7 +81,7 @@ const featureCards = [
       </>
     ),
     ctaLabel: "Create your link",
-    ctaHref: "https://www.tiles.run/book/manual#peer-to-peer-linking-tiles-link",
+    ctaHref: "/book/manual#peer-to-peer-linking-tiles-link",
     terminalLines: [
       "$ tiles sync did:key:z6Mknxy...YWSmTcZA",
       "Connecting to Iroh relay",
@@ -107,8 +107,8 @@ const featureCards = [
         .
       </>
     ),
-    ctaLabel: "Add ATProto account",
-    ctaHref: "https://www.tiles.run/book/manual#atproto-tiles-at",
+    ctaLabel: "Share chat",
+    ctaHref: "/book/manual#sharing-commands",
     terminalLines: [
       "> /share",
       "Writing to ATProto PDS",
@@ -291,7 +291,17 @@ export function HomeContent() {
               </div>
             </div>
 
-            <div className="relative flex w-full items-center justify-center lg:justify-end">
+            <div className="relative z-10 order-2 w-full text-[0.82rem] font-medium leading-[1.45] text-black/62 dark:text-[#BDBDBF] sm:text-[0.86rem] lg:order-3 lg:col-span-2 lg:text-[0.9rem]">
+              <ProductFeatureWidgets variant="home" />
+              <TechAttribution
+                variant={techAttributionVariant}
+                size="hero"
+                className="mt-4 max-w-full !flex-nowrap justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-inherit sm:mt-5"
+                aria-label="Technology stack"
+              />
+            </div>
+
+            <div className="relative order-3 flex w-full items-center justify-center lg:order-2 lg:justify-end">
               <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37.5rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"
@@ -319,16 +329,6 @@ export function HomeContent() {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="relative z-10 w-full space-y-4 text-[0.8rem] font-medium leading-[1.45] text-black/58 dark:text-[#A8A8A8] sm:space-y-5 sm:text-[0.84rem] lg:text-[0.86rem]">
-            <ProductFeatureWidgets variant="home" />
-            <TechAttribution
-              variant={techAttributionVariant}
-              size="hero"
-              className="max-w-full !flex-nowrap justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-inherit"
-              aria-label="Technology stack"
-            />
           </div>
         </div>
       </main>

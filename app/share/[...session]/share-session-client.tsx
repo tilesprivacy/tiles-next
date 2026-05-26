@@ -9,7 +9,11 @@ import { Streamdown } from "streamdown"
 import "katex/dist/katex.min.css"
 import { SharePageQrCode } from "@/components/share-page-qr-code"
 import { normalizeShareMathMarkdown } from "@/lib/normalize-share-math-markdown"
-import { getSharedSession, type SharedSession, type SharedSessionMessage } from "@/lib/shared-session"
+import {
+  getSharedSession,
+  type SharedSession,
+  type SharedSessionMessage,
+} from "@/lib/shared-session"
 import { cn } from "@/lib/utils"
 
 const shareMathPlugin = createMathPlugin({
@@ -18,8 +22,8 @@ const shareMathPlugin = createMathPlugin({
 
 interface ShareSessionClientProps {
   mockApiUrl?: string
-  initialSharedSession?: SharedSession | null,
-  shareToken?: string,
+  initialSharedSession?: SharedSession | null
+  shareToken?: string
   initialErrorMessage?: string | null
 }
 
@@ -198,8 +202,7 @@ function MarkdownMessage({ content }: { content: string }) {
             typeof href === "string" && isSafeMarkdownUrl(href)
               ? href
               : undefined
-          const isLocal =
-            safeHref?.startsWith("/") || safeHref?.startsWith("#")
+          const isLocal = safeHref?.startsWith("/") || safeHref?.startsWith("#")
 
           return (
             <a
@@ -542,7 +545,7 @@ function ShareFloatingDownloadBar({
 export function ShareSessionClient({
   mockApiUrl,
   initialSharedSession = null,
-  shareToken="",
+  shareToken = "",
   initialErrorMessage = null,
 }: ShareSessionClientProps) {
   const [sharedSession, setSharedSession] = useState<SharedSession | null>(
@@ -592,10 +595,10 @@ export function ShareSessionClient({
   }, [mockApiUrl])
 
   useEffect(() => {
-    if (typeof window === "undefined") {
+    if (typeof window === "undefined" || mockApiUrl || !shareToken) {
       return
     }
-      const load = async () => {
+    const load = async () => {
       const fragment = decodeURIComponent(window.location.hash.slice(1))
       const sharedSession = await getSharedSession(shareToken, fragment)
 
@@ -603,6 +606,13 @@ export function ShareSessionClient({
     }
 
     load()
+  }, [mockApiUrl, shareToken])
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
+
     setPageUrl(window.location.href)
   }, [])
 
@@ -616,7 +626,9 @@ export function ShareSessionClient({
 
     const storedTheme = window.localStorage.getItem("share-page-theme")
     const parsedTheme: ShareThemePreference =
-      storedTheme === "light" || storedTheme === "dark" || storedTheme === "system"
+      storedTheme === "light" ||
+      storedTheme === "dark" ||
+      storedTheme === "system"
         ? storedTheme
         : "system"
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
@@ -637,7 +649,11 @@ export function ShareSessionClient({
   }, [])
 
   useEffect(() => {
-    if (!themeReady || typeof window === "undefined" || typeof document === "undefined") {
+    if (
+      !themeReady ||
+      typeof window === "undefined" ||
+      typeof document === "undefined"
+    ) {
       return
     }
 
@@ -759,6 +775,9 @@ export function ShareSessionClient({
                 >
                   {shareLinkLabel}
                 </span>
+                <span className="shrink-0 rounded-sm border border-black/12 px-1.5 py-0.5 text-[0.65rem] font-medium leading-4 text-black/66 dark:border-white/16 dark:text-white/72">
+                  {sharedSession.isPrivateLink ? "Private link" : "Public link"}
+                </span>
                 <button
                   type="button"
                   onClick={() => {
@@ -797,7 +816,11 @@ export function ShareSessionClient({
                 </button>
               </div>
               <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
-                <span>This is a copy of a conversation between Tiles and</span>
+                <span>
+                  {sharedSession.isPrivateLink
+                    ? "This is a private copy of a conversation between Tiles and"
+                    : "This is a public copy of a conversation between Tiles and"}
+                </span>
                 <span className="inline-flex min-w-0 items-center gap-1.5">
                   {sharedSession.sharedBy.avatarUrl ? (
                     <img
@@ -846,11 +869,14 @@ export function ShareSessionClient({
               <div className="border-t border-black/10 pt-3 dark:border-white/10">
                 <p className="text-left text-[0.68rem] leading-4 text-black/55 dark:text-white/55 sm:text-[0.72rem]">
                   <span className="block">
-                    We do not store a copy of the shared conversation on our servers.
+                    We do not store a copy of the shared conversation on our
+                    servers.
                   </span>
                   <span className="mt-1 block">
-                    For private links, the key material isn&apos;t sent to the server. Instead, it is appended to the
-                    URL and used to decrypt the chat transcript stored on the personal data server (PDS).
+                    For private links, the key material isn&apos;t sent to the
+                    server. Instead, it is appended to the URL and used to
+                    decrypt the chat transcript stored on the personal data
+                    server (PDS).
                   </span>
                   <span className="mt-1 block">
                     <span>Data is fetched from the user&apos;s PDS </span>

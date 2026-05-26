@@ -8,10 +8,9 @@ import {
   FaLink,
   FaMastodon,
   FaRedditAlien,
-  FaRss,
   FaXTwitter,
 } from 'react-icons/fa6'
-import NewsletterForm from '@/components/newsletter-form'
+import { NewsletterCta } from '@/components/newsletter-cta'
 import { TILES_PRODUCT_DESCRIPTION_SHORT } from '@/lib/product-description'
 
 interface ArticleShareAndNewsletterProps {
@@ -156,28 +155,7 @@ export function ArticleShareAndNewsletter({
       ) : null}
 
       <section className="mx-auto mt-12 max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:py-7">
-        <div className="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <h2 className="text-[0.95rem] font-medium tracking-tight text-black dark:text-white">
-                Stay updated
-              </h2>
-              <a
-                href="/api/rss"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-black transition-colors hover:text-black/65 dark:text-[#e7e7ed] dark:hover:text-[#c6c6cf]"
-                aria-label="RSS Feed for blog posts"
-              >
-                <FaRss className="h-4 w-4" />
-              </a>
-            </div>
-            <p className="text-[0.84rem] leading-6 text-black/70 dark:text-[#b8b8c2]">
-              Get updates on releases, privacy research, and performance engineering.
-            </p>
-          </div>
-          <NewsletterForm className="w-full lg:max-w-[24rem]" />
-        </div>
+        <NewsletterCta />
       </section>
     </>
   )

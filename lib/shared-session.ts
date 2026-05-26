@@ -10,6 +10,7 @@ export interface SharedSessionMessage {
 export interface SharedSession {
   sessionId: string
   name: string
+  isPrivateLink: boolean
   createdAt: string | null
   sourceUri: string
   modelsUsed: string[]
@@ -20,6 +21,12 @@ export interface SharedSession {
     avatarUrl: string | null
   }
   messages: SharedSessionMessage[]
+}
+
+export function isEncryptedSharedSessionRecord(
+  record: Record<string, unknown>,
+): boolean {
+  return typeof record.enc_content === "string" && record.enc_content.length > 0
 }
 
 interface AtUriParts {
@@ -56,7 +63,6 @@ export function createSharedSessionPathFromUri(uri: string): string {
 }
 
 export function resolveSharedSessionUri(shareToken: string): string {
-
   const token = decodeURIComponent(shareToken)
     .trim()
     .replace(/^\/+|\/+$/g, "")
@@ -258,7 +264,9 @@ async function resolveAtprotoService(repo: string): Promise<string> {
   return endpoint.replace(/\/$/, "")
 }
 
-export async function getAtprotoData(sharePath: string): Promise<Record<string, any>> {
+export async function getAtprotoData(
+  sharePath: string,
+): Promise<Record<string, any>> {
   const sourceUri = resolveSharedSessionUri(sharePath)
   const { repo } = parseAtUri(sourceUri)
   const record = await getRecord(sourceUri)
@@ -268,31 +276,47 @@ export async function getAtprotoData(sharePath: string): Promise<Record<string, 
     sourceUri,
     repo,
     record,
-    sharedBy
+    sharedBy,
   }
 }
 export async function getSharedSession(
   sharePath: string,
-  fragment: string | null
+  fragment: string | null,
 ): Promise<SharedSession> {
-  const at_data = await getAtprotoData(sharePath);
-  const record = at_data.record;
-  if (record["enc_content"] !== undefined) {
-    console.log("This is an encrypted session");
+  const at_data = await getAtprotoData(sharePath)
+  const record = at_data.record
+  const isPrivateLink = isEncryptedSharedSessionRecord(record)
+  if (isPrivateLink) {
+    console.log("This is an encrypted session")
     if (fragment != null) {
       let fragments = fragment?.split(".")
-      let nonce_bytes = sodium.from_base64(fragments[0], sodium.base64_variants.ORIGINAL);
-      let key_bytes = sodium.from_base64(fragments[1], sodium.base64_variants.ORIGINAL);
+      let nonce_bytes = sodium.from_base64(
+        fragments[0],
+        sodium.base64_variants.ORIGINAL,
+      )
+      let key_bytes = sodium.from_base64(
+        fragments[1],
+        sodium.base64_variants.ORIGINAL,
+      )
       //@ts-ignore
-      let ciphertxt = sodium.from_base64(record["enc_content"], sodium.base64_variants.ORIGINAL);
-      const additional_data = null;
-      const decrypted_data = sodium.crypto_aead_xchacha20poly1305_ietf_decrypt(null, ciphertxt, additional_data, nonce_bytes, key_bytes
-      );
-      const text = new TextDecoder().decode(decrypted_data);
-      const obj = JSON.parse(text);
+      let ciphertxt = sodium.from_base64(
+        record["enc_content"],
+        sodium.base64_variants.ORIGINAL,
+      )
+      const additional_data = null
+      const decrypted_data = sodium.crypto_aead_xchacha20poly1305_ietf_decrypt(
+        null,
+        ciphertxt,
+        additional_data,
+        nonce_bytes,
+        key_bytes,
+      )
+      const text = new TextDecoder().decode(decrypted_data)
+      const obj = JSON.parse(text)
       return {
         sessionId: readString(obj.session_id) ?? "shared-session",
         name: readString(obj.name) ?? "Shared session",
+        isPrivateLink,
         createdAt: readString(obj.created_at),
         sourceUri: at_data.sourceUri,
         modelsUsed: normalizeModelsUsed(obj.models_used),
@@ -305,6 +329,7 @@ export async function getSharedSession(
   return {
     sessionId: readString(record.session_id) ?? "shared-session",
     name: readString(record.name) ?? "Shared session",
+    isPrivateLink,
     createdAt: readString(record.created_at),
     sourceUri: at_data.sourceUri,
     modelsUsed: normalizeModelsUsed(record.models_used),

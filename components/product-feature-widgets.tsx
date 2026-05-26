@@ -19,11 +19,11 @@ function FeatureWidget({
   if (variant === "home") {
     return (
       <article className="min-w-0">
-        <div className="flex items-center gap-2.5 text-inherit sm:gap-2.5">
-          <span className="flex h-[1.15em] w-[1.15em] shrink-0 items-center justify-center text-inherit [&>span]:text-[1.15em] [&>span]:leading-none [&>span]:font-semibold [&_svg]:h-[1.15em] [&_svg]:w-[1.15em] [&_svg]:stroke-[1.8]">
+        <div className="flex items-center gap-2.5 text-black/72 dark:text-[#D6D6D8] sm:gap-3">
+          <span className="flex h-5 w-5 shrink-0 items-center justify-center text-black/52 dark:text-white/58 [&>span]:text-[1.05rem] [&>span]:leading-none [&>span]:font-semibold [&_svg]:h-4.5 [&_svg]:w-4.5 [&_svg]:stroke-[1.85]">
             {icon}
           </span>
-          <h3 className="min-w-0 tracking-[-0.01em] [&_a]:text-inherit [&_a]:no-underline [&_a]:transition-opacity [&_a]:hover:opacity-80">
+          <h3 className="min-w-0 text-[0.9rem] font-medium leading-snug tracking-[-0.005em] sm:text-[0.94rem] lg:text-[0.98rem] [&_a]:text-inherit [&_a]:no-underline [&_a]:transition-opacity [&_a]:hover:opacity-80">
             {title}
           </h3>
         </div>
@@ -60,7 +60,7 @@ export function ProductFeatureWidgets({
   const featureLinkClass = variant === "home" ? homeFeatureLinkClass : bookFeatureLinkClass
   const gridClass =
     variant === "home"
-      ? "grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-4 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-4 min-[1180px]:grid-cols-7 min-[1180px]:gap-x-6"
+      ? "grid grid-cols-1 gap-x-5 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-4 min-[1180px]:grid-cols-7"
       : "grid gap-7 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12"
 
   return (
