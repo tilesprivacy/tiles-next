@@ -20,7 +20,7 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/security', title: 'Security' },
   { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
-  { route: '/book/licenses', title: 'Licenses' },
+  // { route: '/book/licenses', title: 'Licenses' },
 ]
 
 export function BookPageNavigation() {

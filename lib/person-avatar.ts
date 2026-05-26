@@ -32,6 +32,9 @@ function collectAvatarUrlsFromLink(link: string): string[] {
       const handle = parts[0] === "profile" ? parts[1] : parts[0]
       if (handle) urls.push(`https://unavatar.io/bluesky/${handle}`)
     }
+    if (host.includes("pimtron.dev")) {
+      urls.push("/pimmy.png")
+    }
   } catch {
     // Ignore invalid URLs and continue checking remaining links.
   }

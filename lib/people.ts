@@ -24,6 +24,11 @@ export const people = {
       name: "Anandu Pavanan @madcla.ws",
       links: ["https://bsky.app/profile/madcla.ws"],
     },
+    {
+      id: "prashant-mishra",
+      name: "Prashant Mishra @primalpimmy",
+      links: ["https://pimtron.dev"],
+    },
   ],
   contributorsCommunity: [
     {

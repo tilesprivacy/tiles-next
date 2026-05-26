@@ -193,15 +193,21 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                 </div>
                 <p>
                   The project is currently maintained by{" "}
-                  <InlinePerson
-                    name={people.contributorsCore[0]!.name}
-                    links={people.contributorsCore[0]!.links}
-                  />{" "}
-                  <span className="align-middle leading-[inherit]">and</span>{" "}
-                  <InlinePerson
-                    name={people.contributorsCore[1]!.name}
-                    links={people.contributorsCore[1]!.links}
-                  />.
+                  {people.contributorsCore.map((person, index) => (
+                    <span key={person.id}>
+                      {index > 0 ? (
+                        index === people.contributorsCore.length - 1 ? (
+                          <span className="align-middle leading-[inherit]">
+                            {people.contributorsCore.length > 2 ? ", and " : " and "}
+                          </span>
+                        ) : (
+                          ", "
+                        )
+                      ) : null}
+                      <InlinePerson name={person.name} links={person.links} />
+                    </span>
+                  ))}
+                  .
                 </p>
               </div>
             </div>

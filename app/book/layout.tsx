@@ -85,14 +85,16 @@ export default async function BookLayout({
   })
 
   // Keep sidebar aligned with the `/book` mobile card grid.
-  const desiredOrder = ['index', 'overview', 'manual', 'models', 'tilekit', 'mir', 'security', 'community', 'resources', 'licenses']
+  // Licenses is hidden from nav for now; restore by adding 'licenses' back here and in book-mobile-nav / book-page-navigation.
+  const desiredOrder = ['index', 'overview', 'manual', 'models', 'tilekit', 'mir', 'security', 'community', 'resources']
+  const hiddenBookSidebarPages = new Set(['licenses'])
 
   const cardPageSet = new Set(desiredOrder)
 
   // Keep only pages that are represented in the mobile card navigation.
   const cardOnlyPageMap = flattenedPageMap.filter((item) => {
     const name = 'name' in item ? (item.name as string) : ''
-    return cardPageSet.has(name)
+    return cardPageSet.has(name) && !hiddenBookSidebarPages.has(name)
   })
 
   // Sort the pageMap according to the desired order

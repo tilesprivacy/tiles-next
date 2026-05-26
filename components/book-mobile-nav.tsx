@@ -56,12 +56,13 @@ const bookPages: BookPage[] = [
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',
   },
-  {
-    number: '09',
-    title: 'Licenses',
-    description: 'Backer and Commercial licenses, payment terms, and purchasing options.',
-    href: '/book/licenses',
-  },
+  // Hidden from book nav for now; restore when re-enabling the Licenses page in the sidebar.
+  // {
+  //   number: '09',
+  //   title: 'Licenses',
+  //   description: 'Backer and Commercial licenses, payment terms, and purchasing options.',
+  //   href: '/book/licenses',
+  // },
 ]
 
 export function BookMobileNav() {
