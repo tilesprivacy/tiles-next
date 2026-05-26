@@ -111,8 +111,8 @@ const featureCards = [
     ctaHref: "/book/manual#sharing-commands",
     terminalLines: [
       "> /share",
-      "Writing to ATProto PDS",
-      "Creating shareable link",
+      "Share privately or publicly?",
+      "Writing chat session to ATProto PDS",
     ],
     shareLink:
       "/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3",
