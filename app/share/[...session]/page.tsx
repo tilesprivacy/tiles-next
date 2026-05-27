@@ -9,6 +9,15 @@ interface SharePageProps {
   params: Promise<{ session: string[] }>
 }
 
+const DEFAULT_SHARED_SESSION_DESCRIPTION =
+  "Shared public chat session on Tiles. Powered by ATProto."
+
+function getSharedSessionDescription(isPrivateLink = false): string {
+  return isPrivateLink
+    ? "Shared private chat session on Tiles. Powered by ATProto."
+    : DEFAULT_SHARED_SESSION_DESCRIPTION
+}
+
 function getSharedSessionTitle(
   handle: string | null,
   isPrivateLink = false,
@@ -30,18 +39,16 @@ export async function generateMetadata({
   const shareToken = session.join("/")
   const imagePath = `https://www.tiles.run/api/share/og?session=${encodeURIComponent(shareToken)}`
   let title = "Shared chat session | Tiles"
-  let description = "Shared chat session on Tiles. Powered by ATProto."
+  let description = DEFAULT_SHARED_SESSION_DESCRIPTION
 
   try {
     const at_data = await getAtprotoData(shareToken)
     const isPrivateLink = isEncryptedSharedSessionRecord(at_data.record)
     title = getSharedSessionTitle(at_data.sharedBy.handle, isPrivateLink)
-    description = isPrivateLink
-      ? "Private shared chat session on Tiles. Encrypted data is stored on ATProto and key material stays in the link."
-      : "Shared chat session on Tiles. Powered by ATProto."
+    description = getSharedSessionDescription(isPrivateLink)
   } catch {
     title = "Shared chat session | Tiles"
-    description = "Shared chat session on Tiles. Powered by ATProto."
+    description = DEFAULT_SHARED_SESSION_DESCRIPTION
   }
 
   return {
