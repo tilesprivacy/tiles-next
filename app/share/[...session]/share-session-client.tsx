@@ -815,13 +815,11 @@ export function ShareSessionClient({
                   <Download className="h-3.5 w-3.5" aria-hidden />
                 </button>
               </div>
-              <p className="flex min-w-0 max-w-full items-center justify-start gap-x-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 whitespace-nowrap sm:gap-x-1.5 sm:text-[0.8rem] print:max-w-none print:flex-nowrap print:whitespace-nowrap">
-                <span>
-                  {sharedSession.isPrivateLink
-                    ? "This is a private copy of a conversation between Tiles and"
-                    : "This is a public copy of a conversation between Tiles and"}
-                </span>
-                <span className="inline-flex min-w-0 shrink items-center gap-1.5 overflow-hidden">
+              <p className="max-w-full text-left text-xs leading-5 text-black/60 dark:text-white/65 sm:text-[0.8rem] print:max-w-none print:whitespace-nowrap">
+                {sharedSession.isPrivateLink
+                  ? "This is a private copy of a conversation between Tiles and"
+                  : "This is a public copy of a conversation between Tiles and"}{" "}
+                <span className="inline-flex max-w-full items-center gap-1.5 align-[-0.2em] whitespace-nowrap">
                   {sharedSession.sharedBy.avatarUrl ? (
                     <img
                       src={sharedSession.sharedBy.avatarUrl}
@@ -840,7 +838,7 @@ export function ShareSessionClient({
                     href={blueskyProfileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="min-w-0 truncate font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
+                    className="font-medium text-black/65 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/85 hover:decoration-black/35 dark:text-white/75 dark:decoration-white/25 dark:hover:text-white dark:hover:decoration-white/40"
                     title="Open Bluesky profile"
                   >
                     {sharedSession.sharedBy.handle

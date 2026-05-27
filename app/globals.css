@@ -128,7 +128,7 @@
 .share-markdown :where([data-streamdown='ordered-list'], [data-streamdown='unordered-list']) {
   display: grid;
   gap: 0.5rem;
-  padding-left: 0;
+  padding-left: 1.25rem;
   margin-left: 0;
   list-style-position: outside;
   color: rgb(0 0 0 / 0.8);
@@ -139,12 +139,12 @@
 }
 
 .share-markdown [data-streamdown='list-item'] :where([data-streamdown='ordered-list'], [data-streamdown='unordered-list']) {
-  padding-left: 1.125rem;
+  padding-left: 1.25rem;
   margin-left: 0;
 }
 
 .share-markdown [data-streamdown='list-item'] {
-  padding-left: 0;
+  padding-left: 0.125rem;
 }
 
 .share-markdown [data-streamdown='horizontal-rule'] {
