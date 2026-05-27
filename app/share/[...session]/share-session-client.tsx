@@ -815,13 +815,13 @@ export function ShareSessionClient({
                   <Download className="h-3.5 w-3.5" aria-hidden />
                 </button>
               </div>
-              <p className="flex min-w-0 max-w-full flex-wrap items-center justify-start gap-x-2 gap-y-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 print:max-w-none print:flex-nowrap print:whitespace-nowrap sm:gap-x-1.5 sm:gap-y-1 sm:text-[0.8rem]">
+              <p className="flex min-w-0 max-w-full items-center justify-start gap-x-2 text-left text-xs leading-5 text-black/60 dark:text-white/65 whitespace-nowrap sm:gap-x-1.5 sm:text-[0.8rem] print:max-w-none print:flex-nowrap print:whitespace-nowrap">
                 <span>
                   {sharedSession.isPrivateLink
                     ? "This is a private copy of a conversation between Tiles and"
                     : "This is a public copy of a conversation between Tiles and"}
                 </span>
-                <span className="inline-flex min-w-0 items-center gap-1.5">
+                <span className="inline-flex min-w-0 shrink items-center gap-1.5 overflow-hidden">
                   {sharedSession.sharedBy.avatarUrl ? (
                     <img
                       src={sharedSession.sharedBy.avatarUrl}

@@ -227,7 +227,7 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100svh] px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-12 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-24">
+      <main className="flex min-h-[100svh] px-4 pb-12 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-10 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-24">
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 sm:gap-14 lg:gap-16">
           <div className="grid w-full flex-1 items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
@@ -291,7 +291,7 @@ export function HomeContent() {
               </div>
             </div>
 
-            <div className="relative z-10 order-2 w-full text-[0.82rem] font-medium leading-[1.45] text-black/62 dark:text-[#BDBDBF] sm:text-[0.86rem] lg:order-3 lg:col-span-2 lg:text-[0.9rem]">
+            <div className="relative z-10 order-3 w-full text-[0.82rem] font-medium leading-[1.45] text-black/62 dark:text-[#BDBDBF] sm:text-[0.86rem] lg:order-3 lg:col-span-2 lg:text-[0.9rem]">
               <ProductFeatureWidgets variant="home" />
               <TechAttribution
                 variant={techAttributionVariant}
@@ -301,7 +301,7 @@ export function HomeContent() {
               />
             </div>
 
-            <div className="relative order-3 flex w-full items-center justify-center lg:order-2 lg:justify-end">
+            <div className="relative order-2 mb-6 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
               <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37.5rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"
@@ -333,7 +333,7 @@ export function HomeContent() {
         </div>
       </main>
 
-      <section className="relative z-10 px-4 pb-16 pt-14 min-[390px]:px-5 sm:px-6 sm:pb-20 sm:pt-20 lg:px-12 lg:pb-24 lg:pt-24">
+      <section className="relative z-10 px-4 pb-16 pt-10 min-[390px]:px-5 sm:px-6 sm:pb-20 sm:pt-20 lg:px-12 lg:pb-24 lg:pt-24">
         <div className="mx-auto w-full max-w-6xl space-y-20 sm:space-y-16 lg:space-y-20">
           {featureCards.map((card) => (
             <article
