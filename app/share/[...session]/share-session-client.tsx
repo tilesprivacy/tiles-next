@@ -1,6 +1,15 @@
 "use client"
 
-import { AlertCircle, Check, ChevronDown, Copy, Download } from "lucide-react"
+import {
+  AlertCircle,
+  Check,
+  ChevronDown,
+  Copy,
+  Download,
+  FileText,
+  Terminal,
+  Wrench,
+} from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { createMathPlugin } from "@streamdown/math"
@@ -264,6 +273,234 @@ function splitReasoningContent(content: string): {
   }
 }
 
+type ReasoningSegment =
+  | {
+      type: "reasoning"
+      content: string
+    }
+  | {
+      type: "tool-call" | "tool-result"
+      content: string
+    }
+
+const reasoningMarkerPattern =
+  /\*\*\[(Reasoning|ToolCall|ToolResult|ToolOutput)\]\*\*/g
+
+function parseReasoningSegments(content: string): ReasoningSegment[] {
+  const normalizedContent = content.replace(/\r\n?/g, "\n").trim()
+  const segments: ReasoningSegment[] = []
+  let activeType: ReasoningSegment["type"] = "reasoning"
+  let lastIndex = 0
+
+  for (const match of normalizedContent.matchAll(reasoningMarkerPattern)) {
+    const markerIndex = match.index ?? 0
+    const segmentContent = normalizedContent.slice(lastIndex, markerIndex).trim()
+
+    if (segmentContent) {
+      segments.push({
+        type: activeType,
+        content: segmentContent,
+      })
+    }
+
+    activeType =
+      match[1] === "ToolCall"
+        ? "tool-call"
+        : match[1] === "ToolResult" || match[1] === "ToolOutput"
+          ? "tool-result"
+          : "reasoning"
+    lastIndex = markerIndex + match[0].length
+  }
+
+  const trailingContent = normalizedContent.slice(lastIndex).trim()
+
+  if (trailingContent) {
+    segments.push({
+      type: activeType,
+      content: trailingContent,
+    })
+  }
+
+  return segments
+}
+
+function parseToolPayload(content: string): Record<string, unknown> | null {
+  try {
+    const parsed = JSON.parse(content.trim()) as unknown
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? (parsed as Record<string, unknown>)
+      : null
+  } catch {
+    return null
+  }
+}
+
+function formatToolValue(value: unknown): string {
+  if (Array.isArray(value)) {
+    return value.map((entry) => String(entry)).join(" ")
+  }
+
+  if (value === null || value === undefined) {
+    return ""
+  }
+
+  if (typeof value === "object") {
+    return JSON.stringify(value)
+  }
+
+  return String(value)
+}
+
+function getToolCallSummary(payload: Record<string, unknown> | null): {
+  label: string
+  detail: string
+  icon: "terminal" | "file" | "tool"
+} {
+  if (!payload) {
+    return {
+      label: "Tool call",
+      detail: "View raw invocation",
+      icon: "tool",
+    }
+  }
+
+  if (Array.isArray(payload.command)) {
+    return {
+      label: "Shell command",
+      detail: formatToolValue(payload.command),
+      icon: "terminal",
+    }
+  }
+
+  if (typeof payload.path === "string") {
+    const lineStart = formatToolValue(payload.line_start)
+    const lineEnd = formatToolValue(payload.line_end)
+    const lineRange =
+      lineStart && lineEnd
+        ? `:${lineStart}-${lineEnd}`
+        : lineStart
+          ? `:${lineStart}`
+          : ""
+
+    return {
+      label: "Read file",
+      detail: `${payload.path}${lineRange}`,
+      icon: "file",
+    }
+  }
+
+  const toolName =
+    formatToolValue(payload.tool) ||
+    formatToolValue(payload.name) ||
+    formatToolValue(payload.function) ||
+    "Tool call"
+
+  return {
+    label: toolName,
+    detail: "View parameters",
+    icon: "tool",
+  }
+}
+
+function ToolIcon({ icon }: { icon: "terminal" | "file" | "tool" }) {
+  const className = "h-3.5 w-3.5"
+
+  if (icon === "terminal") {
+    return <Terminal className={className} aria-hidden />
+  }
+
+  if (icon === "file") {
+    return <FileText className={className} aria-hidden />
+  }
+
+  return <Wrench className={className} aria-hidden />
+}
+
+function ToolCallCard({ content }: { content: string }) {
+  const payload = parseToolPayload(content)
+  const summary = getToolCallSummary(payload)
+  const rows = payload ? Object.entries(payload) : []
+  const rawPayload = payload ? JSON.stringify(payload, null, 2) : content.trim()
+
+  return (
+    <div className="min-w-0 py-1 text-black/68 dark:text-white/68">
+      <div className="flex min-w-0 items-start gap-2.5">
+        <span className="mt-1 inline-flex h-5 w-5 shrink-0 items-center justify-center text-black/48 dark:text-white/48">
+          <ToolIcon icon={summary.icon} />
+        </span>
+        <div className="min-w-0 flex-1">
+          <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+            <span className="text-[0.82rem] font-medium leading-6 text-black/70 dark:text-white/72">
+              {summary.label}
+            </span>
+            <span className="font-mono text-[0.76rem] leading-6 text-black/52 dark:text-white/52">
+              {summary.detail}
+            </span>
+          </div>
+          <details className="mt-0.5">
+            <summary className="inline cursor-pointer text-[0.72rem] font-medium leading-5 text-black/42 transition-colors hover:text-black/62 dark:text-white/42 dark:hover:text-white/62">
+              Parameters
+            </summary>
+            {rows.length > 0 ? (
+              <div className="mt-1.5 grid text-[0.72rem] leading-5">
+                {rows.map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-2 py-0.5"
+                  >
+                    <span className="font-mono text-black/36 dark:text-white/36">
+                      {key}
+                    </span>
+                    <span className="min-w-0 break-words font-mono text-black/58 dark:text-white/58">
+                      {formatToolValue(value)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <pre className="mt-1.5 overflow-x-auto font-mono text-[0.72rem] leading-5 text-black/58 dark:text-white/58">
+                {rawPayload}
+              </pre>
+            )}
+          </details>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function ToolResultCard({ content }: { content: string }) {
+  return (
+    <div className="min-w-0 py-1 pl-0 text-black/68 dark:text-white/68">
+      <div className="mb-1 flex items-center gap-2 text-[0.82rem] font-medium leading-6 text-black/58 dark:text-white/62">
+        <Check className="h-3.5 w-3.5" aria-hidden />
+        <span>Tool result</span>
+      </div>
+      <MarkdownMessage content={content} />
+    </div>
+  )
+}
+
+function ReasoningSegmentList({ content }: { content: string }) {
+  const segments = useMemo(() => parseReasoningSegments(content), [content])
+
+  return (
+    <div className="grid gap-4">
+      {segments.map((segment, index) => {
+        if (segment.type === "tool-call") {
+          return <ToolCallCard key={index} content={segment.content} />
+        }
+
+        if (segment.type === "tool-result") {
+          return <ToolResultCard key={index} content={segment.content} />
+        }
+
+        return <MarkdownMessage key={index} content={segment.content} />
+      })}
+    </div>
+  )
+}
+
 function ReasoningDisclosure({ content }: { content: string }) {
   const [expanded, setExpanded] = useState(false)
 
@@ -283,7 +520,7 @@ function ReasoningDisclosure({ content }: { content: string }) {
       </button>
       {expanded ? (
         <div className="mt-4 border-l-2 border-black/20 pl-5 text-[0.95rem] leading-7 text-black/75 dark:border-white/24 dark:text-white/70">
-          <MarkdownMessage content={content} />
+          <ReasoningSegmentList content={content} />
         </div>
       ) : null}
     </div>
