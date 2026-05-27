@@ -60,7 +60,7 @@ export function ProductFeatureWidgets({
   const featureLinkClass = variant === "home" ? homeFeatureLinkClass : bookFeatureLinkClass
   const gridClass =
     variant === "home"
-      ? "grid grid-cols-1 gap-x-5 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-4 min-[1180px]:grid-cols-7"
+      ? "grid grid-cols-2 gap-x-4 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-4 min-[1180px]:grid-cols-7"
       : "grid gap-7 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12"
 
   return (

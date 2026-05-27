@@ -227,15 +227,15 @@ export function HomeContent() {
         <div className="absolute bottom-[-12%] left-[-6%] h-[12rem] w-[12rem] rounded-full bg-black/[0.03] blur-3xl dark:bg-transparent sm:h-[16rem] sm:w-[16rem]" />
       </div>
 
-      <main className="flex min-h-[100svh] px-4 pb-12 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 min-[430px]:min-h-[calc(100svh-4.5rem)] min-[430px]:pb-10 min-[430px]:pt-[calc(10rem+env(safe-area-inset-top,0px))] sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(9.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pb-24">
-        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-12 sm:gap-14 lg:gap-16">
-          <div className="grid w-full flex-1 items-center gap-9 sm:gap-12 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
+      <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(6.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(5.75rem+env(safe-area-inset-top,0px))] lg:pb-24">
+        <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 sm:gap-14 lg:gap-16">
+          <div className="grid w-full items-center gap-8 sm:gap-12 lg:flex-1 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] space-y-3.5 lg:mx-0 lg:w-full lg:space-y-4">
-                <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.3rem,7.2vw,3.85rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mx-0 lg:max-w-[12ch]">
+                <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.35rem,7vw,4rem)] font-semibold leading-[1.06] tracking-[-0.03em] text-foreground lg:mx-0 lg:max-w-[12ch]">
                   Own your AI
                 </h1>
-                <p className="mx-auto max-w-[31rem] text-[0.93rem] leading-[1.62] text-black/55 dark:text-[#ABABAB] sm:text-[1rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.01rem]">
+                <p className="mx-auto max-w-[31rem] text-[0.97rem] leading-[1.58] text-black/55 dark:text-[#ABABAB] sm:text-[1.03rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.05rem]">
                   {productDescriptionBeforeAtProtoLink()}
                   <a
                     href="https://atproto.com"
@@ -254,7 +254,7 @@ export function HomeContent() {
                   <Button
                     asChild
                     variant="ghost"
-                    className={`h-9 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-[0.83rem] font-medium sm:h-10 sm:px-5 sm:text-sm lg:h-10 lg:px-6 lg:text-[0.91rem]`}
+                    className={`h-11 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-[0.9rem] font-medium sm:h-11 sm:px-5 sm:text-[0.94rem] lg:h-11 lg:px-6 lg:text-[0.95rem]`}
                   >
                     <Link
                       href="/download"
@@ -267,23 +267,23 @@ export function HomeContent() {
                         Download Tiles
                       </span>
                       <Download
-                        className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4`}
+                        className={`h-4 w-4 ${downloadButtonIconMotionClasses}`}
                         aria-hidden
                       />
                     </Link>
                   </Button>
-                  <p className="inline-flex w-fit items-center whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
+                  <p className="inline-flex w-fit items-center whitespace-nowrap text-[0.72rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.76rem]">
                     Alpha • macOS 14+ • Apple Silicon (M1+)
                   </p>
                   <Link
                     href="/linux"
-                    className="text-[0.74rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.8rem]"
+                    className="text-[0.79rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.84rem]"
                   >
                     Join the Linux waitlist
                   </Link>
                   <Link
                     href="/book/overview#private-ai-comparison"
-                    className="text-[0.74rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/74 hover:decoration-black/40 dark:text-[#9D9D9D] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/40 sm:text-[0.8rem]"
+                    className="text-[0.79rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/74 hover:decoration-black/40 dark:text-[#9D9D9D] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/40 sm:text-[0.84rem]"
                   >
                     Compare with Ollama and others
                   </Link>
@@ -296,13 +296,13 @@ export function HomeContent() {
               <TechAttribution
                 variant={techAttributionVariant}
                 size="hero"
-                className="mt-4 max-w-full !flex-nowrap justify-start overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-inherit sm:mt-5"
+                className="mt-5 max-w-full !flex-nowrap justify-center overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-inherit sm:justify-start"
                 aria-label="Technology stack"
               />
             </div>
 
-            <div className="relative order-2 mb-6 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
-              <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37.5rem] xl:max-w-[39rem]">
+            <div className="relative order-2 mb-0 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
+              <div className="relative mx-auto w-full max-w-[20rem] min-[360px]:max-w-[23rem] min-[430px]:max-w-[28rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"
                   alt="Tiles Interface Wireframe"
@@ -317,14 +317,14 @@ export function HomeContent() {
                     alt="Tiles"
                     width={1200}
                     height={220}
-                    className="h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:hidden"
+                    className="h-auto w-full max-w-[11.8rem] min-[360px]:max-w-[13.2rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:hidden"
                   />
                   <Image
                     src="/tiles_banner_outline_wht.svg"
                     alt="Tiles"
                     width={1200}
                     height={220}
-                    className="hidden h-auto w-full max-w-[12.75rem] min-[360px]:max-w-[13.9rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:block"
+                    className="hidden h-auto w-full max-w-[11.8rem] min-[360px]:max-w-[13.2rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:block"
                   />
                 </div>
               </div>
