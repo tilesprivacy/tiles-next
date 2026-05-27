@@ -291,7 +291,7 @@ export function HomeContent() {
               </div>
             </div>
 
-            <div className="relative z-10 order-2 w-full text-[0.82rem] font-medium leading-[1.45] text-black/62 dark:text-[#BDBDBF] sm:text-[0.86rem] lg:order-3 lg:col-span-2 lg:text-[0.9rem]">
+            <div className="relative z-10 order-3 w-full text-[0.82rem] font-medium leading-[1.45] text-black/62 dark:text-[#BDBDBF] sm:text-[0.86rem] lg:order-3 lg:col-span-2 lg:text-[0.9rem]">
               <ProductFeatureWidgets variant="home" />
               <TechAttribution
                 variant={techAttributionVariant}
@@ -301,7 +301,7 @@ export function HomeContent() {
               />
             </div>
 
-            <div className="relative order-3 mb-6 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
+            <div className="relative order-2 mb-6 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
               <div className="relative mx-auto w-full max-w-[22rem] min-[360px]:max-w-[25rem] min-[430px]:max-w-[29rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37.5rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"
