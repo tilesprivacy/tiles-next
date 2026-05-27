@@ -104,12 +104,16 @@ export function ProductFeatureWidgets({
         on Apple Silicon.
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="Decentralized Identity">
+      <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="ATProto Identity">
         Locally generated{" "}
         <a href="https://www.w3.org/TR/did-core/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           DIDs
         </a>
-        , with the private key always stored locally on device.
+        , with private keys always stored on-device and optional linking to your{" "}
+        <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
+          ATProto
+        </a>{" "}
+        account.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
@@ -127,7 +131,7 @@ export function ProductFeatureWidgets({
       >
         Create a public or private link to a chat session, published through{" "}
         <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          ATProto
+          ATProto PDS
         </a>
         .
       </FeatureWidget>
