@@ -1,5 +1,6 @@
 # References
 
+- [Happyview: A lexicon-driven AppView for ATProto, Github](https://github.com/gamesgamesgamesgamesgames/happyview)
 - [MCP Integration, Lexicon Garden](https://lexicon.garden/help/mcp)
 - [Structured LLM output from ATProto Lexicons](https://cameron.stream/blog/lexicons-and-ai/)
 - [The vCon - Conversation Data Container - Overview](https://www.ietf.org/archive/id/draft-ietf-vcon-vcon-overview-00.html)
