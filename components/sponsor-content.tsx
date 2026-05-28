@@ -72,9 +72,9 @@ function InlinePerson({
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
   const progressValue = sponsorsGoal.progressPercent
     ? Math.max(0, Math.min(100, Number.parseInt(sponsorsGoal.progressPercent, 10)))
-    : 28
-  const progressLabel = sponsorsGoal.progressPercent ?? "28%"
-  const goalLabel = sponsorsGoal.goalAmountMonthly ?? "GitHub Sponsors goal"
+    : 9
+  const progressLabel = sponsorsGoal.progressPercent ?? "9%"
+  const goalLabel = sponsorsGoal.goalAmountMonthly ?? "$3,000 per month"
   const socialProofSponsors = people.sponsorsActive.slice(0, 4)
   const featuredSponsor = people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
   const featuredSponsorParts = featuredSponsor ? splitPersonDisplayName(featuredSponsor.name) : null
@@ -97,11 +97,11 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </h1>
             <div className={`mt-5 max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
               <p>
-                We&apos;re a small team of two working hard to bring privacy technology to everyone, starting with Tiles, a
+                We&apos;re a small team of three working hard to bring privacy technology to everyone, starting with Tiles, a
                 local-first private AI assistant. If you like Tiles, please consider supporting our work.
               </p>
               <p>
-                Your tips help accelerate Tiles&apos; development and keep both developers fed. Your support means a lot!
+                Your sponsorship helps accelerate Tiles&apos; development and keep all three contributors fed. Your support means a lot!
               </p>
             </div>
 
@@ -112,7 +112,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <p className="pb-1 text-sm leading-6 text-black/65 dark:text-white/65">{goalLabel}</p>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-black/65 dark:text-white/65">
-                  Baseline funding to support two full-time contributors
+                  Baseline funding to support three full-time contributors
                 </p>
                 <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
                   <div
