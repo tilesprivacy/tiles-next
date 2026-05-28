@@ -78,7 +78,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
           <p>
             Tiles Privacy was born from the{" "}
             <a
-              href="https://userandagents.com/"
+              href="https://userandagents.org/"
               target="_blank"
               rel="noopener noreferrer"
               className={`inline-flex items-center gap-1 ${linkColor} underline`}

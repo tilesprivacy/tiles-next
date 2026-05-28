@@ -156,7 +156,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const textColorSubtle = "text-muted-foreground"
   const textColorLink =
     "text-foreground underline decoration-foreground/35 underline-offset-2 transition-colors hover:decoration-foreground"
-  const stepLabelClass = "text-muted-foreground"
+  const stepLabelClass = "text-sm font-semibold uppercase tracking-[0.18em] text-foreground"
   const bodyTextClass = `text-sm sm:text-base leading-7 ${textColorMuted}`
   const codeSurfaceClass = isDark
     ? "border border-border bg-secondary text-foreground"
@@ -238,14 +238,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 Public alpha for macOS 14+ with Apple Silicon (M1 or better). Recommended: 16 GB unified memory or
                 more.
               </p>
-              <p className={bodyTextClass}>
-                <strong>Status: Alpha</strong>
-              </p>
-              <p className={bodyTextClass}>
-                Tiles is currently alpha-quality software. It is usable for everyday tasks, though you may encounter
-                bugs and performance issues. Tilekit, the developer SDK, is experimental, not a current priority, and
-                intended for exploratory use, not production.
-              </p>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (
                 <p className={`text-sm ${textColorSubtle}`}>
@@ -258,7 +250,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
             <div className="space-y-9">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 1</p>
+                  <p className={stepLabelClass}>Step 1</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Download your installer</h2>
                   <p className={bodyTextClass}>Choose the installer that best fits your setup.</p>
                 </div>
@@ -478,7 +470,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
 
               <div className="space-y-8">
                 <div className="space-y-2 border-t border-border pt-6">
-                  <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 2</p>
+                  <p className={stepLabelClass}>Step 2</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Go through the installer setup</h2>
                   <p className={bodyTextClass}>
                     Open the downloaded installer and complete the install wizard. The installer adds the{" "}
@@ -486,7 +478,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                   </p>
                 </div>
                 <div className="space-y-2 border-t border-border pt-6">
-                  <p className={`text-xs font-medium uppercase tracking-[0.14em] ${stepLabelClass}`}>Step 3</p>
+                  <p className={stepLabelClass}>Step 3</p>
                   <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Run tiles command</h2>
                   <p className={bodyTextClass}>
                     Open Terminal and run{" "}

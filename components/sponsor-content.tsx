@@ -169,7 +169,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <p>
                     Tiles is part of{" "}
                     <a
-                      href="https://userandagents.com/"
+                      href="https://userandagents.org/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative top-[0.04em] inline-flex items-center gap-1.5 align-baseline text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"

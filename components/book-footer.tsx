@@ -100,7 +100,7 @@ export function BookFooter() {
               <p className="inline-flex items-center gap-1.5 leading-tight">
                 <span>A</span>
                 <a
-                  href="https://userandagents.com/"
+                  href="https://userandagents.org/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="U&A"
@@ -231,7 +231,7 @@ export function BookFooter() {
             <p className="inline-flex items-center gap-1.5 leading-tight">
               <span>A</span>
               <a
-                href="https://userandagents.com/"
+                href="https://userandagents.org/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="U&A"
