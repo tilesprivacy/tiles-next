@@ -60,7 +60,7 @@ export function ProductFeatureWidgets({
   const featureLinkClass = variant === "home" ? homeFeatureLinkClass : bookFeatureLinkClass
   const gridClass =
     variant === "home"
-      ? "grid grid-cols-2 gap-x-4 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-4 min-[1180px]:grid-cols-7"
+      ? "grid grid-cols-2 gap-x-4 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-3 min-[1180px]:grid-cols-6"
       : "grid gap-7 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12"
 
   return (
@@ -140,36 +140,38 @@ export function ProductFeatureWidgets({
         Fully offline installer for secure, air-gapped installations.
       </FeatureWidget>
 
-      <FeatureWidget
-        variant={variant}
-        icon={<FileCode strokeWidth={1.75} />}
-        title={
-          <Link
-            href="/book/tilekit"
-            className="inline-flex items-baseline gap-1 !no-underline decoration-transparent hover:!no-underline"
-          >
-            <span>Developer SDK</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              className="inline-block h-2.5 w-2.5 align-baseline opacity-70"
-              aria-hidden="true"
+      {variant === "book" ? (
+        <FeatureWidget
+          variant={variant}
+          icon={<FileCode strokeWidth={1.75} />}
+          title={
+            <Link
+              href="/book/tilekit"
+              className="inline-flex items-baseline gap-1 !no-underline decoration-transparent hover:!no-underline"
             >
-              <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
-        }
-      >
-        Use Tilekit as an app-server runtime to integrate identity, memory, sync, and agents in your own app,
-        built with standards like{" "}
-        <a href="https://www.openresponses.org" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          Open Responses API
-        </a>
-        .
-      </FeatureWidget>
+              <span>Developer SDK</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                className="inline-block h-2.5 w-2.5 align-baseline opacity-70"
+                aria-hidden="true"
+              >
+                <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+          }
+        >
+          Use Tilekit as an app-server runtime to integrate identity, memory, sync, and agents in your own app,
+          built with standards like{" "}
+          <a href="https://www.openresponses.org" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
+            Open Responses API
+          </a>
+          .
+        </FeatureWidget>
+      ) : null}
     </div>
   )
 }
