@@ -2,6 +2,7 @@
 
 import {
   AlertCircle,
+  Brain,
   Check,
   ChevronDown,
   Copy,
@@ -512,6 +513,7 @@ function ReasoningDisclosure({ content }: { content: string }) {
         className="group flex w-full items-center gap-2 text-left text-[0.95rem] font-medium leading-6 text-black/60 transition-colors hover:text-black/80 dark:text-white/60 dark:hover:text-white/80"
         aria-expanded={expanded}
       >
+        <Brain className="h-4 w-4 shrink-0" aria-hidden />
         <span>Reasoning details</span>
         <ChevronDown
           className={`h-4 w-4 transition-transform group-hover:text-black/70 dark:group-hover:text-white/60 ${expanded ? "rotate-180" : ""}`}
