@@ -15,11 +15,6 @@ import {
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
 import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
-import {
-  AT_PROTO_LABEL,
-  productDescriptionAfterAtProtoLink,
-  productDescriptionBeforeAtProtoLink,
-} from "@/lib/product-description"
 
 const featureCards = [
   {
@@ -231,22 +226,10 @@ export function HomeContent() {
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 sm:gap-14 lg:gap-16">
           <div className="grid w-full items-center gap-8 sm:gap-12 lg:flex-1 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
-              <div className="mx-auto w-[88%] max-w-[26rem] space-y-3.5 lg:mx-0 lg:w-full lg:space-y-4">
-                <h1 className="mx-auto max-w-[17ch] text-balance font-sans text-[clamp(2.35rem,7vw,4rem)] font-semibold leading-[1.06] tracking-[-0.03em] text-foreground lg:mx-0 lg:max-w-[12ch]">
-                  Own your AI
+              <div className="mx-auto w-[88%] max-w-[26rem] lg:mx-0 lg:w-full">
+                <h1 className="mx-auto max-w-[20ch] text-balance font-sans text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.02em] text-foreground lg:mx-0 lg:max-w-[19ch]">
+                  Own your AI with local models and open protocols
                 </h1>
-                <p className="mx-auto max-w-[31rem] text-[0.97rem] leading-[1.58] text-black/55 dark:text-[#ABABAB] sm:text-[1.03rem] lg:mx-0 lg:max-w-[26rem] lg:text-[1.05rem]">
-                  {productDescriptionBeforeAtProtoLink()}
-                  <a
-                    href="https://atproto.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-                  >
-                    {AT_PROTO_LABEL}
-                  </a>
-                  {productDescriptionAfterAtProtoLink()}
-                </p>
               </div>
 
               <div className="flex w-full flex-col items-center gap-5 lg:items-start lg:gap-5">
