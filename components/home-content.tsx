@@ -238,14 +238,14 @@ export function HomeContent() {
                   Own your AI with local models and open protocols
                 </h1>
                 <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
-                  Run models locally. Sync chats privately across your devices, and share them with{" "}
+                  Run models locally. Sync chats privately across your devices, and share them publicly or privately with{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
                   >
-                    AT Protocol
+                    ATProto
                   </a>
                   .
                 </p>
