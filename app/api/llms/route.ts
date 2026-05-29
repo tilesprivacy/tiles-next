@@ -64,7 +64,7 @@ export async function GET(request: Request) {
   lines.push('Use the links below to fetch canonical page content; each list item includes a short note for quick routing.')
   lines.push('')
   addSection(lines, 'Core Pages', [
-    `- [Homepage](${baseUrl}/): Product positioning and core value proposition.`,
+    `- [Homepage](${baseUrl}/): Product positioning, Why Tiles summary, and core value proposition.`,
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,

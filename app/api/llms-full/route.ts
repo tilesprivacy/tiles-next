@@ -90,6 +90,7 @@ export async function GET(request: Request) {
     'Tiles',
     TILES_PRODUCT_DESCRIPTION,
     'Current status: CLI alpha.',
+    'Why Tiles: local AI that feels complete, with an opinionated model/harness pair, private P2P sync across devices, built-in sharing with ATProto for collaboration, and an offline installer that bundles the model for air-gapped installations.',
     `Linux availability form: ${baseUrl}/linux`,
   ])
 

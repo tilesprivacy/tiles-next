@@ -116,6 +116,13 @@ const featureCards = [
 
 const showTechCircuitBackground = false
 
+const whyTilesBullets = [
+  "An opinionated model/harness pair, tuned as one complete assistant instead of endless configuration.",
+  "Private P2P sync keeps your chats available across your own devices.",
+  "Built-in sharing lets conversations move into public or private collaboration with ATProto.",
+  "Offline installer bundles the model for air-gapped installations.",
+] as const
+
 function TechCircuitBackground() {
   return (
     <svg
@@ -225,7 +232,7 @@ export function HomeContent() {
       <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(6.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(5.75rem+env(safe-area-inset-top,0px))] lg:pb-24">
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 sm:gap-14 lg:gap-16">
           <div className="grid w-full items-center gap-8 sm:gap-12 lg:flex-1 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
-            <div className="relative z-10 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
+            <div className="relative z-10 order-2 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:order-1 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] lg:mx-0 lg:w-full">
                 <h1 className="mx-auto max-w-[20ch] text-balance font-sans text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.02em] text-foreground lg:mx-0 lg:max-w-[19ch]">
                   Own your AI with local models and open protocols
@@ -284,7 +291,7 @@ export function HomeContent() {
               />
             </div>
 
-            <div className="relative order-2 mb-0 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
+            <div className="relative order-1 mb-0 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
               <div className="relative mx-auto w-full max-w-[20rem] min-[360px]:max-w-[23rem] min-[430px]:max-w-[28rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"
@@ -315,6 +322,28 @@ export function HomeContent() {
           </div>
         </div>
       </main>
+
+      <section className="relative z-10 px-4 pb-10 pt-8 min-[390px]:px-5 sm:px-6 sm:pb-14 sm:pt-10 lg:px-12 lg:pb-16 lg:pt-8">
+        <div className="mx-auto grid w-full max-w-6xl gap-7 py-4 sm:gap-8 sm:py-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:py-8">
+          <div className="max-w-[28rem] space-y-3.5">
+            <h2 className="text-balance text-[clamp(1.95rem,5.4vw,2.65rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
+              Why Tiles
+            </h2>
+            <p className="text-[1rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF]">
+              Local AI that feels complete.
+            </p>
+          </div>
+
+          <ul className="grid gap-4 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-5">
+            {whyTilesBullets.map((bullet) => (
+              <li key={bullet} className="flex gap-3 text-[0.96rem] leading-[1.55] text-black/64 dark:text-[#B5B5B5]">
+                <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-black/34 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section className="relative z-10 px-4 pb-16 pt-10 min-[390px]:px-5 sm:px-6 sm:pb-20 sm:pt-20 lg:px-12 lg:pb-24 lg:pt-24">
         <div className="mx-auto w-full max-w-6xl space-y-20 sm:space-y-16 lg:space-y-20">
@@ -397,15 +426,15 @@ export function HomeContent() {
             </h2>
             <ul className="max-w-[42rem] space-y-4 sm:space-y-5">
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
-                <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/28 dark:bg-white/34" aria-hidden />
                 <span>You control who hosts your Personal Data Server (PDS).</span>
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
-                <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/28 dark:bg-white/34" aria-hidden />
                 <span>Apps connect to you, not the other way around</span>
               </li>
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
-                <Check className="h-3.5 w-3.5 shrink-0 text-black/33 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/28 dark:bg-white/34" aria-hidden />
                 <span>No starting over when apps change or disappear</span>
               </li>
             </ul>
