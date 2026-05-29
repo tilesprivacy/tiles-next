@@ -232,11 +232,15 @@ export function HomeContent() {
       <main className="flex min-h-[100svh] px-4 pb-14 pt-[calc(6.75rem+env(safe-area-inset-top,0px))] min-[390px]:px-5 sm:min-h-[100dvh] sm:px-6 sm:pb-20 sm:pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:min-h-[calc(100dvh-9rem)] lg:px-12 lg:pt-[calc(5.75rem+env(safe-area-inset-top,0px))] lg:pb-24">
         <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-10 sm:gap-14 lg:gap-16">
           <div className="grid w-full items-center gap-8 sm:gap-12 lg:flex-1 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
-            <div className="relative z-10 order-2 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:order-1 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
+            <div className="relative z-10 order-1 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] lg:mx-0 lg:w-full">
                 <h1 className="mx-auto max-w-[20ch] text-balance font-sans text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.02em] text-foreground lg:mx-0 lg:max-w-[19ch]">
-                  Own your AI with local models and open protocols
+                  Own your AI
                 </h1>
+                <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
+                  Run AI on your device, sync chats privately across your devices, and share them through open protocols
+                  you control.
+                </p>
               </div>
 
               <div className="flex w-full flex-col items-center gap-5 lg:items-start lg:gap-5">
@@ -291,7 +295,7 @@ export function HomeContent() {
               />
             </div>
 
-            <div className="relative order-1 mb-0 flex w-full items-center justify-center sm:mb-8 lg:order-2 lg:mb-0 lg:justify-end">
+            <div className="relative order-2 mb-0 flex w-full items-center justify-center sm:mb-8 lg:mb-0 lg:justify-end">
               <div className="relative mx-auto w-full max-w-[20rem] min-[360px]:max-w-[23rem] min-[430px]:max-w-[28rem] sm:max-w-[32rem] lg:mx-0 lg:max-w-[37rem] xl:max-w-[39rem]">
                 <Image
                   src="/wireframe.webp"

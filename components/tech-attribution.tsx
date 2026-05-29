@@ -182,7 +182,7 @@ export function TechAttribution({
                 : "leading-5"
         }
       >
-        Powered by
+        Built with
       </span>
       <TechLogo
         href="https://www.rust-lang.org"
