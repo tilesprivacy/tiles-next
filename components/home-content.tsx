@@ -235,10 +235,10 @@ export function HomeContent() {
             <div className="relative z-10 order-1 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] lg:mx-0 lg:w-full">
                 <h1 className="mx-auto max-w-[20ch] text-balance font-sans text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.02em] text-foreground lg:mx-0 lg:max-w-[19ch]">
-                  Own your AI with local models and open protocols
+                  Own your AI
                 </h1>
                 <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
-                  Run models locally. Sync chats privately across your devices, and share them publicly or privately with{" "}
+                  Run models on-device, sync chats across your devices, and share them with{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
@@ -246,8 +246,8 @@ export function HomeContent() {
                     className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
                   >
                     ATProto
-                  </a>
-                  .
+                  </a>{" "}
+                  while your data and identity stays local.
                 </p>
               </div>
 
@@ -282,12 +282,6 @@ export function HomeContent() {
                     className="text-[0.79rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.84rem]"
                   >
                     Join the Linux waitlist
-                  </Link>
-                  <Link
-                    href="/book/overview#private-ai-comparison"
-                    className="text-[0.79rem] font-medium text-black/54 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black/74 hover:decoration-black/40 dark:text-[#9D9D9D] dark:decoration-white/20 dark:hover:text-white/82 dark:hover:decoration-white/40 sm:text-[0.84rem]"
-                  >
-                    Compare with Ollama and others
                   </Link>
                 </div>
               </div>
