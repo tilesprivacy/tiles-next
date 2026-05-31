@@ -669,18 +669,18 @@ function ShareFloatingDownloadBar({
               : "border-black/10 bg-white/95"
           }`}
         >
-          <Link
-            href="/"
-            className="flex min-w-0 flex-1 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5"
-          >
-            <Image
-              src="/icon-mark-transparent-white.svg"
-              alt="Tiles"
-              width={40}
-              height={40}
-              className={`h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7 ${isDark ? "" : "invert"}`}
-            />
-            <span className="inline-flex min-w-0 flex-1 items-baseline gap-1.5 sm:gap-2">
+          <div className="flex min-w-0 flex-1 items-center gap-1.5 sm:gap-2">
+            <Link
+              href="/"
+              className="inline-flex shrink-0 items-center gap-2 transition-opacity hover:opacity-85 sm:gap-2.5"
+            >
+              <Image
+                src="/icon-mark-transparent-white.svg"
+                alt="Tiles"
+                width={40}
+                height={40}
+                className={`h-6 w-6 shrink-0 opacity-90 sm:h-7 sm:w-7 ${isDark ? "" : "invert"}`}
+              />
               <span
                 className={`shrink-0 text-sm font-semibold leading-none tracking-[-0.01em] sm:text-base ${
                   isDark ? "text-[#e7e7ed]" : "text-[#1d1d1f]"
@@ -688,6 +688,8 @@ function ShareFloatingDownloadBar({
               >
                 Tiles
               </span>
+            </Link>
+            <span className="inline-flex min-w-0 items-baseline">
               <span
                 className={`ml-0.5 hidden min-w-0 truncate text-xs leading-none min-[430px]:inline sm:hidden ${
                   isDark ? "text-white/55" : "text-black/55"
@@ -703,7 +705,7 @@ function ShareFloatingDownloadBar({
                 Own your AI
               </span>
             </span>
-          </Link>
+          </div>
           <div className="flex shrink-0 items-center gap-1 sm:gap-2">
             <button
               type="button"
@@ -998,7 +1000,7 @@ export function ShareSessionClient({
       className={`${isDark ? "dark bg-[#1f1f1f] text-[#E6E6E8]" : "bg-[#fbfbfd] text-[#1d1d1f]"} flex h-[100dvh] overflow-hidden px-4 pb-[max(1rem,env(safe-area-inset-bottom,0px))] pt-[calc(1rem+env(safe-area-inset-top,0px))] print:h-auto print:overflow-visible print:pb-0 sm:px-6 lg:px-8 lg:pt-[calc(1.25rem+env(safe-area-inset-top,0px))]`}
     >
       <section className="mx-auto flex min-h-0 w-full max-w-4xl flex-1 flex-col overflow-hidden">
-        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] print:overflow-visible print:pb-4">
+        <div className="native-scrollbar min-h-0 flex-1 overflow-y-auto overflow-x-hidden pb-[calc(4.5rem+env(safe-area-inset-bottom,0px))] [scrollbar-gutter:stable] print:overflow-visible print:pb-4">
           <div className="mx-auto flex min-h-full w-full max-w-3xl flex-col overflow-x-hidden">
             <header className="relative flex flex-col gap-3 px-4 pb-7 pt-4 pr-[5.75rem] print:flex-row print:flex-nowrap print:items-start print:justify-between print:gap-x-6 print:px-2 print:pr-2 sm:px-5 sm:pb-8 sm:pr-[6.25rem] sm:pt-4">
               <SharePageQrCode
