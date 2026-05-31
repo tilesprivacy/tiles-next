@@ -18,6 +18,7 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/tilekit', title: 'Tilekit' },
   { route: '/book/mir', title: 'MIR Extension' },
   { route: '/book/security', title: 'Security' },
+  { route: '/book/research', title: 'Research' },
   { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
   // { route: '/book/licenses', title: 'Licenses' },

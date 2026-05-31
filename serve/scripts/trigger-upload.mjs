@@ -91,10 +91,6 @@ if (command === "upload-file") {
   const resumePartsArg = getFlagValue("--parts");
   const partsOutArg = getFlagValue("--parts-out");
 
-  if (partsOutArg.length == 0) {
-    console.error("Please provide path to store the metadata to resume upload")
-    return;
-  }
   if (!localFilePath) {
     console.error(
       [
@@ -135,9 +131,7 @@ if (command === "upload-file") {
     // Large files are uploaded via multipart requests through the Worker.
     let uploadId = resumeUploadId;
     let parts = [];
-    // const partsFilePath = "/Users/tiles/Documents/cf_pkg.parts.json";
-      // resumePartsArg ?? partsOutArg ?? `${localFilePath}.parts.json`;
-    const partsFilePath = partsOutArg;
+    const partsFilePath = partsOutArg ?? `${localFilePath}.parts.json`;
     if (resumeUploadId) {
       if (!resumePartsArg) {
         throw new Error("Missing --parts for resume. Provide a path to a JSON file.");

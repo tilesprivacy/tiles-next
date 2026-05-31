@@ -68,7 +68,7 @@ export async function GET(request: Request) {
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
-    `- [Research](${baseUrl}/research): ${RESEARCH_PAGE_INTRO}`,
+    `- [Research](${baseUrl}/book/research): ${RESEARCH_PAGE_INTRO}`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
     `- [Linux waitlist form](${baseUrl}/linux): Linux availability notifications form.`,

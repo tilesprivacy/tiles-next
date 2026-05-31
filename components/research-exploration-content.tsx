@@ -115,7 +115,7 @@ export function ResearchExplorationContent({
 
           <ArticleShareAndNewsletter
             title={entry.title}
-            moreLinkHref="/research"
+            moreLinkHref="/book/research"
             moreLinkLabel="more research explorations"
           />
         </div>

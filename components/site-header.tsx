@@ -62,9 +62,11 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       : "!text-black"
   const navItemHeightClass = "h-8"
   const navTextMetricsClass = "text-[0.94rem] font-normal leading-5 tracking-[-0.006em]"
-  const wordmarkTextMetricsClass = "text-[1.04rem] font-medium leading-5 tracking-[-0.005em]"
-  const mobileProminentWordmarkClass =
-    "text-[1.22rem] font-semibold leading-6 tracking-[-0.012em] lg:text-[1.04rem] lg:font-medium lg:leading-5 lg:tracking-[-0.005em]"
+  const previewLabelClass = isSharePage
+    ? "text-[#EDEDEF]/62"
+    : themeAware
+      ? "text-foreground/56"
+      : "text-black/56"
   const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-0.5 ${navTextMetricsClass} ${desktopLinkTone} transition-colors duration-200 ${textColorHover}`
   const mobileMenuTopOffsetClass = isBannerVisible
     ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
@@ -81,7 +83,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     if (href === "/roadmap") return pathname === "/roadmap" || pathname.startsWith("/roadmap/")
     if (href === "/releases") return pathname === "/releases" || pathname.startsWith("/releases/")
     if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
-    if (href === "/research") return pathname === "/research" || pathname.startsWith("/research/")
     if (href === "/sponsor") return pathname === "/sponsor" || pathname.startsWith("/sponsor/")
     if (href === "/download") return pathname === "/download" || pathname.startsWith("/download/")
     return pathname === href
@@ -158,8 +159,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
                 )}
               </span>
-              <span className={`hidden lg:inline-flex ${wordmarkTextMetricsClass} ${textColor}`}>
-                Tiles
+              <span className={`inline-flex items-center text-[0.68rem] font-medium leading-4 tracking-[0.04em] ${previewLabelClass}`}>
+                Research Preview
               </span>
             </Link>
 
@@ -196,7 +197,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             <nav className="hidden min-w-max items-center gap-8 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 xl:gap-10">
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
-              <Link href="/research" className={`${baseLinkClass} ${isRouteActive("/research") ? activeLinkClass : ""}`}>Research</Link>
               <Link href="/roadmap" className={`${baseLinkClass} ${isRouteActive("/roadmap") ? activeLinkClass : ""}`}>Roadmap</Link>
               <Link href="/releases" className={`${baseLinkClass} ${isRouteActive("/releases") ? activeLinkClass : ""}`}>Releases</Link>
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
@@ -239,6 +239,9 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
               )}
             </span>
+            <span className={`inline-flex items-center text-[0.68rem] font-medium leading-4 tracking-[0.04em] ${previewLabelClass}`}>
+              Research Preview
+            </span>
           </Link>
           <div className="flex items-center gap-1.5 sm:gap-2">
             {showMobileDownloadCta ? (
@@ -271,7 +274,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
           <Link href="/book" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Book</Link>
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
-          <Link href="/research" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Research</Link>
           <Link href="/roadmap" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Roadmap</Link>
           <Link href="/releases" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Releases</Link>
           <Link href="/sponsor" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Sponsor</Link>

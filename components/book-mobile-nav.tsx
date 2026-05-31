@@ -46,12 +46,18 @@ const bookPages: BookPage[] = [
   },
   {
     number: '07',
+    title: 'Research',
+    description: 'Progressive experiments exploring decentralized software technologies for privacy adoption at scale.',
+    href: '/book/research',
+  },
+  {
+    number: '08',
     title: 'Community',
     description: 'See how you can make Tiles better.',
     href: '/book/community',
   },
   {
-    number: '08',
+    number: '09',
     title: 'Resources',
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',

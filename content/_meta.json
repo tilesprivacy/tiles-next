@@ -48,6 +48,13 @@
       "timestamp": true
     }
   },
+  "research": {
+    "title": "Research",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "community": {
     "title": "Community",
     "theme": {

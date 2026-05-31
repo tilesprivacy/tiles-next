@@ -427,6 +427,11 @@
   scroll-margin-top: calc(5.5rem + env(safe-area-inset-top, 0px) + 1rem);
 }
 
+.book-research-page a,
+.book-research-page a:hover {
+  text-decoration: none !important;
+}
+
 @media (min-width: 1280px) {
   .research-page-content :where(h2, h3, h4)[id] {
     scroll-margin-top: calc(7rem + env(safe-area-inset-top, 0px) + 1rem);

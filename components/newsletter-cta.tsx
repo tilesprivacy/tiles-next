@@ -48,7 +48,11 @@ export function NewsletterCta({ surface = "auto", className, formClassName }: Ne
           </a>
         </div>
         <p className={cn("text-[0.84rem] leading-6", textClass)}>
-          Get updates on releases, privacy research, and performance engineering.
+          Follow development in{" "}
+          <a href="https://go.tiles.run/discord" className={cn("underline transition-colors", linkClass)}>
+            Discord
+          </a>{" "}
+          or via email.
         </p>
       </div>
       <NewsletterForm surface={surface} className={cn("w-full lg:max-w-[24rem]", formClassName)} />
