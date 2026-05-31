@@ -307,6 +307,22 @@ export function HomeContent() {
                   className="h-auto w-full drop-shadow-[0_24px_60px_rgba(0,0,0,0.12)] dark:drop-shadow-none"
                   priority
                 />
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-[8%] sm:px-[9%]">
+                  <Image
+                    src="/tiles_banner_outline_blk.svg"
+                    alt="Tiles"
+                    width={1200}
+                    height={220}
+                    className="h-auto w-full max-w-[11.8rem] min-[360px]:max-w-[13.2rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:hidden"
+                  />
+                  <Image
+                    src="/tiles_banner_outline_wht.svg"
+                    alt="Tiles"
+                    width={1200}
+                    height={220}
+                    className="hidden h-auto w-full max-w-[11.8rem] min-[360px]:max-w-[13.2rem] sm:max-w-[16.25rem] lg:max-w-[20.75rem] lg:-translate-y-1 dark:block"
+                  />
+                </div>
               </div>
             </div>
           </div>
