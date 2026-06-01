@@ -62,11 +62,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
       : "!text-black"
   const navItemHeightClass = "h-8"
   const navTextMetricsClass = "text-[0.94rem] font-normal leading-5 tracking-[-0.006em]"
-  const previewLabelClass = isSharePage
-    ? "text-[#EDEDEF]/62"
-    : themeAware
-      ? "text-foreground/56"
-      : "text-black/56"
   const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-0.5 ${navTextMetricsClass} ${desktopLinkTone} transition-colors duration-200 ${textColorHover}`
   const mobileMenuTopOffsetClass = isBannerVisible
     ? "top-[calc(2rem+env(safe-area-inset-top,0px))] lg:top-[calc(2.25rem+env(safe-area-inset-top,0px))]"
@@ -81,7 +76,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
 
   const isRouteActive = (href: string) => {
     if (href === "/book") return pathname === "/book" || pathname.startsWith("/book/")
-    if (href === "/roadmap") return pathname === "/roadmap" || pathname.startsWith("/roadmap/")
     if (href === "/releases") return pathname === "/releases" || pathname.startsWith("/releases/")
     if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (href === "/sponsor") return pathname === "/sponsor" || pathname.startsWith("/sponsor/")
@@ -138,30 +132,31 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               href="/"
               onClick={onHomeClick}
               className={brandLinkClass}
+              aria-label="Tiles"
             >
               <span className="relative inline-flex shrink-0">
                 {isHomePage ? (
                   themeAware ? (
                     <>
-                      <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} />
-                      <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} />
+                      <Image src="/lighticon.png" alt="" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} aria-hidden />
+                      <Image src="/grey.png" alt="" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} aria-hidden />
                     </>
                   ) : (
-                    <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
+                    <Image src="/grey.png" alt="" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} aria-hidden />
                   )
                 ) : isSharePage ? (
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" />
+                  <Image src="/grey.png" alt="" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" aria-hidden />
                 ) : themeAware ? (
                   <>
-                    <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} />
-                    <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} />
+                    <Image src="/lighticon.png" alt="" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} aria-hidden />
+                    <Image src="/grey.png" alt="" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block lg:h-9 lg:w-9`} aria-hidden />
                   </>
                 ) : (
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} />
+                  <Image src="/grey.png" alt="" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} aria-hidden />
                 )}
               </span>
-              <span className={`inline-flex items-center text-[0.68rem] font-medium leading-4 tracking-[0.04em] ${previewLabelClass}`}>
-                Research Preview
+              <span className="inline-flex items-center text-xl font-semibold leading-none tracking-[-0.02em] text-foreground lg:text-lg">
+                Tiles
               </span>
             </Link>
 
@@ -228,19 +223,20 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             href="/"
             onClick={onCloseMobileMenu}
             className={brandLinkClass}
+            aria-label="Tiles"
           >
             <span className="relative inline-flex shrink-0">
               {themeAware ? (
                 <>
-                  <Image src="/lighticon.png" alt="Tiles" width={56} height={56} className={`${mobileLogoClass} dark:hidden`} />
-                  <Image src="/grey.png" alt="Tiles" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block`} />
+                  <Image src="/lighticon.png" alt="" width={56} height={56} className={`${mobileLogoClass} dark:hidden`} aria-hidden />
+                  <Image src="/grey.png" alt="" width={56} height={56} className={`hidden ${mobileLogoClass} dark:block`} aria-hidden />
                 </>
               ) : (
-                <Image src="/grey.png" alt="Tiles" width={56} height={56} className={mobileLogoClass} />
+                <Image src="/grey.png" alt="" width={56} height={56} className={mobileLogoClass} aria-hidden />
               )}
             </span>
-            <span className={`inline-flex items-center text-[0.68rem] font-medium leading-4 tracking-[0.04em] ${previewLabelClass}`}>
-              Research Preview
+            <span className="inline-flex items-center text-xl font-semibold leading-none tracking-[-0.02em] text-foreground">
+              Tiles
             </span>
           </Link>
           <div className="flex items-center gap-1.5 sm:gap-2">
@@ -274,7 +270,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
           <Link href="/book" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Book</Link>
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
-          <Link href="/roadmap" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Roadmap</Link>
           <Link href="/releases" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Releases</Link>
           <Link href="/sponsor" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Sponsor</Link>
         </nav>
