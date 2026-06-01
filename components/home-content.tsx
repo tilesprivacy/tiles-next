@@ -250,7 +250,8 @@ export function HomeContent() {
                   Own your AI
                 </h1>
                 <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
-                  Run models on-device, sync chats across your devices, and share them with{" "}
+                  Run models on-device, sync chats across your devices with P2P encrypted sync,
+                  and share them via{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
@@ -259,7 +260,7 @@ export function HomeContent() {
                   >
                     ATProto
                   </a>{" "}
-                  while your data and identity stays local.
+                  while your data and identity stay local.
                 </p>
               </div>
 
