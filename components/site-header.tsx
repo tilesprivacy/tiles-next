@@ -198,7 +198,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             <nav className="hidden min-w-max items-center gap-8 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 xl:gap-10">
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
-              <Link href="/roadmap" className={`${baseLinkClass} ${isRouteActive("/roadmap") ? activeLinkClass : ""}`}>Roadmap</Link>
               <Link href="/releases" className={`${baseLinkClass} ${isRouteActive("/releases") ? activeLinkClass : ""}`}>Releases</Link>
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
             </nav>

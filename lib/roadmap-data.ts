@@ -81,7 +81,6 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Sandbox", status: "active" },
       { label: "Privacy Filter for shared sessions", status: "planned" },
       { label: "Runtime hardening", status: "planned" },
-      { label: "Post-quantum cryptography", status: "planned" },
     ],
   },
 ]
