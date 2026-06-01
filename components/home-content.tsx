@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { AtSign, Check, Copy, Download } from "lucide-react"
+import { ArrowRight, AtSign, Check, Copy, Download } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -234,6 +234,18 @@ export function HomeContent() {
           <div className="grid w-full items-center gap-8 sm:gap-12 lg:flex-1 lg:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] lg:gap-11 xl:gap-14">
             <div className="relative z-10 order-1 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] lg:mx-0 lg:w-full">
+                <a
+                  href="https://youtu.be/UmJuJlWMn0k?si=4_A4UI2QwCtpXnpQ"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mx-auto mb-5 inline-flex max-w-full items-center gap-1.5 rounded-sm border border-black/5 bg-black/[0.035] px-3 py-1.5 text-[0.68rem] font-medium leading-tight text-foreground/75 shadow-none transition-colors hover:bg-black/[0.06] hover:text-foreground dark:border-white/5 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] sm:px-3.5 sm:text-[0.74rem] lg:mx-0"
+                >
+                  <span>Watch our talk at MLX India Community Meetup</span>
+                  <ArrowRight
+                    className="h-3 w-3 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
+                    aria-hidden
+                  />
+                </a>
                 <h1 className="mx-auto max-w-[20ch] text-balance font-sans text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.02em] text-foreground lg:mx-0 lg:max-w-[19ch]">
                   Own your AI
                 </h1>
