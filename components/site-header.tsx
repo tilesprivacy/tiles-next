@@ -75,6 +75,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   const mobileIconButtonClass = `inline-flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60 ${textColor}`
   const mobileMenuGlyphColorClass = isSharePage ? "bg-[#EDEDEF]" : themeAware ? "bg-foreground" : "bg-black"
   const mobileMenuLinkClass = `inline-flex min-h-11 items-center text-[1.7rem] font-normal leading-[1.2] tracking-[-0.015em] ${textColor} transition-colors ${textColorHover}`
+  const brandLinkClass = "flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-75"
   const mobileInlinePaddingClass =
     "px-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] sm:px-[max(1.25rem,env(safe-area-inset-left,0px))] sm:pr-[max(1.25rem,env(safe-area-inset-right,0px))]"
 
@@ -136,7 +137,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             <Link
               href="/"
               onClick={onHomeClick}
-              className="flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-75"
+              className={brandLinkClass}
             >
               <span className="relative inline-flex shrink-0">
                 {isHomePage ? (
@@ -227,7 +228,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Link
             href="/"
             onClick={onCloseMobileMenu}
-            className="flex shrink-0 items-center gap-2 transition-opacity hover:opacity-75"
+            className={brandLinkClass}
           >
             <span className="relative inline-flex shrink-0">
               {themeAware ? (
