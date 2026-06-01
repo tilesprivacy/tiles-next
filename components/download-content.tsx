@@ -476,6 +476,22 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     Open the downloaded installer and complete the install wizard. The installer adds the{" "}
                     <code className={`rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>tiles</code> command to your system.
                   </p>
+                  <div className="mt-5">
+                    <Image
+                      src="/installer.png"
+                      alt="Tiles installer setup window"
+                      width={1244}
+                      height={904}
+                      className="h-auto w-full rounded-sm dark:hidden"
+                    />
+                    <Image
+                      src="/darkinstaller.png"
+                      alt="Tiles installer setup window"
+                      width={1244}
+                      height={904}
+                      className="hidden h-auto w-full rounded-sm dark:block"
+                    />
+                  </div>
                 </div>
                 <div className="space-y-2 border-t border-border pt-6">
                   <p className={stepLabelClass}>Step 3</p>
