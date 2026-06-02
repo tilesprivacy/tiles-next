@@ -89,9 +89,9 @@ export async function GET(request: Request) {
   pushSection(lines, `Homepage (${baseUrl}/)`, [
     'Tiles',
     TILES_PRODUCT_DESCRIPTION,
-    'Hero subtext: Run AI on your device, sync chats privately across your devices, and share them through open protocols you control.',
+    'Hero subtext: For sensitive knowledge work, from client strategy to research you cannot put in the cloud: run models locally, sync with P2P encrypted sync, and share via ATProto while your data and identity stay private.',
     'Current status: CLI alpha.',
-    'Why Tiles: local AI that feels complete, with an opinionated model/harness pair, private P2P sync across devices, built-in sharing with ATProto for collaboration, and an offline installer that bundles the model for air-gapped installations.',
+    'Why Tiles: sensitive knowledge work stays private on your machines, with secure collaboration built in; out-of-the-box on first open without API keys, model or harness selection, sync sessions and work across devices without leaking data to a cloud vendor, share chats publicly or privately without copy-pasting threads elsewhere, Offline Installer bundles the model for air-gapped use.',
     `Linux availability form: ${baseUrl}/linux`,
   ])
 

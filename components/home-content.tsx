@@ -117,10 +117,10 @@ const featureCards = [
 const showTechCircuitBackground = false
 
 const whyTilesBullets = [
-  "An opinionated model/harness pair, tuned as one complete assistant instead of endless configuration.",
-  "Private P2P sync keeps your chats available across your own devices.",
-  "Built-in sharing lets conversations move into public or private collaboration with ATProto.",
-  "Offline installer bundles the model for air-gapped installations.",
+  "Out-of-the-box experience, ready on first open without API keys, model or harness selection.",
+  "Sync sessions and work across devices without leaking data to a cloud vendor.",
+  "Share chats publicly or privately without copy-pasting the thread elsewhere.",
+  "Offline Installer bundles the model for air-gapped use.",
 ] as const
 
 function TechCircuitBackground() {
@@ -250,8 +250,8 @@ export function HomeContent() {
                   Own your AI
                 </h1>
                 <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
-                  Run models on-device, sync chats across your devices with P2P encrypted sync,
-                  and share them via{" "}
+                  For sensitive knowledge work, from client strategy to research you cannot put in the cloud: run
+                  models locally, sync with P2P encrypted sync, and share via{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
@@ -260,7 +260,7 @@ export function HomeContent() {
                   >
                     ATProto
                   </a>{" "}
-                  while your data and identity stay local.
+                  while your data and identity stay private.
                 </p>
               </div>
 
@@ -349,7 +349,7 @@ export function HomeContent() {
               Why Tiles
             </h2>
             <p className="text-[1rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF]">
-              Local AI that feels complete.
+              Sensitive knowledge work stays private on your machines, with secure collaboration built in.
             </p>
           </div>
 
