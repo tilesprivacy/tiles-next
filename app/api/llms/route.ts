@@ -68,6 +68,7 @@ export async function GET(request: Request) {
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
+    `- [Support](${baseUrl}/support): Support routes, issue reporting guidance, Discord, releases, downloads, and status links.`,
     `- [Research](${baseUrl}/book/research): ${RESEARCH_PAGE_INTRO}`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
@@ -103,6 +104,7 @@ export async function GET(request: Request) {
 
   addSection(lines, 'Community And Feeds', [
     '- [Discord community](https://go.tiles.run/discord): Community support and discussion channel.',
+    `- [Support page](${baseUrl}/support): Start here for documentation, GitHub issue reporting, Discord help, releases, downloads, and status.`,
     `- [RSS feed](${baseUrl}/api/rss): Syndicated feed for blog content.`,
     `- [GitHub organization](https://github.com/tilesprivacy): Source code and issue tracking.`,
   ])

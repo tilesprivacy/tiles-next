@@ -115,6 +115,15 @@ export async function GET(request: Request) {
     'Tiles focuses on privacy-focused engineering and practical consumer experience.',
   ])
 
+  pushSection(lines, `Support (${baseUrl}/support)`, [
+    'Get help.',
+    'Find the shortest path from stuck to moving again.',
+    'Documentation: install Tiles, read the manual, check Tilekit docs, and get unstuck on setup.',
+    'GitHub Issues: report reproducible bugs, request features, and track fixes in the open.',
+    'Discord: fast async help from users and maintainers when you need a quick route forward.',
+    'Support FAQ: include Tiles version, operating system version, exact output, screenshots if useful, and the shortest reproduction steps for bug reports. Feature requests should include workflow context, current workaround, and the outcome you want. Releases has all versions and download links. Download has the latest version. Status has service availability.',
+  ])
+
   pushSection(lines, `Blog Index (${baseUrl}/blog)`, [
     'The Tiles Blog',
     'Privacy technology for everyone.',
@@ -154,6 +163,7 @@ export async function GET(request: Request) {
     `- Research: ${baseUrl}/book/research`,
     `- Roadmap: ${baseUrl}/roadmap`,
     `- Sponsor: ${baseUrl}/sponsor`,
+    `- Support: ${baseUrl}/support`,
     `- Brand: ${baseUrl}/brand`,
     `- Releases: ${baseUrl}/releases`,
     `- Sub-processors: ${baseUrl}/sub-processors`,
