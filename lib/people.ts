@@ -52,6 +52,7 @@ export const people = {
     { id: "xi-zhang", name: "Xi Zhang @aefhm", links: ["https://www.xizhang.page", "https://x.com/aefhm"] },
     { id: "hugo-duprez", name: "Hugo Duprez @HugoDuprez", links: ["https://www.hugoduprez.com/", "https://x.com/HugoDuprez"] },
     { id: "utkarsh-saxena", name: "Utkarsh Saxena @saxenauts", links: ["https://saxenauts.io/", "https://x.com/saxenauts"] },
+    { id: "devdoshi", name: "Dev Doshi @devdoshi", links: ["https://github.com/devdoshi", "https://x.com/thedevisadev"] },
   ],
   sponsorsPast: [
     { id: "seref-yarar", name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref", "https://github.com/serefyarar"] },

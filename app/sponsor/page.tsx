@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { SponsorContent } from "@/components/sponsor-content"
 
-const SPONSORS_PROGRESS_PERCENT_FALLBACK = "9%"
+const SPONSORS_PROGRESS_PERCENT_FALLBACK = "10%"
 const SPONSORS_GOAL_AMOUNT_MONTHLY = "$3,000 per month"
 
 export const metadata: Metadata = {
