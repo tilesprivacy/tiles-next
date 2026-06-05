@@ -1,11 +1,11 @@
 {
   "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
-  "siteUrl": "https://www.tiles.run",
+  "siteUrl": "https://tiles.run/blog",
   "contentDir": "sequoia-content/blog",
   "imagesDir": "public",
   "publicDir": "public",
   "outputDir": ".next",
-  "pathPrefix": "/blog",
+  "pathPrefix": "",
   "publicationUri": "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.publication/3mnl4h25how2b",
   "pdsUrl": "https://leccinum.us-west.host.bsky.network",
   "frontmatter": {

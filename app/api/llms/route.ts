@@ -91,7 +91,7 @@ export async function GET(request: Request) {
   ])
 
   addSection(lines, 'Blog', [
-    `- [Blog index](${baseUrl}/blog): Blog landing page with all published posts.`,
+    `- [Blog index](${baseUrl}/blog): Blog landing page with all published posts. Posts support the Standard.site lexicon for rich presentation in supported ATProto clients.`,
     ...blogPosts.map((post) => `- [${post.title}](${baseUrl}/blog/${post.slug}): ${post.description}`),
   ])
 

@@ -127,6 +127,7 @@ export async function GET(request: Request) {
   pushSection(lines, `Blog Index (${baseUrl}/blog)`, [
     'The Tiles Blog',
     'Privacy technology for everyone.',
+    'Posts support the Standard.site lexicon for rich presentation in supported ATProto clients: https://standard.site/',
     `Published posts: ${blogPosts.length}`,
   ])
 

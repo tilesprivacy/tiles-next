@@ -131,6 +131,16 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
             <h1 className={`mb-4 ${marketingPageTitleClass}`}>
               Blog
             </h1>
+            <p className={`${marketingPageBodyClass} mb-6 max-w-2xl`}>
+              Posts also support the{" "}
+              <a
+                href="https://standard.site/"
+                className="underline decoration-black/30 underline-offset-4 transition-colors hover:text-black dark:decoration-white/30 dark:hover:text-white"
+              >
+                Standard.site
+              </a>{" "}
+              lexicon for rich presentation in supported ATProto clients.
+            </p>
             <section className="mx-auto w-full max-w-3xl pb-1">
               <NewsletterCta />
             </section>
