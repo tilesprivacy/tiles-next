@@ -132,7 +132,7 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
               Blog
             </h1>
             <p className={`${marketingPageBodyClass} mb-6 max-w-2xl`}>
-              Posts also support the{" "}
+              Posts here use the{" "}
               <a
                 href="https://standard.site/"
                 className="underline decoration-black/30 underline-offset-4 transition-colors hover:text-black dark:decoration-white/30 dark:hover:text-white"
