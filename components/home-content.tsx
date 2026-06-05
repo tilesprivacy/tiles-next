@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, AtSign, Check, Copy, Download } from "lucide-react"
+import { ArrowRight, Check, Copy, Download } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -498,10 +498,9 @@ export function HomeContent() {
             className="mt-8 flex w-full min-w-0 flex-1 items-center justify-center px-6 min-[390px]:px-8 sm:mt-10 sm:px-10 lg:mt-0 lg:items-center lg:justify-center lg:px-0"
             aria-hidden
           >
-            <AtSign
-              className="h-48 w-48 text-black dark:text-white sm:h-52 sm:w-52 lg:h-44 lg:w-44"
-              strokeWidth={1.05}
-              style={{ opacity: 0.12 }}
+            <span
+              className="h-48 w-48 bg-black/15 [mask-image:url('/atmosphere-icon.svg')] [mask-position:center] [mask-repeat:no-repeat] [mask-size:contain] dark:bg-white/16 sm:h-52 sm:w-52 lg:h-44 lg:w-44"
+              aria-hidden
             />
           </div>
         </div>
