@@ -1,0 +1,14 @@
+{
+  "$schema": "https://tangled.org/stevedylan.dev/sequoia/raw/main/sequoia.schema.json",
+  "siteUrl": "https://www.tiles.run",
+  "contentDir": "./standard-site/blog",
+  "imagesDir": "./public",
+  "outputDir": "./.next/server/app",
+  "pathTemplate": "/blog/{slug}",
+  "publicationUri": "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.publication/3mnmiw6ypye2s",
+  "identity": "tiles.run",
+  "publishContent": true,
+  "bluesky": {
+    "enabled": false
+  }
+}
