@@ -1,27 +1,12 @@
 import type { Metadata } from "next"
 import { getPersonById } from "@/lib/people"
 
-const STANDARD_SITE_PUBLICATION_URI = "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.publication/3mnl4h25how2b"
-const STANDARD_SITE_DOCUMENT_URI = "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnl4nj55n22l"
-
 export const metadata: Metadata = {
   title: "Ship it up | Tiles Blog",
   description: "How we package and ship Tiles",
   keywords: ["Tiles", "packaging", "deployment", "software distribution", "venvstacks", "Python packaging"],
   alternates: {
     canonical: "https://www.tiles.run/blog/ship-it-up",
-  },
-  icons: {
-    other: [
-      {
-        rel: "site.standard.publication",
-        url: STANDARD_SITE_PUBLICATION_URI,
-      },
-      {
-        rel: "site.standard.document",
-        url: STANDARD_SITE_DOCUMENT_URI,
-      },
-    ],
   },
   openGraph: {
     title: "Ship it up | Tiles Blog",

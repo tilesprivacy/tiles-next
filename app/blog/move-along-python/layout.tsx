@@ -1,27 +1,12 @@
 import type { Metadata } from "next"
 import { getPersonById } from "@/lib/people"
 
-const STANDARD_SITE_PUBLICATION_URI = "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.publication/3mnl4h25how2b"
-const STANDARD_SITE_DOCUMENT_URI = "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnl4nkzyvj2b"
-
 export const metadata: Metadata = {
   title: "Move Along, Python | Tiles Blog",
   description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
   keywords: ["Python", "venvstacks", "portable runtimes", "Python packaging", "dependency management", "Tiles", "deterministic builds"],
   alternates: {
     canonical: "https://www.tiles.run/blog/move-along-python",
-  },
-  icons: {
-    other: [
-      {
-        rel: "site.standard.publication",
-        url: STANDARD_SITE_PUBLICATION_URI,
-      },
-      {
-        rel: "site.standard.document",
-        url: STANDARD_SITE_DOCUMENT_URI,
-      },
-    ],
   },
   openGraph: {
     title: "Move Along, Python | Tiles Blog",
