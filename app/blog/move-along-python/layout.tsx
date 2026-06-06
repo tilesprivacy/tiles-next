@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         alt: "Move Along, Python",
-        type: "image/jpeg",
+        type: "image/png",
       },
     ],
   },

@@ -4,10 +4,10 @@ import path from "node:path"
 import sequoiaConfig from "../sequoia.json"
 
 export const STANDARD_SITE_PUBLICATION_URI = sequoiaConfig.publicationUri
-export const STANDARD_SITE_PUBLICATION_URL = `${sequoiaConfig.siteUrl}/blog`
+export const STANDARD_SITE_PUBLICATION_URL = sequoiaConfig.siteUrl
 export const STANDARD_SITE_PUBLICATION_WELL_KNOWN_PATH = "/.well-known/site.standard.publication"
 
-const SITE_URL = sequoiaConfig.siteUrl
+const SITE_ORIGIN = new URL(sequoiaConfig.siteUrl).origin
 const DEFAULT_BLOG_OG_IMAGE_PATH = "/og-image.jpg"
 
 const STANDARD_SITE_CONTENT_DIR = path.join(process.cwd(), "standard-site/blog")
@@ -23,15 +23,11 @@ function parseAtUriFromMarkdown(filePath: string): string | undefined {
 }
 
 function toAbsoluteSiteUrl(assetPath: string): string {
-  return assetPath.startsWith("http") ? assetPath : `${SITE_URL}${assetPath.startsWith("/") ? assetPath : `/${assetPath}`}`
+  return assetPath.startsWith("http") ? assetPath : `${SITE_ORIGIN}${assetPath.startsWith("/") ? assetPath : `/${assetPath}`}`
 }
 
-/** Bluesky and most crawlers ignore SVG for link preview thumbnails. */
 export function toBlogSocialImageUrl(assetPath?: string): string {
   const normalized = assetPath?.trim() || DEFAULT_BLOG_OG_IMAGE_PATH
-  if (normalized.toLowerCase().endsWith(".svg")) {
-    return toAbsoluteSiteUrl(DEFAULT_BLOG_OG_IMAGE_PATH)
-  }
   return toAbsoluteSiteUrl(normalized)
 }
 

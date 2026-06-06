@@ -2,7 +2,7 @@
 title: "Move Along, Python"
 description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks."
 publishDate: "2026-02-17"
-ogImage: "/og-image.jpg"
+ogImage: "/tiles_banner_outline_blk.png"
 tags:
   - Tiles
   - Python
