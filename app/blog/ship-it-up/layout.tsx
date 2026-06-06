@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
 import { getPersonById } from "@/lib/people"
 
 export const metadata: Metadata = {
@@ -117,6 +118,7 @@ export default function BlogPostLayout({
 
   return (
     <>
+      <StandardSiteLinkTags documentSlug="ship-it-up" includePublication={false} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
