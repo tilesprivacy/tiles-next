@@ -51,6 +51,27 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - If a static `public/llms.txt` file exists, it should be **removed** or **ignored** in favor of the dynamic endpoint.
 - The dynamic endpoint at `/llms.txt` (via rewrite from `/api/llms`) is the source of truth.
 
+## Blog Publishing and Standard.site Lexicons
+
+### Sequoia CLI Workflow
+
+- For every new blog post or substantial blog post update, use the Sequoia CLI to create or update the Standard.site ATProto lexicon records.
+- Source blog content for Sequoia lives in `sequoia-content/blog/*.md`; keep it aligned with the App Router blog page content and any mirrored HTML content in `lib/blog-post-*-content.ts`.
+- The Sequoia project configuration is `sequoia.json`; do not hand-edit generated AT URIs unless the Sequoia CLI or ATProto record state requires it.
+- Use `sequoia publish` to publish new or changed blog documents. Use `sequoia publish --dry-run` first when checking what will change.
+- Use `sequoia update` when the Standard.site publication record itself needs changes, such as publication name, description, icon, discover preference, or URL.
+- After publishing, make sure the related blog layout includes the `site.standard.publication` alternate link and the correct `site.standard.document` AT URI for the post.
+- If static HTML has been built and needs Standard.site document link tags, run `sequoia inject` after the build.
+- Verify the publication record if the public "View publication" link changes. The Tiles Blog publication URL should be `https://tiles.run/blog`.
+
+### Blog Publishing Shape
+
+```bash
+sequoia publish --dry-run
+sequoia publish
+sequoia update   # only for publication-level metadata
+```
+
 ## Hero Wireframe Image (Next.js Image)
 
 ### Implementation
