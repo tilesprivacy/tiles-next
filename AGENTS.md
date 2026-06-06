@@ -59,6 +59,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - Source blog content for Sequoia lives in `sequoia-content/blog/*.md`; keep it aligned with the App Router blog page content and any mirrored HTML content in `lib/blog-post-*-content.ts`.
 - The Sequoia project configuration is `sequoia.json`; do not hand-edit generated AT URIs unless the Sequoia CLI or ATProto record state requires it.
 - Use `sequoia publish` to publish new or changed blog documents. Use `sequoia publish --dry-run` first when checking what will change.
+- Use `sequoia publish --force` after config-only URL changes, such as `siteUrl`, `pathPrefix`, or publication URL changes, because Sequoia's normal content-hash check can otherwise leave document records with stale `canonicalUrl` or `path` values.
 - Use `sequoia update` when the Standard.site publication record itself needs changes, such as publication name, description, icon, discover preference, or URL.
 - After publishing, make sure the related blog layout includes the `site.standard.publication` alternate link and the correct `site.standard.document` AT URI for the post.
 - If static HTML has been built and needs Standard.site document link tags, run `sequoia inject` after the build.

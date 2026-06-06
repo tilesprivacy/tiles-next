@@ -441,7 +441,7 @@ export function HomeContent() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 py-6 sm:gap-14 sm:py-10 lg:flex-row lg:items-center lg:gap-12 lg:py-12 xl:gap-14">
           <div className="w-full max-w-[52rem] shrink-0 space-y-6 sm:space-y-7 lg:w-auto lg:pl-1">
             <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
-              Designed for Atmosphere
+              Designed for the ATmosphere
             </h2>
             <ul className="max-w-[42rem] space-y-4 sm:space-y-5">
               <li className="flex items-center gap-2.5 text-[1.02rem] leading-[1.52] text-black/68 dark:text-[#B7B7B7]">
