@@ -30,8 +30,8 @@ export const blogPosts: BlogPost[] = [
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
     date: new Date("2026-02-17"),
     author: "anandu-pavanan",
-    coverImage: "/tiles_banner_outline_blk.svg",
-    coverImageDark: "/tiles_banner_outline_wht.svg",
+    coverImage: "/og-image.jpg",
+    coverImageDark: "/og-image.jpg",
     coverAlt: "Tiles banner",
     content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto.</p>
 

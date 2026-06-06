@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
 import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
 import { getPersonById } from "@/lib/people"
+import { getBlogPostSocialImageUrl } from "@/lib/standard-site"
+
+const socialImageUrl = getBlogPostSocialImageUrl("ship-it-up")
 
 export const metadata: Metadata = {
   title: "Ship it up | Tiles Blog",
@@ -21,10 +24,11 @@ export const metadata: Metadata = {
     tags: ["Tiles", "packaging", "deployment", "software distribution", "venvstacks", "Python packaging"],
     images: [
       {
-        url: "https://www.tiles.run/shipitup.png",
+        url: socialImageUrl,
         width: 1154,
         height: 652,
         alt: "Cover image for Ship it up",
+        type: "image/png",
       },
     ],
   },
@@ -32,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ship it up | Tiles Blog",
     description: "How we package and ship Tiles",
-    images: ["https://www.tiles.run/shipitup.png"],
+    images: [socialImageUrl],
     creator: "@madcla.ws",
   },
   other: {

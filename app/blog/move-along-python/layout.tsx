@@ -1,6 +1,9 @@
 import type { Metadata } from "next"
 import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
 import { getPersonById } from "@/lib/people"
+import { getBlogPostSocialImageUrl } from "@/lib/standard-site"
+
+const socialImageUrl = getBlogPostSocialImageUrl("move-along-python")
 
 export const metadata: Metadata = {
   title: "Move Along, Python | Tiles Blog",
@@ -21,10 +24,11 @@ export const metadata: Metadata = {
     tags: ["Python", "venvstacks", "portable runtimes", "Python packaging", "dependency management", "Tiles", "deterministic builds"],
     images: [
       {
-        url: "https://www.tiles.run/tiles_banner_outline_blk.svg",
+        url: socialImageUrl,
         width: 1200,
         height: 630,
-        alt: "Tiles banner",
+        alt: "Move Along, Python",
+        type: "image/jpeg",
       },
     ],
   },
@@ -32,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Move Along, Python | Tiles Blog",
     description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
-    images: ["https://www.tiles.run/tiles_banner_outline_blk.svg"],
+    images: [socialImageUrl],
     creator: "@madcla.ws",
   },
   other: {
@@ -59,7 +63,7 @@ export default function BlogPostLayout({
         description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
         image: {
           "@type": "ImageObject",
-          url: "https://www.tiles.run/tiles_banner_outline_blk.svg",
+          url: socialImageUrl,
           width: 1200,
           height: 630,
         },

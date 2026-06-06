@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { blogPosts } from "@/lib/blog-posts"
 import { BlogListingContent } from "@/components/blog-listing-content"
 import { getPersonById } from "@/lib/people"
+import { BLOG_LISTING_SOCIAL_IMAGE_URL } from "@/lib/standard-site"
 
 export const metadata: Metadata = {
   title: "Blog | Tiles",
@@ -18,10 +19,11 @@ export const metadata: Metadata = {
     siteName: "Tiles Privacy",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: BLOG_LISTING_SOCIAL_IMAGE_URL,
         width: 1200,
         height: 630,
         alt: "Blog | Tiles",
+        type: "image/jpeg",
       },
     ],
   },
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog | Tiles",
     description: "We're building open source privacy technology for personalized software experiences.",
-    images: ["https://www.tiles.run/api/og"],
+    images: [BLOG_LISTING_SOCIAL_IMAGE_URL],
   },
 }
 
