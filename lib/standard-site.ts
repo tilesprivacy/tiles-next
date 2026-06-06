@@ -5,7 +5,7 @@ import sequoiaConfig from "../sequoia.json"
 
 export const STANDARD_SITE_PUBLICATION_URI = sequoiaConfig.publicationUri
 export const STANDARD_SITE_PUBLICATION_URL = `${sequoiaConfig.siteUrl}/blog`
-export const STANDARD_SITE_PUBLICATION_WELL_KNOWN_PATH = "/.well-known/site.standard.publication/blog"
+export const STANDARD_SITE_PUBLICATION_WELL_KNOWN_PATH = "/.well-known/site.standard.publication"
 
 const SITE_URL = sequoiaConfig.siteUrl
 const DEFAULT_BLOG_OG_IMAGE_PATH = "/og-image.jpg"
