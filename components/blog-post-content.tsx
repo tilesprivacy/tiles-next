@@ -21,8 +21,17 @@ interface BlogPostContentProps {
   coverImage: string
   coverImageDark?: string
   coverAlt: string
+  standardSiteDocumentUri?: string
   content: string
   children: ReactNode
+}
+
+function buildAtprotoAtUriUrl(sourceUri: string): string | null {
+  if (!sourceUri.startsWith("at://")) {
+    return null
+  }
+
+  return `https://atproto.at/uri/${encodeURIComponent(sourceUri)}`
 }
 
 export function BlogPostContent({ 
@@ -33,13 +42,17 @@ export function BlogPostContent({
   coverImage, 
   coverImageDark,
   coverAlt, 
+  standardSiteDocumentUri,
   content,
   children 
 }: BlogPostContentProps) {
   const author = authorId ? getPersonById(authorId) : null
+  const standardSiteDocumentUrl = standardSiteDocumentUri
+    ? buildAtprotoAtUriUrl(standardSiteDocumentUri)
+    : null
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-background">
+    <div data-blog-page className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
       <main className="flex flex-1 flex-col items-center px-6 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] pb-20 sm:px-8 lg:px-10 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] lg:pb-24 xl:px-12 gap-6 lg:gap-12 overflow-x-clip">
         {/* Bottom Card - Blog Post Content */}
@@ -145,6 +158,24 @@ export function BlogPostContent({
               ">
                 {children}
               </div>
+              {standardSiteDocumentUri ? (
+                <div className="mt-10 border-t border-black/8 pt-5 text-xs leading-6 text-black/54 dark:border-white/10 dark:text-white/54 lg:text-sm">
+                  <span>Published on ATProto </span>
+                  {standardSiteDocumentUrl ? (
+                    <a
+                      href={standardSiteDocumentUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="break-all text-black underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-black/40 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+                    >
+                      {standardSiteDocumentUri}
+                    </a>
+                  ) : (
+                    <span className="break-all">{standardSiteDocumentUri}</span>
+                  )}
+                  <span>.</span>
+                </div>
+              ) : null}
             </article>
 
             <div className="hidden xl:block" aria-hidden="true" />

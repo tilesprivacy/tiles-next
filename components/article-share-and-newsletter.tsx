@@ -154,7 +154,7 @@ export function ArticleShareAndNewsletter({
         </div>
       ) : null}
 
-      <section className="mx-auto mt-12 max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:py-7">
+      <section data-blog-newsletter className="mx-auto mt-12 max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:py-7">
         <NewsletterCta />
       </section>
     </>

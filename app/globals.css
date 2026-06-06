@@ -1644,6 +1644,30 @@ header[data-tiles-site-header] {
     orphans: 3;
     widows: 3;
   }
+
+  [data-blog-page] [data-blog-newsletter] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  [data-blog-page] footer {
+    display: block !important;
+    visibility: visible !important;
+    padding: 8mm 0 0 !important;
+    margin: 10mm 0 0 !important;
+  }
+
+  [data-blog-page] footer * {
+    visibility: hidden !important;
+  }
+
+  [data-blog-page] footer [data-footer-copyright] {
+    display: block !important;
+    visibility: visible !important;
+    color: #000 !important;
+    text-align: left !important;
+    white-space: normal !important;
+  }
 }
 
 /* Shared session page print overrides: preserve active on-screen theme. */

@@ -30,6 +30,7 @@ export default function ShipItUpPage() {
       authorId={post.author}
       coverImage={post.coverImage ?? "/og-image.jpg"}
       coverAlt={post.coverAlt ?? post.title}
+      standardSiteDocumentUri={post.standardSiteDocumentUri}
       content={post.content}
     >
       <p>

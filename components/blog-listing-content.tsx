@@ -124,14 +124,26 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
 
 export function BlogListingContent({ posts }: BlogListingContentProps) {
   return (
-    <div className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
+    <div data-blog-page className="relative flex min-h-screen flex-col bg-background lg:overflow-visible">
       <main className="flex flex-1 flex-col px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto w-full max-w-3xl">
           <div className="mb-10 lg:mb-12">
             <h1 className={`mb-4 ${marketingPageTitleClass}`}>
               Blog
             </h1>
-            <section className="mx-auto w-full max-w-3xl pb-1">
+            <p className="mb-6 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+              Posts here use the{" "}
+              <a
+                href="https://standard.site"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-foreground underline decoration-black/25 underline-offset-2 transition-colors hover:text-foreground/80 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+              >
+                Standard.site
+              </a>{" "}
+              lexicon for rich presentation in supported ATProto clients.
+            </p>
+            <section data-blog-newsletter className="mx-auto w-full max-w-3xl pb-1">
               <NewsletterCta />
             </section>
           </div>

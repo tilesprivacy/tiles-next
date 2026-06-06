@@ -10,6 +10,7 @@ export interface BlogPost {
   coverImage?: string
   coverImageDark?: string
   coverAlt?: string
+  standardSiteDocumentUri?: string
   content: string // Full HTML content for RSS feed
 }
 
@@ -22,6 +23,7 @@ export const blogPosts: BlogPost[] = [
     author: "anandu-pavanan",
     coverImage: "/shipitup.png",
     coverAlt: "Cover image for Ship it up",
+    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj37iuhz2d",
     content: shipItUpBlogContent,
   },
   {
@@ -33,6 +35,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/tiles_banner_outline_blk.svg",
     coverImageDark: "/tiles_banner_outline_wht.svg",
     coverAlt: "Tiles banner",
+    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj3b7f5u2g",
     content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto.</p>
 
 <h2>The Python Problem</h2>

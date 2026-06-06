@@ -107,7 +107,7 @@ export function SiteFooter({
         )}
 
         <div className="mt-1 flex flex-col items-center gap-3.5 text-center lg:hidden">
-          <p className={`text-xs leading-5 ${licenseTextColor}`}>© 2026 Tiles Privacy & Contributors.</p>
+          <p data-footer-copyright className={`text-xs leading-5 ${licenseTextColor}`}>© 2026 Tiles Privacy & Contributors.</p>
 
           <div className="flex flex-col items-center gap-2.5">
             <nav aria-label="Footer links" className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1.5 text-xs">
@@ -158,7 +158,7 @@ export function SiteFooter({
 
         <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:text-left">
           <div className="flex flex-col items-start gap-2.5">
-            <p className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
+            <p data-footer-copyright className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
             <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
               <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" touchFriendly />
