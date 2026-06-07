@@ -192,6 +192,19 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </p>
                 </div>
                 <p>
+                  Tiles Privacy is also a signatory to the{" "}
+                  <a
+                    href="https://european.social/#signatories"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                  >
+                    European Social Stack initiative
+                  </a>
+                  {", "}
+                  supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.
+                </p>
+                <p>
                   The project is currently maintained by{" "}
                   {people.contributorsCore.map((person, index) => (
                     <span key={person.id}>
