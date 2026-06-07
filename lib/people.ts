@@ -63,9 +63,9 @@ export const people = {
       links: ["https://www.raz.lol", "https://x.com/RazberryChai", "https://bsky.app/profile/raz.lol", "https://github.com/hellorashid"],
     },
     {
-      id: "goblin-oats",
-      name: "Goblin Oats @goblinoats",
-      links: ["https://goblinoats.com/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"],
+      id: "gavin-owens",
+      name: "Gavin Owens @goblinoats",
+      links: ["https://gavinowens.net/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"],
     },
   ],
 } satisfies Record<string, PersonIdentity[]>
