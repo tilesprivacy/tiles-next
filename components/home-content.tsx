@@ -120,7 +120,7 @@ const whyTilesBullets = [
   "Out-of-the-box experience, ready on first open without API keys, model or harness selection.",
   "Sync sessions and work across devices without leaking data to a cloud vendor.",
   "Share chats publicly or privately without copy-pasting the thread elsewhere.",
-  "Social features build on ATProto, giving you sovereignty over your online identity and data.",
+  "Social features built on ATProto, giving you sovereignty over your online identity and data.",
   "Offline Installer bundles the model for air-gapped use.",
 ] as const
 
