@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/repl_flow.png",
     coverImageDark: "/repl_flow_dark.png",
     coverAlt: "Tiles REPL request and response flow",
-    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrtw3u3652u",
+    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrumkdftw2p",
     content: controllingCtrlCBlogContent,
   },
   {
