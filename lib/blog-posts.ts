@@ -1,4 +1,5 @@
 import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content"
+import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content"
 
 export interface BlogPost {
   slug: string
@@ -15,6 +16,17 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "controlling-ctrl-c",
+    title: "Controlling the Ctrl-C",
+    description: "Observations while trying to properly exit from Tiles REPL",
+    date: new Date("2026-06-08"),
+    author: "anandu-pavanan",
+    coverImage: "/repl_flow.png",
+    coverImageDark: "/repl_flow_dark.png",
+    coverAlt: "Tiles REPL request and response flow",
+    content: controllingCtrlCBlogContent,
+  },
   {
     slug: "ship-it-up",
     title: "Ship it up",

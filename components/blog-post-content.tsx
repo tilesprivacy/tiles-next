@@ -18,9 +18,9 @@ interface BlogPostContentProps {
   date: string
   /** Person ID from `lib/people.ts` */
   authorId?: string
-  coverImage: string
+  coverImage?: string
   coverImageDark?: string
-  coverAlt: string
+  coverAlt?: string
   standardSiteDocumentUri?: string
   content: string
   children: ReactNode
@@ -99,35 +99,36 @@ export function BlogPostContent({
             </div>
           </div>
 
-          {/* Cover Image */}
-          <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16">
-            {coverImageDark ? (
-              <>
+          {coverImage ? (
+            <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16">
+              {coverImageDark ? (
+                <>
+                  <Image
+                    src={coverImage}
+                    alt={coverAlt ?? title}
+                    width={1200}
+                    height={600}
+                    className="w-full h-auto rounded-lg dark:hidden"
+                  />
+                  <Image
+                    src={coverImageDark}
+                    alt={coverAlt ?? title}
+                    width={1200}
+                    height={600}
+                    className="hidden w-full h-auto rounded-lg dark:block"
+                  />
+                </>
+              ) : (
                 <Image
                   src={coverImage}
-                  alt={coverAlt}
+                  alt={coverAlt ?? title}
                   width={1200}
                   height={600}
-                  className="w-full h-auto rounded-lg dark:hidden"
+                  className="w-full h-auto rounded-lg"
                 />
-                <Image
-                  src={coverImageDark}
-                  alt={coverAlt}
-                  width={1200}
-                  height={600}
-                  className="hidden w-full h-auto rounded-lg dark:block"
-                />
-              </>
-            ) : (
-              <Image
-                src={coverImage}
-                alt={coverAlt}
-                width={1200}
-                height={600}
-                className="w-full h-auto rounded-lg"
-              />
-            )}
-          </div>
+              )}
+            </div>
+          ) : null}
 
           <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16 xl:hidden">
             <BlogTableOfContents mode="mobile" />

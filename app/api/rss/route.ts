@@ -17,6 +17,7 @@ export async function GET(request: Request) {
   // Helper to get keywords for blog posts
   const getKeywordsForPost = (slug: string): string[] => {
     const keywordMap: Record<string, string[]> = {
+      'controlling-ctrl-c': ['Tiles', 'Rust', 'REPL', 'Pi', 'SIGINT', 'SIGPIPE', 'Tokio', 'async IO', 'Unix signals'],
       'ship-it-up': ['Tiles', 'packaging', 'deployment', 'software distribution', 'venvstacks', 'Python packaging'],
       'move-along-python': ['Python', 'venvstacks', 'portable runtimes', 'Python packaging', 'dependency management', 'Tiles', 'deterministic builds'],
     }

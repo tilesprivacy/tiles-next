@@ -218,6 +218,75 @@
   color: inherit;
 }
 
+.blog-article-content pre:has(> code.language-rust) {
+  background: rgb(0 0 0 / 0.045) !important;
+}
+
+.dark .blog-article-content pre:has(> code.language-rust) {
+  background: rgb(255 255 255 / 0.06) !important;
+}
+
+.blog-article-content pre code.language-rust {
+  display: block;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+  color: rgb(31 41 55 / 0.92);
+}
+
+.dark .blog-article-content pre code.language-rust {
+  color: rgb(229 231 235 / 0.9);
+}
+
+.blog-article-content pre code.language-rust .rust-keyword {
+  color: #7c3aed;
+}
+
+.dark .blog-article-content pre code.language-rust .rust-keyword {
+  color: #c4b5fd;
+}
+
+.blog-article-content pre code.language-rust .rust-type {
+  color: #0369a1;
+}
+
+.dark .blog-article-content pre code.language-rust .rust-type {
+  color: #7dd3fc;
+}
+
+.blog-article-content pre code.language-rust .rust-fn {
+  color: #047857;
+}
+
+.dark .blog-article-content pre code.language-rust .rust-fn {
+  color: #6ee7b7;
+}
+
+.blog-article-content pre code.language-rust .rust-string {
+  color: #b45309;
+}
+
+.dark .blog-article-content pre code.language-rust .rust-string {
+  color: #fbbf24;
+}
+
+.blog-article-content pre code.language-rust .rust-comment {
+  color: rgb(75 85 99 / 0.78);
+  font-style: italic;
+}
+
+.dark .blog-article-content pre code.language-rust .rust-comment {
+  color: rgb(209 213 219 / 0.62);
+}
+
+.blog-article-content pre code.language-rust .rust-macro {
+  color: #be123c;
+}
+
+.dark .blog-article-content pre code.language-rust .rust-macro {
+  color: #fb7185;
+}
+
 .share-markdown .katex-display {
   margin: 0.5rem 0;
   overflow-x: auto;
