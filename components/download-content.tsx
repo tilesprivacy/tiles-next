@@ -502,6 +502,25 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     onboarding to set up your account and start using the chat interface. If you installed the network
                     version, you will be prompted to choose and download a model.
                   </p>
+                  <figure className="mt-5 flex w-full flex-col items-center">
+                    <Image
+                      src="/clilight.png"
+                      alt="Tiles CLI onboarding screen in the terminal"
+                      width={875}
+                      height={1798}
+                      className="h-auto w-full max-w-[440px] rounded-sm border border-border dark:hidden sm:max-w-[520px]"
+                    />
+                    <Image
+                      src="/clidark.png"
+                      alt="Tiles CLI onboarding screen in the terminal"
+                      width={780}
+                      height={1864}
+                      className="hidden h-auto w-full max-w-[440px] rounded-sm border border-border dark:block sm:max-w-[520px]"
+                    />
+                    <figcaption className="mt-3 text-center text-sm italic leading-snug text-muted-foreground">
+                      Onboarding flow for the Tiles CLI.
+                    </figcaption>
+                  </figure>
                 </div>
               </div>
 
