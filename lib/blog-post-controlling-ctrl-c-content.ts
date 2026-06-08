@@ -10,11 +10,11 @@ export const controllingCtrlCBlogContent = `<h2>The REPL UI issue</h2>
 
 <p>As with any LLM inference interface, Tiles REPL must stop the output streaming from the model as soon as the user presses Ctrl-C and the REPL should return to prompt state, ideally like this.</p>
 
-<img src="https://bdefzwcumgzjwllsnaej.supabase.co/storage/v1/render/image/public/minilink-user-assets/019ea633-afad-7ee6-bc6d-5306a2993311.gif?width=1920&quality=75&resize=contain" alt="" style="width: 100%; height: auto; margin: 2rem 0;" />
+<video src="/fixed-repl.mp4" poster="/fixed-repl-poster.webp" autoplay loop muted playsinline aria-label="Tiles REPL stopping model output on Ctrl-C and returning to the prompt" style="width: 100%; height: auto; margin: 2rem 0;"></video>
 
 <p>But in the versions before v0.4.11, although the streaming ends and REPL returns to prompt state, on the next user input we were greeted with a broken pipe error like <code>Err value: Os { code: 32, kind: BrokenPipe, message: "Broken pipe" }</code>. Because of this, users had to restart the REPL to continue. More details are in this <a href="https://github.com/tilesprivacy/tiles/issues/146" target="_blank" rel="noopener noreferrer">issue</a>.</p>
 
-<img src="https://bdefzwcumgzjwllsnaej.supabase.co/storage/v1/render/image/public/minilink-user-assets/019ea63c-6a20-7ee6-bc6d-c821c4bce207.gif?width=1920&quality=75&resize=contain" alt="" style="width: 100%; height: auto; margin: 2rem 0;" />
+<video src="/broke-pipe-err.mp4" poster="/broke-pipe-err-poster.webp" autoplay loop muted playsinline aria-label="Tiles REPL broken pipe error after Ctrl-C before v0.4.11" style="width: 100%; height: auto; margin: 2rem 0;"></video>
 
 <h2>The broken pipes</h2>
 

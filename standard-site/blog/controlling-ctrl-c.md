@@ -23,11 +23,11 @@ As a local AI assistant, Tiles embeds [Pi agent](https://github.com/earendil-wor
 
 As with any LLM inference interface, Tiles REPL must stop the output streaming from the model as soon as the user presses Ctrl-C and the REPL should return to prompt state, ideally like this.
 
-![Image](https://bdefzwcumgzjwllsnaej.supabase.co/storage/v1/render/image/public/minilink-user-assets/019ea633-afad-7ee6-bc6d-5306a2993311.gif?width=1920&quality=75&resize=contain)
+<video src="/fixed-repl.mp4" poster="/fixed-repl-poster.webp" autoplay loop muted playsinline aria-label="Tiles REPL stopping model output on Ctrl-C and returning to the prompt"></video>
 
 But in the versions before v0.4.11, although the streaming ends and REPL returns to prompt state, on the next user input we were greeted with a broken pipe error like `Err value: Os { code: 32, kind: BrokenPipe, message: "Broken pipe" }`. Because of this, users had to restart the REPL to continue. More details are in this [issue](https://github.com/tilesprivacy/tiles/issues/146).
 
-![Image](https://bdefzwcumgzjwllsnaej.supabase.co/storage/v1/render/image/public/minilink-user-assets/019ea63c-6a20-7ee6-bc6d-c821c4bce207.gif?width=1920&quality=75&resize=contain)
+<video src="/broke-pipe-err.mp4" poster="/broke-pipe-err-poster.webp" autoplay loop muted playsinline aria-label="Tiles REPL broken pipe error after Ctrl-C before v0.4.11"></video>
 
 ## The broken pipes
 

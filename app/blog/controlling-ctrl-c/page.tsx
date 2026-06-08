@@ -27,6 +27,33 @@ function ArticleImage({
   )
 }
 
+function ArticleVideo({
+  src,
+  poster,
+  alt = "",
+}: {
+  src: string
+  poster?: string
+  alt?: string
+}) {
+  return (
+    <div className="my-6 overflow-hidden rounded-lg bg-black/5 dark:bg-white/5">
+      <video
+        className="block h-auto w-full"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        poster={poster}
+        aria-label={alt}
+      >
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
+  )
+}
+
 const rustKeywordPattern =
   /^(?:as|async|await|break|const|continue|crate|else|enum|extern|false|fn|for|if|impl|in|let|loop|match|mod|move|mut|pub|ref|return|self|Self|static|struct|super|trait|true|type|unsafe|use|where|while)$/
 
@@ -133,7 +160,11 @@ export default function ControllingCtrlCPage() {
         presses Ctrl-C and the REPL should return to prompt state, ideally like this.
       </p>
 
-      <ArticleImage src="https://bdefzwcumgzjwllsnaej.supabase.co/storage/v1/render/image/public/minilink-user-assets/019ea633-afad-7ee6-bc6d-5306a2993311.gif?width=1920&quality=75&resize=contain" />
+      <ArticleVideo
+        src="/fixed-repl.mp4"
+        poster="/fixed-repl-poster.webp"
+        alt="Tiles REPL stopping model output on Ctrl-C and returning to the prompt"
+      />
 
       <p>
         But in the versions before v0.4.11, although the streaming ends and REPL returns to prompt state, on the next
@@ -146,7 +177,11 @@ export default function ControllingCtrlCPage() {
         .
       </p>
 
-      <ArticleImage src="https://bdefzwcumgzjwllsnaej.supabase.co/storage/v1/render/image/public/minilink-user-assets/019ea63c-6a20-7ee6-bc6d-c821c4bce207.gif?width=1920&quality=75&resize=contain" />
+      <ArticleVideo
+        src="/broke-pipe-err.mp4"
+        poster="/broke-pipe-err-poster.webp"
+        alt="Tiles REPL broken pipe error after Ctrl-C before v0.4.11"
+      />
 
       <h2>The broken pipes</h2>
 
