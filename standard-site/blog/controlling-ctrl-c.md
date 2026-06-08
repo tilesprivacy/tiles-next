@@ -9,6 +9,7 @@ tags:
   - REPL
   - Pi
   - Unix signals
+atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrtw3u3652u"
 ---
 
 ## The REPL UI issue
