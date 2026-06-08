@@ -131,18 +131,6 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
             <h1 className={`mb-4 ${marketingPageTitleClass}`}>
               Blog
             </h1>
-            <p className="mb-6 max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
-              Posts here use the{" "}
-              <a
-                href="https://standard.site"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-foreground underline decoration-black/25 underline-offset-2 transition-colors hover:text-foreground/80 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
-              >
-                Standard.site
-              </a>{" "}
-              lexicon for rich presentation in supported ATProto clients.
-            </p>
             <section data-blog-newsletter className="mx-auto w-full max-w-3xl pb-1">
               <NewsletterCta />
             </section>
@@ -155,6 +143,30 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
               <BlogPostEntry key={post.slug} post={post} />
             ))}
           </div>
+        </div>
+
+        <div className="mx-auto w-full max-w-3xl pt-6 lg:pt-8">
+          <p className="max-w-2xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">
+            Posts here use the{" "}
+            <a
+              href="https://standard.site"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-black/25 underline-offset-2 transition-colors hover:text-foreground/80 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+            >
+              Standard.site
+            </a>{" "}
+            lexicon for rich presentation in supported ATProto clients and are stored on a PDS hosted by{" "}
+            <a
+              href="https://eurosky.tech"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground underline decoration-black/25 underline-offset-2 transition-colors hover:text-foreground/80 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+            >
+              Eurosky
+            </a>
+            .
+          </p>
         </div>
       </main>
 
