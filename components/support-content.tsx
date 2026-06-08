@@ -91,25 +91,27 @@ export function SupportContent() {
               Find the shortest path from stuck to moving again.
             </p>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            <div className="mt-10 grid gap-3 sm:grid-cols-3 sm:gap-4">
               {supportRoutes.map((route) => {
                 const Icon = route.icon
 
                 return (
                   <article
                     key={route.title}
-                    className="flex min-h-48 flex-col justify-between border border-black/8 p-5 dark:border-white/10"
+                    className="flex flex-col justify-between rounded-xl border border-black/8 bg-black/[0.02] p-5 transition-colors dark:border-white/10 dark:bg-white/[0.03] sm:min-h-[11.5rem] sm:p-6"
                   >
                     <div>
-                      <Icon className="h-4 w-4 text-foreground" aria-hidden />
-                      <h2 className="mt-5 text-lg font-semibold tracking-[-0.02em] text-foreground">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
+                        <Icon className="h-4 w-4" aria-hidden />
+                      </span>
+                      <h2 className="mt-4 text-base font-semibold tracking-[-0.02em] text-foreground sm:text-lg">
                         {route.title}
                       </h2>
-                      <p className="mt-3 text-sm leading-6 text-black/62 dark:text-white/62">
+                      <p className="mt-2.5 text-sm leading-6 text-black/62 dark:text-white/62">
                         {route.description}
                       </p>
                     </div>
-                    <div className="mt-6">
+                    <div className="mt-5">
                       <SupportLink href={route.href} external={route.external}>
                         {route.label}
                       </SupportLink>
