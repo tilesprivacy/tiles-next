@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImageUrl,
-        width: 1076,
-        height: 1568,
-        alt: "Tiles CLI",
+        width: 1719,
+        height: 915,
+        alt: "Tiles REPL request and response flow",
         type: "image/png",
       },
     ],
@@ -64,8 +64,8 @@ export default function BlogPostLayout({
         image: {
           "@type": "ImageObject",
           url: socialImageUrl,
-          width: 1076,
-          height: 1568,
+          width: 1719,
+          height: 915,
         },
         datePublished: "2026-06-08T00:00:00Z",
         dateModified: "2026-06-08T00:00:00Z",
