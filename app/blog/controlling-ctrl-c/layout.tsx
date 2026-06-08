@@ -3,18 +3,18 @@ import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
 import { getPersonById } from "@/lib/people"
 import { getBlogPostSocialImageUrl } from "@/lib/standard-site"
 
-const socialImageUrl = getBlogPostSocialImageUrl("controlling-ctrl-c", "/repl_flow.png")
+const socialImageUrl = getBlogPostSocialImageUrl("controlling-ctrl-c")
 
 export const metadata: Metadata = {
   title: "Controlling the Ctrl-C | Tiles Blog",
-  description: "Observations while trying to properly exit from Tiles REPL",
+  description: "Observations while trying to properly exit from Tiles CLI",
   keywords: ["Tiles", "Rust", "REPL", "Pi", "SIGINT", "SIGPIPE", "Tokio", "async IO", "Unix signals"],
   alternates: {
     canonical: "https://www.tiles.run/blog/controlling-ctrl-c",
   },
   openGraph: {
     title: "Controlling the Ctrl-C | Tiles Blog",
-    description: "Observations while trying to properly exit from Tiles REPL",
+    description: "Observations while trying to properly exit from Tiles CLI",
     url: "https://www.tiles.run/blog/controlling-ctrl-c",
     siteName: "Tiles Privacy",
     type: "article",
@@ -25,17 +25,17 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImageUrl,
-        width: 1719,
-        height: 915,
+        width: 1200,
+        height: 630,
         alt: "Tiles REPL request and response flow",
-        type: "image/png",
+        type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Controlling the Ctrl-C | Tiles Blog",
-    description: "Observations while trying to properly exit from Tiles REPL",
+    description: "Observations while trying to properly exit from Tiles CLI",
     images: [socialImageUrl],
     creator: "@madcla.ws",
   },
@@ -60,12 +60,12 @@ export default function BlogPostLayout({
         "@type": "BlogPosting",
         "@id": "https://www.tiles.run/blog/controlling-ctrl-c#article",
         headline: "Controlling the Ctrl-C",
-        description: "Observations while trying to properly exit from Tiles REPL",
+        description: "Observations while trying to properly exit from Tiles CLI",
         image: {
           "@type": "ImageObject",
           url: socialImageUrl,
-          width: 1719,
-          height: 915,
+          width: 1200,
+          height: 630,
         },
         datePublished: "2026-06-08T00:00:00Z",
         dateModified: "2026-06-08T00:00:00Z",

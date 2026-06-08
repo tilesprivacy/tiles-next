@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "controlling-ctrl-c",
     title: "Controlling the Ctrl-C",
-    description: "Observations while trying to properly exit from Tiles REPL",
+    description: "Observations while trying to properly exit from Tiles CLI",
     date: new Date("2026-06-08"),
     author: "anandu-pavanan",
     coverImage: "/repl_flow.png",
