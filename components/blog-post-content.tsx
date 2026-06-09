@@ -52,25 +52,49 @@ export function BlogPostContent({
     : null
 
   return (
-    <div data-blog-page className="relative flex min-h-screen flex-col bg-background">
+    <div data-blog-page data-blog-article className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center px-6 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] pb-20 sm:px-8 lg:px-10 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] lg:pb-24 xl:px-12 gap-6 lg:gap-12 overflow-x-clip">
+      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
         {/* Bottom Card - Blog Post Content */}
-        <div className="w-full max-w-[90rem] py-8 lg:py-14 relative">
+        <div className="blog-article-column relative w-full max-w-[90rem] py-8 lg:py-14 xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
+          <div className="mx-auto w-full max-w-[44rem] overflow-x-clip xl:col-start-2 xl:row-start-1 xl:mx-0 xl:max-w-none xl:overflow-visible">
+          <div
+            data-blog-print-masthead
+            className="mb-0 hidden print:flex print:items-center print:gap-2.5"
+            aria-hidden
+          >
+            {/* Native img keeps print/PDF output reliable across browsers. */}
+            <img
+              src="/lighticon.png"
+              alt=""
+              width={48}
+              height={48}
+              className="h-8 w-8 print:h-11 print:w-11"
+            />
+            <span className="text-[1.15rem] font-semibold tracking-[-0.02em] text-black print:text-[2.35rem] print:leading-none">
+              Tiles
+            </span>
+          </div>
+
           {/* Blog Title */}
-          <div className="mx-auto mb-8 max-w-[44rem] lg:mb-12">
+          <div data-blog-print-header className="mb-8 lg:mb-12">
             <h1 className="mb-4 font-sans text-[clamp(2rem,6vw,3.2rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mb-4">
               {title}
             </h1>
-            <p className="mb-4 text-[0.98rem] leading-[1.65] text-black/56 dark:text-white/56 lg:mb-4 lg:text-[1.06rem]">
+            <p
+              data-blog-print-subtitle
+              className="mb-4 text-[0.98rem] leading-[1.65] text-black/56 dark:text-white/56 lg:mb-4 lg:text-[1.06rem]"
+            >
               {description}
             </p>
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-3">
+            <div data-blog-print-meta className="flex flex-col gap-2">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <p className="text-sm text-black/42 dark:text-white/42 lg:text-[0.95rem]">{date}</p>
-                <span className="text-black/20 dark:text-white/20">·</span>
-                <ReadingTime 
-                  content={content} 
+                <span className="text-black/20 dark:text-white/20" aria-hidden>
+                  ·
+                </span>
+                <ReadingTime
+                  content={content}
                   className="text-sm text-black/42 dark:text-white/42 lg:text-[0.95rem]"
                 />
               </div>
@@ -80,6 +104,7 @@ export function BlogPostContent({
                     name={author.name}
                     links={author.links}
                     variant="blog"
+                    loading="eager"
                     className="inline-flex shrink-0"
                   />
                   <BlogAuthorDisplayName
@@ -90,7 +115,7 @@ export function BlogPostContent({
                   <SocialLinks
                     name={author.name}
                     links={author.links}
-                    className="flex items-center gap-1.5"
+                    className="blog-print-screen-only flex items-center gap-1.5"
                     linkClassName="text-black/40 hover:text-black/65 dark:text-white/40 dark:hover:text-white/70 transition-colors"
                     iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
                   />
@@ -100,7 +125,7 @@ export function BlogPostContent({
           </div>
 
           {coverImage ? (
-            <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16">
+            <div className="blog-print-screen-only mb-8 lg:mb-16">
               {coverImageDark ? (
                 <>
                   <Image
@@ -130,17 +155,16 @@ export function BlogPostContent({
             </div>
           ) : null}
 
-          <div className="mx-auto mb-8 max-w-[44rem] lg:mb-16 xl:hidden">
+          <div className="blog-print-screen-only mb-8 lg:mb-16 xl:hidden">
             <BlogTableOfContents mode="mobile" />
           </div>
+          </div>
 
-          {/* Blog Content + TOC + References lanes */}
-          <div className="xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
-            <aside className="hidden xl:block">
-              <BlogTableOfContents />
-            </aside>
+          <aside className="blog-print-screen-only hidden xl:col-start-1 xl:row-start-2 xl:block xl:min-h-0 xl:self-stretch">
+            <BlogTableOfContents />
+          </aside>
 
-            <article className="blog-article-container relative mx-auto max-w-[44rem] xl:mx-0 xl:max-w-none">
+          <article className="blog-article-container relative mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-2 xl:mx-0 xl:max-w-none">
               {/* Container for side references on desktop */}
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
@@ -160,7 +184,7 @@ export function BlogPostContent({
                 {children}
               </div>
               {standardSiteDocumentUri ? (
-                <div className="mt-10 border-t border-black/8 pt-5 text-xs leading-6 text-black/54 dark:border-white/10 dark:text-white/54 lg:text-sm">
+                <div className="blog-print-screen-only mt-10 border-t border-black/8 pt-5 text-xs leading-6 text-black/54 dark:border-white/10 dark:text-white/54 lg:text-sm">
                   <span>Published on ATProto </span>
                   {standardSiteDocumentUrl ? (
                     <a
@@ -177,17 +201,23 @@ export function BlogPostContent({
                   <span>.</span>
                 </div>
               ) : null}
-            </article>
+          </article>
 
-            <div className="hidden xl:block" aria-hidden="true" />
+          <div className="hidden xl:col-start-3 xl:row-start-2 xl:block" aria-hidden="true" />
+
+          <div className="mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-3 xl:mx-0 xl:max-w-none">
+            <div data-blog-article-footer>
+              <ArticleShareAndNewsletter
+                title={title}
+                moreLinkHref="/blog"
+                moreLinkLabel="more posts"
+              />
+            </div>
+
+            <p data-blog-print-footer className="mt-0 hidden print:block">
+              © 2026 Tiles Privacy & Contributors.
+            </p>
           </div>
-
-          <ArticleShareAndNewsletter
-            title={title}
-            moreLinkHref="/blog"
-            moreLinkLabel="more posts"
-          />
-
         </div>
       </main>
 

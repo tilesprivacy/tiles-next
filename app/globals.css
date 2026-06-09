@@ -1635,6 +1635,7 @@ header[data-tiles-site-header] {
   .blog-reference-container,
   .book-copy-link-floating,
   .book-copy-link-control,
+  .article-print-control,
   .nextra-sidebar-overlay,
   [aria-label="Open navigation menu"],
   [aria-label="Close navigation menu"],
@@ -1719,23 +1720,199 @@ header[data-tiles-site-header] {
     visibility: hidden !important;
   }
 
-  [data-blog-page] footer {
-    display: block !important;
-    visibility: visible !important;
-    padding: 8mm 0 0 !important;
-    margin: 10mm 0 0 !important;
+  /* Blog article print layout: logo, title, body, and copyright only. */
+  [data-blog-article] {
+    -webkit-print-color-adjust: exact;
+    background: #fff !important;
+    print-color-adjust: exact;
   }
 
-  [data-blog-page] footer * {
+  [data-blog-article] main {
+    align-items: stretch !important;
+    gap: 0 !important;
+    max-width: none !important;
+    overflow: visible !important;
+    padding: 0 22mm 18mm !important;
+  }
+
+  [data-blog-article] main > div {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  [data-blog-article] .blog-print-screen-only,
+  [data-blog-article] [data-blog-article-footer],
+  [data-blog-article] .blog-reference-container,
+  [data-blog-article] aside {
+    display: none !important;
     visibility: hidden !important;
   }
 
-  [data-blog-page] footer [data-footer-copyright] {
-    display: block !important;
+  [data-blog-article] .blog-article-column {
+    margin: 0 auto !important;
+    max-width: 42rem !important;
+  }
+
+  [data-blog-article] [data-blog-print-masthead] {
+    align-items: center !important;
+    display: flex !important;
+    gap: 3.5mm !important;
+    margin: 0 0 9mm !important;
     visibility: visible !important;
+  }
+
+  [data-blog-article] [data-blog-print-masthead] img {
+    height: 2.75rem !important;
+    width: 2.75rem !important;
+  }
+
+  [data-blog-article] [data-blog-print-masthead] span {
     color: #000 !important;
-    text-align: left !important;
-    white-space: normal !important;
+    font-size: 2.35rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1 !important;
+  }
+
+  [data-blog-article] [data-blog-print-header] {
+    margin: 0 0 8mm !important;
+  }
+
+  [data-blog-article] h1 {
+    color: #000 !important;
+    font-size: 1.9rem !important;
+    font-weight: 600 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.14 !important;
+    margin: 0 0 4mm !important;
+  }
+
+  [data-blog-article] [data-blog-print-subtitle] {
+    color: #000 !important;
+    font-size: 1rem !important;
+    line-height: 1.55 !important;
+    margin: 0 0 5mm !important;
+  }
+
+  [data-blog-article] [data-blog-print-meta],
+  [data-blog-article] [data-blog-print-meta] * {
+    color: #6f6f74 !important;
+    font-size: 0.84rem !important;
+    line-height: 1.45 !important;
+  }
+
+  [data-blog-article] [data-blog-print-meta] img {
+    -webkit-print-color-adjust: exact;
+    border-radius: 2px !important;
+    height: 1.35rem !important;
+    max-width: none !important;
+    print-color-adjust: exact;
+    width: 1.35rem !important;
+  }
+
+  [data-blog-article] [data-blog-print-meta] [class*="rounded-sm"] {
+    background: #f0f0f2 !important;
+    color: #6f6f74 !important;
+  }
+
+  [data-blog-article] .xl\:grid {
+    display: block !important;
+  }
+
+  [data-blog-article] .blog-article-content,
+  [data-blog-article] .blog-article-content * {
+    color: #000 !important;
+  }
+
+  [data-blog-article] .blog-article-content {
+    font-size: 0.95rem !important;
+    line-height: 1.68 !important;
+  }
+
+  [data-blog-article] .blog-article-content a,
+  [data-blog-article] .blog-article-content a:visited {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+
+  [data-blog-article] .blog-article-content :not(pre) > code {
+    background: #f4f4f5 !important;
+    border: 1px solid #e4e4e7 !important;
+    color: #000 !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust {
+    background: transparent !important;
+    border: none !important;
+    color: rgb(31 41 55 / 0.92) !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust .rust-keyword {
+    color: #7c3aed !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust .rust-type {
+    color: #0369a1 !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust .rust-fn {
+    color: #047857 !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust .rust-string {
+    color: #b45309 !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust .rust-comment {
+    color: rgb(75 85 99 / 0.78) !important;
+    font-style: italic !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code.language-rust .rust-macro {
+    color: #be123c !important;
+  }
+
+  /* Let long code blocks flow across pages instead of leaving blank space. */
+  [data-blog-article] .blog-article-content pre {
+    -webkit-box-decoration-break: slice;
+    background: #f4f4f5 !important;
+    border: 1px solid #e4e4e7 !important;
+    border-radius: 0.5rem !important;
+    box-decoration-break: slice;
+    break-inside: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    overflow-x: visible !important;
+    page-break-inside: auto !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    word-wrap: break-word !important;
+  }
+
+  [data-blog-article] .blog-article-content pre code,
+  [data-blog-article] .blog-article-content pre code * {
+    border-radius: 0 !important;
+    break-inside: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    page-break-inside: auto !important;
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    word-wrap: break-word !important;
+  }
+
+  [data-blog-article] video {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  [data-blog-article] [data-blog-print-footer] {
+    color: #6f6f74 !important;
+    display: block !important;
+    font-size: 0.8rem !important;
+    line-height: 1.5 !important;
+    margin: 14mm 0 0 !important;
+    visibility: visible !important;
   }
 }
 

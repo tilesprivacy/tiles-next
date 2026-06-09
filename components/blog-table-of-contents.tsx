@@ -278,7 +278,7 @@ export function BlogTableOfContents({
   return (
     <nav
       aria-label={navAriaLabel}
-      className="sticky overflow-y-auto pr-4"
+      className="sticky z-10 overflow-y-auto pr-4"
       style={{
         top: `${stickyTop}px`,
         maxHeight: `calc(100dvh - ${stickyTop + 16}px)`,
