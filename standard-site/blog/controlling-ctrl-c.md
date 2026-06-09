@@ -136,7 +136,7 @@ while is_running.load(std::sync::atomic::Ordering::SeqCst) {
 }
 ```
 
-But again, for some reason we are back to square one where the REPL is non-responsive to Ctrl-C when it's streaming the output.
+But again, for some reason we are back to square one where the REPL is non-responsive to Ctrl-C when it's streaming the output. As in the above signal handler is not getting called on SIGINT.
 
 Turns out the way we read from Pi's stdout is a synchronous, blocking operation. So we tried converting all the functions related to this to async using the corresponding async functions provided by [tokio](https://tokio.rs/) (an async runtime library for Rust). For example, the core operation here is using a buffered reader to read from Pi's stdout efficiently, so we replace the [BufReader](https://doc.rust-lang.org/stable/std/io/struct.BufReader.html) from the std library with the async [BufReader](https://docs.rs/tokio/latest/tokio/io/struct.BufReader.html) provided by the Tokio runtime.
 
@@ -166,7 +166,7 @@ For more details on the sync-async conversion, see the [PR diff](https://github.
 
 The interesting thing now is that when we exit the main REPL program, the Pi process also exits, which shouldn't be the case as both are now in different process groups, right? Could this be related to the pipes getting closed on one end?
 
-Although this is fine for us, as we don't want the Pi process to be a background daemon and go rogue, it's important to understand what's happening under the hood, as we also have a Tiles daemon process (which is a background headless Tiles HTTP server) that is still alive even after the main REPL program closes, as it's supposed to be (this was also spawned in a different process group).
+Although this is fine for us, as we don't want the Pi process to be a background daemon and go rogue, it's important to understand what's happening under the hood, as we also have a Tiles daemon process (which is a background headless Tiles HTTP server) that is still alive even after the main REPL program closes, as it is  supposed to be (this was also spawned in a different process group).
 
 ```rust
 // where 88068 is pid for tiles
@@ -180,7 +180,7 @@ pstree -p 88068
 
 PID=88098 is our daemon.
 
-Why the dual behavior for the same action? For that we can live-debug the Pi program using lldb (LLVM debugger) to see what happens when the parent exits. We will attach the Pi process to lldb, add a breakpoint for SIGPIPE, then step through to see if Pi is handling SIGPIPE or not. The actions we take are commented with numbered index.
+Why the dual behavior for the same action? For that we can live-debug the Pi program using lldb (LLVM debugger) to see what happens when the parent exit. We will attach the Pi process to lldb, add a breakpoint for SIGPIPE, then step through to see if Pi is handling SIGPIPE or not. The actions we did are commented with numbered index.
 
 ```rust
 // (1) Starting lldb for the Pi process
