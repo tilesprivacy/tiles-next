@@ -15,6 +15,7 @@ const pageTitles: Record<string, string> = {
   'research': 'Research',
   'community': 'Community',
   'resources': 'Resources',
+  'acknowledgements': 'Acknowledgements',
 }
 
 export function BookMobileBreadcrumb() {

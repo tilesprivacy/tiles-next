@@ -69,6 +69,13 @@
       "timestamp": true
     }
   },
+  "acknowledgements": {
+    "title": "Acknowledgements",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "licenses": {
     "title": "Licenses",
     "theme": {

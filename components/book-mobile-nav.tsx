@@ -62,6 +62,12 @@ const bookPages: BookPage[] = [
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',
   },
+  {
+    number: '10',
+    title: 'Acknowledgements',
+    description: 'Open-source software that Tiles builds on.',
+    href: '/book/acknowledgements',
+  },
   // Hidden from book nav for now; restore when re-enabling the Licenses page in the sidebar.
   // {
   //   number: '09',
@@ -79,11 +85,11 @@ export function BookMobileNav() {
           <Link
             key={page.href}
             href={page.href}
-            className="block group"
+            className="block group min-w-0"
             style={{ textDecoration: 'none' }}
           >
-            <div className="bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] p-8 rounded-sm h-full" style={{ textDecoration: 'none' }}>
-              <div className="flex flex-col items-start gap-3">
+            <div className="bg-black/[0.03] dark:bg-white/[0.05] hover:bg-black/[0.05] dark:hover:bg-white/[0.08] p-8 rounded-sm h-full min-w-0" style={{ textDecoration: 'none' }}>
+              <div className="flex min-w-0 flex-col items-start gap-3">
                 <div
                   className="text-sm lg:text-base leading-none tabular-nums text-black/35 dark:text-white/40 font-medium tracking-tight"
                   style={{ textDecoration: 'none' }}
@@ -91,7 +97,7 @@ export function BookMobileNav() {
                   {page.number}
                 </div>
                 <h2
-                  className="text-3xl font-semibold leading-[1.05] text-black dark:text-white tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80"
+                  className="w-full min-w-0 break-words text-3xl font-semibold leading-[1.05] text-black dark:text-white tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80"
                   style={{ textDecoration: 'none' }}
                 >
                   {page.title}

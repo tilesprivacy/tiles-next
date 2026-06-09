@@ -21,6 +21,7 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/research', title: 'Research' },
   { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
+  { route: '/book/acknowledgements', title: 'Acknowledgements' },
   // { route: '/book/licenses', title: 'Licenses' },
 ]
 
