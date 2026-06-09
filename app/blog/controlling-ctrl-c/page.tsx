@@ -354,7 +354,7 @@ while is_running.load(std::sync::atomic::Ordering::SeqCst) {
 
       <p>
         But again, for some reason we are back to square one where the REPL is non-responsive to Ctrl-C when it&apos;s
-        streaming the output.
+        streaming the output. As in the above signal handler is not getting called on SIGINT.
       </p>
 
       <p>
@@ -426,7 +426,7 @@ while is_running.load(std::sync::atomic::Ordering::SeqCst) {
         Although this is fine for us, as we don&apos;t want the Pi process to be a background daemon and go rogue,
         it&apos;s important to understand what&apos;s happening under the hood, as we also have a Tiles daemon process
         (which is a background headless Tiles HTTP server) that is still alive even after the main REPL program closes,
-        as it&apos;s supposed to be (this was also spawned in a different process group).
+        as it is supposed to be (this was also spawned in a different process group).
       </p>
 
       <RustCodeBlock code={`// where 88068 is pid for tiles
@@ -441,8 +441,8 @@ pstree -p 88068
 
       <p>
         Why the dual behavior for the same action? For that we can live-debug the Pi program using lldb (LLVM debugger) to
-        see what happens when the parent exits. We will attach the Pi process to lldb, add a breakpoint for SIGPIPE,
-        then step through to see if Pi is handling SIGPIPE or not. The actions we take are commented with numbered index.
+        see what happens when the parent exit. We will attach the Pi process to lldb, add a breakpoint for SIGPIPE,
+        then step through to see if Pi is handling SIGPIPE or not. The actions we did are commented with numbered index.
       </p>
 
       <RustCodeBlock code={`// (1) Starting lldb for the Pi process
@@ -475,15 +475,8 @@ SIGPIPE      false  true   true
 // Pi
 Process 88099 resuming
 Process 88099 stopped
-// (5) At this point, Tiles repl already exit, and now we
-// remove the SIGPIPE breakpoint
-(lldb) process handle SIGPIPE --pass true --stop false --notify true
 
-NAME         PASS   STOP   NOTIFY
-===========  =====  =====  ======
-SIGPIPE      true   false  true
-
-// (6) and continue the Pi program after removing the breakpoint
+// (5) and continue the Pi program after resuming after the breakpoint
 (lldb) process continue
 // We can see that Pi program exits as soon as it
 // receives SIGPIPE
