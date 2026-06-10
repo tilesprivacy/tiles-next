@@ -157,11 +157,9 @@ Example shared session link: [tiles.run/share/YXQ6Ly9k...xeTI3](/share/YXQ6Ly9ka
 
 ## Uninstall Tiles (macOS)
 
-The full macOS uninstall procedure now lives in a dedicated skill file that includes stop steps, installed-path cleanup, data-path cleanup, optional receipt and keychain cleanup, and warnings for destructive commands.
+By default, uninstalling Tiles removes only binaries and shared payloads under `/usr/local`. User data files under `~/.local/share/tiles` (or a custom `[data] path` in `config.toml`) are not deleted, so chats, memory, databases, and logs remain for a later reinstall. Wipe that data only when you want a clean slate.
+
+Read the full step-by-step procedure in the [Tiles uninstaller skill](https://tiles.run/tiles-uninstaller-skill/SKILL.md), including optional receipt and keychain cleanup. With coding agents (for example Claude Code or Codex), share that URL in your prompt and ask the agent to follow it, adapting paths that differ on your machine.
 
 We are actively working on an official Tiles uninstaller.
-
-To use it with coding agents (for example Claude Code or Codex), share the skill file URL in your prompt and ask the agent to follow it step by step while adapting only paths that differ on your machine.
-
-Read and download it here: [`https://tiles.run/tiles-uninstaller-skill/SKILL.md`](https://tiles.run/tiles-uninstaller-skill/SKILL.md).
 

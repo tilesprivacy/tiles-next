@@ -1,19 +1,30 @@
 # Tiles Uninstall Skill (macOS)
 
-This guide describes a complete manual uninstall flow for Tiles on macOS, including installed files, local data, optional installer receipts, and optional keychain cleanup.
+This guide describes a manual uninstall flow for Tiles on macOS, including installed files, optional config and data cleanup, optional installer receipts, and optional keychain cleanup.
+
+## Default behavior
+
+The default uninstall removes only installed binaries and shared payloads under `/usr/local`. It does **not** delete user config or data, so chats, memory, databases, logs, and settings remain for a later reinstall.
+
+Default paths left intact on macOS:
+
+- Config: `~/.config/tiles` (or `${XDG_CONFIG_HOME}/tiles`)
+- Data: `~/.local/share/tiles` (or `${XDG_DATA_HOME}/tiles`)
+
+Remove config or wipe user data only when you explicitly want those cleared.
 
 ## Scope
 
 - Platform: macOS
 - Install types: network installer and Offline Installer
-- Result: remove Tiles binaries, shared payloads, and local user data
+- Result: remove Tiles binaries and shared payloads; preserve local user config and data by default
 
 ## What this skill includes
 
 1. Stop running Tiles services and daemons safely.
 2. Remove installer-managed files in `/usr/local`.
 3. Optionally clear installer receipts from `pkgutil`.
-4. Remove Tiles config and data paths (including XDG-aware paths).
+4. Optionally remove Tiles config or wipe user data paths (including XDG-aware paths) when explicitly requested.
 5. Optional cleanup for Hugging Face cache and Keychain entries.
 6. Notes for custom data paths and development builds.
 
@@ -52,28 +63,25 @@ sudo pkgutil --forget com.tilesprivacy.tiles_models
 
 Use `--forget` only after payload files are removed.
 
-### 4) Remove user config and data
+### 4) Optional: remove user config
 
-Default paths on macOS:
-
-- Config: `~/.config/tiles`
-- Data: `~/.local/share/tiles`
-
-```bash
-rm -rf ~/.config/tiles
-rm -rf ~/.local/share/tiles
-```
-
-XDG-aware cleanup:
+Default config path on macOS: `~/.config/tiles`
 
 ```bash
 rm -rf "${XDG_CONFIG_HOME:-$HOME/.config}/tiles"
+```
+
+Only run this when you explicitly want settings cleared.
+
+### 5) Optional: wipe user data
+
+Default data path on macOS: `~/.local/share/tiles`
+
+```bash
 rm -rf "${XDG_DATA_HOME:-$HOME/.local/share}/tiles"
 ```
 
-### 5) Optional: remove custom data path contents
-
-If you set a custom `[data] path` in `config.toml`, remove that directory too.
+Only run this when you explicitly want chats, memory, databases, and logs removed. If you set a custom `[data] path` in `config.toml`, remove that directory during a data wipe as well.
 
 ### 6) Optional: Hugging Face cache
 
@@ -89,4 +97,4 @@ If you used source-tree debug builds, remove `.tiles_dev/tiles` next to that pro
 
 ## Safety warning
 
-`rm -rf` permanently deletes data, including chats, local memory, databases, and logs under removed paths. Confirm backups before running destructive commands.
+`rm -rf` permanently deletes data, including chats, local memory, databases, and logs under removed paths. The default uninstall flow preserves user config and data; confirm backups before any optional config removal or data wipe.
