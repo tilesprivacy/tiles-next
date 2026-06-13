@@ -326,14 +326,42 @@ function parseReasoningSegments(content: string): ReasoningSegment[] {
 }
 
 function parseToolPayload(content: string): Record<string, unknown> | null {
+  const trimmedContent = content.trim()
+
   try {
-    const parsed = JSON.parse(content.trim()) as unknown
+    const parsed = JSON.parse(trimmedContent) as unknown
     return parsed && typeof parsed === "object" && !Array.isArray(parsed)
       ? (parsed as Record<string, unknown>)
       : null
   } catch {
+    // Continue below for the newer text metadata shape:
+    // Tool: bash
+    // Arguments: {"command":["bash","-lc","ls"]}
+  }
+
+  const toolMatch = trimmedContent.match(/^Tool:\s*(.+?)\s*$/im)
+  const argumentsMatch = trimmedContent.match(/^Arguments:\s*([\s\S]*)$/im)
+  const toolName = toolMatch?.[1]?.trim()
+
+  if (!toolName) {
     return null
   }
+
+  const payload: Record<string, unknown> = {
+    tool: toolName,
+  }
+
+  if (argumentsMatch?.[1]) {
+    const rawArguments = argumentsMatch[1].trim()
+
+    try {
+      payload.arguments = JSON.parse(rawArguments) as unknown
+    } catch {
+      payload.arguments = rawArguments
+    }
+  }
+
+  return payload
 }
 
 function formatToolValue(value: unknown): string {
@@ -352,6 +380,67 @@ function formatToolValue(value: unknown): string {
   return String(value)
 }
 
+function formatToolRows(payload: Record<string, unknown> | null): string {
+  if (!payload) {
+    return ""
+  }
+
+  return JSON.stringify(payload, null, 2)
+}
+
+function getToolName(payload: Record<string, unknown>): string {
+  return (
+    formatToolValue(payload.tool) ||
+    formatToolValue(payload.name) ||
+    formatToolValue(payload.function)
+  )
+}
+
+function getToolArguments(payload: Record<string, unknown>): Record<
+  string,
+  unknown
+> {
+  const candidate =
+    payload.arguments ?? payload.args ?? payload.input ?? payload.parameters
+
+  return candidate && typeof candidate === "object" && !Array.isArray(candidate)
+    ? (candidate as Record<string, unknown>)
+    : payload
+}
+
+function formatFileReadDetail(args: Record<string, unknown>): string {
+  const path = formatToolValue(args.path)
+  const lineStart = formatToolValue(args.line_start)
+  const lineEnd = formatToolValue(args.line_end)
+  const lineRange =
+    lineStart && lineEnd
+      ? `:${lineStart}-${lineEnd}`
+      : lineStart
+        ? `:${lineStart}`
+        : ""
+
+  return path ? `${path}${lineRange}` : "View file request"
+}
+
+function formatShellCommandDetail(command: unknown): string {
+  if (Array.isArray(command)) {
+    const parts = command.map((entry) => String(entry))
+    const shell = parts[0]?.toLowerCase()
+
+    if (
+      (shell === "bash" || shell === "sh" || shell === "zsh") &&
+      parts[1] === "-lc" &&
+      parts[2]
+    ) {
+      return parts.slice(2).join(" ")
+    }
+
+    return parts.join(" ")
+  }
+
+  return formatToolValue(command)
+}
+
 function getToolCallSummary(payload: Record<string, unknown> | null): {
   label: string
   detail: string
@@ -365,39 +454,38 @@ function getToolCallSummary(payload: Record<string, unknown> | null): {
     }
   }
 
-  if (Array.isArray(payload.command)) {
+  const toolName = getToolName(payload)
+  const normalizedToolName = toolName.trim().toLowerCase()
+  const args = getToolArguments(payload)
+  const command = args.command ?? payload.command
+
+  if (
+    normalizedToolName === "bash" ||
+    normalizedToolName === "shell" ||
+    Array.isArray(command)
+  ) {
     return {
-      label: "Shell command",
-      detail: formatToolValue(payload.command),
+      label: toolName || "Shell command",
+      detail: formatShellCommandDetail(command),
       icon: "terminal",
     }
   }
 
-  if (typeof payload.path === "string") {
-    const lineStart = formatToolValue(payload.line_start)
-    const lineEnd = formatToolValue(payload.line_end)
-    const lineRange =
-      lineStart && lineEnd
-        ? `:${lineStart}-${lineEnd}`
-        : lineStart
-          ? `:${lineStart}`
-          : ""
-
+  if (
+    normalizedToolName === "read" ||
+    normalizedToolName === "open" ||
+    typeof args.path === "string" ||
+    typeof payload.path === "string"
+  ) {
     return {
-      label: "Read file",
-      detail: `${payload.path}${lineRange}`,
+      label: toolName || "Read file",
+      detail: formatFileReadDetail(args),
       icon: "file",
     }
   }
 
-  const toolName =
-    formatToolValue(payload.tool) ||
-    formatToolValue(payload.name) ||
-    formatToolValue(payload.function) ||
-    "Tool call"
-
   return {
-    label: toolName,
+    label: toolName || "Tool call",
     detail: "View parameters",
     icon: "tool",
   }
@@ -420,8 +508,7 @@ function ToolIcon({ icon }: { icon: "terminal" | "file" | "tool" }) {
 function ToolCallCard({ content }: { content: string }) {
   const payload = parseToolPayload(content)
   const summary = getToolCallSummary(payload)
-  const rows = payload ? Object.entries(payload) : []
-  const rawPayload = payload ? JSON.stringify(payload, null, 2) : content.trim()
+  const rawPayload = formatToolRows(payload) || content.trim()
 
   return (
     <div className="min-w-0 py-1 text-black/68 dark:text-white/68">
@@ -438,32 +525,14 @@ function ToolCallCard({ content }: { content: string }) {
               {summary.detail}
             </span>
           </div>
-          <details className="mt-0.5">
-            <summary className="inline cursor-pointer text-[0.72rem] font-medium leading-5 text-black/42 transition-colors hover:text-black/62 dark:text-white/42 dark:hover:text-white/62">
-              Parameters
-            </summary>
-            {rows.length > 0 ? (
-              <div className="mt-1.5 grid text-[0.72rem] leading-5">
-                {rows.map(([key, value]) => (
-                  <div
-                    key={key}
-                    className="grid min-w-0 grid-cols-[4.5rem_minmax(0,1fr)] gap-2 py-0.5"
-                  >
-                    <span className="font-mono text-black/36 dark:text-white/36">
-                      {key}
-                    </span>
-                    <span className="min-w-0 break-words font-mono text-black/58 dark:text-white/58">
-                      {formatToolValue(value)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <pre className="mt-1.5 overflow-x-auto font-mono text-[0.72rem] leading-5 text-black/58 dark:text-white/58">
-                {rawPayload}
-              </pre>
-            )}
-          </details>
+          <div className="mt-1.5">
+            <div className="text-[0.72rem] font-medium leading-5 text-black/42 dark:text-white/42">
+              Raw metadata
+            </div>
+            <pre className="mt-1.5 overflow-x-auto rounded-md bg-black/[0.035] p-2 font-mono text-[0.72rem] leading-5 text-black/58 dark:bg-white/[0.055] dark:text-white/58">
+              {rawPayload}
+            </pre>
+          </div>
         </div>
       </div>
     </div>
