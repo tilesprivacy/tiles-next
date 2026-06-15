@@ -1,3 +1,4 @@
+import { fetchGithubJson } from "@/lib/github-json"
 import { isReleaseVersionHidden, normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface ChangeItem {
@@ -279,10 +280,6 @@ function extractSha256Digest(asset: any): string {
   return /^[a-f0-9]{64}$/.test(sha256) ? sha256 : "Unavailable"
 }
 
-const githubHeaders = {
-  Accept: "application/vnd.github+json",
-}
-
 const requiredVersions = Array.from(
   new Set([
     ...Object.keys(customSections),
@@ -292,20 +289,16 @@ const requiredVersions = Array.from(
   ])
 )
 
+function isVisibleReleaseData(release: any): boolean {
+  const normalizedVersion = normalizeVersion(String(release?.tag_name || ""))
+  return normalizedVersion.length > 0 && !isReleaseVersionHidden(normalizedVersion)
+}
+
 export async function fetchReleases(): Promise<Release[]> {
-  const res = await fetch(
+  let data = await fetchGithubJson<any[]>(
     "https://api.github.com/repos/tilesprivacy/tiles/releases",
-    {
-      cache: 'no-store',
-      headers: githubHeaders,
-    }
+    (releases) => releases.filter(isVisibleReleaseData)
   )
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch releases")
-  }
-
-  let data = await res.json()
 
   const missingRequiredVersions = requiredVersions.filter(
     (requiredVersion) =>
@@ -318,19 +311,13 @@ export async function fetchReleases(): Promise<Release[]> {
   if (missingRequiredVersions.length > 0) {
     const requiredReleases = await Promise.all(
       missingRequiredVersions.map(async (requiredVersion) => {
-        const requiredRes = await fetch(
-          `https://api.github.com/repos/tilesprivacy/tiles/releases/tags/${requiredVersion}`,
-          {
-            cache: "no-store",
-            headers: githubHeaders,
-          }
-        )
-
-        if (!requiredRes.ok) {
+        try {
+          return await fetchGithubJson<any>(
+            `https://api.github.com/repos/tilesprivacy/tiles/releases/tags/${requiredVersion}`
+          )
+        } catch {
           return null
         }
-
-        return requiredRes.json()
       })
     )
 
@@ -354,7 +341,7 @@ export async function fetchReleases(): Promise<Release[]> {
   return normalizedData
     .filter((release: any) => {
       const normalizedVersion = normalizeVersion(String(release.tag_name || ""))
-      return !release.prerelease && !isReleaseVersionHidden(normalizedVersion)
+      return !release.prerelease && isVisibleReleaseData(release)
     })
     .map((release: any) => {
       const body = release.body || ""

@@ -5,5 +5,11 @@ export function normalizeReleaseVersion(version: string): string {
 }
 
 export function isReleaseVersionHidden(version: string): boolean {
-  return HIDDEN_RELEASE_VERSIONS.has(normalizeReleaseVersion(version))
+  const normalizedVersion = normalizeReleaseVersion(version)
+  return (
+    HIDDEN_RELEASE_VERSIONS.has(normalizedVersion) ||
+    [...HIDDEN_RELEASE_VERSIONS].some((hiddenVersion) =>
+      normalizedVersion.startsWith(`${hiddenVersion}-`)
+    )
+  )
 }
