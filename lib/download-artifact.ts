@@ -1,4 +1,5 @@
 import { formatBinarySize } from "@/lib/format-binary-size"
+import { isReleaseVersionHidden, normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface DownloadArtifact {
   version: string
@@ -10,19 +11,19 @@ export interface DownloadArtifact {
 }
 
 const GITHUB_RELEASES_LATEST_URL =
-  "https://api.github.com/repos/tilesprivacy/tiles/releases/latest"
+  "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
 const githubHeaders = {
   Accept: "application/vnd.github+json",
 }
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
-  version: "0.4.7",
-  fileName: "tiles-0.4.7-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.7-signed.pkg",
-  binarySizeBytes: 71040022,
-  binarySizeLabel: "67.78 MB",
-  sha256: "2c17999f25d34d78a9e4e21100d8ebdb8daf15fe375a2a10ec8c6f27c2195d9b",
+  version: "0.4.11",
+  fileName: "tiles-0.4.11-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.4.11-signed.pkg",
+  binarySizeBytes: 100523647,
+  binarySizeLabel: "95.87 MB",
+  sha256: "9b68d642caf589fd9eafaae95929e5623eb361964b029971a89b66eb1eaed2d1",
 }
 
 function extractSha256Digest(asset: any): string {
@@ -44,7 +45,32 @@ export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
       throw new Error(`Failed to fetch latest release: ${res.status}`)
     }
 
-    const release = await res.json()
+    const releases = await res.json()
+    if (!Array.isArray(releases)) {
+      throw new Error("Failed to fetch releases")
+    }
+
+    const release = releases.find((candidate: any) => {
+      const version = normalizeReleaseVersion(String(candidate?.tag_name || ""))
+      const assets = Array.isArray(candidate?.assets) ? candidate.assets : []
+
+      return (
+        version.length > 0 &&
+        !candidate?.prerelease &&
+        !isReleaseVersionHidden(version) &&
+        assets.some(
+          (asset: any) =>
+            typeof asset?.name === "string" &&
+            asset.name.endsWith(".pkg") &&
+            typeof asset?.size === "number"
+        )
+      )
+    })
+
+    if (!release) {
+      throw new Error("No visible .pkg release found")
+    }
+
     const assets = Array.isArray(release?.assets) ? release.assets : []
     const pkgAsset = assets.find(
       (asset: any) =>

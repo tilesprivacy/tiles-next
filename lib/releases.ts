@@ -1,3 +1,5 @@
+import { isReleaseVersionHidden, normalizeReleaseVersion } from "@/lib/release-visibility"
+
 export interface ChangeItem {
   text: string
   subItems?: string[]
@@ -234,9 +236,7 @@ const customTitles: Record<string, string> = {
 // Versions where the last bullet point should be replaced
 const replaceLastChange: Record<string, string> = {}
 
-function normalizeVersion(version: string): string {
-  return version.replace(/^v/, "")
-}
+const normalizeVersion = normalizeReleaseVersion
 
 function parseVersion(version: string): number[] {
   const [major = "0", minor = "0", patch = "0"] = normalizeVersion(version).split(".")
@@ -352,7 +352,10 @@ export async function fetchReleases(): Promise<Release[]> {
   )
 
   return normalizedData
-    .filter((release: any) => !release.prerelease)
+    .filter((release: any) => {
+      const normalizedVersion = normalizeVersion(String(release.tag_name || ""))
+      return !release.prerelease && !isReleaseVersionHidden(normalizedVersion)
+    })
     .map((release: any) => {
       const body = release.body || ""
       const extractedSections = extractSections(body)
