@@ -69,6 +69,10 @@ export default function BrandPage() {
               <strong className="font-semibold text-foreground">Banners</strong> are available as outline and full
               banner treatments for both light and dark surfaces.
             </p>
+            <p>
+              <strong className="font-semibold text-foreground">Wallpaper</strong> is available as a desktop
+              background.
+            </p>
           </div>
 
           <div className="mt-10 space-y-10">
@@ -141,6 +145,25 @@ export default function BrandPage() {
               </div>
               <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
                 Tiles outline banner treatment for light and dark surfaces.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">Wallpaper</h3>
+              <div className="mx-auto mt-4 flex w-full max-w-3xl justify-center">
+                <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
+                  <Image
+                    src="/wallpaper.webp"
+                    alt="Tiles wallpaper preview"
+                    width={1362}
+                    height={1082}
+                    sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
+                    className="mx-auto h-auto w-full object-contain [content-visibility:visible]"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
+                Tiles wallpaper.
               </p>
             </div>
           </div>
