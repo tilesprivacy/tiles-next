@@ -303,7 +303,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             </tr>
 
             <tr>
-              <td style="padding:0 0 40px 0; border-top:1px solid #262626;">
+              <td style="padding:0 0 40px 0;">
                 <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
                   By downloading and using Tiles, you agree to the <a href="https://tiles.run/terms" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">terms</a> and <a href="https://tiles.run/privacy" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">privacy statement</a>.
                 </p>
@@ -382,25 +382,19 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
                   </tr>
                   <tr>
                     <td align="center" style="padding:0 0 18px 0;">
-                      <a href="https://x.com/tilesprivacy" aria-label="X" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                      <a href="https://x.com/tilesprivacy" aria-label="X (Twitter)" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-x-9ca3af.svg" width="16" height="16" alt="X" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://bsky.app/profile/tiles.run" aria-label="Bluesky" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-bluesky-9ca3af.svg" width="16" height="16" alt="Bluesky" style="display:block; width:16px; height:16px;">
                       </a>
-                      <a href="https://www.instagram.com/tilesprivacy" aria-label="Instagram" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://tiles.run/icon-instagram-9ca3af.svg" width="16" height="16" alt="Instagram" style="display:block; width:16px; height:16px;">
-                      </a>
                       <a href="https://go.tiles.run/discord" aria-label="Discord" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-discord-9ca3af.svg" width="16" height="16" alt="Discord" style="display:block; width:16px; height:16px;">
-                      </a>
-                      <a href="https://www.reddit.com/r/tilesprivacy/" aria-label="Reddit" style="display:inline-block; margin:0 6px; text-decoration:none;">
-                        <img src="https://tiles.run/icon-reddit-9ca3af.svg" width="16" height="16" alt="Reddit" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://github.com/tilesprivacy" aria-label="GitHub" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-github-9ca3af.svg" width="16" height="16" alt="GitHub" style="display:block; width:16px; height:16px;">
                       </a>
-                      <a href="https://tangled.org/tiles.run/tiles/" aria-label="Tangled" style="display:inline-block; margin:0 6px; text-decoration:none;">
+                      <a href="https://tangled.org/tiles.run" aria-label="Tangled" style="display:inline-block; margin:0 6px; text-decoration:none;">
                         <img src="https://tiles.run/icon-tangled-9ca3af.svg" width="16" height="16" alt="Tangled" style="display:block; width:16px; height:16px;">
                       </a>
                       <a href="https://huggingface.co/tilesprivacy" aria-label="Hugging Face" style="display:inline-block; margin:0 6px; text-decoration:none;">
