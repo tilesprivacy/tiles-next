@@ -2,6 +2,12 @@ import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 
 export const OFFLINE_MODEL_NAME = "gpt-oss-20b-MXFP4-Q4"
 
+export const OFFLINE_MODEL_URL = "https://huggingface.co/mlx-community/gpt-oss-20b-MXFP4-Q4" as const
+
+export const LINUX_MODEL_NAME = "gpt-oss-20b-GGUF"
+
+export const LINUX_MODEL_URL = "https://huggingface.co/unsloth/gpt-oss-20b-GGUF" as const
+
 export const OFFLINE_INSTALLER = {
   downloadUrl: "https://download.tiles.run/tiles-0.4.9-full-signed.pkg",
   fileName: "tiles-0.4.9-full-signed.pkg",

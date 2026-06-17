@@ -15,7 +15,7 @@ import {
 import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
-import { OFFLINE_INSTALLER, LINUX_INSTALL_COMMAND, LINUX_INSTALL_SCRIPT_URL, LINUX_INSTALL_VERSION, OFFLINE_MODEL_NAME } from "@/lib/download-page-data"
+import { OFFLINE_INSTALLER, LINUX_INSTALL_COMMAND, LINUX_INSTALL_SCRIPT_URL, LINUX_INSTALL_VERSION, LINUX_MODEL_NAME, LINUX_MODEL_URL, OFFLINE_MODEL_NAME, OFFLINE_MODEL_URL } from "@/lib/download-page-data"
 import { DOWNLOAD_PLATFORM_LINUX_LABEL, DOWNLOAD_PLATFORM_MACOS_LABEL } from "@/lib/product-description"
 
 interface DownloadMetadata {
@@ -289,6 +289,20 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                   <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_MACOS_LABEL}.</p>
                 </div>
 
+                <p className={bodyTextClass}>
+                  Uses{" "}
+                  <a
+                    href={OFFLINE_MODEL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 underline-offset-2 transition-opacity hover:opacity-80 ${codeSurfaceClass}`}
+                  >
+                    <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+                    <span className="font-mono text-sm">{OFFLINE_MODEL_NAME}</span>
+                  </a>{" "}
+                  as the default model.
+                </p>
+
                 <div className="space-y-8">
                   <article className="space-y-3">
                     <h3 className={installerOptionTitleClass}>Network installer</h3>
@@ -371,12 +385,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                   <article className="space-y-3 border-t border-border pt-8">
                     <h3 className={installerOptionTitleClass}>Offline installer</h3>
                     <p className={bodyTextClass}>
-                      Includes the default{" "}
-                      <span className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>
-                        <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
-                        <span className="font-mono text-sm">{OFFLINE_MODEL_NAME}</span>
-                      </span>{" "}
-                      model bundled for fully offline setup with no additional downloads.
+                      Full installer with the default model bundled for air-gapped use.
                     </p>
                     <p className={`text-sm ${textColorSubtle}`}>
                       Release: {offlineReleaseVersion ? `v${offlineReleaseVersion}` : "Unavailable"}
@@ -490,12 +499,24 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                   <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_LINUX_LABEL}.</p>
                 </div>
 
+                <p className={bodyTextClass}>
+                  Uses{" "}
+                  <a
+                    href={LINUX_MODEL_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 underline-offset-2 transition-opacity hover:opacity-80 ${codeSurfaceClass}`}
+                  >
+                    <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+                    <span className="font-mono text-sm">{LINUX_MODEL_NAME}</span>
+                  </a>{" "}
+                  as the default model.
+                </p>
+
                 <article className="space-y-3">
                   <h3 className={installerOptionTitleClass}>Network installer</h3>
                   <p className={bodyTextClass}>
-                    Run this command to install Tiles on Linux. It downloads about 1 GB (excluding the model) and
-                    bundles CUDA. Supported GPUs: NVIDIA compute capability 5.0+ with driver version 531 or newer.
-                    NVIDIA GPUs with compute capability 5.0 through 6.2 require driver version 570 or newer. Check your{" "}
+                    About 1 GB download with CUDA bundled. The script also downloads the default model. Requires NVIDIA compute capability 5.0+ and driver 531+ (570+ for CC 5.0 through 6.2). Check your{" "}
                     <a
                       href="https://developer.nvidia.com/cuda-gpus"
                       target="_blank"
