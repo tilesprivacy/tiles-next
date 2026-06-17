@@ -288,6 +288,53 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
             </div>
 
             <div className="space-y-10 lg:space-y-12">
+              {isMobileClient ? (
+                <div className="border-b border-border pb-10">
+                  <div className="space-y-2">
+                    <p className={`font-medium ${textColor}`}>Send installer links to email</p>
+                    <p className={bodyTextClass}>On mobile right now? Send download links to your inbox and continue on desktop.</p>
+                  </div>
+                  <form onSubmit={onSendDownloadLinkEmail} className="mt-3 flex flex-col gap-2">
+                    <label htmlFor="mobile-download-email-inline" className="sr-only">
+                      Email address
+                    </label>
+                    <input
+                      id="mobile-download-email-inline"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="email"
+                      placeholder="Email address"
+                      value={email}
+                      onChange={(event) => onEmailChange(event.target.value)}
+                      disabled={emailStatus === "loading" || emailStatus === "success"}
+                      className="h-10 min-w-0 w-full rounded-sm border border-border bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground selection:bg-blue-500 selection:text-white focus:border-foreground/25 focus:ring-2 focus:ring-foreground/10 disabled:cursor-not-allowed disabled:opacity-60"
+                    />
+                    <button
+                      type="submit"
+                      disabled={emailStatus === "loading" || emailStatus === "success"}
+                      className="h-10 w-full rounded-sm bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] dark:focus-visible:ring-white/30"
+                    >
+                      {emailStatus === "loading"
+                        ? "Sending..."
+                        : emailStatus === "success"
+                          ? "Link sent"
+                          : "Send link"}
+                    </button>
+                    {emailMessage ? (
+                      <p
+                        role="status"
+                        aria-live="polite"
+                        className={`text-xs leading-relaxed ${
+                          emailStatus === "error" ? "text-red-600 dark:text-red-300" : "text-muted-foreground"
+                        }`}
+                      >
+                        {emailMessage}
+                      </p>
+                    ) : null}
+                  </form>
+                </div>
+              ) : null}
+
               <section aria-labelledby="download-macos-heading" className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-center gap-2.5">
@@ -449,53 +496,6 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                   Offline installer builds aren&apos;t published for every release. Check the release version above to
                   confirm which build each installer includes.
                 </p>
-
-                {isMobileClient ? (
-                  <div className="border-t border-border pt-6">
-                    <div className="space-y-2">
-                      <p className={`font-medium ${textColor}`}>Send installer links to email</p>
-                      <p className={bodyTextClass}>On mobile right now? Send download links to your inbox and continue on desktop.</p>
-                    </div>
-                    <form onSubmit={onSendDownloadLinkEmail} className="mt-3 flex flex-col gap-2">
-                      <label htmlFor="mobile-download-email-inline" className="sr-only">
-                        Email address
-                      </label>
-                      <input
-                        id="mobile-download-email-inline"
-                        type="email"
-                        inputMode="email"
-                        autoComplete="email"
-                        placeholder="Email address"
-                        value={email}
-                        onChange={(event) => onEmailChange(event.target.value)}
-                        disabled={emailStatus === "loading" || emailStatus === "success"}
-                        className="h-10 min-w-0 w-full rounded-sm border border-border bg-background px-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground selection:bg-blue-500 selection:text-white focus:border-foreground/25 focus:ring-2 focus:ring-foreground/10 disabled:cursor-not-allowed disabled:opacity-60"
-                      />
-                      <button
-                        type="submit"
-                        disabled={emailStatus === "loading" || emailStatus === "success"}
-                        className="h-10 w-full rounded-sm bg-black px-5 text-sm font-medium text-white transition-colors hover:bg-black/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black/20 disabled:cursor-not-allowed disabled:opacity-45 dark:bg-white dark:text-black dark:hover:bg-[#F2F2F2] dark:focus-visible:ring-white/30"
-                      >
-                        {emailStatus === "loading"
-                          ? "Sending..."
-                          : emailStatus === "success"
-                            ? "Link sent"
-                            : "Send link"}
-                      </button>
-                      {emailMessage ? (
-                        <p
-                          role="status"
-                          aria-live="polite"
-                          className={`text-xs leading-relaxed ${
-                            emailStatus === "error" ? "text-red-600 dark:text-red-300" : "text-muted-foreground"
-                          }`}
-                        >
-                          {emailMessage}
-                        </p>
-                      ) : null}
-                    </form>
-                  </div>
-                ) : null}
               </section>
 
               <section aria-labelledby="download-linux-heading" className="space-y-6 border-t border-border pt-10 lg:pt-12">

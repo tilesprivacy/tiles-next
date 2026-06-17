@@ -4,8 +4,8 @@ import { type DownloadLinkEmailVariables } from "@/lib/download-link-email"
 import {
   getDownloadPageNetworkArtifact,
   OFFLINE_INSTALLER,
-  OFFLINE_MODEL_NAME,
 } from "@/lib/download-page-data"
+import { getLatestReleaseVersion } from "@/lib/releases"
 
 const SENDER_NAME = "Tiles Privacy"
 const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
@@ -71,9 +71,11 @@ function buildChecksumUrl(fileName: string): string {
 
 function buildDownloadLinkVariables(
   artifact: Awaited<ReturnType<typeof getDownloadPageNetworkArtifact>>,
+  latestReleaseVersion: string | null,
 ): DownloadLinkEmailVariables {
   const networkVersion =
     extractVersionFromFileName(artifact.fileName) || artifact.version
+  const currentBuildVersion = latestReleaseVersion ?? networkVersion
   const networkShaShort = shortenSha256(artifact.sha256)
   const offlineVersion = extractVersionFromFileName(OFFLINE_INSTALLER.fileName)
   const offlineShaShort = shortenSha256(OFFLINE_INSTALLER.sha256)
@@ -86,6 +88,7 @@ function buildDownloadLinkVariables(
   const offlineChecksumUrl = buildChecksumUrl(offlineFileName)
 
   return {
+    CURRENT_BUILD_VERSION: currentBuildVersion,
     DOWNLOAD_URL: artifact.downloadUrl,
     DOWNLOAD_FILE_NAME: networkFileName,
     DOWNLOAD_VERSION: networkVersion,
@@ -102,7 +105,6 @@ function buildDownloadLinkVariables(
     OFFLINE_DOWNLOAD_SIZE: OFFLINE_INSTALLER.binarySizeLabel,
     OFFLINE_DOWNLOAD_SHA_SHORT: offlineShaShort,
     OFFLINE_DOWNLOAD_CHECKSUM_URL: offlineChecksumUrl,
-    OFFLINE_MODEL_NAME,
     OFFLINE_VERSION: offlineVersion,
     OFFLINE_SIZE: OFFLINE_INSTALLER.binarySizeLabel,
     OFFLINE_SHA_SHORT: offlineShaShort,
@@ -174,8 +176,11 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const artifact = await getDownloadPageNetworkArtifact()
-    const variables = buildDownloadLinkVariables(artifact)
+    const [artifact, latestReleaseVersion] = await Promise.all([
+      getDownloadPageNetworkArtifact(),
+      getLatestReleaseVersion(),
+    ])
+    const variables = buildDownloadLinkVariables(artifact, latestReleaseVersion)
     const resend = getResendClient()
     const templateId = getDownloadLinkTemplateId()
 
