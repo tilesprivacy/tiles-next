@@ -83,6 +83,10 @@ export function ProductFeatureWidgets({
           className={featureLinkClass}
         >
           MLX
+        </a>{" "}
+        and{" "}
+        <a href="https://llama.app" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
+          llama.cpp
         </a>
         .
       </FeatureWidget>
@@ -113,15 +117,16 @@ export function ProductFeatureWidgets({
         <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           ATProto
         </a>{" "}
-        account.
+        identity for social features.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
-        Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network, with{" "}
+        Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, using{" "}
         <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          Iroh&apos;s
+          Iroh
         </a>{" "}
-        QUIC networking stack.
+        with locally generated decentralized identifiers (DID) and User Controlled Authorization Network (UCAN) for
+        authorization.
       </FeatureWidget>
 
       <FeatureWidget

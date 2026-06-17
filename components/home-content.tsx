@@ -46,6 +46,15 @@ const featureCards = [
           className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
         >
           MLX
+        </a>{" "}
+        and{" "}
+        <a
+          href="https://llama.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
+        >
+          llama.cpp
         </a>
         .
       </>
