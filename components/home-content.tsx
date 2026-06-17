@@ -37,25 +37,7 @@ const featureCards = [
         <span className="inline-flex items-center gap-1.5 rounded bg-black/[0.045] px-1.5 py-0.5 align-baseline dark:bg-white/[0.08]">
           <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
           <span className="font-mono text-[0.95em]">gpt-oss-20b</span>
-        </span>{" "}
-        powered on-device by{" "}
-        <a
-          href="https://ml-explore.github.io/mlx/build/html/index.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-        >
-          MLX
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://llama.app"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-        >
-          llama.cpp
-        </a>
+        </span>
         .
       </>
     ),

@@ -18,7 +18,7 @@ const comparisonRows = [
   { label: "Shared Links", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
   { label: "Developer SDK", tiles: "check", ollama: "check", lmStudio: "check", jan: "empty", osaurus: "check" },
   { label: "Offline Installer", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "empty" },
-  { label: "Cross platform", tiles: "partial", ollama: "check", lmStudio: "check", jan: "check", osaurus: "empty" },
+  { label: "Cross platform", tiles: "check", ollama: "check", lmStudio: "check", jan: "check", osaurus: "empty" },
   { label: "Open source", tiles: "check", ollama: "partial", lmStudio: "partial", jan: "check", osaurus: "check" },
 ]
 

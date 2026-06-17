@@ -74,20 +74,7 @@ export function ProductFeatureWidgets({
         <span className="inline-flex items-center gap-1.5 rounded bg-black/[0.045] px-1.5 py-0.5 align-baseline dark:bg-white/[0.08]">
           <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
           <span className="font-mono text-[0.95em]">gpt-oss-20b</span>
-        </span>{" "}
-        powered on-device by{" "}
-        <a
-          href="https://ml-explore.github.io/mlx/build/html/index.html"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={featureLinkClass}
-        >
-          MLX
-        </a>{" "}
-        and{" "}
-        <a href="https://llama.app" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          llama.cpp
-        </a>
+        </span>
         .
       </FeatureWidget>
 
@@ -105,15 +92,15 @@ export function ProductFeatureWidgets({
         >
           MLX
         </a>{" "}
-        on Apple Silicon.
+        on Apple Silicon and{" "}
+        <a href="https://llama.app" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
+          llama.cpp
+        </a>{" "}
+        on Linux.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="ATProto Identity">
-        Locally generated{" "}
-        <a href="https://www.w3.org/TR/did-core/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          DIDs
-        </a>
-        , with private keys always stored on-device and optional linking to your{" "}
+        Optional linking to your{" "}
         <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           ATProto
         </a>{" "}
@@ -121,12 +108,11 @@ export function ProductFeatureWidgets({
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
-        Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, using{" "}
+        E2EE peer-to-peer chat sync across linked devices, online or on your local network, via{" "}
         <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           Iroh
         </a>{" "}
-        with locally generated decentralized identifiers (DID) and User Controlled Authorization Network (UCAN) for
-        authorization.
+        with DID and UCAN authorization.
       </FeatureWidget>
 
       <FeatureWidget
@@ -136,7 +122,7 @@ export function ProductFeatureWidgets({
       >
         Create a public or private link to a chat session, published through{" "}
         <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          ATProto PDS
+          ATProto
         </a>
         .
       </FeatureWidget>
