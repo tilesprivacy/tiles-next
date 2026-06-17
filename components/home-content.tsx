@@ -65,15 +65,17 @@ const featureCards = [
         >
           Iroh
         </a>{" "}
-        with locally generated decentralized identifiers (DID) and User Controlled Authorization Network (UCAN) for authorization.
+        with locally generated decentralized identifiers (DID) and User Controlled Authorization Network (UCAN).
       </>
     ),
     ctaLabel: "Create your link",
     ctaHref: "/book/manual#peer-to-peer-linking-tiles-link",
     terminalLines: [
+      "$ tiles link did:key:z6Mknxy...YWSmTcZA",
+      "Run this on your other device:",
+      "tiles link add ucan:eyJ...YzQ",
       "$ tiles sync did:key:z6Mknxy...YWSmTcZA",
       "Connecting to Iroh relay",
-      "Discovering local peers",
       "Sync complete",
     ],
     shareLink: undefined,
@@ -99,7 +101,6 @@ const featureCards = [
     ctaHref: "/book/manual#sharing-commands",
     terminalLines: [
       "> /share",
-      "Share privately or publicly?",
       "Writing chat session to ATProto PDS",
     ],
     shareLink:
@@ -291,7 +292,7 @@ export function HomeContent() {
               <TechAttribution
                 variant={techAttributionVariant}
                 size="hero"
-                className="mt-5 max-w-full !flex-nowrap justify-center overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] text-inherit sm:justify-start"
+                className="mt-5 max-w-full !flex-nowrap justify-center overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:justify-start"
                 aria-label="Technology stack"
               />
             </div>

@@ -24,10 +24,12 @@ interface DownloadMetadata {
   binarySizeLabel: string
   sha256: string
   fileName: string
+  latestReleaseVersion?: string | null
 }
 
 interface DownloadContentProps {
   initialDownload?: DownloadMetadata
+  initialLatestReleaseVersion?: string | null
 }
 
 function extractVersionFromFileName(fileName: string | undefined): string | null {
@@ -55,13 +57,14 @@ const downloadButtonAppleIconClass =
 
 const downloadButtonLabelClass = `origin-left ${downloadButtonLabelMotionClasses}`
 
-export function DownloadContent({ initialDownload }: DownloadContentProps) {
+export function DownloadContent({ initialDownload, initialLatestReleaseVersion = null }: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isMobileClient, setIsMobileClient] = useState(false)
   const [isLoadingMetadata, setIsLoadingMetadata] = useState(!Boolean(initialDownload?.downloadUrl))
   const [metadataLoadFailed, setMetadataLoadFailed] = useState(false)
   const [download, setDownload] = useState<DownloadMetadata>(initialDownload ?? DEFAULT_DOWNLOAD_METADATA)
+  const [latestReleaseVersion, setLatestReleaseVersion] = useState<string | null>(initialLatestReleaseVersion)
   const [email, setEmail] = useState("")
   const [emailStatus, setEmailStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [emailMessage, setEmailMessage] = useState("")
@@ -127,6 +130,9 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
           sha256: data.sha256 || "Unavailable",
           fileName: data.fileName || fileNameFromUrl,
         })
+        if (data.latestReleaseVersion) {
+          setLatestReleaseVersion(data.latestReleaseVersion)
+        }
       } catch {
         if (isMounted) {
           setMetadataLoadFailed(true)
@@ -166,7 +172,11 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const hasDownloadUrl = Boolean(download.downloadUrl)
   const networkReleaseVersion = extractVersionFromFileName(download.fileName) ?? (download.version && download.version !== "latest" ? download.version : null)
   const offlineReleaseVersion = extractVersionFromFileName(OFFLINE_INSTALLER.fileName)
-  const displayVersion = networkReleaseVersion ? `v${networkReleaseVersion}` : null
+  const displayVersion = latestReleaseVersion
+    ? `v${latestReleaseVersion}`
+    : networkReleaseVersion
+      ? `v${networkReleaseVersion}`
+      : null
   const checksumFileUrl = download.fileName
     ? `https://download.tiles.run/checksums/${download.fileName}.sha256`
     : "https://download.tiles.run/checksums"

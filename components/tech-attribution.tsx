@@ -19,6 +19,20 @@ function squareLogoClass(size: TechAttributionSize) {
   }
 }
 
+function llamaCppLogoClass(size: TechAttributionSize) {
+  const align = "align-[-0.12em]"
+  switch (size) {
+    case "hero":
+      return `${logoLinkClass} h-[1.02em] w-[1.02em] items-center justify-center ${align}`
+    case "section":
+      return `${logoLinkClass} h-[1.06em] w-[1.06em] items-center justify-center ${align}`
+    case "lg":
+      return `${logoLinkClass} h-[1em] w-[1em] items-center justify-center ${align}`
+    default:
+      return `${logoLinkClass} h-[0.9em] w-[0.9em] items-center justify-center ${align}`
+  }
+}
+
 function rustLogoClass(size: TechAttributionSize) {
   const align = "align-[-0.12em]"
   switch (size) {
@@ -139,7 +153,7 @@ const sizeClasses: Record<TechAttributionSize, string> = {
     "gap-x-2.5 gap-y-2 text-[0.98rem] font-normal leading-[1.55] sm:gap-x-3 sm:text-[1rem]",
   section:
     "gap-x-2.5 gap-y-2.5 text-[clamp(1.02rem,2.6vw,1.2rem)] font-medium leading-[1.35] sm:gap-x-3 sm:text-[1.08rem] lg:text-[1.12rem]",
-  hero: "gap-x-3 gap-y-2 text-inherit font-medium leading-[1.45] sm:gap-x-3.5",
+  hero: "gap-x-3 gap-y-2 text-[0.9rem] font-medium leading-snug tracking-[-0.005em] sm:gap-x-3.5 sm:text-[0.94rem] lg:text-[0.98rem]",
 }
 
 export function TechAttribution({
@@ -168,7 +182,7 @@ export function TechAttribution({
             : size === "section"
               ? "leading-[1.35]"
               : size === "hero"
-                ? "leading-[1.4]"
+                ? "leading-snug"
                 : "leading-5"
         }
       >
@@ -193,7 +207,7 @@ export function TechAttribution({
         height={600}
         variant={variant}
         size={size}
-        containerClass={squareLogo}
+        containerClass={llamaCppLogoClass(size)}
       />
       <TechLogo
         href="https://pi.dev"

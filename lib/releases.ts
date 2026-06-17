@@ -421,6 +421,15 @@ export async function fetchReleases(): Promise<Release[]> {
     })
 }
 
+export async function getLatestReleaseVersion(): Promise<string | null> {
+  const releases = await fetchReleases()
+  if (releases.length === 0) {
+    return null
+  }
+
+  return normalizeReleaseVersion(releases[0].version)
+}
+
 function extractTarballs(assets: any[] | undefined): ReleaseTarball[] {
   if (!Array.isArray(assets)) {
     return []

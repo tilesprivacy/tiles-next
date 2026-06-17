@@ -1,8 +1,12 @@
 import { DownloadContent } from "@/components/download-content"
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
+import { getLatestReleaseVersion } from "@/lib/releases"
 
 export default async function DownloadPage() {
-  const initialDownloadArtifact = await getLatestDownloadArtifact()
+  const [initialDownloadArtifact, initialLatestReleaseVersion] = await Promise.all([
+    getLatestDownloadArtifact(),
+    getLatestReleaseVersion(),
+  ])
 
   return (
     <DownloadContent
@@ -13,6 +17,7 @@ export default async function DownloadPage() {
         sha256: initialDownloadArtifact.sha256,
         fileName: initialDownloadArtifact.fileName,
       }}
+      initialLatestReleaseVersion={initialLatestReleaseVersion}
     />
   )
 }
