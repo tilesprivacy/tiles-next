@@ -1,6 +1,6 @@
 import { formatBinarySize } from "@/lib/format-binary-size"
 import { fetchGithubJson } from "@/lib/github-json"
-import { isReleaseVersionHidden, normalizeReleaseVersion } from "@/lib/release-visibility"
+import { isDownloadReleaseVersionHidden, normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface DownloadArtifact {
   version: string
@@ -47,7 +47,7 @@ export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
           return (
             version.length > 0 &&
             !candidate?.prerelease &&
-            !isReleaseVersionHidden(version) &&
+            !isDownloadReleaseVersionHidden(version) &&
             assets.some(
               (asset: any) =>
                 typeof asset?.name === "string" &&

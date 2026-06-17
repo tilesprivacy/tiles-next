@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { SQLCIPHER_MARK_LETTER_PATH, SQLCIPHER_MARK_SHACKLE_PATH } from "@/lib/sqlcipher-mark-path"
 
 type TechAttributionVariant = "light" | "dark"
 type TechAttributionSize = "default" | "lg" | "intro" | "section" | "hero"
@@ -20,6 +19,20 @@ function squareLogoClass(size: TechAttributionSize) {
   }
 }
 
+function rustLogoClass(size: TechAttributionSize) {
+  const align = "align-[-0.12em]"
+  switch (size) {
+    case "hero":
+      return `${logoLinkClass} h-[1.36em] w-[1.36em] ${align}`
+    case "section":
+      return `${logoLinkClass} h-[1.42em] w-[1.42em] ${align}`
+    case "lg":
+      return `${logoLinkClass} h-[1.32em] w-[1.32em] ${align}`
+    default:
+      return `${logoLinkClass} h-[1.18em] w-[1.18em] ${align}`
+  }
+}
+
 function mlxLogoClass(size: TechAttributionSize) {
   switch (size) {
     case "hero":
@@ -33,43 +46,20 @@ function mlxLogoClass(size: TechAttributionSize) {
   }
 }
 
-function sqlCipherLogoClass(size: TechAttributionSize) {
-  return `${squareLogoClass(size)} justify-center text-inherit`
+function piLogoClass(size: TechAttributionSize) {
+  const align = "align-[-0.12em]"
+  switch (size) {
+    case "hero":
+      return `${logoLinkClass} h-[1.32em] w-[1.32em] ${align}`
+    case "section":
+      return `${logoLinkClass} h-[1.38em] w-[1.38em] ${align}`
+    case "lg":
+      return `${logoLinkClass} h-[1.28em] w-[1.28em] ${align}`
+    default:
+      return `${logoLinkClass} h-[1.15em] w-[1.15em] ${align}`
+  }
 }
 
-function SqlCipherLogo({
-  containerClass,
-  size = "default",
-}: {
-  containerClass?: string
-  size?: TechAttributionSize
-}) {
-  return (
-    <a
-      href="https://www.zetetic.net/sqlcipher/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="SQLCipher"
-      className={containerClass ?? sqlCipherLogoClass(size)}
-    >
-      <svg viewBox="0 0 96 96" className="h-full w-full" aria-hidden>
-        <path fill="currentColor" d={SQLCIPHER_MARK_SHACKLE_PATH} />
-        <rect
-          x="24"
-          y="42"
-          width="48"
-          height="48"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="5"
-          strokeLinejoin="miter"
-        />
-        <path fill="currentColor" d={SQLCIPHER_MARK_LETTER_PATH} />
-      </svg>
-      <span className="sr-only">SQLCipher</span>
-    </a>
-  )
-}
 
 function techLogoImageClass(variant: TechAttributionVariant, size: TechAttributionSize = "default") {
   const opacity = size === "hero" ? "opacity-75" : "opacity-90"
@@ -192,15 +182,35 @@ export function TechAttribution({
         height={144}
         variant={variant}
         size={size}
-        containerClass={squareLogo}
+        containerClass={rustLogoClass(size)}
       />
       <MlxLogo variant={variant} size={size} />
+      <TechLogo
+        href="https://llama.app"
+        src="/icon-llamacpp.svg"
+        label="llama.cpp"
+        width={600}
+        height={600}
+        variant={variant}
+        size={size}
+        containerClass={squareLogo}
+      />
       <TechLogo
         href="https://pi.dev"
         src="/icon-pi.svg"
         label="Pi"
         width={800}
         height={800}
+        variant={variant}
+        size={size}
+        containerClass={piLogoClass(size)}
+      />
+      <TechLogo
+        href="https://www.iroh.computer"
+        src="/icon-iroh-mark.svg"
+        label="Iroh"
+        width={64}
+        height={64}
         variant={variant}
         size={size}
         containerClass={squareLogo}
@@ -215,17 +225,6 @@ export function TechAttribution({
         size={size}
         containerClass={squareLogo}
       />
-      <TechLogo
-        href="https://www.iroh.computer"
-        src="/icon-iroh-mark.svg"
-        label="Iroh"
-        width={64}
-        height={64}
-        variant={variant}
-        size={size}
-        containerClass={squareLogo}
-      />
-      <SqlCipherLogo size={size} />
     </div>
   )
 }

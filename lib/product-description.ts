@@ -14,6 +14,17 @@ export const TILES_SITE_TITLE = "Tiles: Own your AI" as const
 
 export const AT_PROTO_LABEL = "AT Protocol" as const
 
+/** Primary Download Tiles CTA label on homepage hero and footer. */
+export const DOWNLOAD_TILES_CTA_LABEL = "Download Tiles Alpha" as const
+
+/** Compact platform line under primary Download Tiles CTAs (plain text for indexes). */
+export const DOWNLOAD_PLATFORM_MACOS_LABEL = "macOS 14+ · Apple Silicon (M1+)" as const
+
+export const DOWNLOAD_PLATFORM_LINUX_LABEL = "Linux · NVIDIA" as const
+
+export const DOWNLOAD_PLATFORM_SUBTEXT =
+  `${DOWNLOAD_PLATFORM_MACOS_LABEL} · ${DOWNLOAD_PLATFORM_LINUX_LABEL}` as const
+
 export function productDescriptionBeforeAtProtoLink() {
   const index = TILES_PRODUCT_DESCRIPTION.indexOf(AT_PROTO_LABEL)
   return TILES_PRODUCT_DESCRIPTION.slice(0, index)

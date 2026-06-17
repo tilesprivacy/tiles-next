@@ -1,5 +1,5 @@
 import { fetchGithubJson } from "@/lib/github-json"
-import { isReleaseVersionHidden, normalizeReleaseVersion } from "@/lib/release-visibility"
+import { normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface ChangeItem {
   text: string
@@ -291,7 +291,7 @@ const requiredVersions = Array.from(
 
 function isVisibleReleaseData(release: any): boolean {
   const normalizedVersion = normalizeVersion(String(release?.tag_name || ""))
-  return normalizedVersion.length > 0 && !isReleaseVersionHidden(normalizedVersion)
+  return normalizedVersion.length > 0
 }
 
 export async function fetchReleases(): Promise<Release[]> {

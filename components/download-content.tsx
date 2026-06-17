@@ -3,7 +3,8 @@
 import { type FormEvent, useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
 import { useTheme } from "next-themes"
-import { FaBook, FaClockRotateLeft, FaDiscord } from "react-icons/fa6"
+import { FaApple, FaBook, FaClockRotateLeft, FaDiscord, FaLinux } from "react-icons/fa6"
+import { Check, Copy } from "lucide-react"
 import { triggerHaptic } from "@/lib/haptics"
 import {
   downloadButtonIconMotionClasses,
@@ -14,7 +15,8 @@ import {
 import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
-import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from "@/lib/download-page-data"
+import { OFFLINE_INSTALLER, LINUX_INSTALL_COMMAND, LINUX_INSTALL_SCRIPT_URL, LINUX_INSTALL_VERSION, OFFLINE_MODEL_NAME } from "@/lib/download-page-data"
+import { DOWNLOAD_PLATFORM_LINUX_LABEL, DOWNLOAD_PLATFORM_MACOS_LABEL } from "@/lib/product-description"
 
 interface DownloadMetadata {
   version: string
@@ -63,6 +65,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const [email, setEmail] = useState("")
   const [emailStatus, setEmailStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [emailMessage, setEmailMessage] = useState("")
+  const [copiedLinuxCommand, setCopiedLinuxCommand] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -156,7 +159,6 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
   const textColorSubtle = "text-muted-foreground"
   const textColorLink =
     "text-foreground underline decoration-foreground/35 underline-offset-2 transition-colors hover:decoration-foreground"
-  const stepLabelClass = "text-sm font-semibold uppercase tracking-[0.18em] text-foreground"
   const bodyTextClass = `text-sm sm:text-base leading-7 ${textColorMuted}`
   const codeSurfaceClass = isDark
     ? "border border-border bg-secondary text-foreground"
@@ -174,6 +176,8 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
       : "Unavailable"
   const offlineShortenedSha256 = `${OFFLINE_INSTALLER.sha256.slice(0, 12)}...${OFFLINE_INSTALLER.sha256.slice(-12)}`
   const offlineChecksumFileUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
+  const installerOptionTitleClass = `font-sans text-base font-medium tracking-tight ${textColor}`
+  const platformSectionTitleClass = `font-sans text-xl font-medium tracking-tight sm:text-2xl ${textColor}`
   const downloadButtonLabel = isLoadingMetadata
     ? "Loading installer..."
     : hasDownloadUrl
@@ -222,6 +226,34 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
     }
   }
 
+  function onCopyLinuxInstallCommand() {
+    if (typeof window === "undefined") {
+      return
+    }
+
+    const copyToClipboard = (text: string) => {
+      triggerHaptic()
+      setCopiedLinuxCommand(true)
+      window.setTimeout(() => setCopiedLinuxCommand(false), 1400)
+    }
+
+    if (navigator?.clipboard?.writeText) {
+      void navigator.clipboard.writeText(LINUX_INSTALL_COMMAND).then(copyToClipboard)
+      return
+    }
+
+    const textArea = document.createElement("textarea")
+    textArea.value = LINUX_INSTALL_COMMAND
+    textArea.style.position = "fixed"
+    textArea.style.opacity = "0"
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    document.execCommand("copy")
+    document.body.removeChild(textArea)
+    copyToClipboard(LINUX_INSTALL_COMMAND)
+  }
+
   return (
     <div className={`relative flex min-h-[100dvh] flex-col ${bgColor}`}>
       {/* Main Content - Split Screen */}
@@ -235,8 +267,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                 Download Tiles Alpha
               </h1>
               <p className={bodyTextClass}>
-                Public alpha for macOS 14+ with Apple Silicon (M1 or better). Recommended: 16 GB unified memory or
-                more.
+                Public alpha for macOS and Linux. Choose your platform below.
               </p>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (
@@ -246,44 +277,44 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
               )}
             </div>
 
-            {/* Install Section */}
-            <div className="space-y-9">
-              <div className="space-y-4">
+            <div className="space-y-10 lg:space-y-12">
+              <section aria-labelledby="download-macos-heading" className="space-y-6">
                 <div className="space-y-2">
-                  <p className={stepLabelClass}>Step 1</p>
-                  <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Download your installer</h2>
-                  <p className={bodyTextClass}>Choose the installer that best fits your setup.</p>
+                  <div className="flex items-center gap-2.5">
+                    <FaApple className={`h-5 w-5 shrink-0 ${textColorSubtle}`} aria-hidden />
+                    <h2 id="download-macos-heading" className={platformSectionTitleClass}>
+                      macOS
+                    </h2>
+                  </div>
+                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_MACOS_LABEL}.</p>
                 </div>
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="py-2">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <p className={`font-medium ${textColor}`}>Network installer</p>
-                    </div>
-                      <p className={bodyTextClass}>
-                        Small package that includes the required runtime. You will be prompted to download the model
-                        during onboarding.
-                      </p>
-                      <p className={`text-sm ${textColorSubtle}`}>
-                        Release: {networkReleaseVersion ? `v${networkReleaseVersion}` : "Unavailable"}
-                      </p>
-                      <p className={`text-sm ${textColorSubtle}`}>
-                        Size: {download.binarySizeLabel || "Unavailable"} | SHA256:{" "}
-                        {shortenedSha256 !== "Unavailable" ? (
-                          <a
-                            href={checksumFileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`${textColorLink} underline underline-offset-2 transition-colors`}
-                          >
-                            {shortenedSha256}
-                          </a>
-                        ) : (
-                          shortenedSha256
-                        )}
-                      </p>
-                    </div>
-                    <div className="pt-4">
+
+                <div className="space-y-8">
+                  <article className="space-y-3">
+                    <h3 className={installerOptionTitleClass}>Network installer</h3>
+                    <p className={bodyTextClass}>
+                      Small package that includes the required runtime. You will be prompted to download the model
+                      during onboarding.
+                    </p>
+                    <p className={`text-sm ${textColorSubtle}`}>
+                      Release: {networkReleaseVersion ? `v${networkReleaseVersion}` : "Unavailable"}
+                    </p>
+                    <p className={`text-sm ${textColorSubtle}`}>
+                      Size: {download.binarySizeLabel || "Unavailable"} | SHA256:{" "}
+                      {shortenedSha256 !== "Unavailable" ? (
+                        <a
+                          href={checksumFileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                        >
+                          {shortenedSha256}
+                        </a>
+                      ) : (
+                        shortenedSha256
+                      )}
+                    </p>
+                    <div className="pt-1">
                       {hasDownloadUrl ? (
                         <a
                           href={download.downloadUrl}
@@ -335,41 +366,37 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         </button>
                       )}
                     </div>
-                  </div>
+                  </article>
 
-                  <div className="pt-6">
-                    <div className="space-y-2">
-                      <div className="flex items-center gap-2">
-                        <p className={`font-medium ${textColor}`}>Offline installer</p>
-                      </div>
-                      <p className={bodyTextClass}>
-                        Includes the default{" "}
-                        <span className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>
-                          <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
-                          <span className="font-mono text-sm">{OFFLINE_MODEL_NAME}</span>
-                        </span>{" "}
-                        model bundled for fully offline setup with no additional downloads.
-                      </p>
-                      <p className={`text-sm ${textColorSubtle}`}>
-                        Release: {offlineReleaseVersion ? `v${offlineReleaseVersion}` : "Unavailable"}
-                      </p>
-                      <p className={`text-sm ${textColorSubtle}`}>
-                        Size: {OFFLINE_INSTALLER.binarySizeLabel} | SHA256:{" "}
-                        {offlineShortenedSha256 !== "Unavailable" ? (
-                          <a
-                            href={offlineChecksumFileUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`${textColorLink} underline underline-offset-2 transition-colors`}
-                          >
-                            {offlineShortenedSha256}
-                          </a>
-                        ) : (
-                          offlineShortenedSha256
-                        )}
-                      </p>
-                    </div>
-                    <div className="pt-4">
+                  <article className="space-y-3 border-t border-border pt-8">
+                    <h3 className={installerOptionTitleClass}>Offline installer</h3>
+                    <p className={bodyTextClass}>
+                      Includes the default{" "}
+                      <span className={`inline-flex items-center gap-1.5 rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>
+                        <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+                        <span className="font-mono text-sm">{OFFLINE_MODEL_NAME}</span>
+                      </span>{" "}
+                      model bundled for fully offline setup with no additional downloads.
+                    </p>
+                    <p className={`text-sm ${textColorSubtle}`}>
+                      Release: {offlineReleaseVersion ? `v${offlineReleaseVersion}` : "Unavailable"}
+                    </p>
+                    <p className={`text-sm ${textColorSubtle}`}>
+                      Size: {OFFLINE_INSTALLER.binarySizeLabel} | SHA256:{" "}
+                      {offlineShortenedSha256 !== "Unavailable" ? (
+                        <a
+                          href={offlineChecksumFileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                        >
+                          {offlineShortenedSha256}
+                        </a>
+                      ) : (
+                        offlineShortenedSha256
+                      )}
+                    </p>
+                    <div className="pt-1">
                       <a
                         href={OFFLINE_INSTALLER.downloadUrl}
                         onClick={() => {
@@ -396,14 +423,16 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                         <span className={downloadButtonLabelClass}>Download offline installer</span>
                       </a>
                     </div>
-                  </div>
+                  </article>
                 </div>
+
                 <p className={`text-xs leading-relaxed ${textColorSubtle}`}>
                   Offline installer builds aren&apos;t published for every release. Check the release version above to
                   confirm which build each installer includes.
                 </p>
+
                 {isMobileClient ? (
-                  <div className="pt-2">
+                  <div className="border-t border-border pt-6">
                     <div className="space-y-2">
                       <p className={`font-medium ${textColor}`}>Send installer links to email</p>
                       <p className={bodyTextClass}>On mobile right now? Send download links to your inbox and continue on desktop.</p>
@@ -448,81 +477,86 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
                     </form>
                   </div>
                 ) : null}
-                <p className="text-xs leading-relaxed text-muted-foreground">
-                  By downloading and using Tiles, you agree to the{" "}
-                  <Link href="/terms" className="underline underline-offset-4">
-                    terms
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="/privacy" className="underline underline-offset-4">
-                    privacy statement
-                  </Link>
-                  .
-                </p>
-                <p className="text-xs leading-relaxed text-muted-foreground">
-                  Looking for Linux?{" "}
-                  <Link href="/linux" className="underline underline-offset-4">
-                    Join the Linux waitlist
-                  </Link>
-                  .
-                </p>
-              </div>
+              </section>
 
-              <div className="space-y-8">
-                <div className="space-y-2 border-t border-border pt-6">
-                  <p className={stepLabelClass}>Step 2</p>
-                  <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Go through the installer setup</h2>
-                  <p className={bodyTextClass}>
-                    Open the downloaded installer and complete the install wizard. The installer adds the{" "}
-                    <code className={`rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>tiles</code> command to your system.
-                  </p>
-                  <div className="mt-5">
-                    <Image
-                      src="/installer.png"
-                      alt="Tiles installer setup window"
-                      width={1244}
-                      height={904}
-                      className="h-auto w-full rounded-sm dark:hidden"
-                    />
-                    <Image
-                      src="/darkinstaller.png"
-                      alt="Tiles installer setup window"
-                      width={1244}
-                      height={904}
-                      className="hidden h-auto w-full rounded-sm dark:block"
-                    />
+              <section aria-labelledby="download-linux-heading" className="space-y-6 border-t border-border pt-10 lg:pt-12">
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2.5">
+                    <FaLinux className={`h-5 w-5 shrink-0 ${textColorSubtle}`} aria-hidden />
+                    <h2 id="download-linux-heading" className={platformSectionTitleClass}>
+                      Linux
+                    </h2>
                   </div>
+                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_LINUX_LABEL}.</p>
                 </div>
-                <div className="space-y-2 border-t border-border pt-6">
-                  <p className={stepLabelClass}>Step 3</p>
-                  <h2 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Run tiles command</h2>
+
+                <article className="space-y-3">
+                  <h3 className={installerOptionTitleClass}>Network installer</h3>
                   <p className={bodyTextClass}>
-                    Open Terminal and run{" "}
-                    <code className={`rounded px-1.5 py-0.5 ${codeSurfaceClass}`}>tiles</code>. Then follow the CLI
-                    onboarding to set up your account and start using the chat interface. If you installed the network
-                    version, you will be prompted to choose and download a model.
+                    Run this command to install Tiles on Linux. It downloads about 1 GB (excluding the model) and
+                    bundles CUDA. Supported GPUs: NVIDIA compute capability 5.0+ with driver version 531 or newer.
+                    NVIDIA GPUs with compute capability 5.0 through 6.2 require driver version 570 or newer. Check your{" "}
+                    <a
+                      href="https://developer.nvidia.com/cuda-gpus"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${textColorLink} underline underline-offset-2 transition-colors`}
+                    >
+                      compute compatibility
+                    </a>{" "}
+                    to see if your card is supported.
                   </p>
-                  <figure className="mt-5 flex w-full flex-col items-center">
-                    <Image
-                      src="/clilight.png"
-                      alt="Tiles CLI onboarding screen in the terminal"
-                      width={875}
-                      height={1798}
-                      className="h-auto w-full max-w-[440px] rounded-sm border border-border dark:hidden sm:max-w-[520px]"
-                    />
-                    <Image
-                      src="/clidark.png"
-                      alt="Tiles CLI onboarding screen in the terminal"
-                      width={780}
-                      height={1864}
-                      className="hidden h-auto w-full max-w-[440px] rounded-sm border border-border dark:block sm:max-w-[520px]"
-                    />
-                    <figcaption className="mt-3 text-center text-sm italic leading-snug text-muted-foreground">
-                      Onboarding flow for the Tiles CLI.
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
+                  <p className={`text-sm ${textColorSubtle}`}>Release: v{LINUX_INSTALL_VERSION}</p>
+                  <div className="pt-0.5">
+                    <div
+                      className={`relative overflow-hidden rounded-lg border sm:flex sm:items-stretch ${
+                        isDark ? "border-white/8 bg-white/[0.04]" : "border-black/6 bg-black/[0.02]"
+                      }`}
+                    >
+                      <code className="block overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 font-mono text-[0.82rem] text-foreground [-webkit-overflow-scrolling:touch] sm:min-w-0 sm:flex-1 sm:px-4 sm:py-3.5 sm:pr-4 sm:text-sm">
+                        {LINUX_INSTALL_COMMAND}
+                      </code>
+                      <button
+                        type="button"
+                        onClick={onCopyLinuxInstallCommand}
+                        aria-label={copiedLinuxCommand ? "Install command copied" : "Copy Linux install command"}
+                        className={`absolute inset-y-0 right-0 z-10 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground ${
+                          isDark ? "bg-[#191919]/92" : "bg-white/92"
+                        } sm:static sm:z-auto sm:shrink-0 sm:border-l sm:border-black/6 dark:sm:border-white/8 sm:bg-transparent sm:px-4`}
+                      >
+                        {copiedLinuxCommand ? (
+                          <Check className="h-4 w-4" aria-hidden />
+                        ) : (
+                          <Copy className="h-4 w-4" aria-hidden />
+                        )}
+                      </button>
+                    </div>
+                    <div className={`mt-1.5 text-[0.72rem] ${textColorSubtle}`}>
+                      <a
+                        href={LINUX_INSTALL_SCRIPT_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-3 transition-colors hover:text-foreground"
+                      >
+                        View script source
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              </section>
+
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                By downloading and using Tiles, you agree to the{" "}
+                <Link href="/terms" className="underline underline-offset-4">
+                  terms
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy" className="underline underline-offset-4">
+                  privacy statement
+                </Link>
+                .
+              </p>
+            </div>
 
               {/* Manual and Community CTAs */}
               <div className="border-t border-border pt-10">
@@ -587,9 +621,7 @@ export function DownloadContent({ initialDownload }: DownloadContentProps) {
               </div>
 
             </div>
-
           </div>
-        </div>
       </main>
 
       <SiteFooter showDownloadCta={false} />

@@ -3,7 +3,7 @@ set -euo pipefail
 
 REPO="tilesprivacy/tiles"
 
-VERSION="0.4.11"
+VERSION="0.4.12"
 DEV="false"
 
 for arg in "$@"; do
@@ -21,7 +21,7 @@ for arg in "$@"; do
       echo "Unknown argument: $arg" >&2
       echo "Usage: scripts/install.sh [--dev]" >&2
       exit 1
-    ;;
+      ;;
   esac
 done
 
@@ -156,3 +156,5 @@ case ":$PATH:" in
     echo "🚀 Then restart your terminal..."
     ;;
 esac
+
+Annotate

@@ -18,6 +18,8 @@ import {
   downloadButtonMotionClasses,
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
+import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
+import { DOWNLOAD_TILES_CTA_LABEL } from "@/lib/product-description"
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
@@ -86,22 +88,14 @@ export function SiteFooter({
                   }}
                   className="group flex items-center gap-2"
                 >
-                  <span className={downloadButtonLabelMotionClasses}>Download Tiles</span>
+                  <span className={downloadButtonLabelMotionClasses}>{DOWNLOAD_TILES_CTA_LABEL}</span>
                   <Download
                     className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4`}
                     aria-hidden
                   />
                 </Link>
               </Button>
-              <p className="inline-flex w-fit items-center whitespace-nowrap text-[0.67rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.72rem]">
-                Alpha • macOS 14+ • Apple Silicon (M1+)
-              </p>
-              <Link
-                href="/linux"
-                className="text-[0.74rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.8rem]"
-              >
-                Join the Linux waitlist
-              </Link>
+              <DownloadPlatformSubtext size="footer" />
             </div>
           </section>
         )}

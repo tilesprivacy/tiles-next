@@ -15,6 +15,8 @@ import {
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
 import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
+import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
+import { DOWNLOAD_TILES_CTA_LABEL } from "@/lib/product-description"
 
 const featureCards = [
   {
@@ -72,7 +74,7 @@ const featureCards = [
         >
           Iroh
         </a>{" "}
-        with locally generated decentralized identifiers (DIDs).
+        with locally generated decentralized identifiers (DID) and User Controlled Authorization Network (UCAN) for authorization.
       </>
     ),
     ctaLabel: "Create your link",
@@ -120,7 +122,7 @@ const whyTilesBullets = [
   "Out-of-the-box experience, ready on first open without API keys, model or harness selection.",
   "Sync sessions and work across devices without leaking data to a cloud vendor.",
   "Share chats publicly or privately without copy-pasting the thread elsewhere.",
-  "Social features built on ATProto, giving you sovereignty over your online identity and data.",
+  "Sovereignty over your online identity and data: DID and UCAN for local control, ATProto for social features.",
   "Offline Installer bundles the model for air-gapped use.",
 ] as const
 
@@ -280,7 +282,7 @@ export function HomeContent() {
                       className="group flex items-center gap-2"
                     >
                       <span className={downloadButtonLabelMotionClasses}>
-                        Download Tiles
+                        {DOWNLOAD_TILES_CTA_LABEL}
                       </span>
                       <Download
                         className={`h-4 w-4 ${downloadButtonIconMotionClasses}`}
@@ -288,15 +290,7 @@ export function HomeContent() {
                       />
                     </Link>
                   </Button>
-                  <p className="inline-flex w-fit items-center whitespace-nowrap text-[0.72rem] font-medium text-black/48 dark:text-[#9A9A9A] sm:text-[0.76rem]">
-                    Alpha • macOS 14+ • Apple Silicon (M1+)
-                  </p>
-                  <Link
-                    href="/linux"
-                    className="text-[0.79rem] font-medium text-black/58 underline decoration-black/25 underline-offset-4 transition-colors hover:text-black/78 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/25 dark:hover:text-white/85 dark:hover:decoration-white/45 sm:text-[0.84rem]"
-                  >
-                    Join the Linux waitlist
-                  </Link>
+                  <DownloadPlatformSubtext size="hero" />
                 </div>
               </div>
             </div>

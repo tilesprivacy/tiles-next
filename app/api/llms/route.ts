@@ -72,7 +72,6 @@ export async function GET(request: Request) {
     `- [Research](${baseUrl}/book/research): ${RESEARCH_PAGE_INTRO}`,
     `- [Roadmap](${baseUrl}/roadmap): Planned work and project direction.`,
     `- [Brand](${baseUrl}/brand): Public brand assets and usage details.`,
-    `- [Linux waitlist form](${baseUrl}/linux): Linux availability notifications form.`,
   ])
 
   addSection(lines, 'Installers And Release Metadata', [
