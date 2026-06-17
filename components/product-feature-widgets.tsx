@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Bot, Cpu, FileCode, KeyRound, Package, RefreshCw } from "lucide-react"
+import { Bot, Cpu, FileCode, KeyRound, Package, RefreshCw, Share2 } from "lucide-react"
 
 type ProductFeatureWidgetsVariant = "book" | "home"
 
@@ -117,7 +117,7 @@ export function ProductFeatureWidgets({
 
       <FeatureWidget
         variant={variant}
-        icon={<span>@</span>}
+        icon={<Share2 strokeWidth={1.75} />}
         title="Shared Links"
       >
         Create a public or private link to a chat session, published through{" "}
