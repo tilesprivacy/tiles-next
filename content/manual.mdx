@@ -9,7 +9,7 @@ import { ClickableImage as Image } from '@/components/clickable-image'
 
 ## Command Line Options
 
-Commands are grouped by subcommand family: the base `tiles` command, identity, data layout, models, updates, ATProto linking for sharing, then peer-to-peer linking and sync.
+Commands are grouped by subcommand family: the base `tiles` command, models, identity, data layout, updates, ATProto linking for sharing, then peer-to-peer linking and sync.
 
 ### Main command (`tiles`)
 
@@ -18,6 +18,28 @@ Launches onboarding (first run) and the interactive REPL.
 ```bash
 tiles   # Onboarding (if needed) and REPL
 ```
+
+### Run models (`tiles run`)
+
+Start a chat session with a model; optional Modelfile path.
+
+```bash
+tiles run [MODELFILE_PATH]   # Default model if path omitted
+```
+
+```bash
+tiles run
+tiles run ./path/to/Modelfile
+```
+
+Create a new Modelfile by adding a plain text file named `Modelfile`:
+
+```text
+FROM mlx-community/Qwen3.5-4B-MLX-4bit
+SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
+```
+
+Use any `mlx-community/` model hosted on Hugging Face in the `FROM` field. Other model hosts and namespaces are not supported there right now. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
 
 ### Account (`tiles account`)
 
@@ -47,28 +69,6 @@ tiles data set-path <path>   # Set data folder
 tiles data set-path ~/.tiles/data
 ```
 
-### Run models (`tiles run`)
-
-Start a chat session with a model; optional Modelfile path.
-
-```bash
-tiles run [MODELFILE_PATH]   # Default model if path omitted
-```
-
-```bash
-tiles run
-tiles run ./path/to/Modelfile
-```
-
-Create a new Modelfile by adding a plain text file named `Modelfile`:
-
-```text
-FROM mlx-community/Qwen3.5-4B-MLX-4bit
-SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
-```
-
-Use any `mlx-community/` model hosted on Hugging Face in the `FROM` field. Other model hosts and namespaces are not supported there right now. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
-
 ### App updates (`tiles update`)
 
 ```bash
@@ -77,7 +77,7 @@ tiles update   # Check for and install app updates
 
 <div id="peer-to-peer-linking-tiles-link" />
 
-### Peer-to-peer link and sync (`tiles link` / `tiles sync`)
+### Peer-to-peer link and sync (`tiles link / sync`)
 
 Tiles can sync chats across multiple **linked** devices peer-to-peer, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
 
@@ -142,12 +142,12 @@ $ tiles sync did:key:z6Mknxy...YWSmTcZA
 
 When a sync run finishes, you should get a notification on the devices involved.
 
-#### Unlink a peer
+#### Unlink a peer (`tiles link revoke`)
 
-**`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
+**`tiles link revoke <DID>`**: Unlinks a peer. Future sync requests from that peer are ignored.
 
 ```bash
-tiles link disable     # Unlink a peer; ignore their future sync requests
+tiles link revoke <DID>   # Unlink a peer; ignore their future sync requests
 ```
 
 ### ATProto (`tiles at`)
@@ -170,24 +170,29 @@ Slash commands give you fast, keyboard-first control over Tiles in interactive c
 
 ### Session Commands
 
-- `/status`  
-  Show the current session state.
+#### `/status`
 
-- `/sessions`  
-  List available sessions in local storage.
+Show the current session state.
 
-- `/resume <sessionId>`  
-  Resume a specific session by ID.
+#### `/sessions`
+
+List available sessions in local storage.
+
+#### `/resume <sessionId>`
+
+Resume a specific session by ID.
 
 ### Sharing Commands
 
 These commands require an active ATProto login. See [#ATProto (`tiles at`)](#atproto-tiles-at).
 
-- `/share` (via ATProto)  
-  Create a shareable link for the current session.
+#### `/share` (via ATProto)
 
-- `/share <sessionId>` (via ATProto)  
-  Create a shareable link for a specific session.
+Create a shareable link for the current session.
+
+#### `/share <sessionId>` (via ATProto)
+
+Create a shareable link for a specific session.
 
 Example shared session link: [tiles.run/share/YXQ6Ly9k...xeTI3](/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3).
 

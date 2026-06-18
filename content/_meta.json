@@ -34,13 +34,6 @@
       "timestamp": true
     }
   },
-  "mir": {
-    "title": "MIR Extension",
-    "theme": {
-      "copyPage": true,
-      "timestamp": true
-    }
-  },
   "security": {
     "title": "Security",
     "theme": {

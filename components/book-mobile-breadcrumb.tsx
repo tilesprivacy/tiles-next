@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown } from 'lucide-react'
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 // Map of route slugs to page titles
 const pageTitles: Record<string, string> = {
@@ -83,48 +83,29 @@ export function BookMobileBreadcrumb() {
   const currentTitle = pageTitles[slug] || slug
   const navRef = useRef<HTMLElement>(null)
   const [open, setOpen] = useState(false)
-  const [breadcrumbTop, setBreadcrumbTop] = useState(0)
-  const [navHeight, setNavHeight] = useState(0)
   const [panelTop, setPanelTop] = useState(0)
   const [tocItems, setTocItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState('')
 
   const isIndexPage = slug === '' || slug === '/'
 
-  // Measure the breadcrumb at its *current* in-flow/sticky position so that
-  // opening (which switches it to position: fixed) does not move it.
-  const measureDropdownLayout = useCallback(() => {
+  const measurePanelTop = useCallback(() => {
     const nav = navRef.current
-    if (!nav) return null
+    if (!nav) return 0
 
     const rect = nav.getBoundingClientRect()
-    const top = Math.round(rect.top)
-    const height = Math.round(rect.height)
-
-    return {
-      top,
-      height,
-      panelTop: top + height,
-    }
+    return Math.round(rect.bottom)
   }, [])
-
-  const applyDropdownLayout = useCallback(() => {
-    const layout = measureDropdownLayout()
-    if (!layout) return
-    setBreadcrumbTop(layout.top)
-    setNavHeight(layout.height)
-    setPanelTop(layout.panelTop)
-  }, [measureDropdownLayout])
 
   const toggleDropdown = useCallback(() => {
     if (!open) {
-      applyDropdownLayout()
+      setPanelTop(measurePanelTop())
       setOpen(true)
       return
     }
 
     setOpen(false)
-  }, [applyDropdownLayout, open])
+  }, [measurePanelTop, open])
 
   const scrollToId = useCallback((id: string) => {
     const target = document.getElementById(id)
@@ -180,53 +161,17 @@ export function BookMobileBreadcrumb() {
   useEffect(() => {
     if (!open) return
 
-    window.addEventListener('resize', applyDropdownLayout)
+    const syncPanelTop = () => {
+      setPanelTop(measurePanelTop())
+    }
+
+    syncPanelTop()
+    window.addEventListener('resize', syncPanelTop)
 
     return () => {
-      window.removeEventListener('resize', applyDropdownLayout)
+      window.removeEventListener('resize', syncPanelTop)
     }
-  }, [open, applyDropdownLayout])
-
-  useLayoutEffect(() => {
-    if (!open || typeof window === 'undefined') return
-
-    const body = document.body
-    const html = document.documentElement
-    const scrollY = window.scrollY || window.pageYOffset
-    const prev = {
-      bodyOverflow: body.style.overflow,
-      bodyPosition: body.style.position,
-      bodyTop: body.style.top,
-      bodyLeft: body.style.left,
-      bodyRight: body.style.right,
-      bodyWidth: body.style.width,
-      htmlOverflow: html.style.overflow,
-      htmlScrollBehavior: html.style.scrollBehavior,
-    }
-
-    html.style.overflow = 'hidden'
-    body.style.overflow = 'hidden'
-    body.style.position = 'fixed'
-    body.style.top = `-${scrollY}px`
-    body.style.left = '0'
-    body.style.right = '0'
-    body.style.width = '100%'
-
-    return () => {
-      html.style.overflow = prev.htmlOverflow
-      body.style.overflow = prev.bodyOverflow
-      body.style.position = prev.bodyPosition
-      body.style.top = prev.bodyTop
-      body.style.left = prev.bodyLeft
-      body.style.right = prev.bodyRight
-      body.style.width = prev.bodyWidth
-      html.style.scrollBehavior = 'auto'
-      window.scrollTo({ top: scrollY, left: 0, behavior: 'auto' })
-      requestAnimationFrame(() => {
-        html.style.scrollBehavior = prev.htmlScrollBehavior
-      })
-    }
-  }, [open])
+  }, [open, measurePanelTop])
 
   useEffect(() => {
     if (isIndexPage) return
@@ -290,15 +235,11 @@ export function BookMobileBreadcrumb() {
 
   return (
     <>
-      {open && navHeight > 0 ? (
-        <div className="lg:hidden" style={{ height: `${navHeight}px` }} aria-hidden />
-      ) : null}
       <nav
         ref={navRef}
         aria-label="Breadcrumb"
         data-open={open ? 'true' : 'false'}
         className={`book-mobile-breadcrumb bg-background lg:hidden py-2 ${bookMobileInlinePaddingClass}`}
-        style={open ? { top: `${breadcrumbTop}px` } : undefined}
       >
         <div className="flex min-h-11 items-center justify-between gap-3">
           <ol className="min-w-0 flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
@@ -333,6 +274,7 @@ export function BookMobileBreadcrumb() {
           ) : null}
         </div>
       </nav>
+      <div aria-hidden="true" className="book-mobile-breadcrumb-spacer lg:hidden" />
 
       {tocItems.length > 0 ? (
         <div

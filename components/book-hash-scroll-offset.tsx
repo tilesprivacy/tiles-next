@@ -6,6 +6,12 @@ import { usePathname } from 'next/navigation'
 const EXTRA_GAP_PX = 12
 
 function getHeaderOffset() {
+  const breadcrumb = document.querySelector<HTMLElement>('.book-mobile-breadcrumb')
+  if (breadcrumb && window.matchMedia('(max-width: 1023px)').matches) {
+    const { bottom } = breadcrumb.getBoundingClientRect()
+    return Math.max(0, bottom + EXTRA_GAP_PX)
+  }
+
   const header = document.querySelector<HTMLElement>('.site-header-chrome')
   if (!header) return 0
   const { bottom } = header.getBoundingClientRect()
@@ -70,4 +76,3 @@ export function BookHashScrollOffset() {
 
   return null
 }
-

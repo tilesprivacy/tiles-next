@@ -1485,32 +1485,47 @@ sniper-link[hidden] {
 
 /* Make sidebar flex container and theme switcher stick to bottom - desktop only */
 [data-book-section] {
-  --book-top-offset: 5.5rem;
+  --book-mobile-breadcrumb-height: 3.75rem;
+  --book-top-offset: calc(var(--book-mobile-header-height) + var(--book-mobile-breadcrumb-height));
   --book-sidebar-list-offset: 1.25rem;
   /* Matches mobile site-header row: pt + min-h + pb (see site-header.tsx). */
-  --book-mobile-header-height: calc(4.175rem + env(safe-area-inset-top, 0px));
+  --book-mobile-header-height: calc(3.5625rem + env(safe-area-inset-top, 0px));
 }
 
 @media (min-width: 640px) and (max-width: 1023px) {
   [data-book-section] {
-    --book-mobile-header-height: calc(4.225rem + env(safe-area-inset-top, 0px));
+    --book-mobile-header-height: calc(3.5625rem + env(safe-area-inset-top, 0px));
   }
 }
 
 @media (max-width: 1023px) {
   .book-mobile-breadcrumb {
-    position: sticky;
-    top: var(--book-mobile-header-height);
-    z-index: 40;
+    background-color: var(--background);
+    box-shadow: 0 -4px 0 var(--background);
+    inset-inline: 0;
+    isolation: isolate;
+    position: fixed;
+    top: calc(var(--book-mobile-header-height) - 1px);
+    z-index: 49;
   }
 
-  /* When the dropdown is open the body is scroll-locked (position: fixed),
-     which breaks position: sticky. Pin the breadcrumb under the header. */
-  .book-mobile-breadcrumb[data-open='true'] {
-    position: fixed;
+  .book-mobile-breadcrumb::before {
+    content: "";
+    position: absolute;
     inset-inline: 0;
-    top: var(--book-mobile-header-height);
-    z-index: 40;
+    top: -4px;
+    height: 4px;
+    background: var(--background);
+    pointer-events: none;
+  }
+
+  .book-mobile-breadcrumb-spacer {
+    height: var(--book-mobile-breadcrumb-height);
+  }
+
+  .book-mobile-breadcrumb[data-open='true'] {
+    background-color: var(--background);
+    z-index: 49;
   }
 }
 
