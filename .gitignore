@@ -59,4 +59,11 @@ serve/tmp/
 /.cursor
 /.cursor
 
+# Pagefind search index (generated during `npm run build`)
+public/_pagefind/fragment/
+public/_pagefind/index/
+public/_pagefind/pagefind-entry.json
+public/_pagefind/pagefind.en_*.pf_meta
+public/_pagefind/wasm.*.pagefind
+
 .sequoia-state.json
