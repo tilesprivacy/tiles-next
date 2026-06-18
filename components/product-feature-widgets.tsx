@@ -79,11 +79,11 @@ export function ProductFeatureWidgets({
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<Cpu strokeWidth={1.75} />} title="On-device Models">
-        Sensible default on-device models with{" "}
+        Built-in on-device models with{" "}
         <Link href="/book/tilekit#modelfile-reference" className={featureLinkClass}>
           Modelfile
         </Link>{" "}
-        support for building and sharing weights. Powered by{" "}
+        support for building and sharing custom weights. Powered by{" "}
         <a
           href="https://ml-explore.github.io/mlx/build/html/index.html"
           target="_blank"
@@ -99,20 +99,16 @@ export function ProductFeatureWidgets({
         on Linux.
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="ATProto Identity">
-        Optional linking to your{" "}
-        <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          ATProto
-        </a>{" "}
-        identity for social features.
+      <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="User Owned Identity">
+        User-owned identity with DIDs and UCANs for authorization.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
         E2EE peer-to-peer chat sync across linked devices, online or on your local network, via{" "}
         <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           Iroh
-        </a>{" "}
-        with DID and UCAN authorization.
+        </a>
+        .
       </FeatureWidget>
 
       <FeatureWidget
@@ -155,8 +151,7 @@ export function ProductFeatureWidgets({
             </Link>
           }
         >
-          Use Tilekit as an app-server runtime to integrate identity, memory, sync, and agents in your own app,
-          built with standards like{" "}
+          Use Tilekit as an app server runtime within your own app, built on open standards such as the{" "}
           <a href="https://www.openresponses.org" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
             Open Responses API
           </a>
