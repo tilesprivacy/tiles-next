@@ -1,25 +1,16 @@
 'use client'
 
 import Link from "next/link"
-import { Download } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
-import { Button } from "@/components/ui/button"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { NewsletterCta } from "@/components/newsletter-cta"
 import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
-import { triggerHaptic } from "@/lib/haptics"
-import {
-  downloadButtonIconMotionClasses,
-  downloadButtonLabelMotionClasses,
-  downloadButtonMotionClasses,
-  themeAwareHeaderPrimaryCtaClasses,
-} from "@/lib/header-primary-cta-classes"
 import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
-import { DOWNLOAD_TILES_CTA_LABEL } from "@/lib/product-description"
+import { DownloadTilesCta } from "@/components/download-tiles-cta"
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
@@ -76,25 +67,7 @@ export function SiteFooter({
               Try Tiles now.
             </h2>
             <div className="inline-flex w-fit flex-col items-center gap-3">
-              <Button
-                asChild
-                variant="ghost"
-                className={`h-9 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-[0.83rem] font-medium sm:h-10 sm:px-5 sm:text-sm lg:h-10 lg:px-6 lg:text-[0.91rem]`}
-              >
-                <Link
-                  href="/download"
-                  onClick={() => {
-                    triggerHaptic()
-                  }}
-                  className="group flex items-center gap-2"
-                >
-                  <span className={downloadButtonLabelMotionClasses}>{DOWNLOAD_TILES_CTA_LABEL}</span>
-                  <Download
-                    className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4`}
-                    aria-hidden
-                  />
-                </Link>
-              </Button>
+              <DownloadTilesCta size="footer" />
               <DownloadPlatformSubtext size="footer" />
             </div>
           </section>

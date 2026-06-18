@@ -172,7 +172,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
                 >
                   Download
-                  <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                  <Download className="download-cta-icon h-3.5 w-3.5 shrink-0" aria-hidden />
                 </Link>
               ) : null}
               <button
@@ -208,7 +208,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 className={`inline-flex h-9 items-center justify-center gap-2 rounded-full px-[1.15rem] text-[0.88rem] font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
               >
                 Download
-                <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <Download className="download-cta-icon h-3.5 w-3.5 shrink-0" aria-hidden />
               </Link>
             </div>
           </div>
@@ -253,7 +253,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 className={`inline-flex h-8 items-center justify-center gap-1.5 rounded-sm px-3 text-xs font-medium ${themeAwareHeaderPrimaryCtaClasses}`}
               >
                 Download
-                <Download className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <Download className="download-cta-icon h-3.5 w-3.5 shrink-0" aria-hidden />
               </Link>
             ) : null}
             <button

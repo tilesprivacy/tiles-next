@@ -36,7 +36,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
     ? themeAwareHeaderPrimaryCtaClasses
     : `${buttonBg} ${buttonText} ${buttonHover}`
   const headerCtaLabelClass = downloadButtonLabelMotionClasses
-  const headerCtaIconClass = `flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4`
+  const headerCtaIconClass = `${themeAware ? 'download-cta-icon ' : ''}flex h-3 w-3 items-center justify-center text-[0.95em] font-medium leading-none ${downloadButtonIconMotionClasses} sm:h-4 sm:w-4`
   const mobileHeaderControlSize = 'h-7 sm:h-8.5'
   const mobileMenuButtonSize = 'h-8 w-8 sm:h-9 sm:w-9'
 

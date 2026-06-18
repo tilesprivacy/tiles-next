@@ -600,12 +600,12 @@
   color: var(--cursor-light-ink) !important;
 }
 
-.dark [data-book-section] header a.bg-foreground svg,
-.dark [data-book-section] header button.bg-foreground svg,
-.dark [data-book-section] header [class*="bg-foreground"] svg,
-.dark [data-book-section] header a.bg-white svg,
-.dark [data-book-section] header button.bg-white svg,
-.dark [data-book-section] header [class*="bg-white"] svg {
+.dark [data-book-section] header a.bg-foreground svg:not(.download-cta-icon),
+.dark [data-book-section] header button.bg-foreground svg:not(.download-cta-icon),
+.dark [data-book-section] header [class*="bg-foreground"] svg:not(.download-cta-icon),
+.dark [data-book-section] header a.bg-white svg:not(.download-cta-icon),
+.dark [data-book-section] header button.bg-white svg:not(.download-cta-icon),
+.dark [data-book-section] header [class*="bg-white"] svg:not(.download-cta-icon) {
   fill: var(--cursor-light-ink) !important;
   color: var(--cursor-light-ink) !important;
 }
@@ -638,14 +638,14 @@
   color: var(--cursor-light-ink) !important;
 }
 
-.dark [data-book-section] button.bg-foreground svg,
-.dark [data-book-section] button[class*="bg-foreground"] svg,
-.dark [data-book-section] a.bg-foreground svg,
-.dark [data-book-section] a[class*="bg-foreground"] svg,
-.dark [data-book-section] button.bg-white svg,
-.dark [data-book-section] button[class*="bg-white"] svg,
-.dark [data-book-section] a.bg-white svg,
-.dark [data-book-section] a[class*="bg-white"] svg {
+.dark [data-book-section] button.bg-foreground svg:not(.download-cta-icon),
+.dark [data-book-section] button[class*="bg-foreground"] svg:not(.download-cta-icon),
+.dark [data-book-section] a.bg-foreground svg:not(.download-cta-icon),
+.dark [data-book-section] a[class*="bg-foreground"] svg:not(.download-cta-icon),
+.dark [data-book-section] button.bg-white svg:not(.download-cta-icon),
+.dark [data-book-section] button[class*="bg-white"] svg:not(.download-cta-icon),
+.dark [data-book-section] a.bg-white svg:not(.download-cta-icon),
+.dark [data-book-section] a[class*="bg-white"] svg:not(.download-cta-icon) {
   fill: var(--cursor-light-ink) !important;
   color: var(--cursor-light-ink) !important;
 }
@@ -2053,4 +2053,16 @@ body {
 #goog-gt-tt,
 .goog-te-balloon-frame {
   display: none !important;
+}
+
+/*
+ * Download CTA icon weight.
+ * Lucide download glyphs are stroke-only (fill: none). Book-page inverted CTA
+ * rules target filled brand SVGs and must not apply fill to this class.
+ * On theme-aware pills in dark mode the icon is dark stroke over a light surface,
+ * which reads heavier than light-on-dark; thin the stroke so the tray matches.
+ */
+.dark .download-cta-icon {
+  fill: none !important;
+  stroke-width: 1.5;
 }

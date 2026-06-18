@@ -2,21 +2,14 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Check, Copy, Download } from "lucide-react"
+import { ArrowRight, Check, Copy } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
 import { TechAttribution } from "@/components/tech-attribution"
 import { triggerHaptic } from "@/lib/haptics"
-import {
-  downloadButtonIconMotionClasses,
-  downloadButtonLabelMotionClasses,
-  downloadButtonMotionClasses,
-  themeAwareHeaderPrimaryCtaClasses,
-} from "@/lib/header-primary-cta-classes"
 import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
 import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
-import { DOWNLOAD_TILES_CTA_LABEL } from "@/lib/product-description"
+import { DownloadTilesCta } from "@/components/download-tiles-cta"
 
 const featureCards = [
   {
@@ -261,27 +254,7 @@ export function HomeContent() {
 
               <div className="flex w-full flex-col items-center gap-5 lg:items-start lg:gap-5">
                 <div className="inline-flex w-fit flex-col items-center gap-3.5 lg:items-start">
-                  <Button
-                    asChild
-                    variant="ghost"
-                    className={`h-11 w-fit rounded-sm ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses} px-5 text-[0.9rem] font-medium sm:h-11 sm:px-5 sm:text-[0.94rem] lg:h-11 lg:px-6 lg:text-[0.95rem]`}
-                  >
-                    <Link
-                      href="/download"
-                      onClick={() => {
-                        triggerHaptic()
-                      }}
-                      className="group flex items-center gap-2"
-                    >
-                      <span className={downloadButtonLabelMotionClasses}>
-                        {DOWNLOAD_TILES_CTA_LABEL}
-                      </span>
-                      <Download
-                        className={`h-4 w-4 ${downloadButtonIconMotionClasses}`}
-                        aria-hidden
-                      />
-                    </Link>
-                  </Button>
+                  <DownloadTilesCta size="hero" />
                   <DownloadPlatformSubtext size="hero" />
                 </div>
               </div>

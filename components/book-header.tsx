@@ -54,7 +54,7 @@ const BookHeaderBar = memo(function BookHeaderBar({ onOpenMenu }: { onOpenMenu: 
               Download Tiles
             </span>
             <Download
-              className={`h-3.5 w-3.5 ${downloadButtonIconMotionClasses} lg:h-4 lg:w-4`}
+              className={`download-cta-icon h-3.5 w-3.5 ${downloadButtonIconMotionClasses} lg:h-4 lg:w-4`}
               aria-hidden
             />
           </Link>
