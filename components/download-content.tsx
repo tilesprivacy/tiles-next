@@ -526,7 +526,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                 <article className="space-y-3">
                   <h3 className={installerOptionTitleClass}>Network installer</h3>
                   <p className={bodyTextClass}>
-                    About 1 GB download with CUDA bundled. The script also downloads the default model. Requires NVIDIA compute capability 5.0+ and driver 531+ (570+ for CC 5.0 through 6.2). Check your{" "}
+                    This script downloads the runtime with CUDA bundled. You will be prompted to download the default model during onboarding. Requires NVIDIA compute capability 5.0+ and driver 531+ (570+ for CC 5.0 through 6.2). Check your{" "}
                     <a
                       href="https://developer.nvidia.com/cuda-gpus"
                       target="_blank"
@@ -562,7 +562,8 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                         )}
                       </button>
                     </div>
-                    <div className={`mt-1.5 text-[0.72rem] ${textColorSubtle}`}>
+                    <div className={`mt-1.5 space-y-1 text-[0.72rem] ${textColorSubtle}`}>
+                      <p>Paste this in terminal</p>
                       <a
                         href={LINUX_INSTALL_SCRIPT_URL}
                         target="_blank"
