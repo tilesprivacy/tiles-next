@@ -5,14 +5,15 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-type NavigationPage = {
+export type NavigationPage = {
   route: string
   title: string
 }
 
 // Known book pages in order - this matches the _meta.json structure
-const BOOK_PAGES: NavigationPage[] = [
+export const BOOK_PAGES: NavigationPage[] = [
   { route: '/book', title: 'Tiles Book' },
+  { route: '/book/overview', title: 'Overview' },
   { route: '/book/manual', title: 'Manual' },
   { route: '/book/models', title: 'Models' },
   { route: '/book/tilekit', title: 'Tilekit' },
@@ -24,36 +25,43 @@ const BOOK_PAGES: NavigationPage[] = [
   // { route: '/book/licenses', title: 'Licenses' },
 ]
 
+export function getAdjacentBookPages(pathname: string): {
+  prev: NavigationPage | null
+  next: NavigationPage | null
+} {
+  const normalizedPath = pathname.replace(/\/$/, '') || '/book'
+
+  let currentIndex = BOOK_PAGES.findIndex(
+    (page) => page.route.replace(/\/$/, '') === normalizedPath,
+  )
+
+  if (currentIndex === -1) {
+    // Match by route prefix to handle routes with additional segments.
+    currentIndex = BOOK_PAGES.findIndex((page) => {
+      const pageRoute = page.route.replace(/\/$/, '')
+      return normalizedPath.startsWith(pageRoute + '/')
+    })
+  }
+
+  if (currentIndex === -1) {
+    return { prev: null, next: null }
+  }
+
+  return {
+    prev: currentIndex > 0 ? BOOK_PAGES[currentIndex - 1] : null,
+    next: currentIndex < BOOK_PAGES.length - 1 ? BOOK_PAGES[currentIndex + 1] : null,
+  }
+}
+
 export function BookPageNavigation() {
   const pathname = usePathname()
   const [prevPage, setPrevPage] = useState<NavigationPage | null>(null)
   const [nextPage, setNextPage] = useState<NavigationPage | null>(null)
 
   useEffect(() => {
-    // Normalize the current pathname
-    const normalizedPath = pathname.replace(/\/$/, '') || '/book'
-    
-    // Find current page index
-    const currentIndex = BOOK_PAGES.findIndex(page => {
-      const pageRoute = page.route.replace(/\/$/, '')
-      return normalizedPath === pageRoute
-    })
-
-    if (currentIndex !== -1) {
-      setPrevPage(currentIndex > 0 ? BOOK_PAGES[currentIndex - 1] : null)
-      setNextPage(currentIndex < BOOK_PAGES.length - 1 ? BOOK_PAGES[currentIndex + 1] : null)
-    } else {
-      // If exact match not found, try to find by route prefix
-      // This handles cases where the route might have additional segments
-      for (let i = 0; i < BOOK_PAGES.length; i++) {
-        const pageRoute = BOOK_PAGES[i].route.replace(/\/$/, '')
-        if (normalizedPath.startsWith(pageRoute + '/') || normalizedPath === pageRoute) {
-          setPrevPage(i > 0 ? BOOK_PAGES[i - 1] : null)
-          setNextPage(i < BOOK_PAGES.length - 1 ? BOOK_PAGES[i + 1] : null)
-          break
-        }
-      }
-    }
+    const { prev, next } = getAdjacentBookPages(pathname)
+    setPrevPage(prev)
+    setNextPage(next)
   }, [pathname])
 
   if (!prevPage && !nextPage) {

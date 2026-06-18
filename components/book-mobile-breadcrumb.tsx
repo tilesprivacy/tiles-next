@@ -2,8 +2,9 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { getAdjacentBookPages } from '@/components/book-page-navigation'
 
 // Map of route slugs to page titles
 const pageTitles: Record<string, string> = {
@@ -88,6 +89,8 @@ export function BookMobileBreadcrumb() {
   const [activeId, setActiveId] = useState('')
 
   const isIndexPage = slug === '' || slug === '/'
+
+  const { prev: prevPage, next: nextPage } = getAdjacentBookPages(pathname)
 
   const measurePanelTop = useCallback(() => {
     const nav = navRef.current
@@ -291,7 +294,7 @@ export function BookMobileBreadcrumb() {
           }}
         >
           <div
-            className={`min-h-0 flex-1 overflow-y-auto overscroll-contain border-t border-border pb-[max(1.5rem,env(safe-area-inset-bottom,0px))] pt-4 ${bookMobileInlinePaddingClass}`}
+            className={`min-h-0 flex-1 overflow-y-auto overscroll-contain border-t border-border pb-4 pt-4 ${bookMobileInlinePaddingClass}`}
           >
             <p className="mb-3 text-xs font-semibold text-muted-foreground">
               On this page
@@ -324,6 +327,37 @@ export function BookMobileBreadcrumb() {
               })}
             </ul>
           </div>
+
+          {prevPage || nextPage ? (
+            <div
+              className={`shrink-0 flex items-center gap-3 border-t border-border pt-3 pb-[max(1rem,env(safe-area-inset-bottom,0px))] ${bookMobileInlinePaddingClass}`}
+            >
+              {prevPage ? (
+                <Link
+                  href={prevPage.route}
+                  onClick={() => setOpen(false)}
+                  className="flex min-w-0 flex-1 items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <ChevronLeft className="h-4 w-4 shrink-0" aria-hidden />
+                  <span className="truncate">{prevPage.title}</span>
+                </Link>
+              ) : (
+                <span className="flex-1" />
+              )}
+              {nextPage ? (
+                <Link
+                  href={nextPage.route}
+                  onClick={() => setOpen(false)}
+                  className="flex min-w-0 flex-1 items-center justify-end gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  <span className="truncate">{nextPage.title}</span>
+                  <ChevronRight className="h-4 w-4 shrink-0" aria-hidden />
+                </Link>
+              ) : (
+                <span className="flex-1" />
+              )}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </>
