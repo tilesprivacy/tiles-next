@@ -109,7 +109,7 @@ On the **other** device, run **`tiles link add`** with that UCAN from the first 
 
 When a sync run finishes, you should get a notification on the devices involved.
 
-#### Offline (mDNS)
+#### Offline
 
 On the same local network without internet, devices discover each other over mDNS provided by Iroh. For offline use, both linking and sync run through Iroh and use listener and initiator roles.
 
@@ -132,12 +132,6 @@ On the **listener** device:
 $ tiles link did:key:z6Mknxy...YWSmTcZA
 ```
 
-```bash
-tiles link disable     # Unlink a peer; ignore their future sync requests
-```
-
-**`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
-
 **Sync**:
 
 ```bash
@@ -150,6 +144,14 @@ $ tiles sync did:key:z6Mknxy...YWSmTcZA  # Initiator: sync toward the peer with 
 On the **other** device, run **`tiles sync did:key:z6Mknxy...YWSmTcZA`** with the listener's DID so the initiator targets the correct peer.
 
 When a sync run finishes, you should get a notification on the devices involved.
+
+#### Unlink a peer
+
+**`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
+
+```bash
+tiles link disable     # Unlink a peer; ignore their future sync requests
+```
 
 ### ATProto (`tiles at`)
 
