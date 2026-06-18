@@ -83,7 +83,7 @@ Tiles can sync chats across multiple **linked** devices peer-to-peer, with or wi
 
 #### Online
 
-When both devices have internet access, linking and sync can run through Iroh relays. You only need:
+When both devices have internet access, linking can be done with UCANs while Iroh handles the sync. You only need:
 
 ```bash
 $ tiles link did:key:z6Mknxy...YWSmTcZA
@@ -111,14 +111,13 @@ When a sync run finishes, you should get a notification on the devices involved.
 
 #### Offline (mDNS)
 
-On the same local network without internet, devices discover each other over mDNS. Linking and sync use listener and initiator roles.
+On the same local network without internet, devices discover each other over mDNS provided by Iroh. For offline use, both linking and sync run through Iroh and use listener and initiator roles.
 
 **Linking** (one-time):
 
 ```bash
 tiles link enable      # Become link listener; share the ticket out of band
 tiles link list-peers  # Show linked peers (DID and nickname)
-tiles link disable     # Unlink a peer; ignore their future sync requests
 ```
 
 **`tiles link enable`**: Puts this device in **link listener** mode. It generates a **link ticket** and waits for a link request from another device. Share the ticket **out of band** with the peer you want to link. Offline tickets are an **eight-character alphanumeric code** you can type on another device on the same network.
@@ -127,15 +126,19 @@ When the peer runs **`tiles link enable`** and supplies your ticket, this device
 
 **`tiles link list-peers`**: Lists linked peers by **DID** (decentralized identifier) and **nickname**.
 
-**`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
-
-After devices are linked:
+On the **listener** device:
 
 ```bash
 $ tiles link did:key:z6Mknxy...YWSmTcZA
 ```
 
-**Sync** (offline only):
+```bash
+tiles link disable     # Unlink a peer; ignore their future sync requests
+```
+
+**`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
+
+**Sync**:
 
 ```bash
 tiles sync        # Listener: wait for incoming sync requests (only for offline)
