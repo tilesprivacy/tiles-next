@@ -75,9 +75,45 @@ Use any `mlx-community/` model hosted on Hugging Face in the `FROM` field. Other
 tiles update   # Check for and install app updates
 ```
 
-### Peer-to-peer: linking (`tiles link`)
+<div id="peer-to-peer-linking-tiles-link" />
+
+### Peer-to-peer link and sync (`tiles link` / `tiles sync`)
 
 Tiles can sync chats across multiple **linked** devices peer-to-peer, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
+
+#### Online
+
+When both devices have internet access, linking and sync can run through Iroh relays. You only need:
+
+```bash
+$ tiles link did:key:z6Mknxy...YWSmTcZA
+```
+
+Run this on your other device:
+
+```bash
+tiles link add ucan:eyJ...YzQ
+```
+
+Then sync:
+
+```bash
+$ tiles sync did:key:z6Mknxy...YWSmTcZA
+```
+
+**`tiles link <DID>`**: On the first device, starts linking toward the peer with that DID. The command prints a **UCAN** token in the terminal.
+
+On the **other** device, run **`tiles link add`** with that UCAN from the first device's output.
+
+**`tiles sync <DID>`**: Starts a sync run toward the linked peer with that DID.
+
+When a sync run finishes, you should get a notification on the devices involved.
+
+#### Offline (mDNS)
+
+On the same local network without internet, devices discover each other over mDNS. Linking and sync use listener and initiator roles.
+
+**Linking** (one-time):
 
 ```bash
 tiles link enable      # Become link listener; share the ticket out of band
@@ -85,10 +121,7 @@ tiles link list-peers  # Show linked peers (DID and nickname)
 tiles link disable     # Unlink a peer; ignore their future sync requests
 ```
 
-**`tiles link enable`**: Puts this device in **link listener** mode. It generates a **link ticket** and waits for a link request from another device. Share the ticket **out of band** with the peer you want to link.
-
-- If the device is **online**, the ticket is a **base64** string (easy to copy).
-- If **offline**, the ticket is an **eight-character alphanumeric code** you can type on another device on the same network.
+**`tiles link enable`**: Puts this device in **link listener** mode. It generates a **link ticket** and waits for a link request from another device. Share the ticket **out of band** with the peer you want to link. Offline tickets are an **eight-character alphanumeric code** you can type on another device on the same network.
 
 When the peer runs **`tiles link enable`** and supplies your ticket, this device is notified; after you **approve**, the two devices are linked.
 
@@ -96,21 +129,22 @@ When the peer runs **`tiles link enable`** and supplies your ticket, this device
 
 **`tiles link disable`**: Unlinks a peer. Future sync requests from that peer are ignored.
 
-### Peer-to-peer: chat sync (`tiles sync`)
-
-After devices are linked, use **`tiles sync`** to replicate chats. Listener and initiator roles mirror linking: one side waits, the other connects using the listener’s DID.
+After devices are linked:
 
 ```bash
-tiles sync        # Listener: wait for incoming sync requests
-tiles sync <DID>  # Initiator: sync toward the peer with this DID (the listener)
-
-# Example
-tiles sync did:key:z6Mknxy...YWSmTcZA
+$ tiles link did:key:z6Mknxy...YWSmTcZA
 ```
 
-**`tiles sync`** (listener): Starts this device in **sync listener** mode: it waits for incoming sync requests.
+**Sync** (offline only):
 
-On the **other** device, run **`tiles sync`** with the listener’s **DID** so the initiator targets the correct peer. If your CLI uses different syntax for the peer argument, check `tiles sync --help`.
+```bash
+tiles sync        # Listener: wait for incoming sync requests (only for offline)
+$ tiles sync did:key:z6Mknxy...YWSmTcZA  # Initiator: sync toward the peer with this DID (the listener)
+```
+
+**`tiles sync`** (listener): Starts this device in **sync listener** mode and waits for incoming sync requests. Use this on offline networks.
+
+On the **other** device, run **`tiles sync did:key:z6Mknxy...YWSmTcZA`** with the listener's DID so the initiator targets the correct peer.
 
 When a sync run finishes, you should get a notification on the devices involved.
 
