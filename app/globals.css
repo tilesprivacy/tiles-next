@@ -547,6 +547,28 @@
   text-decoration: none !important;
 }
 
+/* Keep wrapped TOC lines aligned with their indentation level (margin indents only the first line). */
+[data-book-section] nav.nextra-toc a[class*="x:ms-3"],
+[data-book-section] nav[aria-label="table of contents"] a[class*="x:ms-3"] {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 0.75rem !important;
+}
+
+[data-book-section] nav.nextra-toc a[class*="x:ms-6"],
+[data-book-section] nav[aria-label="table of contents"] a[class*="x:ms-6"] {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 1.5rem !important;
+}
+
+[data-book-section] nav.nextra-toc a[class*="x:ms-9"],
+[data-book-section] nav[aria-label="table of contents"] a[class*="x:ms-9"] {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 2.25rem !important;
+}
+
 /* Muted text in dark mode */
 .dark [data-book-section] time,
 .dark [data-book-section] small {
@@ -836,15 +858,29 @@
   opacity: 1 !important;
 }
 
-/* Ensure code content doesn't overlap with buttons - add padding-right */
+/* Ensure code content scrolls clear of the absolute copy button rail */
 [data-book-section] .nextra-code pre,
 [data-book-section] pre.group {
-  padding-right: 3rem !important;
+  scroll-padding-inline-end: 5rem !important;
 }
 
-[data-book-section] .nextra-code pre code,
-[data-book-section] pre.group code {
-  padding-right: 0 !important;
+[data-book-section] .nextra-code pre code.nextra-code,
+[data-book-section] pre.group code.nextra-code {
+  display: block;
+  box-sizing: border-box;
+  padding-right: 5rem !important;
+}
+
+[data-book-section] .nextra-code pre code.nextra-code:not([class*="twoslash-"]) > span,
+[data-book-section] pre.group code.nextra-code:not([class*="twoslash-"]) > span {
+  padding-right: 5rem !important;
+}
+
+[data-book-section] .nextra-code pre code.nextra-code:not([class*="twoslash-"]) > span::after,
+[data-book-section] pre.group code.nextra-code:not([class*="twoslash-"]) > span::after {
+  content: "";
+  display: inline-block;
+  width: 3rem;
 }
 
 [data-book-section] .nextra-code pre > div:first-child button,
@@ -1451,6 +1487,31 @@ sniper-link[hidden] {
 [data-book-section] {
   --book-top-offset: 5.5rem;
   --book-sidebar-list-offset: 1.25rem;
+  /* Matches mobile site-header row: pt + min-h + pb (see site-header.tsx). */
+  --book-mobile-header-height: calc(4.175rem + env(safe-area-inset-top, 0px));
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  [data-book-section] {
+    --book-mobile-header-height: calc(4.225rem + env(safe-area-inset-top, 0px));
+  }
+}
+
+@media (max-width: 1023px) {
+  .book-mobile-breadcrumb {
+    position: sticky;
+    top: var(--book-mobile-header-height);
+    z-index: 40;
+  }
+
+  /* When the dropdown is open the body is scroll-locked (position: fixed),
+     which breaks position: sticky. Pin the breadcrumb under the header. */
+  .book-mobile-breadcrumb[data-open='true'] {
+    position: fixed;
+    inset-inline: 0;
+    top: var(--book-mobile-header-height);
+    z-index: 40;
+  }
 }
 
 /* Keep the global site header fixed even when book theme CSS is active. */
