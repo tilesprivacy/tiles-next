@@ -83,34 +83,36 @@ export function BookMobileBreadcrumb() {
   const currentTitle = pageTitles[slug] || slug
   const navRef = useRef<HTMLElement>(null)
   const [open, setOpen] = useState(false)
-  const [headerBottom, setHeaderBottom] = useState(0)
+  const [breadcrumbTop, setBreadcrumbTop] = useState(0)
+  const [navHeight, setNavHeight] = useState(0)
   const [panelTop, setPanelTop] = useState(0)
   const [tocItems, setTocItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState('')
 
   const isIndexPage = slug === '' || slug === '/'
 
+  // Measure the breadcrumb at its *current* in-flow/sticky position so that
+  // opening (which switches it to position: fixed) does not move it.
   const measureDropdownLayout = useCallback(() => {
-    const header = document.querySelector(
-      'header[data-tiles-site-header]',
-    ) as HTMLElement | null
     const nav = navRef.current
-    if (!header || !nav) return null
+    if (!nav) return null
 
-    const nextHeaderBottom = Math.round(header.getBoundingClientRect().bottom)
-    const navHeight = Math.round(nav.getBoundingClientRect().height)
+    const rect = nav.getBoundingClientRect()
+    const top = Math.round(rect.top)
+    const height = Math.round(rect.height)
 
     return {
-      headerBottom: nextHeaderBottom,
-      navHeight,
-      panelTop: nextHeaderBottom + navHeight,
+      top,
+      height,
+      panelTop: top + height,
     }
   }, [])
 
   const applyDropdownLayout = useCallback(() => {
     const layout = measureDropdownLayout()
     if (!layout) return
-    setHeaderBottom(layout.headerBottom)
+    setBreadcrumbTop(layout.top)
+    setNavHeight(layout.height)
     setPanelTop(layout.panelTop)
   }, [measureDropdownLayout])
 
@@ -288,12 +290,15 @@ export function BookMobileBreadcrumb() {
 
   return (
     <>
+      {open && navHeight > 0 ? (
+        <div className="lg:hidden" style={{ height: `${navHeight}px` }} aria-hidden />
+      ) : null}
       <nav
         ref={navRef}
         aria-label="Breadcrumb"
         data-open={open ? 'true' : 'false'}
         className={`book-mobile-breadcrumb bg-background lg:hidden py-2 ${bookMobileInlinePaddingClass}`}
-        style={open && headerBottom > 0 ? { top: `${headerBottom}px` } : undefined}
+        style={open ? { top: `${breadcrumbTop}px` } : undefined}
       >
         <div className="flex min-h-11 items-center justify-between gap-3">
           <ol className="min-w-0 flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">

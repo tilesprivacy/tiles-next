@@ -29,41 +29,37 @@ const bookPages: BookPage[] = [
   {
     number: '04',
     title: 'Tilekit',
-    description: 'Tilekit CLI usage for Modelfiles, plus parser grammar, instructions, parameters, and API usage.',
+    description: 'Tilekit CLI usage for Modelfiles, MIR Extension, parser grammar, instructions, parameters, and API usage.',
     href: '/book/tilekit',
   },
   {
     number: '05',
-    title: 'MIR Extension',
-    description: 'MIR (Machine Intelligence Resource) naming schema extension for model classification and reproducibility.',
-    href: '/book/mir',
-  },
-  {
-    number: '06',
     title: 'Security',
     description: 'How Tiles approaches privacy, local data protection, identity, sync, and operational security boundaries.',
     href: '/book/security',
   },
+  // Hidden from book nav for now; restore by re-adding this entry (number '06') and bumping the
+  // following cards back to 07/08/09, plus restoring it in book-page-navigation and book/layout.
+  // {
+  //   number: '06',
+  //   title: 'Research',
+  //   description: 'Progressive experiments exploring decentralized software technologies for privacy adoption at scale.',
+  //   href: '/book/research',
+  // },
   {
-    number: '07',
-    title: 'Research',
-    description: 'Progressive experiments exploring decentralized software technologies for privacy adoption at scale.',
-    href: '/book/research',
-  },
-  {
-    number: '08',
+    number: '06',
     title: 'Community',
     description: 'See how you can make Tiles better.',
     href: '/book/community',
   },
   {
-    number: '09',
+    number: '07',
     title: 'Resources',
     description: 'A living index of resources that inform and inspire our work.',
     href: '/book/resources',
   },
   {
-    number: '10',
+    number: '08',
     title: 'Acknowledgements',
     description: 'Open-source software that Tiles builds on.',
     href: '/book/acknowledgements',

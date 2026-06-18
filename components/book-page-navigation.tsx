@@ -16,9 +16,8 @@ const BOOK_PAGES: NavigationPage[] = [
   { route: '/book/manual', title: 'Manual' },
   { route: '/book/models', title: 'Models' },
   { route: '/book/tilekit', title: 'Tilekit' },
-  { route: '/book/mir', title: 'MIR Extension' },
   { route: '/book/security', title: 'Security' },
-  { route: '/book/research', title: 'Research' },
+  // { route: '/book/research', title: 'Research' }, // Hidden from book nav for now.
   { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
   { route: '/book/acknowledgements', title: 'Acknowledgements' },
