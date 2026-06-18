@@ -7,13 +7,13 @@ import {
 type DownloadPlatformSubtextSize = "hero" | "footer"
 
 const sizeClasses: Record<DownloadPlatformSubtextSize, string> = {
-  hero: "text-[0.72rem] sm:text-[0.76rem]",
-  footer: "text-[0.67rem] sm:text-[0.72rem]",
+  hero: "text-[0.79rem] sm:text-[0.83rem]",
+  footer: "text-[0.74rem] sm:text-[0.79rem]",
 }
 
 const iconClasses: Record<DownloadPlatformSubtextSize, string> = {
-  hero: "h-3 w-3",
-  footer: "h-2.5 w-2.5 sm:h-3 sm:w-3",
+  hero: "h-3.5 w-3.5",
+  footer: "h-3 w-3 sm:h-3.5 sm:w-3.5",
 }
 
 export function DownloadPlatformSubtext({
