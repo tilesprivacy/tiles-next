@@ -52,7 +52,7 @@ const featureCards = [
     shareLink: undefined,
   },
   {
-    command: "tiles sync <did>",
+    command: "tiles link <did>",
     heading: "Sync your data P2P",
     description: (
       <>
@@ -74,7 +74,6 @@ const featureCards = [
       "$ tiles link did:key:z6Mknxy...YWSmTcZA",
       "Run this on your other device:",
       "tiles link add ucan:eyJ...YzQ",
-      "$ tiles sync did:key:z6Mknxy...YWSmTcZA",
       "Connecting to Iroh relay",
       "Sync complete",
     ],
