@@ -15,12 +15,12 @@ const GITHUB_RELEASES_LATEST_URL =
   "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
-  version: "0.4.11",
-  fileName: "tiles-0.4.11-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.11-signed.pkg",
-  binarySizeBytes: 100523647,
-  binarySizeLabel: "95.87 MB",
-  sha256: "9b68d642caf589fd9eafaae95929e5623eb361964b029971a89b66eb1eaed2d1",
+  version: "0.4.13",
+  fileName: "tiles-0.4.13-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.4.13-signed.pkg",
+  binarySizeBytes: 98120563,
+  binarySizeLabel: "93.58 MB",
+  sha256: "443fbb7dde2ec53fe34da0daf38ad18624edf267852158a393d0c8c1d7d5861c",
 }
 
 function extractSha256Digest(asset: any): string {
