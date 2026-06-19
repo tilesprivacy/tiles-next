@@ -14,8 +14,10 @@ export interface DownloadArtifact {
 const GITHUB_RELEASES_LATEST_URL =
   "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
+export const FALLBACK_DOWNLOAD_VERSION = "0.4.13" as const
+
 const FALLBACK_ARTIFACT: DownloadArtifact = {
-  version: "0.4.13",
+  version: FALLBACK_DOWNLOAD_VERSION,
   fileName: "tiles-0.4.13-signed.pkg",
   downloadUrl: "https://download.tiles.run/tiles-0.4.13-signed.pkg",
   binarySizeBytes: 98120563,

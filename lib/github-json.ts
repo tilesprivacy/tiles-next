@@ -1,39 +1,35 @@
-import { get } from "node:https"
+const DEFAULT_REVALIDATE_SECONDS = 300
 
-const githubHeaders = {
-  Accept: "application/vnd.github+json",
-  "User-Agent": "tiles.run",
+function getGithubHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "User-Agent": "tiles.run",
+  }
+
+  const token = process.env.GITHUB_TOKEN?.trim()
+  if (token) {
+    headers.Authorization = `Bearer ${token}`
+  }
+
+  return headers
 }
 
 export function fetchGithubJson<T, R = T>(
   url: string,
-  transform?: (data: T) => R
+  transform?: (data: T) => R,
+  options: { revalidate?: number } = {}
 ): Promise<R> {
-  return new Promise((resolve, reject) => {
-    const request = get(url, { headers: githubHeaders }, (response) => {
-      const statusCode = response.statusCode ?? 0
-      let body = ""
+  return fetch(url, {
+    headers: getGithubHeaders(),
+    next: {
+      revalidate: options.revalidate ?? DEFAULT_REVALIDATE_SECONDS,
+    },
+  }).then(async (response) => {
+    if (!response.ok) {
+      throw new Error(`GitHub request failed: ${response.status}`)
+    }
 
-      response.setEncoding("utf8")
-      response.on("data", (chunk) => {
-        body += chunk
-      })
-      response.on("end", () => {
-        if (statusCode < 200 || statusCode >= 300) {
-          reject(new Error(`GitHub request failed: ${statusCode}`))
-          return
-        }
-
-        try {
-          const data = JSON.parse(body) as T
-          resolve(transform ? transform(data) : (data as unknown as R))
-        } catch (error) {
-          reject(error)
-        }
-      })
-    })
-
-    request.on("error", reject)
-    request.end()
+    const data = (await response.json()) as T
+    return transform ? transform(data) : (data as unknown as R)
   })
 }

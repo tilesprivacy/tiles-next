@@ -1,4 +1,5 @@
 import { fetchGithubJson } from "@/lib/github-json"
+import { FALLBACK_DOWNLOAD_VERSION } from "@/lib/download-artifact"
 import { normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface ChangeItem {
@@ -359,11 +360,52 @@ function isVisibleReleaseData(release: any): boolean {
   return normalizedVersion.length > 0
 }
 
+function compareVersionsDescending(a: string, b: string): number {
+  const aParts = parseVersion(a)
+  const bParts = parseVersion(b)
+
+  for (let i = 0; i < 3; i++) {
+    const aValue = aParts[i] ?? 0
+    const bValue = bParts[i] ?? 0
+    if (bValue !== aValue) {
+      return bValue - aValue
+    }
+  }
+
+  return 0
+}
+
+function buildOfflineReleases(): Release[] {
+  const versions = Array.from(new Set(Object.keys(customSections))).sort(compareVersionsDescending)
+
+  return versions.map((version) => {
+    const normalizedVersion = normalizeVersion(version)
+
+    return {
+      version,
+      date: "",
+      title: customTitles[version] || customTitles[normalizedVersion] || version,
+      sections: customSections[version] || customSections[normalizedVersion] || [],
+      isPrerelease: false,
+      githubUrl: `https://github.com/tilesprivacy/tiles/releases/tag/${version}`,
+      tarballs: [],
+      installer: undefined,
+      fullInstaller: customFullInstallers[normalizedVersion],
+    }
+  })
+}
+
 export async function fetchReleases(): Promise<Release[]> {
-  let data = await fetchGithubJson<any[]>(
-    "https://api.github.com/repos/tilesprivacy/tiles/releases",
-    (releases) => releases.filter(isVisibleReleaseData)
-  )
+  let data: any[]
+
+  try {
+    data = await fetchGithubJson<any[]>(
+      "https://api.github.com/repos/tilesprivacy/tiles/releases",
+      (releases) => releases.filter(isVisibleReleaseData)
+    )
+  } catch {
+    return buildOfflineReleases()
+  }
 
   const missingRequiredVersions = requiredVersions.filter(
     (requiredVersion) =>
@@ -487,12 +529,16 @@ export async function fetchReleases(): Promise<Release[]> {
 }
 
 export async function getLatestReleaseVersion(): Promise<string | null> {
-  const releases = await fetchReleases()
-  if (releases.length === 0) {
-    return null
-  }
+  try {
+    const releases = await fetchReleases()
+    if (releases.length === 0) {
+      return FALLBACK_DOWNLOAD_VERSION
+    }
 
-  return normalizeReleaseVersion(releases[0].version)
+    return normalizeReleaseVersion(releases[0].version)
+  } catch {
+    return FALLBACK_DOWNLOAD_VERSION
+  }
 }
 
 function extractTarballs(assets: any[] | undefined): ReleaseTarball[] {
