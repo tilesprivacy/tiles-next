@@ -127,18 +127,12 @@ tiles data set-path ~/.tiles/data
 
 Link devices via peer-to-peer. Tiles can sync chats across multiple **linked** devices, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
 
-Online and offline linking use the same commands. Iroh handles transport in both cases. On the same local network without internet, devices discover each other over mDNS.
+Online and offline linking use the same commands. Iroh handles transport in both cases. On the same local network without internet, devices discover each other over mDNS. Both modes require the peer DID.
 
-On the first device (online, with the peer DID):
+On the first device:
 
 ```bash
 $ tiles link create did:key:z6Mknxy...YWSmTcZA
-```
-
-For offline linking on the same local network, omit the DID:
-
-```bash
-tiles link create
 ```
 
 The command prints a token in the terminal. Share it out of band with the peer you want to link.
@@ -156,7 +150,7 @@ The token format depends on how the devices connect:
 
 After the peer runs **`tiles link add`**, approve the link request on the first device. The two devices are then linked.
 
-**`tiles link create [PEER_DID]`**: Creates an authorization token for linking. Pass a peer DID for online UCAN linking; omit it for offline mDNS linking over the local network.
+**`tiles link create <PEER_DID>`**: Creates an authorization token for linking with the peer DID. Online linking returns a UCAN token; offline linking on the same local network (mDNS via Iroh) returns an eight-character alphanumeric code.
 
 **`tiles link add <token>`**: Completes linking with the token from the first device's output.
 

@@ -528,7 +528,12 @@
 [data-book-section] aside[class*="toc"] a:hover,
 [data-book-section] aside[class*="TOC"] a:hover,
 [data-book-section] aside nav[class*="toc"] a:hover,
-[data-book-section] aside nav[class*="TOC"] a:hover,
+[data-book-section] aside nav[class*="TOC"] a:hover {
+  color: var(--foreground) !important;
+  font-weight: 400 !important;
+  text-decoration: none !important;
+}
+
 [data-book-section] nav[aria-label="table of contents"] a[aria-current="location"],
 [data-book-section] nav.nextra-toc a[aria-current="location"],
 [data-book-section] nav[aria-label="table of contents"] a[aria-current="page"],
@@ -543,7 +548,7 @@
 [data-book-section] nav[aria-label="table of contents"] a[class*="text-primary-600"],
 [data-book-section] nav.nextra-toc a[class*="text-primary-600"] {
   color: var(--foreground) !important;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
   text-decoration: none !important;
 }
 
