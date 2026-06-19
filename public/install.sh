@@ -156,5 +156,3 @@ case ":$PATH:" in
     echo "🚀 Then restart your terminal..."
     ;;
 esac
-
-Annotate
