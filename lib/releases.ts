@@ -223,7 +223,72 @@ const customSections: Record<string, ChangeSection[]> = {
         },
       ],
     },
-  ]
+  ],
+  "0.4.12": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "Full Linux support, including llama.cpp inference, keychain management, and the network installer",
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Renamed `tiles server` to `tiles inference` with a `run-background <bool>` subcommand so inference can keep running after the REPL exits",
+        },
+        {
+          text: "Extra tool-call metadata in session records for Tiles sessions hosted on an ATProto PDS",
+        },
+      ],
+    },
+  ],
+  "0.4.13": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "`tiles run` flags for llama.cpp tuning: `--context-length`, `--gpu-layers`, `--offload-kqv`, and `--batch-size`",
+        },
+        {
+          text: "Daemon `/config` endpoint so the Python inference backend can read Rust-owned Tiles config",
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Persist llama.cpp settings under `[llama]` in `config.toml` instead of `TILES_LLAMA_CPP_*` environment variables",
+        },
+        {
+          text: "Reload the Linux llama.cpp runner when llama configuration changes, even if the selected model path stays the same",
+        },
+        {
+          text: "Renamed inference controls to `tiles server` with `start`, `stop`, and `daemon` subcommands",
+        },
+        {
+          text: "Switched Harmony handling to `tiles-harmony` across active server manifests",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "GPT-OSS tool call handling by normalizing malformed tool names and passing tool metadata into Harmony conversation replay",
+        },
+        {
+          text: "Tool-call streaming state handling so final answers and function-call arguments are emitted more reliably",
+        },
+        {
+          text: "Dev Modelfile handling so `cargo run -- run modelfiles/gpt-oss-gguf` no longer depends on a pre-existing copied default Modelfile",
+        },
+      ],
+    },
+  ],
 }
 
 // Additional changes to append to existing changes (for supplements, not overrides)

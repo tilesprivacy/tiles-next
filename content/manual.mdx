@@ -9,7 +9,9 @@ import { ClickableImage as Image } from '@/components/clickable-image'
 
 ## Command Line Options
 
-Commands are grouped by subcommand family: the base `tiles` command, models, identity, data layout, updates, ATProto linking for sharing, then peer-to-peer linking and sync.
+Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts**, **Sync**, and **System**.
+
+## Getting Started
 
 ### Main command (`tiles`)
 
@@ -21,16 +23,38 @@ tiles   # Onboarding (if needed) and REPL
 
 ### Run models (`tiles run`)
 
-Start a chat session with a model; optional Modelfile path.
+Run a Modelfile (uses the default model if none is provided).
 
 ```bash
 tiles run [MODELFILE_PATH]   # Default model if path omitted
 ```
 
+The same optional flags below also apply when you run `tiles` without a subcommand.
+
 ```bash
 tiles run
 tiles run ./path/to/Modelfile
 ```
+
+Optional tuning flags:
+
+```bash
+tiles run --context-length 8192
+tiles run --gpu-layers 32
+tiles run --offload-kqv
+tiles run --offload-kqv false
+tiles run --batch-size 512
+```
+
+**`--context-length <CONTEXT_LENGTH>`**: Context window for local inference.
+
+**`--gpu-layers <GPU_LAYERS>`**: Number of model layers to offload to the GPU.
+
+**`--offload-kqv [<OFFLOAD_KQV>]`**: Offload K/Q/V attention operations (`true` or `false`).
+
+**`--batch-size <BATCH_SIZE>`**: Prompt processing batch size.
+
+Values you set on the command line are persisted in `config.toml` and apply on later runs.
 
 Create a new Modelfile by adding a plain text file named `Modelfile`:
 
@@ -41,25 +65,51 @@ SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
 
 Use any `mlx-community/` model hosted on Hugging Face in the `FROM` field. Other model hosts and namespaces are not supported there right now. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
 
-### Account (`tiles account`)
+### Help (`tiles help`)
 
-Root identity and display nickname.
+Show the top-level help menu or help for a specific command.
 
 ```bash
-tiles account create [<nickname>]  # Create root identity (nickname optional)
-tiles account set-nickname         # Set nickname
-tiles account                      # Show account details
+tiles help
+tiles help run
+tiles help link
+```
+
+## Accounts
+
+### Account (`tiles account`)
+
+Manage your user account: root identity and display nickname.
+
+```bash
+tiles account create [<nickname>]       # Create root identity (nickname optional)
+tiles account set-nickname <nickname> # Set nickname
+tiles account                         # Show account details
 ```
 
 ```bash
 tiles account create alice
-tiles account set-nickname
+tiles account set-nickname alice
 tiles account
 ```
 
-### Data folder (`tiles data`)
+### ATProto (`tiles at`)
 
-Where Tiles stores local data files.
+ATProto-related commands. ATProto is currently used to share chat sessions.
+
+- `tiles at login <handle>`: log in with your ATProto handle (for example, `alice.bsky.social`) via browser OAuth.
+- `tiles at logout`: log out of the current ATProto account.
+
+```bash
+tiles at login alice.bsky.social
+tiles at logout
+```
+
+Authentication currently uses a localhost callback (`127.0.0.1:8988`), and session state is stored locally in the Tiles database.
+
+### Data (`tiles data`)
+
+Configure your data and storage paths.
 
 ```bash
 tiles data set-path <path>   # Set data folder
@@ -69,26 +119,26 @@ tiles data set-path <path>   # Set data folder
 tiles data set-path ~/.tiles/data
 ```
 
-### App updates (`tiles update`)
-
-```bash
-tiles update   # Check for and install app updates
-```
+## Sync
 
 <div id="peer-to-peer-linking-tiles-link" />
 
-### Peer-to-peer link and sync (`tiles link / sync`)
+### Link devices (`tiles link`)
 
-Tiles can sync chats across multiple **linked** devices peer-to-peer, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
+Link devices via peer-to-peer. Tiles can sync chats across multiple **linked** devices, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
 
 Online and offline linking use the same commands. Iroh handles transport in both cases. On the same local network without internet, devices discover each other over mDNS.
 
-#### Link devices
-
-On the first device:
+On the first device (online, with the peer DID):
 
 ```bash
 $ tiles link create did:key:z6Mknxy...YWSmTcZA
+```
+
+For offline linking on the same local network, omit the DID:
+
+```bash
+tiles link create
 ```
 
 The command prints a token in the terminal. Share it out of band with the peer you want to link.
@@ -106,7 +156,7 @@ The token format depends on how the devices connect:
 
 After the peer runs **`tiles link add`**, approve the link request on the first device. The two devices are then linked.
 
-**`tiles link create <DID>`**: Starts linking toward the peer with that DID and prints the token for the other device.
+**`tiles link create [PEER_DID]`**: Creates an authorization token for linking. Pass a peer DID for online UCAN linking; omit it for offline mDNS linking over the local network.
 
 **`tiles link add <token>`**: Completes linking with the token from the first device's output.
 
@@ -116,53 +166,80 @@ After the peer runs **`tiles link add`**, approve the link request on the first 
 tiles link list-peers
 ```
 
-#### Sync chats
-
-Once linked, run:
-
-```bash
-$ tiles sync did:key:z6Mknxy...YWSmTcZA
-```
-
-**`tiles sync <DID>`**: Starts a sync run toward the linked peer with that DID.
-
-**Online**: run **`tiles sync <DID>`** on either device when you want to sync.
-
-**Offline** (same network): sync is synchronous and uses a listener and initiator. On the device that will receive the sync, start the listener first:
-
-```bash
-tiles sync        # Listener: wait for incoming sync requests
-```
-
-On the other device, run the initiator toward the listener's DID:
-
-```bash
-$ tiles sync did:key:z6Mknxy...YWSmTcZA
-```
-
-When a sync run finishes, you should get a notification on the devices involved.
-
-#### Unlink a peer (`tiles link revoke`)
-
 **`tiles link revoke <DID>`**: Unlinks a peer. Future sync requests from that peer are ignored.
 
 ```bash
 tiles link revoke <DID>   # Unlink a peer; ignore their future sync requests
 ```
 
-### ATProto (`tiles at`)
+### Sync chats (`tiles sync`)
 
-ATProto is currently used to share chat sessions.
+Sync chats with peers.
 
-- `tiles at login <handle>`: log in with your ATProto handle (for example, `alice.bsky.social`) via browser OAuth.
-- `tiles at logout`: log out of the current ATProto account.
+**`tiles sync [DID]`**: Pass a linked peer DID to sync with that peer. Omit `DID` to listen for incoming sync requests.
+
+Once linked, run on either device when online:
 
 ```bash
-tiles at login alice.bsky.social
-tiles at logout
+tiles sync did:key:z6Mknxy...YWSmTcZA
 ```
 
-Authentication currently uses a localhost callback (`127.0.0.1:8988`), and session state is stored locally in the Tiles database.
+**Offline** (same network): on the device that will receive the sync, start the listener first:
+
+```bash
+tiles sync
+```
+
+On the other device, run toward the listener's DID:
+
+```bash
+tiles sync did:key:z6Mknxy...YWSmTcZA
+```
+
+When a sync run finishes, you should get a notification on the devices involved.
+
+## System
+
+### App updates (`tiles update`)
+
+Update Tiles to the latest version.
+
+```bash
+tiles update   # Check for and install app updates
+```
+
+### Health (`tiles health`)
+
+Check the status of dependencies.
+
+```bash
+tiles health
+```
+
+### Inference server (`tiles server`)
+
+Configure the inference server.
+
+```bash
+tiles server start            # Start the inference
+tiles server stop             # Stop the inference
+tiles server daemon true      # Keep inference running after the REPL exits
+tiles server daemon false     # Stop inference when the REPL exits (default)
+```
+
+**`tiles server daemon [FLAG]`** configures whether inference runs in the background. `FLAG` is `true` or `false`. When `true`, closing the REPL does not stop inference. The setting is stored under `[inference] daemon` in `config.toml`.
+
+In Tiles `0.4.12`, inference controls lived under `tiles inference` with `run-background <bool>`. In `0.4.13`, they moved to `tiles server` with `start`, `stop`, and `daemon`.
+
+### Daemon (`tiles daemon`)
+
+Configure daemon behavior.
+
+```bash
+tiles daemon start        # Start the daemon (auto-starts when you run `tiles`)
+tiles daemon start 1729   # Start the daemon on a custom port
+tiles daemon stop         # Stop the daemon
+```
 
 ## Slash commands
 
@@ -184,7 +261,7 @@ Resume a specific session by ID.
 
 ### Sharing Commands
 
-These commands require an active ATProto login. See [#ATProto (`tiles at`)](#atproto-tiles-at).
+These commands require an active ATProto login. See [ATProto (`tiles at`)](#atproto-tiles-at).
 
 #### `/share` (via ATProto)
 
@@ -203,4 +280,3 @@ By default, uninstalling Tiles removes only binaries and shared payloads under `
 Read the full step-by-step procedure in the [Tiles uninstaller skill](https://tiles.run/tiles-uninstaller-skill/SKILL.md), including optional receipt and keychain cleanup. With coding agents (for example Claude Code or Codex), share that URL in your prompt and ask the agent to follow it, adapting paths that differ on your machine.
 
 We are actively working on an official Tiles uninstaller.
-
