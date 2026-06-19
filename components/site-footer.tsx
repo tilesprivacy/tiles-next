@@ -1,6 +1,7 @@
 'use client'
 
 import Link from "next/link"
+import { Heart } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRedditAlien } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
@@ -40,9 +41,11 @@ export function SiteFooter({
 
   const themeSwitcherVariant = isDarkFooter ? 'dark' : 'light'
   const licenseTextColor = isDarkFooter ? 'text-[#8d8d98]' : 'text-[#1d1d1f]/72'
+  const trustLineColor = 'text-[#CB30E0]'
   const footerSocialLinkClass =
     'group inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm transition-colors'
   const footerSocialIconClass = 'h-4 w-4 transition-colors'
+  const footerTrustLineClass = `flex items-center gap-1.5 text-[13px] leading-5 ${trustLineColor}`
 
   return (
     <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
@@ -74,7 +77,13 @@ export function SiteFooter({
         )}
 
         <div className="mt-1 flex flex-col items-center gap-3.5 text-center lg:hidden">
-          <p data-footer-copyright className={`text-xs leading-5 ${licenseTextColor}`}>© 2026 Tiles Privacy & Contributors.</p>
+          <div className="flex flex-col items-center gap-2">
+            <p className={`${footerTrustLineClass} justify-center text-center`}>
+              <Heart className="h-[0.95em] w-[0.95em] shrink-0 fill-current stroke-none" aria-hidden="true" />
+              <span>Built by an independent team committed to privacy.</span>
+            </p>
+            <p data-footer-copyright className={`text-xs leading-5 ${licenseTextColor}`}>© 2026 Tiles Privacy & Contributors.</p>
+          </div>
 
           <div className="flex flex-col items-center gap-2.5">
             <nav aria-label="Footer links" className="flex flex-wrap items-center justify-center gap-x-3.5 gap-y-1.5 text-xs">
@@ -123,7 +132,12 @@ export function SiteFooter({
           </div>
         </div>
 
-        <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:text-left">
+        <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:gap-y-2.5 lg:text-left">
+          <p className={`${footerTrustLineClass} col-span-2`}>
+            <Heart className="h-[0.95em] w-[0.95em] shrink-0 fill-current stroke-none" aria-hidden="true" />
+            <span>Built by an independent team committed to privacy.</span>
+          </p>
+
           <div className="flex flex-col items-start gap-2.5">
             <p data-footer-copyright className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
             <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
