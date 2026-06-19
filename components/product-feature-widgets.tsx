@@ -100,13 +100,13 @@ export function ProductFeatureWidgets({
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<KeyRound strokeWidth={1.75} />} title="User Owned Identity">
-        User-owned identity with{" "}
+        User-owned identity with Decentralized Identifiers{" "}
         <a href="https://www.w3.org/TR/did-1.1/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          Decentralized Identifiers (DIDs)
+          (DIDs)
         </a>{" "}
-        and{" "}
+        and User Controlled Authorization Networks{" "}
         <a href="https://ucan.xyz" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          User Controlled Authorization Networks (UCANs)
+          (UCANs)
         </a>{" "}
         for authorization.
       </FeatureWidget>

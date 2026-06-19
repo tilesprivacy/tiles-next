@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { SponsorContent } from "@/components/sponsor-content"
 
-const SPONSORS_PROGRESS_PERCENT_FALLBACK = "30%"
-const SPONSORS_GOAL_AMOUNT_MONTHLY = "$1,000 per month"
+const SPONSORS_PROGRESS_PERCENT_FALLBACK = "20%"
+const SPONSORS_GOAL_AMOUNT_MONTHLY = "$1,500 per month"
 
 export const metadata: Metadata = {
   title: "Sponsor | Tiles",
@@ -49,13 +49,15 @@ async function getGithubSponsorsGoalData() {
 
     const parsedGoalAmountMonthly = goalMatch ? `$${goalMatch[1]} per month` : null
     const parsedProgressPercent = progressMatch ? Number.parseInt(progressMatch[1], 10) : null
+    const goalAmountMonthly = parsedGoalAmountMonthly ?? SPONSORS_GOAL_AMOUNT_MONTHLY
     const fallbackProgressPercent = Number.parseInt(SPONSORS_PROGRESS_PERCENT_FALLBACK, 10)
-    const shouldUseParsedProgress = parsedProgressPercent !== null && parsedGoalAmountMonthly === SPONSORS_GOAL_AMOUNT_MONTHLY
-    const normalizedProgressPercent =
-      shouldUseParsedProgress ? Math.max(parsedProgressPercent, fallbackProgressPercent) : fallbackProgressPercent
+    const shouldUseParsedProgress =
+      parsedProgressPercent !== null &&
+      (parsedGoalAmountMonthly === goalAmountMonthly || parsedGoalAmountMonthly === SPONSORS_GOAL_AMOUNT_MONTHLY)
+    const normalizedProgressPercent = shouldUseParsedProgress ? parsedProgressPercent : fallbackProgressPercent
 
     return {
-      goalAmountMonthly: SPONSORS_GOAL_AMOUNT_MONTHLY,
+      goalAmountMonthly,
       progressPercent: `${normalizedProgressPercent}%`,
     }
   } catch {

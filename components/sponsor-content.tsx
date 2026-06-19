@@ -72,9 +72,9 @@ function InlinePerson({
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
   const progressValue = sponsorsGoal.progressPercent
     ? Math.max(0, Math.min(100, Number.parseInt(sponsorsGoal.progressPercent, 10)))
-    : 30
-  const progressLabel = sponsorsGoal.progressPercent ?? "30%"
-  const goalLabel = sponsorsGoal.goalAmountMonthly ?? "$1,000 per month"
+    : 20
+  const progressLabel = sponsorsGoal.progressPercent ?? "20%"
+  const goalLabel = sponsorsGoal.goalAmountMonthly ?? "$1,500 per month"
   const socialProofSponsors = people.sponsorsActive.slice(0, 4)
   const featuredSponsor = people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
   const featuredSponsorParts = featuredSponsor ? splitPersonDisplayName(featuredSponsor.name) : null

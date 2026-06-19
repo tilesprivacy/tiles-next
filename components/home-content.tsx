@@ -64,7 +64,7 @@ const featureCards = [
     ctaLabel: "Create your link",
     ctaHref: "/book/manual#peer-to-peer-linking-tiles-link",
     terminalLines: [
-      "$ tiles link did:key:z6Mknxy...YWSmTcZA",
+      "$ tiles link create",
       "Run this on your other device:",
       "tiles link add ucan:eyJ...YzQ",
       "$ tiles sync did:key:z6Mknxy...YWSmTcZA",
