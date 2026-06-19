@@ -99,6 +99,11 @@ const nextConfig = {
         permanent: true,
       },
       {
+        source: '/book/acknowledgements',
+        destination: '/book/opensource',
+        permanent: true,
+      },
+      {
         source: '/book/memory',
         destination: '/research/memory-model-trained-with-online-rl',
         permanent: true,

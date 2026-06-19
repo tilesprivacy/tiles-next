@@ -62,8 +62,8 @@
       "timestamp": true
     }
   },
-  "acknowledgements": {
-    "title": "Acknowledgements",
+  "opensource": {
+    "title": "Open source",
     "theme": {
       "copyPage": true,
       "timestamp": true

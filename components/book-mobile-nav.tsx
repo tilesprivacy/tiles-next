@@ -60,9 +60,9 @@ const bookPages: BookPage[] = [
   },
   {
     number: '08',
-    title: 'Acknowledgements',
+    title: 'Open source',
     description: 'Open-source software that Tiles builds on.',
-    href: '/book/acknowledgements',
+    href: '/book/opensource',
   },
   // Hidden from book nav for now; restore when re-enabling the Licenses page in the sidebar.
   // {

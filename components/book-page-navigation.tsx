@@ -21,7 +21,7 @@ export const BOOK_PAGES: NavigationPage[] = [
   // { route: '/book/research', title: 'Research' }, // Hidden from book nav for now.
   { route: '/book/community', title: 'Community' },
   { route: '/book/resources', title: 'Resources' },
-  { route: '/book/acknowledgements', title: 'Acknowledgements' },
+  { route: '/book/opensource', title: 'Open source' },
   // { route: '/book/licenses', title: 'Licenses' },
 ]
 
