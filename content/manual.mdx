@@ -15,10 +15,10 @@ Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts
 
 ### Main command (`tiles`)
 
-Launches onboarding (first run) and the interactive REPL.
+Launches onboarding (first run) and the interactive chat.
 
 ```bash
-tiles   # Onboarding (if needed) and REPL
+tiles   # Onboarding (if needed) and interactive chat
 ```
 
 ### Run models (`tiles run`)
@@ -63,7 +63,7 @@ FROM mlx-community/Qwen3.5-4B-MLX-4bit
 SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
 ```
 
-Use any `mlx-community/` model hosted on Hugging Face in the `FROM` field. Other model hosts and namespaces are not supported there right now. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
+Use any `mlx-community/` model (macOS) or GGUF model (Linux) hosted on Hugging Face in the `FROM` field. We are working on adding more model path sources in `FROM`, including local paths. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
 
 ### Help (`tiles help`)
 
@@ -222,8 +222,6 @@ tiles server daemon false     # Stop inference when the REPL exits (default)
 ```
 
 **`tiles server daemon [FLAG]`** configures whether inference runs in the background. `FLAG` is `true` or `false`. When `true`, closing the REPL does not stop inference. The setting is stored under `[inference] daemon` in `config.toml`.
-
-In Tiles `0.4.12`, inference controls lived under `tiles inference` with `run-background <bool>`. In `0.4.13`, they moved to `tiles server` with `start`, `stop`, and `daemon`.
 
 ### Daemon (`tiles daemon`)
 
