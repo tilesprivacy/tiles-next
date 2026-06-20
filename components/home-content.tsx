@@ -59,7 +59,25 @@ const featureCards = [
         >
           Iroh
         </a>{" "}
-        with locally generated decentralized identifiers (DID) and User Controlled Authorization Network (UCAN).
+        with locally generated decentralized identifiers{" "}
+        <a
+          href="https://www.w3.org/TR/did-1.1/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
+        >
+          (DIDs)
+        </a>{" "}
+        and User Controlled Authorization Network{" "}
+        <a
+          href="https://ucan.xyz"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
+        >
+          (UCANs)
+        </a>
+        .
       </>
     ),
     ctaLabel: "Create your link",
