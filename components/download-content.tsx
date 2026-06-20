@@ -280,7 +280,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                 Download Tiles Alpha
               </h1>
               <p className={bodyTextClass}>
-                Public alpha for macOS and Linux.
+                Public alpha for macOS and Linux. 16 GB of unified memory or VRAM recommended.
               </p>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (

@@ -129,7 +129,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             <tr>
               <td style="padding:23px 0 12px 0;">
                 <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                  Public alpha for macOS and Linux.
+                  Public alpha for macOS and Linux. 16 GB of unified memory or VRAM recommended.
                 </p>
               </td>
             </tr>
