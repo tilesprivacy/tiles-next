@@ -163,7 +163,7 @@ export default function BrandPage() {
                 </div>
               </div>
               <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
-                Tiles wallpaper.
+                Cyberpunk themed Tiles wallpaper.
               </p>
             </div>
           </div>

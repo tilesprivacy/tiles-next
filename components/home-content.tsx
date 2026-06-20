@@ -406,9 +406,12 @@ export function HomeContent() {
                   href="https://atproto.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
+                  className="inline-flex items-center gap-1 underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
                 >
                   AT Protocol
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
+                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </a>{" "}
                 (ATProto), an open decentralized protocol for social applications and portable identity.
               </p>
@@ -424,9 +427,12 @@ export function HomeContent() {
                   href="https://atproto.com/guides/the-at-stack"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
+                  className="inline-flex items-center gap-1 underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
                 >
                   official ATProto stack overview
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
+                    <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </a>
                 .
               </p>
