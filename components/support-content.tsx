@@ -12,7 +12,7 @@ const supportRoutes = [
     title: "Documentation",
     description: "Install Tiles, read the manual, check Tilekit docs, and get unstuck on setup.",
     href: "/book",
-    label: "Read docs",
+    label: "Read book",
     icon: BookOpen,
     external: false,
   },

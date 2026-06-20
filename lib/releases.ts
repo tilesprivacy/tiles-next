@@ -279,7 +279,7 @@ const customSections: Record<string, ChangeSection[]> = {
       title: "Fixed",
       changes: [
         {
-          text: "GPT-OSS tool call handling by normalizing malformed tool names and passing tool metadata into Harmony conversation replay",
+          text: "gpt-oss tool call handling by normalizing malformed tool names and passing tool metadata into Harmony conversation replay",
         },
         {
           text: "Tool-call streaming state handling so final answers and function-call arguments are emitted more reliably",
@@ -767,6 +767,13 @@ function normalizeChangeText(text: string, sectionTitle?: string): string {
 function capitalizeLeadingText(text: string): string {
   if (!text) {
     return text
+  }
+
+  const lowercaseLeadingTerms = ["gpt-oss"] as const
+  for (const term of lowercaseLeadingTerms) {
+    if (text.toLowerCase().startsWith(term)) {
+      return term + text.slice(term.length)
+    }
   }
 
   const leadingCodeMatch = text.match(/^((?:`[^`]+`\s*)+)/)
