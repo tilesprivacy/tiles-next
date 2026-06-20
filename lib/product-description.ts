@@ -22,6 +22,9 @@ export const DOWNLOAD_PLATFORM_MACOS_LABEL = "Apple Silicon (M1+)" as const
 
 export const DOWNLOAD_PLATFORM_LINUX_LABEL = "Linux (NVIDIA)" as const
 
+/** Linux requirement line under section headings on /download and in download emails. */
+export const DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL = "NVIDIA" as const
+
 export const DOWNLOAD_PLATFORM_SUBTEXT =
   `${DOWNLOAD_PLATFORM_MACOS_LABEL} · ${DOWNLOAD_PLATFORM_LINUX_LABEL}` as const
 

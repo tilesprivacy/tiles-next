@@ -16,7 +16,10 @@ import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
 import { OFFLINE_INSTALLER, LINUX_INSTALL_COMMAND, LINUX_INSTALL_SCRIPT_URL, LINUX_INSTALL_VERSION, LINUX_MODEL_NAME, LINUX_MODEL_URL, OFFLINE_MODEL_NAME, OFFLINE_MODEL_URL } from "@/lib/download-page-data"
-import { DOWNLOAD_PLATFORM_LINUX_LABEL, DOWNLOAD_PLATFORM_MACOS_LABEL } from "@/lib/product-description"
+import {
+  DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL,
+  DOWNLOAD_PLATFORM_MACOS_LABEL,
+} from "@/lib/product-description"
 
 interface DownloadMetadata {
   version: string
@@ -277,7 +280,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                 Download Tiles Alpha
               </h1>
               <p className={bodyTextClass}>
-                Public alpha for macOS and Linux. Choose your platform below.
+                Public alpha for macOS and Linux.
               </p>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (
@@ -506,7 +509,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                       Linux
                     </h2>
                   </div>
-                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_LINUX_LABEL}</p>
+                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL}</p>
                 </div>
 
                 <p className={bodyTextClass}>

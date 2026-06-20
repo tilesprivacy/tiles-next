@@ -8,7 +8,7 @@ import {
   OFFLINE_MODEL_URL,
 } from "@/lib/download-page-data"
 import {
-  DOWNLOAD_PLATFORM_LINUX_LABEL,
+  DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL,
   DOWNLOAD_PLATFORM_MACOS_LABEL,
   TILES_PRODUCT_DESCRIPTION_SHORT,
 } from "@/lib/product-description"
@@ -129,7 +129,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             <tr>
               <td style="padding:23px 0 12px 0;">
                 <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                  Public alpha for macOS and Linux. Choose your platform below.
+                  Public alpha for macOS and Linux.
                 </p>
               </td>
             </tr>
@@ -284,7 +284,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             <tr>
               <td style="padding:18px 0 18px 0;">
                 <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                  ${DOWNLOAD_PLATFORM_LINUX_LABEL}
+                  ${DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL}
                 </p>
                 <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
                   Uses <a href="${LINUX_MODEL_URL}" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;"><span style="display:inline-block; color:#f5f5f5; background-color:#171717; border:1px solid #3f3f46; border-radius:4px; padding:1px 7px; font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace; font-size:14px; line-height:20px;"><img src="https://tiles.run/openai-logo.svg" width="14" height="14" alt="" aria-hidden="true" style="display:inline-block; width:14px; height:14px; margin-right:6px; vertical-align:-2px;" />${LINUX_MODEL_NAME}</span></a> as the default model.
