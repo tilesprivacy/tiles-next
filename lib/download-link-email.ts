@@ -322,6 +322,9 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             </tr>
             <tr>
               <td style="padding:0 0 40px 0;">
+                <p style="margin:0 0 4px 0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
+                  Paste this in terminal
+                </p>
                 <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
                   <a href="${LINUX_INSTALL_SCRIPT_URL}" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">View script source</a>
                 </p>
