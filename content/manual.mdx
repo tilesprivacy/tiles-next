@@ -148,8 +148,6 @@ The token format depends on how the devices connect:
 - **Online**: a **UCAN** token (for example, `ucan:eyJ...YzQ`).
 - **Offline** (same network, mDNS discovery via Iroh): an **eight-character alphanumeric code**.
 
-After the peer runs **`tiles link add`**, approve the link request on the first device. The two devices are then linked.
-
 **`tiles link create <PEER_DID>`**: Creates an authorization token for linking with the peer DID. Online linking returns a UCAN token; offline linking on the same local network (mDNS via Iroh) returns an eight-character alphanumeric code.
 
 **`tiles link add <token>`**: Completes linking with the token from the first device's output.
