@@ -10,6 +10,7 @@ import { triggerHaptic } from "@/lib/haptics"
 import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
 import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
+import { WhyTilesSection } from "@/components/why-tiles-section"
 
 const featureCards = [
   {
@@ -102,14 +103,6 @@ const featureCards = [
 ] as const
 
 const showTechCircuitBackground = false
-
-const whyTilesBullets = [
-  "Out-of-the-box experience, ready on first open without API keys, model or harness selection.",
-  "Sync sessions and work across devices without leaking data to a cloud vendor.",
-  "Share chats publicly or privately without copy-pasting the thread elsewhere.",
-  "Sovereignty over your online identity and data: DID and UCAN for local control, ATProto for social features.",
-  "Offline Installer bundles the model for air-gapped use.",
-] as const
 
 function TechCircuitBackground() {
   return (
@@ -261,13 +254,15 @@ export function HomeContent() {
             </div>
 
             <div className="relative z-10 order-3 w-full text-[0.82rem] font-medium leading-[1.45] text-black/62 dark:text-[#BDBDBF] sm:text-[0.86rem] lg:order-3 lg:col-span-2 lg:text-[0.9rem]">
-              <ProductFeatureWidgets variant="home" />
-              <TechAttribution
-                variant={techAttributionVariant}
-                size="hero"
-                className="mt-5 max-w-full !flex-nowrap justify-center overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:justify-start"
-                aria-label="Technology stack"
-              />
+              <div className="flex flex-col gap-7 sm:gap-8">
+                <ProductFeatureWidgets variant="home" />
+                <TechAttribution
+                  variant={techAttributionVariant}
+                  size="hero"
+                  className="max-w-full !flex-nowrap justify-center overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch] sm:justify-start"
+                  aria-label="Technology stack"
+                />
+              </div>
             </div>
 
             <div className="relative order-2 mb-0 flex w-full items-center justify-center sm:mb-8 lg:mb-0 lg:justify-end">
@@ -303,24 +298,8 @@ export function HomeContent() {
       </main>
 
       <section className="relative z-10 px-4 pb-10 pt-8 min-[390px]:px-5 sm:px-6 sm:pb-14 sm:pt-10 lg:px-12 lg:pb-16 lg:pt-8">
-        <div className="mx-auto grid w-full max-w-6xl gap-7 py-4 sm:gap-8 sm:py-6 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:items-start lg:py-8">
-          <div className="max-w-[28rem] space-y-3.5">
-            <h2 className="text-balance text-[clamp(1.95rem,5.4vw,2.65rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
-              Why Tiles
-            </h2>
-            <p className="text-[1rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF]">
-              Sensitive knowledge work stays private on your machines, with secure collaboration built in.
-            </p>
-          </div>
-
-          <ul className="grid gap-4 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-5">
-            {whyTilesBullets.map((bullet) => (
-              <li key={bullet} className="flex gap-3 text-[0.96rem] leading-[1.55] text-black/64 dark:text-[#B5B5B5]">
-                <Check className="mt-1 h-3.5 w-3.5 shrink-0 text-black/34 dark:text-[#8A8A8A]" strokeWidth={2} aria-hidden />
-                <span>{bullet}</span>
-              </li>
-            ))}
-          </ul>
+        <div className="mx-auto w-full max-w-6xl py-4 sm:py-6 lg:py-8">
+          <WhyTilesSection cta={{ href: "/book/overview", label: "Learn more on overview page" }} />
         </div>
       </section>
 

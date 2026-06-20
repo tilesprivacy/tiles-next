@@ -20,7 +20,7 @@ export const DOWNLOAD_TILES_CTA_LABEL = "Download Tiles Alpha" as const
 /** Compact platform line under primary Download Tiles CTAs (plain text for indexes). */
 export const DOWNLOAD_PLATFORM_MACOS_LABEL = "Apple Silicon (M1+)" as const
 
-export const DOWNLOAD_PLATFORM_LINUX_LABEL = "NVIDIA" as const
+export const DOWNLOAD_PLATFORM_LINUX_LABEL = "Linux (NVIDIA)" as const
 
 export const DOWNLOAD_PLATFORM_SUBTEXT =
   `${DOWNLOAD_PLATFORM_MACOS_LABEL} · ${DOWNLOAD_PLATFORM_LINUX_LABEL}` as const

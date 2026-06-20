@@ -343,7 +343,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                       macOS
                     </h2>
                   </div>
-                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_MACOS_LABEL}.</p>
+                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_MACOS_LABEL}</p>
                 </div>
 
                 <p className={bodyTextClass}>
@@ -506,7 +506,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                       Linux
                     </h2>
                   </div>
-                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_LINUX_LABEL}.</p>
+                  <p className={bodyTextClass}>{DOWNLOAD_PLATFORM_LINUX_LABEL}</p>
                 </div>
 
                 <p className={bodyTextClass}>

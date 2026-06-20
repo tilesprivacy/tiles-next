@@ -92,7 +92,7 @@ export async function GET(request: Request) {
     'Hero subtext: For sensitive knowledge work, from client strategy to research you cannot put in the cloud: run models locally, sync with P2P encrypted sync, and share via ATProto while your data and identity stay private.',
     'Current status: CLI alpha.',
     'Why Tiles: sensitive knowledge work stays private on your machines, with secure collaboration built in; out-of-the-box on first open without API keys, model or harness selection, sync sessions and work across devices without leaking data to a cloud vendor, share chats publicly or privately without copy-pasting threads elsewhere, sovereignty over your online identity and data with DID and UCAN for local control and ATProto for social features, Offline Installer bundles the model for air-gapped use.',
-    'Platform support: Apple Silicon (M1+), NVIDIA.',
+    'Platform support: Apple Silicon (M1+), Linux (NVIDIA).',
   ])
 
   pushSection(lines, `Download (${baseUrl}/download)`, [
