@@ -286,7 +286,7 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSharePage = pathname?.startsWith("/share") ?? false
-  const showMobileDownloadCta = pathname !== "/"
+  const showMobileDownloadCta = true
 
   useEffect(() => {
     if (typeof window === "undefined" || !BANNER_ENABLED) return
