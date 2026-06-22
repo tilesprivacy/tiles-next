@@ -4,20 +4,20 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { getAdjacentBookPages } from '@/components/book-page-navigation'
+import {
+  BOOK_PAGES,
+  getAdjacentBookPages,
+} from '@/components/book-page-navigation'
 
-// Map of route slugs to page titles
-const pageTitles: Record<string, string> = {
-  '': 'Tiles Book',
-  'overview': 'Overview',
-  'manual': 'Manual',
-  'models': 'Models',
-  'tilekit': 'Tilekit',
-  'security': 'Security',
-  'research': 'Research',
-  'community': 'Community',
-  'resources': 'Resources',
-  'opensource': 'Open source',
+const MOBILE_BOOK_PAGES = BOOK_PAGES.filter((page) => page.route !== '/book')
+
+function isBookPageActive(pathname: string, route: string): boolean {
+  const normalizedPath = pathname.replace(/\/$/, '') || '/book'
+  const normalizedRoute = route.replace(/\/$/, '')
+
+  if (normalizedPath === normalizedRoute) return true
+
+  return normalizedPath.startsWith(`${normalizedRoute}/`)
 }
 
 type TocItem = {
@@ -81,8 +81,9 @@ function getHeaderOffset() {
 export function BookMobileBreadcrumb() {
   const pathname = usePathname()
   const slug = pathname.replace('/book/', '').replace('/book', '')
-  const currentTitle = pageTitles[slug] || slug
   const navRef = useRef<HTMLElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const activeLinkRef = useRef<HTMLAnchorElement>(null)
   const [open, setOpen] = useState(false)
   const [panelTop, setPanelTop] = useState(0)
   const [tocItems, setTocItems] = useState<TocItem[]>([])
@@ -159,6 +160,28 @@ export function BookMobileBreadcrumb() {
 
   useEffect(() => {
     setOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current
+    const activeLink = activeLinkRef.current
+    if (!scrollContainer || !activeLink) return
+
+    const frame = window.requestAnimationFrame(() => {
+      const containerRect = scrollContainer.getBoundingClientRect()
+      const linkRect = activeLink.getBoundingClientRect()
+      const offset =
+        linkRect.left -
+        containerRect.left -
+        (containerRect.width - linkRect.width) / 2
+
+      scrollContainer.scrollTo({
+        left: scrollContainer.scrollLeft + offset,
+        behavior: 'auto',
+      })
+    })
+
+    return () => window.cancelAnimationFrame(frame)
   }, [pathname])
 
   useEffect(() => {
@@ -240,40 +263,55 @@ export function BookMobileBreadcrumb() {
     <>
       <nav
         ref={navRef}
-        aria-label="Breadcrumb"
+        aria-label="Book pages"
         data-open={open ? 'true' : 'false'}
-        className={`book-mobile-breadcrumb bg-background lg:hidden py-2 ${bookMobileInlinePaddingClass}`}
+        className={`book-mobile-breadcrumb bg-background lg:hidden border-b border-border ${bookMobileInlinePaddingClass}`}
       >
-        <div className="flex min-h-11 items-center justify-between gap-3">
-          <ol className="min-w-0 flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400">
-            <li>
-              <Link
-                href="/book"
-                className="hover:text-gray-700 dark:hover:text-gray-300 transition-colors"
-              >
-                Book
-              </Link>
-            </li>
-            <li aria-hidden="true" className="text-gray-400 dark:text-gray-500">/</li>
-            <li className="text-gray-700 dark:text-gray-300 truncate">
-              {currentTitle}
-            </li>
-          </ol>
+        <div className="flex min-h-11 items-stretch gap-1">
+          <div
+            ref={scrollRef}
+            className="min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            <div className="flex w-max items-center gap-0.5 py-2 pr-2">
+              {MOBILE_BOOK_PAGES.map((page) => {
+                const isActive = isBookPageActive(pathname, page.route)
+
+                return (
+                  <Link
+                    key={page.route}
+                    ref={isActive ? activeLinkRef : undefined}
+                    href={page.route}
+                    aria-current={isActive ? 'page' : undefined}
+                    className={`inline-flex shrink-0 touch-manipulation items-center whitespace-nowrap px-3 py-1.5 text-sm leading-none transition-colors duration-200 no-underline hover:no-underline ${
+                      isActive
+                        ? 'font-semibold text-foreground'
+                        : 'font-normal text-muted-foreground hover:text-foreground'
+                    }`}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    {page.title}
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
 
           {tocItems.length > 0 ? (
-            <button
-              type="button"
-              aria-label={open ? 'Close on this page' : 'Open on this page'}
-              aria-expanded={open}
-              onClick={toggleDropdown}
-              className={bookMobileIconButtonClass}
-            >
-              <ChevronDown
-                className={`h-6 w-6 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
-                strokeWidth={2}
-                aria-hidden
-              />
-            </button>
+            <div className="flex shrink-0 items-center border-l border-border pl-1">
+              <button
+                type="button"
+                aria-label={open ? 'Close on this page' : 'Open on this page'}
+                aria-expanded={open}
+                onClick={toggleDropdown}
+                className={bookMobileIconButtonClass}
+              >
+                <ChevronDown
+                  className={`h-6 w-6 transition-transform duration-300 ${open ? 'rotate-180' : ''}`}
+                  strokeWidth={2}
+                  aria-hidden
+                />
+              </button>
+            </div>
           ) : null}
         </div>
       </nav>
