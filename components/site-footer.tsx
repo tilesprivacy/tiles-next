@@ -89,7 +89,6 @@ export function SiteFooter({
               <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                 Tiles Privacy
               </a>
-              .
             </p>
           </div>
 
@@ -152,7 +151,6 @@ export function SiteFooter({
               <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                 Tiles Privacy
               </a>
-              .
             </p>
             <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
               <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />

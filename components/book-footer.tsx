@@ -103,7 +103,6 @@ export function BookFooter() {
                 <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                   Tiles Privacy
                 </a>
-                .
               </p>
               <p className="inline-flex items-center gap-1.5 leading-tight">
                 <span>A</span>
@@ -240,7 +239,6 @@ export function BookFooter() {
               <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                 Tiles Privacy
               </a>
-              .
             </p>
             <p className="inline-flex items-center gap-1.5 leading-tight">
               <span>A</span>
