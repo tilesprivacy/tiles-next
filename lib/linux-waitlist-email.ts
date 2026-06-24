@@ -80,7 +80,7 @@ export const linuxWaitlistEmailTemplateHtml = `<!doctype html>
                   If you’d like to get in touch with the team, either ahead of the release or after, you can always find us on the #tiles channel in User &amp; Agents Discord.
                 </p>
                 <p class="body-copy" style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.45; font-weight:500;">
-                  - Tiles Privacy &amp; Contributors
+                  - <a href="https://www.tilesprivacy.org" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Tiles Privacy</a>
                 </p>
               </td>
             </tr>

@@ -215,7 +215,7 @@ export function BlogPostContent({
             </div>
 
             <p data-blog-print-footer className="mt-0 hidden print:block">
-              © 2026 Tiles Privacy & Contributors.
+              © 2026 <a href="https://www.tilesprivacy.org">Tiles Privacy</a>.
             </p>
           </div>
         </div>

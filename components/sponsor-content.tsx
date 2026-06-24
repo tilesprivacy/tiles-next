@@ -165,32 +165,26 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                 About us
               </h2>
               <div className={`max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
-                <div className="flex items-start gap-3">
-                  <p>
-                    Tiles is part of{" "}
-                    <a
-                      href="https://userandagents.org/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative top-[0.04em] inline-flex items-center gap-1.5 align-baseline text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
-                    >
-                      <img
-                        src="/ua-logo.svg"
-                        alt="User & Agents"
-                        width={14}
-                        height={14}
-                        className="h-3 w-auto"
-                      />
-                      <span>User &amp; Agents</span>
-                    </a>{" "}
-                    network. The shared goal is to empower people by designing and building software that provides agency,
-                    control, and choice in our digital lives. We believe that privacy adoption at scale{" "}
-                    <em>must work backwards</em> from preserving utility. This means negligible impact on user experience,
-                    model intelligence, throughput, latency, tool use & agentic capabilities, and web access. With Tiles,
-                    we aim to deliver “just works” experiences through best-in-class privacy-focused engineering while
-                    offering unmatched convenience in our consumer products.
-                  </p>
-                </div>
+                <p>
+                  Our goal is to empower people by designing and building software that provides agency, control, and
+                  choice in our digital lives. We believe that privacy adoption at scale must work backwards from
+                  preserving utility. This means negligible impact on user experience, model intelligence, throughput,
+                  latency, tool use & agentic capabilities, and web access.
+                </p>
+                <p>
+                  We’re open to consulting engagements focused on privacy-preserving products, especially those built with
+                  decentralized technologies such as Iroh, DIDs/UCANs, AT Protocol, and local AI models. If you’re
+                  working in this space,{" "}
+                  <a
+                    href="https://cal.com/feynon/chat"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                  >
+                    book a call
+                  </a>{" "}
+                  to discuss how we can help.
+                </p>
                 <p>
                   Tiles Privacy is also a signatory to the{" "}
                   <a

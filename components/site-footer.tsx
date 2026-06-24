@@ -46,6 +46,8 @@ export function SiteFooter({
     'group inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-sm transition-colors'
   const footerSocialIconClass = 'h-4 w-4 transition-colors'
   const footerTrustLineClass = `flex items-center gap-1.5 text-[13px] leading-5 ${trustLineColor}`
+  const copyrightLinkClass =
+    'underline decoration-current/25 underline-offset-2 transition-opacity hover:opacity-80'
 
   return (
     <footer className="relative z-10 bg-transparent px-4 py-7 sm:px-6 lg:px-12 lg:py-9">
@@ -82,7 +84,13 @@ export function SiteFooter({
               <Heart className="h-[0.95em] w-[0.95em] shrink-0 fill-current stroke-none" aria-hidden="true" />
               <span>Built by an independent team devoted to user agency.</span>
             </p>
-            <p data-footer-copyright className={`text-xs leading-5 ${licenseTextColor}`}>© 2026 Tiles Privacy & Contributors.</p>
+            <p data-footer-copyright className={`text-xs leading-5 ${licenseTextColor}`}>
+              © 2026{' '}
+              <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
+                Tiles Privacy
+              </a>
+              .
+            </p>
           </div>
 
           <div className="flex flex-col items-center gap-2.5">
@@ -139,7 +147,13 @@ export function SiteFooter({
           </p>
 
           <div className="flex flex-col items-start gap-2.5">
-            <p data-footer-copyright className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>© 2026 Tiles Privacy & Contributors.</p>
+            <p data-footer-copyright className={`pt-0.5 text-xs leading-5 ${licenseTextColor} whitespace-nowrap`}>
+              © 2026{' '}
+              <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
+                Tiles Privacy
+              </a>
+              .
+            </p>
             <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
               <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />
               <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" touchFriendly />

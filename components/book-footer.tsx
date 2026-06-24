@@ -53,6 +53,8 @@ export function BookFooter() {
     huggingface: monochromeIconHover,
     rss: monochromeIconHover,
   }
+  const copyrightLinkClass =
+    "underline decoration-current/25 underline-offset-2 transition-opacity hover:opacity-80"
 
   // Default to dark footer during SSR to avoid hydration mismatch
   if (!mounted) {
@@ -96,7 +98,13 @@ export function BookFooter() {
           </div>
           <div className="flex flex-row items-center justify-between gap-3 pt-1.5 sm:pt-2 text-[10px] sm:text-xs text-white">
             <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">
-              <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors.</p>
+              <p className="whitespace-nowrap">
+                © 2026{' '}
+                <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
+                  Tiles Privacy
+                </a>
+                .
+              </p>
               <p className="inline-flex items-center gap-1.5 leading-tight">
                 <span>A</span>
                 <a
@@ -227,7 +235,13 @@ export function BookFooter() {
 
         <div className={`flex flex-row items-center justify-between gap-3 pt-1.5 sm:pt-2 text-[10px] sm:text-xs ${copyrightClasses}`}>
           <div className="flex min-w-0 flex-col gap-0.5 sm:flex-row sm:items-center sm:gap-3">
-            <p className="whitespace-nowrap">© 2026 Tiles Privacy & Contributors.</p>
+            <p className="whitespace-nowrap">
+              © 2026{' '}
+              <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
+                Tiles Privacy
+              </a>
+              .
+            </p>
             <p className="inline-flex items-center gap-1.5 leading-tight">
               <span>A</span>
               <a
