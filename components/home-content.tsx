@@ -15,7 +15,7 @@ import { WhyTilesSection } from "@/components/why-tiles-section"
 const featureCards = [
   {
     command: "tiles run <modelfile>",
-    heading: "Automate your work",
+    heading: "Run local models",
     description: (
       <>
         Native{" "}
