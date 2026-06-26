@@ -125,17 +125,17 @@ tiles data set-path ~/.tiles/data
 
 ### Link devices (`tiles link`)
 
-Link devices via peer-to-peer. Tiles can sync chats across multiple **linked** devices, with or without the internet. Linking is a one-time step so both sides consent before any sync traffic is accepted; you do not need to re-link each time you sync.
+Link devices once, then sync chats whenever you need to. Linking is the consent step: one device creates a token, the other device accepts it. After that, each device can sync only with peers it has already linked.
 
-Online and offline linking use the same commands. Iroh handles transport in both cases. On the same local network without internet, devices discover each other over mDNS. Both modes require the peer DID.
+Online and same-network offline linking use the same commands. Iroh handles the transport. When both devices are on the same local network without internet, Tiles can discover the peer over mDNS.
 
-On the first device:
+On the device that starts the link:
 
 ```bash
-$ tiles link create did:key:z6Mknxy...YWSmTcZA
+tiles link create
 ```
 
-The command prints a token in the terminal. Share it out of band with the peer you want to link.
+Tiles prints a link token. Share that token with the other device out of band.
 
 On the other device:
 
@@ -143,14 +143,21 @@ On the other device:
 tiles link add <token>
 ```
 
-The token format depends on how the devices connect:
+That completes the link. The token can be either:
 
 - **Online**: a **UCAN** token (for example, `ucan:eyJ...YzQ`).
-- **Offline** (same network, mDNS discovery via Iroh): an **eight-character alphanumeric code**.
+- **Offline**: an **eight-character alphanumeric code** when both devices are on the same local network.
 
-**`tiles link create <PEER_DID>`**: Creates an authorization token for linking with the peer DID. Online linking returns a UCAN token; offline linking on the same local network (mDNS via Iroh) returns an eight-character alphanumeric code.
+The short version:
 
-**`tiles link add <token>`**: Completes linking with the token from the first device's output.
+```bash
+tiles link create      # Start a link and print a token
+tiles link add <token> # Accept the token on the other device
+```
+
+**`tiles link create`**: Creates a token for linking another device. Online linking returns a UCAN token; offline linking on the same local network returns an eight-character code.
+
+**`tiles link add <token>`**: Accepts the token from the first device and completes the link.
 
 **`tiles link list-peers`**: Lists linked peers by **DID** (decentralized identifier) and **nickname**.
 
@@ -166,27 +173,30 @@ tiles link revoke <DID>   # Unlink a peer; ignore their future sync requests
 
 ### Sync chats (`tiles sync`)
 
-Sync chats with peers.
+After devices are linked, sync is a two-sided action. One device listens for an incoming sync request. The other device starts sync toward that listener's DID.
 
-**`tiles sync [DID]`**: Pass a linked peer DID to sync with that peer. Omit `DID` to listen for incoming sync requests.
-
-Once linked, run on either device when online:
-
-```bash
-tiles sync did:key:z6Mknxy...YWSmTcZA
-```
-
-**Offline** (same network): on the device that will receive the sync, start the listener first:
+On the device that should receive the request:
 
 ```bash
 tiles sync
 ```
 
-On the other device, run toward the listener's DID:
+On the other device, run sync with the listener's DID:
 
 ```bash
 tiles sync did:key:z6Mknxy...YWSmTcZA
 ```
+
+The short version:
+
+```bash
+tiles sync       # Listen for a sync request
+tiles sync <DID> # Sync with a linked peer
+```
+
+**`tiles sync`**: Listens for an incoming sync request from a linked peer.
+
+**`tiles sync <DID>`**: Starts sync with a linked peer by DID.
 
 When a sync run finishes, you should get a notification on the devices involved.
 
