@@ -166,7 +166,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               </h2>
               <div className={`max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
                 <p>
-                  Our goal is to empower people by designing and building software that provides agency, control, and
+                  Our mission is to empower people by designing and building software that provides agency, control, and
                   choice in our digital lives. We believe that privacy adoption at scale must work backwards from
                   preserving utility. This means negligible impact on user experience, model intelligence, throughput,
                   latency, tool use & agentic capabilities, and web access.
