@@ -250,7 +250,7 @@ export function HomeContent() {
                 </h1>
                 <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
                   For sensitive knowledge work, from client strategy to research you cannot put in the cloud: run
-                  models locally, sync with P2P encrypted sync, and share via{" "}
+                  models locally, sync chats P2P, and share via{" "}
                   <a
                     href="https://atproto.com"
                     target="_blank"
