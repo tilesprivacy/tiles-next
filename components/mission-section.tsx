@@ -44,20 +44,24 @@ export function MissionSection({ title, compact = false, className }: MissionSec
     )
   }
 
-  function Person({ name, links }: { name: string; links: string[] }) {
+  function Person({ name, links, anonymous = false }: { name: string; links: string[]; anonymous?: boolean }) {
+    const displayName = anonymous ? "Anonymous sponsor" : name
+
     return (
       <div className={`flex items-center justify-between gap-3 text-xs sm:text-sm ${textColorMuted} lg:text-base leading-relaxed`}>
         <div className="min-w-0 flex items-center gap-2 sm:gap-2.5">
-          <PersonAvatar name={name} links={links} className="inline-flex shrink-0" />
-          <span className="truncate">{renderDisplayName(name)}</span>
+          <PersonAvatar name={displayName} links={links} className="inline-flex shrink-0" />
+          <span className="truncate">{anonymous ? displayName : renderDisplayName(displayName)}</span>
         </div>
-        <SocialLinks
-          name={name}
-          links={links}
-          className="ml-2 flex flex-shrink-0 items-center justify-end gap-1.5 sm:gap-2"
-          linkClassName={linkColorMuted}
-          iconClassName="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
-        />
+        {!anonymous ? (
+          <SocialLinks
+            name={displayName}
+            links={links}
+            className="ml-2 flex flex-shrink-0 items-center justify-end gap-1.5 sm:gap-2"
+            linkClassName={linkColorMuted}
+            iconClassName="h-3 w-3 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4"
+          />
+        ) : null}
       </div>
     )
   }
@@ -181,7 +185,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
                 <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Current</h4>
                 <div className="space-y-2 sm:space-y-2.5">
                   {people.sponsorsActive.map((person) => (
-                    <Person key={person.name} name={person.name} links={person.links} />
+                    <Person key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
                   ))}
                 </div>
               </div>
@@ -189,7 +193,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
                 <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Past</h4>
                 <div className="space-y-2 sm:space-y-2.5">
                   {people.sponsorsPast.map((person) => (
-                    <Person key={person.name} name={person.name} links={person.links} />
+                    <Person key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
                   ))}
                 </div>
               </div>

@@ -20,28 +20,33 @@ interface SponsorContentProps {
 function SponsorPerson({
   name,
   links,
+  anonymous = false,
 }: {
   name: string
   links: string[]
+  anonymous?: boolean
 }) {
-  const { nameWithoutHandle, handle } = splitPersonDisplayName(name)
+  const displayName = anonymous ? "Anonymous sponsor" : name
+  const { nameWithoutHandle, handle } = splitPersonDisplayName(displayName)
 
   return (
     <div className="flex items-center justify-between gap-3 border-b border-black/6 py-3 last:border-b-0 dark:border-white/8">
       <div className="min-w-0 flex items-center gap-3">
-        <PersonAvatar name={name} links={links} className="shrink-0" loading="eager" fetchPriority="low" />
+        <PersonAvatar name={displayName} links={links} className="shrink-0" loading="eager" fetchPriority="low" />
         <p className="truncate text-sm text-foreground">
           <span className="font-medium">{nameWithoutHandle}</span>
-          {handle ? <span className="ml-1 text-black/45 dark:text-white/45">{handle}</span> : null}
+          {!anonymous && handle ? <span className="ml-1 text-black/45 dark:text-white/45">{handle}</span> : null}
         </p>
       </div>
-      <SocialLinks
-        name={name}
-        links={links}
-        className="ml-3 flex shrink-0 items-center gap-1.5"
-        linkClassName="text-black/45 transition-colors hover:text-black dark:text-white/45 dark:hover:text-white"
-        iconClassName="h-3.5 w-3.5"
-      />
+      {!anonymous ? (
+        <SocialLinks
+          name={displayName}
+          links={links}
+          className="ml-3 flex shrink-0 items-center gap-1.5"
+          linkClassName="text-black/45 transition-colors hover:text-black dark:text-white/45 dark:hover:text-white"
+          iconClassName="h-3.5 w-3.5"
+        />
+      ) : null}
     </div>
   )
 }
@@ -231,7 +236,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </div>
                   <div className="mt-4">
                     {people.sponsorsActive.map((person) => (
-                      <SponsorPerson key={person.id} name={person.name} links={person.links} />
+                      <SponsorPerson key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
                     ))}
                   </div>
                 </div>
@@ -243,7 +248,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </div>
                   <div className="mt-4">
                     {people.sponsorsPast.map((person) => (
-                      <SponsorPerson key={person.id} name={person.name} links={person.links} />
+                      <SponsorPerson key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
                     ))}
                   </div>
                 </div>

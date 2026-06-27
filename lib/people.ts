@@ -5,6 +5,8 @@ export interface PersonIdentity {
   name: string
   /** Social/profile links. */
   links: string[]
+  /** When true, render as an anonymous sponsor with no identifying links. */
+  anonymous?: boolean
 }
 
 export const people = {
@@ -50,12 +52,16 @@ export const people = {
       links: ["https://metafluff.com/", "https://bsky.app/profile/burrito.space", "https://github.com/autonome"],
     },
     { id: "xi-zhang", name: "Xi Zhang @aefhm", links: ["https://www.xizhang.page", "https://x.com/aefhm"] },
+    {
+      id: "alex-komoroske",
+      name: "Alex Komoroske @komorama",
+      links: ["https://www.komoroske.com", "https://x.com/komorama", "https://bsky.app/profile/komorama.bsky.social", "https://github.com/jkomoros"],
+    },
     { id: "hugo-duprez", name: "Hugo Duprez @HugoDuprez", links: ["https://www.hugoduprez.com/", "https://x.com/HugoDuprez"] },
     { id: "utkarsh-saxena", name: "Utkarsh Saxena @saxenauts", links: ["https://saxenauts.io/", "https://x.com/saxenauts"] },
     { id: "devdoshi", name: "Dev Doshi @devdoshi", links: ["https://github.com/devdoshi", "https://x.com/thedevisadev"] },
   ],
   sponsorsPast: [
-    { id: "seref-yarar", name: "Seref Yarar @hyperseref", links: ["https://x.com/hyperseref", "https://github.com/serefyarar"] },
     { id: "curran-dwyer", name: "Curran Dwyer @currandwyer", links: ["https://x.com/CurranDwyer"] },
     {
       id: "rashid-aziz",
@@ -67,6 +73,8 @@ export const people = {
       name: "Gavin Owens @goblinoats",
       links: ["https://gavinowens.net/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"],
     },
+    { id: "seref-yarar", name: "Anonymous sponsor", links: [], anonymous: true },
+    { id: "anonymous-sponsor", name: "Anonymous sponsor", links: [], anonymous: true },
   ],
 } satisfies Record<string, PersonIdentity[]>
 
