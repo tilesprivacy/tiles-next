@@ -91,7 +91,7 @@ export async function GET(request: Request) {
     TILES_PRODUCT_DESCRIPTION,
     'Hero subtext: For sensitive knowledge work, from client strategy to research you cannot put in the cloud: run models locally, sync chats P2P, and share via ATProto while your data and identity stay private.',
     'Current status: CLI alpha.',
-    'Why Tiles: sensitive knowledge work stays private on your machines, with secure collaboration built in; out-of-the-box on first open without API keys, model or harness selection, sync sessions and work across devices without leaking data to a cloud vendor, share chats publicly or privately without copy-pasting threads elsewhere, sovereignty over your online identity and data with DID and UCAN for local control and ATProto for social features, Offline Installer bundles the model for air-gapped use.',
+    'Why Tiles: sensitive knowledge work stays private on your machines, with secure collaboration built in; out-of-the-box on first open without API keys, model or harness selection, use Tiles from a mobile device or other machine over a secure remote link, sync sessions and work across devices without leaking data to a cloud vendor, share chats publicly or privately without copy-pasting threads elsewhere, sovereignty over your online identity and data with DID and UCAN for local control and ATProto for social features, Offline Installer bundles the model for air-gapped use.',
     'Platform support: Apple Silicon (M1+), Linux (NVIDIA).',
   ])
 

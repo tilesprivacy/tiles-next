@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Bot, Cpu, FileCode, KeyRound, Package, RefreshCw, Share2 } from "lucide-react"
+import { Bot, Cpu, FileCode, KeyRound, Link as LinkIcon, Package, RefreshCw, Share2 } from "lucide-react"
 
 type ProductFeatureWidgetsVariant = "book" | "home"
 
@@ -60,7 +60,7 @@ export function ProductFeatureWidgets({
   const featureLinkClass = variant === "home" ? homeFeatureLinkClass : bookFeatureLinkClass
   const gridClass =
     variant === "home"
-      ? "grid grid-cols-2 gap-x-4 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-3 min-[1180px]:grid-cols-6"
+      ? "grid grid-cols-2 gap-x-4 gap-y-3.5 min-[520px]:grid-cols-2 sm:grid-cols-3 sm:gap-x-8 sm:gap-y-4 lg:grid-cols-3 min-[1180px]:grid-cols-4"
       : "grid gap-7 sm:gap-10 lg:grid-cols-2 lg:gap-x-16 lg:gap-y-12"
 
   return (
@@ -119,6 +119,10 @@ export function ProductFeatureWidgets({
         .
       </FeatureWidget>
 
+      <FeatureWidget variant={variant} icon={<LinkIcon strokeWidth={1.75} />} title="Remote Link">
+        Reach your local assistant across devices with a secure remote link.
+      </FeatureWidget>
+
       <FeatureWidget
         variant={variant}
         icon={<Share2 strokeWidth={1.75} />}
@@ -135,11 +139,11 @@ export function ProductFeatureWidgets({
         Fully offline installer for secure, air-gapped installations.
       </FeatureWidget>
 
-      {variant === "book" ? (
-        <FeatureWidget
-          variant={variant}
-          icon={<FileCode strokeWidth={1.75} />}
-          title={
+      <FeatureWidget
+        variant={variant}
+        icon={<FileCode strokeWidth={1.75} />}
+        title={
+          variant === "book" ? (
             <Link
               href="/book/tilekit"
               className="inline-flex items-baseline gap-1 !no-underline decoration-transparent hover:!no-underline"
@@ -157,15 +161,17 @@ export function ProductFeatureWidgets({
                 <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </Link>
-          }
-        >
-          Use Tilekit as an app server runtime within your own app, built on open standards such as the{" "}
-          <a href="https://www.openresponses.org" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-            Open Responses API
-          </a>
-          .
-        </FeatureWidget>
-      ) : null}
+          ) : (
+            "Developer SDK"
+          )
+        }
+      >
+        Use Tilekit as an app server runtime within your own app, built on open standards such as the{" "}
+        <a href="https://www.openresponses.org" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
+          Open Responses API
+        </a>
+        .
+      </FeatureWidget>
     </div>
   )
 }
