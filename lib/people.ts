@@ -73,6 +73,11 @@ export const people = {
       name: "Gavin Owens @goblinoats",
       links: ["https://gavinowens.net/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"],
     },
+    {
+      id: "josiah-witt",
+      name: "Josiah Witt @josiahwitt.com",
+      links: ["https://josiahwitt.com", "https://bsky.app/profile/josiahwitt.com"],
+    },
     { id: "seref-yarar", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor", name: "Anonymous sponsor", links: [], anonymous: true },
   ],
