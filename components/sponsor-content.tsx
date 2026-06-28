@@ -102,7 +102,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </h1>
             <div className={`mt-5 max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
               <p>
-                We&apos;re a small independent team of three working hard to bring privacy technology to everyone, starting with Tiles, a
+                We&apos;re a small independent team working hard to bring privacy technology to everyone, starting with Tiles, a
                 local-first private AI assistant. If you like Tiles, please consider supporting our work.
               </p>
               <p>

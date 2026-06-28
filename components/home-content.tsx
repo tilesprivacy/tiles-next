@@ -44,7 +44,7 @@ const featureCards = [
       "> /help for shortcuts",
     ],
     shareLink: undefined,
-    youtubeLink: undefined,
+    showYoutubeUrl: false,
   },
   {
     command: "tiles plugin install <zip-url>",
@@ -59,7 +59,7 @@ const featureCards = [
       "> /$youtube-transcript Save the transcript for this YouTube video as a Markdown file:",
     ],
     shareLink: undefined,
-    youtubeLink: "https://www.youtube.com/watch?v=_qpdUNMt2yg",
+    showYoutubeUrl: true,
   },
   {
     command: "tiles sync <did>",
@@ -107,7 +107,7 @@ const featureCards = [
       "Sync complete",
     ],
     shareLink: undefined,
-    youtubeLink: undefined,
+    showYoutubeUrl: false,
   },
   {
     command: "/share",
@@ -134,7 +134,7 @@ const featureCards = [
     ],
     shareLink:
       "/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr",
-    youtubeLink: undefined,
+    showYoutubeUrl: false,
   },
 ] as const
 
@@ -389,7 +389,7 @@ export function HomeContent() {
                     {card.terminalLines.map((line) => (
                       <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
                         {line}
-                        {card.youtubeLink && line.startsWith("> /$youtube-transcript") ? (
+                        {card.showYoutubeUrl && line.startsWith("> /$youtube-transcript") ? (
                           <>
                             {" "}
                             <span className="sm:hidden">youtube.com/…2yg</span>
