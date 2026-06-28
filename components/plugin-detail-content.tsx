@@ -64,7 +64,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-16">
+        <div className="mx-auto grid w-full max-w-[1300px] gap-10 lg:grid-cols-[310px_minmax(0,768px)] lg:gap-5">
           <aside className="hidden pt-2 lg:block">
             <div className="sticky top-28 space-y-7">
               <nav className="space-y-3 text-sm text-muted-foreground" aria-label={`${plugin.name} plugin links`}>

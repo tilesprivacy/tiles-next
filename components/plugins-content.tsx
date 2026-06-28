@@ -39,7 +39,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-16">
+        <div className="mx-auto grid w-full max-w-[1300px] gap-10 lg:grid-cols-[310px_minmax(0,768px)] lg:gap-5">
           <aside className="hidden pt-2 lg:block">
             <div className="sticky top-28 space-y-7">
               <nav className="space-y-3 text-sm text-muted-foreground" aria-label="Plugin sections">
@@ -67,6 +67,9 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
           <section className="min-w-0">
             <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="max-w-2xl">
+                <h2 className="mb-3 text-[17px] font-medium leading-[21px] tracking-normal text-foreground/75 lg:hidden">
+                  Plugins
+                </h2>
                 <h1 className={marketingPageTitleClass}>Extend the Agent</h1>
               </div>
 
