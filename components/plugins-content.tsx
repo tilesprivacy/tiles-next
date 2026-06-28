@@ -70,14 +70,14 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                 <h1 className={marketingPageTitleClass}>Extend the Agent</h1>
               </div>
 
-              <label className="relative block w-full md:mt-1.5 md:w-80 lg:w-[24rem]">
+              <label className="relative block w-full md:mt-1.5 md:w-[18.75rem]">
                 <span className="sr-only">Search plugins</span>
                 <input
                   type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search plugins"
-                  className="h-11 w-full rounded-full border-0 bg-secondary/65 px-6 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground/75 focus:bg-secondary"
+                  className="h-10 w-full rounded-full border-0 bg-secondary/65 px-5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/75 focus:bg-secondary"
                 />
               </label>
             </div>
@@ -87,16 +87,16 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                 <Link
                   key={plugin.downloadUrl}
                   href={`/plugins/${plugin.slug}`}
-                  className="group flex min-h-[5.8rem] items-center gap-4 overflow-hidden rounded-[14px] bg-secondary/65 px-4 py-3.5 text-card-foreground transition-colors hover:bg-secondary sm:min-h-[4.75rem] sm:gap-3.5 sm:rounded-[12px] sm:px-3.5 sm:py-3"
+                  className="group flex h-[75px] items-center gap-3 overflow-hidden rounded-[8px] bg-secondary/65 px-4 py-4 text-card-foreground transition-colors hover:bg-secondary"
                 >
-                  <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[12px] bg-background text-foreground shadow-sm ring-1 ring-border/60 sm:h-12 sm:w-12 sm:rounded-[10px]">
-                    <Package className="h-6 w-6 sm:h-5 sm:w-5" aria-hidden />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-background text-foreground shadow-sm ring-1 ring-border/60">
+                    <Package className="h-5 w-5" aria-hidden />
                   </span>
                   <span className="min-w-0 flex-1 overflow-hidden">
-                    <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-xl font-medium leading-tight tracking-[-0.02em] text-foreground sm:text-base">{plugin.name}</span>
-                    <span className="mt-0.5 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-base leading-6 text-muted-foreground sm:text-sm sm:leading-5">{plugin.description}</span>
+                    <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[17px] font-medium leading-[21px] text-foreground">{plugin.name}</span>
+                    <span className="mt-0.5 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-5 text-muted-foreground">{plugin.description}</span>
                   </span>
-                  <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground sm:h-4 sm:w-4" aria-hidden />
+                  <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden />
                 </Link>
               ))}
             </div>

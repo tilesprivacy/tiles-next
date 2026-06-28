@@ -95,8 +95,8 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
 
             <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
               <div className="flex min-w-0 items-center gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground ring-1 ring-border/60">
-                  <Package className="h-6 w-6" aria-hidden />
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-secondary text-foreground ring-1 ring-border/60">
+                  <Package className="h-5 w-5" aria-hidden />
                 </span>
                 <h1 className="truncate font-sans text-[1.65rem] font-medium leading-[1.25] tracking-[-0.02em] text-foreground sm:text-[1.95rem] lg:text-[2.2rem]">
                   {plugin.name}
@@ -104,8 +104,8 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
               </div>
 
               <div className="w-full lg:w-[25rem]">
-                <div className="relative overflow-hidden rounded-lg border border-border bg-secondary/45 lg:flex lg:items-stretch">
-                  <code className="block overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 font-mono text-[0.82rem] text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4 lg:text-sm">
+                <div className="relative h-10 overflow-hidden rounded-[8px] border border-border bg-secondary/45 lg:flex lg:items-stretch">
+                  <code className="flex h-full items-center overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4">
                     {plugin.installCommand}
                   </code>
                   <button
@@ -145,8 +145,8 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
 
             <div className="mb-12">
               <h2 className="mb-3 font-sans text-base font-medium tracking-tight text-foreground">Usage</h2>
-              <div className="rounded-lg bg-secondary/65 px-4 py-3">
-                <code className="block overflow-x-auto whitespace-nowrap font-mono text-sm text-foreground [-webkit-overflow-scrolling:touch]">
+              <div className="flex h-10 items-center rounded-[8px] bg-secondary/65 px-4">
+                <code className="block overflow-x-auto whitespace-nowrap font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch]">
                   {usageCommand}
                 </code>
               </div>
@@ -157,19 +157,21 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                 <h2 className="mb-4 font-sans text-base font-medium tracking-tight text-foreground">
                   Skills <span className="text-muted-foreground/55">{skills.length}</span>
                 </h2>
-                <div className="overflow-hidden rounded-lg bg-secondary/65">
+                <div className="overflow-hidden rounded-[8px] bg-secondary/65">
                   {skills.map((skill, index) => (
                     <a
                       key={skill.sourceUrl}
                       href={skill.sourceUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex gap-4 px-5 py-4 transition-colors hover:bg-secondary"
+                      className="flex min-h-[75px] items-center gap-3 px-4 py-4 transition-colors hover:bg-secondary"
                     >
-                      <BookOpen className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground/45" aria-hidden />
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-background text-muted-foreground/55 shadow-sm ring-1 ring-border/60">
+                        <BookOpen className="h-5 w-5" aria-hidden />
+                      </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-base font-medium leading-6 text-foreground">{skill.name}</span>
-                        <span className="mt-0.5 block truncate text-sm leading-6 text-muted-foreground">{skill.description}</span>
+                        <span className="block truncate text-[17px] font-medium leading-[21px] text-foreground">{skill.name}</span>
+                        <span className="mt-0.5 block truncate text-sm leading-5 text-muted-foreground">{skill.description}</span>
                       </span>
                       {index < skills.length - 1 ? <span className="sr-only">Skill</span> : null}
                     </a>
@@ -180,7 +182,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
           </section>
         </div>
       </main>
-      <SiteFooter showDownloadCta />
+      <SiteFooter showDownloadCta={false} />
     </div>
   )
 }
