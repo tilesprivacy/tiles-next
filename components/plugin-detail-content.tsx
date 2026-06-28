@@ -109,7 +109,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-secondary text-foreground ring-1 ring-border/60">
                   <Package className="h-5 w-5" aria-hidden />
                 </span>
-                <h1 className="truncate font-sans text-[1.65rem] font-medium leading-[1.25] tracking-[-0.02em] text-foreground sm:text-[1.95rem] lg:text-[2.2rem]">
+                <h1 className="truncate font-sans text-[1.55rem] font-medium leading-[1.2] tracking-normal text-foreground sm:text-[1.75rem] lg:text-[1.95rem]">
                   {plugin.name}
                 </h1>
               </div>
