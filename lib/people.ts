@@ -52,11 +52,6 @@ export const people = {
       links: ["https://metafluff.com/", "https://bsky.app/profile/burrito.space", "https://github.com/autonome"],
     },
     { id: "xi-zhang", name: "Xi Zhang @aefhm", links: ["https://www.xizhang.page", "https://x.com/aefhm"] },
-    {
-      id: "alex-komoroske",
-      name: "Alex Komoroske @komorama",
-      links: ["https://www.komoroske.com", "https://x.com/komorama", "https://bsky.app/profile/komorama.bsky.social", "https://github.com/jkomoros"],
-    },
     { id: "hugo-duprez", name: "Hugo Duprez @HugoDuprez", links: ["https://www.hugoduprez.com/", "https://x.com/HugoDuprez"] },
     { id: "utkarsh-saxena", name: "Utkarsh Saxena @saxenauts", links: ["https://saxenauts.io/", "https://x.com/saxenauts"] },
     { id: "devdoshi", name: "Dev Doshi @devdoshi", links: ["https://github.com/devdoshi", "https://x.com/thedevisadev"] },
@@ -72,6 +67,11 @@ export const people = {
       id: "gavin-owens",
       name: "Gavin Owens @goblinoats",
       links: ["https://gavinowens.net/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"],
+    },
+    {
+      id: "alex-komoroske",
+      name: "Alex Komoroske @komorama",
+      links: ["https://www.komoroske.com", "https://x.com/komorama", "https://bsky.app/profile/komorama.bsky.social", "https://github.com/jkomoros"],
     },
     {
       id: "chad-kohalyk",
