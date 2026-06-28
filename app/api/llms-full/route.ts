@@ -109,6 +109,13 @@ export async function GET(request: Request) {
     `SHA256 file: ${offlineChecksumUrl}`,
   ])
 
+  pushSection(lines, `Plugins (${baseUrl}/plugins)`, [
+    'Workflow plugins from the public Tiles plugin archive.',
+    'Current install pattern:',
+    'tiles plugin install https://download.tiles.run/plugins/youtube-transcript.zip',
+    'Plugins are distributed as zip files under https://download.tiles.run/plugins/.',
+  ])
+
   pushSection(lines, `Mission (${baseUrl}/mission)`, [
     'Our mission is to bring privacy technology to everyone.',
     'Tiles Privacy was born from the User & Agents community with a simple idea: software should understand you without taking anything from you.',

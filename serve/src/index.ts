@@ -30,6 +30,64 @@ function json(data: unknown, status = 200): Response {
   });
 }
 
+function pluginNameFromKey(key: string): string {
+  const fileName = key.split("/").pop() ?? key;
+  if (fileName === "youtube-transcript.zip") {
+    return "YouTube Transcript";
+  }
+
+  return fileName
+    .replace(/\.zip$/i, "")
+    .split(/[-_]/g)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function pluginDescriptionFromKey(key: string): string {
+  if (key.endsWith("/youtube-transcript.zip")) {
+    return "Fetch transcripts from YouTube videos for summarization and analysis.";
+  }
+
+  return "Install this plugin into Tiles from the public plugin archive.";
+}
+
+async function listPluginObjects(env: Env): Promise<Response> {
+  const prefix = "plugins/";
+  const plugins: Array<{
+    name: string;
+    description: string;
+    fileName: string;
+    key: string;
+    size: number;
+    updatedAt?: string;
+  }> = [];
+  let cursor: string | undefined;
+
+  do {
+    const listed = await env.TILESPRIVACY.list({ prefix, cursor, limit: 1000 });
+    for (const object of listed.objects) {
+      if (!object.key.toLowerCase().endsWith(".zip")) {
+        continue;
+      }
+
+      plugins.push({
+        name: pluginNameFromKey(object.key),
+        description: pluginDescriptionFromKey(object.key),
+        fileName: object.key.slice(prefix.length),
+        key: object.key,
+        size: object.size,
+        updatedAt: object.uploaded?.toISOString(),
+      });
+    }
+    cursor = listed.truncated ? listed.cursor : undefined;
+  } while (cursor);
+
+  return json({
+    plugins: plugins.sort((a, b) => a.fileName.localeCompare(b.fileName)),
+  });
+}
+
 async function serveBucketObject(request: Request, key: string, env: Env): Promise<Response> {
   const object = await env.TILESPRIVACY.get(key);
   if (!object || !object.body) {
@@ -89,6 +147,10 @@ export default {
       // Keep all /sync routes token-protected and POST-only.
       if (url.pathname.startsWith("/sync/")) {
         return json({ error: "Not found" }, 404);
+      }
+
+      if (request.method === "GET" && url.pathname === "/plugins/index.json") {
+        return listPluginObjects(env);
       }
 
       const key = url.pathname.replace(/^\/+/, "");

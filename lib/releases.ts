@@ -4,7 +4,8 @@ import { normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface ChangeItem {
   text: string
-  subItems?: string[]
+  subItems?: Array<string | ChangeItem>
+  codeBlock?: string
 }
 
 export interface ChangeSection {
@@ -290,6 +291,51 @@ const customSections: Record<string, ChangeSection[]> = {
       ],
     },
   ],
+  "0.4.14": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "Implemented Tiles plugin system",
+          subItems: [
+            {
+              text: "`tiles plugin install <url / filesystem-path>`, `tiles plugin uninstall <plugin-name>`, `tiles plugin list` (for installed plugins)",
+              subItems: [
+                {
+                  text: "Plugins should be a `.zip` or `.tar.gz` file either hosted or available in local filesystem",
+                  codeBlock: `## Plugin folder structure
+
+plugin_name
+  - extensions
+    - extension_1
+      - ...
+    - extension_2
+      - ...
+  - skills
+    - skill_1
+      - SKILLS.md`,
+                },
+                {
+                  text: "Added skills support via plugins",
+                  subItems: [
+                    "In repl use `/skills` for list of skills and `$<skill-name>` to use the skill directly. Tiles can use available skills as needed too",
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Upgraded project dependencies",
+        },
+      ],
+    },
+  ],
 }
 
 // Additional changes to append to existing changes (for supplements, not overrides)
@@ -498,11 +544,9 @@ export async function fetchReleases(): Promise<Release[]> {
       // Also fix any typos
       finalSections = finalSections.map((section) => ({
         ...section,
-        changes: section.changes.map((change) => ({
-          ...change,
-          text: normalizeChangeText(change.text, section.title),
-          subItems: change.subItems?.map((sub) => normalizeChangeText(sub)),
-        })),
+        changes: section.changes.map((change) =>
+          normalizeChangeItem(change, section.title)
+        ),
       }))
 
       return {
@@ -731,21 +775,45 @@ function sanitizeBulletText(text: string): string {
 
   return text
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/\s+by\s+@[\w-]+\b(?:\s+in\s+https?:\/\/[^\s]+)?/gi, "")
     .replace(/\s+(?:in|via|through|under)\s+#\d+\b/gi, "")
     .replace(/\s*\((?:#\d+(?:,\s*#\d+)*)\)/g, "")
     .replace(/(^|\s)#\d+\b(?:,\s*#\d+\b)*/g, "$1")
-    .replace(/\s+https?:\/\/github\.com\/[^\s]+\/pull\/\d+\b/gi, "")
-    .replace(/\s+by\s+@\w+\s+in\s+https?:\/\/[^\s]+/gi, "")
     .replace(/\s+in\s+https?:\/\/[^\s]+/gi, "")
-    // Cleanup dangling trailing connectors left after stripping issue references.
+    .replace(/\s+https?:\/\/github\.com\/[^\s]+\/pull\/\d+\b/gi, "")
+    .replace(/\s+@[\w-]+\b/g, "")
+  // Cleanup dangling trailing connectors left after stripping issue references.
     .replace(/\s+(?:in|via|through|under)\s*:?\s*$/gi, "")
     .replace(/\s+([,.;:!?])/g, "$1")
     .replace(/\s+/g, " ")
     .trim()
 }
 
+function normalizeChangeItem(
+  change: ChangeItem,
+  sectionTitle?: string
+): ChangeItem {
+  const normalizedSubItems = change.subItems
+    ?.map((sub) =>
+      typeof sub === "string"
+        ? { text: normalizeChangeText(sub, sectionTitle) }
+        : normalizeChangeItem(sub, sectionTitle)
+    )
+    .filter((sub) => sub.text.length > 0 || sub.codeBlock)
+
+  return {
+    ...change,
+    text: normalizeChangeText(change.text, sectionTitle),
+    subItems:
+      normalizedSubItems && normalizedSubItems.length > 0
+        ? normalizedSubItems
+        : undefined,
+    codeBlock: change.codeBlock?.trim() || undefined,
+  }
+}
+
 function normalizeChangeText(text: string, sectionTitle?: string): string {
-  let normalized = text.replace(/\.$/, "").replace(/enoints/g, "endpoints")
+  let normalized = sanitizeBulletText(text).replace(/\.$/, "").replace(/enoints/g, "endpoints")
 
   if (sectionTitle === "Added") {
     normalized = normalized.replace(/^Added\s+/i, "")
@@ -778,9 +846,7 @@ function capitalizeLeadingText(text: string): string {
 
   const leadingCodeMatch = text.match(/^((?:`[^`]+`\s*)+)/)
   if (leadingCodeMatch) {
-    const prefix = leadingCodeMatch[1] || ""
-    const remainder = text.slice(prefix.length)
-    return prefix + capitalizeFirstLetter(remainder)
+    return text
   }
 
   return capitalizeFirstLetter(text)

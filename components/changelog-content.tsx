@@ -1,6 +1,6 @@
 'use client'
 import { SiteFooter } from "@/components/site-footer"
-import type { Release } from "@/lib/releases"
+import type { ChangeItem, Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { formatBinarySize } from "@/lib/format-binary-size"
@@ -50,8 +50,18 @@ const renderTextWithCode = (text: string) => {
   })
 }
 
-const normalizeSubItems = (subItems?: string[]) =>
-  (subItems ?? []).map((item) => item.trim()).filter((item) => item.length > 0)
+const normalizeSubItems = (subItems?: ChangeItem["subItems"]): ChangeItem[] =>
+  (subItems ?? [])
+    .map((item) =>
+      typeof item === "string" ? { text: item.trim() } : item
+    )
+    .map((item) => ({
+      ...item,
+      text: item.text.trim(),
+      subItems: normalizeSubItems(item.subItems),
+      codeBlock: item.codeBlock?.trim() || undefined,
+    }))
+    .filter((item) => item.text.length > 0 || item.codeBlock)
 
 const normalizeSectionChanges = (changes: Release["sections"][number]["changes"]) =>
   changes
@@ -59,8 +69,68 @@ const normalizeSectionChanges = (changes: Release["sections"][number]["changes"]
       ...change,
       text: change.text.trim(),
       subItems: normalizeSubItems(change.subItems),
+      codeBlock: change.codeBlock?.trim() || undefined,
     }))
-    .filter((change) => change.text.length > 0)
+    .filter((change) => change.text.length > 0 || change.codeBlock)
+
+interface ReleaseChangeListProps {
+  changes: ChangeItem[]
+  bulletBg: string
+  bulletBgLight: string
+  textColorBodyLight: string
+  depth?: number
+  className?: string
+}
+
+const ReleaseChangeList = ({
+  changes,
+  bulletBg,
+  bulletBgLight,
+  textColorBodyLight,
+  depth = 0,
+  className,
+}: ReleaseChangeListProps) => {
+  const isNested = depth > 0
+  const bulletClass = isNested ? bulletBgLight : bulletBg
+  const textClass = isNested ? textColorBodyLight : undefined
+
+  return (
+    <ul className={depth === 0 ? className : "ml-4 mt-1.5 space-y-1.5"}>
+      {changes.map((change, index) => (
+        <li key={index}>
+          {change.text.length > 0 && (
+            <div className="flex items-start gap-2">
+              <span
+                className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletClass}`}
+              />
+              <span className={`min-w-0 ${textClass ?? ""}`}>
+                {renderTextWithCode(change.text)}
+              </span>
+            </div>
+          )}
+          {change.codeBlock && (
+            <pre
+              className={`overflow-x-auto rounded-md border border-border bg-muted p-3 font-mono text-sm leading-relaxed text-foreground ${
+                change.text.length > 0 ? "ml-6 mt-2" : "mt-0"
+              }`}
+            >
+              {change.codeBlock}
+            </pre>
+          )}
+          {change.subItems && change.subItems.length > 0 && (
+            <ReleaseChangeList
+              changes={normalizeSubItems(change.subItems)}
+              bulletBg={bulletBg}
+              bulletBgLight={bulletBgLight}
+              textColorBodyLight={textColorBodyLight}
+              depth={depth + 1}
+            />
+          )}
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 const getReleaseAnchorId = (version: string) => version.replace(/^v/, "")
 
@@ -270,26 +340,13 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                             return (
                             <section key={`${release.version}-${section.title}-${sectionIndex}`} className="space-y-2">
                               <h3 className={releaseSectionHeadingClass}>{section.title}</h3>
-                              <ul className={releaseBodyClass}>
-                                {visibleChanges.map((change, i) => (
-                                  <li key={i}>
-                                    <div className="flex items-start gap-2">
-                                      <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                      <span className="min-w-0">{renderTextWithCode(change.text)}</span>
-                                    </div>
-                                    {change.subItems.length > 0 && (
-                                      <ul className="ml-4 mt-1.5 space-y-1.5">
-                                        {change.subItems.map((subItem, j) => (
-                                          <li key={j} className="flex items-start gap-2">
-                                            <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                            <span className={`min-w-0 ${textColorBodyLight}`}>{renderTextWithCode(subItem)}</span>
-                                          </li>
-                                        ))}
-                                      </ul>
-                                    )}
-                                  </li>
-                                ))}
-                              </ul>
+                              <ReleaseChangeList
+                                changes={visibleChanges}
+                                bulletBg={bulletBg}
+                                bulletBgLight={bulletBgLight}
+                                textColorBodyLight={textColorBodyLight}
+                                className={releaseBodyClass}
+                              />
                             </section>
                             )
                           })}
@@ -369,26 +426,13 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                               return (
                               <section key={`${release.version}-${section.title}-${sectionIndex}`} className="space-y-2">
                                 <h3 className={releaseSectionHeadingClass}>{section.title}</h3>
-                                <ul className={releaseBodyClass}>
-                                  {visibleChanges.map((change, i) => (
-                                    <li key={i}>
-                                      <div className="flex items-start gap-2">
-                                        <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBg}`} />
-                                        <span className="min-w-0">{renderTextWithCode(change.text)}</span>
-                                      </div>
-                                      {change.subItems.length > 0 && (
-                                        <ul className="ml-4 mt-1.5 space-y-1.5">
-                                          {change.subItems.map((subItem, j) => (
-                                            <li key={j} className="flex items-start gap-2">
-                                              <span className={`mt-[0.62em] h-1.5 w-1.5 flex-shrink-0 rounded-full ${bulletBgLight}`} />
-                                              <span className={`min-w-0 ${textColorBodyLight}`}>{renderTextWithCode(subItem)}</span>
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      )}
-                                    </li>
-                                  ))}
-                                </ul>
+                                <ReleaseChangeList
+                                  changes={visibleChanges}
+                                  bulletBg={bulletBg}
+                                  bulletBgLight={bulletBgLight}
+                                  textColorBodyLight={textColorBodyLight}
+                                  className={releaseBodyClass}
+                                />
                               </section>
                               )
                             })}

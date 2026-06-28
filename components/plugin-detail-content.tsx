@@ -1,0 +1,186 @@
+"use client"
+
+import Link from "next/link"
+import { useState } from "react"
+import { ArrowLeft, BookOpen, Check, Copy, Package } from "lucide-react"
+import { SiteFooter } from "@/components/site-footer"
+import { triggerHaptic } from "@/lib/haptics"
+import type { TilesPlugin, TilesPluginSkill } from "@/lib/plugins"
+
+interface PluginDetailContentProps {
+  plugin: TilesPlugin
+  skills: TilesPluginSkill[]
+}
+
+function OutgoingIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
+      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
+export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps) {
+  const [copiedCommand, setCopiedCommand] = useState(false)
+  const sourceUrl = `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
+  const primarySkillName = skills[0]?.name || plugin.slug
+  const usageCommand = `/ $${primarySkillName}`
+
+  function copyCommand() {
+    triggerHaptic()
+    setCopiedCommand(true)
+    window.setTimeout(() => setCopiedCommand(false), 1400)
+
+    const copyWithTextArea = () => {
+      const textArea = document.createElement("textarea")
+      textArea.value = plugin.installCommand
+      textArea.style.position = "fixed"
+      textArea.style.opacity = "0"
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand("copy")
+      document.body.removeChild(textArea)
+    }
+
+    if (!navigator.clipboard?.writeText) {
+      copyWithTextArea()
+      return
+    }
+
+    void navigator.clipboard.writeText(plugin.installCommand).catch(copyWithTextArea)
+  }
+
+  return (
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
+        <div className="mx-auto grid w-full max-w-6xl gap-10 lg:grid-cols-[13rem_minmax(0,1fr)] lg:gap-16">
+          <aside className="hidden pt-2 lg:block">
+            <div className="sticky top-28 space-y-7">
+              <nav className="space-y-3 text-sm text-muted-foreground" aria-label={`${plugin.name} plugin links`}>
+                <div className="flex min-w-0 items-center gap-1.5 text-foreground">
+                  <Link className="shrink-0 transition-colors hover:text-foreground/70" href="/plugins">
+                    Plugins
+                  </Link>
+                  <span className="text-muted-foreground">/</span>
+                  <span className="truncate text-muted-foreground">{plugin.name}</span>
+                </div>
+                <a
+                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                  href={sourceUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  View Source
+                  <OutgoingIcon />
+                </a>
+              </nav>
+              <p className="max-w-[11rem] text-sm leading-6 text-muted-foreground">
+                Learn how to use plugins in{" "}
+                <Link className="text-foreground underline-offset-4 hover:underline" href="/book/manual#plugins">
+                  Book/Manual
+                </Link>
+                .
+              </p>
+            </div>
+          </aside>
+
+          <section className="min-w-0">
+            <Link
+              href="/plugins"
+              className="mb-8 inline-flex items-center gap-2 text-base text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <ArrowLeft className="h-5 w-5" aria-hidden />
+              Back
+            </Link>
+
+            <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex min-w-0 items-center gap-4">
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-secondary text-foreground ring-1 ring-border/60">
+                  <Package className="h-6 w-6" aria-hidden />
+                </span>
+                <h1 className="truncate font-sans text-[1.65rem] font-medium leading-[1.25] tracking-[-0.02em] text-foreground sm:text-[1.95rem] lg:text-[2.2rem]">
+                  {plugin.name}
+                </h1>
+              </div>
+
+              <div className="w-full lg:w-[25rem]">
+                <div className="relative overflow-hidden rounded-lg border border-border bg-secondary/45 lg:flex lg:items-stretch">
+                  <code className="block overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 font-mono text-[0.82rem] text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4 lg:text-sm">
+                    {plugin.installCommand}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={copyCommand}
+                    aria-label={copiedCommand ? "Install command copied" : `Copy install command for ${plugin.name}`}
+                    className="absolute inset-y-0 right-0 z-10 flex items-center bg-background/90 px-3.5 text-muted-foreground transition-colors hover:text-foreground lg:static lg:z-auto lg:shrink-0 lg:border-l lg:border-border lg:bg-transparent lg:px-4"
+                  >
+                    {copiedCommand ? <Check className="h-4 w-4" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <p className="mb-10 max-w-3xl text-base leading-7 text-muted-foreground sm:text-[1.05rem]">
+              {plugin.description}
+            </p>
+
+            <div className="mb-10 space-y-3 text-sm leading-6 text-muted-foreground lg:hidden">
+              <a
+                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
+                href={sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Source
+                <OutgoingIcon />
+              </a>
+              <p>
+                Learn how to use plugins in{" "}
+                <Link className="text-foreground underline-offset-4 hover:underline" href="/book/manual#plugins">
+                  Book/Manual
+                </Link>
+                .
+              </p>
+            </div>
+
+            <div className="mb-12">
+              <h2 className="mb-3 font-sans text-base font-medium tracking-tight text-foreground">Usage</h2>
+              <div className="rounded-lg bg-secondary/65 px-4 py-3">
+                <code className="block overflow-x-auto whitespace-nowrap font-mono text-sm text-foreground [-webkit-overflow-scrolling:touch]">
+                  {usageCommand}
+                </code>
+              </div>
+            </div>
+
+            {skills.length > 0 ? (
+              <div>
+                <h2 className="mb-4 font-sans text-base font-medium tracking-tight text-foreground">
+                  Skills <span className="text-muted-foreground/55">{skills.length}</span>
+                </h2>
+                <div className="overflow-hidden rounded-lg bg-secondary/65">
+                  {skills.map((skill, index) => (
+                    <a
+                      key={skill.sourceUrl}
+                      href={skill.sourceUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex gap-4 px-5 py-4 transition-colors hover:bg-secondary"
+                    >
+                      <BookOpen className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground/45" aria-hidden />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-base font-medium leading-6 text-foreground">{skill.name}</span>
+                        <span className="mt-0.5 block truncate text-sm leading-6 text-muted-foreground">{skill.description}</span>
+                      </span>
+                      {index < skills.length - 1 ? <span className="sr-only">Skill</span> : null}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </section>
+        </div>
+      </main>
+      <SiteFooter showDownloadCta />
+    </div>
+  )
+}

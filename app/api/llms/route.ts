@@ -66,6 +66,7 @@ export async function GET(request: Request) {
   addSection(lines, 'Core Pages', [
     `- [Homepage](${baseUrl}/): Product positioning, Why Tiles summary, and core value proposition.`,
     `- [Download](${baseUrl}/download): Current installers and installation guidance.`,
+    `- [Plugins](${baseUrl}/plugins): Workflow plugins from the public Tiles plugin archive with terminal install commands.`,
     `- [Mission](${baseUrl}/mission): Project mission, contributors, and sponsors.`,
     `- [Sponsor](${baseUrl}/sponsor): Sponsorship options and support details.`,
     `- [Support](${baseUrl}/support): Support routes, issue reporting guidance, Discord, releases, downloads, and status links.`,
@@ -78,6 +79,7 @@ export async function GET(request: Request) {
     `- [Network installer](${networkArtifact.downloadUrl}): Latest macOS installer, version ${networkArtifact.version}, size ${networkArtifact.binarySizeLabel}, sha256 ${networkArtifact.sha256}.`,
     `- [Offline installer](${OFFLINE_INSTALLER.downloadUrl}): Bundled model ${OFFLINE_MODEL_NAME}, size ${OFFLINE_INSTALLER.binarySizeLabel}, sha256 ${OFFLINE_INSTALLER.sha256}.`,
     `- [Offline installer checksum file](${offlineChecksumUrl}): SHA256 checksum file for offline installer validation.`,
+    `- [Plugin archive](https://download.tiles.run/plugins/): Public plugin archive. Install plugins with tiles plugin install <zip-url>.`,
     `- [Releases](${baseUrl}/releases): Release notes and links to previous versions.`,
   ])
 

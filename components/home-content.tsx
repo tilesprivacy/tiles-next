@@ -44,6 +44,22 @@ const featureCards = [
       "> /help for shortcuts",
     ],
     shareLink: undefined,
+    youtubeLink: undefined,
+  },
+  {
+    command: "tiles plugin install <zip-url>",
+    heading: "Extend the Agent",
+    description: "Use plugins in Tiles to add reusable workflows with skills.",
+    ctaLabel: "Use plugins",
+    ctaHref: "/book/manual#plugins",
+    terminalLines: [
+      "$ tiles plugin install https://download.tiles.run/plugins/youtube-transcript.zip",
+      "Downloading youtube-transcript.zip",
+      "Installed youtube-transcript",
+      "> /$youtube-transcript Save the transcript for this YouTube video as a Markdown file:",
+    ],
+    shareLink: undefined,
+    youtubeLink: "https://www.youtube.com/watch?v=_qpdUNMt2yg",
   },
   {
     command: "tiles sync <did>",
@@ -91,6 +107,7 @@ const featureCards = [
       "Sync complete",
     ],
     shareLink: undefined,
+    youtubeLink: undefined,
   },
   {
     command: "/share",
@@ -117,6 +134,7 @@ const featureCards = [
     ],
     shareLink:
       "/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr",
+    youtubeLink: undefined,
   },
 ] as const
 
@@ -371,6 +389,20 @@ export function HomeContent() {
                     {card.terminalLines.map((line) => (
                       <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
                         {line}
+                        {card.youtubeLink && line.startsWith("> /$youtube-transcript") ? (
+                          <>
+                            {" "}
+                            <a
+                              href={card.youtubeLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
+                            >
+                              <span className="sm:hidden">youtube.com/…2yg</span>
+                              <span className="hidden sm:inline">youtube.com/watch?v=_qpd…2yg</span>
+                            </a>
+                          </>
+                        ) : null}
                       </p>
                     ))}
                     {card.shareLink ? (
