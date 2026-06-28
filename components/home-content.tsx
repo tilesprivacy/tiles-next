@@ -392,15 +392,8 @@ export function HomeContent() {
                         {card.youtubeLink && line.startsWith("> /$youtube-transcript") ? (
                           <>
                             {" "}
-                            <a
-                              href={card.youtubeLink}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
-                            >
-                              <span className="sm:hidden">youtube.com/…2yg</span>
-                              <span className="hidden sm:inline">youtube.com/watch?v=_qpd…2yg</span>
-                            </a>
+                            <span className="sm:hidden">youtube.com/…2yg</span>
+                            <span className="hidden sm:inline">youtube.com/watch?v=_qpd…2yg</span>
                           </>
                         ) : null}
                       </p>
