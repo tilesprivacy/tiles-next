@@ -109,7 +109,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
           </section>
         </div>
       </main>
-      <SiteFooter showDownloadCta />
+      <SiteFooter showDownloadCta={false} />
     </div>
   )
 }

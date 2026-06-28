@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { ArrowLeft, BookOpen, Check, Copy, Package } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, BookOpen, Check, Copy, Package } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { triggerHaptic } from "@/lib/haptics"
 import type { TilesPlugin, TilesPluginSkill } from "@/lib/plugins"
@@ -164,7 +164,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                       href={skill.sourceUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex min-h-[75px] items-center gap-3 px-4 py-4 transition-colors hover:bg-secondary"
+                      className="group flex min-h-[75px] items-center gap-3 px-4 py-4 transition-colors hover:bg-secondary"
                     >
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-background text-muted-foreground/55 shadow-sm ring-1 ring-border/60">
                         <BookOpen className="h-5 w-5" aria-hidden />
@@ -173,6 +173,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                         <span className="block truncate text-[17px] font-medium leading-[21px] text-foreground">{skill.name}</span>
                         <span className="mt-0.5 block truncate text-sm leading-5 text-muted-foreground">{skill.description}</span>
                       </span>
+                      <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground/55 transition-colors group-hover:text-foreground" aria-hidden />
                       {index < skills.length - 1 ? <span className="sr-only">Skill</span> : null}
                     </a>
                   ))}
