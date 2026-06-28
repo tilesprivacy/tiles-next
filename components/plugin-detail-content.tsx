@@ -22,18 +22,15 @@ function OutgoingIcon() {
 
 export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps) {
   const [copiedCommand, setCopiedCommand] = useState(false)
+  const [copiedUsageCommand, setCopiedUsageCommand] = useState(false)
   const sourceUrl = `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
   const primarySkillName = skills[0]?.name || plugin.slug
   const usageCommand = `/ $${primarySkillName}`
 
-  function copyCommand() {
-    triggerHaptic()
-    setCopiedCommand(true)
-    window.setTimeout(() => setCopiedCommand(false), 1400)
-
+  function copyText(text: string) {
     const copyWithTextArea = () => {
       const textArea = document.createElement("textarea")
-      textArea.value = plugin.installCommand
+      textArea.value = text
       textArea.style.position = "fixed"
       textArea.style.opacity = "0"
       document.body.appendChild(textArea)
@@ -47,7 +44,21 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
       return
     }
 
-    void navigator.clipboard.writeText(plugin.installCommand).catch(copyWithTextArea)
+    void navigator.clipboard.writeText(text).catch(copyWithTextArea)
+  }
+
+  function copyCommand() {
+    triggerHaptic()
+    setCopiedCommand(true)
+    window.setTimeout(() => setCopiedCommand(false), 1400)
+    copyText(plugin.installCommand)
+  }
+
+  function copyUsageCommand() {
+    triggerHaptic()
+    setCopiedUsageCommand(true)
+    window.setTimeout(() => setCopiedUsageCommand(false), 1400)
+    copyText(usageCommand)
   }
 
   return (
@@ -145,10 +156,18 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
 
             <div className="mb-12">
               <h2 className="mb-3 font-sans text-base font-medium tracking-tight text-foreground">Usage</h2>
-              <div className="flex h-10 items-center rounded-[8px] bg-secondary/65 px-4">
-                <code className="block overflow-x-auto whitespace-nowrap font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch]">
+              <div className="relative flex h-10 items-center overflow-hidden rounded-[8px] bg-secondary/65">
+                <code className="block flex-1 overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch]">
                   {usageCommand}
                 </code>
+                <button
+                  type="button"
+                  onClick={copyUsageCommand}
+                  aria-label={copiedUsageCommand ? "Usage command copied" : `Copy usage command for ${plugin.name}`}
+                  className="absolute inset-y-0 right-0 z-10 flex items-center bg-background/90 px-3.5 text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {copiedUsageCommand ? <Check className="h-4 w-4" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
+                </button>
               </div>
             </div>
 
