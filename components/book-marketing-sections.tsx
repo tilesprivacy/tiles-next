@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import Link from "next/link"
 import { Bot, Check, CircleDashed, Cpu, FileCode, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
+import { SHOW_REMOTE_LINK } from "@/lib/feature-flags"
 
 const comparisonRows = [
   { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
@@ -180,7 +181,9 @@ export function BookMarketingSections() {
                 </tr>
               </thead>
               <tbody>
-                {comparisonRows.map((row) => (
+                {comparisonRows
+                  .filter((row) => SHOW_REMOTE_LINK || row.label !== "Remote Link")
+                  .map((row) => (
                   <tr key={row.label}>
                     <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">
                       {row.label}

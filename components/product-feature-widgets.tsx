@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Bot, Cpu, FileCode, KeyRound, Link as LinkIcon, Package, RefreshCw, Share2 } from "lucide-react"
+import { SHOW_REMOTE_LINK } from "@/lib/feature-flags"
 
 type ProductFeatureWidgetsVariant = "book" | "home"
 
@@ -119,9 +120,11 @@ export function ProductFeatureWidgets({
         .
       </FeatureWidget>
 
-      <FeatureWidget variant={variant} icon={<LinkIcon strokeWidth={1.75} />} title="Remote Link">
-        Reach your local assistant across devices with a secure remote link.
-      </FeatureWidget>
+      {SHOW_REMOTE_LINK ? (
+        <FeatureWidget variant={variant} icon={<LinkIcon strokeWidth={1.75} />} title="Remote Link">
+          Reach your local assistant across devices with a secure remote link.
+        </FeatureWidget>
+      ) : null}
 
       <FeatureWidget
         variant={variant}

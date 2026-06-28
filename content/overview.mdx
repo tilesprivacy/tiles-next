@@ -8,6 +8,7 @@ import { Check, CircleDashed } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { ClickableImage as Image } from "@/components/clickable-image"
 import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
+import { SHOW_REMOTE_LINK } from "@/lib/feature-flags"
 
 # Overview
 
@@ -380,6 +381,7 @@ Tiles is built around a narrow bet: one well-integrated model at a time, startin
           </span>
         </td>
       </tr>
+      {SHOW_REMOTE_LINK ? (
       <tr>
         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">Remote Link</th>
         <td className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10">
@@ -413,6 +415,7 @@ Tiles is built around a narrow bet: one well-integrated model at a time, startin
           </span>
         </td>
       </tr>
+      ) : null}
       <tr>
         <th className="border-b border-black/10 py-3 pr-4 text-sm font-medium text-foreground dark:border-white/10">Shared Links</th>
         <td className="border-b border-black/10 px-4 py-3 align-middle dark:border-white/10">
