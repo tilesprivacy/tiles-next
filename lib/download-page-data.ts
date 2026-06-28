@@ -16,7 +16,7 @@ export const OFFLINE_INSTALLER = {
 } as const
 
 /** Keep in sync with `VERSION` in `public/install.sh`. */
-export const LINUX_INSTALL_VERSION = "0.4.13" as const
+export const LINUX_INSTALL_VERSION = "0.4.14" as const
 
 export const LINUX_INSTALL_SCRIPT_URL = "https://www.tiles.run/install.sh" as const
 
