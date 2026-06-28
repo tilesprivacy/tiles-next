@@ -26,6 +26,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
   const sourceUrl = `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
   const primarySkillName = skills[0]?.name || plugin.slug
   const usageCommand = `/ $${primarySkillName}`
+  const usageCommandClipboardText = `$${primarySkillName}`
 
   function copyText(text: string) {
     const copyWithTextArea = () => {
@@ -58,7 +59,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
     triggerHaptic()
     setCopiedUsageCommand(true)
     window.setTimeout(() => setCopiedUsageCommand(false), 1400)
-    copyText(usageCommand)
+    copyText(usageCommandClipboardText)
   }
 
   return (
