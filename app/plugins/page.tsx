@@ -4,10 +4,10 @@ import { getTilesPlugins } from "@/lib/plugins"
 
 export const metadata: Metadata = {
   title: "Plugins | Tiles",
-  description: "Install workflow plugins for Tiles from the public plugin archive.",
+  description: "Use plugins in Tiles to add reusable workflows with skills.",
   openGraph: {
     title: "Plugins | Tiles",
-    description: "Install workflow plugins for Tiles from the public plugin archive.",
+    description: "Use plugins in Tiles to add reusable workflows with skills.",
     type: "website",
     images: [
       {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Plugins | Tiles",
-    description: "Install workflow plugins for Tiles from the public plugin archive.",
+    description: "Use plugins in Tiles to add reusable workflows with skills.",
     images: ["https://www.tiles.run/api/og"],
   },
 }
