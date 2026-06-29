@@ -1250,7 +1250,7 @@ sniper-link[hidden] {
 
 @media (min-width: 1024px) {
   [data-book-section] {
-    --book-content-top-gap: 0.25rem;
+    --book-content-top-gap: 4.5rem;
   }
 
   [data-book-section] article > main,
@@ -1616,7 +1616,7 @@ header[data-tiles-site-header] {
 @media (min-width: 1024px) {
   [data-book-section] {
     --book-top-offset: 7rem;
-    --book-sidebar-list-offset: 3rem;
+    --book-sidebar-list-offset: 4.75rem;
   }
 
   /* Layout for asides; background only on left nav (TOC uses article background) */
