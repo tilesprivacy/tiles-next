@@ -98,8 +98,9 @@ export const people = {
       name: "Anish Lakhwara @chickensoupwithrice",
       links: ["https://github.com/Chickensoupwithrice"],
     },
-    { id: "seref-yarar", name: "Anonymous sponsor", links: [], anonymous: true },
-    { id: "anonymous-sponsor", name: "Anonymous sponsor", links: [], anonymous: true },
+    { id: "anonymous-sponsor-1", name: "Anonymous sponsor", links: [], anonymous: true },
+    { id: "anonymous-sponsor-2", name: "Anonymous sponsor", links: [], anonymous: true },
+    { id: "anonymous-sponsor-3", name: "Anonymous sponsor", links: [], anonymous: true },
   ],
 } satisfies Record<string, PersonIdentity[]>
 
