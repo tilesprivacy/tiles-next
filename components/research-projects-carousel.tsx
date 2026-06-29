@@ -56,7 +56,7 @@ function ResearchProjectEntry({ entry }: { entry: ResearchLogEntry }) {
           ) : null}
         </div>
 
-        <h3 className="text-[1.18rem] font-medium leading-tight tracking-[-0.02em] text-black/90 transition-colors group-hover:text-black/72 dark:text-white/90 dark:group-hover:text-white/76 sm:text-[1.36rem] lg:text-[1.82rem]">
+        <h3 className="text-[1.375rem] font-normal leading-[1.25] tracking-[-0.0125em] text-black/90 transition-colors group-hover:text-black/72 dark:text-white/90 dark:group-hover:text-white/76 lg:text-[1.625rem]">
           {entry.title}
         </h3>
 

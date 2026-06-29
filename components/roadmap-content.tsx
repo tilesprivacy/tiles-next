@@ -289,7 +289,7 @@ export function RoadmapContent({ notesBySlug }: { notesBySlug: Record<string, st
                     <div className="space-y-9 lg:space-y-10">
                       {roadmapTracks.map((track) => (
                         <div key={track.label} className="space-y-4">
-                          <h2 className="whitespace-nowrap text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/72 sm:text-[0.74rem]">
+                          <h2 className="whitespace-nowrap text-[0.7rem] font-normal uppercase tracking-[0.22em] text-foreground/72 sm:text-[0.74rem]">
                             {track.label}
                           </h2>
                           <div className="pb-1">

@@ -34,7 +34,7 @@ export function NewsletterCta({ surface = "auto", className, formClassName }: Ne
     <div className={cn("flex flex-col gap-3.5 lg:flex-row lg:items-center lg:justify-between lg:gap-7", className)}>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <h2 className={cn("text-[0.95rem] font-medium tracking-tight", headingClass)}>
+          <h2 className={cn("text-[0.95rem] font-normal tracking-tight", headingClass)}>
             Stay updated
           </h2>
           <a

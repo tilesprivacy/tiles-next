@@ -4,6 +4,8 @@ import { ArrowUpRight, BookOpen, Github, MessageCircle } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import {
   marketingPageBodyClass,
+  marketingPageSectionTitleClass,
+  marketingPageSubsectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 
@@ -104,7 +106,7 @@ export function SupportContent() {
                       <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
                         <Icon className="h-4 w-4" aria-hidden />
                       </span>
-                      <h2 className="mt-4 text-base font-semibold tracking-[-0.02em] text-foreground sm:text-lg">
+                      <h2 className={`mt-4 ${marketingPageSubsectionTitleClass}`}>
                         {route.title}
                       </h2>
                       <p className="mt-2.5 text-sm leading-6 text-black/62 dark:text-white/62">
@@ -122,13 +124,13 @@ export function SupportContent() {
             </div>
 
             <section className="mt-14 border-t border-black/8 pt-8 dark:border-white/10">
-              <h2 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+              <h2 className={marketingPageSectionTitleClass}>
                 Support FAQ
               </h2>
               <div className="mt-7 divide-y divide-black/8 dark:divide-white/10">
                 {faqs.map((faq) => (
                   <div key={faq.question} className="py-5 first:pt-0 last:pb-0">
-                    <h3 className="text-base font-medium text-foreground">{faq.question}</h3>
+                    <h3 className="text-base font-normal text-foreground">{faq.question}</h3>
                     <p className="mt-2 text-sm leading-6 text-black/62 dark:text-white/62">
                       {faq.answer}
                     </p>

@@ -95,7 +95,7 @@ export function ContentCarousel({
                   </>
                 </div>
 
-                <h3 className="text-lg font-semibold text-black group-hover:text-black/80 underline lg:text-2xl tracking-tight line-clamp-2 dark:text-white dark:group-hover:text-white/80">
+                <h3 className="text-[1.375rem] font-normal leading-[1.25] tracking-[-0.0125em] text-black underline line-clamp-2 group-hover:text-black/80 dark:text-white dark:group-hover:text-white/80 lg:text-[1.625rem]">
                   {item.title}
                 </h3>
                 <p className="text-sm text-black/60 line-clamp-2 lg:text-base dark:text-white/60">

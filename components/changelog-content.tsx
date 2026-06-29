@@ -8,6 +8,7 @@ import {
   marketingPageBodyClass,
   marketingPageLeadClass,
   marketingPageMetaClass,
+  marketingPageSubsectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 
@@ -304,7 +305,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                         )}
                       </div>
                       <p className={`mb-2 ${marketingPageMetaClass}`}>{release.date}</p>
-                      <h2 className={`mb-3 text-base font-semibold tracking-tight ${textColorHeading} lg:text-lg`}>
+                      <h2 className={`mb-3 ${marketingPageSubsectionTitleClass} ${textColorHeading}`}>
                         {release.title !== release.version ? release.title : `Alpha ${releases.length - index}`}
                       </h2>
                       <div className="mb-4 flex flex-wrap gap-3">
@@ -375,7 +376,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                       {/* Right column: content */}
                       <div>
                         <div className="mb-2 flex items-center gap-3">
-                          <h2 className={`text-lg font-semibold tracking-tight ${textColorHeading}`}>
+                          <h2 className={`${marketingPageSubsectionTitleClass} ${textColorHeading}`}>
                             {release.title !== release.version
                               ? release.title
                               : `Alpha ${releases.length - index}`}

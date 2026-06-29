@@ -12,7 +12,11 @@ import {
   downloadButtonMotionClasses,
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
-import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
+import {
+  marketingPageSectionTitleClass,
+  marketingPageSubsectionTitleClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
 import { OFFLINE_INSTALLER, LINUX_INSTALL_COMMAND, LINUX_INSTALL_SCRIPT_URL, LINUX_INSTALL_VERSION, LINUX_MODEL_NAME, LINUX_MODEL_URL, OFFLINE_MODEL_NAME, OFFLINE_MODEL_URL } from "@/lib/download-page-data"
@@ -189,8 +193,8 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
       : "Unavailable"
   const offlineShortenedSha256 = `${OFFLINE_INSTALLER.sha256.slice(0, 12)}...${OFFLINE_INSTALLER.sha256.slice(-12)}`
   const offlineChecksumFileUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
-  const installerOptionTitleClass = `font-sans text-base font-medium tracking-tight ${textColor}`
-  const platformSectionTitleClass = `font-sans text-xl font-medium tracking-tight sm:text-2xl ${textColor}`
+  const installerOptionTitleClass = `${marketingPageSubsectionTitleClass} !text-base ${textColor}`
+  const platformSectionTitleClass = `${marketingPageSectionTitleClass} !text-xl sm:!text-2xl ${textColor}`
   const downloadButtonLabel = isLoadingMetadata
     ? "Loading installer..."
     : hasDownloadUrl
@@ -595,14 +599,14 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
 
               {/* Manual and Community CTAs */}
               <div className="border-t border-border pt-10">
-                <h2 className={`mb-6 font-sans text-2xl font-medium tracking-tight sm:text-3xl ${textColor}`}>Resources</h2>
+                <h2 className={`mb-6 ${marketingPageSectionTitleClass} ${textColor}`}>Resources</h2>
                 <div className="grid grid-cols-1 gap-10">
                   {/* Manual */}
                   <div className="flex flex-col gap-4">
                     <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
                       <FaBook className="h-5 w-5" />
                     </div>
-                    <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Manual</h3>
+                    <h3 className={`${marketingPageSubsectionTitleClass} ${textColor}`}>Manual</h3>
                     <p className={bodyTextClass}>
                       Need usage instructions? Check out the{" "}
                       <a
@@ -622,7 +626,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                     <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
                       <FaDiscord className="h-5 w-5" />
                     </div>
-                    <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Join Discord</h3>
+                    <h3 className={`${marketingPageSubsectionTitleClass} ${textColor}`}>Join Discord</h3>
                     <p className={bodyTextClass}>
                       Chat with the team and other users, get help, and share feedback. Join us in the #tiles channel
                       hosted by the{" "}
@@ -643,7 +647,7 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                     <div className={`flex h-6 w-6 items-center justify-start shrink-0 ${textColorSubtle}`}>
                       <FaClockRotateLeft className="h-5 w-5" />
                     </div>
-                    <h3 className={`font-sans text-lg font-medium tracking-tight ${textColor}`}>Releases</h3>
+                    <h3 className={`${marketingPageSubsectionTitleClass} ${textColor}`}>Releases</h3>
                     <p className={bodyTextClass}>
                       Need an older build? Browse the{" "}
                       <Link href="/releases#releases" className={`${textColorLink} underline underline-offset-2 transition-colors`}>

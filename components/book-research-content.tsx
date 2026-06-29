@@ -5,12 +5,13 @@ import {
   getArchivedResearchEntries,
   RESEARCH_PAGE_INTRO,
 } from "@/lib/research-log"
+import { marketingPageSectionTitleClass } from "@/lib/marketing-page-title-classes"
 
 function ResearchSectionHeader({ id, title }: { id: string; title: string }) {
   return (
     <h2
       id={id}
-      className="mt-0 font-sans text-[1.55rem] font-medium leading-tight tracking-[-0.025em] text-foreground sm:text-[1.85rem] lg:text-[2.05rem]"
+      className={`mt-0 ${marketingPageSectionTitleClass}`}
     >
       {title}
     </h2>

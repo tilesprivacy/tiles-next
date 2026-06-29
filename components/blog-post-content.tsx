@@ -11,6 +11,8 @@ import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
+import { blogArticleProseClass } from "@/lib/blog-article-prose-classes"
+import { marketingPageArticleTitleClass } from "@/lib/marketing-page-title-classes"
 
 interface BlogPostContentProps {
   title: string
@@ -78,7 +80,7 @@ export function BlogPostContent({
 
           {/* Blog Title */}
           <div data-blog-print-header className="mb-8 lg:mb-12">
-            <h1 className="mb-4 font-sans text-[clamp(2rem,6vw,3.2rem)] font-semibold leading-[1.08] tracking-[-0.035em] text-foreground lg:mb-4">
+            <h1 className={`mb-4 lg:mb-4 ${marketingPageArticleTitleClass}`}>
               {title}
             </h1>
             <p
@@ -168,19 +170,7 @@ export function BlogPostContent({
               {/* Container for side references on desktop */}
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 
-              <div className="blog-article-content space-y-4 text-base leading-7 text-black/70 dark:text-white/70 lg:space-y-6 lg:text-[1.03rem] lg:leading-7 relative z-10
-                [&_h2]:text-xl [&_h2]:font-medium [&_h2]:text-black/90 dark:[&_h2]:text-white/90 [&_h2]:mb-4 lg:[&_h2]:text-[1.72rem] lg:[&_h2]:mb-5 [&_h2]:tracking-[-0.02em]
-                [&_h3]:text-[1.02rem] [&_h3]:font-medium [&_h3]:text-black/82 dark:[&_h3]:text-white/82 [&_h3]:mb-3 lg:[&_h3]:text-[1.12rem] lg:[&_h3]:mb-4 [&_h3]:tracking-[-0.012em]
-                [&_hr]:border-black/10 dark:[&_hr]:border-white/10 [&_hr]:my-8 lg:[&_hr]:my-10
-                [&_strong]:font-semibold [&_strong]:text-black dark:[&_strong]:text-white
-                [&_a]:text-black dark:[&_a]:text-white [&_a]:hover:text-black/80 dark:[&_a]:hover:text-white/80 [&_a]:underline
-                [&_code]:rounded [&_code]:bg-black/5 dark:[&_code]:bg-white/5 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-sm [&_code]:text-black dark:[&_code]:text-white
-                [&_pre]:max-w-full [&_pre]:overflow-x-auto [&_pre]:whitespace-pre-wrap [&_pre]:break-words [&_pre]:rounded-lg [&_pre]:bg-black/5 dark:[&_pre]:bg-white/5 [&_pre]:p-4
-                [&_pre_code]:whitespace-pre-wrap [&_pre_code]:break-all [&_pre_code]:bg-transparent [&_pre_code]:p-0
-                [&_ol]:list-decimal [&_ol]:list-inside [&_ol]:space-y-3 lg:[&_ol]:space-y-4 [&_ol]:ml-4
-                [&_ul]:list-disc [&_ul]:space-y-2.5 [&_ul]:pl-6
-                [&_li]:mb-3 lg:[&_li]:mb-4
-              ">
+              <div className={blogArticleProseClass}>
                 {children}
               </div>
               {standardSiteDocumentUri ? (

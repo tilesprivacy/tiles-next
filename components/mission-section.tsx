@@ -7,6 +7,10 @@ import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
 import { people } from "@/lib/people"
 import { cn } from "@/lib/utils"
+import {
+  marketingPageSubsectionTitleClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 interface MissionSectionProps {
   title: string
@@ -69,9 +73,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
   const content = (
     <>
       <div className="w-full flex-shrink-0 lg:flex-1 lg:max-w-2xl">
-        <h2
-          className={`mb-6 text-left text-[3.6rem] font-normal leading-[0.92] tracking-[-0.08em] ${textColor} sm:mb-8 sm:text-[4.25rem] md:mb-10 lg:mb-12 lg:text-6xl`}
-        >
+        <h2 className={`mb-6 text-left sm:mb-8 md:mb-10 lg:mb-12 ${marketingPageTitleClass} ${textColor}`}>
           {title}
         </h2>
         <div className={`space-y-4 sm:space-y-6 text-sm leading-relaxed ${textColorBody} sm:text-base md:space-y-6 lg:space-y-8 lg:text-lg lg:leading-relaxed`}>
@@ -153,10 +155,10 @@ export function MissionSection({ title, compact = false, className }: MissionSec
       <div className="w-full lg:w-auto lg:flex-shrink-0 mt-6 sm:mt-8 lg:mt-0">
         <div className="flex flex-col sm:flex-row lg:flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-8 xl:gap-10">
           <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
-            <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-4 sm:mb-5 lg:text-xl`}>Contributors</h3>
+            <h3 className={`mb-4 sm:mb-5 ${marketingPageSubsectionTitleClass} ${textColor}`}>Contributors</h3>
             <div className="space-y-4 sm:space-y-5">
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Core</h4>
+                <h4 className={`mb-2 text-xs font-normal tracking-[-0.005em] ${textColor} sm:mb-2.5 sm:text-sm lg:text-base`}>Core</h4>
                 <div className="space-y-2 sm:space-y-2.5">
                   {people.contributorsCore.map((person) => (
                     <Person key={person.name} name={person.name} links={person.links} />
@@ -165,7 +167,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
               </div>
               {people.contributorsCommunity.length > 0 && (
                 <div>
-                  <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>
+                  <h4 className={`mb-2 text-xs font-normal tracking-[-0.005em] ${textColor} sm:mb-2.5 sm:text-sm lg:text-base`}>
                     Community
                   </h4>
                   <div className="space-y-2 sm:space-y-2.5">
@@ -179,10 +181,10 @@ export function MissionSection({ title, compact = false, className }: MissionSec
           </div>
 
           <div className="flex-1 sm:flex-initial lg:flex-none min-w-0 sm:min-w-[200px] md:min-w-[220px] lg:min-w-[220px] lg:max-w-[280px]">
-            <h3 className={`text-base sm:text-lg font-semibold ${textColor} mb-4 sm:mb-5 lg:text-xl`}>Sponsors</h3>
+            <h3 className={`mb-4 sm:mb-5 ${marketingPageSubsectionTitleClass} ${textColor}`}>Sponsors</h3>
             <div className="space-y-4 sm:space-y-5">
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Current</h4>
+                <h4 className={`mb-2 text-xs font-normal tracking-[-0.005em] ${textColor} sm:mb-2.5 sm:text-sm lg:text-base`}>Current</h4>
                 <div className="space-y-2 sm:space-y-2.5">
                   {people.sponsorsActive.map((person) => (
                     <Person key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
@@ -190,7 +192,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
                 </div>
               </div>
               <div>
-                <h4 className={`text-xs sm:text-sm font-medium ${textColor} mb-2 sm:mb-2.5 lg:text-base`}>Past</h4>
+                <h4 className={`mb-2 text-xs font-normal tracking-[-0.005em] ${textColor} sm:mb-2.5 sm:text-sm lg:text-base`}>Past</h4>
                 <div className="space-y-2 sm:space-y-2.5">
                   {people.sponsorsPast.map((person) => (
                     <Person key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />

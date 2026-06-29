@@ -26,7 +26,7 @@ const roadmapMarkdownComponents: Components = {
   h1: ({ children, ...props }) => (
     <h1
       {...props}
-      className="mb-2 mt-0 scroll-mt-4 text-[1.05rem] font-semibold leading-snug tracking-[-0.02em] text-foreground first:mt-0"
+      className="mb-2 mt-0 scroll-mt-4 text-[1.125rem] font-normal leading-[1.3] tracking-[-0.005em] text-foreground first:mt-0"
     >
       {children}
     </h1>
@@ -34,28 +34,28 @@ const roadmapMarkdownComponents: Components = {
   h2: ({ children, ...props }) => (
     <h2
       {...props}
-      className="mb-2 mt-5 scroll-mt-4 text-[0.98rem] font-semibold leading-snug tracking-[-0.015em] text-foreground first:mt-0"
+      className="mb-2 mt-5 scroll-mt-4 text-[0.98rem] font-normal leading-snug tracking-[-0.015em] text-foreground first:mt-0"
     >
       {children}
     </h2>
   ),
   h3: ({ children, ...props }) => (
-    <h3 {...props} className="mb-1.5 mt-4 scroll-mt-4 text-[0.94rem] font-semibold leading-snug text-foreground first:mt-0">
+    <h3 {...props} className="mb-1.5 mt-4 scroll-mt-4 text-[0.94rem] font-normal leading-snug text-foreground first:mt-0">
       {children}
     </h3>
   ),
   h4: ({ children, ...props }) => (
-    <h4 {...props} className="mb-1.5 mt-3 scroll-mt-4 text-[0.92rem] font-semibold leading-snug text-foreground first:mt-0">
+    <h4 {...props} className="mb-1.5 mt-3 scroll-mt-4 text-[0.92rem] font-normal leading-snug text-foreground first:mt-0">
       {children}
     </h4>
   ),
   h5: ({ children, ...props }) => (
-    <h5 {...props} className="mb-1 mt-3 scroll-mt-4 text-[0.9rem] font-medium leading-snug text-foreground first:mt-0">
+    <h5 {...props} className="mb-1 mt-3 scroll-mt-4 text-[0.9rem] font-normal leading-snug text-foreground first:mt-0">
       {children}
     </h5>
   ),
   h6: ({ children, ...props }) => (
-    <h6 {...props} className="mb-1 mt-3 scroll-mt-4 text-[0.88rem] font-medium leading-snug text-foreground/90 first:mt-0">
+    <h6 {...props} className="mb-1 mt-3 scroll-mt-4 text-[0.88rem] font-normal leading-snug text-foreground/90 first:mt-0">
       {children}
     </h6>
   ),

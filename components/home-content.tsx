@@ -11,6 +11,11 @@ import { ProductFeatureWidgets } from "@/components/product-feature-widgets"
 import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { WhyTilesSection } from "@/components/why-tiles-section"
+import {
+  marketingPageCompactSectionTitleClass,
+  marketingPageHeroTitleClass,
+  marketingPageSubsectionTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 const featureCards = [
   {
@@ -263,7 +268,7 @@ export function HomeContent() {
                     aria-hidden
                   />
                 </a>
-                <h1 className="mx-auto max-w-[20ch] text-balance font-sans text-[clamp(1.9rem,4vw,2.75rem)] font-medium leading-[1.12] tracking-[-0.02em] text-foreground lg:mx-0 lg:max-w-[19ch]">
+                <h1 className={`mx-auto max-w-[20ch] text-balance lg:mx-0 lg:max-w-[19ch] ${marketingPageHeroTitleClass}`}>
                   Own your AI
                 </h1>
                 <p className="mx-auto mt-4 max-w-[31rem] text-[0.98rem] leading-[1.55] text-black/58 dark:text-[#AFAFAF] sm:text-[1.03rem] lg:mx-0">
@@ -348,7 +353,7 @@ export function HomeContent() {
             >
               <div className="space-y-5">
                 <div className="space-y-3.5">
-                  <h2 className="text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
+                  <h2 className={marketingPageCompactSectionTitleClass}>
                     {card.heading}
                   </h2>
                   <p className="max-w-[32rem] text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
@@ -422,7 +427,7 @@ export function HomeContent() {
       <section className="relative z-10 px-4 pb-20 pt-14 min-[390px]:px-5 sm:px-6 sm:pb-24 sm:pt-20 lg:px-12 lg:pb-28 lg:pt-24">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 py-6 sm:gap-14 sm:py-10 lg:flex-row lg:items-center lg:gap-12 lg:py-12 xl:gap-14">
           <div className="w-full max-w-[52rem] shrink-0 space-y-6 sm:space-y-7 lg:w-auto lg:pl-1">
-            <h2 className="max-w-[24ch] text-balance text-[clamp(1.85rem,5.4vw,2.7rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground">
+            <h2 className={`max-w-[24ch] ${marketingPageCompactSectionTitleClass}`}>
               Designed for the ATmosphere
             </h2>
             <ul className="max-w-[42rem] space-y-4 sm:space-y-5">
@@ -440,7 +445,7 @@ export function HomeContent() {
               </li>
             </ul>
             <div className="max-w-[42rem] space-y-3.5 pt-6 sm:space-y-4 sm:pt-8">
-              <h3 className="text-[0.9rem] font-medium leading-snug tracking-[-0.01em] text-foreground/75">
+              <h3 className={`${marketingPageSubsectionTitleClass} !text-[0.9rem] text-foreground/75 sm:!text-[0.9rem]`}>
                 What&apos;s the Atmosphere?
               </h3>
               <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">

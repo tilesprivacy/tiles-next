@@ -1,6 +1,10 @@
 import Link from "next/link"
 import { Check } from "lucide-react"
 import { WHY_TILES_TAGLINE, whyTilesBullets } from "@/lib/why-tiles-content"
+import {
+  marketingPageCompactSectionTitleClass,
+  marketingPageSectionTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 const sectionCtaClass =
   "inline-flex items-center text-[0.95rem] text-black/50 underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:text-[#A4A4A4] dark:decoration-white/30 dark:hover:text-[#C0C0C0] dark:hover:decoration-white/45"
@@ -29,8 +33,8 @@ export function WhyTilesSection({
 }: WhyTilesSectionProps) {
   const headingClass =
     variant === "home"
-      ? "text-balance text-[clamp(1.95rem,5.4vw,2.65rem)] font-semibold leading-[1.05] tracking-[-0.03em] text-foreground"
-      : "text-balance text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+      ? marketingPageCompactSectionTitleClass
+      : `text-balance ${marketingPageSectionTitleClass}`
 
   const taglineClass =
     variant === "home"

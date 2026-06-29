@@ -12,6 +12,7 @@ import {
 } from '@/lib/research-log'
 import { ArticleShareAndNewsletter } from '@/components/article-share-and-newsletter'
 import { SiteFooter } from '@/components/site-footer'
+import { marketingPageArticleTitleClass } from '@/lib/marketing-page-title-classes'
 
 const badgeClassName: Record<ResearchExplorationBadge, string> = {
   'napkin-sketch':
@@ -42,7 +43,7 @@ export function ResearchExplorationContent({
       <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:px-12">
         <div className="relative w-full max-w-[90rem] py-8 lg:py-14">
           <div className="mx-auto mb-12 flex max-w-[44rem] flex-col gap-6 lg:mb-16 lg:gap-7">
-            <h1 className="max-w-[15ch] font-sans text-[clamp(2.15rem,5vw,2.9rem)] font-semibold leading-[1.08] tracking-[-0.032em] text-foreground sm:max-w-[18ch] lg:max-w-[20ch]">
+            <h1 className={`max-w-[15ch] sm:max-w-[18ch] lg:max-w-[20ch] ${marketingPageArticleTitleClass}`}>
               {entry.title}
             </h1>
             <p className="max-w-[39rem] text-[0.98rem] leading-[1.75] text-black/52 dark:text-white/52 lg:text-[1.02rem]">

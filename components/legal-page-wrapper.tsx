@@ -34,9 +34,9 @@ export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
         } as React.CSSProperties}
       >
         <div className={`w-full space-y-6 sm:space-y-8 text-sm leading-relaxed ${textColorBody} sm:text-base lg:text-lg lg:leading-relaxed
-          [&_h1]:text-2xl [&_h1]:font-semibold [&_h1]:sm:text-3xl [&_h1]:lg:text-4xl
-          [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:sm:text-xl [&_h2]:lg:text-2xl
-          [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:sm:text-xl
+          [&_h1]:text-[2rem] [&_h1]:font-normal [&_h1]:leading-[1.15] [&_h1]:tracking-[-0.025em] [&_h1]:text-balance [&_h1]:sm:text-[2.6rem] [&_h1]:lg:text-[3.25rem]
+          [&_h2]:text-[1.625rem] [&_h2]:font-normal [&_h2]:leading-[1.25] [&_h2]:tracking-[-0.0125em] [&_h2]:text-balance [&_h2]:sm:text-[2.25rem] [&_h2]:sm:leading-[1.2] [&_h2]:sm:tracking-[-0.02em]
+          [&_h3]:text-[1.125rem] [&_h3]:font-normal [&_h3]:leading-[1.3] [&_h3]:tracking-[-0.005em] [&_h3]:text-balance [&_h3]:sm:text-[1.375rem]
           [&_.last-updated]:text-xs [&_.last-updated]:sm:text-sm
           [&_.contact-info]:text-xs [&_.contact-info]:sm:text-sm
         `}

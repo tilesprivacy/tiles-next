@@ -2,7 +2,11 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
-import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
+import {
+  marketingPageSectionTitleClass,
+  marketingPageSubsectionTitleClass,
+  marketingPageTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 export const metadata: Metadata = {
   title: "Brand | Tiles",
@@ -59,7 +63,7 @@ export default function BrandPage() {
             </svg>
           </a>
 
-          <h2 className="mt-16 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Brand assets</h2>
+          <h2 className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand assets</h2>
           <div className="mt-4 max-w-3xl space-y-2 text-base leading-relaxed text-black/65 md:text-lg dark:text-[#B3B3B3]">
             <p>
               <strong className="font-semibold text-foreground">Logos</strong> are available as icon mark and logo
@@ -149,7 +153,7 @@ export default function BrandPage() {
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold tracking-tight text-foreground sm:text-xl">Wallpaper</h3>
+              <h3 className={marketingPageSubsectionTitleClass}>Wallpaper</h3>
               <div className="mx-auto mt-4 flex w-full max-w-3xl justify-center">
                 <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
                   <Image
@@ -168,7 +172,7 @@ export default function BrandPage() {
             </div>
           </div>
 
-          <h2 className="mt-14 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">Name</h2>
+          <h2 className={`mt-14 ${marketingPageSectionTitleClass}`}>Name</h2>
           <p className="mt-4 text-base leading-relaxed text-black/80 md:text-lg dark:text-[#D0D0D3]">
             Refer to us as Tiles Privacy. Not Tiles Assistant or Tiles AI .
           </p>

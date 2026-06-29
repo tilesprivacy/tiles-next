@@ -12,6 +12,7 @@ import { FooterLanguageSelector } from "@/components/footer-language-selector"
 import { TangledIcon } from "@/components/tangled-icon"
 import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
+import { marketingPageCompactSectionTitleClass } from "@/lib/marketing-page-title-classes"
 
 interface SiteFooterProps {
   showNewsletterCta?: boolean
@@ -68,7 +69,7 @@ export function SiteFooter({
 
         {showDownloadCta && (
           <section className="mb-11 flex flex-col items-center gap-4 text-center lg:mb-14 lg:gap-5">
-            <h2 className="text-balance text-[2rem] font-semibold leading-[1.02] tracking-[-0.03em] text-foreground sm:text-[2.4rem]">
+            <h2 className={`text-balance ${marketingPageCompactSectionTitleClass}`}>
               Try Tiles now.
             </h2>
             <div className="inline-flex w-fit flex-col items-center gap-3">

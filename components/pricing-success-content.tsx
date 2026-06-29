@@ -2,6 +2,7 @@ import Link from "next/link"
 import { SiteFooter } from "@/components/site-footer"
 import { Button } from "@/components/ui/button"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 
 type PricingSuccessVariant = "commercial" | "backer"
 
@@ -36,7 +37,7 @@ export function PricingSuccessContent({ variant }: { variant: PricingSuccessVari
       <main className="flex flex-1 flex-col pb-16 pt-[calc(8.75rem+env(safe-area-inset-top,0px))] sm:pt-[calc(10rem+env(safe-area-inset-top,0px))] lg:pb-20 lg:pt-[calc(12rem+env(safe-area-inset-top,0px))]">
         <section className="px-4 sm:px-6 lg:px-12">
           <div className="mx-auto w-full max-w-2xl space-y-6 text-center sm:space-y-8">
-            <h1 className="font-sans text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-foreground sm:text-4xl">
+            <h1 className={marketingPageTitleClass}>
               {c.title}
             </h1>
             <p className="text-lg leading-relaxed text-muted-foreground sm:text-xl">{c.description}</p>

@@ -5,6 +5,7 @@ import { SocialLinks } from "@/components/social-links"
 import { Button } from "@/components/ui/button"
 import {
   marketingPageBodyClass,
+  marketingPageSectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
@@ -166,7 +167,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <h2 className="mb-4 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+              <h2 className={`mb-4 ${marketingPageSectionTitleClass}`}>
                 About us
               </h2>
               <div className={`max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
