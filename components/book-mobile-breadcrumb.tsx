@@ -9,7 +9,7 @@ import {
   getAdjacentBookPages,
 } from '@/components/book-page-navigation'
 
-const MOBILE_BOOK_PAGES = BOOK_PAGES.filter((page) => page.route !== '/book')
+const MOBILE_BOOK_PAGES = BOOK_PAGES
 
 function isBookPageActive(pathname: string, route: string): boolean {
   const normalizedPath = pathname.replace(/\/$/, '') || '/book'
@@ -254,10 +254,6 @@ export function BookMobileBreadcrumb() {
       window.removeEventListener('resize', syncActive)
     }
   }, [isIndexPage, open, pathname, tocItems])
-
-  if (isIndexPage) {
-    return null
-  }
 
   return (
     <>

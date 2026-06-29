@@ -34,12 +34,12 @@ function FeatureWidget({
   }
 
   return (
-    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 gap-y-2 sm:gap-y-2.5">
-      <span className="flex h-9 w-9 self-center items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
+    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 sm:gap-y-2.5">
+      <span className="row-start-1 flex h-9 w-9 self-center items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
         {icon}
       </span>
-      <h3 className={`m-0 min-w-0 self-center ${marketingPageSubsectionTitleClass}`}>{title}</h3>
-      <div className="col-start-2 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+      <h3 className={`row-start-1 m-0 min-w-0 -translate-y-px self-center !leading-[1.15] ${marketingPageSubsectionTitleClass}`}>{title}</h3>
+      <div className="col-start-2 row-start-2 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
         {children}
       </div>
     </div>
