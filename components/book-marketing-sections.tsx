@@ -60,14 +60,16 @@ function FeatureCard({
   children: ReactNode
 }) {
   return (
-    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 gap-y-2 sm:gap-y-2.5">
-      <span className="flex h-9 w-9 self-center items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
+    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3">
+      <span className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
         {icon}
       </span>
-      <h3 className={`m-0 min-w-0 self-center ${marketingPageSubsectionTitleClass}`}>{title}</h3>
-      <p className="col-start-2 m-0 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-        {children}
-      </p>
+      <div className="min-w-0">
+        <h3 className={`m-0 min-w-0 ${marketingPageSubsectionTitleClass}`}>{title}</h3>
+        <p className="m-0 mt-1 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:mt-1.5 lg:text-base">
+          {children}
+        </p>
+      </div>
     </div>
   )
 }

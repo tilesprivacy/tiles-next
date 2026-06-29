@@ -34,13 +34,15 @@ function FeatureWidget({
   }
 
   return (
-    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-x-3 gap-y-2 sm:gap-y-2.5">
-      <span className="row-start-1 flex h-9 w-9 self-center items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
+    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3">
+      <span className="mt-0.5 flex h-9 w-9 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
         {icon}
       </span>
-      <h3 className={`row-start-1 m-0 min-w-0 -translate-y-px self-center !leading-[1.15] ${marketingPageSubsectionTitleClass}`}>{title}</h3>
-      <div className="col-start-2 row-start-2 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
-        {children}
+      <div className="min-w-0">
+        <h3 className={`m-0 min-w-0 !leading-[1.15] ${marketingPageSubsectionTitleClass}`}>{title}</h3>
+        <div className="mt-1 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] sm:mt-1.5 lg:text-base">
+          {children}
+        </div>
       </div>
     </div>
   )
@@ -77,7 +79,7 @@ export function ProductFeatureWidgets({
           <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
           <span className="font-mono text-[0.95em]">gpt-oss-20b</span>
         </span>
-        .
+        {', with Plugins support.'}
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<Cpu strokeWidth={1.75} />} title="On-device Models">
