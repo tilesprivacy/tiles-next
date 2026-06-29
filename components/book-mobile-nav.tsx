@@ -93,7 +93,7 @@ export function BookMobileNav() {
                   {page.number}
                 </div>
                 <h2
-                  className="w-full min-w-0 break-words text-3xl font-semibold leading-[1.05] text-black dark:text-white tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80"
+                  className="w-full min-w-0 break-words text-3xl font-light leading-[1.05] text-black dark:text-white tracking-tight group-hover:text-black/80 dark:group-hover:text-white/80"
                   style={{ textDecoration: 'none' }}
                 >
                   {page.title}

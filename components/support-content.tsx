@@ -130,7 +130,7 @@ export function SupportContent() {
               <div className="mt-7 divide-y divide-black/8 dark:divide-white/10">
                 {faqs.map((faq) => (
                   <div key={faq.question} className="py-5 first:pt-0 last:pb-0">
-                    <h3 className="text-base font-normal text-foreground">{faq.question}</h3>
+                    <h3 className="text-base font-light text-foreground">{faq.question}</h3>
                     <p className="mt-2 text-sm leading-6 text-black/62 dark:text-white/62">
                       {faq.answer}
                     </p>

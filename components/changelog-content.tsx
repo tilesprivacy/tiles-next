@@ -170,7 +170,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
   const artifactShaBlockClass =
     'mt-2 text-[11px] leading-relaxed text-muted-foreground'
   const releaseBodyClass = `space-y-2 ${marketingPageBodyClass}`
-  const releaseSectionHeadingClass = `text-xs font-semibold uppercase tracking-wide ${textColorMuted}`
+  const releaseSectionHeadingClass = `text-xs font-light uppercase tracking-wide ${textColorMuted}`
   const DownloadArtifacts = ({ release }: { release: Release }) => {
     const hasTarballs = release.tarballs.length > 0
     const hasInstaller = Boolean(release.installer)
@@ -289,7 +289,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                       <div className="mb-3 flex items-center gap-3">
                         <a
                           href={`#${releaseAnchorId}`}
-                          className={`text-base font-semibold ${linkColor} lg:text-lg`}
+                          className={`text-base font-light ${linkColor} lg:text-lg`}
                         >
                           {release.version}
                         </a>
@@ -361,7 +361,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
                       <div className="text-right">
                         <a
                           href={`#${releaseAnchorId}`}
-                          className={`text-base font-semibold ${linkColor} lg:text-lg`}
+                          className={`text-base font-light ${linkColor} lg:text-lg`}
                         >
                           {release.version}
                         </a>

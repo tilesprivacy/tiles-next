@@ -96,11 +96,11 @@ export function BookPageNavigation() {
         <div className="flex-1 flex items-center justify-end gap-4 lg:gap-6 bg-background rounded-sm pl-4 pr-5 py-3.5 lg:pl-6 lg:pr-7 lg:py-4">
           {/* Show Next Page Title if exists, otherwise show Previous Page Title */}
           {nextPage ? (
-            <span className="text-base lg:text-lg font-semibold text-foreground">
+            <span className="text-base lg:text-lg font-light text-foreground">
               {nextPage.title}
             </span>
           ) : prevPage ? (
-            <span className="text-base lg:text-lg font-semibold text-foreground mr-auto">
+            <span className="text-base lg:text-lg font-light text-foreground mr-auto">
               {prevPage.title}
             </span>
           ) : null}

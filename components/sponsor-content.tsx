@@ -114,7 +114,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             <div className="mt-8 pt-8">
               <div className="max-w-xl">
                 <div className="flex items-end gap-4">
-                  <p className="text-4xl font-semibold tracking-[-0.05em] text-foreground">{progressLabel}</p>
+                  <p className="text-4xl font-light tracking-[-0.05em] text-foreground">{progressLabel}</p>
                   <p className="pb-1 text-sm leading-6 text-black/65 dark:text-white/65">{goalLabel}</p>
                 </div>
                 <p className="mt-2 text-sm leading-6 text-black/65 dark:text-white/65">
