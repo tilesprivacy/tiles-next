@@ -5,6 +5,7 @@ import Image from 'next/image'
 import type { ComponentProps } from 'react'
 import { Maximize2 } from 'lucide-react'
 import { ImageLightbox } from './image-lightbox'
+import { cn } from '@/lib/utils'
 
 interface ClickableImageProps extends ComponentProps<typeof Image> {
   // Allow all Image props
@@ -38,8 +39,7 @@ export function ClickableImage({ src, alt, onClick, style, className, ...props }
   return (
     <>
       <div
-        className="relative inline-block group"
-        style={{ display: 'inline-block' }}
+        className={cn('relative group', className)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -51,7 +51,7 @@ export function ClickableImage({ src, alt, onClick, style, className, ...props }
             cursor: 'pointer',
             transition: 'opacity 0.2s ease',
           }}
-          className={className}
+          className="h-auto w-full"
           onClick={handleImageClick}
           {...props}
         />

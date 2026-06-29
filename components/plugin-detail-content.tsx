@@ -5,6 +5,10 @@ import { useState } from "react"
 import { ArrowLeft, ArrowUpRight, BookOpen, Check, Copy, Package } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { triggerHaptic } from "@/lib/haptics"
+import {
+  marketingPageSectionTitleClass,
+  marketingPageSubsectionTitleClass,
+} from "@/lib/marketing-page-title-classes"
 import type { TilesPlugin, TilesPluginSkill } from "@/lib/plugins"
 
 interface PluginDetailContentProps {
@@ -105,17 +109,17 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
               Back
             </Link>
 
-            <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex min-w-0 items-center gap-4">
+            <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-4">
+              <div className="flex shrink-0 items-center gap-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-secondary text-foreground ring-1 ring-border/60">
                   <Package className="h-5 w-5" aria-hidden />
                 </span>
-                <h1 className="truncate font-sans text-[1.55rem] font-medium leading-[1.2] tracking-normal text-foreground sm:text-[1.75rem] lg:text-[1.95rem]">
+                <h1 className={`truncate lg:overflow-visible lg:whitespace-nowrap ${marketingPageSectionTitleClass}`}>
                   {plugin.name}
                 </h1>
               </div>
 
-              <div className="w-full lg:w-[25rem]">
+              <div className="w-full min-w-0 lg:min-w-[9rem] lg:flex-1">
                 <div className="relative h-10 overflow-hidden rounded-[8px] border border-border bg-secondary/45 lg:flex lg:items-stretch">
                   <code className="flex h-full items-center overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4">
                     {plugin.installCommand}
@@ -156,7 +160,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
             </div>
 
             <div className="mb-12">
-              <h2 className="mb-3 font-sans text-base font-medium tracking-tight text-foreground">Usage</h2>
+              <h2 className={`mb-3 ${marketingPageSubsectionTitleClass}`}>Usage</h2>
               <div className="relative flex h-10 items-center overflow-hidden rounded-[8px] bg-secondary/65">
                 <code className="block flex-1 overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch]">
                   {usageCommand}
@@ -174,7 +178,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
 
             {skills.length > 0 ? (
               <div>
-                <h2 className="mb-4 font-sans text-base font-medium tracking-tight text-foreground">
+                <h2 className={`mb-4 ${marketingPageSubsectionTitleClass}`}>
                   Skills <span className="text-muted-foreground/55">{skills.length}</span>
                 </h2>
                 <div className="overflow-hidden rounded-[8px] bg-secondary/65">

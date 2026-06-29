@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Bot, Cpu, FileCode, KeyRound, Link as LinkIcon, Package, RefreshCw, Share2 } from "lucide-react"
 import { SHOW_REMOTE_LINK } from "@/lib/feature-flags"
+import { marketingPageSubsectionTitleClass } from "@/lib/marketing-page-title-classes"
 
 type ProductFeatureWidgetsVariant = "book" | "home"
 
@@ -24,7 +25,7 @@ function FeatureWidget({
           <span className="flex h-5 w-5 shrink-0 items-center justify-center text-black/52 dark:text-white/58 [&>span]:text-[1.05rem] [&>span]:leading-none [&>span]:font-semibold [&_svg]:h-4.5 [&_svg]:w-4.5 [&_svg]:stroke-[1.85]">
             {icon}
           </span>
-          <h3 className="min-w-0 text-[0.9rem] font-medium leading-snug tracking-[-0.005em] sm:text-[0.94rem] lg:text-[0.98rem] [&_a]:text-inherit [&_a]:no-underline [&_a]:transition-opacity [&_a]:hover:opacity-80">
+          <h3 className="min-w-0 text-[0.9rem] font-normal leading-snug tracking-[-0.005em] sm:text-[0.94rem] lg:text-[0.98rem] [&_a]:text-inherit [&_a]:no-underline [&_a]:transition-opacity [&_a]:hover:opacity-80">
             {title}
           </h3>
         </div>
@@ -33,14 +34,14 @@ function FeatureWidget({
   }
 
   return (
-    <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-      <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
-          {icon}
-        </span>
-        <h3 className="text-base font-semibold text-foreground lg:text-lg">{title}</h3>
+    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 gap-y-2 sm:gap-y-2.5">
+      <span className="flex h-9 w-9 self-center items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10 [&>span]:text-base [&>span]:font-semibold [&>span]:leading-none [&_svg]:h-4 [&_svg]:w-4">
+        {icon}
+      </span>
+      <h3 className={`m-0 min-w-0 self-center ${marketingPageSubsectionTitleClass}`}>{title}</h3>
+      <div className="col-start-2 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+        {children}
       </div>
-      <div className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">{children}</div>
     </div>
   )
 }

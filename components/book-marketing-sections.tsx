@@ -3,6 +3,10 @@ import Link from "next/link"
 import { Bot, Check, CircleDashed, Cpu, FileCode, Package, RefreshCw } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { SHOW_REMOTE_LINK } from "@/lib/feature-flags"
+import {
+  marketingPageSectionTitleClass,
+  marketingPageSubsectionTitleClass,
+} from "@/lib/marketing-page-title-classes"
 
 const comparisonRows = [
   { label: "Decentralized Identity", tiles: "check", ollama: "empty", lmStudio: "empty", jan: "empty", osaurus: "check" },
@@ -56,20 +60,20 @@ function FeatureCard({
   children: ReactNode
 }) {
   return (
-    <div className="space-y-2.5 sm:space-y-3 lg:space-y-4">
-      <div className="flex items-center gap-3">
-        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
-          {icon}
-        </span>
-        <h3 className="text-base font-semibold text-foreground lg:text-lg">{title}</h3>
-      </div>
-      <p className="text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">{children}</p>
+    <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 gap-y-2 sm:gap-y-2.5">
+      <span className="flex h-9 w-9 self-center items-center justify-center rounded-lg bg-black/5 text-foreground dark:bg-white/10">
+        {icon}
+      </span>
+      <h3 className={`m-0 min-w-0 self-center ${marketingPageSubsectionTitleClass}`}>{title}</h3>
+      <p className="col-start-2 m-0 text-sm leading-relaxed text-black/60 dark:text-[#B3B3B3] lg:text-base">
+        {children}
+      </p>
     </div>
   )
 }
 
 export function BookMarketingSections() {
-  const sectionHeadingClass = "text-2xl font-semibold tracking-tight text-foreground sm:text-3xl"
+  const sectionHeadingClass = marketingPageSectionTitleClass
 
   return (
     <div className="not-prose mt-12 space-y-0 sm:mt-14">
