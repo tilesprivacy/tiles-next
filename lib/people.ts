@@ -74,6 +74,11 @@ export const people = {
       links: ["https://x.com/OlokobaYusuf"],
     },
     {
+      id: "jeremie-miller",
+      name: "Jeremie Miller @jeremie.com",
+      links: ["https://bsky.app/profile/jeremie.com"],
+    },
+    {
       id: "alex-komoroske",
       name: "Alex Komoroske @komorama",
       links: ["https://www.komoroske.com", "https://x.com/komorama", "https://bsky.app/profile/komorama.bsky.social", "https://github.com/jkomoros"],
