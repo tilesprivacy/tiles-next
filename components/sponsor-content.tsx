@@ -1,14 +1,21 @@
 'use client'
 import { SiteFooter } from "@/components/site-footer"
 import { PersonAvatar } from "@/components/person-avatar"
-import { SocialLinks } from "@/components/social-links"
 import { Button } from "@/components/ui/button"
 import {
   marketingPageBodyClass,
+  marketingPageMetaClass,
   marketingPageSectionTitleClass,
+  marketingPageSubsectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
-import { people, splitPersonDisplayName } from "@/lib/people"
+import {
+  people,
+  prepareSponsorListDisplay,
+  splitPersonDisplayName,
+  type PersonIdentity,
+  type SponsorListEntry,
+} from "@/lib/people"
 import { FaGithub } from "react-icons/fa6"
 
 interface SponsorContentProps {
@@ -17,6 +24,11 @@ interface SponsorContentProps {
     progressPercent: string | null
   }
 }
+
+const sponsorRowClass =
+  "flex min-w-0 items-center gap-3 rounded-sm px-2 py-2.5 -mx-2 transition-colors"
+const sponsorRowInteractiveClass =
+  "hover:bg-black/4 dark:hover:bg-white/6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground/20"
 
 function SponsorPerson({
   name,
@@ -27,28 +39,60 @@ function SponsorPerson({
   links: string[]
   anonymous?: boolean
 }) {
-  const displayName = anonymous ? "Anonymous sponsor" : name
-  const { nameWithoutHandle, handle } = splitPersonDisplayName(displayName)
+  const { nameWithoutHandle, handle } = splitPersonDisplayName(name)
+  const primaryLink = !anonymous && links.length > 0 ? links[0] : undefined
+
+  const content = (
+    <>
+      <PersonAvatar name={name} links={links} className="shrink-0" loading="eager" fetchPriority="low" />
+      <p className="min-w-0 text-sm leading-snug text-foreground">
+        <span className="font-medium">{nameWithoutHandle}</span>
+        {!anonymous && handle ? <span className="ml-1 text-black/45 dark:text-white/45">{handle}</span> : null}
+      </p>
+    </>
+  )
+
+  if (primaryLink) {
+    return (
+      <a
+        href={primaryLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${sponsorRowClass} ${sponsorRowInteractiveClass}`}
+      >
+        {content}
+      </a>
+    )
+  }
+
+  return <div className={sponsorRowClass}>{content}</div>
+}
+
+function SponsorListSection({
+  title,
+  sponsors,
+  gridClassName = "sm:grid-cols-2",
+}: {
+  title: string
+  sponsors: PersonIdentity[]
+  gridClassName?: string
+}) {
+  const entries = prepareSponsorListDisplay(sponsors)
 
   return (
-    <div className="flex items-center justify-between gap-3 border-b border-black/6 py-3 last:border-b-0 dark:border-white/8">
-      <div className="min-w-0 flex items-center gap-3">
-        <PersonAvatar name={displayName} links={links} className="shrink-0" loading="eager" fetchPriority="low" />
-        <p className="truncate text-sm text-foreground">
-          <span className="font-medium">{nameWithoutHandle}</span>
-          {!anonymous && handle ? <span className="ml-1 text-black/45 dark:text-white/45">{handle}</span> : null}
-        </p>
+    <section>
+      <div className="flex items-baseline justify-between gap-4">
+        <h3 className={marketingPageSubsectionTitleClass}>{title}</h3>
+        <p className={`shrink-0 tabular-nums ${marketingPageMetaClass}`}>{sponsors.length}</p>
       </div>
-      {!anonymous ? (
-        <SocialLinks
-          name={displayName}
-          links={links}
-          className="ml-3 flex shrink-0 items-center gap-1.5"
-          linkClassName="text-black/45 transition-colors hover:text-black dark:text-white/45 dark:hover:text-white"
-          iconClassName="h-3.5 w-3.5"
-        />
-      ) : null}
-    </div>
+      <ul className={`mt-4 grid gap-1 ${gridClassName}`}>
+        {entries.map((entry: SponsorListEntry) => (
+          <li key={entry.id}>
+            <SponsorPerson name={entry.name} links={entry.links} anonymous={entry.anonymous} />
+          </li>
+        ))}
+      </ul>
+    </section>
   )
 }
 
@@ -226,33 +270,16 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <p className="text-sm leading-6 text-foreground">
+              <p className={`max-w-2xl ${marketingPageBodyClass}`}>
                 We’re grateful to the people who have supported the project so far.
               </p>
-              <div className="mt-6 grid gap-10 lg:grid-cols-2">
-                <div>
-                  <div className="flex items-end justify-between gap-4">
-                    <p className="text-sm font-medium text-foreground">Current sponsors</p>
-                    <p className="text-sm text-black/45 dark:text-white/45">{people.sponsorsActive.length}</p>
-                  </div>
-                  <div className="mt-4">
-                    {people.sponsorsActive.map((person) => (
-                      <SponsorPerson key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-end justify-between gap-4">
-                    <p className="text-sm font-medium text-foreground">Past sponsors</p>
-                    <p className="text-sm text-black/45 dark:text-white/45">{people.sponsorsPast.length}</p>
-                  </div>
-                  <div className="mt-4">
-                    {people.sponsorsPast.map((person) => (
-                      <SponsorPerson key={person.id} name={person.name} links={person.links} anonymous={person.anonymous} />
-                    ))}
-                  </div>
-                </div>
+              <div className="mt-8 space-y-10">
+                <SponsorListSection title="Current sponsors" sponsors={people.sponsorsActive} />
+                <SponsorListSection
+                  title="Past sponsors"
+                  sponsors={people.sponsorsPast}
+                  gridClassName="sm:grid-cols-2 lg:grid-cols-3"
+                />
               </div>
             </div>
           </section>
