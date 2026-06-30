@@ -57,6 +57,21 @@ export const people = {
     { id: "devdoshi", name: "Dev Doshi @devdoshi", links: ["https://github.com/devdoshi", "https://x.com/thedevisadev"] },
   ],
   sponsorsPast: [
+    {
+      id: "jeremie-miller",
+      name: "Jeremie Miller @jeremie.com",
+      links: ["https://bsky.app/profile/jeremie.com"],
+    },
+    {
+      id: "josiah-witt",
+      name: "Josiah Witt @josiahwitt.com",
+      links: ["https://josiahwitt.com", "https://bsky.app/profile/josiahwitt.com"],
+    },
+    {
+      id: "yusuf-olokoba",
+      name: "Yusuf Olokoba @OlokobaYusuf",
+      links: ["https://x.com/OlokobaYusuf"],
+    },
     { id: "curran-dwyer", name: "Curran Dwyer @currandwyer", links: ["https://x.com/CurranDwyer"] },
     {
       id: "rashid-aziz",
@@ -69,16 +84,6 @@ export const people = {
       links: ["https://gavinowens.net/", "https://x.com/goblinoats", "https://bsky.app/profile/goblinoats.com", "https://github.com/goblinoats"],
     },
     {
-      id: "yusuf-olokoba",
-      name: "Yusuf Olokoba @OlokobaYusuf",
-      links: ["https://x.com/OlokobaYusuf"],
-    },
-    {
-      id: "jeremie-miller",
-      name: "Jeremie Miller @jeremie.com",
-      links: ["https://bsky.app/profile/jeremie.com"],
-    },
-    {
       id: "alex-komoroske",
       name: "Alex Komoroske @komorama",
       links: ["https://www.komoroske.com", "https://x.com/komorama", "https://bsky.app/profile/komorama.bsky.social", "https://github.com/jkomoros"],
@@ -87,11 +92,6 @@ export const people = {
       id: "chad-kohalyk",
       name: "Chad Kohalyk @chadkoh",
       links: ["https://chadkohalyk.com", "https://bsky.app/profile/chadkoh.com"],
-    },
-    {
-      id: "josiah-witt",
-      name: "Josiah Witt @josiahwitt.com",
-      links: ["https://josiahwitt.com", "https://bsky.app/profile/josiahwitt.com"],
     },
     {
       id: "anish-lakhwara",
