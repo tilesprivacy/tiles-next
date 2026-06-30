@@ -6,6 +6,6 @@ export const whyTilesBullets = [
   "Sync sessions and work across devices without leaking data to a cloud vendor.",
   "Share chats publicly or privately without copy-pasting the thread elsewhere.",
   "Sovereignty over your online identity and data: DID and UCAN for local control, ATProto for social features.",
-  "Use remote models as if they were local.",
+  "Use models on remote machines as if they were local.",
   "Offline Installer bundles the model for air-gapped use.",
 ] as const
