@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import { SponsorContent } from "@/components/sponsor-content"
-
-const SPONSORS_PROGRESS_PERCENT_FALLBACK = "20%"
-const SPONSORS_GOAL_AMOUNT_MONTHLY = "$1,500 per month"
+import { getGithubSponsorsGoalData } from "@/lib/sponsors-goal"
 
 export const metadata: Metadata = {
   title: "Sponsor | Tiles",
@@ -26,43 +24,6 @@ export const metadata: Metadata = {
     description: "Support Tiles Privacy and help fund private, local-first AI.",
     images: ["https://www.tiles.run/api/og"],
   },
-}
-
-async function getGithubSponsorsGoalData() {
-  try {
-    const response = await fetch("https://github.com/sponsors/tilesprivacy", {
-      next: { revalidate: 21600 },
-      headers: {
-        "User-Agent": "Tiles Website",
-      },
-    })
-
-    if (!response.ok) {
-      return { goalAmountMonthly: null, progressPercent: null }
-    }
-
-    const html = await response.text()
-    const goalMatch = html.match(/earn\s+\$([0-9,]+)\s+per month/i) ?? html.match(/towards\s+\$([0-9,]+)\s+per month/i)
-    const progressMatch =
-      html.match(/<p class="f5 text-bold mb-2">[\s\S]*?<span[^>]*>\s*([0-9]{1,3})%\s*<\/span>/i) ??
-      html.match(/width:\s*([0-9]{1,3})%;[^>]*sponsors-goal-progress-bar/i)
-
-    const parsedGoalAmountMonthly = goalMatch ? `$${goalMatch[1]} per month` : null
-    const parsedProgressPercent = progressMatch ? Number.parseInt(progressMatch[1], 10) : null
-    const goalAmountMonthly = parsedGoalAmountMonthly ?? SPONSORS_GOAL_AMOUNT_MONTHLY
-    const fallbackProgressPercent = Number.parseInt(SPONSORS_PROGRESS_PERCENT_FALLBACK, 10)
-    const shouldUseParsedProgress =
-      parsedProgressPercent !== null &&
-      (parsedGoalAmountMonthly === goalAmountMonthly || parsedGoalAmountMonthly === SPONSORS_GOAL_AMOUNT_MONTHLY)
-    const normalizedProgressPercent = shouldUseParsedProgress ? parsedProgressPercent : fallbackProgressPercent
-
-    return {
-      goalAmountMonthly,
-      progressPercent: `${normalizedProgressPercent}%`,
-    }
-  } catch {
-    return { goalAmountMonthly: SPONSORS_GOAL_AMOUNT_MONTHLY, progressPercent: SPONSORS_PROGRESS_PERCENT_FALLBACK }
-  }
 }
 
 export default async function SponsorPage() {

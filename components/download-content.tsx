@@ -2,8 +2,9 @@
 
 import { type FormEvent, useState, useEffect } from "react"
 import { SiteFooter } from "@/components/site-footer"
+import { PersonAvatar } from "@/components/person-avatar"
 import { useTheme } from "next-themes"
-import { FaApple, FaBook, FaClockRotateLeft, FaDiscord, FaLinux } from "react-icons/fa6"
+import { FaApple, FaBook, FaClockRotateLeft, FaDiscord, FaGithub, FaLinux } from "react-icons/fa6"
 import { Check, Copy } from "lucide-react"
 import { triggerHaptic } from "@/lib/haptics"
 import {
@@ -24,6 +25,8 @@ import {
   DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL,
   DOWNLOAD_PLATFORM_MACOS_LABEL,
 } from "@/lib/product-description"
+import { people, splitPersonDisplayName } from "@/lib/people"
+import type { SponsorsGoalData } from "@/lib/sponsors-goal"
 
 interface DownloadMetadata {
   version: string
@@ -37,6 +40,7 @@ interface DownloadMetadata {
 interface DownloadContentProps {
   initialDownload?: DownloadMetadata
   initialLatestReleaseVersion?: string | null
+  sponsorsGoal?: SponsorsGoalData
 }
 
 function extractVersionFromFileName(fileName: string | undefined): string | null {
@@ -64,7 +68,11 @@ const downloadButtonAppleIconClass =
 
 const downloadButtonLabelClass = `origin-left ${downloadButtonLabelMotionClasses}`
 
-export function DownloadContent({ initialDownload, initialLatestReleaseVersion = null }: DownloadContentProps) {
+export function DownloadContent({
+  initialDownload,
+  initialLatestReleaseVersion = null,
+  sponsorsGoal,
+}: DownloadContentProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [isMobileClient, setIsMobileClient] = useState(false)
@@ -200,6 +208,24 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
     : hasDownloadUrl
       ? "Download network installer"
       : "Download unavailable"
+  const sponsorProgressValue = sponsorsGoal?.progressPercent
+    ? Math.max(0, Math.min(100, Number.parseInt(sponsorsGoal.progressPercent, 10)))
+    : 20
+  const sponsorProgressLabel = sponsorsGoal?.progressPercent ?? "20%"
+  const sponsorGoalLabel = sponsorsGoal?.goalAmountMonthly ?? "$1,500 per month"
+  const socialProofSponsors = people.sponsorsActive.slice(0, 4)
+  const featuredSponsor =
+    people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
+  const featuredSponsorParts = featuredSponsor ? splitPersonDisplayName(featuredSponsor.name) : null
+  const featuredSponsorLabel =
+    featuredSponsorParts?.handle?.replace(/^@/, "") ?? featuredSponsorParts?.nameWithoutHandle ?? null
+  const otherSponsorsCount = Math.max(0, people.sponsorsActive.length - 1)
+  const socialProofLabel =
+    featuredSponsorLabel && otherSponsorsCount > 0
+      ? `${featuredSponsorLabel} and ${otherSponsorsCount} others sponsor this goal`
+      : featuredSponsorLabel
+        ? `${featuredSponsorLabel} sponsors this goal`
+        : null
 
   async function onSendDownloadLinkEmail(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -596,6 +622,80 @@ export function DownloadContent({ initialDownload, initialLatestReleaseVersion =
                 .
               </p>
             </div>
+
+            <section aria-labelledby="download-sponsor-heading" className="border-t border-border pt-10">
+              <div className="max-w-2xl">
+                <div className="space-y-4">
+                  <h2 id="download-sponsor-heading" className={`${marketingPageSectionTitleClass} ${textColor}`}>
+                    Help keep <span className="tracking-tight">Tiles Privacy</span> independent.
+                  </h2>
+                  <div className={`max-w-2xl space-y-4 ${bodyTextClass}`}>
+                    <p>
+                      We&apos;re a small independent team working hard to bring privacy technology to everyone, starting
+                      with Tiles, a local-first private AI assistant. If you like Tiles, please consider supporting our
+                      work.
+                    </p>
+                    <p>
+                      Your sponsorship helps accelerate Tiles&apos; development and lets maintainers work on the project
+                      sustainably. Your support means a lot!
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-8">
+                  <div className="max-w-xl">
+                    <div className="flex items-end gap-4">
+                      <p className="text-4xl font-light tracking-[-0.05em] text-foreground">{sponsorProgressLabel}</p>
+                      <p className={`pb-1 text-sm leading-6 ${textColorSubtle}`}>{sponsorGoalLabel}</p>
+                    </div>
+                    <p className={`mt-2 text-sm leading-6 ${textColorSubtle}`}>
+                      Baseline funding to support the team sustainably
+                    </p>
+                    <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
+                      <div
+                        className="h-full rounded-full bg-foreground"
+                        style={{ width: `${sponsorProgressValue}%` }}
+                        aria-hidden
+                      />
+                    </div>
+                    {socialProofLabel ? (
+                      <div className="mt-4 flex items-center gap-3">
+                        <div className="flex items-center -space-x-2">
+                          {socialProofSponsors.map((person, index) => (
+                            <span
+                              key={person.id}
+                              className="inline-flex rounded-full ring-2 ring-background"
+                              style={{ zIndex: socialProofSponsors.length - index }}
+                            >
+                              <PersonAvatar
+                                name={person.name}
+                                links={person.links}
+                                className="shrink-0"
+                                loading="eager"
+                                fetchPriority="high"
+                              />
+                            </span>
+                          ))}
+                        </div>
+                        <p className={`text-sm leading-6 ${textColorSubtle}`}>{socialProofLabel}</p>
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="mt-8">
+                  <Link
+                    href="https://github.com/sponsors/tilesprivacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={primaryDownloadButtonClass}
+                  >
+                    <FaGithub className="h-4 w-4" aria-hidden />
+                    <span className={downloadButtonLabelClass}>Sponsor on GitHub</span>
+                  </Link>
+                </div>
+              </div>
+            </section>
 
               {/* Manual and Community CTAs */}
               <div className="border-t border-border pt-10">

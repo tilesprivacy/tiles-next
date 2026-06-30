@@ -1,11 +1,13 @@
 import { DownloadContent } from "@/components/download-content"
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 import { getLatestReleaseVersion } from "@/lib/releases"
+import { getGithubSponsorsGoalData } from "@/lib/sponsors-goal"
 
 export default async function DownloadPage() {
-  const [initialDownloadArtifact, initialLatestReleaseVersion] = await Promise.all([
+  const [initialDownloadArtifact, initialLatestReleaseVersion, sponsorsGoal] = await Promise.all([
     getLatestDownloadArtifact(),
     getLatestReleaseVersion(),
+    getGithubSponsorsGoalData(),
   ])
 
   return (
@@ -18,6 +20,7 @@ export default async function DownloadPage() {
         fileName: initialDownloadArtifact.fileName,
       }}
       initialLatestReleaseVersion={initialLatestReleaseVersion}
+      sponsorsGoal={sponsorsGoal}
     />
   )
 }
