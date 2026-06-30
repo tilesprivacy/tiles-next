@@ -83,7 +83,7 @@ export function SiteFooter({
           <div className="flex flex-col items-center gap-2">
             <p className={`${footerTrustLineClass} justify-center text-center`}>
               <Heart className="h-[0.95em] w-[0.95em] shrink-0 fill-current stroke-none" aria-hidden="true" />
-              <span>Built by an independent team devoted to user agency.</span>
+              <span>Done by an independent team devoted to user agency.</span>
             </p>
             <p data-footer-copyright className={`text-xs leading-5 ${licenseTextColor}`}>
               © 2026{' '}
@@ -143,7 +143,7 @@ export function SiteFooter({
         <div className="mt-1 hidden lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start lg:gap-x-6 lg:gap-y-2.5 lg:text-left">
           <p className={`${footerTrustLineClass} col-span-2`}>
             <Heart className="h-[0.95em] w-[0.95em] shrink-0 fill-current stroke-none" aria-hidden="true" />
-            <span>Built by an independent team devoted to user agency.</span>
+            <span>Done by an independent team devoted to user agency.</span>
           </p>
 
           <div className="flex flex-col items-start gap-2.5">
