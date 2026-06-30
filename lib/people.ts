@@ -103,6 +103,11 @@ export const people = {
       name: "Nick Perez @nickthesick.com",
       links: ["https://nickthesick.com/blog/Home", "https://github.com/nperez0111", "https://bsky.app/profile/nickthesick.com"],
     },
+    {
+      id: "steve-manuel",
+      name: "Steve Manuel @nilslice",
+      links: ["https://github.com/nilslice", "https://x.com/nilslice"],
+    },
     { id: "anonymous-sponsor-1", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor-2", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor-3", name: "Anonymous sponsor", links: [], anonymous: true },
