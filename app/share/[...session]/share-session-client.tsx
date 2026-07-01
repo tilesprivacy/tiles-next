@@ -2,6 +2,7 @@
 
 import {
   AlertCircle,
+  Box,
   Brain,
   Check,
   ChevronDown,
@@ -234,6 +235,42 @@ function MarkdownMessage({ content }: { content: string }) {
     >
       {normalizedContent}
     </Streamdown>
+  )
+}
+
+function formatSkillCallName(name: string): string {
+  return name
+    .split(/[-_\s]+/g)
+    .filter(Boolean)
+    .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
+    .join(" ")
+}
+
+function DirectSkillCallMessage({
+  message,
+}: {
+  message: SharedSessionMessage
+}) {
+  if (!message.skillCall) {
+    return null
+  }
+
+  const params = message.skillCall.params || message.content
+
+  return (
+    <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1.5 text-[0.95rem] leading-7">
+      <span className="inline-flex min-w-0 items-center gap-2 font-medium text-[#2f80df] dark:text-[#72a8ff]">
+        <Box className="h-4 w-4 shrink-0" aria-hidden />
+        <span className="truncate">
+          {formatSkillCallName(message.skillCall.name)}
+        </span>
+      </span>
+      {params ? (
+        <span className="min-w-0 break-words text-[#2b2c31] dark:text-[#EDEDEF]">
+          {params}
+        </span>
+      ) : null}
+    </div>
   )
 }
 
@@ -600,6 +637,10 @@ function ReasoningDisclosure({ content }: { content: string }) {
 }
 
 function ChatMessageContent({ message }: { message: SharedSessionMessage }) {
+  if (message.role === "user" && message.skillCall) {
+    return <DirectSkillCallMessage message={message} />
+  }
+
   const { reasoning, answer } =
     message.role === "assistant"
       ? splitReasoningContent(message.content)

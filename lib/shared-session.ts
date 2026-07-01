@@ -2,9 +2,15 @@ import { AtpAgent } from "@atproto/api"
 import sodium from "libsodium-wrappers"
 export type SharedSessionMessageRole = "user" | "assistant"
 
+export interface SharedSessionSkillCall {
+  name: string
+  params: string
+}
+
 export interface SharedSessionMessage {
   role: SharedSessionMessageRole
   content: string
+  skillCall?: SharedSessionSkillCall
 }
 
 export interface SharedSession {
@@ -128,10 +134,63 @@ function noStoreFetch(
   })
 }
 
+function decodeXmlAttribute(value: string): string {
+  return value
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+}
+
+function parseDirectSkillCall(content: string): SharedSessionSkillCall | null {
+  const skillTagMatch = content.match(
+    /^\s*<skill\b([^>]*)>[\s\S]*?<\/skill>\s*/i,
+  )
+
+  if (!skillTagMatch) {
+    return null
+  }
+
+  const nameMatch = skillTagMatch[1].match(/\sname=(["'])(.*?)\1/i)
+  const name = nameMatch?.[2] ? decodeXmlAttribute(nameMatch[2]).trim() : ""
+
+  if (!name) {
+    return null
+  }
+
+  return {
+    name,
+    params: content.slice(skillTagMatch[0].length).trim(),
+  }
+}
+
+function normalizeMessage(
+  role: SharedSessionMessageRole,
+  content: string,
+  shouldParseDirectSkillCall: boolean,
+): SharedSessionMessage {
+  const directSkillCall = shouldParseDirectSkillCall
+    ? parseDirectSkillCall(content)
+    : null
+
+  if (!directSkillCall) {
+    return { role, content }
+  }
+
+  return {
+    role,
+    content: directSkillCall.params,
+    skillCall: directSkillCall,
+  }
+}
+
 function normalizeMessages(contents: unknown): SharedSessionMessage[] {
   if (!Array.isArray(contents)) {
     return []
   }
+
+  let hasSeenUserMessage = false
 
   return contents.flatMap((entry): SharedSessionMessage[] => {
     if (!entry || typeof entry !== "object") {
@@ -143,7 +202,17 @@ function normalizeMessages(contents: unknown): SharedSessionMessage[] {
     const content = readString(record.content)
 
     if ((role === "user" || role === "assistant") && content) {
-      return [{ role, content }]
+      const message = normalizeMessage(
+        role,
+        content,
+        role === "user" && !hasSeenUserMessage,
+      )
+
+      if (role === "user") {
+        hasSeenUserMessage = true
+      }
+
+      return [message]
     }
 
     const userContent = readString(record.user)
@@ -151,11 +220,12 @@ function normalizeMessages(contents: unknown): SharedSessionMessage[] {
     const messages: SharedSessionMessage[] = []
 
     if (userContent) {
-      messages.push({ role: "user", content: userContent })
+      messages.push(normalizeMessage("user", userContent, !hasSeenUserMessage))
+      hasSeenUserMessage = true
     }
 
     if (assistantContent) {
-      messages.push({ role: "assistant", content: assistantContent })
+      messages.push(normalizeMessage("assistant", assistantContent, false))
     }
 
     return messages
