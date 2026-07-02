@@ -128,7 +128,7 @@ export async function GET(request: Request) {
     'Documentation: install Tiles, read the manual, check Tilekit docs, and get unstuck on setup.',
     'GitHub Issues: report reproducible bugs, request features, and track fixes in the open.',
     'Discord: fast async help from users and maintainers when you need a quick route forward.',
-    'Support FAQ: include Tiles version, operating system version, exact output, screenshots if useful, and the shortest reproduction steps for bug reports. Feature requests should include workflow context, current workaround, and the outcome you want. Releases has all versions and download links. Download has the latest version. Status has service availability.',
+    'Support FAQ: include Tiles version, operating system version, exact output, screenshots if useful, and the shortest reproduction steps for bug reports. Feature requests should include workflow context, current workaround, and the outcome you want. Discord is used because the team is doing what it can with what it has, meeting people on their level while building something better. Releases has all versions and download links. Download has the latest version. Status has service availability.',
   ])
 
   pushSection(lines, `Blog Index (${baseUrl}/blog)`, [

@@ -48,6 +48,11 @@ const faqs = [
       "Yes. Open a GitHub issue with your workflow context, current workaround, and the outcome you want. Concrete use cases help prioritize the work.",
   },
   {
+    question: "Why Discord?",
+    answer:
+      "We're doing what we can with what we have. Since we're not trying to become a tech circlejerk, we have to meet people on their level. So come on in and help us build something better!",
+  },
+  {
     question: "Where can I track released fixes?",
     answer:
       "Use the releases page for shipped updates and the issue thread for implementation progress before release.",
