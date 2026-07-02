@@ -127,6 +127,43 @@ export function getPersonById(id: string): PersonIdentity | null {
   return null
 }
 
+export type SponsorListEntry = PersonIdentity & {
+  /** When multiple anonymous sponsors are collapsed into one row. */
+  anonymousCount?: number
+}
+
+/** Collapse consecutive anonymous sponsors into a single display row. */
+export function prepareSponsorListDisplay(sponsors: PersonIdentity[]): SponsorListEntry[] {
+  const result: SponsorListEntry[] = []
+  let pendingAnonymous = 0
+  let pendingStartIndex = 0
+
+  const flushAnonymous = () => {
+    if (pendingAnonymous === 0) return
+    result.push({
+      id: `anonymous-sponsor-group-${pendingStartIndex}`,
+      name: pendingAnonymous === 1 ? "Anonymous sponsor" : `${pendingAnonymous} anonymous sponsors`,
+      links: [],
+      anonymous: true,
+      anonymousCount: pendingAnonymous,
+    })
+    pendingAnonymous = 0
+  }
+
+  for (const person of sponsors) {
+    if (person.anonymous) {
+      if (pendingAnonymous === 0) pendingStartIndex = result.length
+      pendingAnonymous += 1
+    } else {
+      flushAnonymous()
+      result.push(person)
+    }
+  }
+
+  flushAnonymous()
+  return result
+}
+
 /** Split trailing " @handle" from display names (e.g. blog bylines). */
 export function splitPersonDisplayName(fullName: string): {
   nameWithoutHandle: string
