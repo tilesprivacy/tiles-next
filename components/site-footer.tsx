@@ -91,6 +91,12 @@ export function SiteFooter({
                 Tiles Privacy
               </a>
             </p>
+            <p className={`text-xs leading-5 ${licenseTextColor}`}>
+              An AI-readable version of this website is available in{' '}
+              <Link href="/llms.txt" className={copyrightLinkClass}>
+                llms.txt
+              </Link>
+            </p>
           </div>
 
           <div className="flex flex-col items-center gap-2.5">
@@ -152,6 +158,12 @@ export function SiteFooter({
               <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                 Tiles Privacy
               </a>
+            </p>
+            <p className={`max-w-xs text-xs leading-5 ${licenseTextColor}`}>
+              An AI-readable version of this website is available in{' '}
+              <Link href="/llms.txt" className={copyrightLinkClass}>
+                llms.txt
+              </Link>
             </p>
             <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
               <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />
