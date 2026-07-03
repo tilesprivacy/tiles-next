@@ -9,6 +9,7 @@ import {
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
+import { sponsorPageAdvisors, sponsorPageMaintainers } from "@/lib/sponsor-page-people"
 import { FaGithub } from "react-icons/fa6"
 
 interface SponsorContentProps {
@@ -55,11 +56,13 @@ function SponsorPerson({
 function InlinePerson({
   name,
   links,
+  showHandle = true,
 }: {
   name: string
   links: string[]
+  showHandle?: boolean
 }) {
-  const { handle } = splitPersonDisplayName(name)
+  const { nameWithoutHandle, handle } = splitPersonDisplayName(name)
   const primaryLink = links[0]
 
   return (
@@ -70,7 +73,10 @@ function InlinePerson({
       className="inline-flex items-center gap-1.5 whitespace-nowrap align-middle leading-[inherit] text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
     >
       <PersonAvatar name={name} links={links} variant="inline" className="inline-flex shrink-0" />
-      <span className="font-medium leading-[inherit]">{handle ?? name}</span>
+      <span className="font-medium leading-[inherit]">
+        {nameWithoutHandle}
+        {showHandle && handle ? <span className="text-black/55 dark:text-white/55"> {handle}</span> : null}
+      </span>
     </a>
   )
 }
@@ -205,19 +211,34 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.
                 </p>
                 <p>
-                  The project is currently maintained by{" "}
-                  {people.contributorsCore.map((person, index) => (
+                  Tiles is maintained by{" "}
+                  {sponsorPageMaintainers.map((person, index) => (
                     <span key={person.id}>
                       {index > 0 ? (
-                        index === people.contributorsCore.length - 1 ? (
+                        index === sponsorPageMaintainers.length - 1 ? (
                           <span className="align-middle leading-[inherit]">
-                            {people.contributorsCore.length > 2 ? ", and " : " and "}
+                            {sponsorPageMaintainers.length > 2 ? ", and " : " and "}
                           </span>
                         ) : (
                           ", "
                         )
                       ) : null}
-                      <InlinePerson name={person.name} links={person.links} />
+                      <InlinePerson name={person.name} links={person.links} showHandle={false} />
+                    </span>
+                  ))}
+                  . The project is advised by{" "}
+                  {sponsorPageAdvisors.map((person, index) => (
+                    <span key={person.id}>
+                      {index > 0 ? (
+                        index === sponsorPageAdvisors.length - 1 ? (
+                          <span className="align-middle leading-[inherit]">
+                            {sponsorPageAdvisors.length > 2 ? ", and " : " and "}
+                          </span>
+                        ) : (
+                          ", "
+                        )
+                      ) : null}
+                      <InlinePerson name={person.name} links={person.links} showHandle={false} />
                     </span>
                   ))}
                   .

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { blogPosts } from '@/lib/blog-posts'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getTilesPlugins } from '@/lib/plugins'
+import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
 import fs from 'fs'
 import path from 'path'
 
@@ -81,6 +82,13 @@ export async function GET(request: Request) {
     `- Releases: ${baseUrl}/releases`,
     `- Support: ${baseUrl}/support`,
     `- Sponsor: ${baseUrl}/sponsor`,
+  ])
+
+  addSection(lines, 'Sponsor', [
+    `- Sponsor page: ${baseUrl}/sponsor`,
+    '- Support Tiles Privacy and help fund private, local-first AI.',
+    `- ${sponsorPageTeamSentence}`,
+    '- GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
   ])
 
   addSection(

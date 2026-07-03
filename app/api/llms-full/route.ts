@@ -4,6 +4,7 @@ import { getLatestDownloadArtifact } from '@/lib/download-artifact'
 import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
+import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
 import fs from 'fs'
 import path from 'path'
 
@@ -129,6 +130,15 @@ export async function GET(request: Request) {
     'GitHub Issues: report reproducible bugs, request features, and track fixes in the open.',
     'Discord: fast async help from users and maintainers when you need a quick route forward.',
     'Support FAQ: include Tiles version, operating system version, exact output, screenshots if useful, and the shortest reproduction steps for bug reports. Feature requests should include workflow context, current workaround, and the outcome you want. Discord is used because the team is doing what it can with what it has, meeting people on their level while building something better. Releases has all versions and download links. Download has the latest version. Status has service availability.',
+  ])
+
+  pushSection(lines, `Sponsor (${baseUrl}/sponsor)`, [
+    'Help keep Tiles Privacy independent.',
+    "Tiles Privacy is a small independent team working to bring privacy technology to everyone, starting with Tiles, a local-first private AI assistant.",
+    "Sponsorship helps accelerate Tiles' development and lets maintainers work on the project sustainably.",
+    'Tiles Privacy is open to consulting engagements focused on privacy-preserving products, especially those built with decentralized technologies such as Iroh, DIDs/UCANs, AT Protocol, and local AI models.',
+    sponsorPageTeamSentence,
+    'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
   ])
 
   pushSection(lines, `Blog Index (${baseUrl}/blog)`, [

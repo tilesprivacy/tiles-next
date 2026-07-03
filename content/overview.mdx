@@ -4,6 +4,7 @@ description: "Tiles, our consumer product, and Tilekit, the SDK for developers."
 ---
 
 import Link from "next/link"
+import NextImage from "next/image"
 import { Check, CircleDashed } from "lucide-react"
 import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { ClickableImage as Image } from "@/components/clickable-image"
@@ -608,11 +609,28 @@ Tiles is built around a narrow bet: one well-integrated model at a time, startin
 
 ## Product walkthrough
 
+### Technical Architecture
+
+<div className="not-prose my-5">
+  <NextImage
+    src="/architecture.png"
+    alt="Technical architecture diagram for Tiles"
+    width={2530}
+    height={1650}
+    className="w-full"
+    style={{
+      width: '100%',
+      height: 'auto'
+    }}
+  />
+  <div className="mt-3 w-full text-center text-sm italic leading-snug text-black/55 dark:text-[#A3A3A3]">Technical architecture of Tiles.</div>
+</div>
+
 ### Talks
 
 Conference recordings that introduce Tiles and the local-first direction behind it.
 
-<figure className="not-prose my-5 overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
+<div className="not-prose my-5">
   <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
     <iframe
       src="https://www.youtube.com/embed/Js1BxRAaPGc?start=17003"
@@ -622,12 +640,10 @@ Conference recordings that introduce Tiles and the local-first direction behind 
       allowFullScreen
     />
   </div>
-  <figcaption className="mt-3 w-full text-center text-sm italic leading-snug text-black/55 dark:text-[#A3A3A3]">
-    PuneFOSS 4.0 Conference, Pune, India
-  </figcaption>
-</figure>
+  <div className="mt-3 w-full text-center text-sm italic leading-snug text-black/55 dark:text-[#A3A3A3]">PuneFOSS 4.0 Conference, Pune, India</div>
+</div>
 
-<figure className="not-prose my-5 overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
+<div className="not-prose my-5">
   <div className="relative w-full" style={{ paddingTop: "56.25%" }}>
     <iframe
       src="https://www.youtube.com/embed/UmJuJlWMn0k"
@@ -637,10 +653,8 @@ Conference recordings that introduce Tiles and the local-first direction behind 
       allowFullScreen
     />
   </div>
-  <figcaption className="mt-3 w-full text-center text-sm italic leading-snug text-black/55 dark:text-[#A3A3A3]">
-    MLX India Community Meetup 2, Mumbai, India
-  </figcaption>
-</figure>
+  <div className="mt-3 w-full text-center text-sm italic leading-snug text-black/55 dark:text-[#A3A3A3]">MLX India Community Meetup 2, Mumbai, India</div>
+</div>
 
 ### CLI
 
@@ -678,7 +692,7 @@ Conference recordings that introduce Tiles and the local-first direction behind 
 
 ### Shared Links
 
-View this public shared chat example at [tiles.run/share/YXQ6Ly9k...ZTJr](https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr). Tiles supports public and private shared chat links. Public links resolve to a chat record on the user's ATProto personal data server (PDS). Private links store an encrypted transcript on the user's PDS; the decryption key is appended to the share URL and is not sent to the server. In both cases, Tiles does not store a copy of the shared conversation on our servers.
+View this public shared chat example at [tiles.run/share/YXQ6Ly9k...ZTJr](https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr), or this private shared chat example at [tiles.run/share/YXQ6Ly9k...DTBVLJ](https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbXBvcWd0d3p5ZzJ6#kUU4azu7HkPh7eqq5TQ8/YnAKHsBLIri.9wFnPDTBVLJDrOOkhidewMzYzZS8QAPkeQW7ozlYGVU=). Tiles supports public and private shared chat links. Public links resolve to a chat record on the user's ATProto personal data server (PDS). Private links store an encrypted transcript on the user's PDS; the decryption key is appended to the share URL and is not sent to the server. In both cases, Tiles does not store a copy of the shared conversation on our servers.
 
 <figure style={{ margin: '1.25rem 0 0 0' }}>
   <Image
