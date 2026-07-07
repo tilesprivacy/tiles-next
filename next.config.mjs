@@ -34,7 +34,7 @@ const brandingCacheControlHeaders = [
   },
 ]
 
-const SHARE_APP_ORIGIN = process.env.NEXT_PUBLIC_SHARE_APP_ORIGIN ?? 'https://chat.tiles.run'
+const SHARE_APP_ORIGIN = process.env.NEXT_PUBLIC_SHARE_APP_ORIGIN ?? 'https://share.tiles.run'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
