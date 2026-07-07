@@ -138,7 +138,7 @@ const featureCards = [
       "Writing chat session to ATProto PDS",
     ],
     shareLink:
-      "/share/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr",
+      "https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr",
     showYoutubeUrl: false,
   },
 ] as const
@@ -411,8 +411,8 @@ export function HomeContent() {
                           rel="noopener noreferrer"
                           className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
                         >
-                          <span className="sm:hidden">tiles.run/share/…ZTJr</span>
-                          <span className="hidden sm:inline">tiles.run/share/YXQ6…ZTJr</span>
+                          <span className="sm:hidden">chat.tiles.run/…ZTJr</span>
+                          <span className="hidden sm:inline">chat.tiles.run/YXQ6…ZTJr</span>
                         </a>{" "}
                         copied to clipboard
                       </p>

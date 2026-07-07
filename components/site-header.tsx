@@ -17,7 +17,6 @@ interface SiteHeaderProps {
 
 const SiteHeaderChrome = memo(function SiteHeaderChrome({
   themeAware,
-  isSharePage,
   isBannerVisible,
   isMobileMenuOpen,
   onDismissBanner,
@@ -28,7 +27,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   showMobileDownloadCta,
 }: {
   themeAware: boolean
-  isSharePage: boolean
   isBannerVisible: boolean
   isMobileMenuOpen: boolean
   onDismissBanner: () => void
@@ -39,27 +37,19 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   showMobileDownloadCta: boolean
 }) {
   const isHomePage = pathname === "/"
-  const headerChrome = isSharePage
-    ? "bg-[#1f1f1f] border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-    : themeAware
-      ? "bg-background text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-      : "bg-white text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
-  const textColor = isSharePage ? "text-[#EDEDEF]" : themeAware ? "text-foreground" : "text-black"
-  const desktopLinkTone = isSharePage
-    ? "text-[#EDEDEF]/82"
-    : themeAware
-      ? "text-foreground/68"
-      : "text-black/68"
-  const textColorHover = isSharePage
-    ? "hover:text-[#EDEDEF]"
-    : themeAware
-      ? "hover:text-foreground"
-      : "hover:text-black"
-  const activeLinkClass = isSharePage
-    ? "!text-[#EDEDEF]"
-    : themeAware
-      ? "!text-foreground"
-      : "!text-black"
+  const headerChrome = themeAware
+    ? "bg-background text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+    : "bg-white text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
+  const textColor = themeAware ? "text-foreground" : "text-black"
+  const desktopLinkTone = themeAware
+    ? "text-foreground/68"
+    : "text-black/68"
+  const textColorHover = themeAware
+    ? "hover:text-foreground"
+    : "hover:text-black"
+  const activeLinkClass = themeAware
+    ? "!text-foreground"
+    : "!text-black"
   const navItemHeightClass = "h-8"
   const navTextMetricsClass = "text-[0.94rem] font-normal leading-5 tracking-[-0.006em]"
   const baseLinkClass = `inline-flex ${navItemHeightClass} shrink-0 items-center px-0.5 ${navTextMetricsClass} ${desktopLinkTone} transition-colors duration-200 ${textColorHover}`
@@ -68,7 +58,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     : "top-0"
   const mobileLogoClass = "h-10 w-10"
   const mobileIconButtonClass = `inline-flex h-11 w-11 shrink-0 touch-manipulation items-center justify-center border-0 bg-transparent p-0 transition-opacity duration-200 hover:opacity-75 focus-visible:ring-0 active:opacity-60 ${textColor}`
-  const mobileMenuGlyphColorClass = isSharePage ? "bg-[#EDEDEF]" : themeAware ? "bg-foreground" : "bg-black"
+  const mobileMenuGlyphColorClass = themeAware ? "bg-foreground" : "bg-black"
   const mobileMenuLinkClass = `inline-flex min-h-11 items-center text-[1.7rem] font-normal leading-[1.2] tracking-[-0.015em] ${textColor} transition-colors ${textColorHover}`
   const brandLinkClass = "flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-75"
   const mobileInlinePaddingClass =
@@ -146,8 +136,6 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   ) : (
                     <Image src="/grey.png" alt="" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} aria-hidden />
                   )
-                ) : isSharePage ? (
-                  <Image src="/grey.png" alt="" width={56} height={56} className="h-7 w-7 sm:h-8 sm:w-8 lg:h-9 lg:w-9" aria-hidden />
                 ) : themeAware ? (
                   <>
                     <Image src="/lighticon.png" alt="" width={56} height={56} className={`${mobileLogoClass} dark:hidden lg:h-9 lg:w-9`} aria-hidden />
@@ -288,7 +276,6 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   const [isBannerVisible, setIsBannerVisible] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const isSharePage = pathname?.startsWith("/share") ?? false
   const showMobileDownloadCta = true
 
   useEffect(() => {
@@ -384,15 +371,10 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
     return () => window.removeEventListener("keydown", handleEscape)
   }, [])
 
-  if (isSharePage) {
-    return null
-  }
-
   return (
     <>
       <SiteHeaderChrome
         themeAware={themeAware}
-        isSharePage={isSharePage}
         isBannerVisible={isBannerVisible}
         isMobileMenuOpen={isMobileMenuOpen}
         onDismissBanner={handleDismissBanner}

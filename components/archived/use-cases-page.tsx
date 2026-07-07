@@ -4,7 +4,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { marketingPageLeadClass } from "@/lib/marketing-page-title-classes"
 
 const sharedScienceConversationPath =
-  "/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3"
+  "https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbWtuMm9veG5xeTI3"
 
 export const useCasesPageMetadata: Metadata = {
   title: "Use Cases | Tiles",

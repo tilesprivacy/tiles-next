@@ -34,8 +34,6 @@ const brandingCacheControlHeaders = [
   },
 ]
 
-const SHARE_APP_ORIGIN = process.env.NEXT_PUBLIC_SHARE_APP_ORIGIN ?? 'https://share.tiles.run'
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -75,21 +73,6 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: '/share',
-        destination: `${SHARE_APP_ORIGIN}/share/mock`,
-        permanent: false,
-      },
-      {
-        source: '/share/:path*',
-        destination: `${SHARE_APP_ORIGIN}/:path*`,
-        permanent: false,
-      },
-      {
-        source: '/api/share/:path*',
-        destination: `${SHARE_APP_ORIGIN}/api/share/:path*`,
-        permanent: false,
-      },
       {
         source: '/book/modelfile',
         destination: '/book/tilekit#modelfile',
