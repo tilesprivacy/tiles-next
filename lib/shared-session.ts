@@ -11,6 +11,7 @@ export interface SharedSessionMessage {
   role: SharedSessionMessageRole
   content: string
   skillCall?: SharedSessionSkillCall
+  model?: string
 }
 
 export interface SharedSession {
@@ -44,6 +45,12 @@ interface AtUriParts {
 const DEFAULT_ATPROTO_SERVICE = "https://public.api.bsky.app"
 const PLC_DIRECTORY_URL = "https://plc.directory"
 const TILES_SESSION_COLLECTION = "run.tiles.session"
+const TILES_CHAT_SESSION_SNAPSHOT_COLLECTION =
+  "run.tiles.chat.sessionSnapshot"
+const TILES_SHARED_SESSION_COLLECTIONS = new Set([
+  TILES_SESSION_COLLECTION,
+  TILES_CHAT_SESSION_SNAPSHOT_COLLECTION,
+])
 const DEFAULT_TILES_SESSION_REPO =
   process.env.TILES_DEFAULT_SHARE_REPO ?? "did:plc:mbk6wgmxiatotzy5b3q57naw"
 
@@ -52,10 +59,10 @@ export function createSharedSessionPathFromUri(uri: string): string {
 
   if (
     repo !== DEFAULT_TILES_SESSION_REPO ||
-    collection !== TILES_SESSION_COLLECTION
+    !TILES_SHARED_SESSION_COLLECTIONS.has(collection)
   ) {
     throw new Error(
-      "Short share URLs only support the configured Tiles session repo.",
+      "Short share URLs only support configured Tiles shared session records.",
     )
   }
 
@@ -78,7 +85,10 @@ export function resolveSharedSessionUri(shareToken: string): string {
     normalizedToken.length + ((4 - (normalizedToken.length % 4)) % 4),
     "=",
   )
-  const decodedUri = Buffer.from(paddedToken, "base64").toString("utf8")
+  const decodedText = Buffer.from(paddedToken, "base64").toString("utf8").trim()
+  const decodedUri = decodedText.startsWith("at://")
+    ? decodedText
+    : `at://${decodedText.replace(/^\/+/, "")}`
 
   if (!decodedUri.startsWith("at://")) {
     throw new Error("Shared session token must be a base64 AT URI.")
@@ -86,8 +96,8 @@ export function resolveSharedSessionUri(shareToken: string): string {
 
   const { collection } = parseAtUri(decodedUri)
 
-  if (collection !== TILES_SESSION_COLLECTION) {
-    throw new Error("Shared session URI is not a Tiles session record.")
+  if (!TILES_SHARED_SESSION_COLLECTIONS.has(collection)) {
+    throw new Error("Shared session URI is not a Tiles shared session record.")
   }
 
   return decodedUri
@@ -230,6 +240,259 @@ function normalizeMessages(contents: unknown): SharedSessionMessage[] {
 
     return messages
   })
+}
+
+function readObject(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as Record<string, unknown>)
+    : null
+}
+
+function stripEmbeddedAnswerFromThinking(value: string): string {
+  return value
+    .replace(/^\s*\*\*\[Reasoning\]\*\*\s*/i, "")
+    .split(/\n---+\s*\n+(?:\*\*)?\[Answer\](?:\*\*)?/i)[0]
+    .split(/\n+(?:\*\*)?\[Answer\](?:\*\*)?/i)[0]
+    .trim()
+}
+
+function stripAnswerLabel(value: string): string {
+  return value
+    .replace(/^\s*---+\s*\n+(?:\*\*)?\[Answer\](?:\*\*)?\s*\n*/i, "")
+    .replace(/^\s*(?:\*\*)?\[Answer\](?:\*\*)?\s*\n*/i, "")
+    .trim()
+}
+
+function formatSessionSnapshotToolCall(
+  record: Record<string, unknown>,
+): string {
+  const name = readString(record.name) ?? "Tool call"
+  const rawArguments = readString(record.arguments)
+  let parsedArguments: unknown = rawArguments
+
+  if (rawArguments) {
+    try {
+      parsedArguments = JSON.parse(rawArguments) as unknown
+    } catch {
+      parsedArguments = rawArguments
+    }
+  }
+
+  return `**[ToolCall]**\n${JSON.stringify(
+    {
+      tool: name,
+      arguments: parsedArguments,
+    },
+    null,
+    2,
+  )}`
+}
+
+function readSessionSnapshotMessageContent(
+  role: string | null,
+  content: unknown,
+): string {
+  if (!Array.isArray(content)) {
+    const text = readString(content)
+    return text ? stripAnswerLabel(text) : ""
+  }
+
+  const reasoningItems: string[] = []
+  const visibleItems: string[] = []
+
+  content.forEach((item) => {
+    const record = readObject(item)
+
+    if (!record) {
+      return
+    }
+
+    const type = readString(record.type)
+    const text = readString(record.text)
+    const thinking = readString(record.thinking)
+
+    if (type === "toolCall") {
+      reasoningItems.push(formatSessionSnapshotToolCall(record))
+      return
+    }
+
+    if (type === "thinking" && thinking) {
+      const reasoning = stripEmbeddedAnswerFromThinking(thinking)
+
+      if (reasoning) {
+        reasoningItems.push(`**[Reasoning]**\n\n${reasoning}`)
+      }
+
+      return
+    }
+
+    if (text) {
+      const visibleText = stripAnswerLabel(text)
+
+      if (visibleText) {
+        visibleItems.push(visibleText)
+      }
+
+      return
+    }
+
+    if (thinking) {
+      const reasoning = stripEmbeddedAnswerFromThinking(thinking)
+
+      if (reasoning) {
+        reasoningItems.push(`**[Reasoning]**\n\n${reasoning}`)
+      }
+    }
+  })
+
+  const reasoningContent = reasoningItems.join("\n\n").trim()
+  const visibleContent = visibleItems.join("\n\n").trim()
+
+  if (role === "assistant" && reasoningContent && visibleContent) {
+    return `${reasoningContent}\n\n**[Answer]**\n\n${visibleContent}`
+  }
+
+  return [reasoningContent, visibleContent].filter(Boolean).join("\n\n")
+}
+
+function appendSnapshotMessage(
+  messages: SharedSessionMessage[],
+  message: SharedSessionMessage,
+): void {
+  const previous = messages[messages.length - 1]
+
+  if (previous?.role === "assistant" && message.role === "assistant") {
+    previous.content = [previous.content, message.content]
+      .map((entry) => entry.trim())
+      .filter(Boolean)
+      .join("\n\n")
+    previous.model = previous.model ?? message.model
+    return
+  }
+
+  messages.push(message)
+}
+
+function normalizeSessionSnapshotMessages(
+  turns: unknown,
+): SharedSessionMessage[] {
+  if (!Array.isArray(turns)) {
+    return []
+  }
+
+  let hasSeenUserMessage = false
+
+  const messages: SharedSessionMessage[] = []
+
+  turns.forEach((turn) => {
+    const turnRecord = readObject(turn)
+    const rawMessages = turnRecord?.messages
+    const model = readString(turnRecord?.model) ?? undefined
+
+    if (!Array.isArray(rawMessages)) {
+      return
+    }
+
+    rawMessages.forEach((message) => {
+      const messageRecord = readObject(message)
+
+      if (!messageRecord) {
+        return
+      }
+
+      const rawRole = readString(messageRecord.role)
+      const content = readSessionSnapshotMessageContent(
+        rawRole,
+        messageRecord.content,
+      ).trim()
+
+      if (!content) {
+        return
+      }
+
+      if (rawRole === "user") {
+        const normalized = normalizeMessage("user", content, !hasSeenUserMessage)
+        hasSeenUserMessage = true
+        messages.push(normalized)
+        return
+      }
+
+      if (rawRole === "assistant") {
+        appendSnapshotMessage(messages, {
+          ...normalizeMessage("assistant", content, false),
+          model,
+        })
+        return
+      }
+
+      if (rawRole === "toolResult") {
+        const toolName = readString(messageRecord.toolName)
+        const toolResultContent = toolName
+          ? `Tool: ${toolName}\n\n${content}`
+          : content
+
+        appendSnapshotMessage(messages, {
+          ...normalizeMessage(
+            "assistant",
+            `**[Reasoning]**\n\n**[ToolResult]**\n${toolResultContent}`,
+            false,
+          ),
+          model,
+        })
+        return
+      }
+    })
+  })
+
+  return messages
+}
+
+function normalizeSessionSnapshotModelsUsed(turns: unknown): string[] {
+  if (!Array.isArray(turns)) {
+    return []
+  }
+
+  return Array.from(
+    new Set(
+      turns.flatMap((turn) => {
+        const model = readString(readObject(turn)?.model)
+        return model ? [model] : []
+      }),
+    ),
+  )
+}
+
+function normalizeSharedSessionPayload(
+  payload: Record<string, unknown>,
+  options: {
+    isPrivateLink: boolean
+    sourceUri: string
+    sharedBy: SharedSession["sharedBy"]
+  },
+): SharedSession {
+  if (Array.isArray(payload.turns)) {
+    return {
+      sessionId: readString(payload.sessionId) ?? "shared-session",
+      name: readString(payload.name) ?? "Shared session",
+      isPrivateLink: options.isPrivateLink,
+      createdAt: readString(payload.createdAt),
+      sourceUri: options.sourceUri,
+      modelsUsed: normalizeSessionSnapshotModelsUsed(payload.turns),
+      sharedBy: options.sharedBy,
+      messages: normalizeSessionSnapshotMessages(payload.turns),
+    }
+  }
+
+  return {
+    sessionId: readString(payload.session_id) ?? "shared-session",
+    name: readString(payload.name) ?? "Shared session",
+    isPrivateLink: options.isPrivateLink,
+    createdAt: readString(payload.created_at),
+    sourceUri: options.sourceUri,
+    modelsUsed: normalizeModelsUsed(payload.models_used),
+    sharedBy: options.sharedBy,
+    messages: normalizeMessages(payload.contents),
+  }
 }
 
 async function getRecord(uri: string): Promise<Record<string, unknown>> {
@@ -383,27 +646,17 @@ export async function getSharedSession(
       )
       const text = new TextDecoder().decode(decrypted_data)
       const obj = JSON.parse(text)
-      return {
-        sessionId: readString(obj.session_id) ?? "shared-session",
-        name: readString(obj.name) ?? "Shared session",
+      return normalizeSharedSessionPayload(obj, {
         isPrivateLink,
-        createdAt: readString(obj.created_at),
         sourceUri: at_data.sourceUri,
-        modelsUsed: normalizeModelsUsed(obj.models_used),
         sharedBy: at_data.sharedBy,
-        messages: normalizeMessages(obj.contents),
-      }
+      })
     }
   }
 
-  return {
-    sessionId: readString(record.session_id) ?? "shared-session",
-    name: readString(record.name) ?? "Shared session",
+  return normalizeSharedSessionPayload(record, {
     isPrivateLink,
-    createdAt: readString(record.created_at),
     sourceUri: at_data.sourceUri,
-    modelsUsed: normalizeModelsUsed(record.models_used),
     sharedBy: at_data.sharedBy,
-    messages: normalizeMessages(record.contents),
-  }
+  })
 }

@@ -160,7 +160,18 @@ function buildMarkdownTranscript(
 
   sharedSession.messages.forEach((message, index) => {
     const roleLabel = message.role === "assistant" ? "Assistant" : "User"
-    lines.push(`## ${index + 1}. ${roleLabel}`, "", message.content.trim(), "")
+    const modelLine =
+      message.role === "assistant" && message.model
+        ? [`_Model: ${message.model}_`, ""]
+        : []
+
+    lines.push(
+      `## ${index + 1}. ${roleLabel}`,
+      "",
+      ...modelLine,
+      message.content.trim(),
+      "",
+    )
   })
 
   return `${lines.join("\n").trim()}\n`
@@ -290,10 +301,10 @@ function splitReasoningContent(content: string): {
 
   const contentAfterLabel = normalizedContent.slice(reasoningMatch[0].length)
   const answerDividerMatch = contentAfterLabel.match(
-    /\n---+\s*\n+\*\*\[Answer\]\*\*\s*\n*/,
+    /\n---+\s*\n+(?:\*\*)?\[Answer\](?:\*\*)?\s*\n*/,
   )
   const answerLabelMatch = contentAfterLabel.match(
-    /\n+\*\*\[Answer\]\*\*\s*\n*/,
+    /\n+(?:\*\*)?\[Answer\](?:\*\*)?\s*\n*/,
   )
   const splitMatch = answerDividerMatch ?? answerLabelMatch
 
@@ -547,6 +558,8 @@ function ToolCallCard({ content }: { content: string }) {
   const payload = parseToolPayload(content)
   const summary = getToolCallSummary(payload)
   const rawPayload = formatToolRows(payload) || content.trim()
+  const shouldShowRawPayload =
+    rawPayload.length > 0 && rawPayload.trim() !== summary.detail.trim()
 
   return (
     <div className="min-w-0 py-1 text-black/68 dark:text-white/68">
@@ -563,28 +576,106 @@ function ToolCallCard({ content }: { content: string }) {
               {summary.detail}
             </span>
           </div>
-          <div className="mt-1.5">
-            <div className="text-[0.72rem] font-medium leading-5 text-black/42 dark:text-white/42">
-              Raw metadata
+          {shouldShowRawPayload ? (
+            <div className="mt-1.5">
+              <div className="text-[0.72rem] font-medium leading-5 text-black/42 dark:text-white/42">
+                Invocation details
+              </div>
+              <ToolInvocationDetails payload={payload} rawPayload={rawPayload} />
             </div>
-            <pre className="mt-1.5 overflow-x-auto rounded-md bg-black/[0.035] p-2 font-mono text-[0.72rem] leading-5 text-black/58 dark:bg-white/[0.055] dark:text-white/58">
-              {rawPayload}
-            </pre>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>
   )
 }
 
-function ToolResultCard({ content }: { content: string }) {
+function ToolInvocationDetails({
+  payload,
+  rawPayload,
+}: {
+  payload: Record<string, unknown> | null
+  rawPayload: string
+}) {
+  const args = payload ? getToolArguments(payload) : null
+  const entries = args
+    ? Object.entries(args).filter(([key]) => key !== "tool")
+    : []
+
+  if (entries.length === 0) {
+    return (
+      <pre className="mt-1.5 max-w-full overflow-x-auto whitespace-pre-wrap break-words rounded-md bg-black/[0.035] p-2.5 font-mono text-[0.72rem] leading-5 text-black/58 dark:bg-white/[0.055] dark:text-white/58">
+        {rawPayload}
+      </pre>
+    )
+  }
+
   return (
-    <div className="min-w-0 py-1 pl-0 text-black/68 dark:text-white/68">
-      <div className="mb-1 flex items-center gap-2 text-[0.82rem] font-medium leading-6 text-black/58 dark:text-white/62">
-        <Check className="h-3.5 w-3.5" aria-hidden />
-        <span>Tool result</span>
+    <div className="mt-1.5 grid max-w-full gap-2 rounded-md bg-black/[0.035] p-2.5 text-[0.76rem] leading-5 text-black/62 dark:bg-white/[0.055] dark:text-white/62">
+      {entries.map(([key, value]) => (
+        <div
+          key={key}
+          className="grid min-w-0 gap-1 sm:grid-cols-[5.5rem_minmax(0,1fr)] sm:gap-3"
+        >
+          <div className="font-mono text-black/42 dark:text-white/42">
+            {key}
+          </div>
+          <pre className="min-w-0 whitespace-pre-wrap break-words font-mono text-black/68 dark:text-white/68">
+            {formatToolValue(value)}
+          </pre>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function parseToolResultContent(content: string): {
+  toolName: string | null
+  output: string
+} {
+  const normalizedContent = content.replace(/\r\n?/g, "\n").trim()
+  const toolMatch = normalizedContent.match(/^Tool:\s*(.+?)\s*(?:\n|$)/)
+
+  if (!toolMatch) {
+    return {
+      toolName: null,
+      output: normalizedContent,
+    }
+  }
+
+  return {
+    toolName: toolMatch[1].trim(),
+    output: normalizedContent.slice(toolMatch[0].length).trim(),
+  }
+}
+
+function ToolResultCard({ content }: { content: string }) {
+  const { toolName, output } = parseToolResultContent(content)
+  const normalizedToolName = toolName?.toLowerCase()
+  const icon =
+    normalizedToolName === "bash" || normalizedToolName === "shell"
+      ? "terminal"
+      : "tool"
+
+  return (
+    <div className="min-w-0 py-1 text-black/68 dark:text-white/68">
+      <div className="mb-1 flex min-w-0 items-center gap-2 text-[0.82rem] leading-6 text-black/58 dark:text-white/62">
+        <span className="inline-flex h-5 w-5 shrink-0 items-center justify-center text-black/48 dark:text-white/48">
+          <ToolIcon icon={icon} />
+        </span>
+        <span className="font-medium">Tool result</span>
+        {toolName ? (
+          <span className="font-mono text-[0.76rem] text-black/48 dark:text-white/48">
+            {toolName}
+          </span>
+        ) : null}
+        <Check className="h-3.5 w-3.5 shrink-0 text-black/40 dark:text-white/42" aria-hidden />
       </div>
-      <MarkdownMessage content={content} />
+      {output ? (
+        <div className="pl-7">
+          <MarkdownMessage content={output} />
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -1207,7 +1298,9 @@ export function ShareSessionClient({
                   <MessageBubble
                     key={`${message.role}-${index}`}
                     message={message}
-                    modelLabel={sharedSession.modelsUsed[0] ?? null}
+                    modelLabel={
+                      message.model ?? sharedSession.modelsUsed[0] ?? null
+                    }
                   />
                 ))}
               </div>
@@ -1223,13 +1316,15 @@ export function ShareSessionClient({
                     servers.
                   </span>
                   <span className="mt-1 block">
-                    For private links, the key material isn&apos;t sent to the
-                    server. Instead, it is appended to the URL and used to
-                    decrypt the chat transcript stored on the personal data
-                    server (PDS).
+                    For private links, the key stays in the URL and is never
+                    sent to the server. It&apos;s used to decrypt the chat
+                    transcript stored on the user&apos;s PDS.
                   </span>
                   <span className="mt-1 block">
-                    <span>Data is fetched from the user&apos;s PDS </span>
+                    <span>
+                      Data is fetched from the user&apos;s PDS as a Tiles
+                      lexicon record&nbsp;
+                    </span>
                     {atprotoUriUrl ? (
                       <a
                         href={atprotoUriUrl}
