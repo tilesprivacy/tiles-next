@@ -90,6 +90,7 @@ export function SiteFooter({
               <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                 Tiles Privacy
               </a>
+              . All rights reserved.
             </p>
             <p className={`text-xs leading-5 ${licenseTextColor}`}>
               An AI-readable version of this website is available in{' '}
@@ -158,6 +159,7 @@ export function SiteFooter({
               <a href="https://www.tilesprivacy.org" target="_blank" rel="noopener noreferrer" className={copyrightLinkClass}>
                 Tiles Privacy
               </a>
+              . All rights reserved.
             </p>
             <p className={`max-w-xs text-xs leading-5 ${licenseTextColor}`}>
               An AI-readable version of this website is available in{' '}
