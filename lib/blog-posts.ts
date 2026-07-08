@@ -1,5 +1,6 @@
 import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content"
 import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content"
+import { ownYourAiBlogContent } from "@/lib/own-your-ai-talk"
 
 export interface BlogPost {
   slug: string
@@ -10,12 +11,51 @@ export interface BlogPost {
   author?: string
   coverImage?: string
   coverImageDark?: string
+  listingImage?: string
+  listingImageDark?: string
   coverAlt?: string
   standardSiteDocumentUri?: string
   content: string // Full HTML content for RSS feed
+  /** Draft posts stay in the codebase but are only shown in development. */
+  draft?: boolean
+}
+
+/** Draft posts are only surfaceable while running the local/dev server. */
+export function isBlogDraftEnvironment(): boolean {
+  return process.env.NODE_ENV === "development"
+}
+
+export function isBlogPostVisible(post: BlogPost): boolean {
+  return !post.draft || isBlogDraftEnvironment()
+}
+
+/** Posts included in listings, sitemap, RSS, and LLM indexes. */
+export function getPublishedBlogPosts(): BlogPost[] {
+  return blogPosts.filter((post) => !post.draft)
+}
+
+/** Posts visible in the current environment (includes drafts in development). */
+export function getVisibleBlogPosts(): BlogPost[] {
+  return blogPosts.filter(isBlogPostVisible)
+}
+
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find((post) => post.slug === slug)
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "own-your-ai",
+    title: "Own your AI with local models and open protocols",
+    description: "A Local-First Conf talk about local models, open protocols, and user-owned AI.",
+    date: new Date("2026-07-08"),
+    author: "ankesh-bharti",
+    coverImage: "/own-your-ai-cover.png",
+    listingImage: "/lofi-logo.png",
+    coverAlt: "Tiles: Own your AI with local models and open protocols",
+    content: ownYourAiBlogContent,
+    draft: true,
+  },
   {
     slug: "controlling-ctrl-c",
     title: "Controlling the Ctrl-C",

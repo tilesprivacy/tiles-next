@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { blogPosts } from '@/lib/blog-posts'
+import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { getPersonById } from '@/lib/people'
 
 export async function GET(request: Request) {
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
     <atom:link href="${baseUrl}/api/rss" rel="self" type="application/rss+xml"/>
     <managingEditor>hello@tiles.run (Tiles Privacy)</managingEditor>
     <webMaster>hello@tiles.run (Tiles Privacy)</webMaster>
-    ${blogPosts
+    ${getPublishedBlogPosts()
       .map(
         (post) => {
           const processedContent = processContent(post.content, post.slug)

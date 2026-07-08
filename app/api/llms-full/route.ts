@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { blogPosts } from '@/lib/blog-posts'
+import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
 import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
@@ -141,14 +141,16 @@ export async function GET(request: Request) {
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
   ])
 
+  const publishedPosts = getPublishedBlogPosts()
+
   pushSection(lines, `Blog Index (${baseUrl}/blog)`, [
     'The Tiles Blog',
     'Privacy technology for everyone.',
     'Posts here use the Standard.site lexicon for rich presentation in supported ATProto clients and are stored on a PDS hosted by Eurosky.',
-    `Published posts: ${blogPosts.length}`,
+    `Published posts: ${publishedPosts.length}`,
   ])
 
-  for (const post of blogPosts) {
+  for (const post of publishedPosts) {
     const postLines: string[] = []
     postLines.push(`Published: ${post.date.toISOString().slice(0, 10)}`)
 

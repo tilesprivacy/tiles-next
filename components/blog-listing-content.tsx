@@ -22,6 +22,8 @@ interface BlogPost {
   author?: string
   coverImage?: string
   coverImageDark?: string
+  listingImage?: string
+  listingImageDark?: string
   coverAlt?: string
 }
 
@@ -45,10 +47,12 @@ function formatDate(date: Date): string {
 }
 
 function getPostImage(post: BlogPost): { src: string; srcDark: string; alt: string } {
-  const src = post.coverImage || "/og-image.jpg"
+  const src = post.listingImage || post.coverImage || "/og-image.jpg"
   return {
     src,
-    srcDark: post.coverImageDark || src,
+    srcDark: post.listingImage
+      ? post.listingImageDark || post.listingImage
+      : post.coverImageDark || src,
     alt: post.coverAlt || post.title,
   }
 }

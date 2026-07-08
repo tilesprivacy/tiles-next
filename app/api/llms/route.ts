@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { blogPosts } from '@/lib/blog-posts'
+import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getTilesPlugins } from '@/lib/plugins'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
@@ -107,7 +107,7 @@ export async function GET(request: Request) {
 
   addSection(lines, 'Blog', [
     `- Blog index: ${baseUrl}/blog`,
-    ...blogPosts.map((post) => `- ${post.title}: ${baseUrl}/blog/${post.slug} - ${post.description}`),
+    ...getPublishedBlogPosts().map((post) => `- ${post.title}: ${baseUrl}/blog/${post.slug} - ${post.description}`),
   ])
 
   addSection(lines, 'Legal And Site Information', [

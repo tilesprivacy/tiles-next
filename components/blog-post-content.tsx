@@ -25,6 +25,8 @@ interface BlogPostContentProps {
   coverAlt?: string
   standardSiteDocumentUri?: string
   content: string
+  /** When false, hides the mobile and desktop table of contents. Defaults to true. */
+  showTableOfContents?: boolean
   children: ReactNode
 }
 
@@ -46,6 +48,7 @@ export function BlogPostContent({
   coverAlt, 
   standardSiteDocumentUri,
   content,
+  showTableOfContents = true,
   children 
 }: BlogPostContentProps) {
   const author = authorId ? getPersonById(authorId) : null
@@ -157,14 +160,18 @@ export function BlogPostContent({
             </div>
           ) : null}
 
-          <div className="blog-print-screen-only mb-8 lg:mb-16 xl:hidden">
-            <BlogTableOfContents mode="mobile" />
-          </div>
+          {showTableOfContents ? (
+            <div className="blog-print-screen-only mb-8 lg:mb-16 xl:hidden">
+              <BlogTableOfContents mode="mobile" />
+            </div>
+          ) : null}
           </div>
 
-          <aside className="blog-print-screen-only hidden xl:col-start-1 xl:row-start-2 xl:block xl:min-h-0 xl:self-stretch">
-            <BlogTableOfContents />
-          </aside>
+          {showTableOfContents ? (
+            <aside className="blog-print-screen-only hidden xl:col-start-1 xl:row-start-2 xl:block xl:min-h-0 xl:self-stretch">
+              <BlogTableOfContents />
+            </aside>
+          ) : null}
 
           <article className="blog-article-container relative mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-2 xl:mx-0 xl:max-w-none">
               {/* Container for side references on desktop */}

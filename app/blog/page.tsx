@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { blogPosts } from "@/lib/blog-posts"
+import { getVisibleBlogPosts } from "@/lib/blog-posts"
 import { BlogListingContent } from "@/components/blog-listing-content"
 import { getPersonById } from "@/lib/people"
 import { BLOG_LISTING_SOCIAL_IMAGE_URL } from "@/lib/standard-site"
@@ -36,8 +36,10 @@ export const metadata: Metadata = {
 }
 
 export default function BlogPage() {
+  const visiblePosts = getVisibleBlogPosts()
+
   // Serialize and sort posts (latest first) for the client component
-  const serializedPosts = [...blogPosts]
+  const serializedPosts = [...visiblePosts]
     .sort((a, b) => b.date.getTime() - a.date.getTime())
     .map(post => ({
       slug: post.slug,
@@ -47,6 +49,8 @@ export default function BlogPage() {
       author: post.author,
       coverImage: post.coverImage ?? "/og-image.jpg",
       coverImageDark: post.coverImageDark ?? post.coverImage ?? "/og-image.jpg",
+      listingImage: post.listingImage,
+      listingImageDark: post.listingImageDark,
       coverAlt: post.coverAlt ?? post.title,
     }))
 
@@ -70,7 +74,7 @@ export default function BlogPage() {
           },
           url: "https://www.tiles.run",
         },
-        blogPost: blogPosts.map(post => {
+        blogPost: visiblePosts.map(post => {
           const author = post.author ? getPersonById(post.author) : null
           return {
             "@type": "BlogPosting",

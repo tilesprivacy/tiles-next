@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { blogPosts } from "@/lib/blog-posts"
+import { getPublishedBlogPosts } from "@/lib/blog-posts"
 import { RESEARCH_LOG_ENTRIES } from "@/lib/research-log"
 
 const baseUrl = "https://www.tiles.run"
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "" ? 1 : 0.7,
   }))
 
-  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+  const blogRoutes: MetadataRoute.Sitemap = getPublishedBlogPosts().map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: post.date,
     changeFrequency: "monthly",
