@@ -72,7 +72,7 @@ const featureCards = [
     badge: "nightly",
     description: (
       <>
-        Securely share LLMs peer-to-peer between your devices, unexposed to the public Internet, powered by{" "}
+        Securely share LLMs peer-to-peer between any devices, unexposed to the public Internet, powered by{" "}
         <a
           href="https://www.iroh.computer/"
           target="_blank"
@@ -151,7 +151,7 @@ const featureCards = [
     heading: "Share chats with friends",
     description: (
       <>
-        Create a public or private link to a chat session, published through{" "}
+        Create a public or private link to a chat session, published as{" "}
         <a
           href="https://atproto.com"
           target="_blank"
@@ -159,7 +159,8 @@ const featureCards = [
           className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
         >
           ATProto
-        </a>
+        </a>{" "}
+        Lexicon records
         .
       </>
     ),
