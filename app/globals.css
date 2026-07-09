@@ -115,6 +115,18 @@
   background: rgb(255 255 255 / 0.06) !important;
 }
 
+.blog-article-content pre code {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  display: block;
+  padding: 0 !important;
+}
+
+.blog-article-content pre code * {
+  background: transparent !important;
+}
+
 .blog-article-content pre code.language-rust {
   display: block;
   border-radius: 0 !important;
