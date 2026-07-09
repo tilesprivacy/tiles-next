@@ -72,7 +72,7 @@ const featureCards = [
     badge: "nightly",
     description: (
       <>
-        Securely share LLMs peer-to-peer between any devices.
+        Securely run local models on a remote device, peer-to-peer, from any device.
       </>
     ),
     ctaLabel: "Use remote inference",
