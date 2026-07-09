@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
-import { OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
+import { NIGHTLY_INSTALL_COMMAND, NIGHTLY_INSTALL_VERSION, OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
@@ -92,6 +92,7 @@ export async function GET(request: Request) {
     TILES_PRODUCT_DESCRIPTION,
     'Hero subtext: For sensitive knowledge work, your AI shouldn’t require trusting a third party with your conversations and intellectual property. Run models locally, sync chats P2P, and share via ATProto while your data and identity stay private.',
     'Current status: CLI alpha.',
+    'Feature: Use local models on remote devices (nightly) with `tiles remote share`; keep the remote inference server running with `tiles server daemon true`, generate an Iroh ticket, then run `tiles --remote <ticket>` on the device intending to use remote inference.',
     'Why Tiles: sensitive knowledge work stays private on your machines, with secure collaboration built in; out-of-the-box on first open without API keys, model or harness selection, sync sessions and work across devices without leaking data to a cloud vendor, share chats publicly or privately without copy-pasting threads elsewhere, sovereignty over your online identity and data with DID and UCAN for local control and ATProto for social features, use models on remote machines as if they were local, Offline Installer bundles the model for air-gapped use.',
     'Platform support: Apple Silicon (M1+), Linux (NVIDIA).',
   ])
@@ -108,6 +109,9 @@ export async function GET(request: Request) {
     `Size: ${OFFLINE_INSTALLER.binarySizeLabel}`,
     `SHA256: ${OFFLINE_INSTALLER.sha256}`,
     `SHA256 file: ${offlineChecksumUrl}`,
+    '',
+    `Nightly installer for macOS and Linux: v${NIGHTLY_INSTALL_VERSION}`,
+    NIGHTLY_INSTALL_COMMAND,
   ])
 
   pushSection(lines, `Plugins (${baseUrl}/plugins)`, [

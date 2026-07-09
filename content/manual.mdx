@@ -9,7 +9,7 @@ import { ClickableImage as Image } from '@/components/clickable-image'
 
 ## Command Line Options
 
-Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts**, **Plugins**, **Sync**, and **System**.
+Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts**, **Sync**, **System**, and **Tools**.
 
 ## Getting Started
 
@@ -185,6 +185,36 @@ tiles sync <DID> # Start sync with a linked peer
 ```
 
 Run `tiles sync` on the receiving device. On the other device, run `tiles sync <DID>` (get the DID from `tiles link list-peers`). When a sync run finishes, both devices should show a notification.
+
+<div id="remote-inference-nightly-tiles-remote" />
+
+### Remote inference (`tiles remote`)
+
+<span className="inline-flex rounded-full border border-black/10 px-2 py-0.5 font-mono text-[0.68rem] uppercase text-black/45 dark:border-white/12 dark:text-white/45">
+  nightly
+</span>
+
+Share inference from one of your devices to another over Iroh. This is useful when a remote machine has the model or GPU you want, while your primary machine keeps the interactive Tiles session.
+
+```bash
+# Remote machine
+tiles server daemon true # Starts the background inference server
+tiles remote share       # Generates an Iroh ticket
+
+# Device using remote inference
+tiles --remote <ticket>  # Uses remote machine inference
+```
+
+**`tiles server daemon true`** keeps the inference server running in the background on the remote machine after the REPL exits.
+
+**`tiles remote share`** starts sharing the remote machine's inference endpoint and prints an Iroh ticket.
+
+**`tiles --remote <ticket>`** runs on the device intending to use remote inference, while inference happens on the remote machine.
+
+```bash
+tiles remote status   # Check remote inference sharing status
+tiles remote unshare  # Stop sharing remote inference
+```
 
 ## System
 

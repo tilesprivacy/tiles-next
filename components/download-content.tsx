@@ -20,7 +20,18 @@ import {
 } from "@/lib/marketing-page-title-classes"
 import Link from "next/link"
 import Image from "next/image"
-import { OFFLINE_INSTALLER, LINUX_INSTALL_COMMAND, LINUX_INSTALL_SCRIPT_URL, LINUX_INSTALL_VERSION, LINUX_MODEL_NAME, LINUX_MODEL_URL, OFFLINE_MODEL_NAME, OFFLINE_MODEL_URL } from "@/lib/download-page-data"
+import {
+  OFFLINE_INSTALLER,
+  LINUX_INSTALL_COMMAND,
+  LINUX_INSTALL_SCRIPT_URL,
+  LINUX_INSTALL_VERSION,
+  LINUX_MODEL_NAME,
+  LINUX_MODEL_URL,
+  NIGHTLY_INSTALL_COMMAND,
+  NIGHTLY_INSTALL_VERSION,
+  OFFLINE_MODEL_NAME,
+  OFFLINE_MODEL_URL,
+} from "@/lib/download-page-data"
 import {
   DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL,
   DOWNLOAD_PLATFORM_MACOS_LABEL,
@@ -84,6 +95,7 @@ export function DownloadContent({
   const [emailStatus, setEmailStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [emailMessage, setEmailMessage] = useState("")
   const [copiedLinuxCommand, setCopiedLinuxCommand] = useState(false)
+  const [copiedNightlyCommand, setCopiedNightlyCommand] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -295,6 +307,34 @@ export function DownloadContent({
     document.execCommand("copy")
     document.body.removeChild(textArea)
     copyToClipboard(LINUX_INSTALL_COMMAND)
+  }
+
+  function onCopyNightlyInstallCommand() {
+    if (typeof window === "undefined") {
+      return
+    }
+
+    const copyToClipboard = () => {
+      triggerHaptic()
+      setCopiedNightlyCommand(true)
+      window.setTimeout(() => setCopiedNightlyCommand(false), 1400)
+    }
+
+    if (navigator?.clipboard?.writeText) {
+      void navigator.clipboard.writeText(NIGHTLY_INSTALL_COMMAND).then(copyToClipboard)
+      return
+    }
+
+    const textArea = document.createElement("textarea")
+    textArea.value = NIGHTLY_INSTALL_COMMAND
+    textArea.style.position = "fixed"
+    textArea.style.opacity = "0"
+    document.body.appendChild(textArea)
+    textArea.focus()
+    textArea.select()
+    document.execCommand("copy")
+    document.body.removeChild(textArea)
+    copyToClipboard()
   }
 
   return (
@@ -622,6 +662,59 @@ export function DownloadContent({
                 .
               </p>
             </div>
+
+            <section aria-labelledby="download-nightly-heading" className="border-t border-border pt-10">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2">
+                    <h2 id="download-nightly-heading" className={`${marketingPageSectionTitleClass} ${textColor}`}>
+                      Download Nightly
+                    </h2>
+                  </div>
+                  <p className={`text-sm ${textColorSubtle}`}>Release: v{NIGHTLY_INSTALL_VERSION}</p>
+                  <p className={bodyTextClass}>Use the same install command on macOS and Linux.</p>
+                </div>
+
+                <div className={`flex items-center gap-3 text-sm ${textColorSubtle}`} aria-label="macOS and Linux">
+                  <span className="inline-flex items-center gap-1.5">
+                    <FaApple className="h-4 w-4" aria-hidden />
+                    macOS
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <FaLinux className="h-4 w-4" aria-hidden />
+                    Linux
+                  </span>
+                </div>
+
+                <div
+                  className={`relative overflow-hidden rounded-lg border sm:flex sm:items-stretch ${
+                    isDark ? "border-white/8 bg-white/[0.04]" : "border-black/6 bg-black/[0.02]"
+                  }`}
+                >
+                  <code className="block overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 font-mono text-[0.82rem] text-foreground [-webkit-overflow-scrolling:touch] sm:min-w-0 sm:flex-1 sm:px-4 sm:py-3.5 sm:pr-4 sm:text-sm">
+                    {NIGHTLY_INSTALL_COMMAND}
+                  </code>
+                  <button
+                    type="button"
+                    onClick={onCopyNightlyInstallCommand}
+                    aria-label={copiedNightlyCommand ? "Nightly install command copied" : "Copy nightly install command"}
+                    className={`absolute inset-y-0 right-0 z-10 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground ${
+                      isDark ? "bg-[#191919]/92" : "bg-white/92"
+                    } sm:static sm:z-auto sm:shrink-0 sm:border-l sm:border-black/6 dark:sm:border-white/8 sm:bg-transparent sm:px-4`}
+                  >
+                    {copiedNightlyCommand ? (
+                      <Check className="h-4 w-4" aria-hidden />
+                    ) : (
+                      <Copy className="h-4 w-4" aria-hidden />
+                    )}
+                  </button>
+                </div>
+
+                <p className={`text-xs leading-relaxed ${textColorSubtle}`}>
+                  Nightly builds are for testing the newest CLI features before the stable release.
+                </p>
+              </div>
+            </section>
 
             <section aria-labelledby="download-sponsor-heading" className="border-t border-border pt-10">
               <div className="max-w-2xl">

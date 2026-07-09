@@ -67,6 +67,38 @@ const featureCards = [
     showYoutubeUrl: true,
   },
   {
+    command: "tiles remote share",
+    heading: "Use local models on remote devices",
+    badge: "nightly",
+    description: (
+      <>
+        Secure share LLMs between your devices, unexposed to the public Internet, powered by{" "}
+        <a
+          href="https://www.iroh.computer/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
+        >
+          Iroh
+        </a>
+        .
+      </>
+    ),
+    ctaLabel: "Use remote inference",
+    ctaHref: "/book/manual#remote-inference-nightly-tiles-remote",
+    terminalLines: [
+      "$ tiles server daemon true",
+      "Starts the background inference server",
+      "$ tiles remote share",
+      "Generates an Iroh ticket",
+      "On the device using remote inference:",
+      "$ tiles --remote <ticket>",
+      "Uses remote machine inference",
+    ],
+    shareLink: undefined,
+    showYoutubeUrl: false,
+  },
+  {
     command: "tiles sync <did>",
     heading: "Sync your data P2P",
     description: (
@@ -356,6 +388,11 @@ export function HomeContent() {
                   <h2 className={marketingPageCompactSectionTitleClass}>
                     {card.heading}
                   </h2>
+                  {"badge" in card && card.badge ? (
+                    <span className="inline-flex rounded-full border border-black/10 px-2 py-0.5 font-mono text-[0.68rem] uppercase text-black/45 dark:border-white/12 dark:text-white/45">
+                      {card.badge}
+                    </span>
+                  ) : null}
                   <p className="max-w-[32rem] text-[1rem] leading-[1.55] text-black/62 dark:text-[#B1B1B1]">
                     {card.description}
                   </p>
