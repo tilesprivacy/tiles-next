@@ -78,8 +78,8 @@ const featureCards = [
     ctaLabel: "Use remote inference",
     ctaHref: "/book/manual#remote-inference-nightly-tiles-remote",
     terminalLines: [
-      "$ tiles server daemon true",
-      "Starts the background inference server",
+      "$ tiles server start",
+      "Starts the inference server in background",
       "$ tiles remote share",
       "Generates a share ticket",
       "On the device using remote inference:",

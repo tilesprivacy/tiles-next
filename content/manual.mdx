@@ -198,14 +198,14 @@ Share inference from one of your devices to another over Iroh. This is useful wh
 
 ```bash
 # Remote machine
-tiles server daemon true # Starts the background inference server
-tiles remote share       # Generates an Iroh ticket
+tiles server start  # Starts the inference server in background
+tiles remote share  # Generates an Iroh ticket
 
 # Device using remote inference
 tiles --remote <ticket>  # Uses remote machine inference
 ```
 
-**`tiles server daemon true`** keeps the inference server running in the background on the remote machine after the REPL exits.
+**`tiles server start`** starts the inference server on the remote machine before sharing it.
 
 **`tiles remote share`** starts sharing the remote machine's inference endpoint and prints an Iroh ticket.
 
@@ -239,8 +239,8 @@ tiles health
 Configure the inference server.
 
 ```bash
-tiles server start            # Start the inference
-tiles server stop             # Stop the inference
+tiles server start            # Start the inference server
+tiles server stop             # Stop the inference server
 tiles server daemon true      # Keep inference running after the REPL exits
 tiles server daemon false     # Stop inference when the REPL exits (default)
 ```
