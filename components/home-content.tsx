@@ -72,7 +72,7 @@ const featureCards = [
     badge: "nightly",
     description: (
       <>
-        Secure share LLMs between your devices, unexposed to the public Internet, powered by{" "}
+        Securely share LLMs peer-to-peer between your devices, unexposed to the public Internet, powered by{" "}
         <a
           href="https://www.iroh.computer/"
           target="_blank"
