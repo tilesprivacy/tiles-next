@@ -141,11 +141,7 @@ export function ProductFeatureWidgets({
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
-        E2EE peer-to-peer chat sync across linked devices, online or on your local network, via{" "}
-        <a href="https://www.iroh.computer/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          Iroh
-        </a>
-        .
+        E2EE peer-to-peer chat sync across linked devices, online or on your local network.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RemoteInferenceIcon strokeWidth={1.75} />} title="Remote Inference">
@@ -165,7 +161,7 @@ export function ProductFeatureWidgets({
       >
         Create a public or private link to a chat session, published through{" "}
         <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          ATProto
+          ATproto
         </a>
         .
       </FeatureWidget>

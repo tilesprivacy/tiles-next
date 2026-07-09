@@ -160,7 +160,7 @@ export function BlogListingContent({ posts }: BlogListingContentProps) {
             >
               Standard.site
             </a>{" "}
-            lexicon for rich presentation in supported ATProto clients and are stored on a PDS hosted by{" "}
+            lexicon for rich presentation in supported ATproto clients and are stored on a PDS hosted by{" "}
             <a
               href="https://eurosky.tech"
               target="_blank"

@@ -11,7 +11,7 @@ tags:
 atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj3b7f5u2g"
 ---
 
-We have been working on [Tiles](https://www.tiles.run/). Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto. To ensure its Python model server starts predictably on any machine, the runtime and dependencies must be deterministic and portable. This post walks through how we achieve that with layered venvstacks.
+We have been working on [Tiles](https://www.tiles.run/). Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATproto. To ensure its Python model server starts predictably on any machine, the runtime and dependencies must be deterministic and portable. This post walks through how we achieve that with layered venvstacks.
 
 ## The Python Problem
 

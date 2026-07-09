@@ -116,7 +116,7 @@ export function BookMarketingSections() {
             on Apple Silicon.
           </FeatureCard>
 
-          <FeatureCard icon={<span className="text-base font-semibold leading-none">@</span>} title="ATProto Support">
+          <FeatureCard icon={<span className="text-base font-semibold leading-none">@</span>} title="ATproto Support">
             Built on{" "}
             <a
               href="https://atproto.com"
@@ -124,7 +124,7 @@ export function BookMarketingSections() {
               rel="noopener noreferrer"
               className="font-medium text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
             >
-              ATProto
+              ATproto
             </a>
             , with shared public chats stored on your PDS so your conversation data remains portable and under your control.
           </FeatureCard>

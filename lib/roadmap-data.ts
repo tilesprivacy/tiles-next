@@ -52,7 +52,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     items: [
       { label: "Offline Installer", status: "shipped" },
       { label: "Tilekit App Server", status: "active" },
-      { label: "ATProto Lexicons", status: "active" },
+      { label: "ATproto Lexicons", status: "active" },
       { label: "Hosted Iroh Relay", status: "planned" },
     ],
   },
@@ -60,7 +60,7 @@ export const roadmapTracks: RoadmapTrack[] = [
     label: "Identity",
     items: [
       { label: "DID:key based local accounts", status: "shipped" },
-      { label: "ATProto accounts", status: "shipped" },
+      { label: "ATproto accounts", status: "shipped" },
       { label: "Agent Addresses", status: "planned" },
     ],
   },

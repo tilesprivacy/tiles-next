@@ -34,7 +34,7 @@ export default function MoveAlongPythonPage() {
     >
       <p>
         We have been working on Tiles. Tiles is a local-first private AI assistant that runs on-device models with
-        encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto. To ensure its
+        encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATproto. To ensure its
         Python model
         server starts predictably on any machine, the runtime and dependencies must be deterministic and portable. This
         post walks through how we achieve that with layered venvstacks.

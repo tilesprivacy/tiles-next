@@ -1,8 +1,8 @@
 # References
 
-- [Happyview: A lexicon-driven AppView for ATProto, Github](https://github.com/gamesgamesgamesgamesgames/happyview)
+- [Happyview: A lexicon-driven AppView for ATproto, Github](https://github.com/gamesgamesgamesgamesgames/happyview)
 - [MCP Integration, Lexicon Garden](https://lexicon.garden/help/mcp)
-- [Structured LLM output from ATProto Lexicons](https://cameron.stream/blog/lexicons-and-ai/)
+- [Structured LLM output from ATproto Lexicons](https://cameron.stream/blog/lexicons-and-ai/)
 - [The vCon - Conversation Data Container - Overview](https://www.ietf.org/archive/id/draft-ietf-vcon-vcon-overview-00.html)
 - [Groundmist, AT Protocol meets local-first software](https://groundmist.xyz)
 - [Leixcon lenses Working Group Formation: Polite Goshawk](https://github.com/lexicon-community/governance/issues/14)

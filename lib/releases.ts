@@ -248,7 +248,7 @@ const customSections: Record<string, ChangeSection[]> = {
           text: "Renamed `tiles server` to `tiles inference` with a `run-background <bool>` subcommand so inference can keep running after the REPL exits",
         },
         {
-          text: "Extra tool-call metadata in session records for Tiles sessions hosted on an ATProto PDS",
+          text: "Extra tool-call metadata in session records for Tiles sessions hosted on an ATproto PDS",
         },
       ],
     },

@@ -130,7 +130,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
             ), an independent researcher and technologist, Tiles is
             built for privacy conscious users who want intelligence without renting their memory to centralized
             providers. Our first product is Tiles, a local-first private AI assistant that runs on-device models with
-            encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATProto, along with an
+            encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATproto, along with an
             SDK that enables developers to customize local models and agent experiences within Tiles.
           </p>
 

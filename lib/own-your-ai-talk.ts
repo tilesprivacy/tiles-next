@@ -174,7 +174,7 @@ export const ownYourAiSlides: OwnYourAiSlide[] = [
       'The architecture follows one simple principle.',
       'Keep ownership on the device. Use the network only where it adds value.',
       'Apps, models, and your data live on your local devices.',
-      'The cloud is only used for collaboration. The ATProto PDS powers social features, while end-to-end encrypted peer-to-peer sync is supported by public relays.',
+      'The cloud is only used for collaboration. The ATproto PDS powers social features, while end-to-end encrypted peer-to-peer sync is supported by public relays.',
     ],
   },
   {

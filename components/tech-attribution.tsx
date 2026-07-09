@@ -232,7 +232,7 @@ export function TechAttribution({
       <TechLogo
         href="https://atproto.com"
         src="/icon-atproto.png"
-        label="ATProto"
+        label="ATproto"
         width={48}
         height={48}
         variant={variant}

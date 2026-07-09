@@ -72,16 +72,7 @@ const featureCards = [
     badge: "nightly",
     description: (
       <>
-        Securely share LLMs peer-to-peer between any devices, unexposed to the public Internet, powered by{" "}
-        <a
-          href="https://www.iroh.computer/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-        >
-          Iroh
-        </a>
-        .
+        Securely share LLMs peer-to-peer between any devices.
       </>
     ),
     ctaLabel: "Use remote inference",
@@ -90,7 +81,7 @@ const featureCards = [
       "$ tiles server daemon true",
       "Starts the background inference server",
       "$ tiles remote share",
-      "Generates an Iroh ticket",
+      "Generates a share ticket",
       "On the device using remote inference:",
       "$ tiles --remote <ticket>",
       "Uses remote machine inference",
@@ -103,16 +94,8 @@ const featureCards = [
     heading: "Sync your data P2P",
     description: (
       <>
-        Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, using{" "}
-        <a
-          href="https://www.iroh.computer/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
-        >
-          Iroh
-        </a>{" "}
-        with locally generated decentralized identifiers{" "}
+        Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, with locally
+        generated decentralized identifiers{" "}
         <a
           href="https://www.w3.org/TR/did-1.1/"
           target="_blank"
@@ -140,7 +123,7 @@ const featureCards = [
       "Run this on your other device:",
       "tiles link add ucan:eyJ...YzQ",
       "$ tiles sync did:key:z6Mknxy...YWSmTcZA",
-      "Connecting to Iroh relay",
+      "Connecting to relay",
       "Sync complete",
     ],
     shareLink: undefined,
@@ -158,7 +141,7 @@ const featureCards = [
           rel="noopener noreferrer"
           className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
         >
-          ATProto
+          ATproto
         </a>{" "}
         Lexicon records
         .
@@ -168,7 +151,7 @@ const featureCards = [
     ctaHref: "/book/manual#sharing-commands",
     terminalLines: [
       "> /share",
-      "Writing chat session to ATProto PDS",
+      "Writing chat session to ATproto PDS",
     ],
     shareLink:
       "https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr",
@@ -313,7 +296,7 @@ export function HomeContent() {
                     rel="noopener noreferrer"
                     className="underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
                   >
-                    ATProto
+                    ATproto
                   </a>{" "}
                   while your data and identity stay private.
                 </p>
@@ -499,13 +482,13 @@ export function HomeContent() {
                     <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </a>{" "}
-                (ATProto), an open decentralized protocol for social applications and portable identity.
+                (ATproto), an open decentralized protocol for social applications and portable identity.
               </p>
               <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
                 For Tiles, this means social features do not need to live inside a closed platform. Shared chats, group
                 conversations, public memory spaces, and community extensions can plug into an existing social graph already
                 used by tens of millions of people. Instead of creating another siloed network, Tiles can build on open
-                identity, portable accounts, and interoperable social interactions across the wider ATProto ecosystem.
+                identity, portable accounts, and interoperable social interactions across the wider ATproto ecosystem.
               </p>
               <p className="text-[0.94rem] leading-[1.55] text-black/55 dark:text-[#A3A3A3]">
                 For the full picture, see the{" "}
@@ -515,7 +498,7 @@ export function HomeContent() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/40 dark:decoration-white/30 dark:hover:text-white/88 dark:hover:decoration-white/50"
                 >
-                  official ATProto stack overview
+                  official ATproto stack overview
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
                     <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>

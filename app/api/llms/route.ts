@@ -72,7 +72,7 @@ export async function GET(request: Request) {
     'Tiles is built by Tiles Privacy, an independent team devoted to user agency. The website focuses on the public alpha, product documentation, plugins, release notes, support, sponsorship, and legal information.',
   )
   lines.push(
-    'Homepage feature: Use local models on remote devices (nightly) with `tiles remote share`, sharing inference between any devices over Iroh without exposing it to the public Internet.',
+    'Homepage feature: Use local models on remote devices (nightly) with `tiles remote share`, sharing inference between any devices.',
   )
   lines.push('')
 

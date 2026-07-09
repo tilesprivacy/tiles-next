@@ -150,7 +150,7 @@ export function UseCasesPage() {
         <section className="mx-auto flex w-full max-w-4xl flex-col items-center pb-2 pt-6 text-center sm:pb-4 lg:pt-10">
           <p className="max-w-3xl text-[0.78rem] leading-6 text-black/48 dark:text-white/45">
             We do not store a copy of the shared conversation on our servers. Data is fetched from the user&apos;s personal
-            data server (PDS) on ATProto.
+            data server (PDS) on ATproto.
           </p>
         </section>
       </main>

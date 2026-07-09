@@ -84,9 +84,9 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     id: "local-models-meet-at-protocol",
     title: "Local models meet AT Protocol",
     description:
-      "Experiments with ATProto Lexicon schema translation and generative UI for local AI assistants.",
+      "Experiments with ATproto Lexicon schema translation and generative UI for local AI assistants.",
     body:
-      "We want to build AI around convenience first. Privacy alone is rarely something people actively buy, so the challenge is expanding the frontier of convenience without compromising user ownership. One area that feels promising is using schemas like ATProto Lexicons to power generative interfaces, where many interactions could potentially be reduced to a single typed request against a shared interface rather than coordinating across multiple bespoke APIs. Combined with local models reducing network latency, this creates the possibility of extremely fast generative interfaces that connect and operate across different applications. Rather than selling privacy itself, the goal is to make the most convenient experience also happen to preserve user agency by default.",
+      "We want to build AI around convenience first. Privacy alone is rarely something people actively buy, so the challenge is expanding the frontier of convenience without compromising user ownership. One area that feels promising is using schemas like ATproto Lexicons to power generative interfaces, where many interactions could potentially be reduced to a single typed request against a shared interface rather than coordinating across multiple bespoke APIs. Combined with local models reducing network latency, this creates the possibility of extremely fast generative interfaces that connect and operate across different applications. Rather than selling privacy itself, the goal is to make the most convenient experience also happen to preserve user agency by default.",
     status: "active",
     authorIds: ["anandu-pavanan", "ankesh-bharti"],
     logMonth: "2026-05",
