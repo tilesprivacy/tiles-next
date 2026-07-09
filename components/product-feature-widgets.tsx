@@ -54,6 +54,31 @@ const bookFeatureLinkClass =
 const homeFeatureLinkClass =
   "underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
 
+function RemoteInferenceIcon({ strokeWidth = 1.75 }: { strokeWidth?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={strokeWidth}
+      className="!h-5 !w-5"
+      aria-hidden="true"
+    >
+      <path
+        d="M13.7 5H7.8A2.8 2.8 0 0 0 5 7.8v6.4A2.8 2.8 0 0 0 7.8 17H11"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M19 12V7.8A2.8 2.8 0 0 0 16.2 5H15" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M13.6 18h-1.1a3 3 0 0 1 0-6h2M16.4 12h1.1a3 3 0 0 1 0 6h-2M13.8 15h2.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export function ProductFeatureWidgets({
   className,
   variant = "book",
@@ -121,6 +146,10 @@ export function ProductFeatureWidgets({
           Iroh
         </a>
         .
+      </FeatureWidget>
+
+      <FeatureWidget variant={variant} icon={<RemoteInferenceIcon strokeWidth={1.75} />} title="Remote Inference">
+        Use models on remote machines as if they were local.
       </FeatureWidget>
 
       {SHOW_REMOTE_LINK ? (

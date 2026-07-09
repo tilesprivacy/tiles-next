@@ -271,10 +271,18 @@ List available skills from installed plugins.
 
 Run a skill directly (for example, `$my-skill`).
 
-## Uninstall Tiles (macOS)
+## Uninstall Tiles
 
-By default, uninstalling Tiles removes only binaries and shared payloads under `/usr/local`. User data files under `~/.local/share/tiles` (or a custom `[data] path` in `config.toml`) are not deleted, so chats, memory, databases, and logs remain for a later reinstall. Wipe that data only when you want a clean slate.
+Use `tiles uninstall` to uninstall Tiles from the system.
 
-Read the full step-by-step procedure in the [Tiles uninstaller skill](https://tiles.run/tiles-uninstaller-skill/SKILL.md), including optional receipt and keychain cleanup. With coding agents (for example Claude Code or Codex), share that URL in your prompt and ask the agent to follow it, adapting paths that differ on your machine.
+```bash
+tiles uninstall
+```
 
-We are actively working on an official Tiles uninstaller.
+By default, it keeps the user data folder, downloaded models, and `config.toml`, so chats, memory, databases, logs, local settings, and model files remain for a later reinstall.
+
+For a complete cleanup, pass `--all`:
+
+```bash
+tiles uninstall --all
+```
