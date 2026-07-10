@@ -350,7 +350,7 @@ export function DownloadContent({
                 Download Tiles Alpha
               </h1>
               <p className={bodyTextClass}>
-                Public alpha for macOS and Linux. 16 GB of unified memory or VRAM recommended.
+                Public alpha for macOS and Linux. Minimum recommended system requirements: 16 GB of unified memory on Macs, or 8 GB of VRAM plus 16 GB of system RAM on Linux (NVIDIA) machines.
               </p>
               {displayVersion && <p className={`text-sm ${textColorSubtle}`}>Current build: {displayVersion}</p>}
               {metadataLoadFailed && (
@@ -599,7 +599,7 @@ export function DownloadContent({
                 <article className="space-y-3">
                   <h3 className={installerOptionTitleClass}>Network installer</h3>
                   <p className={bodyTextClass}>
-                    This script requires CUDA 12.8 and an NVIDIA GPU with compute capabilities 7.5, 8.0, 8.6, 8.9, 9.0, 10.0, or 12.0. You will be prompted to download the default model during onboarding. Check your{" "}
+                    CUDA 12.8 or later must be installed, along with an NVIDIA GPU with compute capabilities 7.5, 8.0, 8.6, 8.9, 9.0, 10.0, or 12.0. You will be prompted to download the default model during onboarding. Check your{" "}
                     <a
                       href="https://developer.nvidia.com/cuda-gpus"
                       target="_blank"
