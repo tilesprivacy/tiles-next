@@ -730,7 +730,7 @@ export function DownloadContent({
                 </div>
 
                 <p className={`text-xs leading-relaxed ${textColorSubtle}`}>
-                  Nightly builds are for testing the newest CLI features before the stable release.
+                  Nightly builds are for testing the newest features before the stable release.
                 </p>
               </div>
             </section>
