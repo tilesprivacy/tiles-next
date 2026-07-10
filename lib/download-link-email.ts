@@ -302,7 +302,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
             <tr>
               <td style="padding:0 0 9px 0;">
                 <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                  This script downloads the runtime with CUDA bundled. You will be prompted to download the default model during onboarding. Requires NVIDIA compute capability 5.0+ and driver 531+ (570+ for CC 5.0 through 6.2). Check your <a href="https://developer.nvidia.com/cuda-gpus" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">compute compatibility</a> to see if your card is supported.
+                  This script requires CUDA 12.8 and an NVIDIA GPU with compute capabilities 7.5, 8.0, 8.6, 8.9, 9.0, 10.0, or 12.0. You will be prompted to download the default model during onboarding. Check your <a href="https://developer.nvidia.com/cuda-gpus" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px;">compute compatibility</a> to see if your card is supported.
                 </p>
               </td>
             </tr>
