@@ -673,6 +673,13 @@ export function DownloadContent({
                   </div>
                   <p className={`text-sm ${textColorSubtle}`}>Release: v{NIGHTLY_INSTALL_VERSION}</p>
                   <p className={bodyTextClass}>Use the same install command on macOS and Linux.</p>
+                  <div className={`space-y-2 text-sm ${textColorSubtle}`}>
+                    <p className="font-medium text-foreground">What&apos;s new in v{NIGHTLY_INSTALL_VERSION}</p>
+                    <ol className="list-decimal space-y-1 pl-5">
+                      <li>Peer-to-peer remote inference powered by Iroh.</li>
+                      <li>Inference now runs through llama-server across platforms.</li>
+                    </ol>
+                  </div>
                 </div>
 
                 <div className={`flex items-center gap-3 text-sm ${textColorSubtle}`} aria-label="macOS and Linux">
