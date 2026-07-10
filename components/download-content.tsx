@@ -710,6 +710,18 @@ export function DownloadContent({
                   </button>
                 </div>
 
+                <div className={`space-y-1 text-[0.72rem] ${textColorSubtle}`}>
+                  <p>Paste this in terminal</p>
+                  <a
+                    href={LINUX_INSTALL_SCRIPT_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-3 transition-colors hover:text-foreground"
+                  >
+                    View script source
+                  </a>
+                </div>
+
                 <p className={`text-xs leading-relaxed ${textColorSubtle}`}>
                   Nightly builds are for testing the newest CLI features before the stable release.
                 </p>

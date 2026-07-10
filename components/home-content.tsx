@@ -413,7 +413,7 @@ export function HomeContent() {
                   </div>
                   <div className="space-y-1 px-4 py-4 sm:px-5 sm:py-5">
                     {card.terminalLines.map((line) => (
-                      <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
+                      <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black dark:text-[#AAAAAA]">
                         {line}
                         {card.showYoutubeUrl && line.startsWith("> /$youtube-transcript") ? (
                           <>
@@ -425,12 +425,12 @@ export function HomeContent() {
                       </p>
                     ))}
                     {card.shareLink ? (
-                      <p className="font-mono text-[0.88rem] leading-[1.55] text-black/40 dark:text-[#AAAAAA]">
+                      <p className="font-mono text-[0.88rem] leading-[1.55] text-black dark:text-[#AAAAAA]">
                         <a
                           href={card.shareLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/60 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
+                          className="underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-black/40 dark:decoration-white/25 dark:hover:text-[#C4C4C4] dark:hover:decoration-white/40"
                         >
                           <span className="sm:hidden">chat.tiles.run/…ZTJr</span>
                           <span className="hidden sm:inline">chat.tiles.run/YXQ6…ZTJr</span>
