@@ -25,8 +25,11 @@ export const LINUX_INSTALL_COMMAND =
 
 export const NIGHTLY_INSTALL_VERSION = "0.4.16" as const
 
-export const NIGHTLY_INSTALL_COMMAND =
+export const NIGHTLY_MACOS_INSTALL_COMMAND =
   `curl -LsSf ${LINUX_INSTALL_SCRIPT_URL} | sudo sh -s -- --nightly` as const
+
+export const NIGHTLY_LINUX_INSTALL_COMMAND =
+  `curl -LsSf ${LINUX_INSTALL_SCRIPT_URL} | sh -s -- --nightly` as const
 
 export async function getDownloadPageNetworkArtifact() {
   return getLatestDownloadArtifact()

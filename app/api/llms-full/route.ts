@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
-import { NIGHTLY_INSTALL_COMMAND, NIGHTLY_INSTALL_VERSION, OFFLINE_INSTALLER, OFFLINE_MODEL_NAME } from '@/lib/download-page-data'
+import {
+  NIGHTLY_INSTALL_VERSION,
+  NIGHTLY_LINUX_INSTALL_COMMAND,
+  NIGHTLY_MACOS_INSTALL_COMMAND,
+  OFFLINE_INSTALLER,
+  OFFLINE_MODEL_NAME,
+} from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
@@ -111,7 +117,8 @@ export async function GET(request: Request) {
     `SHA256 file: ${offlineChecksumUrl}`,
     '',
     `Nightly installer for macOS and Linux: v${NIGHTLY_INSTALL_VERSION}`,
-    NIGHTLY_INSTALL_COMMAND,
+    `macOS: ${NIGHTLY_MACOS_INSTALL_COMMAND}`,
+    `Linux: ${NIGHTLY_LINUX_INSTALL_COMMAND}`,
   ])
 
   pushSection(lines, `Plugins (${baseUrl}/plugins)`, [
