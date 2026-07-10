@@ -15,7 +15,7 @@ export const TILES_SITE_TITLE = "Tiles: Own your AI" as const
 export const AT_PROTO_LABEL = "AT Protocol" as const
 
 /** Primary Download Tiles CTA label on homepage hero and footer. */
-export const DOWNLOAD_TILES_CTA_LABEL = "Download Tiles Alpha" as const
+export const DOWNLOAD_TILES_CTA_LABEL = "Download Tiles" as const
 
 /** Compact platform line under primary Download Tiles CTAs (plain text for indexes). */
 export const DOWNLOAD_PLATFORM_MACOS_LABEL = "Apple Silicon (M1+)" as const

@@ -347,7 +347,7 @@ export function DownloadContent({
             {/* Title */}
             <div className="space-y-4">
               <h1 className={`${marketingPageTitleClass} ${textColor}`}>
-                Download Tiles Alpha
+                Download Tiles
               </h1>
               <p className={bodyTextClass}>
                 Public alpha for macOS and Linux. Minimum recommended system requirements: 16 GB of unified memory on Macs, or 8 GB of VRAM plus 16 GB of system RAM on Linux (NVIDIA) machines.

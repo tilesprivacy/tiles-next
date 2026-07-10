@@ -145,8 +145,13 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                   <Image src="/grey.png" alt="" width={56} height={56} className={`${mobileLogoClass} lg:h-9 lg:w-9`} aria-hidden />
                 )}
               </span>
-              <span className="inline-flex items-center text-xl font-semibold leading-none tracking-[-0.02em] text-foreground lg:text-lg">
-                Tiles
+              <span className="inline-flex items-center gap-1.5">
+                <span className="hidden items-center text-xl font-semibold leading-none tracking-[-0.02em] text-foreground lg:inline-flex lg:text-lg">
+                  Tiles
+                </span>
+                <span className="inline-flex self-center translate-y-px rounded-[0.28rem] bg-foreground/10 px-1.5 py-0.5 text-[0.68rem] font-medium leading-none tracking-[-0.01em] text-foreground/75">
+                  alpha
+                </span>
               </span>
             </Link>
 
@@ -227,8 +232,13 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
                 <Image src="/grey.png" alt="" width={56} height={56} className={mobileLogoClass} aria-hidden />
               )}
             </span>
-            <span className="inline-flex items-center text-xl font-semibold leading-none tracking-[-0.02em] text-foreground">
-              Tiles
+            <span className="inline-flex items-center gap-1.5">
+              <span className="hidden items-center text-xl font-semibold leading-none tracking-[-0.02em] text-foreground lg:inline-flex">
+                Tiles
+              </span>
+              <span className="inline-flex self-center translate-y-px rounded-[0.28rem] bg-foreground/10 px-1.5 py-0.5 text-[0.68rem] font-medium leading-none tracking-[-0.01em] text-foreground/75">
+                alpha
+              </span>
             </span>
           </Link>
           <div className="flex items-center gap-1.5 sm:gap-2">
