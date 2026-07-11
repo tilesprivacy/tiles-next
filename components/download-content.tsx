@@ -27,9 +27,6 @@ import {
   LINUX_INSTALL_VERSION,
   LINUX_MODEL_NAME,
   LINUX_MODEL_URL,
-  NIGHTLY_LINUX_INSTALL_COMMAND,
-  NIGHTLY_MACOS_INSTALL_COMMAND,
-  NIGHTLY_INSTALL_VERSION,
   OFFLINE_MODEL_NAME,
   OFFLINE_MODEL_URL,
 } from "@/lib/download-page-data"
@@ -96,8 +93,6 @@ export function DownloadContent({
   const [emailStatus, setEmailStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
   const [emailMessage, setEmailMessage] = useState("")
   const [copiedLinuxCommand, setCopiedLinuxCommand] = useState(false)
-  const [copiedNightlyMacosCommand, setCopiedNightlyMacosCommand] = useState(false)
-  const [copiedNightlyLinuxCommand, setCopiedNightlyLinuxCommand] = useState(false)
 
   useEffect(() => {
     setMounted(true)
@@ -664,83 +659,6 @@ export function DownloadContent({
                 .
               </p>
             </div>
-
-            <section aria-labelledby="download-nightly-heading" className="border-t border-border pt-10">
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2">
-                    <h2 id="download-nightly-heading" className={`${marketingPageSectionTitleClass} ${textColor}`}>
-                      Download Nightly
-                    </h2>
-                  </div>
-                  <p className={`text-sm ${textColorSubtle}`}>Release: v{NIGHTLY_INSTALL_VERSION}</p>
-                  <div className={`space-y-2 text-sm ${textColorSubtle}`}>
-                    <p className="font-medium text-foreground">What&apos;s new in v{NIGHTLY_INSTALL_VERSION}</p>
-                    <ol className="list-decimal space-y-1 pl-5">
-                      <li>Peer-to-peer remote inference powered by Iroh.</li>
-                      <li>Inference now runs through llama-server across platforms.</li>
-                    </ol>
-                  </div>
-                </div>
-
-                {[
-                  {
-                    label: "macOS",
-                    Icon: FaApple,
-                    command: NIGHTLY_MACOS_INSTALL_COMMAND,
-                    copied: copiedNightlyMacosCommand,
-                    setCopied: setCopiedNightlyMacosCommand,
-                  },
-                  {
-                    label: "Linux",
-                    Icon: FaLinux,
-                    command: NIGHTLY_LINUX_INSTALL_COMMAND,
-                    copied: copiedNightlyLinuxCommand,
-                    setCopied: setCopiedNightlyLinuxCommand,
-                  },
-                ].map(({ label, Icon, command, copied, setCopied }) => (
-                  <div key={label} className="space-y-2">
-                    <h3 className={`flex items-center gap-1.5 text-sm font-medium ${textColor}`}>
-                      <Icon className="h-4 w-4" aria-hidden />
-                      {label}
-                    </h3>
-                    <div
-                      className={`relative overflow-hidden rounded-lg border sm:flex sm:items-stretch ${
-                        isDark ? "border-white/8 bg-white/[0.04]" : "border-black/6 bg-black/[0.02]"
-                      }`}
-                    >
-                      <code className="block overflow-x-auto whitespace-nowrap px-4 py-3 pr-12 font-mono text-[0.82rem] text-foreground [-webkit-overflow-scrolling:touch] sm:min-w-0 sm:flex-1 sm:px-4 sm:py-3.5 sm:pr-4 sm:text-sm">
-                        {command}
-                      </code>
-                      <button
-                        type="button"
-                        onClick={() => copyCommand(command, setCopied)}
-                        aria-label={copied ? `${label} nightly install command copied` : `Copy ${label} nightly install command`}
-                        className={`absolute inset-y-0 right-0 z-10 flex items-center px-3.5 text-muted-foreground transition-colors hover:text-foreground ${
-                          isDark ? "bg-[#191919]/92" : "bg-white/92"
-                        } sm:static sm:z-auto sm:shrink-0 sm:border-l sm:border-black/6 dark:sm:border-white/8 sm:bg-transparent sm:px-4`}
-                      >
-                        {copied ? <Check className="h-4 w-4" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}
-                      </button>
-                    </div>
-                    <p className={`text-[0.72rem] ${textColorSubtle}`}>Paste this in terminal</p>
-                  </div>
-                ))}
-
-                <a
-                  href={LINUX_INSTALL_SCRIPT_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-[0.72rem] underline underline-offset-3 transition-colors hover:text-foreground ${textColorSubtle}`}
-                >
-                  View script source
-                </a>
-
-                <p className={`text-xs leading-relaxed ${textColorSubtle}`}>
-                  Nightly builds are for testing the newest features before the stable release.
-                </p>
-              </div>
-            </section>
 
             <section aria-labelledby="download-sponsor-heading" className="border-t border-border pt-10">
               <div className="max-w-2xl">

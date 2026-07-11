@@ -69,14 +69,13 @@ const featureCards = [
   {
     command: "tiles remote share",
     heading: "Use local models on remote devices",
-    badge: "nightly",
     description: (
       <>
         Securely run local models on a remote device, peer-to-peer, from any device.
       </>
     ),
     ctaLabel: "Use remote inference",
-    ctaHref: "/book/manual#remote-inference-nightly-tiles-remote",
+    ctaHref: "/book/manual#remote-inference-tiles-remote",
     terminalLines: [
       "$ tiles server start",
       "Starts the inference server in background",

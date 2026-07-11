@@ -82,6 +82,19 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
+  "0.4.16": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "Peer-to-peer remote inference powered by Iroh",
+        },
+        {
+          text: "Inference now runs through llama-server across platforms",
+        },
+      ],
+    },
+  ],
   "0.3.0": [
     {
       title: "Fixed",
