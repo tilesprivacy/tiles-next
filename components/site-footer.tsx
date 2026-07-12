@@ -169,6 +169,7 @@ export function SiteFooter({
             </p>
             <div className="-mx-1 flex h-6 items-center justify-start gap-2 overflow-visible">
               <FooterLanguageSelector variant={themeSwitcherVariant} compact tone="quiet" touchFriendly />
+              <ThemeSwitcher variant={themeSwitcherVariant} size="sm" mode="toggle" tone="quiet" touchFriendly />
             </div>
           </div>
 

@@ -7,7 +7,6 @@ import { triggerHaptic } from "@/lib/haptics"
 import { usePathname } from "next/navigation"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { Download } from "lucide-react"
-import { ThemeSwitcher } from "@/components/theme-switcher"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -195,13 +194,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
             </nav>
 
-            <div className="ml-auto hidden items-center gap-2 lg:flex">
-              <ThemeSwitcher
-                variant={themeAware ? "auto" : "light"}
-                size="sm"
-                mode="toggle"
-                tone="quiet"
-              />
+            <div className="ml-auto hidden items-center lg:flex">
               <Link
                 href="/download"
                 onClick={() => {
