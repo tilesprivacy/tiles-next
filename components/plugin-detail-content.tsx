@@ -27,7 +27,11 @@ function OutgoingIcon() {
 export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps) {
   const [copiedCommand, setCopiedCommand] = useState(false)
   const [copiedUsageCommand, setCopiedUsageCommand] = useState(false)
-  const sourceUrl = `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
+  const sourceUrl =
+    plugin.slug === "caldir"
+      ? skills[0]?.sourceUrl ?? `https://github.com/tilesprivacy/plugins/blob/main/caldir/skills/caldir/SKILL.md`
+      : `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
+  const sourceLabel = plugin.slug === "caldir" ? "SKILL.md" : "View Source"
   const primarySkillName = skills[0]?.name || plugin.slug
   const usageCommand = `/ $${primarySkillName}`
   const usageCommandClipboardText = `$${primarySkillName}`
@@ -86,7 +90,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                   target="_blank"
                   rel="noreferrer"
                 >
-                  View Source
+                  {sourceLabel}
                   <OutgoingIcon />
                 </a>
               </nav>
@@ -147,7 +151,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                 target="_blank"
                 rel="noreferrer"
               >
-                View Source
+                {sourceLabel}
                 <OutgoingIcon />
               </a>
               <p>
@@ -194,8 +198,10 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                         <BookOpen className="h-5 w-5" aria-hidden />
                       </span>
                       <span className="min-w-0 flex-1">
-                        <span className="block truncate text-[17px] font-medium leading-[21px] text-foreground">{skill.name}</span>
-                        {skill.description ? (
+                        <span className="block truncate text-[17px] font-medium leading-[21px] text-foreground">
+                          {plugin.slug === "caldir" ? "caldir" : skill.name}
+                        </span>
+                        {skill.description && plugin.slug !== "caldir" ? (
                           <span className="mt-0.5 block truncate text-sm leading-5 text-muted-foreground">{skill.description}</span>
                         ) : null}
                       </span>
