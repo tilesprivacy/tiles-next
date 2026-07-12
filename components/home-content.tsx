@@ -412,7 +412,7 @@ export function HomeContent() {
                   </div>
                   <div className="space-y-1 px-4 py-4 sm:px-5 sm:py-5">
                     {card.terminalLines.map((line) => (
-                      <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-black dark:text-[#AAAAAA]">
+                      <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-[#666666] dark:text-[#AAAAAA]">
                         {line}
                         {card.showYoutubeUrl && line.startsWith("> /$youtube-transcript") ? (
                           <>
@@ -424,7 +424,7 @@ export function HomeContent() {
                       </p>
                     ))}
                     {card.shareLink ? (
-                      <p className="font-mono text-[0.88rem] leading-[1.55] text-black dark:text-[#AAAAAA]">
+                      <p className="font-mono text-[0.88rem] leading-[1.55] text-[#666666] dark:text-[#AAAAAA]">
                         <a
                           href={card.shareLink}
                           target="_blank"
