@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import { useMemo, useState } from "react"
-import { ChevronRight, Package } from "lucide-react"
+import { ChevronRight } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
+import { PluginIcon } from "@/components/plugin-icon"
 import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
 import type { TilesPlugin } from "@/lib/plugins"
 
@@ -93,7 +94,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                   className="group flex h-[75px] items-center gap-3 overflow-hidden rounded-[8px] bg-secondary/65 px-4 py-4 text-card-foreground transition-colors hover:bg-secondary"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-background text-foreground shadow-sm ring-1 ring-border/60">
-                    <Package className="h-5 w-5" aria-hidden />
+                    <PluginIcon slug={plugin.slug} />
                   </span>
                   <span className="min-w-0 flex-1 overflow-hidden">
                     <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[17px] font-medium leading-[21px] text-foreground">{plugin.name}</span>

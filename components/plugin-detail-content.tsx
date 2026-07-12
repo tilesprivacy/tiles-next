@@ -2,8 +2,9 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { ArrowLeft, ArrowUpRight, BookOpen, Check, Copy, Package } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, BookOpen, Check, Copy } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
+import { PluginIcon } from "@/components/plugin-icon"
 import { triggerHaptic } from "@/lib/haptics"
 import {
   marketingPageSectionTitleClass,
@@ -31,7 +32,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
     plugin.slug === "caldir"
       ? skills[0]?.sourceUrl ?? `https://github.com/tilesprivacy/plugins/blob/main/caldir/skills/caldir/SKILL.md`
       : `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
-  const sourceLabel = plugin.slug === "caldir" ? "SKILL.md" : "View Source"
+  const sourceLabel = "View Source"
   const primarySkillName = skills[0]?.name || plugin.slug
   const usageCommand = `/ $${primarySkillName}`
   const usageCommandClipboardText = `$${primarySkillName}`
@@ -116,7 +117,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
             <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-4">
               <div className="flex shrink-0 items-center gap-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-secondary text-foreground ring-1 ring-border/60">
-                  <Package className="h-5 w-5" aria-hidden />
+                  <PluginIcon slug={plugin.slug} />
                 </span>
                 <h1 className={`truncate lg:overflow-visible lg:whitespace-nowrap ${marketingPageSectionTitleClass}`}>
                   {plugin.name}
@@ -141,7 +142,21 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
             </div>
 
             <p className="mb-10 max-w-3xl text-base leading-7 text-muted-foreground sm:text-[1.05rem]">
-              {plugin.description}
+              {plugin.slug === "caldir" ? (
+                <>
+                  <a
+                    href="https://caldir.org"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground underline decoration-current/35 underline-offset-4 transition-opacity hover:opacity-75"
+                  >
+                    Caldir
+                  </a>{" "}
+                  is a tool for storing your calendar as a directory of ICS files.
+                </>
+              ) : (
+                plugin.description
+              )}
             </p>
 
             <div className="mb-10 space-y-3 text-sm leading-6 text-muted-foreground lg:hidden">
@@ -195,7 +210,11 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                       className="group flex min-h-[75px] items-center gap-3 px-4 py-4 transition-colors hover:bg-secondary"
                     >
                       <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-background text-muted-foreground/55 shadow-sm ring-1 ring-border/60">
-                        <BookOpen className="h-5 w-5" aria-hidden />
+                        {plugin.slug === "caldir" || plugin.slug === "youtube-transcript" ? (
+                          <PluginIcon slug={plugin.slug} />
+                        ) : (
+                          <BookOpen className="h-5 w-5" aria-hidden />
+                        )}
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-[17px] font-medium leading-[21px] text-foreground">
