@@ -195,7 +195,9 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                       </span>
                       <span className="min-w-0 flex-1">
                         <span className="block truncate text-[17px] font-medium leading-[21px] text-foreground">{skill.name}</span>
-                        <span className="mt-0.5 block truncate text-sm leading-5 text-muted-foreground">{skill.description}</span>
+                        {skill.description ? (
+                          <span className="mt-0.5 block truncate text-sm leading-5 text-muted-foreground">{skill.description}</span>
+                        ) : null}
                       </span>
                       <ArrowUpRight className="h-4 w-4 shrink-0 text-muted-foreground/55 transition-colors group-hover:text-foreground" aria-hidden />
                       {index < skills.length - 1 ? <span className="sr-only">Skill</span> : null}

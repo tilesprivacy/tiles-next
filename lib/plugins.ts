@@ -20,9 +20,13 @@ const PLUGIN_PREFIX = "plugins/"
 const PLUGIN_SOURCE_BASE_URL = "https://github.com/tilesprivacy/plugins/tree/main"
 const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blob/main"
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
-const FALLBACK_PLUGIN_FILE = "youtube-transcript.zip"
+const FALLBACK_PLUGIN_FILES = ["caldir.zip", "youtube-transcript.zip"]
 
 function titleFromFileName(fileName: string) {
+  if (fileName === "caldir.zip") {
+    return "Caldir"
+  }
+
   if (fileName === "youtube-transcript.zip") {
     return "YouTube Transcript"
   }
@@ -36,6 +40,10 @@ function titleFromFileName(fileName: string) {
 }
 
 function descriptionFromFileName(fileName: string) {
+  if (fileName === "caldir.zip") {
+    return "Caldir is a tool for storing your calendar as a directory of ICS files."
+  }
+
   if (fileName === "youtube-transcript.zip") {
     return "Fetch transcripts from YouTube videos for summarization and analysis."
   }
@@ -206,7 +214,7 @@ export async function getTilesPlugins(): Promise<TilesPlugin[]> {
     }
   }
 
-  return Promise.all([normalizePlugin(FALLBACK_PLUGIN_FILE)].map(withFallbackMetadata))
+  return Promise.all(FALLBACK_PLUGIN_FILES.map((fileName) => normalizePlugin(fileName)).map(withFallbackMetadata))
 }
 
 export async function getTilesPlugin(slug: string): Promise<TilesPlugin | null> {
@@ -221,14 +229,22 @@ function parseFrontmatterValue(markdown: string, key: string) {
 }
 
 function fallbackSkills(slug: string): TilesPluginSkill[] {
-  if (slug !== "youtube-transcript") {
-    return []
+  if (slug === "caldir") {
+    return [
+      {
+        name: "Caldir",
+        description: "Caldir is a tool for storing your calendar as a directory of ICS files.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/caldir/skills/caldir/SKILL.md`,
+      },
+    ]
   }
+
+  if (slug !== "youtube-transcript") return []
 
   return [
     {
       name: "youtube-transcript",
-      description: "Fetch transcripts from YouTube videos for summarization and analysis.",
+      description: "",
       sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/skills/youtube-transcript/SKILL.md`,
     },
   ]
@@ -254,7 +270,10 @@ async function readSkill(slug: string, skillName: string): Promise<TilesPluginSk
 
   return {
     name: parseFrontmatterValue(markdown, "name") ?? skillName,
-    description: parseFrontmatterValue(markdown, "description") ?? "Skill details are available in the plugin source.",
+    description:
+      slug === "youtube-transcript" && skillName === "youtube-transcript"
+        ? ""
+        : parseFrontmatterValue(markdown, "description") ?? "Skill details are available in the plugin source.",
     sourceUrl,
   }
 }
