@@ -268,12 +268,10 @@ export function HomeContent() {
             <div className="relative z-10 order-1 mx-auto flex max-w-[29rem] flex-col items-center gap-5 text-center sm:gap-6 lg:mx-0 lg:max-w-[28rem] lg:items-start lg:gap-6 lg:text-left">
               <div className="mx-auto w-[88%] max-w-[26rem] lg:mx-0 lg:w-full">
                 <a
-                  href="https://www.youtube.com/live/Js1BxRAaPGc?si=e4KFDJguwmOeyBGS&t=17003"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="https://www.tiles.run/blog/own-your-ai"
                   className="group mx-auto mb-5 inline-flex max-w-full items-center gap-1.5 rounded-sm border border-black/5 bg-black/[0.035] px-3 py-1.5 text-[0.68rem] font-medium leading-tight text-foreground/75 shadow-none transition-colors hover:bg-black/[0.06] hover:text-foreground dark:border-white/5 dark:bg-white/[0.06] dark:hover:bg-white/[0.12] sm:px-3.5 sm:text-[0.74rem] lg:mx-0"
                 >
-                  <span>Watch our talk at PuneFOSS 4.0 Conference</span>
+                  <span>Watch our talk at Local-First Conf 2026, Berlin</span>
                   <ArrowRight
                     className="h-3 w-3 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5"
                     aria-hidden
