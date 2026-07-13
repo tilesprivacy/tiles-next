@@ -141,7 +141,7 @@ export function ProductFeatureWidgets({
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RefreshCw strokeWidth={1.75} />} title="P2P Sync">
-        E2EE peer-to-peer chat sync across linked devices, online or on your local network.
+        E2EE peer-to-peer chat sync across linked devices, online.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<RemoteInferenceIcon strokeWidth={1.75} />} title="Remote Inference">

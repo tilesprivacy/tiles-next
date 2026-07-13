@@ -117,7 +117,7 @@ export async function GET(request: Request) {
   pushSection(lines, `Plugins (${baseUrl}/plugins)`, [
     'Workflow plugins from the public Tiles plugin archive.',
     'Current install pattern:',
-    'tiles plugin install https://download.tiles.run/plugins/youtube-transcript.zip',
+    'tiles plugin install https://download.tiles.run/plugins/caldir.zip',
     'Plugins are distributed as zip files under https://download.tiles.run/plugins/.',
   ])
 

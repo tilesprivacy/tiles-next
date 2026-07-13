@@ -49,7 +49,6 @@ const featureCards = [
       "> /help for shortcuts",
     ],
     shareLink: undefined,
-    showYoutubeUrl: false,
   },
   {
     command: "tiles plugin install <zip-url>",
@@ -58,13 +57,13 @@ const featureCards = [
     ctaLabel: "Use plugins",
     ctaHref: "/book/manual#plugins",
     terminalLines: [
-      "$ tiles plugin install https://download.tiles.run/plugins/youtube-transcript.zip",
-      "Downloading youtube-transcript.zip",
-      "Installed youtube-transcript",
-      "> /$youtube-transcript Save the transcript for this YouTube video as a Markdown file:",
+      "$ tiles plugin install https://download.tiles.run/plugins/caldir.zip",
+      "Downloading caldir.zip",
+      "Installed caldir",
+      "> /$caldir Tell me about my schedule next week:",
+      "You have 3 meetings and 2 open afternoons.",
     ],
     shareLink: undefined,
-    showYoutubeUrl: true,
   },
   {
     command: "tiles remote share",
@@ -86,14 +85,13 @@ const featureCards = [
       "Uses remote machine inference",
     ],
     shareLink: undefined,
-    showYoutubeUrl: false,
   },
   {
     command: "tiles sync <did>",
     heading: "Sync your data P2P",
     description: (
       <>
-        Encrypted peer-to-peer chat sync across your linked devices, online or over your local network, with locally
+        Encrypted peer-to-peer chat sync across your linked devices, online, with locally
         generated decentralized identifiers{" "}
         <a
           href="https://www.w3.org/TR/did-1.1/"
@@ -126,7 +124,6 @@ const featureCards = [
       "Sync complete",
     ],
     shareLink: undefined,
-    showYoutubeUrl: false,
   },
   {
     command: "/share",
@@ -154,7 +151,6 @@ const featureCards = [
     ],
     shareLink:
       "https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr",
-    showYoutubeUrl: false,
   },
 ] as const
 
@@ -414,13 +410,6 @@ export function HomeContent() {
                     {card.terminalLines.map((line) => (
                       <p key={line} className="font-mono text-[0.88rem] leading-[1.55] text-[#666666] dark:text-[#AAAAAA]">
                         {line}
-                        {card.showYoutubeUrl && line.startsWith("> /$youtube-transcript") ? (
-                          <>
-                            {" "}
-                            <span className="sm:hidden">youtube.com/…2yg</span>
-                            <span className="hidden sm:inline">youtube.com/watch?v=_qpd…2yg</span>
-                          </>
-                        ) : null}
                       </p>
                     ))}
                     {card.shareLink ? (

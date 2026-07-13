@@ -130,7 +130,7 @@ export function BookMarketingSections() {
           </FeatureCard>
 
           <FeatureCard icon={<RefreshCw className="h-4 w-4" strokeWidth={1.75} />} title="P2P Sync">
-            Encrypted peer-to-peer sync for chats across your linked devices, online or on your local network. Powered by{" "}
+            Encrypted peer-to-peer sync for chats across your linked devices, online. Powered by{" "}
             <a
               href="https://www.iroh.computer/"
               target="_blank"
