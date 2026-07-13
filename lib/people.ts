@@ -113,6 +113,11 @@ export const people = {
       name: "Shobhit Srivastava @SinisterLight",
       links: ["https://sinisterlight.com", "https://x.com/Sinister_Light", "https://github.com/sinisterlight"],
     },
+    {
+      id: "incognitothief",
+      name: "incognitothief @whereditgo.diamonds",
+      links: ["https://whereditgo.diamonds", "https://bsky.app/profile/whereditgo.diamonds"],
+    },
     { id: "anonymous-sponsor-1", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor-2", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor-3", name: "Anonymous sponsor", links: [], anonymous: true },
