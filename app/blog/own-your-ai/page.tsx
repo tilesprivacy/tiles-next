@@ -3,23 +3,35 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { getBlogPostBySlug } from "@/lib/blog-posts"
 import { BlogPostContent } from "@/components/blog-post-content"
-import { ownYourAiSlideSrc, ownYourAiSlides, ownYourAiTalkIntro } from "@/lib/own-your-ai-talk"
+import {
+  ownYourAiSlideSrc,
+  ownYourAiSlides,
+  ownYourAiTalkIntro,
+  ownYourAiVideoSrc,
+  type OwnYourAiSlide,
+} from "@/lib/own-your-ai-talk"
 
-function TalkSlideImage({
-  number,
+function TalkSlideMedia({
+  slide,
   active,
 }: {
-  number: number
+  slide: OwnYourAiSlide
   active?: boolean
 }) {
+  const className = `absolute inset-0 h-full w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] transition duration-500 dark:border-white/10 ${
+    active ? "opacity-100 scale-100" : "opacity-0 scale-[0.985]"
+  }`
+
+  if (slide.media === "video") {
+    return <video className={className} controls playsInline preload="metadata" src={ownYourAiVideoSrc()} aria-label="Slide 26 demo video" />
+  }
+
   return (
     <img
-      className={`absolute inset-0 h-full w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] transition duration-500 dark:border-white/10 ${
-        active ? "opacity-100 scale-100" : "opacity-0 scale-[0.985]"
-      }`}
-      src={ownYourAiSlideSrc(number)}
+      className={className}
+      src={ownYourAiSlideSrc(slide.number)}
       alt=""
-      loading={number === 2 ? "eager" : "lazy"}
+      loading={slide.number === 2 ? "eager" : "lazy"}
     />
   )
 }
@@ -82,7 +94,7 @@ function TilesScrollyTalk() {
         <div className="sticky top-[calc(5.5rem+env(safe-area-inset-top,0px))] hidden h-[calc(100dvh-7rem)] items-center xl:flex">
           <div className="relative aspect-video w-full">
             {scrollySlides.map((slide) => (
-              <TalkSlideImage key={slide.number} number={slide.number} active={activeSlide === slide.number} />
+              <TalkSlideMedia key={slide.number} slide={slide} active={activeSlide === slide.number} />
             ))}
           </div>
         </div>
@@ -96,12 +108,23 @@ function TilesScrollyTalk() {
                 slide.transcript.length === 0 ? "xl:min-h-[55vh]" : ""
               } ${slide.number === scrollySlides[scrollySlides.length - 1]?.number ? "xl:pb-[50vh]" : ""}`}
             >
-              <img
-                src={ownYourAiSlideSrc(slide.number)}
-                alt={`Slide ${slide.number}`}
-                loading={slide.number === 2 ? "eager" : "lazy"}
-                className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
-              />
+              {slide.media === "video" ? (
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  src={ownYourAiVideoSrc()}
+                  aria-label={`Slide ${slide.number} demo video`}
+                  className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
+                />
+              ) : (
+                <img
+                  src={ownYourAiSlideSrc(slide.number)}
+                  alt={`Slide ${slide.number}`}
+                  loading={slide.number === 2 ? "eager" : "lazy"}
+                  className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
+                />
+              )}
 
               {slide.transcript.length > 0 ? (
                 <div
@@ -150,6 +173,7 @@ export default function OwnYourAiPage() {
       authorId={post.author}
       coverImage={post.coverImage}
       coverAlt={post.coverAlt ?? post.title}
+      standardSiteDocumentUri={post.standardSiteDocumentUri}
       content={post.content}
       showTableOfContents={false}
     >

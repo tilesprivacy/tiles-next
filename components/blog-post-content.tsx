@@ -35,7 +35,8 @@ function buildAtprotoAtUriUrl(sourceUri: string): string | null {
     return null
   }
 
-  return `https://atproto.at/uri/${encodeURIComponent(sourceUri)}`
+  const viewerUri = sourceUri.replace(/^at:\/\//, "")
+  return `https://atproto.at/viewer?uri=${encodeURIComponent(viewerUri)}`
 }
 
 export function BlogPostContent({ 

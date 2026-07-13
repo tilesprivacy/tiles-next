@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation"
+import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
 import { getBlogPostBySlug, isBlogPostVisible } from "@/lib/blog-posts"
 
 export default function OwnYourAiLayout({
@@ -12,5 +13,10 @@ export default function OwnYourAiLayout({
     notFound()
   }
 
-  return children
+  return (
+    <>
+      <StandardSiteLinkTags documentSlug="own-your-ai" includePublication={false} />
+      {children}
+    </>
+  )
 }
