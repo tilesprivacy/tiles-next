@@ -11,6 +11,7 @@ import {
 import { people, splitPersonDisplayName } from "@/lib/people"
 import { sponsorPageAdvisors, sponsorPageMaintainers } from "@/lib/sponsor-page-people"
 import { FaGithub } from "react-icons/fa6"
+import { SiOpencollective } from "react-icons/si"
 
 interface SponsorContentProps {
   sponsorsGoal: {
@@ -158,7 +159,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               </div>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap gap-3">
               <Button
                 asChild
                 className="h-10 rounded-sm bg-foreground px-4 text-sm font-medium text-background hover:bg-foreground/90"
@@ -167,6 +168,21 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <span className="inline-flex items-center gap-2">
                     <FaGithub className="h-4 w-4" aria-hidden />
                     Sponsor on GitHub
+                  </span>
+                </a>
+              </Button>
+              <Button
+                asChild
+                className="h-10 rounded-sm bg-foreground px-4 text-sm font-medium text-background hover:bg-foreground/90"
+              >
+                <a
+                  href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <span className="inline-flex items-center gap-2">
+                    <SiOpencollective className="h-4 w-4" aria-hidden />
+                    Sponsor on OpenCollective
                   </span>
                 </a>
               </Button>
