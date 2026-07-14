@@ -50,7 +50,7 @@ export const blogPosts: BlogPost[] = [
     description: "A Local-First Conf talk about local models, open protocols, and user-owned AI.",
     date: new Date("2026-07-14"),
     author: "ankesh-bharti",
-    coverImage: "/own-your-ai-cover.png",
+    coverImage: "/own-your-ai-og.png",
     listingImage: "/lofi-logo.png",
     coverAlt: "Tiles: Own your AI with local models and open protocols",
     standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mqkrpvbar22l",

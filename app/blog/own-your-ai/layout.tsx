@@ -5,7 +5,7 @@ import { getBlogPostBySlug, isBlogPostVisible } from "@/lib/blog-posts"
 import { getBlogPostSocialImageUrl } from "@/lib/standard-site"
 
 const post = getBlogPostBySlug("own-your-ai")
-const socialImageUrl = getBlogPostSocialImageUrl("own-your-ai", "/own-your-ai-cover.png")
+const socialImageUrl = getBlogPostSocialImageUrl("own-your-ai", "/own-your-ai-og.png")
 
 export const metadata: Metadata = {
   title: post ? `${post.title} | Tiles Blog` : "Own your AI | Tiles Blog",

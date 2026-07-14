@@ -2,7 +2,7 @@
 title: "Own your AI with local models and open protocols"
 description: "A Local-First Conf talk about local models, open protocols, and user-owned AI."
 publishDate: "2026-07-14"
-ogImage: "/own-your-ai-cover.png"
+ogImage: "/own-your-ai-og.png"
 tags:
   - Tiles
   - AI
@@ -312,4 +312,3 @@ I’d love for you to try Tiles on Mac or Linux and tell me what you think.
 If you’d like to contribute or chat about local-first AI, please come find me afterwards.
 
 Thank you.
-
