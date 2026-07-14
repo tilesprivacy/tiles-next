@@ -31,15 +31,15 @@ function TalkSlideMedia({
       className={className}
       src={ownYourAiSlideSrc(slide.number)}
       alt=""
-      loading={slide.number === 2 ? "eager" : "lazy"}
+      loading={slide.number === 1 ? "eager" : "lazy"}
     />
   )
 }
 
 function TilesScrollyTalk() {
   const sectionRef = useRef<HTMLElement | null>(null)
-  const scrollySlides = useMemo(() => ownYourAiSlides.slice(1), [])
-  const [activeSlide, setActiveSlide] = useState(scrollySlides[0]?.number ?? 2)
+  const scrollySlides = useMemo(() => ownYourAiSlides, [])
+  const [activeSlide, setActiveSlide] = useState(scrollySlides[0]?.number ?? 1)
 
   const updateActiveSlide = useCallback(() => {
     const section = sectionRef.current
@@ -50,7 +50,7 @@ function TilesScrollyTalk() {
 
     const blocks = Array.from(section.querySelectorAll<HTMLElement>("[data-slide]"))
     const viewportTarget = window.innerHeight * 0.52
-    let closestSlide = scrollySlides[0]?.number ?? 2
+    let closestSlide = scrollySlides[0]?.number ?? 1
     let closestDistance = Number.POSITIVE_INFINITY
 
     for (const block of blocks) {
@@ -121,7 +121,7 @@ function TilesScrollyTalk() {
                 <img
                   src={ownYourAiSlideSrc(slide.number)}
                   alt={`Slide ${slide.number}`}
-                  loading={slide.number === 2 ? "eager" : "lazy"}
+                  loading={slide.number === 1 ? "eager" : "lazy"}
                   className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
                 />
               )}
@@ -179,7 +179,9 @@ export default function OwnYourAiPage() {
     >
       <div className="space-y-4" dangerouslySetInnerHTML={{ __html: ownYourAiTalkIntro }} />
 
-      <h2>Slides and Transcript</h2>
+      <h2 className="relative left-1/2 w-[min(90rem,calc(100vw-3rem))] -translate-x-1/2">
+        Slides and Transcript
+      </h2>
 
       <TilesScrollyTalk />
     </BlogPostContent>

@@ -17,11 +17,9 @@ export const ownYourAiSlides: OwnYourAiSlide[] = [
     number: 1,
     media: "image",
     transcript: [
-      'Thank you, Adam, for the introduction, and thank you to the Local-First Conf team for organizing this event.',
-      'Hi everyone, I am Ankesh. Usually I go by feynon on the internet.',
-      'I was here in the audience last year, and it genuinely changed the direction of my work, so it is an honor to be back as a speaker.',
-      'I consider myself a technologist, and my mission is to build a decentralized stack that gives people more agency over their digital lives.',
-      'Today I want to share one small piece of that vision through my work with Tiles.',
+      'Thank you, Adam, for the introduction, and thank you to the Local-First Conference team for organizing this event.',
+      'Hi everyone, I’m Ankesh. Usually I go by feynon on the internet.',
+      'I was here in the audience last year, and it genuinely changed the direction of my work, so it’s an honor to be back as a speaker.',
     ],
   },
   {
