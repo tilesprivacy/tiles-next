@@ -242,7 +242,9 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                       <InlinePerson name={person.name} links={person.links} showHandle={false} />
                     </span>
                   ))}
-                  . The project is advised by{" "}
+                  .
+                  <br />
+                  The project is advised by{" "}
                   {sponsorPageAdvisors.map((person, index) => (
                     <span key={person.id}>
                       {index > 0 ? (
