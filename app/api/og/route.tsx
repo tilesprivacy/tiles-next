@@ -56,6 +56,19 @@ async function loadGoogleFont(font: string, text: string) {
 
 export async function GET(request: Request) {
   const url = new URL(request.url)
+
+  // Keep the shared OG endpoint backed by the same artwork used by the blog
+  // post, so homepage and page-level metadata stay visually consistent.
+  const sharedImage = await fetch(`${url.origin}/og-image.png`)
+  if (sharedImage.ok) {
+    return new Response(sharedImage.body, {
+      headers: {
+        "Content-Type": sharedImage.headers.get("content-type") ?? "image/png",
+        "Cache-Control": "public, max-age=86400, s-maxage=86400",
+      },
+    })
+  }
+
   const origin = url.origin
   const tagline = TILES_HOMEPAGE_DESCRIPTION
   const fontText = tagline

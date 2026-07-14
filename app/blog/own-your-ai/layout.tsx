@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImageUrl,
-        width: 1920,
-        height: 1080,
+        width: 1672,
+        height: 941,
         alt: post?.coverAlt ?? "Own your AI with local models and open protocols",
         type: "image/png",
       },

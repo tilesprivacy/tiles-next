@@ -23,6 +23,8 @@ interface BlogPostContentProps {
   coverImage?: string
   coverImageDark?: string
   coverAlt?: string
+  coverImageWidth?: number
+  coverImageHeight?: number
   standardSiteDocumentUri?: string
   content: string
   /** When false, hides the mobile and desktop table of contents. Defaults to true. */
@@ -47,6 +49,8 @@ export function BlogPostContent({
   coverImage, 
   coverImageDark,
   coverAlt, 
+  coverImageWidth = 1200,
+  coverImageHeight = 600,
   standardSiteDocumentUri,
   content,
   showTableOfContents = true,
@@ -137,15 +141,15 @@ export function BlogPostContent({
                   <Image
                     src={coverImage}
                     alt={coverAlt ?? title}
-                    width={1200}
-                    height={600}
+                    width={coverImageWidth}
+                    height={coverImageHeight}
                     className="w-full h-auto rounded-lg dark:hidden"
                   />
                   <Image
                     src={coverImageDark}
                     alt={coverAlt ?? title}
-                    width={1200}
-                    height={600}
+                    width={coverImageWidth}
+                    height={coverImageHeight}
                     className="hidden w-full h-auto rounded-lg dark:block"
                   />
                 </>
@@ -153,8 +157,8 @@ export function BlogPostContent({
                 <Image
                   src={coverImage}
                   alt={coverAlt ?? title}
-                  width={1200}
-                  height={600}
+                  width={coverImageWidth}
+                  height={coverImageHeight}
                   className="w-full h-auto rounded-lg"
                 />
               )}

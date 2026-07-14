@@ -23,12 +23,22 @@ function TalkSlideMedia({
   }`
 
   if (slide.media === "video") {
-    return <video className={className} controls playsInline preload="metadata" src={ownYourAiVideoSrc()} aria-label="Slide 26 demo video" />
+    return (
+      <video
+        className={`${className} ${active ? "pointer-events-auto" : "pointer-events-none"}`}
+        controls
+        playsInline
+        preload="metadata"
+        aria-label="Slide 26 demo video"
+      >
+        <source src={ownYourAiVideoSrc()} type="video/mp4" />
+      </video>
+    )
   }
 
   return (
     <img
-      className={className}
+      className={`${className} ${active ? "pointer-events-auto" : "pointer-events-none"}`}
       src={ownYourAiSlideSrc(slide.number)}
       alt=""
       loading={slide.number === 1 ? "eager" : "lazy"}
@@ -113,10 +123,11 @@ function TilesScrollyTalk() {
                   controls
                   playsInline
                   preload="metadata"
-                  src={ownYourAiVideoSrc()}
                   aria-label={`Slide ${slide.number} demo video`}
                   className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
-                />
+                >
+                  <source src={ownYourAiVideoSrc()} type="video/mp4" />
+                </video>
               ) : (
                 <img
                   src={ownYourAiSlideSrc(slide.number)}
@@ -173,15 +184,15 @@ export default function OwnYourAiPage() {
       authorId={post.author}
       coverImage={post.coverImage}
       coverAlt={post.coverAlt ?? post.title}
+      coverImageWidth={1672}
+      coverImageHeight={941}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
       content={post.content}
       showTableOfContents={false}
     >
       <div className="space-y-4" dangerouslySetInnerHTML={{ __html: ownYourAiTalkIntro }} />
 
-      <h2 className="relative left-1/2 w-[min(90rem,calc(100vw-3rem))] -translate-x-1/2">
-        Slides and Transcript
-      </h2>
+      <h2>Slides and Transcript</h2>
 
       <TilesScrollyTalk />
     </BlogPostContent>

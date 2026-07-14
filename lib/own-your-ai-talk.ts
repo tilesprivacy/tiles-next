@@ -279,7 +279,7 @@ export function ownYourAiSlideSrc(number: number): string {
 }
 
 export function ownYourAiVideoSrc(): string {
-  return "/lofi-talk/demo.webm"
+  return "/lofi-talk/demo.mp4"
 }
 
 export const ownYourAiBlogContent = `${ownYourAiTalkIntro}
@@ -289,7 +289,7 @@ ${ownYourAiSlides
     const transcript = slide.transcript.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n")
 
     const media = slide.media === "video"
-      ? `<video controls preload="metadata" src="${ownYourAiVideoSrc()}" aria-label="Slide ${slide.number} demo video"></video>`
+      ? `<video controls preload="metadata" aria-label="Slide ${slide.number} demo video"><source src="${ownYourAiVideoSrc()}" type="video/mp4"></video>`
       : `<img src="${ownYourAiSlideSrc(slide.number)}" alt="Slide ${slide.number}" />`
 
     return `<figure>${media}</figure>${transcript}`
