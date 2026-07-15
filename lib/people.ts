@@ -58,11 +58,6 @@ export const people = {
   ],
   sponsorsPast: [
     {
-      id: "jeremie-miller",
-      name: "Jeremie Miller @jeremie.com",
-      links: ["https://bsky.app/profile/jeremie.com"],
-    },
-    {
       id: "josiah-witt",
       name: "Josiah Witt @josiahwitt.com",
       links: ["https://josiahwitt.com", "https://bsky.app/profile/josiahwitt.com"],
