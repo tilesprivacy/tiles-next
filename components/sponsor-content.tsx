@@ -1,4 +1,5 @@
 'use client'
+import Image from "next/image"
 import { SiteFooter } from "@/components/site-footer"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
@@ -266,9 +267,55 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
               <p className="text-sm leading-6 text-foreground">
-                We’re grateful to the people who have supported the project so far.
+                We are grateful to the organizations supporting our work through our Partner Program on{" "}
+                <a
+                  href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                >
+                  Open Collective
+                </a>
+                , and to everyone who has supported our projects through{" "}
+                <a
+                  href="https://github.com/sponsors/tilesprivacy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                >
+                  GitHub Sponsors
+                </a>
+                .
               </p>
-              <div className="mt-6 grid gap-10 lg:grid-cols-2">
+
+              <div className="mt-8">
+                <div className="flex items-end justify-between gap-4">
+                  <p className="text-sm font-medium text-foreground">Partners</p>
+                  <p className="text-sm text-black/45 dark:text-white/45">1</p>
+                </div>
+                <a
+                  href="https://solpbc.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-4 flex items-center gap-3 border-y border-black/6 py-3 dark:border-white/8"
+                >
+                  <Image
+                    src="/sol-pbc.svg"
+                    alt="Sol PBC logo"
+                    width={40}
+                    height={40}
+                    className="h-10 w-10 shrink-0"
+                  />
+                  <span className="min-w-0">
+                    <span className="block text-sm font-medium text-foreground">Sol PBC</span>
+                    <span className="mt-0.5 block text-sm text-black/45 transition-colors group-hover:text-black dark:text-white/45 dark:group-hover:text-white">
+                      solpbc.org
+                    </span>
+                  </span>
+                </a>
+              </div>
+
+              <div className="mt-8 grid gap-10 lg:grid-cols-2">
                 <div>
                   <div className="flex items-end justify-between gap-4">
                     <p className="text-sm font-medium text-foreground">Current sponsors</p>
