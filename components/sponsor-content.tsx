@@ -6,11 +6,10 @@ import { SocialLinks } from "@/components/social-links"
 import { Button } from "@/components/ui/button"
 import {
   marketingPageBodyClass,
-  marketingPageSectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
-import { sponsorPageAdvisors, sponsorPageMaintainers } from "@/lib/sponsor-page-people"
+import { sponsorPageMaintainers } from "@/lib/sponsor-page-people"
 import { FaGithub } from "react-icons/fa6"
 import { SiOpencollective } from "react-icons/si"
 
@@ -55,39 +54,9 @@ function SponsorPerson({
   )
 }
 
-function InlinePerson({
-  name,
-  links,
-  showHandle = true,
-}: {
-  name: string
-  links: string[]
-  showHandle?: boolean
-}) {
-  const { nameWithoutHandle, handle } = splitPersonDisplayName(name)
-  const primaryLink = links[0]
-
-  return (
-    <a
-      href={primaryLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 whitespace-nowrap align-middle leading-[inherit] text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
-    >
-      <PersonAvatar name={name} links={links} variant="inline" className="inline-flex shrink-0" />
-      <span className="font-medium leading-[inherit]">
-        {nameWithoutHandle}
-        {showHandle && handle ? <span className="text-black/55 dark:text-white/55"> {handle}</span> : null}
-      </span>
-    </a>
-  )
-}
-
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
-  const progressValue = sponsorsGoal.progressPercent
-    ? Math.max(0, Math.min(100, Number.parseInt(sponsorsGoal.progressPercent, 10)))
-    : 20
-  const progressLabel = sponsorsGoal.progressPercent ?? "20%"
+  const progressValue = 85
+  const progressLabel = "85%"
   const goalLabel = sponsorsGoal.goalAmountMonthly ?? "$1,500 per month"
   const socialProofSponsors = people.sponsorsActive.slice(0, 4)
   const featuredSponsor = people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
@@ -96,7 +65,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
   const otherSponsorsCount = Math.max(0, people.sponsorsActive.length - 1)
   const socialProofLabel =
     featuredSponsorLabel && otherSponsorsCount > 0
-      ? `${featuredSponsorLabel} and ${otherSponsorsCount} others sponsor this goal`
+      ? `Sol PBC, Boris Mann, and ${otherSponsorsCount} others sponsor this goal`
       : featuredSponsorLabel
         ? `${featuredSponsorLabel} sponsors this goal`
         : null
@@ -111,11 +80,21 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </h1>
             <div className={`mt-5 max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
               <p>
-                We&apos;re a small independent team working hard to bring privacy technology to everyone, starting with Tiles, a
-                local-first private AI assistant. If you like Tiles, please consider supporting our work.
+                Our mission is to empower people by designing and building software that provides agency, control, and choice
+                in our digital lives. We believe that privacy adoption at scale must work backwards from preserving utility.
+                This means negligible impact on user experience, model intelligence, throughput, latency, tool use & agentic
+                capabilities, and web access.
               </p>
               <p>
-                Your sponsorship helps accelerate Tiles&apos; development and let maintainers work on the project sustainably. Your support means a lot!
+                Tiles Privacy is also a signatory to the{" "}
+                <a
+                  href="https://european.social/#signatories"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                >
+                  European Social Stack initiative
+                </a>, supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.
               </p>
             </div>
 
@@ -125,9 +104,25 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <p className="text-4xl font-light tracking-[-0.05em] text-foreground">{progressLabel}</p>
                   <p className="pb-1 text-sm leading-6 text-black/65 dark:text-white/65">{goalLabel}</p>
                 </div>
-                <p className="mt-2 text-sm leading-6 text-black/65 dark:text-white/65">
-                  Baseline funding to support three full-time contributors
-                </p>
+                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm leading-6 text-black/65 dark:text-white/65">
+                  <span>Baseline funding to support these three full-time contributors:</span>
+                  {sponsorPageMaintainers.map((person) => {
+                    const { handle, nameWithoutHandle } = splitPersonDisplayName(person.name)
+
+                    return (
+                      <a
+                        key={person.id}
+                        href={person.links[0]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 whitespace-nowrap text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                      >
+                        <PersonAvatar name={person.name} links={person.links} variant="inline" className="shrink-0" />
+                        <span>{handle ?? nameWithoutHandle}</span>
+                      </a>
+                    )
+                  })}
+                </div>
                 <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
                   <div
                     className="h-full rounded-full bg-foreground"
@@ -138,6 +133,18 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                 {socialProofLabel ? (
                   <div className="mt-4 flex items-center gap-3">
                     <div className="flex items-center -space-x-2">
+                      <span
+                        className="inline-flex rounded-full ring-2 ring-background"
+                        style={{ zIndex: socialProofSponsors.length + 1 }}
+                      >
+                        <Image
+                          src="/sol-pbc.svg"
+                          alt="Sol PBC"
+                          width={24}
+                          height={24}
+                          className="h-6 w-6 rounded-full bg-white object-contain p-0.5 ring-1 ring-black/10"
+                        />
+                      </span>
                       {socialProofSponsors.map((person, index) => (
                         <span
                           key={person.id}
@@ -188,86 +195,13 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                 </a>
               </Button>
             </div>
+            <p className={`mt-4 max-w-2xl ${marketingPageBodyClass}`}>
+              You can also support us by spreading the word and keeping in touch with us 🖤
+            </p>
 
             <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <h2 className={`mb-4 ${marketingPageSectionTitleClass}`}>
-                About us
-              </h2>
-              <div className={`max-w-2xl space-y-4 ${marketingPageBodyClass}`}>
-                <p>
-                  Our mission is to empower people by designing and building software that provides agency, control, and
-                  choice in our digital lives. We believe that privacy adoption at scale must work backwards from
-                  preserving utility. This means negligible impact on user experience, model intelligence, throughput,
-                  latency, tool use & agentic capabilities, and web access.
-                </p>
-                <p>
-                  We’re open to consulting engagements focused on privacy-preserving products, especially those built with
-                  decentralized technologies such as Iroh, DIDs/UCANs, AT Protocol, and local AI models. If you’re
-                  working in this space,{" "}
-                  <a
-                    href="https://cal.com/feynon/chat"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
-                  >
-                    book a call
-                  </a>{" "}
-                  to discuss how we can help.
-                </p>
-                <p>
-                  Tiles Privacy is also a signatory to the{" "}
-                  <a
-                    href="https://european.social/#signatories"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
-                  >
-                    European Social Stack initiative
-                  </a>
-                  {", "}
-                  supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.
-                </p>
-                <p>
-                  Tiles is maintained by{" "}
-                  {sponsorPageMaintainers.map((person, index) => (
-                    <span key={person.id}>
-                      {index > 0 ? (
-                        index === sponsorPageMaintainers.length - 1 ? (
-                          <span className="align-middle leading-[inherit]">
-                            {sponsorPageMaintainers.length > 2 ? ", and " : " and "}
-                          </span>
-                        ) : (
-                          ", "
-                        )
-                      ) : null}
-                      <InlinePerson name={person.name} links={person.links} showHandle={false} />
-                    </span>
-                  ))}
-                  .
-                  <br />
-                  The project is advised by{" "}
-                  {sponsorPageAdvisors.map((person, index) => (
-                    <span key={person.id}>
-                      {index > 0 ? (
-                        index === sponsorPageAdvisors.length - 1 ? (
-                          <span className="align-middle leading-[inherit]">
-                            {sponsorPageAdvisors.length > 2 ? ", and " : " and "}
-                          </span>
-                        ) : (
-                          ", "
-                        )
-                      ) : null}
-                      <InlinePerson name={person.name} links={person.links} showHandle={false} />
-                    </span>
-                  ))}
-                  .
-                </p>
-              </div>
-            </div>
-
-            <div className="mt-12 border-t border-black/8 pt-8 dark:border-white/10">
-              <p className="text-sm leading-6 text-foreground">
-                We are grateful to the organizations supporting our work through our Partner Program on{" "}
+              <p className={marketingPageBodyClass}>
+                We are grateful to the organizations supporting our work financially through our Partner Program on{" "}
                 <a
                   href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
                   target="_blank"

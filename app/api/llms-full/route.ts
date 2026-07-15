@@ -7,7 +7,6 @@ import {
 } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
-import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
 import fs from 'fs'
 import path from 'path'
 
@@ -138,10 +137,8 @@ export async function GET(request: Request) {
 
   pushSection(lines, `Sponsor (${baseUrl}/sponsor)`, [
     'Help keep Tiles Privacy independent.',
-    "Tiles Privacy is a small independent team working to bring privacy technology to everyone, starting with Tiles, a local-first private AI assistant.",
-    "Sponsorship helps accelerate Tiles' development and lets maintainers work on the project sustainably.",
-    'Tiles Privacy is open to consulting engagements focused on privacy-preserving products, especially those built with decentralized technologies such as Iroh, DIDs/UCANs, AT Protocol, and local AI models.',
-    sponsorPageTeamSentence,
+    'Our mission is to empower people by designing and building software that provides agency, control, and choice in our digital lives. We believe that privacy adoption at scale must work backwards from preserving utility. This means negligible impact on user experience, model intelligence, throughput, latency, tool use & agentic capabilities, and web access.',
+    'Tiles Privacy is also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.',
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
   ])
 
