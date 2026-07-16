@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { PersonAvatar } from "@/components/person-avatar"
 import { useTheme } from "next-themes"
 import { FaApple, FaBook, FaClockRotateLeft, FaDiscord, FaGithub, FaLinux } from "react-icons/fa6"
+import { SiOpencollective } from "react-icons/si"
 import { Check, Copy } from "lucide-react"
 import { triggerHaptic } from "@/lib/haptics"
 import {
@@ -35,6 +36,7 @@ import {
   DOWNLOAD_PLATFORM_MACOS_LABEL,
 } from "@/lib/product-description"
 import { people, splitPersonDisplayName } from "@/lib/people"
+import { sponsorPageMaintainers } from "@/lib/sponsor-page-people"
 import type { SponsorsGoalData } from "@/lib/sponsors-goal"
 
 interface DownloadMetadata {
@@ -217,24 +219,14 @@ export function DownloadContent({
     : hasDownloadUrl
       ? "Download network installer"
       : "Download unavailable"
-  const sponsorProgressValue = sponsorsGoal?.progressPercent
-    ? Math.max(0, Math.min(100, Number.parseInt(sponsorsGoal.progressPercent, 10)))
-    : 20
-  const sponsorProgressLabel = sponsorsGoal?.progressPercent ?? "20%"
+  const sponsorProgressValue = 85
+  const sponsorProgressLabel = "85%"
   const sponsorGoalLabel = sponsorsGoal?.goalAmountMonthly ?? "$1,500 per month"
   const socialProofSponsors = people.sponsorsActive.slice(0, 4)
-  const featuredSponsor =
-    people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
-  const featuredSponsorParts = featuredSponsor ? splitPersonDisplayName(featuredSponsor.name) : null
-  const featuredSponsorLabel =
-    featuredSponsorParts?.handle?.replace(/^@/, "") ?? featuredSponsorParts?.nameWithoutHandle ?? null
   const otherSponsorsCount = Math.max(0, people.sponsorsActive.length - 1)
-  const socialProofLabel =
-    featuredSponsorLabel && otherSponsorsCount > 0
-      ? `${featuredSponsorLabel} and ${otherSponsorsCount} others sponsor this goal`
-      : featuredSponsorLabel
-        ? `${featuredSponsorLabel} sponsors this goal`
-        : null
+  const socialProofLabel = people.sponsorsActive.length
+    ? `Sol PBC, Boris Mann, and ${otherSponsorsCount} others sponsor this goal`
+    : null
 
   async function onSendDownloadLinkEmail(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -668,13 +660,22 @@ export function DownloadContent({
                   </h2>
                   <div className={`max-w-2xl space-y-4 ${bodyTextClass}`}>
                     <p>
-                      We&apos;re a small independent team working hard to bring privacy technology to everyone, starting
-                      with Tiles, a local-first private AI assistant. If you like Tiles, please consider supporting our
-                      work.
+                      Our mission is to empower people by designing and building software that provides agency, control,
+                      and choice in our digital lives. We believe that privacy adoption at scale must work backwards from
+                      preserving utility. This means negligible impact on user experience, model intelligence,
+                      throughput, latency, tool use &amp; agentic capabilities, and web access.
                     </p>
                     <p>
-                      Your sponsorship helps accelerate Tiles&apos; development and lets maintainers work on the project
-                      sustainably. Your support means a lot!
+                      Tiles Privacy is also a signatory to the{" "}
+                      <a
+                        href="https://european.social/#signatories"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={textColorLink}
+                      >
+                        European Social Stack initiative
+                      </a>
+                      , supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.
                     </p>
                   </div>
                 </div>
@@ -685,9 +686,27 @@ export function DownloadContent({
                       <p className="text-4xl font-light tracking-[-0.05em] text-foreground">{sponsorProgressLabel}</p>
                       <p className={`pb-1 text-sm leading-6 ${textColorSubtle}`}>{sponsorGoalLabel}</p>
                     </div>
-                    <p className={`mt-2 text-sm leading-6 ${textColorSubtle}`}>
-                      Baseline funding to support the team sustainably
-                    </p>
+                    <div className={`mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm leading-6 ${textColorSubtle}`}>
+                      <span>Baseline funding to support these three full-time contributors:</span>
+                      {sponsorPageMaintainers.map((person) => {
+                        const { handle, nameWithoutHandle } = splitPersonDisplayName(person.name)
+
+                        return (
+                          <a
+                            key={person.id}
+                            href={person.links[0]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={textColorLink}
+                          >
+                            <span className="inline-flex items-center gap-1 whitespace-nowrap">
+                              <PersonAvatar name={person.name} links={person.links} variant="inline" className="shrink-0" />
+                              <span>{handle ?? nameWithoutHandle}</span>
+                            </span>
+                          </a>
+                        )
+                      })}
+                    </div>
                     <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
                       <div
                         className="h-full rounded-full bg-foreground"
@@ -698,6 +717,18 @@ export function DownloadContent({
                     {socialProofLabel ? (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="flex items-center -space-x-2">
+                          <span
+                            className="inline-flex rounded-full ring-2 ring-background"
+                            style={{ zIndex: socialProofSponsors.length + 1 }}
+                          >
+                            <Image
+                              src="/sol-pbc.svg"
+                              alt="Sol PBC"
+                              width={24}
+                              height={24}
+                              className="h-6 w-6 rounded-full bg-white object-contain p-0.5 ring-1 ring-black/10"
+                            />
+                          </span>
                           {socialProofSponsors.map((person, index) => (
                             <span
                               key={person.id}
@@ -720,7 +751,7 @@ export function DownloadContent({
                   </div>
                 </div>
 
-                <div className="mt-8">
+                <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     href="https://github.com/sponsors/tilesprivacy"
                     target="_blank"
@@ -730,7 +761,19 @@ export function DownloadContent({
                     <FaGithub className="h-4 w-4" aria-hidden />
                     <span className={downloadButtonLabelClass}>Sponsor on GitHub</span>
                   </Link>
+                  <Link
+                    href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={primaryDownloadButtonClass}
+                  >
+                    <SiOpencollective className="h-4 w-4" aria-hidden />
+                    <span className={downloadButtonLabelClass}>Sponsor on OpenCollective</span>
+                  </Link>
                 </div>
+                <p className={`mt-4 max-w-2xl ${bodyTextClass}`}>
+                  You can also support us by spreading the word and keeping in touch with us 🖤
+                </p>
               </div>
             </section>
 
