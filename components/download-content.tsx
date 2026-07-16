@@ -36,7 +36,6 @@ import {
   DOWNLOAD_PLATFORM_MACOS_LABEL,
 } from "@/lib/product-description"
 import { people, splitPersonDisplayName } from "@/lib/people"
-import { sponsorPageMaintainers } from "@/lib/sponsor-page-people"
 import type { SponsorsGoalData } from "@/lib/sponsors-goal"
 
 interface DownloadMetadata {
@@ -686,27 +685,9 @@ export function DownloadContent({
                       <p className="text-4xl font-light tracking-[-0.05em] text-foreground">{sponsorProgressLabel}</p>
                       <p className={`pb-1 text-sm leading-6 ${textColorSubtle}`}>{sponsorGoalLabel}</p>
                     </div>
-                    <div className={`mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm leading-6 ${textColorSubtle}`}>
-                      <span>Baseline funding to support these three full-time contributors:</span>
-                      {sponsorPageMaintainers.map((person) => {
-                        const { handle, nameWithoutHandle } = splitPersonDisplayName(person.name)
-
-                        return (
-                          <a
-                            key={person.id}
-                            href={person.links[0]}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={textColorLink}
-                          >
-                            <span className="inline-flex items-center gap-1 whitespace-nowrap">
-                              <PersonAvatar name={person.name} links={person.links} variant="inline" className="shrink-0" />
-                              <span>{handle ?? nameWithoutHandle}</span>
-                            </span>
-                          </a>
-                        )
-                      })}
-                    </div>
+                    <p className={`mt-2 text-sm leading-6 ${textColorSubtle}`}>
+                      Baseline funding to support three full time contributors.
+                    </p>
                     <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
                       <div
                         className="h-full rounded-full bg-foreground"
