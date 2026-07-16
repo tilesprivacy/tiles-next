@@ -9,7 +9,6 @@ import {
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
-import { sponsorPageMaintainers } from "@/lib/sponsor-page-people"
 import { FaGithub } from "react-icons/fa6"
 import { SiOpencollective } from "react-icons/si"
 
@@ -104,25 +103,9 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <p className="text-4xl font-light tracking-[-0.05em] text-foreground">{progressLabel}</p>
                   <p className="pb-1 text-sm leading-6 text-black/65 dark:text-white/65">{goalLabel}</p>
                 </div>
-                <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm leading-6 text-black/65 dark:text-white/65">
-                  <span>Baseline funding to support these three full-time contributors:</span>
-                  {sponsorPageMaintainers.map((person) => {
-                    const { handle, nameWithoutHandle } = splitPersonDisplayName(person.name)
-
-                    return (
-                      <a
-                        key={person.id}
-                        href={person.links[0]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 whitespace-nowrap text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
-                      >
-                        <PersonAvatar name={person.name} links={person.links} variant="inline" className="shrink-0" />
-                        <span>{handle ?? nameWithoutHandle}</span>
-                      </a>
-                    )
-                  })}
-                </div>
+                <p className="mt-2 text-sm leading-6 text-black/65 dark:text-white/65">
+                  Baseline funding to support three full time contributors.
+                </p>
                 <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-black/8 dark:bg-white/10">
                   <div
                     className="h-full rounded-full bg-foreground"
