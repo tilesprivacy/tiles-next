@@ -95,6 +95,40 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   European Social Stack initiative
                 </a>, supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.
               </p>
+              <p>
+                Tiles Privacy is built by a small independent team of three.
+                <span className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-3">
+                  {people.contributorsCore.map((person) => {
+                    const { nameWithoutHandle } = splitPersonDisplayName(person.name)
+                    const teamProfile = {
+                      "ankesh-bharti": { username: "@feynon", href: "https://ankeshbharti.com" },
+                      "anandu-pavanan": { username: "@madclaws", href: "https://github.com/madclaws" },
+                      "prashant-mishra": { username: "@primalpimmy", href: "https://pimtron.dev" },
+                    }[person.id]
+                    return (
+                      <a
+                        key={person.id}
+                        href={teamProfile?.href ?? person.links[0]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-sm text-foreground transition-opacity hover:opacity-70"
+                      >
+                        <PersonAvatar
+                          name={person.name}
+                          links={person.links}
+                          className="shrink-0"
+                          loading="eager"
+                          fetchPriority="high"
+                        />
+                        <span>
+                          {nameWithoutHandle}{" "}
+                          <span className="text-black/45 dark:text-white/45">{teamProfile?.username}</span>
+                        </span>
+                      </a>
+                    )
+                  })}
+                </span>
+              </p>
             </div>
 
             <div className="mt-8 pt-8">
@@ -192,8 +226,17 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   className="underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
                 >
                   Open Collective
-                </a>
-                , and to everyone who has supported our projects through{" "}
+                </a>, which belongs to the{" "}
+                <a
+                  href="https://userandagents.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-foreground underline decoration-current/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-current dark:hover:text-white/85"
+                >
+                  <Image src="/ua-logo.svg" alt="User & Agents Community logo" width={16} height={16} className="h-4 w-4 rounded-sm" />
+                  User & Agents Community
+                </a>{" "}
+                with Open Source Europe as its fiscal host, and to everyone who has supported our projects through{" "}
                 <a
                   href="https://github.com/sponsors/tilesprivacy"
                   target="_blank"

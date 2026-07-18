@@ -115,6 +115,44 @@
   background: rgb(255 255 255 / 0.06) !important;
 }
 
+.atmospheric-sessions-content > p {
+  margin-bottom: 1.5rem;
+}
+
+.atmospheric-sessions-content > h2 {
+  margin-top: 3.5rem !important;
+}
+
+.atmospheric-sessions-content > .atmospheric-session-figure {
+  margin: 2.5rem 0;
+}
+
+.atmospheric-sessions-content > .atmospheric-session-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.atmospheric-sessions-content > .atmospheric-session-figure figcaption {
+  margin-top: 0.75rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  color: rgb(0 0 0 / 0.5);
+}
+
+.dark .atmospheric-sessions-content > .atmospheric-session-figure figcaption {
+  color: rgb(255 255 255 / 0.5);
+}
+
+.atmospheric-sessions-content > iframe {
+  display: block;
+  width: 100%;
+  margin: 2.5rem 0;
+  border: 0;
+}
+
 .blog-article-content pre code {
   background: transparent !important;
   border: 0 !important;

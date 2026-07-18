@@ -1,6 +1,7 @@
 import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content"
 import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content"
 import { ownYourAiBlogContent } from "@/lib/own-your-ai-talk"
+import { atmosphericSessionsBlogContent } from "@/lib/blog-post-atmospheric-sessions-content"
 
 export interface BlogPost {
   slug: string
@@ -44,6 +45,19 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "atmospheric-sessions",
+    title: "ATmospheric sessions",
+    description: "Share and keep your public and private Tiles chat sessions with ATproto",
+    date: new Date("2026-07-14"),
+    author: "anandu-pavanan",
+    coverImage: "/atmospheric-sessions-banner.png",
+    coverAlt: "Atmospheric link over a cloudscape",
+    listingImage: "/atmospheric-sessions-listing-centered.png",
+    listingImageDark: "/atmospheric-sessions-listing-centered.png",
+    draft: true,
+    content: atmosphericSessionsBlogContent,
+  },
   {
     slug: "own-your-ai",
     title: "Own your AI with local models and open protocols",

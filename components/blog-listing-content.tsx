@@ -107,7 +107,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               width={900}
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
-              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
+              className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
               onError={() => setImageSrc("/og-image.jpg")}
             />
             <Image
@@ -116,7 +116,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               width={900}
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
-              className="hidden h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] dark:block"
+              className="hidden h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03] dark:block"
               onError={() => setImageSrcDark("/og-image.jpg")}
             />
           </div>
