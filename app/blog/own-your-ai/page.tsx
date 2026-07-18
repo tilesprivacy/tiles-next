@@ -182,10 +182,6 @@ export default function OwnYourAiPage() {
       description={post.description}
       date={formattedDate}
       authorId={post.author}
-      coverImage={post.coverImage}
-      coverAlt={post.coverAlt ?? post.title}
-      coverImageWidth={1672}
-      coverImageHeight={941}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
       content={post.content}
       showTableOfContents={false}
