@@ -54,8 +54,8 @@ function SponsorPerson({
 }
 
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
-  const progressValue = 85
-  const progressLabel = "85%"
+  const progressValue = 90
+  const progressLabel = "90%"
   const goalLabel = sponsorsGoal.goalAmountMonthly ?? "$1,500 per month"
   const socialProofSponsors = people.sponsorsActive.slice(0, 4)
   const featuredSponsor = people.sponsorsActive.find((person) => splitPersonDisplayName(person.name).handle) ?? people.sponsorsActive[0]
