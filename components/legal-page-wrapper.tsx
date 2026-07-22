@@ -21,9 +21,9 @@ export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
         } as CSSProperties}
       >
         <div className={`w-full space-y-6 sm:space-y-8 text-base leading-[1.7] ${textColorBody}
-          [&_h1]:text-[2rem] [&_h1]:font-normal [&_h1]:leading-[1.1] [&_h1]:tracking-[-0.035em] [&_h1]:text-balance
-          [&_h2]:text-base [&_h2]:font-semibold [&_h2]:leading-[1.4] [&_h2]:tracking-[-0.01em] [&_h2]:text-balance
-          [&_h3]:text-[0.9375rem] [&_h3]:font-semibold [&_h3]:leading-[1.4] [&_h3]:tracking-[-0.01em] [&_h3]:text-balance
+          [&_h1]:text-[clamp(2.25rem,4vw,2.5rem)] [&_h1]:font-normal [&_h1]:leading-[1.1] [&_h1]:tracking-[-0.035em] [&_h1]:text-balance
+          [&_h2]:text-[1.375rem] [&_h2]:font-semibold [&_h2]:leading-[1.25] [&_h2]:tracking-[-0.02em] [&_h2]:text-balance lg:[&_h2]:text-2xl
+          [&_h3]:text-[1.0625rem] [&_h3]:font-semibold [&_h3]:leading-[1.35] [&_h3]:tracking-[-0.01em] [&_h3]:text-balance
           [&_.last-updated]:text-xs [&_.last-updated]:sm:text-sm
           [&_.contact-info]:text-xs [&_.contact-info]:sm:text-sm
         `}

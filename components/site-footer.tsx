@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalFooter } from "@/components/minimal-footer"
 import { NewsletterCta } from "@/components/newsletter-cta"
@@ -23,6 +24,9 @@ export function SiteFooter({
         <section className="refined-site-footer-download">
           <h2>Try Tiles now.</h2>
           <MinimalDownload platformSize="footer" />
+          <Link href="/book/manual" className="minimal-actions-manual-link">
+            Read the User Manual
+          </Link>
         </section>
       ) : null}
       <MinimalFooter />

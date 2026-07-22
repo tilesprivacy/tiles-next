@@ -143,8 +143,8 @@ export function BlogPostContent({
                 />
               </div>
               {author && (
-                <div className="mt-0.5 flex flex-col items-start gap-0.5">
-                  <div className="flex items-center gap-1.5">
+                <div className="mt-0.5 flex items-center gap-1.5">
+                  <div className="flex min-w-0 items-center gap-1.5">
                     <PersonAvatar
                       name={author.name}
                       links={author.links}
@@ -161,7 +161,7 @@ export function BlogPostContent({
                   <SocialLinks
                     name={author.name}
                     links={author.links}
-                    className="blog-print-screen-only ml-[1.625rem] flex shrink-0 items-center gap-0"
+                    className="blog-print-screen-only flex shrink-0 items-center gap-0"
                     linkClassName="inline-flex h-8 w-8 touch-manipulation items-center justify-center rounded-md text-black/40 transition-colors hover:bg-black/5 hover:text-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/40 dark:hover:bg-white/8 dark:hover:text-white/70 dark:focus-visible:outline-white/60"
                     iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
                   />

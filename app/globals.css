@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #111;
-  background: #111;
+  background: #020202;
   color: #fff;
   font-size: 0.8125rem;
   line-height: 1.35;
@@ -100,7 +100,7 @@
   position: fixed;
   inset: var(--site-announcement-height) 0 auto;
   z-index: 50;
-  width: min(calc(100% - 2.5rem), 72rem);
+  width: calc(100% - 2.5rem);
   height: 5.5rem;
   margin-inline: auto;
   display: flex;
@@ -197,7 +197,7 @@
 
 .minimal-manual-page { position: relative; padding: 10rem 1.25rem 5rem; }
 .minimal-manual-prose { width: min(100%, 46rem); margin-inline: auto; }
-.minimal-manual-prose > h1 { margin: 0 0 5rem; font-size: 2rem; line-height: 1.1; font-weight: 400; letter-spacing: -0.035em; }
+.minimal-manual-prose > h1 { margin: 0 0 5rem; font-size: clamp(2.25rem, 4vw, 2.5rem); line-height: 1.1; font-weight: 400; letter-spacing: -0.035em; }
 .minimal-manual-prose h2 { margin: 5rem 0 1.25rem; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-manual-prose h3 { margin: 3rem 0 0.875rem; font-size: 0.9375rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-manual-prose h4 { margin: 2rem 0 0.6rem; font-size: 0.875rem; line-height: 1.4; font-weight: 400; letter-spacing: 0; }
@@ -230,7 +230,7 @@
 .refined-site-footer-download { width: min(100%, 46rem); margin-inline: auto; }
 .refined-site-footer-newsletter { margin-bottom: 5rem; }
 .refined-site-footer-download { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 5rem; text-align: center; }
-.refined-site-footer-download h2 { margin: 0; font-size: 1.25rem; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; }
+.refined-site-footer-download h2 { margin: 0; font-size: 1.5rem; font-weight: 500; line-height: 1.3; letter-spacing: -0.02em; }
 .refined-site-footer .minimal-footer { padding-bottom: 2rem; }
 
 .minimal-inner-page { position: relative; padding: 10rem 1.25rem 8rem; }
@@ -276,7 +276,7 @@
 .minimal-legal { margin: 3rem 0 0; color: #666; font-size: 0.75rem; line-height: 1.6; }
 .minimal-download-page .minimal-legal { margin-top: 0; }
 .minimal-download-page .minimal-page-intro { margin-bottom: 0; }
-.minimal-download-page .minimal-page-intro h1 { font-size: 2rem; line-height: 1.1; letter-spacing: -0.035em; }
+.minimal-download-page .minimal-page-intro h1 { font-size: clamp(2.25rem, 4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.035em; }
 .minimal-download-email { margin: 0 0 2rem; padding: 1.25rem 0 2rem; border-bottom: 0; }
 .minimal-download-email h2 { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-download-email > p { margin: 0.65rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.55; }
@@ -289,7 +289,7 @@
 .minimal-download-email-status { color: #666; }
 .minimal-download-email-error { color: #b42318; }
 .minimal-download-email { display: none; }
-.minimal-sponsor-page .minimal-page-intro h1 { font-size: 2rem; line-height: 1.1; letter-spacing: -0.035em; }
+.minimal-sponsor-page .minimal-page-intro h1 { font-size: clamp(2.25rem, 4vw, 2.5rem); line-height: 1.1; letter-spacing: -0.035em; }
 .minimal-sponsor-page .minimal-section h2 { font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-download-platform { padding: 3.5rem 0; border-top: 0; }
 .minimal-download-platform h2 { display: flex; align-items: center; gap: 0.45rem; margin: 0; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
@@ -331,20 +331,7 @@
 .minimal-sponsor-name strong { color: #111; font-weight: 500; }
 .minimal-sponsor-name small { color: #777; font-size: inherit; }
 
-@media (max-width: 520px) {
-  .minimal-hero { padding-inline: 1rem; }
-  .minimal-wordmark { top: calc(50% - 142px); gap: 0.7rem; height: 78px; }
-  .minimal-wordmark img { width: 56px; height: 56px; }
-  .minimal-wordmark h1 { font-size: 52px; line-height: 1; }
-  .minimal-wordmark-alpha { margin-top: 0.7rem; padding: 0.2rem 0.32rem; font-size: 0.6rem; }
-  .minimal-hero > p { top: calc(50% - 14px); width: calc(100% - 2rem); font-size: 18px; line-height: 26px; }
-  .minimal-hero > .minimal-download-cta { top: calc(50% + 78px); width: calc(100% - 2rem); }
-  .minimal-download-link { max-width: calc(100% - 2rem); min-height: 48px; height: auto; padding: 0.65rem 1.25rem; text-align: center; line-height: 1.35; }
-  .minimal-actions > .minimal-download-cta > .minimal-download-link { padding-inline: 1.25rem; }
-  .minimal-hero-device { width: calc(100% - 4rem); margin-top: -5rem; }
-  .minimal-hero-device-banner img { width: 52%; }
-  .minimal-copy { margin-top: 96px; }
-  .minimal-actions { margin-top: 96px; margin-bottom: 64px; }
+@media (max-width: 767px) {
   .minimal-topbar { width: calc(100% - 2rem); height: 4.75rem; }
   .minimal-topbar-left { gap: 0.625rem; }
   .minimal-topbar-download { min-height: 34px; padding: 0.4rem 0.625rem; font-size: 0.75rem; }
@@ -361,6 +348,22 @@
   .minimal-topbar-menu nav { display: flex; flex-direction: column; gap: 1.25rem; padding-top: 1rem; }
   .minimal-topbar-menu nav a { display: inline-flex; min-height: 44px; align-items: center; font-size: 1.7rem; font-weight: 400; line-height: 1.2; letter-spacing: -0.015em; text-decoration: none; }
   .minimal-topbar-menu nav a:hover { opacity: 0.65; }
+}
+
+@media (max-width: 520px) {
+  .minimal-hero { padding-inline: 1rem; }
+  .minimal-wordmark { top: calc(50% - 142px); gap: 0.7rem; height: 78px; }
+  .minimal-wordmark img { width: 56px; height: 56px; }
+  .minimal-wordmark h1 { font-size: 52px; line-height: 1; }
+  .minimal-wordmark-alpha { margin-top: 0.7rem; padding: 0.2rem 0.32rem; font-size: 0.6rem; }
+  .minimal-hero > p { top: calc(50% - 14px); width: calc(100% - 2rem); font-size: 18px; line-height: 26px; }
+  .minimal-hero > .minimal-download-cta { top: calc(50% + 78px); width: calc(100% - 2rem); }
+  .minimal-download-link { max-width: calc(100% - 2rem); min-height: 48px; height: auto; padding: 0.65rem 1.25rem; text-align: center; line-height: 1.35; }
+  .minimal-actions > .minimal-download-cta > .minimal-download-link { padding-inline: 1.25rem; }
+  .minimal-hero-device { width: calc(100% - 4rem); margin-top: -5rem; }
+  .minimal-hero-device-banner img { width: 52%; }
+  .minimal-copy { margin-top: 96px; }
+  .minimal-actions { margin-top: 96px; margin-bottom: 64px; }
   .minimal-inner-page,
   .minimal-manual-page { padding-top: 8rem; }
   .minimal-page-intro { margin-bottom: 5rem; }
@@ -375,6 +378,14 @@
 
 @media (max-width: 1024px) {
   .minimal-download-email { display: block; border-bottom: 0; }
+  .minimal-download-page .minimal-download-email {
+    margin: 3rem 0 0;
+    padding: 0;
+  }
+  .minimal-download-page .minimal-download-platform {
+    margin: 3rem 0 0;
+    padding: 0;
+  }
 }
 
 /* Light theme: Apple-like neutral palette */
@@ -449,7 +460,7 @@
   margin-right: 0;
   margin-top: 0 !important;
   box-sizing: border-box;
-  font-size: 2rem !important;
+  font-size: clamp(2.25rem, 4vw, 2.5rem) !important;
   font-weight: 400 !important;
   line-height: 1.1 !important;
   letter-spacing: -0.035em !important;
@@ -457,12 +468,12 @@
 }
 
 [data-book-section] article main > h2 {
-  font-size: 1rem !important;
+  font-size: 1.375rem !important;
   font-weight: 600 !important;
-  line-height: 1.4 !important;
-  letter-spacing: -0.01em !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.02em !important;
   margin-top: 2.75rem !important;
-  margin-bottom: 0.875rem !important;
+  margin-bottom: 1rem !important;
 }
 
 [data-book-section] article main > h1 + h2 {
@@ -470,12 +481,18 @@
 }
 
 [data-book-section] article main > h3 {
-  font-size: 0.9375rem !important;
+  font-size: 1.0625rem !important;
   font-weight: 600 !important;
-  line-height: 1.4 !important;
+  line-height: 1.35 !important;
   letter-spacing: -0.01em !important;
   margin-top: 2rem !important;
   margin-bottom: 0.75rem !important;
+}
+
+@media (min-width: 1024px) {
+  [data-book-section] article main > h2 {
+    font-size: 1.5rem !important;
+  }
 }
 
 [data-book-section] article :where(h4, h5, h6) {
@@ -1161,102 +1178,100 @@
   @apply text-black/80 dark:text-white/80;
 }
 
-/* Code block copy/word-wrap buttons - matching download page script box style */
-/* Solid backgrounds that match code block container, no blur */
-[data-book-section] .nextra-code pre > div:first-child,
-[data-book-section] pre.group > div:first-child {
+/* Keep book command boxes single-line, scrollable, and aligned consistently. */
+[data-book-section] .nextra-code pre {
+  position: relative !important;
+  margin-block: 1rem !important;
+  padding: 0 !important;
+  overflow-x: auto !important;
+  scroll-padding-inline-end: 4.5rem !important;
+}
+
+[data-book-section] .nextra-code pre code.nextra-code {
+  display: block !important;
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+  padding: 1rem 4.5rem 1rem 1rem !important;
+  white-space: pre !important;
+  line-height: 1.5rem;
+}
+
+[data-book-section] .nextra-code pre code.nextra-code > span,
+[data-book-section] .nextra-code pre code.nextra-code > span > span {
+  padding-right: 0 !important;
+  white-space: pre !important;
+}
+
+[data-book-section] .nextra-code pre code.nextra-code > span::after {
+  content: none !important;
+}
+
+/* The manual opts out of wrapping in MDX; hide the control defensively. */
+[data-book-section] .nextra-code button[title="Toggle word wrap"] {
+  display: none !important;
+}
+
+[data-book-section] .nextra-code pre > div:first-child {
+  top: 0.5rem !important;
+  right: 0.5rem !important;
+  left: auto !important;
+  display: flex;
+  align-items: center;
+  gap: 0 !important;
   opacity: 1 !important;
 }
 
-/* Ensure code content scrolls clear of the absolute copy button rail */
-[data-book-section] .nextra-code pre,
-[data-book-section] pre.group {
-  scroll-padding-inline-end: 5rem !important;
-}
-
-[data-book-section] .nextra-code pre code.nextra-code,
-[data-book-section] pre.group code.nextra-code {
-  display: block;
-  box-sizing: border-box;
-  padding-right: 5rem !important;
-}
-
-[data-book-section] .nextra-code pre code.nextra-code:not([class*="twoslash-"]) > span,
-[data-book-section] pre.group code.nextra-code:not([class*="twoslash-"]) > span {
-  padding-right: 5rem !important;
-}
-
-[data-book-section] .nextra-code pre code.nextra-code:not([class*="twoslash-"]) > span::after,
-[data-book-section] pre.group code.nextra-code:not([class*="twoslash-"]) > span::after {
-  content: "";
-  display: inline-block;
-  width: 3rem;
-}
-
-[data-book-section] .nextra-code pre > div:first-child button,
-[data-book-section] pre.group > div:first-child button,
-[data-book-section] .nextra-code button[title="Copy code"],
-[data-book-section] .nextra-code button:has(.nextra-copy-icon),
-[data-book-section] pre button[title="Copy code"],
-[data-book-section] pre button:has(.nextra-copy-icon),
-[data-book-section] pre button:has(svg) {
+[data-book-section] .nextra-code button[title="Copy code"] {
+  display: inline-grid !important;
+  place-items: center;
+  width: 2.25rem !important;
+  min-width: 2.25rem !important;
+  height: 2.25rem !important;
   background-color: var(--muted) !important;
   border: none !important;
   border-radius: var(--radius-sm) !important;
-  padding: 0.25rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
   opacity: 1 !important;
   transition: background-color 0.15s ease !important;
 }
 
-[data-book-section] .nextra-code pre > div:first-child button:hover,
-[data-book-section] pre.group > div:first-child button:hover,
-[data-book-section] .nextra-code button[title="Copy code"]:hover,
-[data-book-section] pre button[title="Copy code"]:hover,
-[data-book-section] pre button:has(svg):hover {
+[data-book-section] .nextra-code button[title="Copy code"]:hover {
   background-color: var(--accent) !important;
 }
 
-/* Dark mode code block buttons */
-.dark [data-book-section] .nextra-code pre > div:first-child button,
-.dark [data-book-section] pre.group > div:first-child button,
-.dark [data-book-section] .nextra-code button[title="Copy code"],
-.dark [data-book-section] .nextra-code button:has(.nextra-copy-icon),
-.dark [data-book-section] pre button[title="Copy code"],
-.dark [data-book-section] pre button:has(.nextra-copy-icon),
-.dark [data-book-section] pre button:has(svg) {
+.dark [data-book-section] .nextra-code button[title="Copy code"] {
   background-color: var(--secondary) !important;
   border: none !important;
   color: var(--foreground) !important;
   opacity: 1 !important;
 }
 
-.dark [data-book-section] .nextra-code pre > div:first-child button:hover,
-.dark [data-book-section] pre.group > div:first-child button:hover,
-.dark [data-book-section] .nextra-code button[title="Copy code"]:hover,
-.dark [data-book-section] pre button[title="Copy code"]:hover,
-.dark [data-book-section] pre button:has(svg):hover {
+.dark [data-book-section] .nextra-code button[title="Copy code"]:hover {
   background-color: var(--accent) !important;
 }
 
-/* Button icons - matching download page colors */
 [data-book-section] .nextra-copy-icon,
-[data-book-section] pre button svg {
+[data-book-section] .nextra-code button[title="Copy code"] svg {
+  width: 1rem;
+  height: 1rem;
   color: rgba(0, 0, 0, 0.5) !important;
   transition: color 0.15s ease !important;
 }
 
-[data-book-section] pre button:hover svg,
-[data-book-section] pre button:hover .nextra-copy-icon {
+[data-book-section] .nextra-code button[title="Copy code"]:hover svg,
+[data-book-section] .nextra-code button[title="Copy code"]:hover .nextra-copy-icon {
   color: rgba(0, 0, 0, 0.8) !important;
 }
 
 .dark [data-book-section] .nextra-copy-icon,
-.dark [data-book-section] pre button svg {
+.dark [data-book-section] .nextra-code button[title="Copy code"] svg {
   color: var(--muted-foreground) !important;
 }
 
-.dark [data-book-section] pre button:hover svg,
-.dark [data-book-section] pre button:hover .nextra-copy-icon {
+.dark [data-book-section] .nextra-code button[title="Copy code"]:hover svg,
+.dark [data-book-section] .nextra-code button[title="Copy code"]:hover .nextra-copy-icon {
   color: var(--foreground) !important;
 }
 

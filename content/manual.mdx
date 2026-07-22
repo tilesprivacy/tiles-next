@@ -17,7 +17,7 @@ Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts
 
 Launches onboarding (first run) and the interactive chat.
 
-```bash
+```bash word-wrap=false
 tiles   # Onboarding (if needed) and interactive chat
 ```
 
@@ -25,20 +25,20 @@ tiles   # Onboarding (if needed) and interactive chat
 
 Run a Modelfile (uses the default model if none is provided).
 
-```bash
+```bash word-wrap=false
 tiles run [MODELFILE_PATH]   # Default model if path omitted
 ```
 
 The same optional flags below also apply when you run `tiles` without a subcommand.
 
-```bash
+```bash word-wrap=false
 tiles run
 tiles run ./path/to/Modelfile
 ```
 
 Optional tuning flags:
 
-```bash
+```bash word-wrap=false
 tiles run --context-length 8192
 tiles run --gpu-layers 32
 tiles run --offload-kqv
@@ -58,7 +58,7 @@ Values you set on the command line are persisted in `config.toml` and apply on l
 
 Create a new Modelfile by adding a plain text file named `Modelfile`:
 
-```text
+```text word-wrap=false
 FROM mlx-community/Qwen3.5-4B-MLX-4bit
 SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
 ```
@@ -69,7 +69,7 @@ Use any `mlx-community/` model (macOS) or GGUF model (Linux) hosted on Hugging F
 
 Show the top-level help menu or help for a specific command.
 
-```bash
+```bash word-wrap=false
 tiles help
 tiles help run
 tiles help link
@@ -82,13 +82,13 @@ tiles help plugin
 
 Manage your user account: root identity and display nickname.
 
-```bash
+```bash word-wrap=false
 tiles account create [<nickname>]       # Create root identity (nickname optional)
 tiles account set-nickname <nickname> # Set nickname
 tiles account                         # Show account details
 ```
 
-```bash
+```bash word-wrap=false
 tiles account create alice
 tiles account set-nickname alice
 tiles account
@@ -101,7 +101,7 @@ ATproto-related commands. ATproto is currently used to share chat sessions.
 - `tiles at login <handle>`: log in with your ATproto handle (for example, `alice.bsky.social`) via browser OAuth.
 - `tiles at logout`: log out of the current ATproto account.
 
-```bash
+```bash word-wrap=false
 tiles at login alice.bsky.social
 tiles at logout
 ```
@@ -112,11 +112,11 @@ Authentication currently uses a localhost callback (`127.0.0.1:8988`), and sessi
 
 Configure your data and storage paths.
 
-```bash
+```bash word-wrap=false
 tiles data set-path <path>   # Set data folder
 ```
 
-```bash
+```bash word-wrap=false
 tiles data set-path ~/.tiles/data
 ```
 
@@ -126,7 +126,7 @@ tiles data set-path ~/.tiles/data
 
 Install, list, and remove Tiles plugins. Plugins extend Tiles with extensions and bundled skills.
 
-```bash
+```bash word-wrap=false
 tiles plugin install <url-or-path>   # Install from a URL or local archive
 tiles plugin uninstall <plugin-name>  # Remove an installed plugin
 tiles plugin list                   # List installed plugins
@@ -142,7 +142,7 @@ Plugin archives must be `.zip` or `.tar.gz` files, either downloaded from a URL 
 
 ### Plugin package layout
 
-```text
+```text word-wrap=false
 plugin_name
   - extensions
     - extension_1
@@ -164,7 +164,7 @@ Peer-to-peer sync has two steps. **Link** devices first (consent): one device cr
 
 ### Link devices (`tiles link`)
 
-```bash
+```bash word-wrap=false
 tiles link create <DID> # Start a link toward a peer and print a token
 tiles link add <token>  # Accept the token on the other device
 tiles link list-peers   # List linked peers by DID and nickname
@@ -179,7 +179,7 @@ Run `tiles link create <DID>` on one device, using the other device's DID, and s
 
 After devices are linked, one device listens while the other starts sync toward the listener's DID.
 
-```bash
+```bash word-wrap=false
 tiles sync       # Listen for a sync request
 tiles sync <DID> # Start sync with a linked peer
 ```
@@ -192,7 +192,7 @@ Run `tiles sync` on the receiving device. On the other device, run `tiles sync <
 
 Share inference from one of your devices to another over Iroh. This is useful when a remote machine has the model or GPU you want, while your primary machine keeps the interactive Tiles session.
 
-```bash
+```bash word-wrap=false
 # Remote machine
 tiles server start  # Starts the inference server in background
 tiles remote share  # Generates an Iroh ticket
@@ -207,7 +207,7 @@ tiles --remote <ticket>  # Uses remote machine inference
 
 **`tiles --remote <ticket>`** runs on the device intending to use remote inference, while inference happens on the remote machine.
 
-```bash
+```bash word-wrap=false
 tiles remote status   # Check remote inference sharing status
 tiles remote unshare  # Stop sharing remote inference
 ```
@@ -218,7 +218,7 @@ tiles remote unshare  # Stop sharing remote inference
 
 Update Tiles to the latest version.
 
-```bash
+```bash word-wrap=false
 tiles update   # Check for and install app updates
 ```
 
@@ -226,7 +226,7 @@ tiles update   # Check for and install app updates
 
 Check the status of dependencies.
 
-```bash
+```bash word-wrap=false
 tiles health
 ```
 
@@ -234,7 +234,7 @@ tiles health
 
 Configure the inference server.
 
-```bash
+```bash word-wrap=false
 tiles server start            # Start the inference server
 tiles server stop             # Stop the inference server
 tiles server daemon true      # Keep inference running after the REPL exits
@@ -247,7 +247,7 @@ tiles server daemon false     # Stop inference when the REPL exits (default)
 
 Configure daemon behavior.
 
-```bash
+```bash word-wrap=false
 tiles daemon start        # Start the daemon (auto-starts when you run `tiles`)
 tiles daemon start 1729   # Start the daemon on a custom port
 tiles daemon stop         # Stop the daemon
@@ -301,7 +301,7 @@ Run a skill directly (for example, `$my-skill`).
 
 Use `tiles uninstall` to uninstall Tiles from the system.
 
-```bash
+```bash word-wrap=false
 tiles uninstall
 ```
 
@@ -309,6 +309,6 @@ By default, it keeps the user data folder, downloaded models, and `config.toml`,
 
 For a complete cleanup, pass `--all`:
 
-```bash
+```bash word-wrap=false
 tiles uninstall --all
 ```

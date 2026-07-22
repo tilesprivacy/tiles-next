@@ -1,17 +1,23 @@
-export const TILES_PRODUCT_DESCRIPTION =
+export const TILES_PRODUCT_DESCRIPTION_CORE =
   "A private, collaborative AI assistant that works for you." as const
+
+export const TILES_PRODUCT_TECHNOLOGY_LINE =
+  "Built with local models and AT Protocol." as const
+
+export const TILES_PRODUCT_DESCRIPTION =
+  `${TILES_PRODUCT_DESCRIPTION_CORE} ${TILES_PRODUCT_TECHNOLOGY_LINE}` as const
 
 /** Homepage metadata and default Open Graph image tagline. */
 export const TILES_HOMEPAGE_DESCRIPTION =
-  "A private, collaborative AI assistant that works for you." as const
+  TILES_PRODUCT_DESCRIPTION
 
 /** Short blurb for blog and research article footers. */
 export const TILES_PRODUCT_DESCRIPTION_SHORT =
-  "A private, collaborative AI assistant that works for you." as const
+  TILES_PRODUCT_DESCRIPTION
 
 /** Browser tab and Open Graph titles (hero headline). */
 export const TILES_SITE_TITLE =
-  "Tiles: A private, collaborative AI assistant that works for you." as const
+  `Tiles: ${TILES_PRODUCT_DESCRIPTION_CORE}` as const
 
 /** Primary Download Tiles CTA label on homepage hero and footer. */
 export const DOWNLOAD_TILES_CTA_LABEL = "Download Tiles" as const

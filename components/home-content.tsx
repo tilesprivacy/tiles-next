@@ -1,10 +1,10 @@
 import Image from "next/image"
-import Link from "next/link"
 import { Bot, RefreshCw } from "lucide-react"
 import { MinimalDownload } from "@/components/minimal-download"
-import { MinimalFooter } from "@/components/minimal-footer"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
+import { SiteFooter } from "@/components/site-footer"
+import { TILES_PRODUCT_TECHNOLOGY_LINE } from "@/lib/product-description"
 
 function AtprotoIcon() {
   return <span aria-hidden="true">@</span>
@@ -32,9 +32,10 @@ const features = [
     icon: RefreshCw,
     body: (
       <>
-        Encrypted peer-to-peer chat sync across your linked devices, with locally generated{" "}
+        Encrypted peer-to-peer chat sync across your linked devices using locally generated{" "}
         <a href="https://www.w3.org/TR/did-1.1/">decentralized identifiers (DIDs)</a> and{" "}
-        <a href="https://ucan.xyz">User Controlled Authorization Networks (UCANs)</a>.
+        <a href="https://ucan.xyz">User Controlled Authorization Networks (UCANs)</a>{" "}
+        for zero-trust authentication and authorization.
       </>
     ),
   },
@@ -43,8 +44,8 @@ const features = [
     icon: AtprotoIcon,
     body: (
       <>
-        Create a public or private link to a chat session, published as{" "}
-        <a href="https://atproto.com/guides/lexicon">ATproto Lexicon</a> records.
+        Create a public or private link to a chat session, published as an{" "}
+        <a href="https://atproto.com/guides/lexicon">ATproto Lexicon</a> record on your own personal data server (PDS).
       </>
     ),
   },
@@ -61,7 +62,8 @@ export function HomeContent() {
           <span className="minimal-wordmark-alpha">alpha</span>
         </div>
         <p>
-          A <strong>private, collaborative AI assistant</strong> that works for you.
+          A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
+          <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
         <MinimalDownload />
       </section>
@@ -84,9 +86,14 @@ export function HomeContent() {
         </div>
       </div>
 
-      <p className="minimal-hero-device-copy mx-auto mt-[4.5rem] w-[min(calc(100%_-_2rem),720px)] px-3 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:mt-12 max-[520px]:text-base">
-        For sensitive knowledge work, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on ATProto, so your data and identity remain yours.
-      </p>
+      <section className="minimal-hero-device-copy mx-auto mt-[4.5rem] w-[min(calc(100%_-_2rem),720px)] px-3 max-[520px]:mt-12" aria-labelledby="why-tiles-heading">
+        <h2 id="why-tiles-heading" className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]">
+          Why Tiles?
+        </h2>
+        <p className="mt-4 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:text-base">
+          For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on <a href="https://atproto.com">AT Protocol</a>, so your data and identity remain yours.
+        </p>
+      </section>
 
       <section className="minimal-copy !mt-28 max-[520px]:!mt-20" aria-label="What Tiles does">
         {features.map((feature) => (
@@ -100,12 +107,7 @@ export function HomeContent() {
         ))}
       </section>
 
-      <section className="minimal-actions">
-        <MinimalDownload />
-        <Link href="/book/manual" className="minimal-actions-manual-link">Read the User Manual</Link>
-      </section>
-
-      <MinimalFooter />
+      <SiteFooter />
     </main>
   )
 }
