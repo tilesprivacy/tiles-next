@@ -28,7 +28,7 @@ const features = [
     ),
   },
   {
-    title: "User owned identity",
+    title: "Own your identity",
     icon: Fingerprint,
     body: (
       <>
