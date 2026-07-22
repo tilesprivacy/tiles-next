@@ -45,7 +45,7 @@ const features = [
 export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
   return (
     <main className="minimal-product-page">
-      <MinimalTopbar />
+      <MinimalTopbar hideBrand />
       <section className="minimal-hero" aria-labelledby="tiles-title">
         <div className="minimal-wordmark">
           <Image src="/lighticon.png" alt="" width={72} height={72} priority />
@@ -61,6 +61,14 @@ export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
             height={600}
             priority
           />
+          <div className="minimal-hero-device-banner" aria-hidden="true">
+            <Image
+              src="/tiles_banner_outline_blk.svg"
+              alt=""
+              width={1200}
+              height={220}
+            />
+          </div>
         </div>
       </section>
 
