@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function BrandPage() {
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-clip bg-background text-foreground lg:overflow-visible">
-      <main className="flex flex-1 flex-col overflow-x-clip pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
+      <main className="flex flex-1 flex-col overflow-x-clip pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto w-full max-w-4xl overflow-x-clip px-6 pb-16 pt-8 lg:pb-24">
           <h1 className={`max-w-[22ch] ${marketingPageTitleClass}`}>
             Tiles brand guidelines

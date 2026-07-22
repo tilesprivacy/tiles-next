@@ -98,7 +98,7 @@ export function BlogPostContent({
   return (
     <div data-blog-page data-blog-article className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
+      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(7rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
         {/* Bottom Card - Blog Post Content */}
         <div className="blog-article-column relative w-full max-w-[90rem] py-8 lg:py-14 xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
           <div className="mx-auto w-full max-w-[44rem] overflow-x-clip xl:col-start-2 xl:row-start-1 xl:mx-0 xl:max-w-none xl:overflow-visible">
@@ -143,24 +143,26 @@ export function BlogPostContent({
                 />
               </div>
               {author && (
-                <div className="mt-0.5 flex items-center gap-1.5">
-                  <PersonAvatar
-                    name={author.name}
-                    links={author.links}
-                    variant="blog"
-                    loading="eager"
-                    className="inline-flex shrink-0"
-                  />
-                  <BlogAuthorDisplayName
-                    fullName={author.name}
-                    className="text-sm text-black/58 dark:text-white/58 lg:text-[0.95rem]"
-                    handleClassName="text-black/44 dark:text-white/44"
-                  />
+                <div className="mt-0.5 flex flex-col items-start gap-0.5">
+                  <div className="flex items-center gap-1.5">
+                    <PersonAvatar
+                      name={author.name}
+                      links={author.links}
+                      variant="blog"
+                      loading="eager"
+                      className="inline-flex shrink-0"
+                    />
+                    <BlogAuthorDisplayName
+                      fullName={author.name}
+                      className="whitespace-nowrap text-sm text-black/58 dark:text-white/58 lg:text-[0.95rem]"
+                      handleClassName="text-black/44 dark:text-white/44"
+                    />
+                  </div>
                   <SocialLinks
                     name={author.name}
                     links={author.links}
-                    className="blog-print-screen-only -my-3 flex items-center gap-0.5"
-                    linkClassName="inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-md text-black/40 transition-colors hover:bg-black/5 hover:text-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/40 dark:hover:bg-white/8 dark:hover:text-white/70 dark:focus-visible:outline-white/60"
+                    className="blog-print-screen-only ml-[1.625rem] flex shrink-0 items-center gap-0"
+                    linkClassName="inline-flex h-8 w-8 touch-manipulation items-center justify-center rounded-md text-black/40 transition-colors hover:bg-black/5 hover:text-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/40 dark:hover:bg-white/8 dark:hover:text-white/70 dark:focus-visible:outline-white/60"
                     iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
                   />
                 </div>

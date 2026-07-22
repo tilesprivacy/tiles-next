@@ -196,7 +196,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             <a className="minimal-partner" href="https://solpbc.org/">
               <Image src="/sol-pbc.svg" alt="Sol PBC" width={44} height={44} />
               <span>
-                <strong>Sol PBC</strong>
+                <strong className="font-normal">Sol PBC</strong>
                 <small>solpbc.org</small>
               </span>
             </a>

@@ -16,8 +16,8 @@
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #111;
-  background: #fbfbfb;
-  color: #111;
+  background: #111;
+  color: #fff;
   font-size: 0.8125rem;
   line-height: 1.35;
 }
@@ -42,6 +42,7 @@
   justify-content: center;
   gap: 0.35rem;
   text-align: center;
+  white-space: nowrap;
 }
 
 .site-announcement-cta {
@@ -59,7 +60,7 @@
   height: 1.5rem;
   flex: none;
   justify-self: end;
-  mix-blend-mode: multiply;
+  filter: grayscale(1) invert(1);
 }
 
 .site-announcement a:hover .site-announcement-cta {
@@ -68,8 +69,10 @@
 
 @media (max-width: 520px) {
   .site-announcement a {
-    padding-inline: 1rem 3.25rem;
-    font-size: 0.75rem;
+    grid-template-columns: auto minmax(0, auto);
+    justify-content: center;
+    padding-inline: 0.75rem;
+    font-size: clamp(0.625rem, 2.7vw, 0.75rem);
   }
 
   .site-announcement-logo {
@@ -171,7 +174,7 @@
 .minimal-actions > .minimal-download-cta > a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 12px; font-size: 16px; line-height: normal; }
 .minimal-actions-manual-link { min-height: 32px; display: inline-flex; align-items: center; padding: 4px 10px; font-size: 16px; line-height: 24px; text-decoration: none !important; transition: opacity 160ms ease; }
 .minimal-actions-manual-link:hover { opacity: 0.62; }
-.minimal-footer { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 32px; padding: 0 0 80px; text-align: center; font-size: 14px; line-height: 21px; }
+.minimal-footer { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 32px; padding: 0 0 32px; text-align: center; font-size: 14px; line-height: 21px; }
 .minimal-footer p { margin: 0; }
 .minimal-footer-brand { display: flex; align-items: center; gap: 0.4rem; font-size: 16px; font-weight: 700; }
 .minimal-footer-brand img { width: 24px; height: 24px; }
@@ -195,8 +198,8 @@
 .minimal-manual-page { position: relative; padding: 10rem 1.25rem 5rem; }
 .minimal-manual-prose { width: min(100%, 46rem); margin-inline: auto; }
 .minimal-manual-prose > h1 { margin: 0 0 5rem; font-size: 2rem; line-height: 1.1; font-weight: 400; letter-spacing: -0.035em; }
-.minimal-manual-prose h2 { margin: 5rem 0 1.25rem; font-size: 1rem; line-height: 1.4; font-weight: 400; letter-spacing: 0; }
-.minimal-manual-prose h3 { margin: 3rem 0 0.875rem; font-size: 0.9375rem; line-height: 1.4; font-weight: 400; letter-spacing: 0; }
+.minimal-manual-prose h2 { margin: 5rem 0 1.25rem; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
+.minimal-manual-prose h3 { margin: 3rem 0 0.875rem; font-size: 0.9375rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-manual-prose h4 { margin: 2rem 0 0.6rem; font-size: 0.875rem; line-height: 1.4; font-weight: 400; letter-spacing: 0; }
 .minimal-manual-prose p,
 .minimal-manual-prose li { font-size: 1rem; line-height: 1.7; }
@@ -228,7 +231,7 @@
 .refined-site-footer-newsletter { margin-bottom: 5rem; }
 .refined-site-footer-download { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 5rem; text-align: center; }
 .refined-site-footer-download h2 { margin: 0; font-size: 1.25rem; font-weight: 500; line-height: 1.35; letter-spacing: -0.015em; }
-.refined-site-footer .minimal-footer { padding-bottom: 5rem; }
+.refined-site-footer .minimal-footer { padding-bottom: 2rem; }
 
 .minimal-inner-page { position: relative; padding: 10rem 1.25rem 8rem; }
 .minimal-inner-page > .minimal-footer { width: 100%; margin: 8rem auto 0; padding-top: 0; border-top: 0; }
@@ -239,14 +242,14 @@
 .minimal-page-intro > p:last-child { max-width: 38rem; margin: 1.5rem 0 0; color: #444; font-size: 1.125rem; line-height: 1.6; }
 .minimal-section { padding: 5rem 0; border-top: 1px solid #ddd; }
 .minimal-section-heading { margin-bottom: 2rem; }
-.minimal-section h2 { margin: 0 0 0.65rem; font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.025em; }
+.minimal-section h2 { margin: 0 0 0.65rem; font-size: 1.5rem; line-height: 1.25; font-weight: 600; letter-spacing: -0.025em; }
 .minimal-section-heading p { margin: 0; color: #666; font-size: 0.875rem; }
 .minimal-section > p { margin: 0; font-size: 1rem; line-height: 1.7; }
 .minimal-section > p + p { margin-top: 1.25rem; }
 .minimal-section p a { display: inline-flex; align-items: center; gap: 0.35rem; }
 .minimal-option { margin-top: 3.5rem; }
 .minimal-option + .minimal-option { padding-top: 3.5rem; border-top: 1px solid #e6e6e6; }
-.minimal-option h3 { margin: 0 0 0.75rem; font-size: 1.0625rem; line-height: 1.4; }
+.minimal-option h3 { margin: 0 0 0.75rem; font-size: 1.0625rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-option > p { margin: 0; font-size: 1rem; line-height: 1.65; }
 .minimal-meta { margin-top: 0.8rem !important; color: #666; font-size: 0.8125rem !important; }
 .minimal-primary-button,
@@ -275,7 +278,7 @@
 .minimal-download-page .minimal-page-intro { margin-bottom: 0; }
 .minimal-download-page .minimal-page-intro h1 { font-size: 2rem; line-height: 1.1; letter-spacing: -0.035em; }
 .minimal-download-email { margin: 0 0 2rem; padding: 1.25rem 0 2rem; border-bottom: 0; }
-.minimal-download-email h2 { margin: 0; font-size: 1rem; line-height: 1.4; }
+.minimal-download-email h2 { margin: 0; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-download-email > p { margin: 0.65rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.55; }
 .minimal-download-email form { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 1rem; }
 .minimal-download-email input { height: 42px; border: 1px solid #ccc; border-radius: 6px; background: transparent; padding: 0 0.8rem; color: inherit; font: inherit; font-size: 0.875rem; outline: none; }
@@ -287,9 +290,9 @@
 .minimal-download-email-error { color: #b42318; }
 .minimal-download-email { display: none; }
 .minimal-sponsor-page .minimal-page-intro h1 { font-size: 2rem; line-height: 1.1; letter-spacing: -0.035em; }
-.minimal-sponsor-page .minimal-section h2 { font-size: 1rem; line-height: 1.4; letter-spacing: 0; }
+.minimal-sponsor-page .minimal-section h2 { font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-download-platform { padding: 3.5rem 0; border-top: 0; }
-.minimal-download-platform h2 { display: flex; align-items: center; gap: 0.45rem; margin: 0; font-size: 1rem; line-height: 1.4; }
+.minimal-download-platform h2 { display: flex; align-items: center; gap: 0.45rem; margin: 0; font-size: 1rem; line-height: 1.4; font-weight: 600; letter-spacing: -0.01em; }
 .minimal-download-platform-icon { width: 1rem; height: 1rem; flex: none; color: #666; }
 .minimal-download-platform > p { margin: 0.65rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.55; }
 .minimal-download-platform .minimal-command { max-width: 36rem; }
@@ -319,7 +322,7 @@
 .minimal-partners-section .minimal-partner { margin: 1.5rem 0 0; }
 .minimal-sponsor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5rem; padding-top: 0; border-top: 0; }
 .minimal-sponsor-list-heading { min-height: 1.75rem; margin-bottom: 0.5rem; display: flex; align-items: center; justify-content: space-between; }
-.minimal-sponsor-list h2 { margin: 0; font-size: 1rem; font-weight: 400; line-height: 1.4; letter-spacing: 0; }
+.minimal-sponsor-list h2 { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.4; letter-spacing: -0.01em; }
 .minimal-sponsor-list-heading > span { color: #777; font-size: 1rem; font-weight: 400; line-height: 1.4; letter-spacing: 0; }
 .minimal-sponsor-row { min-height: 3rem; margin: 0; display: flex; align-items: center; border-bottom: 1px solid #e5e5e5; padding: 0.5rem 0; color: #666; font-size: 0.8125rem; }
 .minimal-sponsor-row:last-child { border-bottom: 0; }
@@ -434,7 +437,6 @@
 
 [data-book-section] article :where(h1, h2, h3, h4, h5, h6) {
   font-family: inherit;
-  font-weight: 400 !important;
   text-wrap: balance;
 }
 
@@ -448,6 +450,7 @@
   margin-top: 0 !important;
   box-sizing: border-box;
   font-size: 2rem !important;
+  font-weight: 400 !important;
   line-height: 1.1 !important;
   letter-spacing: -0.035em !important;
   margin-bottom: 1rem !important;
@@ -455,8 +458,9 @@
 
 [data-book-section] article main > h2 {
   font-size: 1rem !important;
+  font-weight: 600 !important;
   line-height: 1.4 !important;
-  letter-spacing: 0 !important;
+  letter-spacing: -0.01em !important;
   margin-top: 2.75rem !important;
   margin-bottom: 0.875rem !important;
 }
@@ -467,8 +471,9 @@
 
 [data-book-section] article main > h3 {
   font-size: 0.9375rem !important;
+  font-weight: 600 !important;
   line-height: 1.4 !important;
-  letter-spacing: 0 !important;
+  letter-spacing: -0.01em !important;
   margin-top: 2rem !important;
   margin-bottom: 0.75rem !important;
 }
@@ -1034,9 +1039,6 @@
     font-weight: 400;
   }
   :where(h1, h2, h3, h4, h5, h6).font-light {
-    font-weight: 400 !important;
-  }
-  :where(h1, h2, h3, h4, h5, h6).font-semibold {
     font-weight: 400 !important;
   }
   :where(h1, h2, h3, h4, h5, h6).font-bold {

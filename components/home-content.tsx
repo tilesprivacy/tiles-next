@@ -61,7 +61,7 @@ export function HomeContent() {
           <span className="minimal-wordmark-alpha">alpha</span>
         </div>
         <p>
-          A private, collaborative AI <strong>assistant</strong> that works for you.
+          A <strong>private, collaborative AI assistant</strong> that works for you.
         </p>
         <MinimalDownload />
       </section>

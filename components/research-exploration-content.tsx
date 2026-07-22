@@ -40,7 +40,7 @@ export function ResearchExplorationContent({
 
   return (
     <div className="relative flex min-h-screen flex-col bg-background">
-      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:px-12">
+      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(7rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:px-12">
         <div className="relative w-full max-w-[90rem] py-8 lg:py-14">
           <div className="mx-auto mb-12 flex max-w-[44rem] flex-col gap-6 lg:mb-16 lg:gap-7">
             <h1 className={`max-w-[15ch] sm:max-w-[18ch] lg:max-w-[20ch] ${marketingPageArticleTitleClass}`}>
@@ -68,14 +68,14 @@ export function ResearchExplorationContent({
                   const { nameWithoutHandle, handle } = splitPersonDisplayName(author.name)
 
                   return (
-                    <span key={author.id} className="inline-flex items-center gap-1.5">
+                    <span key={author.id} className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1">
                       <PersonAvatar
                         name={author.name}
                         links={author.links}
                         variant="blog"
                         className="inline-flex shrink-0"
                       />
-                      <span className="text-[0.84rem] text-black/56 dark:text-white/56 lg:text-[0.92rem]">
+                      <span className="whitespace-nowrap text-[0.84rem] text-black/56 dark:text-white/56 lg:text-[0.92rem]">
                         {nameWithoutHandle}
                         {handle ? (
                           <span className="text-black/40 dark:text-white/40"> {handle}</span>
@@ -84,8 +84,8 @@ export function ResearchExplorationContent({
                       <SocialLinks
                         name={author.name}
                         links={author.links}
-                        className="-my-3 flex items-center gap-0.5"
-                        linkClassName="inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-md text-black/34 transition-colors hover:bg-black/5 hover:text-black/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/34 dark:hover:bg-white/8 dark:hover:text-white/65 dark:focus-visible:outline-white/60"
+                        className="-my-1 flex shrink-0 items-center gap-0"
+                        linkClassName="inline-flex h-8 w-8 touch-manipulation items-center justify-center rounded-md text-black/34 transition-colors hover:bg-black/5 hover:text-black/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/34 dark:hover:bg-white/8 dark:hover:text-white/65 dark:focus-visible:outline-white/60"
                         iconClassName="h-3.5 w-3.5"
                       />
                     </span>
