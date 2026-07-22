@@ -51,7 +51,7 @@ export function HomeContent() {
           <Image src="/lighticon.png" alt="" width={72} height={72} priority />
           <h1 id="tiles-title">Tiles</h1>
         </div>
-        <p>A local-first AI assistant designed for the Atmosphere.</p>
+        <p>A private AI assistant designed for the Atmosphere.</p>
         <MinimalDownload />
         <div className="minimal-hero-device">
           <Image

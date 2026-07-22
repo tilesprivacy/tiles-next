@@ -3,7 +3,7 @@ export const TILES_PRODUCT_DESCRIPTION =
 
 /** Homepage metadata and default Open Graph image tagline. */
 export const TILES_HOMEPAGE_DESCRIPTION =
-  "A local-first AI assistant designed for the Atmosphere." as const
+  "A private AI assistant designed for the Atmosphere." as const
 
 /** Short blurb for blog and research article footers. */
 export const TILES_PRODUCT_DESCRIPTION_SHORT =
