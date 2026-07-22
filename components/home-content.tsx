@@ -61,7 +61,12 @@ const features = [
   {
     title: "Open source and free forever",
     icon: OpenSourceIcon,
-    body: "Tiles is open source and forever free to use, dual-licensed under MIT and Apache 2.0. It is designed to be future-proof and continue working forever.",
+    body: (
+      <>
+        Tiles is <a href="https://github.com/tilesprivacy/tiles">open source</a> and forever free to use,
+        dual-licensed under MIT and Apache 2.0. It is designed to be future-proof and continue working forever.
+      </>
+    ),
   },
 ] as const
 
