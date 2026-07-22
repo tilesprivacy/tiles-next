@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
+import { Download } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import {
   marketingPageSectionTitleClass,
   marketingPageSubsectionTitleClass,
@@ -45,22 +45,10 @@ export default function BrandPage() {
           </p>
           <a
             href="/tiles-brand-assets.zip"
-            className={`mt-8 inline-flex h-10 items-center gap-2 rounded-sm px-5 text-sm font-medium transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] motion-reduce:transform-none ${themeAwareHeaderPrimaryCtaClasses}`}
+            className="minimal-primary-button mt-8 !no-underline"
           >
+            <Download className="h-4 w-4" aria-hidden />
             Download brand assets
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              className="h-4 w-4"
-              aria-hidden
-            >
-              <path d="M12 4v11" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="m7.5 11.5 4.5 4.5 4.5-4.5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M4 20h16" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
           </a>
 
           <h2 className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand assets</h2>
