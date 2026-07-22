@@ -24,6 +24,8 @@ interface BlogTableOfContentsProps {
 }
 
 const DEFAULT_INTRO_ID = 'blog-content-start'
+const DEFAULT_STICKY_TOP = 112
+const FIXED_HEADER_SELECTOR = 'header.minimal-topbar, header.fixed.inset-x-0, header[data-tiles-site-header]'
 
 function getMinHeadingLevel(items: TocItem[]): 2 | 3 | 4 {
   if (items.length === 0) return 2
@@ -55,13 +57,12 @@ export function BlogTableOfContents({
 }: BlogTableOfContentsProps) {
   const [items, setItems] = useState<TocItem[]>([])
   const [activeId, setActiveId] = useState<string>('')
-  const [stickyTop, setStickyTop] = useState<number>(112)
+  const [stickyTop, setStickyTop] = useState<number>(DEFAULT_STICKY_TOP)
   const [isExpanded, setIsExpanded] = useState(true)
 
   const getScrollOffset = useCallback(() => {
-    const header = document.querySelector('header.fixed.inset-x-0') as HTMLElement | null
-    const headerHeight = header?.getBoundingClientRect().height ?? 88
-    return Math.ceil(headerHeight + 16)
+    const header = document.querySelector(FIXED_HEADER_SELECTOR) as HTMLElement | null
+    return header ? Math.ceil(header.getBoundingClientRect().bottom + 16) : DEFAULT_STICKY_TOP
   }, [])
 
   const scrollToId = useCallback(
@@ -178,12 +179,11 @@ export function BlogTableOfContents({
   }, [items, scrollToId])
 
   useEffect(() => {
-    const header = document.querySelector('header.fixed.inset-x-0') as HTMLElement | null
+    const header = document.querySelector(FIXED_HEADER_SELECTOR) as HTMLElement | null
     if (!header) return
 
     const updateStickyTop = () => {
-      const headerHeight = header.getBoundingClientRect().height || 88
-      setStickyTop(Math.ceil(headerHeight + 16))
+      setStickyTop(Math.ceil(header.getBoundingClientRect().bottom + 16))
     }
 
     updateStickyTop()

@@ -1,5 +1,6 @@
 import Image from "next/image"
-import { Bot, RefreshCw } from "lucide-react"
+import { Bot, Fingerprint, RefreshCw } from "lucide-react"
+import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
@@ -8,6 +9,10 @@ import { TILES_PRODUCT_TECHNOLOGY_LINE } from "@/lib/product-description"
 
 function AtprotoIcon() {
   return <span aria-hidden="true">@</span>
+}
+
+function OpenSourceIcon() {
+  return <RiOpenSourceLine style={{ width: "0.875rem", height: "0.875rem" }} />
 }
 
 const features = [
@@ -23,6 +28,17 @@ const features = [
     ),
   },
   {
+    title: "User owned identity",
+    icon: Fingerprint,
+    body: (
+      <>
+        Tiles uses locally generated <a href="https://www.w3.org/TR/did-1.1/">DIDs</a> and{" "}
+        <a href="https://ucan.xyz">UCANs</a> for zero-trust authentication and authorization. This lets you own
+        and control your identity across your digital life.
+      </>
+    ),
+  },
+  {
     title: "Use local models on remote devices",
     icon: RemoteInferenceIcon,
     body: "Securely run local models on a remote device like your home lab, peer-to-peer, from any device.",
@@ -30,14 +46,7 @@ const features = [
   {
     title: "Sync chats across your devices",
     icon: RefreshCw,
-    body: (
-      <>
-        Encrypted peer-to-peer chat sync across your linked devices using locally generated{" "}
-        <a href="https://www.w3.org/TR/did-1.1/">decentralized identifiers (DIDs)</a> and{" "}
-        <a href="https://ucan.xyz">User Controlled Authorization Networks (UCANs)</a>{" "}
-        for zero-trust authentication and authorization.
-      </>
-    ),
+    body: "Encrypted peer-to-peer chat sync across your linked devices.",
   },
   {
     title: "Designed for the Atmosphere",
@@ -48,6 +57,11 @@ const features = [
         <a href="https://atproto.com/guides/lexicon">ATproto Lexicon</a> record on your own personal data server (PDS).
       </>
     ),
+  },
+  {
+    title: "Open source and free forever",
+    icon: OpenSourceIcon,
+    body: "Tiles is open source and forever free to use, dual-licensed under MIT and Apache 2.0. It is designed to be future-proof and continue working forever.",
   },
 ] as const
 
