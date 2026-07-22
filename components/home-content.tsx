@@ -53,7 +53,9 @@ export function HomeContent() {
         </div>
         <p>A private AI assistant designed for the Atmosphere.</p>
         <MinimalDownload />
-        <div className="minimal-hero-device">
+      </section>
+
+      <div className="minimal-hero-device">
           <Image
             src="/wireframe.webp"
             alt="Tiles running on a MacBook"
@@ -69,8 +71,7 @@ export function HomeContent() {
               height={220}
             />
           </div>
-        </div>
-      </section>
+      </div>
 
       <section className="minimal-copy" aria-label="What Tiles does">
         {features.map((feature) => (
