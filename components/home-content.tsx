@@ -12,7 +12,7 @@ function AtprotoIcon() {
 }
 
 function OpenSourceIcon() {
-  return <RiOpenSourceLine style={{ width: "0.875rem", height: "0.875rem" }} />
+  return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
 }
 
 const features = [
