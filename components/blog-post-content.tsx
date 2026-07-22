@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogReference } from "@/components/blog-reference"
@@ -56,10 +56,44 @@ export function BlogPostContent({
   showTableOfContents = true,
   children 
 }: BlogPostContentProps) {
+  const articleRef = useRef<HTMLElement>(null)
   const author = authorId ? getPersonById(authorId) : null
   const standardSiteDocumentUrl = standardSiteDocumentUri
     ? buildAtprotoAtUriUrl(standardSiteDocumentUri)
     : null
+
+  useEffect(() => {
+    const jsonTokenPattern = /("(?:\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*")(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
+
+    articleRef.current?.querySelectorAll<HTMLElement>("code.language-json:not([data-syntax-highlighted])").forEach((code) => {
+      const source = code.textContent ?? ""
+      const fragment = document.createDocumentFragment()
+      let cursor = 0
+
+      for (const match of source.matchAll(jsonTokenPattern)) {
+        const index = match.index ?? 0
+        fragment.append(document.createTextNode(source.slice(cursor, index)))
+
+        const token = document.createElement("span")
+        if (match[1]) {
+          token.className = match[2] ? "syntax-json-key" : "syntax-json-string"
+          token.textContent = match[1]
+          fragment.append(token)
+          if (match[2]) fragment.append(document.createTextNode(match[2]))
+        } else {
+          token.className = match[3] ? "syntax-json-literal" : "syntax-json-number"
+          token.textContent = match[0]
+          fragment.append(token)
+        }
+
+        cursor = index + match[0].length
+      }
+
+      fragment.append(document.createTextNode(source.slice(cursor)))
+      code.replaceChildren(fragment)
+      code.dataset.syntaxHighlighted = "true"
+    })
+  }, [content])
 
   return (
     <div data-blog-page data-blog-article className="relative flex min-h-screen flex-col bg-background">
@@ -125,8 +159,8 @@ export function BlogPostContent({
                   <SocialLinks
                     name={author.name}
                     links={author.links}
-                    className="blog-print-screen-only flex items-center gap-1.5"
-                    linkClassName="text-black/40 hover:text-black/65 dark:text-white/40 dark:hover:text-white/70 transition-colors"
+                    className="blog-print-screen-only -my-3 flex items-center gap-0.5"
+                    linkClassName="inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-md text-black/40 transition-colors hover:bg-black/5 hover:text-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/40 dark:hover:bg-white/8 dark:hover:text-white/70 dark:focus-visible:outline-white/60"
                     iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
                   />
                 </div>
@@ -178,7 +212,7 @@ export function BlogPostContent({
             </aside>
           ) : null}
 
-          <article className="blog-article-container relative mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-2 xl:mx-0 xl:max-w-none">
+          <article ref={articleRef} className="blog-article-container relative mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-2 xl:mx-0 xl:max-w-none">
               {/* Container for side references on desktop */}
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 

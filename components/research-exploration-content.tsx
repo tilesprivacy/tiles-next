@@ -84,8 +84,8 @@ export function ResearchExplorationContent({
                       <SocialLinks
                         name={author.name}
                         links={author.links}
-                        className="flex items-center gap-1.5"
-                        linkClassName="text-black/34 transition-colors hover:text-black/60 dark:text-white/34 dark:hover:text-white/65"
+                        className="-my-3 flex items-center gap-0.5"
+                        linkClassName="inline-flex h-11 w-11 touch-manipulation items-center justify-center rounded-md text-black/34 transition-colors hover:bg-black/5 hover:text-black/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/34 dark:hover:bg-white/8 dark:hover:text-white/65 dark:focus-visible:outline-white/60"
                         iconClassName="h-3.5 w-3.5"
                       />
                     </span>

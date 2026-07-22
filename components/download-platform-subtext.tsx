@@ -24,19 +24,24 @@ export function DownloadPlatformSubtext({
   className?: string
 }) {
   const textClass = `font-medium text-black/48 dark:text-[#9A9A9A] ${sizeClasses[size]}`
-  const platformClass = `inline-flex items-center gap-1.5 ${textClass}`
+  const platformClass = `inline-grid grid-cols-[1rem_auto] items-center gap-x-1.5 leading-none ${textClass}`
+  const iconSlotClass = "inline-flex h-4 w-4 items-center justify-center"
 
   return (
     <div
-      className={`flex w-fit max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center lg:justify-start lg:text-left ${className}`.trim()}
+      className={`flex w-fit max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center ${className}`.trim()}
       aria-label={`${DOWNLOAD_PLATFORM_MACOS_LABEL} and ${DOWNLOAD_PLATFORM_LINUX_LABEL}`}
     >
       <span className={platformClass}>
-        <FaApple className={`${iconClasses[size]} shrink-0`} aria-hidden />
+        <span className={iconSlotClass} aria-hidden>
+          <FaApple className={`${iconClasses[size]} shrink-0`} />
+        </span>
         {DOWNLOAD_PLATFORM_MACOS_LABEL}
       </span>
       <span className={platformClass}>
-        <FaLinux className={`${iconClasses[size]} shrink-0`} aria-hidden />
+        <span className={iconSlotClass} aria-hidden>
+          <FaLinux className={`${iconClasses[size]} shrink-0`} />
+        </span>
         {DOWNLOAD_PLATFORM_LINUX_LABEL}
       </span>
     </div>

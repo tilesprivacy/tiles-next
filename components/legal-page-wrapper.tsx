@@ -1,47 +1,34 @@
-'use client'
-
 import { SiteFooter } from "@/components/site-footer"
-import { useTheme } from 'next-themes'
-import { useEffect, useState, ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 interface LegalPageWrapperProps {
   children: ReactNode
 }
 
 export function LegalPageWrapper({ children }: LegalPageWrapperProps) {
-  const { resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  const isDark = mounted && resolvedTheme === 'dark'
-
-  // Theme-aware colors - matching book dark theme (#121212 bg, #E6E6E6 text)
   const bgColor = 'bg-background'
-  const textColorBody = isDark ? 'text-[#B3B3B3]' : 'text-black/80'
+  const textColorBody = 'text-[#3f3f3f]'
 
   return (
     <div className={`flex min-h-[100dvh] flex-col ${bgColor}`}>
       <main 
         className="legal-page-content flex-1 flex flex-col items-start justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 xl:gap-20 px-4 sm:px-6 md:px-8 lg:px-12 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] lg:pb-32 lg:pt-[calc(10.5rem+env(safe-area-inset-top,0px))] w-full max-w-3xl mx-auto"
         style={{
-          '--legal-text-color': isDark ? '#E6E6E6' : 'rgb(0 0 0)',
-          '--legal-text-body': isDark ? '#B3B3B3' : 'rgb(0 0 0 / 0.8)',
-          '--legal-text-subtle': isDark ? '#8A8A8A' : 'rgb(0 0 0 / 0.6)',
-          '--legal-text-muted': isDark ? '#B3B3B3' : 'rgb(0 0 0 / 0.7)',
-        } as React.CSSProperties}
+          '--legal-text-color': '#111111',
+          '--legal-text-body': '#333333',
+          '--legal-text-subtle': '#626262',
+          '--legal-text-muted': '#4f4f4f',
+        } as CSSProperties}
       >
-        <div className={`w-full space-y-6 sm:space-y-8 text-sm leading-relaxed ${textColorBody} sm:text-base lg:text-lg lg:leading-relaxed
-          [&_h1]:text-[2rem] [&_h1]:font-normal [&_h1]:leading-[1.15] [&_h1]:tracking-[-0.025em] [&_h1]:text-balance [&_h1]:sm:text-[2.6rem] [&_h1]:lg:text-[3.25rem]
-          [&_h2]:text-[1.625rem] [&_h2]:font-normal [&_h2]:leading-[1.25] [&_h2]:tracking-[-0.0125em] [&_h2]:text-balance [&_h2]:sm:text-[2.25rem] [&_h2]:sm:leading-[1.2] [&_h2]:sm:tracking-[-0.02em]
-          [&_h3]:text-[1.125rem] [&_h3]:font-normal [&_h3]:leading-[1.3] [&_h3]:tracking-[-0.005em] [&_h3]:text-balance [&_h3]:sm:text-[1.375rem]
+        <div className={`w-full space-y-6 sm:space-y-8 text-base leading-[1.7] ${textColorBody}
+          [&_h1]:text-[2rem] [&_h1]:font-normal [&_h1]:leading-[1.1] [&_h1]:tracking-[-0.035em] [&_h1]:text-balance
+          [&_h2]:text-base [&_h2]:font-normal [&_h2]:leading-[1.4] [&_h2]:tracking-normal [&_h2]:text-balance
+          [&_h3]:text-[0.9375rem] [&_h3]:font-normal [&_h3]:leading-[1.4] [&_h3]:tracking-normal [&_h3]:text-balance
           [&_.last-updated]:text-xs [&_.last-updated]:sm:text-sm
           [&_.contact-info]:text-xs [&_.contact-info]:sm:text-sm
         `}
         style={{
-          color: isDark ? '#B3B3B3' : 'rgb(0 0 0 / 0.8)',
+          color: '#3f3f3f',
         }}
         >
           {children}

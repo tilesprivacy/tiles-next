@@ -40,7 +40,7 @@ export default function BrandPage() {
           <h1 className={`max-w-[22ch] ${marketingPageTitleClass}`}>
             Tiles brand guidelines
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-black/65 md:text-lg dark:text-[#B3B3B3]">
+          <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             Resources to represent Tiles consistently and accurately.
           </p>
           <a
@@ -64,7 +64,7 @@ export default function BrandPage() {
           </a>
 
           <h2 className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand assets</h2>
-          <div className="mt-4 max-w-3xl space-y-2 text-base leading-relaxed text-black/65 md:text-lg dark:text-[#B3B3B3]">
+          <div className="mt-4 max-w-3xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             <p>
               <strong className="font-semibold text-foreground">Logos</strong> are available as icon mark and logo
               variants, in light and dark versions.
@@ -173,7 +173,7 @@ export default function BrandPage() {
           </div>
 
           <h2 className={`mt-14 ${marketingPageSectionTitleClass}`}>Name</h2>
-          <p className="mt-4 text-base leading-relaxed text-black/80 md:text-lg dark:text-[#D0D0D3]">
+          <p className="mt-4 text-base leading-[1.7] text-black/80 dark:text-[#D0D0D3]">
             Refer to us as Tiles Privacy. Not Tiles Assistant or Tiles AI .
           </p>
 

@@ -276,36 +276,54 @@ export async function POST(request: NextRequest) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="color-scheme" content="dark light">
-            <meta name="supported-color-schemes" content="dark light">
+            <meta name="color-scheme" content="light">
+            <meta name="supported-color-schemes" content="light">
             <title>Welcome to Tiles</title>
             <style type="text/css">
               body, table, td, p, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
               table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
               table { border-collapse: collapse !important; }
               img { -ms-interpolation-mode: bicubic; border: 0; display: block; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-              body { margin: 0 !important; padding: 0 !important; width: 100% !important; min-width: 100% !important; background: #000000 !important; }
+              body { margin: 0 !important; padding: 0 !important; width: 100% !important; min-width: 100% !important; background: #fbfbfb !important; }
               a { color: inherit; }
               .preheader { display: none !important; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0; overflow: hidden; mso-hide: all; }
               .download-cta-shell { color-scheme: light only; supported-color-schemes: light; }
               .download-cta-cell {
-                background-color: #f5f5f7 !important;
-                background: #f5f5f7 !important;
-                border: 1px solid rgba(255,255,255,0.1) !important;
+                background-color: #0b7df0 !important;
+                background: #0b7df0 !important;
+                border: 1px solid #0b7df0 !important;
               }
               .download-cta-link {
-                color: #1f1f1f !important;
-                -webkit-text-fill-color: #1f1f1f !important;
+                color: #ffffff !important;
+                -webkit-text-fill-color: #ffffff !important;
+              }
+              .secondary-cta-cell {
+                background-color: #ffffff !important;
+                background: #ffffff !important;
+                border: 1px solid #d5d5d5 !important;
+              }
+              .secondary-cta-link {
+                color: #111111 !important;
+                -webkit-text-fill-color: #111111 !important;
               }
               @media (prefers-color-scheme: dark) {
                 .download-cta-cell {
-                  background-color: #f5f5f7 !important;
-                  background: #f5f5f7 !important;
-                  border-color: rgba(255,255,255,0.1) !important;
+                  background-color: #0b7df0 !important;
+                  background: #0b7df0 !important;
+                  border-color: #0b7df0 !important;
                 }
                 .download-cta-link {
-                  color: #1f1f1f !important;
-                  -webkit-text-fill-color: #1f1f1f !important;
+                  color: #ffffff !important;
+                  -webkit-text-fill-color: #ffffff !important;
+                }
+                .secondary-cta-cell {
+                  background-color: #ffffff !important;
+                  background: #ffffff !important;
+                  border-color: #d5d5d5 !important;
+                }
+                .secondary-cta-link {
+                  color: #111111 !important;
+                  -webkit-text-fill-color: #111111 !important;
                 }
               }
               @media only screen and (max-width: 600px) {
@@ -316,22 +334,23 @@ export async function POST(request: NextRequest) {
               }
             </style>
           </head>
-          <body style="margin:0; padding:0; width:100%; min-width:100%; background-color:#000000;">
+          <body style="margin:0; padding:0; width:100%; min-width:100%; background-color:#fbfbfb;">
             <div class="preheader">You're subscribed to Tiles updates.</div>
-            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; background-color:#000000;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; background-color:#fbfbfb;">
               <tr>
                 <td align="center" class="page-pad" style="padding:20px 24px 72px 24px;">
                   <table role="presentation" width="560" cellpadding="0" cellspacing="0" class="container" style="width:560px; max-width:560px;">
                     <tr>
-                      <td style="padding:0 0 56px 0;">
+                      <td style="padding:0 0 40px 0;">
                         <a href="https://www.tiles.run" aria-label="Tiles" style="display:inline-block; text-decoration:none;">
                           <table role="presentation" cellpadding="0" cellspacing="0">
                             <tr>
                               <td valign="middle" style="padding:0 10px 0 0; line-height:0;">
-                                <img src="https://www.tiles.run/grey.png" width="36" height="36" alt="" aria-hidden="true" style="display:block; width:36px; height:36px;" />
+                                <img src="https://www.tiles.run/lighticon.png" width="36" height="36" alt="" aria-hidden="true" style="display:block; width:36px; height:36px;" />
                               </td>
                               <td valign="middle">
-                                <span style="color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:20px; line-height:1; font-weight:600; letter-spacing:-0.02em;">Tiles</span>
+                                <span style="color:#111111; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:20px; line-height:1; font-weight:600; letter-spacing:-0.02em;">Tiles</span>
+                                <span style="display:inline-block; margin-left:7px; border-radius:4px; background:#ededed; padding:3px 5px; color:#666666; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:10px; line-height:1; font-weight:500; vertical-align:2px;">alpha</span>
                               </td>
                             </tr>
                           </table>
@@ -340,58 +359,63 @@ export async function POST(request: NextRequest) {
                     </tr>
                     <tr>
                       <td style="padding:0 0 24px 0;">
-                        <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                        <h1 style="margin:0; color:#111111; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:32px; line-height:1.1; font-weight:400; letter-spacing:-0.035em;">Welcome to Tiles</h1>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0 0 24px 0;">
+                        <p class="body-copy" style="margin:0 0 12px 0; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
                           Hi ${safeFirstName},
                         </p>
-                        <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                          You're now subscribed to <a href="https://www.tiles.run" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Tiles</a>. Expect product notes, privacy research, release updates, and engineering notes from the team.
+                        <p class="body-copy" style="margin:0; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                          You're now subscribed to <a href="https://www.tiles.run" style="color:#111111; text-decoration:underline; text-decoration-color:#737373;">Tiles</a>. Expect product notes, privacy research, release updates, and engineering notes from the team.
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td style="padding:0 0 23px 0; border-bottom:1px solid #262626;"></td>
+                      <td style="padding:0 0 23px 0; border-bottom:1px solid #e5e5e5;"></td>
                     </tr>
                     <tr>
                       <td style="padding:23px 0 12px 0;">
-                        <h2 class="section-title" style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:22px; line-height:1.3; font-weight:500; letter-spacing:0;">
+                        <h2 class="section-title" style="margin:0; color:#111111; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:22px; line-height:1.3; font-weight:500; letter-spacing:0;">
                           What is Tiles?
                         </h2>
                       </td>
                     </tr>
                     <tr>
                       <td style="padding:0 0 34px 0;">
-                        <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                          Tiles is a local-first private AI assistant for everyday use. Powered by on-device models and AT Protocol, Tiles is built for people who want intelligence without renting their memory to centralized providers. Born from the User &amp; Agents community, our mission is to empower people by designing and building software that provides agency, control, and choice in our digital lives.
+                        <p class="body-copy" style="margin:0; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                          A private, collaborative AI assistant that works for you. Powered by on-device models and AT Protocol, Tiles is built for people who want intelligence without renting their memory to centralized providers. Born from the User &amp; Agents community, our mission is to empower people by designing and building software that provides agency, control, and choice in our digital lives.
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td style="padding:24px 0 12px 0; border-top:1px solid #262626;">
-                        <h2 class="section-title" style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:22px; line-height:1.3; font-weight:500; letter-spacing:0;">
+                      <td style="padding:24px 0 12px 0; border-top:1px solid #e5e5e5;">
+                        <h2 class="section-title" style="margin:0; color:#111111; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:22px; line-height:1.3; font-weight:500; letter-spacing:0;">
                           What&#8217;s coming next
                         </h2>
                       </td>
                     </tr>
                     <tr>
                       <td style="padding:0 0 34px 0;">
-                        <ul class="body-copy" style="margin:0; padding-left:20px; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                          <li style="margin:0 0 8px 0;"><strong style="font-weight:500; color:#f5f5f5;">Web UI</strong> for browser access</li>
-                          <li style="margin:0 0 8px 0;"><strong style="font-weight:500; color:#f5f5f5;">Remote Links</strong> to reach your assistant across devices.</li>
-                          <li style="margin:0 0 8px 0;"><strong style="font-weight:500; color:#f5f5f5;">Mini Apps</strong> for sharing tools and workflows</li>
-                          <li style="margin:0;"><strong style="font-weight:500; color:#f5f5f5;">Group Chats</strong> for collaborative conversations with people and AI together.</li>
+                        <ul class="body-copy" style="margin:0; padding-left:20px; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                          <li style="margin:0 0 8px 0;"><strong style="font-weight:500; color:#111111;">Web UI</strong> for browser access</li>
+                          <li style="margin:0 0 8px 0;"><strong style="font-weight:500; color:#111111;">Remote Links</strong> to reach your assistant across devices.</li>
+                          <li style="margin:0 0 8px 0;"><strong style="font-weight:500; color:#111111;">Mini Apps</strong> for sharing tools and workflows</li>
+                          <li style="margin:0;"><strong style="font-weight:500; color:#111111;">Group Chats</strong> for collaborative conversations with people and AI together.</li>
                         </ul>
                       </td>
                     </tr>
                     <tr>
-                      <td style="padding:24px 0 13px 0; border-top:1px solid #262626;">
-                        <h2 class="section-title" style="margin:0; color:#f5f5f5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:22px; line-height:1.3; font-weight:500; letter-spacing:0;">
+                      <td style="padding:24px 0 13px 0; border-top:1px solid #e5e5e5;">
+                        <h2 class="section-title" style="margin:0; color:#111111; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:22px; line-height:1.3; font-weight:500; letter-spacing:0;">
                           Get started
                         </h2>
                       </td>
                     </tr>
                     <tr>
                       <td style="padding:0 0 32px 0;">
-                        <p class="body-copy" style="margin:0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                        <p class="body-copy" style="margin:0; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
                           Install Tiles for macOS or Linux, read the manual, or join the community shaping what comes next.
                         </p>
                       </td>
@@ -404,9 +428,9 @@ export async function POST(request: NextRequest) {
                               <div class="download-cta-shell" style="color-scheme:light only; supported-color-schemes:light;">
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="button download-cta" style="width:100%;">
                                   <tr>
-                                    <td bgcolor="#f5f5f7" class="download-cta-cell" style="border-radius:10px; background-color:#f5f5f7 !important; border:1px solid rgba(255,255,255,0.1) !important;">
-                                      <a href="https://tiles.run/download" class="download-cta-link" style="display:block; padding:10px 20px; color:#1f1f1f !important; -webkit-text-fill-color:#1f1f1f !important; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:20px; font-weight:500; text-decoration:none; border-radius:10px;">
-                                        <img src="https://tiles.run/icon-download-111111.svg" width="16" height="16" alt="" aria-hidden="true" style="display:inline-block; width:16px; height:16px; margin-right:8px; vertical-align:-3px; border:0;" />
+                                    <td bgcolor="#0b7df0" class="download-cta-cell" style="border-radius:6px; background-color:#0b7df0 !important; border:1px solid #0b7df0 !important;">
+                                      <a href="https://tiles.run/download" class="download-cta-link" style="display:block; padding:10px 20px; color:#ffffff !important; -webkit-text-fill-color:#ffffff !important; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:20px; font-weight:500; text-decoration:none; border-radius:6px;">
+                                        <img src="https://tiles.run/icon-download-ffffff.svg" width="16" height="16" alt="" aria-hidden="true" style="display:inline-block; width:16px; height:16px; margin-right:8px; vertical-align:-3px; border:0;" />
                                         Download Tiles Alpha
                                       </a>
                                     </td>
@@ -420,8 +444,8 @@ export async function POST(request: NextRequest) {
                               <div class="download-cta-shell" style="color-scheme:light only; supported-color-schemes:light;">
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="button download-cta" style="width:100%;">
                                   <tr>
-                                    <td bgcolor="#f5f5f7" class="download-cta-cell" style="border-radius:10px; background-color:#f5f5f7 !important; border:1px solid rgba(255,255,255,0.1) !important;">
-                                      <a href="https://tiles.run/book/manual" class="download-cta-link" style="display:block; padding:10px 20px; color:#1f1f1f !important; -webkit-text-fill-color:#1f1f1f !important; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:20px; font-weight:500; text-decoration:none; border-radius:10px;">
+                                    <td bgcolor="#ffffff" class="secondary-cta-cell" style="border-radius:6px; background-color:#ffffff !important; border:1px solid #d5d5d5 !important;">
+                                      <a href="https://tiles.run/book/manual" class="secondary-cta-link" style="display:block; padding:10px 20px; color:#111111 !important; -webkit-text-fill-color:#111111 !important; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:20px; font-weight:500; text-decoration:none; border-radius:6px;">
                                         <img src="https://tiles.run/icon-manual-111111.svg" width="16" height="16" alt="" aria-hidden="true" style="display:inline-block; width:16px; height:16px; margin-right:8px; vertical-align:-3px; border:0;" />
                                         Read the Manual
                                       </a>
@@ -436,8 +460,8 @@ export async function POST(request: NextRequest) {
                               <div class="download-cta-shell" style="color-scheme:light only; supported-color-schemes:light;">
                                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="button download-cta" style="width:100%;">
                                   <tr>
-                                    <td bgcolor="#f5f5f7" class="download-cta-cell" style="border-radius:10px; background-color:#f5f5f7 !important; border:1px solid rgba(255,255,255,0.1) !important;">
-                                      <a href="https://go.tiles.run/discord" class="download-cta-link" style="display:block; padding:10px 20px; color:#1f1f1f !important; -webkit-text-fill-color:#1f1f1f !important; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:20px; font-weight:500; text-decoration:none; border-radius:10px;">
+                                    <td bgcolor="#ffffff" class="secondary-cta-cell" style="border-radius:6px; background-color:#ffffff !important; border:1px solid #d5d5d5 !important;">
+                                      <a href="https://go.tiles.run/discord" class="secondary-cta-link" style="display:block; padding:10px 20px; color:#111111 !important; -webkit-text-fill-color:#111111 !important; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:20px; font-weight:500; text-decoration:none; border-radius:6px;">
                                         <img src="https://tiles.run/icon-discord-111111.svg" width="16" height="16" alt="" aria-hidden="true" style="display:inline-block; width:16px; height:16px; margin-right:8px; vertical-align:-3px; border:0;" />
                                         Join Discord
                                       </a>
@@ -452,16 +476,16 @@ export async function POST(request: NextRequest) {
                     </tr>
                     <tr>
                       <td style="padding:0 0 40px 0;">
-                        <p class="body-copy" style="margin:0 0 12px 0; color:#e5e5e5; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
+                        <p class="body-copy" style="margin:0 0 12px 0; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
                           Reply anytime with feedback. Your notes help shape what we build next.
                         </p>
-                        <p style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.45; font-weight:500;">
-                          - <a href="https://www.tilesprivacy.org" style="color:#f5f5f5; text-decoration:underline; text-decoration-color:#737373;">Tiles Privacy</a>
+                        <p style="margin:0; color:#555555; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:15px; line-height:1.45; font-weight:500;">
+                          - <a href="https://www.tilesprivacy.org" style="color:#111111; text-decoration:underline; text-decoration-color:#737373;">Tiles Privacy</a>
                         </p>
                       </td>
                     </tr>
                     <tr>
-                      <td style="padding:30px 0 0 0; border-top:1px solid #262626;">
+                      <td style="padding:30px 0 0 0;">
                         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-top:14px;">
                           <tr>
                             <td align="center" style="padding:0 0 14px 0; line-height:0;">
@@ -469,7 +493,7 @@ export async function POST(request: NextRequest) {
                                 <tr>
                                   <td align="center" style="line-height:0;">
                                     <a href="https://www.tiles.run" style="text-decoration:none;">
-                                      <img src="https://www.tiles.run/grey.png" width="28" height="28" alt="Tiles" style="display:block; width:28px; max-width:28px; height:28px; border:0;">
+                                      <img src="https://www.tiles.run/lighticon.png" width="28" height="28" alt="Tiles" style="display:block; width:28px; max-width:28px; height:28px; border:0;">
                                     </a>
                                   </td>
                                 </tr>
@@ -478,8 +502,8 @@ export async function POST(request: NextRequest) {
                           </tr>
                           <tr>
                             <td align="center" style="padding:0 0 18px 0;">
-                              <p style="margin:0; color:#d4d4d8; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
-                                Tiles is a local-first private AI assistant for everyday use.
+                              <p style="margin:0; color:#555555; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
+                                A private, collaborative AI assistant that works for you.
                               </p>
                             </td>
                           </tr>
@@ -523,7 +547,7 @@ export async function POST(request: NextRequest) {
                           </tr>
                           <tr>
                             <td align="center" style="padding:0 0 4px 0;">
-                              <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#e5e5e5; text-decoration:underline; text-underline-offset:4px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6;">
+                              <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#333333; text-decoration:underline; text-underline-offset:4px; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6;">
                                 Unsubscribe
                               </a>
                             </td>
