@@ -3,14 +3,14 @@ export const TILES_PRODUCT_DESCRIPTION =
 
 /** Homepage metadata and default Open Graph image tagline. */
 export const TILES_HOMEPAGE_DESCRIPTION =
-  "Local-first private AI assistant for everyday use" as const
+  "A local-first AI assistant designed for the Atmosphere." as const
 
 /** Short blurb for blog and research article footers. */
 export const TILES_PRODUCT_DESCRIPTION_SHORT =
   "Tiles is a local-first private AI assistant for everyday use." as const
 
 /** Browser tab and Open Graph titles (hero headline). */
-export const TILES_SITE_TITLE = "Tiles: Own your AI" as const
+export const TILES_SITE_TITLE = "Tiles: Local-first AI for the Atmosphere" as const
 
 export const AT_PROTO_LABEL = "AT Protocol" as const
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { HomeContent } from "@/components/home-content"
-import { SiteFooter } from "@/components/site-footer"
+import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 import { TILES_HOMEPAGE_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 
 export const metadata: Metadata = {
@@ -26,11 +26,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function Page() {
-  return (
-    <div className="relative flex min-h-screen flex-col bg-background">
-      <HomeContent />
-      <SiteFooter showDownloadCta={false} showNewsletterCta newsletterCtaLayout="landing" />
-    </div>
-  )
+export default async function Page() {
+  const artifact = await getLatestDownloadArtifact()
+  return <HomeContent macDownloadUrl={artifact.downloadUrl} />
 }
