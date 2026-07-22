@@ -22,7 +22,11 @@ const features = [
     body: (
       <>
         Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, built around OpenAI’s{" "}
-        <span className="font-mono text-[0.94em]">gpt-oss-20b</span>, with plugin support for reusable,{" "}
+        <span className="minimal-model-label">
+          <Image src="/openai-logo.svg" alt="" width={15} height={15} />
+          <span>gpt-oss-20b</span>
+        </span>
+        , with plugin support for reusable,{" "}
         skill-based workflows.
       </>
     ),
@@ -49,7 +53,7 @@ const features = [
     body: "Encrypted peer-to-peer chat sync across your linked devices.",
   },
   {
-    title: "Designed for the Atmosphere",
+    title: "Share chats with friends on Atmosphere",
     icon: AtprotoIcon,
     body: (
       <>
