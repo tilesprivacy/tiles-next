@@ -8,11 +8,11 @@ const post = getBlogPostBySlug("atmospheric-sessions")
 const socialImageUrl = getBlogPostSocialImageUrl("atmospheric-sessions", "/atmospheric-sessions-banner.png")
 
 export const metadata: Metadata = {
-  title: post ? `${post.title} | Tiles Blog` : "ATmospheric sessions | Tiles Blog",
+  title: post ? `${post.title} | Tiles Blog` : "Atmopsheric sessions | Tiles Blog",
   description: post?.description,
   alternates: { canonical: "https://www.tiles.run/blog/atmospheric-sessions" },
   openGraph: {
-    title: post ? `${post.title} | Tiles Blog` : "ATmospheric sessions | Tiles Blog",
+    title: post ? `${post.title} | Tiles Blog` : "Atmopsheric sessions | Tiles Blog",
     description: post?.description,
     url: "https://www.tiles.run/blog/atmospheric-sessions",
     siteName: "Tiles Privacy",
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: post ? `${post.title} | Tiles Blog` : "ATmospheric sessions | Tiles Blog",
+    title: post ? `${post.title} | Tiles Blog` : "Atmopsheric sessions | Tiles Blog",
     description: post?.description,
   },
   other: {

@@ -143,11 +143,9 @@ export function SupportContent() {
                 ))}
               </div>
               <p className="mt-7 text-sm leading-6 text-black/62 dark:text-white/62">
-                <SupportLink href="/releases">Releases</SupportLink> has all versions and
-                download links. <SupportLink href="/download">Download</SupportLink> has the
-                latest version.{" "}
-                <SupportLink href="https://status.tiles.run" external>Status</SupportLink> has
-                service availability.
+                <span className="block"><SupportLink href="/releases">Releases</SupportLink> has all versions and download links.</span>
+                <span className="block"><SupportLink href="/download">Download</SupportLink> has the latest version.</span>
+                <span className="block"><SupportLink href="https://status.tiles.run" external>Status</SupportLink> has service availability.</span>
               </p>
             </section>
           </section>

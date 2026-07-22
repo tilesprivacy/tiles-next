@@ -7,8 +7,8 @@ import { SiteFooter } from "@/components/site-footer"
 import { PluginIcon } from "@/components/plugin-icon"
 import { triggerHaptic } from "@/lib/haptics"
 import {
-  marketingPageSectionTitleClass,
   marketingPageSubsectionTitleClass,
+  marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import type { TilesPlugin, TilesPluginSkill } from "@/lib/plugins"
 
@@ -114,17 +114,17 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
               Back
             </Link>
 
-            <div className="mb-7 flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-4">
+            <div className="mb-7 flex flex-col gap-4">
               <div className="flex shrink-0 items-center gap-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-secondary text-foreground ring-1 ring-border/60">
                   <PluginIcon slug={plugin.slug} />
                 </span>
-                <h1 className={`truncate lg:overflow-visible lg:whitespace-nowrap ${marketingPageSectionTitleClass}`}>
+                <h1 className={`truncate lg:overflow-visible lg:whitespace-nowrap ${marketingPageTitleClass}`}>
                   {plugin.name}
                 </h1>
               </div>
 
-              <div className="w-full min-w-0 lg:min-w-[9rem] lg:flex-1">
+              <div className="w-full min-w-0">
                 <div className="relative h-10 overflow-hidden rounded-[8px] border border-border bg-secondary/45 lg:flex lg:items-stretch">
                   <code className="flex h-full items-center overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4">
                     {plugin.installCommand}

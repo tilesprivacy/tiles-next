@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useRef } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogReference } from "@/components/blog-reference"
@@ -56,15 +56,49 @@ export function BlogPostContent({
   showTableOfContents = true,
   children 
 }: BlogPostContentProps) {
+  const articleRef = useRef<HTMLElement>(null)
   const author = authorId ? getPersonById(authorId) : null
   const standardSiteDocumentUrl = standardSiteDocumentUri
     ? buildAtprotoAtUriUrl(standardSiteDocumentUri)
     : null
 
+  useEffect(() => {
+    const jsonTokenPattern = /("(?:\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*")(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
+
+    articleRef.current?.querySelectorAll<HTMLElement>("code.language-json:not([data-syntax-highlighted])").forEach((code) => {
+      const source = code.textContent ?? ""
+      const fragment = document.createDocumentFragment()
+      let cursor = 0
+
+      for (const match of source.matchAll(jsonTokenPattern)) {
+        const index = match.index ?? 0
+        fragment.append(document.createTextNode(source.slice(cursor, index)))
+
+        const token = document.createElement("span")
+        if (match[1]) {
+          token.className = match[2] ? "syntax-json-key" : "syntax-json-string"
+          token.textContent = match[1]
+          fragment.append(token)
+          if (match[2]) fragment.append(document.createTextNode(match[2]))
+        } else {
+          token.className = match[3] ? "syntax-json-literal" : "syntax-json-number"
+          token.textContent = match[0]
+          fragment.append(token)
+        }
+
+        cursor = index + match[0].length
+      }
+
+      fragment.append(document.createTextNode(source.slice(cursor)))
+      code.replaceChildren(fragment)
+      code.dataset.syntaxHighlighted = "true"
+    })
+  }, [content])
+
   return (
     <div data-blog-page data-blog-article className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(4.25rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
+      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(7rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
         {/* Bottom Card - Blog Post Content */}
         <div className="blog-article-column relative w-full max-w-[90rem] py-8 lg:py-14 xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
           <div className="mx-auto w-full max-w-[44rem] overflow-x-clip xl:col-start-2 xl:row-start-1 xl:mx-0 xl:max-w-none xl:overflow-visible">
@@ -110,23 +144,25 @@ export function BlogPostContent({
               </div>
               {author && (
                 <div className="mt-0.5 flex items-center gap-1.5">
-                  <PersonAvatar
-                    name={author.name}
-                    links={author.links}
-                    variant="blog"
-                    loading="eager"
-                    className="inline-flex shrink-0"
-                  />
-                  <BlogAuthorDisplayName
-                    fullName={author.name}
-                    className="text-sm text-black/58 dark:text-white/58 lg:text-[0.95rem]"
-                    handleClassName="text-black/44 dark:text-white/44"
-                  />
+                  <div className="flex min-w-0 items-center gap-1.5">
+                    <PersonAvatar
+                      name={author.name}
+                      links={author.links}
+                      variant="blog"
+                      loading="eager"
+                      className="inline-flex shrink-0"
+                    />
+                    <BlogAuthorDisplayName
+                      fullName={author.name}
+                      className="whitespace-nowrap text-sm text-black/58 dark:text-white/58 lg:text-[0.95rem]"
+                      handleClassName="text-black/44 dark:text-white/44"
+                    />
+                  </div>
                   <SocialLinks
                     name={author.name}
                     links={author.links}
-                    className="blog-print-screen-only flex items-center gap-1.5"
-                    linkClassName="text-black/40 hover:text-black/65 dark:text-white/40 dark:hover:text-white/70 transition-colors"
+                    className="blog-print-screen-only flex shrink-0 items-center gap-0"
+                    linkClassName="inline-flex h-8 w-8 touch-manipulation items-center justify-center rounded-md text-black/40 transition-colors hover:bg-black/5 hover:text-black/65 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/60 dark:text-white/40 dark:hover:bg-white/8 dark:hover:text-white/70 dark:focus-visible:outline-white/60"
                     iconClassName="h-3.5 w-3.5 lg:h-4 lg:w-4"
                   />
                 </div>
@@ -178,7 +214,7 @@ export function BlogPostContent({
             </aside>
           ) : null}
 
-          <article className="blog-article-container relative mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-2 xl:mx-0 xl:max-w-none">
+          <article ref={articleRef} className="blog-article-container relative mx-auto w-full max-w-[44rem] xl:col-start-2 xl:row-start-2 xl:mx-0 xl:max-w-none">
               {/* Container for side references on desktop */}
               <div className="blog-reference-container hidden xl:block absolute left-0 top-0 w-full h-full pointer-events-none" />
 

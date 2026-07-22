@@ -35,12 +35,12 @@ export const metadata: Metadata = {
 export default function BrandPage() {
   return (
     <div className="relative flex min-h-screen flex-col overflow-x-clip bg-background text-foreground lg:overflow-visible">
-      <main className="flex flex-1 flex-col overflow-x-clip pt-[calc(4.25rem+env(safe-area-inset-top,0px))] lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))]">
+      <main className="flex flex-1 flex-col overflow-x-clip pt-[calc(7rem+env(safe-area-inset-top,0px))] lg:pt-[calc(7.5rem+env(safe-area-inset-top,0px))]">
         <section className="mx-auto w-full max-w-4xl overflow-x-clip px-6 pb-16 pt-8 lg:pb-24">
           <h1 className={`max-w-[22ch] ${marketingPageTitleClass}`}>
             Tiles brand guidelines
           </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-black/65 md:text-lg dark:text-[#B3B3B3]">
+          <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             Resources to represent Tiles consistently and accurately.
           </p>
           <a
@@ -64,7 +64,7 @@ export default function BrandPage() {
           </a>
 
           <h2 className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand assets</h2>
-          <div className="mt-4 max-w-3xl space-y-2 text-base leading-relaxed text-black/65 md:text-lg dark:text-[#B3B3B3]">
+          <div className="mt-4 max-w-3xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             <p>
               <strong className="font-semibold text-foreground">Logos</strong> are available as icon mark and logo
               variants, in light and dark versions.
@@ -173,7 +173,7 @@ export default function BrandPage() {
           </div>
 
           <h2 className={`mt-14 ${marketingPageSectionTitleClass}`}>Name</h2>
-          <p className="mt-4 text-base leading-relaxed text-black/80 md:text-lg dark:text-[#D0D0D3]">
+          <p className="mt-4 text-base leading-[1.7] text-black/80 dark:text-[#D0D0D3]">
             Refer to us as Tiles Privacy. Not Tiles Assistant or Tiles AI .
           </p>
 

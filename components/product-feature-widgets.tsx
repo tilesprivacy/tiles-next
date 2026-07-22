@@ -54,7 +54,7 @@ const bookFeatureLinkClass =
 const homeFeatureLinkClass =
   "underline decoration-black/30 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-black/45 dark:decoration-white/35 dark:hover:text-white/90 dark:hover:decoration-white/55"
 
-function RemoteInferenceIcon({ strokeWidth = 1.75 }: { strokeWidth?: number }) {
+export function RemoteInferenceIcon({ strokeWidth = 1.75 }: { strokeWidth?: number }) {
   return (
     <svg
       viewBox="0 0 24 24"

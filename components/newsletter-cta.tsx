@@ -10,7 +10,7 @@ interface NewsletterCtaProps {
   formClassName?: string
 }
 
-export function NewsletterCta({ surface = "auto", className, formClassName }: NewsletterCtaProps) {
+export function NewsletterCta({ surface = "light", className, formClassName }: NewsletterCtaProps) {
   const headingClass =
     surface === "dark"
       ? "text-[#e7e7ed]"

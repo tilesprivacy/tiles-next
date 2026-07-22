@@ -47,7 +47,7 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
 export const blogPosts: BlogPost[] = [
   {
     slug: "atmospheric-sessions",
-    title: "ATmospheric sessions",
+    title: "Atmopsheric sessions",
     description: "Share and keep your public and private Tiles chat sessions with ATproto",
     date: new Date("2026-07-14"),
     author: "anandu-pavanan",

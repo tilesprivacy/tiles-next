@@ -7,7 +7,6 @@ export interface OwnYourAiSlide {
 export const ownYourAiTalkIntroParagraphs = [
   'This post is adapted from a talk I gave at <a href="https://www.localfirstconf.com/" target="_blank" rel="noopener noreferrer">Local-First Conf</a> in Berlin in July 2026. It was written for the <a href="https://www.inkandswitch.com/local-first/" target="_blank" rel="noopener noreferrer">local-first</a> community, but it is relevant to anyone involved in building software.',
   'As AI becomes central to how we work and communicate, I believe we are seeing a new form of technological feudalism, where a handful of platforms control the models, identities, data, and distribution channels people depend on. Local-first AI offers an alternative, but many tools still lack the identity, sync, and collaboration features people expect.',
-  'In the talk, I shared what I have learned building Tiles, a local-first private AI assistant. I discussed the tradeoffs I have encountered while combining local models with decentralized identity, peer-to-peer encrypted sync, and AT Protocol based collaboration. I also covered exploratory research we are conducting to bring the convenience of modern AI services to a user-owned stack.',
 ]
 
 export const ownYourAiTalkIntro = ownYourAiTalkIntroParagraphs.map((paragraph) => `<p>${paragraph}</p>`).join("\n")

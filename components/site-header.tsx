@@ -7,6 +7,7 @@ import { triggerHaptic } from "@/lib/haptics"
 import { usePathname } from "next/navigation"
 import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { Download } from "lucide-react"
+import { MinimalTopbar } from "@/components/minimal-topbar"
 
 /** Set to true to show the top banner (e.g. for announcements). */
 const BANNER_ENABLED = false
@@ -37,6 +38,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   showMobileDownloadCta: boolean
 }) {
   const isHomePage = pathname === "/"
+  const isMinimalPage = isHomePage || pathname === "/download" || pathname === "/sponsor"
   const headerChrome = themeAware
     ? "bg-background text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
     : "bg-white text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
@@ -74,6 +76,8 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     if (href === "/download") return pathname === "/download" || pathname.startsWith("/download/")
     return pathname === href
   }
+
+  if (isMinimalPage) return null
 
   return (
     <>
@@ -398,8 +402,13 @@ function SiteHeaderContent({ themeAware = true }: SiteHeaderProps) {
   )
 }
 
-export function SiteHeader(props: SiteHeaderProps) {
-  return <SiteHeaderContent {...props} />
+export function SiteHeader(_: SiteHeaderProps) {
+  const pathname = usePathname()
+  const hasPageTopbar = pathname === "/" || pathname === "/download" || pathname === "/sponsor"
+
+  if (hasPageTopbar) return null
+
+  return <MinimalTopbar />
 }
 
 export default SiteHeader

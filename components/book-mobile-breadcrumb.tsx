@@ -9,7 +9,7 @@ import {
   getAdjacentBookPages,
 } from '@/components/book-page-navigation'
 
-const MOBILE_BOOK_PAGES = BOOK_PAGES
+const MOBILE_BOOK_PAGES = BOOK_PAGES.filter((page) => page.route !== '/book')
 
 function isBookPageActive(pathname: string, route: string): boolean {
   const normalizedPath = pathname.replace(/\/$/, '') || '/book'
