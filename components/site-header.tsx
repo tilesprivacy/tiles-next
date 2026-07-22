@@ -37,7 +37,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
   showMobileDownloadCta: boolean
 }) {
   const isHomePage = pathname === "/"
-  const isMinimalPage = isHomePage || pathname === "/manual"
+  const isMinimalPage = isHomePage || pathname === "/manual" || pathname === "/download" || pathname === "/sponsor"
   const headerChrome = themeAware
     ? "bg-background text-foreground border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"
     : "bg-white text-black border-0 border-transparent shadow-none ring-0 outline-none backdrop-blur-none supports-[backdrop-filter]:backdrop-blur-none"

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { MinimalDownload } from "@/components/minimal-download"
+import { MinimalTopbar } from "@/components/minimal-topbar"
 
 const features = [
   {
@@ -44,6 +45,7 @@ const features = [
 export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
   return (
     <main className="minimal-product-page">
+      <MinimalTopbar />
       <section className="minimal-hero" aria-labelledby="tiles-title">
         <div className="minimal-wordmark">
           <Image src="/lighticon.png" alt="" width={72} height={72} priority />
@@ -51,6 +53,15 @@ export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
         </div>
         <p>A local-first AI assistant designed for the Atmosphere.</p>
         <MinimalDownload macDownloadUrl={macDownloadUrl} />
+        <div className="minimal-hero-device">
+          <Image
+            src="/wireframe.webp"
+            alt="Tiles running on a MacBook"
+            width={800}
+            height={600}
+            priority
+          />
+        </div>
       </section>
 
       <section className="minimal-copy" aria-label="What Tiles does">

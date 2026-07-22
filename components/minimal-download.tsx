@@ -27,7 +27,7 @@ export function MinimalDownload({ macDownloadUrl }: { macDownloadUrl: string }) 
   return (
     <div className="minimal-download" ref={rootRef}>
       <div className="minimal-download-buttons">
-        <a href={macDownloadUrl}>Download free for Mac</a>
+        <a href="/download">Download free for Mac and Linux</a>
         <button
           type="button"
           aria-label="Other downloads"
@@ -39,8 +39,8 @@ export function MinimalDownload({ macDownloadUrl }: { macDownloadUrl: string }) 
       </div>
       {open ? (
         <div className="minimal-download-menu">
-          <strong>Linux</strong>
-          <span>Run in your terminal</span>
+          <strong>Quick install for Linux</strong>
+          <span>Or open the download page for every installer option.</span>
           <button type="button" onClick={copyLinuxCommand}>
             <code>{linuxCommand}</code>
             {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy Linux install command" />}

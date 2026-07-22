@@ -5,15 +5,37 @@
 
 /* Minimal product pages, inspired by the clarity and restraint of offline.tldraw.com. */
 .minimal-product-page,
-.minimal-manual-page {
+.minimal-manual-page,
+.minimal-inner-page {
   min-height: 100dvh;
   background: #fff;
   color: #111;
   font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
 }
 
 .minimal-product-page a,
-.minimal-manual-page a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.minimal-manual-page a,
+.minimal-inner-page a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.minimal-topbar {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+  width: min(calc(100% - 2.5rem), 72rem);
+  height: 5.5rem;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.minimal-topbar-brand { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 1rem; font-weight: 700; text-decoration: none !important; }
+.minimal-topbar-brand img { width: 2rem; height: 2rem; }
+.minimal-topbar nav { display: flex; align-items: center; gap: 1.5rem; font-size: 0.875rem; }
+.minimal-topbar nav a { text-decoration: none; }
+.minimal-topbar-sponsor { border: 1px solid #d7d7d7; border-radius: 5px; padding: 0.55rem 0.9rem; }
+.minimal-topbar-sponsor:hover { background: #f5f5f5; }
 
 .minimal-hero {
   min-height: 100dvh;
@@ -21,21 +43,23 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.25rem;
   padding: 3rem 1.25rem;
   text-align: center;
 }
 
-.minimal-wordmark { display: flex; align-items: center; gap: 0.8rem; }
+.minimal-wordmark { display: flex; align-items: center; gap: 1rem; }
 .minimal-wordmark img { width: 4rem; height: 4rem; }
 .minimal-wordmark h1 { margin: 0; font-size: clamp(2.6rem, 8vw, 4.6rem); line-height: 1; letter-spacing: -0.055em; font-weight: 700; }
-.minimal-hero > p { margin: 0; font-size: clamp(1rem, 2.2vw, 1.18rem); font-weight: 600; }
+.minimal-hero > p { margin: 0; max-width: 32rem; font-size: 1.125rem; line-height: 1.5; font-weight: 600; }
+.minimal-hero-device { width: min(90vw, 48rem); margin-top: 3.5rem; }
+.minimal-hero-device img { display: block; width: 100%; height: auto; }
 
 .minimal-download { position: relative; width: fit-content; }
 .minimal-download-buttons { display: inline-flex; overflow: hidden; border-radius: 6px; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
 .minimal-download-buttons > a,
 .minimal-download-buttons > button { height: 42px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: #0b7df0; color: #fff; }
-.minimal-download-buttons > a { padding: 0 1.4rem; font-size: 0.95rem; text-decoration: none; }
+.minimal-download-buttons > a { padding: 0 1.3rem; font-size: 0.9375rem; text-decoration: none; }
 .minimal-download-buttons > button { width: 40px; border-left: 1px solid rgb(0 0 0 / 0.12); cursor: pointer; }
 .minimal-download-buttons > button svg { width: 17px; height: 17px; transition: transform 150ms ease; }
 .minimal-download-buttons > button[aria-expanded="true"] svg { transform: rotate(180deg); }
@@ -50,10 +74,10 @@
 .minimal-download-menu code { overflow: hidden; text-overflow: ellipsis; font-size: 0.7rem; white-space: nowrap; }
 .minimal-download-menu svg { width: 15px; height: 15px; flex: none; }
 
-.minimal-copy { width: min(100% - 2.5rem, 43rem); margin: 0 auto; padding: 5rem 0 7rem; }
-.minimal-copy article + article { margin-top: 2.8rem; }
-.minimal-copy h2 { margin: 0 0 0.9rem; font-size: 1rem; line-height: 1.4; font-weight: 700; }
-.minimal-copy p { margin: 0; font-size: 1rem; line-height: 1.55; }
+.minimal-copy { width: min(100% - 2.5rem, 43rem); margin: 0 auto; padding: 6rem 0 9rem; }
+.minimal-copy article + article { margin-top: 3.5rem; }
+.minimal-copy h2 { margin: 0 0 0.875rem; font-size: 1.0625rem; line-height: 1.4; font-weight: 700; }
+.minimal-copy p { margin: 0; font-size: 1rem; line-height: 1.65; }
 
 .minimal-actions { min-height: 52dvh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.4rem; padding: 4rem 1.25rem; }
 .minimal-actions > a { font-size: 0.95rem; }
@@ -62,27 +86,92 @@
 .minimal-footer-brand { display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; font-weight: 700; }
 .minimal-footer-brand img { width: 1.8rem; height: 1.8rem; }
 
-.minimal-manual-page { padding: 2rem 1.25rem 5rem; }
-.minimal-manual-page > header,
+.minimal-manual-page { position: relative; padding: 10rem 1.25rem 5rem; }
+.minimal-manual-page > .minimal-topbar,
 .minimal-manual-page > footer,
 .minimal-manual-prose { width: min(100%, 46rem); margin-inline: auto; }
-.minimal-manual-page > header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 7rem; font-size: 0.86rem; }
-.minimal-manual-brand { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; font-weight: 700; text-decoration: none !important; }
-.minimal-manual-brand img { width: 2rem; height: 2rem; }
-.minimal-manual-prose > h1 { margin: 0 0 4rem; font-size: clamp(2.7rem, 7vw, 4.5rem); letter-spacing: -0.05em; line-height: 1; }
-.minimal-manual-prose h2 { margin: 4rem 0 1rem; font-size: 1.45rem; letter-spacing: -0.02em; }
-.minimal-manual-prose h3 { margin: 2.5rem 0 0.75rem; font-size: 1rem; }
+.minimal-manual-prose > h1 { margin: 0 0 5rem; font-size: clamp(2.75rem, 7vw, 4.25rem); letter-spacing: -0.05em; line-height: 1.05; }
+.minimal-manual-prose h2 { margin: 5rem 0 1.25rem; font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.025em; }
+.minimal-manual-prose h3 { margin: 3rem 0 0.875rem; font-size: 1.0625rem; }
 .minimal-manual-prose h4 { margin: 2rem 0 0.6rem; font-size: 0.95rem; }
 .minimal-manual-prose p,
-.minimal-manual-prose li { font-size: 0.96rem; line-height: 1.65; }
+.minimal-manual-prose li { font-size: 1rem; line-height: 1.7; }
 .minimal-manual-prose pre { margin: 1rem 0; overflow-x: auto; border-radius: 6px; background: #f4f4f4 !important; padding: 1rem !important; color: #111 !important; }
 .minimal-manual-prose code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85em; }
 .minimal-manual-prose :not(pre) > code { border-radius: 3px; background: #f0f0f0; padding: 0.13rem 0.3rem; }
-.minimal-manual-page > footer { margin-top: 7rem; padding-top: 2rem; border-top: 1px solid #ddd; display: flex; justify-content: space-between; gap: 1rem; color: #555; font-size: 0.8rem; }
+.minimal-manual-page > footer { margin-top: 9rem; padding-top: 2rem; border-top: 1px solid #ddd; display: flex; justify-content: space-between; gap: 1rem; color: #555; font-size: 0.8rem; }
+
+.minimal-inner-page { position: relative; padding: 10rem 1.25rem 8rem; }
+.minimal-inner-content { width: min(100%, 46rem); margin-inline: auto; }
+.minimal-page-intro { margin-bottom: 8rem; }
+.minimal-eyebrow { margin: 0 0 1rem; color: #666; font-size: 0.8125rem; letter-spacing: 0.035em; text-transform: uppercase; }
+.minimal-page-intro h1 { margin: 0; max-width: 42rem; font-size: clamp(2.75rem, 7vw, 4.25rem); line-height: 1.05; letter-spacing: -0.05em; }
+.minimal-page-intro > p:last-child { max-width: 38rem; margin: 1.5rem 0 0; color: #444; font-size: 1.125rem; line-height: 1.6; }
+.minimal-section { padding: 5rem 0; border-top: 1px solid #ddd; }
+.minimal-section-heading { margin-bottom: 2rem; }
+.minimal-section h2 { margin: 0 0 0.65rem; font-size: 1.5rem; line-height: 1.25; letter-spacing: -0.025em; }
+.minimal-section-heading p { margin: 0; color: #666; font-size: 0.875rem; }
+.minimal-section > p { margin: 0; font-size: 1rem; line-height: 1.7; }
+.minimal-section > p + p { margin-top: 1.25rem; }
+.minimal-section p a { display: inline-flex; align-items: center; gap: 0.35rem; }
+.minimal-option { margin-top: 3.5rem; }
+.minimal-option + .minimal-option { padding-top: 3.5rem; border-top: 1px solid #e6e6e6; }
+.minimal-option h3 { margin: 0 0 0.75rem; font-size: 1.0625rem; line-height: 1.4; }
+.minimal-option > p { margin: 0; font-size: 1rem; line-height: 1.65; }
+.minimal-meta { margin-top: 0.8rem !important; color: #666; font-size: 0.8125rem !important; }
+.minimal-primary-button,
+.minimal-secondary-button,
+.minimal-disabled-button { width: fit-content; min-height: 42px; margin-top: 1.5rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; padding: 0.65rem 1.15rem; font-size: 0.9rem; font-weight: 600; text-decoration: none !important; }
+.minimal-primary-button { background: #0b7df0; color: #fff !important; }
+.minimal-primary-button:hover { background: #076fd7; }
+.minimal-secondary-button { border: 1px solid #ccc; background: #fff; }
+.minimal-secondary-button:hover { background: #f6f6f6; }
+.minimal-disabled-button { background: #eee; color: #777; }
+.minimal-note { margin-top: 1rem !important; color: #666; font-size: 0.8125rem !important; line-height: 1.55 !important; }
+.minimal-command { width: 100%; margin-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; border: 1px solid #ddd; border-radius: 6px; background: #f5f5f5; padding: 0.9rem 1rem; cursor: pointer; text-align: left; }
+.minimal-command code { overflow-x: auto; white-space: nowrap; font-size: 0.8125rem; }
+.minimal-command svg { width: 16px; height: 16px; flex: none; }
+.minimal-resources > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.minimal-resources > div a { display: flex; flex-direction: column; gap: 0.45rem; border-top: 1px solid #ddd; padding-top: 1rem; text-decoration: none; }
+.minimal-resources strong { font-size: 0.9375rem; }
+.minimal-resources span { color: #666; font-size: 0.8125rem; line-height: 1.5; }
+.minimal-legal { margin: 3rem 0 0; color: #666; font-size: 0.75rem; line-height: 1.6; }
+.minimal-sponsor-copy { padding-top: 0; border-top: 0; }
+.minimal-team { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.75rem; }
+.minimal-team span { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.875rem; }
+.minimal-team img,
+.minimal-sponsor-list img { width: 1.75rem; height: 1.75rem; border-radius: 50%; }
+.minimal-funding { margin: 4rem 0 5rem; padding: 3rem 0; border-block: 1px solid #ddd; }
+.minimal-funding > div:first-child { display: flex; align-items: baseline; gap: 1.25rem; }
+.minimal-funding > div:first-child strong { font-size: 3rem; letter-spacing: -0.05em; }
+.minimal-funding > div:first-child span,
+.minimal-funding > p { color: #666; font-size: 0.875rem; }
+.minimal-progress { height: 5px; margin-top: 1.5rem; overflow: hidden; border-radius: 10px; background: #e7e7e7; }
+.minimal-progress span { display: block; height: 100%; border-radius: inherit; background: #111; }
+.minimal-sponsor-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+.minimal-partner { width: fit-content; margin: 2rem 0; display: flex; align-items: center; gap: 0.85rem; text-decoration: none !important; }
+.minimal-partner span { display: flex; flex-direction: column; gap: 0.2rem; }
+.minimal-partner small { color: #666; font-size: 0.75rem; }
+.minimal-sponsor-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem; padding-top: 5rem; border-top: 1px solid #ddd; }
+.minimal-sponsor-list > div { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+.minimal-sponsor-list h2 { margin: 0; font-size: 0.9375rem; }
+.minimal-sponsor-list > div span { color: #777; font-size: 0.8125rem; }
+.minimal-sponsor-list > p { margin: 0; display: flex; align-items: center; gap: 0.65rem; border-top: 1px solid #e5e5e5; padding: 0.8rem 0; color: #666; font-size: 0.8125rem; }
+.minimal-sponsor-list > p strong { color: #111; font-weight: 600; }
 
 @media (max-width: 520px) {
   .minimal-copy { padding-top: 2rem; }
-  .minimal-manual-page > header { margin-bottom: 4rem; }
+  .minimal-hero-device { width: min(96vw, 32rem); margin-top: 2.5rem; }
+  .minimal-topbar { width: calc(100% - 2rem); height: 4.75rem; }
+  .minimal-topbar nav { gap: 0.8rem; }
+  .minimal-topbar nav > a:first-child { display: none; }
+  .minimal-inner-page,
+  .minimal-manual-page { padding-top: 8rem; }
+  .minimal-page-intro { margin-bottom: 5rem; }
+  .minimal-section { padding: 4rem 0; }
+  .minimal-resources > div,
+  .minimal-sponsor-grid { grid-template-columns: 1fr; }
+  .minimal-sponsor-grid { gap: 3rem; }
   .minimal-manual-page > footer { flex-direction: column; }
 }
 
