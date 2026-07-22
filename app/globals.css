@@ -386,6 +386,9 @@
     margin: 3rem 0 0;
     padding: 0;
   }
+  .minimal-download-page .minimal-legal {
+    margin-top: 3rem;
+  }
 }
 
 /* Light theme: Apple-like neutral palette */
