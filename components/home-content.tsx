@@ -42,7 +42,7 @@ const features = [
   },
 ] as const
 
-export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
+export function HomeContent() {
   return (
     <main className="minimal-product-page">
       <MinimalTopbar hideBrand />
@@ -52,7 +52,7 @@ export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
           <h1 id="tiles-title">Tiles</h1>
         </div>
         <p>A local-first AI assistant designed for the Atmosphere.</p>
-        <MinimalDownload macDownloadUrl={macDownloadUrl} />
+        <MinimalDownload />
         <div className="minimal-hero-device">
           <Image
             src="/wireframe.webp"
@@ -82,7 +82,7 @@ export function HomeContent({ macDownloadUrl }: { macDownloadUrl: string }) {
       </section>
 
       <section className="minimal-actions">
-        <MinimalDownload macDownloadUrl={macDownloadUrl} />
+        <MinimalDownload />
         <Link href="/manual">Read the User Manual</Link>
       </section>
 

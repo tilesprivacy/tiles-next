@@ -58,24 +58,8 @@
 .minimal-hero-device-banner { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding-inline: 9%; pointer-events: none; }
 .minimal-hero-device-banner img { width: min(54%, 22rem); transform: translateY(-0.2rem); }
 
-.minimal-download { position: relative; width: fit-content; }
-.minimal-download-buttons { display: inline-flex; overflow: hidden; border-radius: 6px; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
-.minimal-download-buttons > a,
-.minimal-download-buttons > button { height: 42px; display: inline-flex; align-items: center; justify-content: center; border: 0; background: #0b7df0; color: #fff; }
-.minimal-download-buttons > a { padding: 0 1.3rem; font-size: 0.9375rem; text-decoration: none; }
-.minimal-download-buttons > button { width: 40px; border-left: 1px solid rgb(0 0 0 / 0.12); cursor: pointer; }
-.minimal-download-buttons > button svg { width: 17px; height: 17px; transition: transform 150ms ease; }
-.minimal-download-buttons > button[aria-expanded="true"] svg { transform: rotate(180deg); }
-.minimal-download-buttons > a:hover,
-.minimal-download-buttons > button:hover { background: #076fd7; }
-.minimal-download-menu { position: absolute; z-index: 10; top: calc(100% + 0.6rem); left: 50%; width: min(25rem, calc(100vw - 2rem)); transform: translateX(-50%); padding: 0.85rem; border: 1px solid #ddd; border-radius: 7px; background: #fff; box-shadow: 0 12px 35px rgb(0 0 0 / 0.12); text-align: left; }
-.minimal-download-menu > strong,
-.minimal-download-menu > span { display: block; }
-.minimal-download-menu > strong { font-size: 0.92rem; }
-.minimal-download-menu > span { margin-top: 0.2rem; color: #666; font-size: 0.78rem; }
-.minimal-download-menu > button { width: 100%; margin-top: 0.7rem; display: flex; align-items: center; justify-content: space-between; gap: 0.8rem; border: 0; border-radius: 5px; background: #f3f3f3; padding: 0.7rem; cursor: pointer; text-align: left; }
-.minimal-download-menu code { overflow: hidden; text-overflow: ellipsis; font-size: 0.7rem; white-space: nowrap; }
-.minimal-download-menu svg { width: 15px; height: 15px; flex: none; }
+.minimal-download-link { min-height: 42px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: #0b7df0; color: #fff !important; padding: 0.65rem 1.3rem; font-size: 0.9375rem; font-weight: 500; text-decoration: none !important; box-shadow: 0 1px 2px rgb(0 0 0 / 0.12); }
+.minimal-download-link:hover { background: #076fd7; }
 
 .minimal-copy { width: min(100% - 2.5rem, 43rem); margin: 0 auto; padding: 6rem 0 9rem; }
 .minimal-copy article + article { margin-top: 3.5rem; }
@@ -139,6 +123,11 @@
 .minimal-resources strong { font-size: 0.9375rem; }
 .minimal-resources span { color: #666; font-size: 0.8125rem; line-height: 1.5; }
 .minimal-legal { margin: 3rem 0 0; color: #666; font-size: 0.75rem; line-height: 1.6; }
+.minimal-download-page .minimal-page-intro { margin-bottom: 6rem; }
+.minimal-download-platform { padding: 3.5rem 0; border-top: 1px solid #ddd; }
+.minimal-download-platform h2 { margin: 0; font-size: 1.125rem; line-height: 1.4; }
+.minimal-download-platform > p { margin: 0.65rem 0 0; color: #666; font-size: 0.875rem; line-height: 1.55; }
+.minimal-download-platform .minimal-command { max-width: 36rem; }
 .minimal-sponsor-copy { padding-top: 0; border-top: 0; }
 .minimal-team { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.75rem; }
 .minimal-team span { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.875rem; }
