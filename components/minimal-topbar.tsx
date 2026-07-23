@@ -86,7 +86,6 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
       {menuOpen ? (
         <div id="minimal-topbar-menu" className="minimal-topbar-menu">
           <nav aria-label="Mobile navigation">
-            <Link href="/book/manual" onClick={() => setMenuOpen(false)}>Manual</Link>
             {centerLinks.map(([href, label]) => (
               <Link key={href} href={href} onClick={() => setMenuOpen(false)}>{label}</Link>
             ))}
