@@ -31,7 +31,7 @@ export const atmosphericSessionsBlogContent = `<p>In Tiles, the <a href="https:/
 
 <p>Tiles publishes the session to your ATproto PDS and returns a public link that anyone can access. For more details, see the <a href="https://www.tiles.run/book/manual#sharing-commands" target="_blank" rel="noopener noreferrer">documentation</a>.</p>
 
-<iframe class="w-full h-auto" src="https://drive.google.com/file/d/15NuVP7QWSv2Ij1i8TZfX5QRUCVI7zlhP/preview?parts.page.embed.ctx.mode=edit&amp;parts.page.embed.ctx.bgColor=%23FDFCFA&amp;parts.page.embed.ctx.primaryColor=%23272727" allow="fullscreen" loading="lazy" referrerpolicy="no-referrer" style="aspect-ratio: 16 / 9;"></iframe>
+<div class="atmospheric-session-video" style="position: relative; width: 100%; max-width: 100%; aspect-ratio: 16 / 9; margin: 2.5rem 0; overflow: hidden; overflow-anchor: none; isolation: isolate; border-radius: 0.5rem; touch-action: pan-y pinch-zoom;"><iframe src="https://drive.google.com/file/d/15NuVP7QWSv2Ij1i8TZfX5QRUCVI7zlhP/preview?parts.page.embed.ctx.mode=edit&amp;parts.page.embed.ctx.bgColor=%23FDFCFA&amp;parts.page.embed.ctx.primaryColor=%23272727" title="Sharing Tiles sessions with ATproto" allow="autoplay; fullscreen" allowfullscreen loading="lazy" referrerpolicy="no-referrer" scrolling="no" style="position: absolute; inset: 0; display: block; width: 100%; height: 100%; border: 0; touch-action: pan-y pinch-zoom;"></iframe></div>
 
 <h2>What about private sessions?</h2>
 
