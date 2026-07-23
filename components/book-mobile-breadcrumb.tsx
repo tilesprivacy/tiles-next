@@ -71,9 +71,9 @@ function getHeaderOffset() {
     return Math.ceil(breadcrumb.getBoundingClientRect().bottom + 12)
   }
 
-  const header =
-    (document.querySelector('header.site-header-chrome') as HTMLElement | null) ??
-    (document.querySelector('header.fixed.inset-x-0') as HTMLElement | null)
+  const header = document.querySelector<HTMLElement>(
+    'header.minimal-topbar, header[data-tiles-site-header], header.site-header-chrome',
+  )
   if (!header) return 96
   return Math.ceil(header.getBoundingClientRect().bottom + 12)
 }

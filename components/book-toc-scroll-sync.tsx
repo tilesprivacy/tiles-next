@@ -17,11 +17,11 @@ export function BookTocScrollSync() {
     if (!section) return
 
     const getScrollOffset = () => {
-      const header =
-        (document.querySelector('header.site-header-chrome') as HTMLElement | null) ??
-        (document.querySelector('header.fixed.inset-x-0') as HTMLElement | null)
-      const headerHeight = header?.getBoundingClientRect().height ?? 88
-      return Math.ceil(headerHeight + 16)
+      const header = document.querySelector<HTMLElement>(
+        'header.minimal-topbar, header[data-tiles-site-header], header.site-header-chrome',
+      )
+      const headerBottom = header?.getBoundingClientRect().bottom ?? 88
+      return Math.ceil(Math.max(0, headerBottom) + 16)
     }
 
     const getHeadings = () =>

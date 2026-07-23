@@ -12,7 +12,9 @@ function getHeaderOffset() {
     return Math.max(0, bottom + EXTRA_GAP_PX)
   }
 
-  const header = document.querySelector<HTMLElement>('.site-header-chrome')
+  const header = document.querySelector<HTMLElement>(
+    'header.minimal-topbar, header[data-tiles-site-header], header.site-header-chrome',
+  )
   if (!header) return 0
   const { bottom } = header.getBoundingClientRect()
   return Math.max(0, bottom + EXTRA_GAP_PX)

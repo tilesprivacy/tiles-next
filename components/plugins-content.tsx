@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useMemo, useState } from "react"
-import { ChevronRight } from "lucide-react"
+import { ChevronRight, Plus } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { PluginIcon } from "@/components/plugin-icon"
 import { marketingPageTitleClass } from "@/lib/marketing-page-title-classes"
@@ -14,9 +14,9 @@ interface PluginsContentProps {
 
 export function PluginsContent({ plugins }: PluginsContentProps) {
   const [query, setQuery] = useState("")
+  const normalizedQuery = query.trim().toLowerCase()
 
   const filteredPlugins = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase()
     if (!normalizedQuery) {
       return plugins
     }
@@ -27,7 +27,13 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
         .toLowerCase()
         .includes(normalizedQuery),
     )
-  }, [plugins, query])
+  }, [normalizedQuery, plugins])
+
+  const showMakeYourOwnPluginCard =
+    !normalizedQuery ||
+    "make your own plugin build your own plugin using the package layout".includes(
+      normalizedQuery,
+    )
 
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
@@ -68,9 +74,28 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden />
                 </Link>
               ))}
+              {showMakeYourOwnPluginCard ? (
+                <Link
+                  href="/book/manual#plugin-package-layout"
+                  className="group flex h-[75px] items-center gap-3 overflow-hidden rounded-[8px] bg-secondary/65 px-4 py-4 text-card-foreground transition-colors hover:bg-secondary"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-background text-foreground shadow-sm ring-1 ring-border/60">
+                    <Plus className="h-5 w-5" strokeWidth={1.75} aria-hidden />
+                  </span>
+                  <span className="min-w-0 flex-1 overflow-hidden">
+                    <span className="block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[17px] font-medium leading-[21px] text-foreground">
+                      Make your own plugin
+                    </span>
+                    <span className="mt-0.5 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-5 text-muted-foreground">
+                      Build your own plugin using the package layout.
+                    </span>
+                  </span>
+                  <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden />
+                </Link>
+              ) : null}
             </div>
 
-            {filteredPlugins.length === 0 ? (
+            {filteredPlugins.length === 0 && !showMakeYourOwnPluginCard ? (
               <div className="rounded-md border border-border bg-card p-6 text-sm text-muted-foreground">
                 No plugins match that search.
               </div>
