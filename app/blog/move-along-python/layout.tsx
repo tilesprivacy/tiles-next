@@ -1,27 +1,45 @@
-import type { Metadata } from "next"
-import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
-import { getPersonById } from "@/lib/people"
-import { getBlogPostSocialImageUrl } from "@/lib/standard-site"
+import type { Metadata } from "next";
+import { StandardSiteLinkTags } from "@/components/standard-site-link-tags";
+import { getPersonById } from "@/lib/people";
+import { getBlogPostSocialImageUrl } from "@/lib/standard-site";
 
-const socialImageUrl = getBlogPostSocialImageUrl("move-along-python")
+const socialImageUrl = getBlogPostSocialImageUrl("move-along-python");
 
 export const metadata: Metadata = {
   title: "Move Along, Python | Tiles Blog",
-  description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
-  keywords: ["Python", "venvstacks", "portable runtimes", "Python packaging", "dependency management", "Tiles", "deterministic builds"],
+  description:
+    "Deterministic, portable Python runtimes for Tiles using layered venvstacks",
+  keywords: [
+    "Python",
+    "venvstacks",
+    "portable runtimes",
+    "Python packaging",
+    "dependency management",
+    "Tiles",
+    "deterministic builds",
+  ],
   alternates: {
     canonical: "https://www.tiles.run/blog/move-along-python",
   },
   openGraph: {
     title: "Move Along, Python | Tiles Blog",
-    description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
+    description:
+      "Deterministic, portable Python runtimes for Tiles using layered venvstacks",
     url: "https://www.tiles.run/blog/move-along-python",
     siteName: "Tiles Privacy",
     type: "article",
     publishedTime: "2026-02-17T00:00:00Z",
     authors: ["Anandu Pavanan"],
     section: "Engineering",
-    tags: ["Python", "venvstacks", "portable runtimes", "Python packaging", "dependency management", "Tiles", "deterministic builds"],
+    tags: [
+      "Python",
+      "venvstacks",
+      "portable runtimes",
+      "Python packaging",
+      "dependency management",
+      "Tiles",
+      "deterministic builds",
+    ],
     images: [
       {
         url: socialImageUrl,
@@ -35,7 +53,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Move Along, Python | Tiles Blog",
-    description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
+    description:
+      "Deterministic, portable Python runtimes for Tiles using layered venvstacks",
     images: [socialImageUrl],
     creator: "@madcla.ws",
   },
@@ -44,14 +63,14 @@ export const metadata: Metadata = {
     "article:published_time": "2026-02-17T00:00:00Z",
     "article:section": "Engineering",
   },
-}
+};
 
 export default function BlogPostLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const author = getPersonById("anandu-pavanan")
+  const author = getPersonById("anandu-pavanan");
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -60,7 +79,8 @@ export default function BlogPostLayout({
         "@type": "BlogPosting",
         "@id": "https://www.tiles.run/blog/move-along-python#article",
         headline: "Move Along, Python",
-        description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
+        description:
+          "Deterministic, portable Python runtimes for Tiles using layered venvstacks",
         image: {
           "@type": "ImageObject",
           url: socialImageUrl,
@@ -89,7 +109,15 @@ export default function BlogPostLayout({
           "@type": "WebPage",
           "@id": "https://www.tiles.run/blog/move-along-python",
         },
-        keywords: ["Python", "venvstacks", "portable runtimes", "Python packaging", "dependency management", "Tiles", "deterministic builds"],
+        keywords: [
+          "Python",
+          "venvstacks",
+          "portable runtimes",
+          "Python packaging",
+          "dependency management",
+          "Tiles",
+          "deterministic builds",
+        ],
         articleSection: "Engineering",
         inLanguage: "en-US",
       },
@@ -118,16 +146,19 @@ export default function BlogPostLayout({
         ],
       },
     ],
-  }
+  };
 
   return (
     <>
-      <StandardSiteLinkTags documentSlug="move-along-python" includePublication={false} />
+      <StandardSiteLinkTags
+        documentSlug="move-along-python"
+        includePublication={false}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       {children}
     </>
-  )
+  );
 }

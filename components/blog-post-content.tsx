@@ -223,7 +223,7 @@ export function BlogPostContent({
               </div>
               {standardSiteDocumentUri ? (
                 <div className="blog-print-screen-only mt-10 border-t border-black/8 pt-5 text-xs leading-6 text-black/54 dark:border-white/10 dark:text-white/54 lg:text-sm">
-                  <span>Published on ATproto </span>
+                  <span>Published on ATproto: </span>
                   {standardSiteDocumentUrl ? (
                     <a
                       href={standardSiteDocumentUrl}

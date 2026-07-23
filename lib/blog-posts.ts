@@ -1,73 +1,77 @@
-import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content"
-import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content"
-import { ownYourAiBlogContent } from "@/lib/own-your-ai-talk"
-import { atmosphericSessionsBlogContent } from "@/lib/blog-post-atmospheric-sessions-content"
+import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content";
+import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content";
+import { ownYourAiBlogContent } from "@/lib/own-your-ai-talk";
+import { atmosphericSessionsBlogContent } from "@/lib/blog-post-atmospheric-sessions-content";
 
 export interface BlogPost {
-  slug: string
-  title: string
-  description: string
-  date: Date
+  slug: string;
+  title: string;
+  description: string;
+  date: Date;
   /** Person ID from `lib/people.ts` (sourced from homepage identities). */
-  author?: string
-  coverImage?: string
-  coverImageDark?: string
-  listingImage?: string
-  listingImageDark?: string
-  coverAlt?: string
-  standardSiteDocumentUri?: string
-  content: string // Full HTML content for RSS feed
+  author?: string;
+  coverImage?: string;
+  coverImageDark?: string;
+  listingImage?: string;
+  listingImageDark?: string;
+  coverAlt?: string;
+  standardSiteDocumentUri?: string;
+  content: string; // Full HTML content for RSS feed
   /** Draft posts stay in the codebase but are only shown in development. */
-  draft?: boolean
+  draft?: boolean;
 }
 
 /** Draft posts are only surfaceable while running the local/dev server. */
 export function isBlogDraftEnvironment(): boolean {
-  return process.env.NODE_ENV === "development"
+  return process.env.NODE_ENV === "development";
 }
 
 export function isBlogPostVisible(post: BlogPost): boolean {
-  return !post.draft || isBlogDraftEnvironment()
+  return !post.draft || isBlogDraftEnvironment();
 }
 
 /** Posts included in listings, sitemap, RSS, and LLM indexes. */
 export function getPublishedBlogPosts(): BlogPost[] {
-  return blogPosts.filter((post) => !post.draft)
+  return blogPosts.filter((post) => !post.draft);
 }
 
 /** Posts visible in the current environment (includes drafts in development). */
 export function getVisibleBlogPosts(): BlogPost[] {
-  return blogPosts.filter(isBlogPostVisible)
+  return blogPosts.filter(isBlogPostVisible);
 }
 
 export function getBlogPostBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((post) => post.slug === slug)
+  return blogPosts.find((post) => post.slug === slug);
 }
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "atmospheric-sessions",
     title: "Atmopsheric sessions",
-    description: "Share and keep your public and private Tiles chat sessions with ATproto",
-    date: new Date("2026-07-14"),
+    description:
+      "Share Tiles chat sessions publicly or privately while retaining ownership with AT Protocol",
+    date: new Date("2026-07-24"),
     author: "anandu-pavanan",
-    coverImage: "/atmospheric-sessions-banner.png",
+    coverImage: "/atmospheric-sessions-banner-og.png",
     coverAlt: "Atmospheric link over a cloudscape",
     listingImage: "/atmospheric-sessions-listing-centered.png",
     listingImageDark: "/atmospheric-sessions-listing-centered.png",
-    draft: true,
+    standardSiteDocumentUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mrdixuvpez23",
     content: atmosphericSessionsBlogContent,
   },
   {
     slug: "own-your-ai",
     title: "Own your AI with local models and open protocols",
-    description: "A Local-First Conf talk about local models, open protocols, and user-owned AI.",
+    description:
+      "A Local-First Conf talk about local models, open protocols, and user-owned AI",
     date: new Date("2026-07-14"),
     author: "ankesh-bharti",
     coverImage: "/own-your-ai-og.png",
     listingImage: "/lofi-logo.png",
     coverAlt: "Tiles: Own your AI with local models and open protocols",
-    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mqkrpvbar22l",
+    standardSiteDocumentUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mqkrpvbar22l",
     content: ownYourAiBlogContent,
   },
   {
@@ -79,7 +83,8 @@ export const blogPosts: BlogPost[] = [
     coverImage: "/repl_flow.png",
     coverImageDark: "/repl_flow_dark.png",
     coverAlt: "Tiles REPL request and response flow",
-    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrumkdftw2p",
+    standardSiteDocumentUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrumkdftw2p",
     content: controllingCtrlCBlogContent,
   },
   {
@@ -90,19 +95,22 @@ export const blogPosts: BlogPost[] = [
     author: "anandu-pavanan",
     coverImage: "/shipitup.png",
     coverAlt: "Cover image for Ship it up",
-    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj37iuhz2d",
+    standardSiteDocumentUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj37iuhz2d",
     content: shipItUpBlogContent,
   },
   {
     slug: "move-along-python",
     title: "Move Along, Python",
-    description: "Deterministic, portable Python runtimes for Tiles using layered venvstacks.",
+    description:
+      "Deterministic, portable Python runtimes for Tiles using layered venvstacks",
     date: new Date("2026-02-17"),
     author: "anandu-pavanan",
     coverImage: "/tiles_banner_outline_blk.svg",
     coverImageDark: "/tiles_banner_outline_wht.svg",
     coverAlt: "Tiles banner",
-    standardSiteDocumentUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj3b7f5u2g",
+    standardSiteDocumentUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj3b7f5u2g",
     content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATproto.</p>
 
 <h2>The Python Problem</h2>
@@ -187,4 +195,4 @@ export const blogPosts: BlogPost[] = [
 
 `,
   },
-]
+];
