@@ -1141,6 +1141,15 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 
 @media (max-width: 767px) {
+  /*
+   * Keep the homepage hero stable while mobile browser chrome expands or
+   * collapses. `dvh` changes during scroll and moves both the centered copy
+   * and the MacBook that follows the hero; `svh` remains fixed.
+   */
+  .minimal-hero {
+    min-height: 100svh;
+    height: 100svh;
+  }
   .minimal-topbar {
     width: calc(100% - 2rem);
     height: 4rem;
@@ -1501,11 +1510,15 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   color: rgb(255 255 255 / 0.5);
 }
 
-.atmospheric-sessions-content > iframe {
+.atmospheric-sessions-content > .atmospheric-session-video {
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
   margin: 2.5rem 0;
   border: 0;
+  border-radius: 0.5rem;
+  background: #000;
 }
 
 .atmospheric-sessions-content > pre {

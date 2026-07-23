@@ -31,7 +31,10 @@ export const atmosphericSessionsBlogContent = `<p>In Tiles, the <a href="https:/
 
 <p>Tiles publishes the session to your ATproto PDS and returns a public link that anyone can access. For more details, see the <a href="https://www.tiles.run/book/manual#sharing-commands" target="_blank" rel="noopener noreferrer">documentation</a>.</p>
 
-<iframe class="w-full h-auto" src="https://drive.google.com/file/d/15NuVP7QWSv2Ij1i8TZfX5QRUCVI7zlhP/preview?parts.page.embed.ctx.mode=edit&amp;parts.page.embed.ctx.bgColor=%23FDFCFA&amp;parts.page.embed.ctx.primaryColor=%23272727" allow="fullscreen" loading="lazy" referrerpolicy="no-referrer" style="aspect-ratio: 16 / 9;"></iframe>
+<video class="atmospheric-session-video" controls playsinline preload="metadata" aria-label="Sharing a Tiles chat session through AT Protocol">
+  <source src="/atmospheric-sessions-share-demo.m4v" type="video/x-m4v" />
+  Your browser does not support embedded video. <a href="/atmospheric-sessions-share-demo.m4v">Download the video</a>.
+</video>
 
 <h2>What about private sessions?</h2>
 
