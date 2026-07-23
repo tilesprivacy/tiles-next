@@ -174,14 +174,14 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               Open Collective
             </a>
             , which belongs to the{" "}
-            <a href="https://userandagents.org/">
+            <a href="https://userandagents.org/" className="underline">
               <Image
                 src="/ua-logo.svg"
-                alt="User &amp; Agents Community logo"
+                alt="User &amp; Agents logo"
                 width={16}
                 height={16}
               />{" "}
-              User &amp; Agents Community
+              User &amp; Agents
             </a>{" "}
             with Open Source Europe as its fiscal host, and to everyone who has
             supported our projects through{" "}
