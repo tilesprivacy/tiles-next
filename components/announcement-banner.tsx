@@ -9,15 +9,27 @@ export function AnnouncementBanner() {
 
   useEffect(() => {
     let animationFrame = 0;
+    let readyTimer = 0;
+    let currentOffset: number | null = null;
 
     const updateAnnouncementOffset = () => {
       animationFrame = 0;
       const bannerHeight = bannerRef.current?.offsetHeight ?? 0;
-      const remainingHeight = Math.max(0, bannerHeight - window.scrollY);
+      const nextOffset = window.scrollY <= 0 ? bannerHeight : 0;
+      if (nextOffset === currentOffset) return;
+
+      const isInitialUpdate = currentOffset === null;
+      currentOffset = nextOffset;
       document.documentElement.style.setProperty(
         "--site-announcement-offset",
-        `${remainingHeight}px`,
+        `${nextOffset}px`,
       );
+
+      if (isInitialUpdate) {
+        readyTimer = window.setTimeout(() => {
+          document.documentElement.dataset.siteAnnouncementReady = "true";
+        }, 0);
+      }
     };
 
     const scheduleUpdate = () => {
@@ -33,6 +45,8 @@ export function AnnouncementBanner() {
       window.removeEventListener("scroll", scheduleUpdate);
       window.removeEventListener("resize", scheduleUpdate);
       if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      if (readyTimer) window.clearTimeout(readyTimer);
+      delete document.documentElement.dataset.siteAnnouncementReady;
       document.documentElement.style.removeProperty(
         "--site-announcement-offset",
       );

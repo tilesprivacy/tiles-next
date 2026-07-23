@@ -64,8 +64,9 @@ export function BlogPostContent({
 
   useEffect(() => {
     const jsonTokenPattern = /("(?:\\u[\da-fA-F]{4}|\\[^u]|[^\\"])*")(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?/g
+    const article = articleRef.current
 
-    articleRef.current?.querySelectorAll<HTMLElement>("code.language-json:not([data-syntax-highlighted])").forEach((code) => {
+    article?.querySelectorAll<HTMLElement>("code.language-json:not([data-syntax-highlighted])").forEach((code) => {
       const source = code.textContent ?? ""
       const fragment = document.createDocumentFragment()
       let cursor = 0
@@ -92,6 +93,40 @@ export function BlogPostContent({
       fragment.append(document.createTextNode(source.slice(cursor)))
       code.replaceChildren(fragment)
       code.dataset.syntaxHighlighted = "true"
+    })
+
+    article?.querySelectorAll<HTMLElement>("code.language-json").forEach((code) => {
+      const pre = code.parentElement
+      if (!(pre instanceof HTMLPreElement) || pre.dataset.wrapControl === "true") return
+
+      const shell = document.createElement("div")
+      shell.className = "article-code-block-shell"
+      pre.before(shell)
+      shell.append(pre)
+
+      const toggle = document.createElement("button")
+      toggle.type = "button"
+      toggle.className = "article-code-wrap-toggle blog-print-screen-only"
+      toggle.setAttribute("aria-pressed", "false")
+
+      const setWrapped = (wrapped: boolean) => {
+        pre.dataset.codeWrap = wrapped ? "true" : "false"
+        toggle.setAttribute("aria-pressed", String(wrapped))
+        toggle.textContent = wrapped ? "Unwrap" : "Wrap"
+        toggle.setAttribute(
+          "aria-label",
+          wrapped ? "Show JSON without line wrapping" : "Wrap JSON lines",
+        )
+        if (wrapped) pre.scrollLeft = 0
+      }
+
+      toggle.addEventListener("click", () => {
+        setWrapped(pre.dataset.codeWrap !== "true")
+      })
+
+      pre.dataset.wrapControl = "true"
+      setWrapped(false)
+      shell.prepend(toggle)
     })
   }, [content])
 

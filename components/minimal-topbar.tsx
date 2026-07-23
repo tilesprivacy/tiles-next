@@ -63,7 +63,8 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
         {!hideBrand ? (
           <Link
             href="/download"
-            className={`minimal-topbar-download inline-flex h-9 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 text-[0.8125rem] font-medium leading-none !no-underline shadow-sm transition-colors max-[520px]:h-[34px] max-[520px]:px-2.5 max-[520px]:text-xs ${themeAwareHeaderPrimaryCtaClasses}`}
+            aria-label="Download Tiles"
+            className={`minimal-topbar-download inline-flex h-9 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 text-[0.8125rem] font-medium leading-none !no-underline shadow-sm transition-colors max-[767px]:h-7 max-[767px]:min-h-7 max-[767px]:gap-1 max-[767px]:rounded-[4px] max-[767px]:px-1.5 max-[767px]:text-[0.66rem] max-[767px]:shadow-none ${themeAwareHeaderPrimaryCtaClasses}`}
           >
             <Download className="size-3.5 shrink-0" aria-hidden />
             <span>Download</span>
