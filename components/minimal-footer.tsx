@@ -9,7 +9,10 @@ export function MinimalFooter() {
   return (
     <footer className="minimal-footer">
       <Link href="/" className="minimal-footer-brand" aria-label="Tiles home">
-        <Image src="/lighticon.png" alt="" width={32} height={32} />
+        <span className="minimal-theme-logo">
+          <Image src="/lighticon.png" alt="" width={32} height={32} className="dark:hidden" />
+          <Image src="/grey.png" alt="" width={32} height={32} className="hidden dark:block" />
+        </span>
         <span>Tiles</span>
       </Link>
       <p>Copyright © 2026 Tiles Privacy</p>

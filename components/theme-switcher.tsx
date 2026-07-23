@@ -45,10 +45,12 @@ export function ThemeSwitcher({
   const togglePadding = quiet ? 'p-1' : 'p-1.5'
 
   if (!mounted) {
+    const placeholderBg = 'bg-foreground/[0.06]'
+
     if (mode === 'toggle') {
       const placeholderClass = touchFriendly
-        ? `inline-flex h-6 shrink-0 items-center rounded-sm ${bgColor}`
-        : `inline-flex items-center justify-center rounded-sm ${bgColor} ${togglePadding} ${iconSize}`
+        ? `inline-flex h-6 shrink-0 items-center rounded-sm ${placeholderBg}`
+        : `inline-flex items-center justify-center rounded-sm ${placeholderBg} ${togglePadding} ${iconSize}`
       return (
         <span aria-hidden="true" className={`${placeholderClass} pointer-events-none`}>
           {touchFriendly ? (
@@ -60,7 +62,7 @@ export function ThemeSwitcher({
       )
     }
     return (
-      <div className={`inline-flex items-center rounded-sm ${bgColor} p-1 pointer-events-none`} aria-hidden="true">
+      <div className={`inline-flex items-center rounded-sm ${placeholderBg} p-1 pointer-events-none`} aria-hidden="true">
         {[0, 1, 2].map((index) => (
           <span key={index} className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium`}>
             {/* Keep the pre-hydration footprint identical to avoid footer jumps. */}

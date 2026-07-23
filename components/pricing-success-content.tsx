@@ -30,7 +30,7 @@ export function PricingSuccessContent({ variant }: { variant: PricingSuccessVari
   const c = copy[variant]
   const primaryButtonClass = `h-10 w-fit rounded-sm px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
   const secondaryButtonClass =
-    "h-10 w-fit rounded-sm border-border bg-secondary px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
+    `h-10 w-fit rounded-sm px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">

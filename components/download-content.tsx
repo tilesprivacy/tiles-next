@@ -8,6 +8,7 @@ import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
 import Image from "next/image"
 import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import type { SponsorsGoalData } from "@/lib/sponsors-goal"
 
 interface DownloadMetadata {
@@ -50,13 +51,13 @@ export function DownloadContent({
             <p>Apple Silicon (M1+) · macOS 14+ · 16 GB unified memory recommended</p>
             <div className="minimal-download-actions">
               {initialDownload?.downloadUrl ? (
-                <a className="minimal-primary-button" href={initialDownload.downloadUrl}>
+                <a className={`minimal-primary-button ${themeAwareHeaderPrimaryCtaClasses}`} href={initialDownload.downloadUrl}>
                   Download network installer
                 </a>
               ) : (
                 <span className="minimal-disabled-button">Network installer unavailable</span>
               )}
-              <a className="minimal-secondary-button" href={OFFLINE_INSTALLER.downloadUrl}>
+              <a className={`minimal-secondary-button ${themeAwareHeaderPrimaryCtaClasses}`} href={OFFLINE_INSTALLER.downloadUrl}>
                 Download offline installer
               </a>
             </div>

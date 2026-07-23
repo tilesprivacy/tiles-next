@@ -95,25 +95,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="color-scheme" content="light" />
+        <meta name="color-scheme" content="light dark" />
         <meta name="apple-mobile-web-app-title" content="Tiles Privacy" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              try {
-                document.documentElement.classList.remove('dark');
-                document.documentElement.style.colorScheme = 'light';
-              } catch (e) {}
-            `,
-          }}
-        />
       </head>
       <body className={`${geist.className} antialiased`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            forcedTheme="light"
-            enableSystem={false}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
           storageKey="tiles-theme"
         >

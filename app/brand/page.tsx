@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { Download } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import {
   marketingPageSectionTitleClass,
   marketingPageSubsectionTitleClass,
@@ -45,7 +46,7 @@ export default function BrandPage() {
           </p>
           <a
             href="/tiles-brand-assets.zip"
-            className="minimal-primary-button mt-8 !no-underline"
+            className={`minimal-primary-button mt-8 !no-underline ${themeAwareHeaderPrimaryCtaClasses}`}
           >
             <Download className="h-4 w-4" aria-hidden />
             Download brand assets

@@ -5,6 +5,8 @@ import Link from "next/link"
 import { Download } from "lucide-react"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
+import { ThemeSwitcher } from "@/components/theme-switcher"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -32,14 +34,17 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   ] as const
 
   return (
-    <header className="minimal-topbar">
+    <header className="minimal-topbar max-[767px]:gap-1">
       <div className="minimal-topbar-left flex min-w-0 items-center gap-3 max-[520px]:gap-2">
         {hideBrand ? <span aria-hidden /> : (
           <Link href="/" className="minimal-topbar-brand" aria-label="Tiles home">
-            <Image src="/lighticon.png" alt="" width={36} height={36} priority />
+            <span className="minimal-theme-logo">
+              <Image src="/lighticon.png" alt="" width={36} height={36} className="dark:hidden" priority />
+              <Image src="/grey.png" alt="" width={36} height={36} className="hidden dark:block" priority />
+            </span>
             <span className="minimal-topbar-wordmark">
               <span>Tiles</span>
-              <span className="minimal-topbar-alpha">alpha</span>
+              <span className="minimal-topbar-alpha max-[360px]:hidden">alpha</span>
             </span>
           </Link>
         )}
@@ -51,11 +56,14 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
           </Link>
         ))}
       </nav>
-      <nav className="minimal-topbar-actions" aria-label="Site actions">
+      <nav className="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
+        <div className="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8">
+          <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
+        </div>
         {!hideBrand ? (
           <Link
             href="/download"
-            className="minimal-topbar-download inline-flex h-9 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md !bg-[#0b7df0] px-3 text-[0.8125rem] font-medium leading-none !text-white !no-underline shadow-sm transition-colors hover:!bg-[#076fd7] max-[520px]:h-[34px] max-[520px]:px-2.5 max-[520px]:text-xs"
+            className={`minimal-topbar-download inline-flex h-9 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 text-[0.8125rem] font-medium leading-none !no-underline shadow-sm transition-colors max-[520px]:h-[34px] max-[520px]:px-2.5 max-[520px]:text-xs ${themeAwareHeaderPrimaryCtaClasses}`}
           >
             <Download className="size-3.5 shrink-0" aria-hidden />
             <span>Download</span>

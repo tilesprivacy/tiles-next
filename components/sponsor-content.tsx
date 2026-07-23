@@ -3,6 +3,7 @@ import { MinimalTopbar } from "@/components/minimal-topbar"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
 import { SocialIcon, SocialLinks } from "@/components/social-links"
+import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 import { people, splitPersonDisplayName } from "@/lib/people"
 
 interface SponsorContentProps {
@@ -87,7 +88,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
             <div className="minimal-sponsor-actions">
               <a
-                className="minimal-primary-button"
+                className={`minimal-primary-button ${themeAwareHeaderPrimaryCtaClasses}`}
                 href="https://github.com/sponsors/tilesprivacy"
               >
                 <SocialIcon
@@ -97,7 +98,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                 Sponsor on GitHub
               </a>
               <a
-                className="minimal-secondary-button"
+                className={`minimal-secondary-button ${themeAwareHeaderPrimaryCtaClasses}`}
                 href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
               >
                 <SocialIcon
@@ -109,7 +110,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </div>
             <p className="minimal-note">
               You can also support us by spreading the word and keeping in touch
-              with us 🖤
+              with us
             </p>
           </section>
 

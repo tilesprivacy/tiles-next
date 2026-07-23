@@ -118,7 +118,7 @@ export function PricingContent() {
   const primaryCardButtonClass =
     `h-10 w-full rounded-sm px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
   const secondaryCardButtonClass =
-    "h-10 w-full rounded-sm px-5 text-sm text-secondary-foreground hover:bg-secondary/80 sm:text-base"
+    `h-10 w-full rounded-sm px-5 text-sm sm:text-base ${themeAwareHeaderPrimaryCtaClasses}`
 
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">

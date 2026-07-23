@@ -77,13 +77,11 @@ const features = [
 export function HomeContent() {
   return (
     <main className="minimal-product-page">
-      <MinimalTopbar hideBrand />
+      <MinimalTopbar />
       <section className="minimal-hero" aria-labelledby="tiles-title">
-        <div className="minimal-wordmark">
-          <Image src="/lighticon.png" alt="" width={72} height={72} priority />
-          <h1 id="tiles-title">Tiles</h1>
-          <span className="minimal-wordmark-alpha">alpha</span>
-        </div>
+        <h1 id="tiles-title" className="minimal-hero-title">
+          Own your AI
+        </h1>
         <p>
           A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
@@ -105,6 +103,14 @@ export function HomeContent() {
             alt=""
             width={1200}
             height={220}
+            className="dark:hidden"
+          />
+          <Image
+            src="/tiles_banner_outline_wht.svg"
+            alt=""
+            width={1200}
+            height={220}
+            className="hidden bg-background dark:block"
           />
         </div>
       </div>
