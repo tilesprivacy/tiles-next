@@ -93,7 +93,7 @@ export function SupportContent() {
       <main className="flex flex-1 flex-col px-4 pb-16 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pb-24 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto w-full max-w-3xl">
           <section className="w-full">
-            <h1 className={marketingPageTitleClass}>Get help.</h1>
+            <h1 className={marketingPageTitleClass}>Get help</h1>
             <p className={`mt-5 max-w-2xl ${marketingPageBodyClass}`}>
               Find the shortest path from stuck to moving again.
             </p>

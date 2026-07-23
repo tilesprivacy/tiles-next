@@ -83,7 +83,7 @@ export async function GET(request: Request) {
     `- Plugins: ${baseUrl}/plugins`,
     `- Blog: ${baseUrl}/blog`,
     `- Releases: ${baseUrl}/releases`,
-    `- Support: ${baseUrl}/support`,
+    `- Help: ${baseUrl}/help`,
     `- Sponsor: ${baseUrl}/sponsor`,
   ])
 

@@ -2,6 +2,7 @@
 title: "Own your AI with local models and open protocols"
 description: "A Local-First Conf talk about local models, open protocols, and user-owned AI."
 publishDate: "2026-07-14"
+updatedAt: "2026-07-24"
 ogImage: "/own-your-ai-og.png"
 tags:
   - Tiles

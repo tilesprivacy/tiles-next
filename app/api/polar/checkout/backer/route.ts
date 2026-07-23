@@ -5,6 +5,6 @@ const siteUrl = getSiteUrl()
 
 export const GET = Checkout({
   accessToken: process.env.POLAR_ACCESS_TOKEN,
-  successUrl: `${siteUrl}/pricing/success/backer`,
+  successUrl: `${siteUrl}/download`,
   returnUrl: `${siteUrl}/download`,
 })

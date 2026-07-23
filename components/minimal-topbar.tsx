@@ -20,8 +20,8 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
           ? pathname === "/blog" || pathname.startsWith("/blog/")
           : href === "/releases"
             ? pathname === "/releases" || pathname.startsWith("/releases/")
-            : href === "/support"
-              ? pathname === "/support" || pathname.startsWith("/support/")
+            : href === "/help"
+              ? pathname === "/help" || pathname.startsWith("/help/")
               : pathname === href
 
   const centerLinks = [
@@ -29,7 +29,7 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
     ["/plugins", "Plugins"],
     ["/blog", "Blog"],
     ["/releases", "Releases"],
-    ["/support", "Support"],
+    ["/help", "Help"],
     ["/sponsor", "Sponsor"],
   ] as const
 

@@ -12,14 +12,6 @@ interface PluginsContentProps {
   plugins: TilesPlugin[]
 }
 
-function OutgoingIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
-      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 export function PluginsContent({ plugins }: PluginsContentProps) {
   const [query, setQuery] = useState("")
 
@@ -40,37 +32,10 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
-        <div className="mx-auto grid w-full max-w-[1300px] gap-10 lg:grid-cols-[310px_minmax(0,768px)] lg:gap-5">
-          <aside className="hidden pt-2 lg:block">
-            <div className="sticky top-28 space-y-7">
-              <nav className="space-y-3 text-sm text-muted-foreground" aria-label="Plugin sections">
-                <a className="block text-foreground" href="#all-plugins">Plugins</a>
-                <a
-                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
-                  href="https://github.com/tilesprivacy/plugins"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View Source
-                  <OutgoingIcon />
-                </a>
-              </nav>
-              <p className="max-w-[11rem] text-sm leading-6 text-muted-foreground">
-                Learn how to use plugins in{" "}
-                <Link className="text-foreground underline-offset-4 hover:underline" href="/book/manual#plugins">
-                  Book/Manual
-                </Link>
-                .
-              </p>
-            </div>
-          </aside>
-
+        <div className="mx-auto w-full max-w-[768px]">
           <section className="min-w-0">
             <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="max-w-2xl">
-                <h2 className="mb-3 text-[17px] font-light leading-[21px] tracking-normal text-foreground/75 lg:hidden">
-                  Plugins
-                </h2>
                 <h1 className={marketingPageTitleClass}>Extend the Agent</h1>
               </div>
 

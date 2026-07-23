@@ -677,7 +677,7 @@
 
 .minimal-inner-page {
   position: relative;
-  padding: 10rem 1.25rem 8rem;
+  padding: 11rem 1.25rem 8rem;
 }
 .minimal-inner-page > .minimal-footer {
   width: 100%;
@@ -1323,7 +1323,7 @@
   }
   .minimal-inner-page,
   .minimal-manual-page {
-    padding-top: 8rem;
+    padding-top: 9rem;
   }
   .minimal-page-intro {
     margin-bottom: 5rem;

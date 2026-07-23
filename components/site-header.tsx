@@ -72,7 +72,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     if (href === "/releases") return pathname === "/releases" || pathname.startsWith("/releases/")
     if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (href === "/sponsor") return pathname === "/sponsor" || pathname.startsWith("/sponsor/")
-    if (href === "/support") return pathname === "/support" || pathname.startsWith("/support/")
+    if (href === "/help") return pathname === "/help" || pathname.startsWith("/help/")
     if (href === "/download") return pathname === "/download" || pathname.startsWith("/download/")
     return pathname === href
   }
@@ -194,7 +194,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
               <Link href="/plugins" className={`${baseLinkClass} ${isRouteActive("/plugins") ? activeLinkClass : ""}`}>Plugins</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/releases" className={`${baseLinkClass} ${isRouteActive("/releases") ? activeLinkClass : ""}`}>Releases</Link>
-              <Link href="/support" className={`${baseLinkClass} ${isRouteActive("/support") ? activeLinkClass : ""}`}>Support</Link>
+              <Link href="/help" className={`${baseLinkClass} ${isRouteActive("/help") ? activeLinkClass : ""}`}>Help</Link>
               <Link href="/sponsor" className={`${baseLinkClass} ${isRouteActive("/sponsor") ? activeLinkClass : ""}`}>Sponsor</Link>
             </nav>
 
@@ -278,7 +278,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
           <Link href="/plugins" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Plugins</Link>
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
           <Link href="/releases" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Releases</Link>
-          <Link href="/support" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Support</Link>
+          <Link href="/help" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Help</Link>
           <Link href="/sponsor" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Sponsor</Link>
         </nav>
       </div>
