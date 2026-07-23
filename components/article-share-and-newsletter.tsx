@@ -67,7 +67,7 @@ export function ArticleShareAndNewsletter({
   const shareLabelClass = "text-xs text-black/45 dark:text-white/45";
 
   const shareActions = (
-    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+    <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2">
       {shareUrl ? (
         <>
           <a
@@ -138,8 +138,8 @@ export function ArticleShareAndNewsletter({
 
   return (
     <>
-      <div className="mx-auto mt-16 w-full max-w-[44rem] lg:mt-20">
-        <div className="mb-8 space-y-2 text-xs text-black/60 dark:text-white/60 lg:mb-10 lg:space-y-3 lg:text-sm">
+      <div className="mx-auto mt-10 w-full max-w-[44rem] lg:mt-12">
+        <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:text-sm">
           <p>
             <span className="block">{TILES_PRODUCT_DESCRIPTION_CORE}</span>
             <span className="block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
@@ -156,17 +156,17 @@ export function ArticleShareAndNewsletter({
           </p>
           <p>Keep on Tiling!</p>
         </div>
-      </div>
 
-      <div className="mx-auto mt-14 w-full max-w-[44rem] lg:mt-20">
-        <ArticlePrintButton />
-        <p className={`${shareLabelClass} mt-6`}>Share this:</p>
-        {shareActions}
+        <div className="mt-8 lg:mt-10">
+          <ArticlePrintButton />
+          <p className={`${shareLabelClass} mt-4`}>Share this:</p>
+          {shareActions}
+        </div>
       </div>
 
       <section
         data-blog-newsletter
-        className="mx-auto mt-12 w-full max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-16 lg:py-7"
+        className="mx-auto mt-10 w-full max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-12 lg:py-7"
       >
         <NewsletterCta />
       </section>

@@ -57,8 +57,9 @@ const features = [
     icon: AtprotoIcon,
     body: (
       <>
-        Create a public or private link to a chat session, published as an{" "}
-        <a href="https://atproto.com/guides/lexicon">ATproto Lexicon</a> record on your own personal data server (PDS).
+        Create a public or private link to a chat session, published on{" "}
+        <a href="https://atproto.com">Atmosphere</a> and stored on your own
+        personal data server (PDS).
       </>
     ),
   },

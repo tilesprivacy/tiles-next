@@ -159,11 +159,11 @@ export function ProductFeatureWidgets({
         icon={<Share2 strokeWidth={1.75} />}
         title="Shared Links"
       >
-        Create a public or private link to a chat session, published through{" "}
+        Create a public or private link to a chat session, published on{" "}
         <a href="https://atproto.com" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
-          ATproto
+          Atmosphere
         </a>
-        .
+        {" "}and stored on your own personal data server (PDS).
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<Package strokeWidth={1.75} />} title="Offline Installer">
