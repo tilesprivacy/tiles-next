@@ -53,7 +53,7 @@ const features = [
     body: "Encrypted peer-to-peer chat sync across your linked devices.",
   },
   {
-    title: "Share chats with friends on Atmosphere",
+    title: "Share chats with friends",
     icon: AtprotoIcon,
     body: (
       <>
