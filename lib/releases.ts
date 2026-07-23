@@ -78,6 +78,12 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
     sizeBytes: 11070278205,
     sha256: "25d27f6284c67a0818746ef118d57951bded5cb98819754b608eea56ecb",
   },
+  "0.4.16": {
+    name: "tiles-0.4.16-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.4.16-full-signed.pkg",
+    sizeBytes: 11070278205,
+    sha256: "25d27f6284c67a0818746ef118d57951bded5cb98819754b608eea56ecb",
+  },
 }
 
 // Custom changes to supplement or override GitHub release data
