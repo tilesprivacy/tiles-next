@@ -2,11 +2,10 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { Download } from "lucide-react"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
+import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { ThemeSwitcher } from "@/components/theme-switcher"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
 
 export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -61,14 +60,12 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
           <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
         </div>
         {!hideBrand ? (
-          <Link
-            href="/download"
-            aria-label="Download Tiles"
-            className={`minimal-topbar-download inline-flex h-9 shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-md px-3 text-[0.8125rem] font-medium leading-none !no-underline shadow-sm transition-colors max-[767px]:h-7 max-[767px]:min-h-7 max-[767px]:gap-1 max-[767px]:rounded-[4px] max-[767px]:px-1.5 max-[767px]:text-[0.66rem] max-[767px]:shadow-none ${themeAwareHeaderPrimaryCtaClasses}`}
-          >
-            <Download className="size-3.5 shrink-0" aria-hidden />
-            <span>Download</span>
-          </Link>
+          <DownloadTilesCta
+            size="nav"
+            label="Download"
+            ariaLabel="Download Tiles"
+            className="minimal-topbar-download"
+          />
         ) : null}
         <button
           className="minimal-topbar-menu-button"

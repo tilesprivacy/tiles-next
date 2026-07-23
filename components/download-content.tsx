@@ -2,13 +2,17 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Check, Copy } from "lucide-react"
+import { Check, Copy, Download } from "lucide-react"
 import { FaApple, FaLinux } from "react-icons/fa6"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
 import Image from "next/image"
 import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 import type { SponsorsGoalData } from "@/lib/sponsors-goal"
 
 interface DownloadMetadata {
@@ -51,23 +55,37 @@ export function DownloadContent({
             <p>Apple Silicon (M1+) · macOS 14+ · 16 GB unified memory recommended</p>
             <div className="minimal-download-actions">
               {initialDownload?.downloadUrl ? (
-                <a className={`minimal-primary-button ${themeAwareHeaderPrimaryCtaClasses}`} href={initialDownload.downloadUrl}>
-                  Download network installer
+                <a
+                  className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+                  href={initialDownload.downloadUrl}
+                >
+                  <span>Download network installer</span>
+                  <Download
+                    className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+                    aria-hidden
+                  />
                 </a>
               ) : (
                 <span className="minimal-disabled-button">Network installer unavailable</span>
               )}
-              <a className={`minimal-secondary-button ${themeAwareHeaderPrimaryCtaClasses}`} href={OFFLINE_INSTALLER.downloadUrl}>
-                Download offline installer
+              <a
+                className={`group minimal-secondary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+                href={OFFLINE_INSTALLER.downloadUrl}
+              >
+                <span>Download offline installer</span>
+                <Download
+                  className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+                  aria-hidden
+                />
               </a>
             </div>
             <p className="minimal-download-detail">
-              Offline installer bundles the default model{" "}
+              The offline installer includes the default{" "}
               <span className="minimal-model-label">
                 <Image src="/openai-logo.svg" alt="OpenAI" width={15} height={15} />
                 <span>gpt-oss-20b</span>
-              </span>
-              .
+              </span>{" "}
+              model for air-gapped installation and use.
             </p>
           </section>
 

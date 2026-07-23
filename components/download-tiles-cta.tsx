@@ -12,23 +12,25 @@ import {
 } from "@/lib/header-primary-cta-classes"
 import { DOWNLOAD_TILES_CTA_LABEL } from "@/lib/product-description"
 
-type DownloadTilesCtaSize = "footer" | "hero" | "default"
+type DownloadTilesCtaSize = "footer" | "hero" | "default" | "nav"
 
 const sizeClasses: Record<DownloadTilesCtaSize, string> = {
   footer:
-    "h-9 px-5 text-[0.83rem] sm:h-10 sm:px-5 sm:text-sm lg:h-10 lg:px-6 lg:text-[0.91rem]",
-  hero: "h-11 px-5 text-[0.9rem] sm:h-11 sm:px-5 sm:text-[0.94rem] lg:h-11 lg:px-6 lg:text-[0.95rem]",
-  default: "h-10 px-5 text-sm",
+    "h-10 gap-2 px-5 text-[0.875rem] lg:px-6 lg:text-[0.9rem]",
+  hero: "h-11 gap-2 px-5 text-[0.9rem] sm:px-6 sm:text-[0.94rem]",
+  default: "h-11 gap-2 px-5 text-sm",
+  nav: "h-9 gap-1.5 px-3 text-xs sm:px-3.5 sm:text-[0.8125rem]",
 }
 
 const iconSizeClasses: Record<DownloadTilesCtaSize, string> = {
-  footer: "h-3.5 w-3.5 sm:h-3.5 sm:w-3.5 lg:h-4 lg:w-4",
+  footer: "h-3.5 w-3.5 lg:h-4 lg:w-4",
   hero: "h-4 w-4",
   default: "h-4 w-4",
+  nav: "h-3.5 w-3.5",
 }
 
 const baseClasses = [
-  "group inline-flex w-fit items-center justify-center gap-2 whitespace-nowrap rounded-sm font-medium",
+  "group inline-flex w-fit items-center justify-center whitespace-nowrap rounded-[6px] font-medium leading-none !no-underline",
   "outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
   "[&_svg]:pointer-events-none [&_svg]:shrink-0",
   themeAwareHeaderPrimaryCtaClasses,
@@ -39,10 +41,14 @@ export function DownloadTilesCta({
   size = "default",
   className,
   href = "/download",
+  label = DOWNLOAD_TILES_CTA_LABEL,
+  ariaLabel,
 }: {
   size?: DownloadTilesCtaSize
   className?: string
   href?: string
+  label?: string
+  ariaLabel?: string
 }) {
   return (
     <Link
@@ -50,10 +56,11 @@ export function DownloadTilesCta({
       onClick={() => {
         triggerHaptic()
       }}
+      aria-label={ariaLabel}
       className={cn(baseClasses, sizeClasses[size], className)}
       data-slot="button"
     >
-      <span className={downloadButtonLabelMotionClasses}>{DOWNLOAD_TILES_CTA_LABEL}</span>
+      <span className={downloadButtonLabelMotionClasses}>{label}</span>
       <Download
         className={cn(
           "download-cta-icon shrink-0",
