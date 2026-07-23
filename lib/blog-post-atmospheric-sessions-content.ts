@@ -31,7 +31,7 @@ export const atmosphericSessionsBlogContent = `<p>In Tiles, the <a href="https:/
 
 <p>Tiles publishes the session to your ATproto PDS and returns a public link that anyone can access. For more details, see the <a href="https://www.tiles.run/book/manual#sharing-commands" target="_blank" rel="noopener noreferrer">documentation</a>.</p>
 
-<iframe class="w-full h-auto" src="https://drive.google.com/file/d/15NuVP7QWSv2Ij1i8TZfX5QRUCVI7zlhP/preview?parts.page.embed.ctx.mode=edit&amp;parts.page.embed.ctx.bgColor=%23FDFCFA&amp;parts.page.embed.ctx.primaryColor=%23272727" allow="fullscreen" loading="lazy" referrerpolicy="no-referrer" style="aspect-ratio: 16 / 9;"></iframe>
+<video controls preload="metadata" playsinline aria-label="Sharing Tiles sessions with ATproto" style="display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; margin: 2.5rem 0; border-radius: 0.5rem; object-fit: contain;"><source src="/atmospheric-sessions-demo.mp4" type="video/mp4"></video>
 
 <h2>What about private sessions?</h2>
 
