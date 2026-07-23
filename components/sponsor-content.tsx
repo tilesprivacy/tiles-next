@@ -184,7 +184,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               User &amp; Agents
             </a>{" "}
             with Open Source Europe as its fiscal host, and to everyone who has
-            supported our projects through{" "}
+            supported our project through{" "}
             <a href="https://github.com/sponsors/tilesprivacy">
               GitHub Sponsors
             </a>
