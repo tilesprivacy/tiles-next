@@ -1276,7 +1276,10 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
   .minimal-hero-title {
     top: calc(50% - 105px);
-    font-size: 52px;
+    font-size: 48px;
+    white-space: normal;
+    line-height: 1.2;
+    max-width: calc(100% - 2rem);
   }
   .minimal-hero > p {
     top: calc(50% - 14px);
