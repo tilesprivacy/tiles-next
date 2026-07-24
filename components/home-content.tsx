@@ -134,61 +134,56 @@ export function HomeContent() {
         </div>
       </div>
 
-      <section className="minimal-hero-device-copy mx-auto mt-[4.5rem] w-[min(calc(100%_-_2rem),720px)] px-3 max-[520px]:mt-12" aria-labelledby="why-tiles-heading">
-        <h2 id="why-tiles-heading" className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]">
-          Why Tiles?
-        </h2>
-        <p className="mt-4 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:text-base">
-          For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on <a href="https://atproto.com">AT Protocol</a>, so your data and identity remain yours.
-        </p>
-      </section>
-
       <section
-        className="minimal-copy !mt-28 max-[520px]:!mt-20"
-        aria-labelledby="use-cases-heading"
+        className="minimal-copy minimal-copy--after-device"
+        aria-labelledby="why-tiles-heading"
       >
         <div>
-          <h2
-            id="use-cases-heading"
-            className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]"
-          >
+          <h2 id="why-tiles-heading" className="minimal-copy-heading">
+            Why Tiles?
+          </h2>
+          <p className="minimal-copy-lede">
+            For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on <a href="https://atproto.com">AT Protocol</a>. Tiles gives you user-owned keys for your digital life with <a href="https://www.w3.org/TR/did-1.1/">DIDs</a> and <a href="https://ucan.xyz">UCANs</a>, so your data and identity truly remain yours.
+          </p>
+        </div>
+      </section>
+
+      <section className="minimal-copy" aria-labelledby="use-cases-heading">
+        <div>
+          <h2 id="use-cases-heading" className="minimal-copy-heading">
             Use cases
           </h2>
         </div>
         {useCases.map((useCase) => (
           <article key={useCase.title}>
-            <h2>
+            <h3>
               <span className="minimal-feature-icon" aria-hidden="true">
                 <useCase.icon strokeWidth={1.75} />
               </span>
               {useCase.title}
-            </h2>
+            </h3>
             <p>{useCase.body}</p>
           </article>
         ))}
       </section>
 
-      <section
-        className="minimal-copy !mt-28 max-[520px]:!mt-20"
-        aria-labelledby="whats-inside-heading"
-      >
+      <section className="minimal-copy" aria-labelledby="whats-inside-heading">
         <div>
-          <h2
-            id="whats-inside-heading"
-            className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]"
-          >
+          <h2 id="whats-inside-heading" className="minimal-copy-heading">
             What&apos;s inside
           </h2>
-          <p className="mt-4 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:text-base">
+          <p className="minimal-copy-lede">
             Everything you need to run a private AI assistant, built in and ready to use.
           </p>
         </div>
         {features.map((feature) => (
           <article key={feature.title}>
-            <h2>
-              <span className="minimal-feature-icon" aria-hidden="true"><feature.icon strokeWidth={1.75} /></span>
+            <h3>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <feature.icon strokeWidth={1.75} />
+              </span>
               {feature.title}
-            </h2>
+            </h3>
             <p>{feature.body}</p>
           </article>
         ))}

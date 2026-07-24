@@ -327,25 +327,47 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-download-cta [aria-label*="Apple Silicon"] {
   line-height: 1.5;
 }
+/* Homepage content: shared type scale
+   h1 hero title (elsewhere) → section heading → section lede → item title → item body */
 .minimal-copy {
   width: min(100% - 2rem, 720px);
-  margin: 160px auto 0;
+  margin: 7rem auto 0;
   padding: 0 12px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 2.5rem;
 }
-.minimal-copy article + article {
-  margin-top: 0;
+.minimal-copy.minimal-copy--after-device {
+  margin-top: 4.5rem;
 }
-.minimal-copy article h2 {
-  margin: 0 0 16px;
+.minimal-copy-heading {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+.minimal-copy-lede {
+  margin: 1rem 0 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+}
+.minimal-copy article h3 {
+  margin: 0 0 1rem;
   display: flex;
   align-items: center;
   gap: 0.55rem;
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 1rem;
+  line-height: 1.5;
   font-weight: 700;
+}
+.minimal-copy article p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
 }
 .minimal-feature-icon {
   display: inline-flex;
@@ -357,11 +379,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-feature-icon svg {
   width: 1rem;
   height: 1rem;
-}
-.minimal-copy article p {
-  margin: 0;
-  font-size: 16px;
-  line-height: 24px;
 }
 .blog-article-content code.language-json .syntax-json-key {
   color: var(--syntax-json-key);
@@ -1296,7 +1313,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     width: 52%;
   }
   .minimal-copy {
-    margin-top: 96px;
+    margin-top: 5rem;
+  }
+  .minimal-copy.minimal-copy--after-device {
+    margin-top: 3rem;
+  }
+  .minimal-copy-lede {
+    font-size: 1rem;
   }
   .minimal-actions {
     margin-top: 96px;
