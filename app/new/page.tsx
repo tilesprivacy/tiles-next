@@ -1,5 +1,3 @@
-"use client"
-
 import type { Metadata } from "next"
 import { MessageSquare, Lock, Users, Zap, GitBranch, Server } from "lucide-react"
 import { MinimalTopbar } from "@/components/minimal-topbar"
