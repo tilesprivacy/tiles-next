@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Bot, Fingerprint, RefreshCw } from "lucide-react"
+import { Bot, Building2, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -75,6 +75,24 @@ const features = [
   },
 ] as const
 
+const useCases = [
+  {
+    title: "Individuals",
+    icon: User,
+    body: "Use Tiles for sensitive personal work like financial planning, health notes, and private journaling. Run models locally so that context stays on your machines, sync across your devices, and share only when you choose.",
+  },
+  {
+    title: "Coworking spaces",
+    icon: Building2,
+    body: "Turn shared compute workstations into private AI infrastructure. Members connect from their own laptops, use the space's local models, and collaborate while keeping their identity and data theirs.",
+  },
+  {
+    title: "Researchers",
+    icon: FlaskConical,
+    body: "Run literature reviews, analyze datasets, and collaborate on research without uploading unpublished findings to a hosted AI provider. Ideal for sovereign compute and sensitive data.",
+  },
+] as const
+
 export function HomeContent() {
   return (
     <main className="minimal-product-page">
@@ -125,7 +143,21 @@ export function HomeContent() {
         </p>
       </section>
 
-      <section className="minimal-copy !mt-28 max-[520px]:!mt-20" aria-label="What Tiles does">
+      <section
+        className="minimal-copy !mt-28 max-[520px]:!mt-20"
+        aria-labelledby="whats-inside-heading"
+      >
+        <div>
+          <h2
+            id="whats-inside-heading"
+            className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]"
+          >
+            What&apos;s inside
+          </h2>
+          <p className="mt-4 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:text-base">
+            Everything you need to run a private AI assistant, built in and ready to use.
+          </p>
+        </div>
         {features.map((feature) => (
           <article key={feature.title}>
             <h2>
@@ -133,6 +165,31 @@ export function HomeContent() {
               {feature.title}
             </h2>
             <p>{feature.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section
+        className="minimal-copy !mt-28 max-[520px]:!mt-20"
+        aria-labelledby="use-cases-heading"
+      >
+        <div>
+          <h2
+            id="use-cases-heading"
+            className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]"
+          >
+            Use cases
+          </h2>
+        </div>
+        {useCases.map((useCase) => (
+          <article key={useCase.title}>
+            <h2>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <useCase.icon strokeWidth={1.75} />
+              </span>
+              {useCase.title}
+            </h2>
+            <p>{useCase.body}</p>
           </article>
         ))}
       </section>

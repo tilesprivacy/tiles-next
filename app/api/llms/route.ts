@@ -74,6 +74,9 @@ export async function GET(request: Request) {
   lines.push(
     'Homepage feature: Use local models on remote devices with `tiles remote share`, running local models on a remote device peer-to-peer from any device.',
   )
+  lines.push(
+    'Homepage use cases: Individuals (sensitive personal work such as financial planning, health notes, and private journaling with local models, device sync, and sharing only when chosen); Coworking spaces (shared compute as private AI infrastructure for members); Researchers (literature review, dataset analysis, and collaboration without uploading unpublished findings to a hosted provider).',
+  )
   lines.push('')
 
   addSection(lines, 'Primary Pages', [
