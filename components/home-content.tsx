@@ -33,7 +33,7 @@ const features = [
   {
     title: "Connect members to shared compute",
     icon: RemoteInferenceIcon,
-    body: "Let members connect from their own machines to powerful Mac or Linux workstations available in your space and use their local inference securely.",
+    body: "Members connect from their own laptops to a powerful Mac or Linux workstation in the space and use its local models and compute for inference.",
   },
   {
     title: "Member-owned identity",
