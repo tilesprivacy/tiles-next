@@ -145,6 +145,31 @@ export function HomeContent() {
 
       <section
         className="minimal-copy !mt-28 max-[520px]:!mt-20"
+        aria-labelledby="use-cases-heading"
+      >
+        <div>
+          <h2
+            id="use-cases-heading"
+            className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]"
+          >
+            Use cases
+          </h2>
+        </div>
+        {useCases.map((useCase) => (
+          <article key={useCase.title}>
+            <h2>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <useCase.icon strokeWidth={1.75} />
+              </span>
+              {useCase.title}
+            </h2>
+            <p>{useCase.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section
+        className="minimal-copy !mt-28 max-[520px]:!mt-20"
         aria-labelledby="whats-inside-heading"
       >
         <div>
@@ -165,31 +190,6 @@ export function HomeContent() {
               {feature.title}
             </h2>
             <p>{feature.body}</p>
-          </article>
-        ))}
-      </section>
-
-      <section
-        className="minimal-copy !mt-28 max-[520px]:!mt-20"
-        aria-labelledby="use-cases-heading"
-      >
-        <div>
-          <h2
-            id="use-cases-heading"
-            className="text-2xl font-semibold leading-[1.25] tracking-[-0.02em]"
-          >
-            Use cases
-          </h2>
-        </div>
-        {useCases.map((useCase) => (
-          <article key={useCase.title}>
-            <h2>
-              <span className="minimal-feature-icon" aria-hidden="true">
-                <useCase.icon strokeWidth={1.75} />
-              </span>
-              {useCase.title}
-            </h2>
-            <p>{useCase.body}</p>
           </article>
         ))}
       </section>
