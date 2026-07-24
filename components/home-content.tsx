@@ -1,39 +1,60 @@
 import Image from "next/image"
-import { Bot, Fingerprint, RefreshCw, Download } from "lucide-react"
+import type { ReactNode } from "react"
+import {
+  AtSign,
+  Bot,
+  Download,
+  Fingerprint,
+  MonitorSmartphone,
+  RefreshCw,
+  type LucideIcon,
+} from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
-import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
 import { SiteFooter } from "@/components/site-footer"
-import { TILES_PRODUCT_TECHNOLOGY_LINE } from "@/lib/product-description"
+import { TILES_PRODUCT_TAGLINE } from "@/lib/product-description"
 
-function AtprotoIcon() {
-  return <span aria-hidden="true">@</span>
+const FEATURE_ICON_SIZE = 20
+
+function OpenSourceIcon({
+  className,
+  size = FEATURE_ICON_SIZE,
+}: {
+  className?: string
+  size?: number
+  strokeWidth?: number
+  absoluteStrokeWidth?: boolean
+}) {
+  return <RiOpenSourceLine className={className} size={size} aria-hidden />
 }
 
-function OpenSourceIcon() {
-  return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
-}
+type FeatureIconComponent = LucideIcon | typeof OpenSourceIcon
 
-const features = [
+const features: {
+  title: string
+  icon: FeatureIconComponent
+  body: ReactNode
+}[] = [
   {
     title: "Run polished local models",
     icon: Bot,
     body: (
       <>
-        Use the embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, bundled with OpenAI's{" "}
+        An out of the box AI assistant with a built in{" "}
+        <a href="https://pi.dev/">Pi</a> agent harness, the default{" "}
         <span className="minimal-model-label">
           <Image src="/openai-logo.svg" alt="" width={15} height={15} />
           <span>gpt-oss-20b</span>
         </span>
-        {" "}and plugin support for reusable, skill-based workflows.
+        {" "}model, and plugin support for reusable, skill based workflows.
       </>
     ),
   },
   {
     title: "Connect members to shared compute",
-    icon: RemoteInferenceIcon,
-    body: "Members connect from their own laptops to a powerful Mac or Linux workstation in the space and use its local models and compute for inference.",
+    icon: MonitorSmartphone,
+    body: "Members connect from their own laptops to a Mac or Linux workstation in the space and use its local models and compute for inference.",
   },
   {
     title: "Member-owned identity",
@@ -52,7 +73,7 @@ const features = [
   },
   {
     title: "Share and collaborate",
-    icon: AtprotoIcon,
+    icon: AtSign,
     body: (
       <>
         Create public or private links to chat sessions, published through <a href="https://atproto.com">AT Protocol</a> and stored on the member&apos;s own personal data server.
@@ -73,7 +94,7 @@ const features = [
       </>
     ),
   },
-] as const
+]
 
 export function HomeContent() {
   return (
@@ -81,10 +102,10 @@ export function HomeContent() {
       <MinimalTopbar />
       <section className="minimal-hero" aria-labelledby="tiles-title">
         <h1 id="tiles-title" className="minimal-hero-title">
-          Private AI for coworking spaces
+          {TILES_PRODUCT_TAGLINE}
         </h1>
         <p>
-          Turn shared compute workstations into <strong>private AI infrastructure for members</strong>. Built with local models and <a href="https://atproto.com">AT Protocol</a>.
+          Turn shared compute workstations into <strong>private AI infrastructure for community members</strong>. Powered by local models and <a href="https://atproto.com">AT Protocol</a>.
         </p>
         <MinimalDownload />
       </section>
@@ -120,7 +141,8 @@ export function HomeContent() {
           Why Tiles?
         </h2>
         <p className="mt-4 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:text-base">
-          Give members secure access to powerful local models running on your space&apos;s workstations. They can connect from their own machines, use the workstation&apos;s inference, sync chats privately between devices, and collaborate by sharing sessions while retaining control over their data and identity.
+          Give members secure access to powerful local models running on your space&apos;s workstations. They can connect from their own machines, use the workstation&apos;s inference, sync chats privately between their own devices, and collaborate by sharing chat sessions on{" "}
+          <a href="https://atproto.com">Atmosphere</a> while retaining control over their data and identity.
         </p>
       </section>
 
@@ -128,7 +150,9 @@ export function HomeContent() {
         {features.map((feature) => (
           <article key={feature.title}>
             <h2>
-              <span className="minimal-feature-icon" aria-hidden="true"><feature.icon strokeWidth={1.75} /></span>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <feature.icon size={FEATURE_ICON_SIZE} strokeWidth={1.75} className="minimal-feature-glyph" />
+              </span>
               {feature.title}
             </h2>
             <p>{feature.body}</p>
