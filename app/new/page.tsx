@@ -231,10 +231,10 @@ export default function CoworkingPage() {
         <div className="mx-auto max-w-5xl px-4 py-24 md:py-32 space-y-16">
           <div className="space-y-4">
             <h2 id="pricing-heading" className="text-4xl font-semibold">
-              Simple pricing
+              Forever license, no subscriptions
             </h2>
             <p className="text-lg text-foreground/70">
-              Start free. Scale as you grow.
+              One-time payment. Unlimited future updates included.
             </p>
           </div>
 
@@ -250,12 +250,13 @@ export default function CoworkingPage() {
                   "End-to-end encryption",
                   "Self-hosted",
                   "Community support",
+                  "Forever free, no limits",
                 ],
               },
               {
                 name: "Professional",
-                price: "$199",
-                period: "/month",
+                price: "$599",
+                period: "one-time",
                 description: "For growing communities",
                 featured: true,
                 features: [
@@ -264,18 +265,21 @@ export default function CoworkingPage() {
                   "Priority support",
                   "Analytics dashboard",
                   "Custom branding",
+                  "Lifetime updates included",
                 ],
               },
               {
                 name: "Enterprise",
                 price: "Custom",
+                period: "one-time",
                 description: "For large networks",
                 features: [
                   "Everything in Professional",
                   "Dedicated support",
                   "Custom integrations",
-                  "SLA guarantee",
                   "Multi-space management",
+                  "Source code access",
+                  "Lifetime updates included",
                 ],
               },
             ].map((plan) => (
@@ -304,7 +308,7 @@ export default function CoworkingPage() {
                       : "border border-foreground/20 hover:border-foreground/40"
                   }`}
                 >
-                  Get Started
+                  Get License
                 </button>
 
                 <ul className="space-y-3 border-t border-foreground/10 pt-6">
