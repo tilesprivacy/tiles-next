@@ -139,12 +139,12 @@ export function ArticleShareAndNewsletter({
   return (
     <>
       <div className="mx-auto mt-10 w-full max-w-[44rem] lg:mt-12">
-        <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:text-sm">
-          <p>
+        <div className="text-xs text-black/60 dark:text-white/60 lg:text-sm">
+          <p className="space-y-1">
             <span className="block">{TILES_PRODUCT_DESCRIPTION_CORE}</span>
             <span className="block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
           </p>
-          <p>
+          <p className="mt-5">
             There are{" "}
             <Link
               href={moreLinkHref}
@@ -154,7 +154,7 @@ export function ArticleShareAndNewsletter({
             </Link>
             .
           </p>
-          <p>Keep on Tiling!</p>
+          <p className="mt-2">Keep on Tiling!</p>
         </div>
 
         <div className="mt-8 lg:mt-10">

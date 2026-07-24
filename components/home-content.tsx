@@ -1,79 +1,100 @@
 import Image from "next/image"
-import { Bot, Fingerprint, RefreshCw } from "lucide-react"
+import type { ReactNode } from "react"
+import {
+  AtSign,
+  Bot,
+  Download,
+  Fingerprint,
+  MonitorSmartphone,
+  RefreshCw,
+  type LucideIcon,
+} from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
-import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
 import { SiteFooter } from "@/components/site-footer"
-import { TILES_PRODUCT_TECHNOLOGY_LINE } from "@/lib/product-description"
+import { TILES_PRODUCT_TAGLINE } from "@/lib/product-description"
 
-function AtprotoIcon() {
-  return <span aria-hidden="true">@</span>
+const FEATURE_ICON_SIZE = 20
+
+function OpenSourceIcon({
+  className,
+  size = FEATURE_ICON_SIZE,
+}: {
+  className?: string
+  size?: number
+  strokeWidth?: number
+  absoluteStrokeWidth?: boolean
+}) {
+  return <RiOpenSourceLine className={className} size={size} aria-hidden />
 }
 
-function OpenSourceIcon() {
-  return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
-}
+type FeatureIconComponent = LucideIcon | typeof OpenSourceIcon
 
-const features = [
+const features: {
+  title: string
+  icon: FeatureIconComponent
+  body: ReactNode
+}[] = [
   {
     title: "Run polished local models",
     icon: Bot,
     body: (
       <>
-        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, built around OpenAI’s{" "}
+        An out of the box AI assistant with a built in{" "}
+        <a href="https://pi.dev/">Pi</a> agent harness, the default{" "}
         <span className="minimal-model-label">
           <Image src="/openai-logo.svg" alt="" width={15} height={15} />
           <span>gpt-oss-20b</span>
         </span>
-        , with plugin support for reusable,{" "}
-        skill-based workflows.
+        {" "}model, and plugin support for reusable, skill based workflows.
       </>
     ),
   },
   {
-    title: "Own your identity",
+    title: "Connect members to shared compute",
+    icon: MonitorSmartphone,
+    body: "Members connect from their own laptops to a Mac or Linux workstation in the space and use its local models and compute for inference.",
+  },
+  {
+    title: "Member-owned identity",
     icon: Fingerprint,
     body: (
       <>
         Tiles uses locally generated <a href="https://www.w3.org/TR/did-1.1/">DIDs</a> and{" "}
-        <a href="https://ucan.xyz">UCANs</a> for zero-trust authentication and authorization. This lets you own
-        and control your identity across your digital life.
+        <a href="https://ucan.xyz">UCANs</a> for simple onboarding, zero-trust authentication, and authorization without relying on a central identity provider.
       </>
     ),
   },
   {
-    title: "Use local models on remote devices",
-    icon: RemoteInferenceIcon,
-    body: "Securely run local models on a remote device like your home lab, peer-to-peer, from any device.",
-  },
-  {
-    title: "Sync chats across your devices",
+    title: "Sync chats peer-to-peer",
     icon: RefreshCw,
-    body: "Encrypted peer-to-peer chat sync across your linked devices.",
+    body: "Members can sync encrypted chats directly between linked devices over a local peer-to-peer connection.",
   },
   {
-    title: "Share chats with friends",
-    icon: AtprotoIcon,
+    title: "Share and collaborate",
+    icon: AtSign,
     body: (
       <>
-        Create a public or private link to a chat session, published on{" "}
-        <a href="https://atproto.com">Atmosphere</a> and stored on your own
-        personal data server (PDS).
+        Create public or private links to chat sessions, published through <a href="https://atproto.com">AT Protocol</a> and stored on the member&apos;s own personal data server.
       </>
     ),
+  },
+  {
+    title: "Install fully offline",
+    icon: Download,
+    body: "Deploy Tiles without downloading dependencies or models during setup. The offline installer includes the application and bundled gpt-oss-20b model.",
   },
   {
     title: "Open source and free forever",
     icon: OpenSourceIcon,
     body: (
       <>
-        Tiles is <a href="https://github.com/tilesprivacy/tiles">open source</a> and forever free to use,
-        dual-licensed under MIT and Apache 2.0. It is designed to be future-proof and continue working forever.
+        Tiles is <a href="https://github.com/tilesprivacy/tiles">open source</a>, free to use, and designed to remain independent of any single AI provider.
       </>
     ),
   },
-] as const
+]
 
 export function HomeContent() {
   return (
@@ -81,11 +102,10 @@ export function HomeContent() {
       <MinimalTopbar />
       <section className="minimal-hero" aria-labelledby="tiles-title">
         <h1 id="tiles-title" className="minimal-hero-title">
-          Own your AI
+          {TILES_PRODUCT_TAGLINE}
         </h1>
         <p>
-          A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
-          <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
+          Turn shared compute workstations into <strong>private AI infrastructure for community members</strong>. Powered by local models and <a href="https://atproto.com">AT Protocol</a>.
         </p>
         <MinimalDownload />
       </section>
@@ -121,7 +141,8 @@ export function HomeContent() {
           Why Tiles?
         </h2>
         <p className="mt-4 text-lg leading-[1.55] tracking-[-0.01em] max-[520px]:text-base">
-          For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on <a href="https://atproto.com">AT Protocol</a>, so your data and identity remain yours.
+          Give members secure access to powerful local models running on your space&apos;s workstations. They can connect from their own machines, use the workstation&apos;s inference, sync chats privately between their own devices, and collaborate by sharing chat sessions on{" "}
+          <a href="https://atproto.com">Atmosphere</a> while retaining control over their data and identity.
         </p>
       </section>
 
@@ -129,7 +150,9 @@ export function HomeContent() {
         {features.map((feature) => (
           <article key={feature.title}>
             <h2>
-              <span className="minimal-feature-icon" aria-hidden="true"><feature.icon strokeWidth={1.75} /></span>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <feature.icon size={FEATURE_ICON_SIZE} strokeWidth={1.75} className="minimal-feature-glyph" />
+              </span>
               {feature.title}
             </h2>
             <p>{feature.body}</p>
