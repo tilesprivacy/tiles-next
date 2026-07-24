@@ -349,9 +349,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-copy-lede {
   margin: 1rem 0 0;
-  font-size: 1.125rem;
-  line-height: 1.55;
-  letter-spacing: -0.01em;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0;
   font-weight: 400;
 }
 .minimal-copy article h3 {
@@ -1317,9 +1317,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
   .minimal-copy.minimal-copy--after-device {
     margin-top: 3rem;
-  }
-  .minimal-copy-lede {
-    font-size: 1rem;
   }
   .minimal-actions {
     margin-top: 96px;
