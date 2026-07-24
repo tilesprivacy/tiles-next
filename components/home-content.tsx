@@ -172,9 +172,6 @@ export function HomeContent() {
           <h2 id="whats-inside-heading" className="minimal-copy-heading">
             What&apos;s inside
           </h2>
-          <p className="minimal-copy-lede">
-            Everything you need to run a private AI assistant, built in and ready to use.
-          </p>
         </div>
         {features.map((feature) => (
           <article key={feature.title}>
