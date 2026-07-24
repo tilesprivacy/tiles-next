@@ -193,7 +193,10 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
           </p>
 
           <section className="minimal-section minimal-partners-section">
-            <h2>Partners</h2>
+            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
+              <h2>Partners</h2>
+              <span>1</span>
+            </div>
             <a className="minimal-partner" href="https://solpbc.org/">
               <Image src="/sol-pbc.svg" alt="Sol PBC" width={44} height={44} />
               <span>
