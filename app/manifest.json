@@ -1,7 +1,6 @@
 {
   "name": "Tiles Privacy",
-  "short_name": "Tiles",
-  "description": "Private AI for coworking spaces. Built with local models and AT Protocol.",
+  "short_name": "Tiles Privacy",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

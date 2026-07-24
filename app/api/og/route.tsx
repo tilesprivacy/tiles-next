@@ -1,5 +1,5 @@
 import { ImageResponse } from "@vercel/og"
-import { TILES_PRODUCT_TAGLINE } from "@/lib/product-description"
+import { TILES_PRODUCT_DESCRIPTION_CORE } from "@/lib/product-description"
 
 export const runtime = "edge"
 
@@ -57,7 +57,7 @@ async function loadGoogleFont(font: string, text: string) {
 export async function GET(request: Request) {
   const url = new URL(request.url)
   const origin = url.origin
-  const tagline = TILES_PRODUCT_TAGLINE
+  const tagline = TILES_PRODUCT_DESCRIPTION_CORE
   const fontText = tagline
 
   // Fetch logo/font opportunistically; never fail the OG image if unavailable.

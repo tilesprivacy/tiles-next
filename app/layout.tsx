@@ -31,17 +31,6 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.tiles.run"),
   title: TILES_SITE_TITLE,
   description: TILES_PRODUCT_DESCRIPTION,
-  applicationName: "Tiles Privacy",
-  keywords: [
-    "Tiles",
-    "Private AI",
-    "coworking spaces",
-    "local models",
-    "AT Protocol",
-    "Atmosphere",
-    "local-first",
-    "privacy",
-  ],
   generator: "v0.app",
   manifest: "/manifest.json",
   icons: {

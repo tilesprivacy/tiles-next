@@ -385,7 +385,7 @@ export async function POST(request: NextRequest) {
                     <tr>
                       <td style="padding:0 0 34px 0;">
                         <p class="body-copy" style="margin:0; color:#333333; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.68; font-weight:400;">
-                          Private AI for coworking spaces. Built with local models and AT Protocol. Born from the User &amp; Agents community, our mission is to empower people by designing and building software that provides agency, control, and choice in our digital lives.
+                          A private, collaborative AI assistant that works for you. Powered by on-device models and AT Protocol, Tiles is built for people who want intelligence without renting their memory to centralized providers. Born from the User &amp; Agents community, our mission is to empower people by designing and building software that provides agency, control, and choice in our digital lives.
                         </p>
                       </td>
                     </tr>
@@ -503,7 +503,7 @@ export async function POST(request: NextRequest) {
                           <tr>
                             <td align="center" style="padding:0 0 18px 0;">
                               <p style="margin:0; color:#555555; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
-                                Private AI for coworking spaces. Built with local models and AT Protocol.
+                                A private, collaborative AI assistant that works for you.
                               </p>
                             </td>
                           </tr>
