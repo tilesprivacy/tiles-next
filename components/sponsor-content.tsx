@@ -3,6 +3,8 @@ import { MinimalTopbar } from "@/components/minimal-topbar"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
 import { SocialIcon } from "@/components/social-links"
+import { SponsorFooterGraphic } from "@/components/sponsor-footer-graphic"
+import { SponsorUsdcDonateButton } from "@/components/sponsor-usdc-donate-button"
 import { people, splitPersonDisplayName } from "@/lib/people"
 
 interface SponsorContentProps {
@@ -104,10 +106,11 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   />
                   Sponsor on OpenCollective
                 </a>
+                <SponsorUsdcDonateButton />
               </div>
               <p className="minimal-note">
                 You can also support us by spreading the word and keeping in touch
-                with us
+                with us. USDC donations are on Ethereum.
               </p>
             </div>
           </section>
@@ -215,17 +218,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
       </main>
       <SiteFooter
         showDownloadCta={false}
-        decoration={
-          <div className="minimal-sponsor-footer-graphic">
-            <Image
-              src="/razor.png"
-              alt=""
-              width={1450}
-              height={1085}
-              className="minimal-sponsor-footer-graphic-img"
-            />
-          </div>
-        }
+        decoration={<SponsorFooterGraphic />}
       />
     </div>
   )

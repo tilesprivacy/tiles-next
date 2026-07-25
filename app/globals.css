@@ -92,8 +92,15 @@ html[data-page-theme="own-your-ai"].dark .site-announcement-logo {
   filter: grayscale(1) invert(1);
 }
 
-/* /sponsor: match tilesprivacy.org black canvas. */
-html[data-page-theme="sponsor"],
+/* /sponsor: yellow accents always; black canvas only in dark mode. */
+html[data-page-theme="sponsor"] {
+  --sponsor-yellow: #f7ff61;
+  --background: #fdfdfd;
+  --card: #fdfdfd;
+  --popover: #fdfdfd;
+  --sidebar: #fdfdfd;
+}
+
 html[data-page-theme="sponsor"].dark {
   --background: #000000;
   --foreground: #ffffff;
@@ -114,10 +121,15 @@ html[data-page-theme="sponsor"].dark {
   --sidebar-accent: #18181b;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.1);
-  --sponsor-yellow: #f7ff61;
 }
 
-html[data-page-theme="sponsor"] .site-announcement,
+html[data-page-theme="sponsor"] .site-announcement {
+  border-bottom-color: transparent;
+  background: #000;
+  color: #fff;
+  font-weight: 700;
+}
+
 html[data-page-theme="sponsor"].dark .site-announcement {
   border-bottom-color: transparent;
   background: var(--sponsor-yellow);
@@ -125,10 +137,62 @@ html[data-page-theme="sponsor"].dark .site-announcement {
   font-weight: 700;
 }
 
-html[data-page-theme="sponsor"] .site-announcement-logo,
+html[data-page-theme="sponsor"] .site-announcement-logo {
+  filter: grayscale(1) invert(1);
+  mix-blend-mode: normal;
+}
+
 html[data-page-theme="sponsor"].dark .site-announcement-logo {
   filter: none;
   mix-blend-mode: multiply;
+}
+
+/* Homepage: pure black dark canvas; keep light theme unchanged. */
+html[data-page-theme="home"].dark {
+  --background: #000000;
+  --card: #000000;
+  --popover: #000000;
+  --secondary: #111111;
+  --muted: #141414;
+  --muted-foreground: #a3a3a3;
+  --accent: #18181b;
+  --border: rgba(255, 255, 255, 0.12);
+  --input: rgba(255, 255, 255, 0.12);
+  --sidebar: #000000;
+  --sidebar-accent: #18181b;
+  --sidebar-border: rgba(255, 255, 255, 0.12);
+}
+
+html[data-page-theme="home"].dark .site-announcement {
+  border-bottom-color: #111;
+  background: #000;
+}
+
+html[data-page-theme="home"].dark .minimal-feature-icon {
+  color: #d4d4d8;
+}
+
+html[data-page-theme="home"].dark .minimal-model-label img {
+  filter: brightness(1.2);
+}
+
+html[data-page-theme="home"].dark .minimal-copy-lede,
+html[data-page-theme="home"].dark .minimal-copy article p {
+  color: #d4d4d8;
+}
+
+html[data-page-theme="home"].dark .minimal-footer p,
+html[data-page-theme="home"].dark .minimal-footer-links {
+  color: #a3a3a3;
+}
+
+html[data-page-theme="home"].dark .minimal-footer-social a {
+  color: #a3a3a3;
+}
+
+html[data-page-theme="home"].dark .minimal-footer-social a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f5f5;
 }
 
 .site-announcement a:hover .site-announcement-cta {
@@ -371,7 +435,8 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   pointer-events: none;
 }
 .minimal-hero-device-banner img {
-  width: min(54%, 22rem);
+  width: min(68%, 28rem);
+  height: auto;
   transform: translateY(-0.2rem);
 }
 
@@ -836,6 +901,8 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   border: 1px solid var(--foreground);
   background: var(--foreground);
   color: var(--background) !important;
+  cursor: pointer;
+  font: inherit;
 }
 .minimal-primary-button:hover,
 .minimal-secondary-button:hover {
@@ -1017,29 +1084,29 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   letter-spacing: -0.035em;
 }
 .minimal-sponsor-page .minimal-page-intro p {
-  color: #d4d4d8;
+  color: var(--muted-foreground);
 }
 .minimal-sponsor-page .minimal-section h2 {
   font-size: 1.25rem;
   line-height: 1.4;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #e4e4e7;
+  color: var(--foreground);
 }
 .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a) {
-  color: #fff;
-  text-decoration-color: rgba(255, 255, 255, 0.25);
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, var(--foreground) 25%, transparent);
   text-underline-offset: 4px;
 }
 .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a):hover {
-  text-decoration-color: #fff;
+  text-decoration-color: var(--foreground);
 }
 .minimal-sponsor-page .minimal-partner-intro {
-  color: #d4d4d8;
+  color: var(--muted-foreground);
 }
 .minimal-sponsor-page .minimal-sponsor-copy {
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  color: #d4d4d8;
+  border-bottom-color: var(--border);
+  color: var(--muted-foreground);
 }
 .minimal-sponsor-funding-band {
   position: relative;
@@ -1087,51 +1154,89 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   opacity: 1 !important;
 }
 .minimal-sponsor-page .minimal-sponsor-list-heading > span {
-  color: #52525b;
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   font-weight: 600;
 }
 .minimal-sponsor-page .minimal-sponsor-list h2 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #e4e4e7;
+  color: var(--foreground);
 }
 .minimal-sponsor-page .minimal-sponsor-row {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border);
 }
 .minimal-sponsor-page .minimal-sponsor-list > .minimal-sponsor-row:first-of-type {
   border-top: 0;
 }
 .minimal-sponsor-page .minimal-sponsor-name strong {
-  color: #e4e4e7;
+  color: var(--foreground);
   font-weight: 500;
 }
 .minimal-sponsor-page .minimal-sponsor-name small,
 .minimal-sponsor-page .minimal-sponsor-handle {
-  color: #71717a;
+  color: var(--muted-foreground);
   font-weight: 600;
 }
 .minimal-sponsor-page .minimal-partner {
-  border-block: 1px solid rgba(255, 255, 255, 0.1);
+  border-block: 1px solid var(--border);
   padding-block: 1rem;
   width: 100%;
 }
 .minimal-sponsor-page .minimal-partner strong {
-  color: #e4e4e7;
+  color: var(--foreground);
   font-weight: 500;
 }
 .minimal-sponsor-page .minimal-partner small {
-  color: #71717a;
+  color: var(--muted-foreground);
   font-weight: 600;
 }
 .minimal-sponsor-page .minimal-team a {
-  color: #e4e4e7;
+  color: var(--foreground);
 }
 .minimal-sponsor-page .minimal-team a small {
+  color: var(--muted-foreground);
+}
+.dark .minimal-sponsor-page .minimal-page-intro p,
+.dark .minimal-sponsor-page .minimal-partner-intro,
+.dark .minimal-sponsor-page .minimal-sponsor-copy {
+  color: #d4d4d8;
+}
+.dark .minimal-sponsor-page .minimal-section h2,
+.dark .minimal-sponsor-page .minimal-sponsor-list h2,
+.dark .minimal-sponsor-page .minimal-sponsor-name strong,
+.dark .minimal-sponsor-page .minimal-partner strong,
+.dark .minimal-sponsor-page .minimal-team a {
+  color: #e4e4e7;
+}
+.dark .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a) {
+  color: #fff;
+  text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+.dark .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a):hover {
+  text-decoration-color: #fff;
+}
+.dark .minimal-sponsor-page .minimal-sponsor-copy {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+.dark .minimal-sponsor-page .minimal-sponsor-row {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+.dark .minimal-sponsor-page .minimal-partner {
+  border-block-color: rgba(255, 255, 255, 0.1);
+}
+.dark .minimal-sponsor-page .minimal-sponsor-list-heading > span,
+.dark .minimal-sponsor-page .minimal-sponsor-name small,
+.dark .minimal-sponsor-page .minimal-sponsor-handle,
+.dark .minimal-sponsor-page .minimal-partner small,
+.dark .minimal-sponsor-page .minimal-team a small {
   color: #71717a;
 }
-.minimal-sponsor-page .refined-site-footer,
-.minimal-product-page:has(.minimal-sponsor-page) .refined-site-footer {
+.dark .minimal-sponsor-page .minimal-sponsor-list-heading > span {
+  color: #52525b;
+}
+.dark .minimal-sponsor-page .refined-site-footer,
+.dark .minimal-product-page:has(.minimal-sponsor-page) .refined-site-footer {
   background: #000;
   color: #fff;
 }
@@ -1491,7 +1596,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     margin-top: -5rem;
   }
   .minimal-hero-device-banner img {
-    width: 52%;
+    width: 66%;
   }
   .minimal-copy {
     margin-top: 5rem;

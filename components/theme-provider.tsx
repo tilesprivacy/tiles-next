@@ -7,24 +7,33 @@ import {
   type ThemeProviderProps,
 } from 'next-themes'
 import {
+  HOME_PAGE_THEME,
+  isHomePageThemePath,
+} from '@/lib/home-page-theme'
+import {
   OWN_YOUR_AI_PAGE_THEME,
   isOwnYourAiForceDarkPath,
 } from '@/lib/own-your-ai-theme'
 import {
   SPONSOR_PAGE_THEME,
-  isSponsorForceDarkPath,
+  isSponsorPath,
 } from '@/lib/sponsor-page-theme'
 
-function getForcedPageTheme(pathname: string | null): string | null {
+function getPageTheme(pathname: string | null): string | null {
   if (isOwnYourAiForceDarkPath(pathname)) return OWN_YOUR_AI_PAGE_THEME
-  if (isSponsorForceDarkPath(pathname)) return SPONSOR_PAGE_THEME
+  if (isSponsorPath(pathname)) return SPONSOR_PAGE_THEME
+  if (isHomePageThemePath(pathname)) return HOME_PAGE_THEME
   return null
+}
+
+function shouldForceDark(pageTheme: string | null): boolean {
+  return pageTheme === OWN_YOUR_AI_PAGE_THEME
 }
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const pathname = usePathname()
-  const pageTheme = getForcedPageTheme(pathname)
-  const forceDark = pageTheme !== null
+  const pageTheme = getPageTheme(pathname)
+  const forceDark = shouldForceDark(pageTheme)
 
   React.useLayoutEffect(() => {
     const root = document.documentElement

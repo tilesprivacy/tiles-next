@@ -95,7 +95,7 @@ const useCases = [
 
 export function HomeContent() {
   return (
-    <main className="minimal-product-page">
+    <main className="minimal-product-page minimal-home-page">
       <MinimalTopbar />
       <section className="minimal-hero" aria-labelledby="tiles-title">
         <h1 id="tiles-title" className="minimal-hero-title">
@@ -118,18 +118,18 @@ export function HomeContent() {
         />
         <div className="minimal-hero-device-banner" aria-hidden="true">
           <Image
-            src="/tiles_banner_outline_blk.svg"
+            src="/razordark.png"
             alt=""
-            width={1200}
-            height={220}
+            width={1450}
+            height={1085}
             className="dark:hidden"
           />
           <Image
-            src="/tiles_banner_outline_wht.svg"
+            src="/razor.png"
             alt=""
-            width={1200}
-            height={220}
-            className="hidden bg-background dark:block"
+            width={1450}
+            height={1085}
+            className="hidden dark:block"
           />
         </div>
       </div>

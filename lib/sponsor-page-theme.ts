@@ -1,11 +1,18 @@
 export const SPONSOR_PAGE_THEME = "sponsor"
 export const SPONSOR_PATH = "/sponsor"
 
-export function isSponsorForceDarkPath(
+export function isSponsorPath(
   pathname: string | null | undefined,
 ): boolean {
   return (
     pathname === SPONSOR_PATH ||
     pathname?.startsWith(`${SPONSOR_PATH}/`) === true
   )
+}
+
+/** @deprecated Use isSponsorPath. Kept for call-site compatibility. */
+export function isSponsorForceDarkPath(
+  pathname: string | null | undefined,
+): boolean {
+  return isSponsorPath(pathname)
 }
