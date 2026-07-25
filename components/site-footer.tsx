@@ -207,7 +207,7 @@ export function SiteFooter({
 
         {showLandscapeBrandMark ? (
           <div
-            className="mt-8 hidden landscape:flex landscape:justify-center"
+            className="mt-8 flex justify-center portrait:max-lg:hidden"
             aria-hidden="true"
           >
             <div className="flex h-[7.5rem] w-[7.5rem] items-center justify-center sm:h-36 sm:w-36">
@@ -221,6 +221,7 @@ export function SiteFooter({
                 width={300}
                 height={300}
                 className="h-full w-full rotate-90 object-contain"
+                priority
               />
             </div>
           </div>
