@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image"
 import Link from "next/link"
 import { Heart } from "lucide-react"
 import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRedditAlien } from "react-icons/fa6"
@@ -19,12 +20,15 @@ interface SiteFooterProps {
   /** Landing pages use the same minimal newsletter row with slightly more footer spacing. */
   newsletterCtaLayout?: 'default' | 'landing'
   showDownloadCta?: boolean
+  /** Sponsor page: show the dirty T mark in landscape, rotated to fit the wide footer. */
+  showLandscapeBrandMark?: boolean
 }
 
 export function SiteFooter({
   showNewsletterCta = false,
   newsletterCtaLayout = 'default',
   showDownloadCta = true,
+  showLandscapeBrandMark = false,
 }: SiteFooterProps) {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -200,6 +204,27 @@ export function SiteFooter({
             </div>
           </div>
         </div>
+
+        {showLandscapeBrandMark ? (
+          <div
+            className="mt-8 hidden landscape:flex landscape:justify-center"
+            aria-hidden="true"
+          >
+            <div className="flex h-[7.5rem] w-[7.5rem] items-center justify-center sm:h-36 sm:w-36">
+              <Image
+                src={
+                  isDarkFooter
+                    ? "/tiles_tlogo_banner_v1.2/png/T_dirty_white_300.png"
+                    : "/tiles_tlogo_banner_v1.2/png/T_dirty_black_300.png"
+                }
+                alt=""
+                width={300}
+                height={300}
+                className="h-full w-full rotate-90 object-contain"
+              />
+            </div>
+          </div>
+        ) : null}
       </div>
     </footer>
   )

@@ -286,7 +286,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
         </div>
       </main>
 
-      <SiteFooter />
+      <SiteFooter showLandscapeBrandMark />
     </div>
   )
 }
