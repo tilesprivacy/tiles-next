@@ -110,7 +110,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               </div>
               <p className="minimal-note">
                 You can also support us by spreading the word and keeping in touch
-                with us. USDC donations are on Ethereum.
+                with us
               </p>
             </div>
           </section>
