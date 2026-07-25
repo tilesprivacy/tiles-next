@@ -164,8 +164,13 @@ html[data-page-theme="home"].dark {
 }
 
 html[data-page-theme="home"].dark .site-announcement {
-  border-bottom-color: #111;
-  background: #000;
+  border-bottom-color: #e5e5e5;
+  background: #fff;
+  color: #111;
+}
+
+html[data-page-theme="home"].dark .site-announcement-logo {
+  filter: grayscale(1);
 }
 
 html[data-page-theme="home"].dark .minimal-feature-icon {
@@ -437,7 +442,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-hero-device-banner img {
   width: min(68%, 28rem);
   height: auto;
-  transform: translateY(-0.2rem);
+  transform: translateY(0.55rem);
 }
 
 .minimal-download-cta {
