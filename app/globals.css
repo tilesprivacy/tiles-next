@@ -74,6 +74,24 @@
   filter: grayscale(1);
 }
 
+/* /blog/own-your-ai: permanent near-black canvas; keep announcement banner dark. */
+html[data-page-theme="own-your-ai"],
+html[data-page-theme="own-your-ai"].dark {
+  --background: #020202;
+}
+
+html[data-page-theme="own-your-ai"] .site-announcement,
+html[data-page-theme="own-your-ai"].dark .site-announcement {
+  border-bottom-color: #111;
+  background: #020202;
+  color: #fff;
+}
+
+html[data-page-theme="own-your-ai"] .site-announcement-logo,
+html[data-page-theme="own-your-ai"].dark .site-announcement-logo {
+  filter: grayscale(1) invert(1);
+}
+
 .site-announcement a:hover .site-announcement-cta {
   text-decoration: underline;
 }

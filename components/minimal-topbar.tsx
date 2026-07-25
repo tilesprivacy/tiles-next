@@ -6,10 +6,12 @@ import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { ThemeSwitcher } from "@/components/theme-switcher"
+import { isOwnYourAiForceDarkPath } from "@/lib/own-your-ai-theme"
 
 export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
+  const hideThemeSwitcher = isOwnYourAiForceDarkPath(pathname)
   const isActive = (href: string) =>
     href === "/book"
       ? pathname === "/book" || pathname.startsWith("/book/")
@@ -56,9 +58,11 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
         ))}
       </nav>
       <nav className="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
-        <div className="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8">
-          <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
-        </div>
+        {!hideThemeSwitcher ? (
+          <div className="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8">
+            <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
+          </div>
+        ) : null}
         {!hideBrand ? (
           <DownloadTilesCta
             size="nav"

@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { StandardSiteLinkTags } from "@/components/standard-site-link-tags"
 import { getBlogPostBySlug, isBlogPostVisible } from "@/lib/blog-posts"
+import { OWN_YOUR_AI_PAGE_THEME } from "@/lib/own-your-ai-theme"
 import { getBlogPostSocialImageUrl } from "@/lib/standard-site"
 
 const post = getBlogPostBySlug("own-your-ai")
@@ -55,6 +56,11 @@ export default function OwnYourAiLayout({
 
   return (
     <>
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.dataset.pageTheme=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};document.documentElement.classList.add("dark");`,
+        }}
+      />
       <StandardSiteLinkTags documentSlug="own-your-ai" includePublication={false} />
       {children}
     </>
