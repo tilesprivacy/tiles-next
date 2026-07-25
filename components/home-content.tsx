@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Bot, Building2, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
+import { Bot, Box, Building2, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -13,6 +13,15 @@ function AtprotoIcon() {
 
 function OpenSourceIcon() {
   return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
+}
+
+function ComingSoonTag() {
+  return (
+    <span className="minimal-coming-soon-tag">
+      <span className="minimal-coming-soon-dot" aria-hidden="true" />
+      Coming soon
+    </span>
+  )
 }
 
 const features = [
@@ -62,6 +71,12 @@ const features = [
         personal data server (PDS).
       </>
     ),
+  },
+  {
+    title: "Every chat is a sandbox",
+    icon: Box,
+    badge: <ComingSoonTag />,
+    body: "Resume or share chats as sandboxed environments with friends or agents across devices.",
   },
   {
     title: "Open source and free forever",
@@ -161,6 +176,7 @@ export function HomeContent() {
                 <feature.icon strokeWidth={1.75} />
               </span>
               {feature.title}
+              {"badge" in feature ? feature.badge : null}
             </h3>
             <p>{feature.body}</p>
           </article>

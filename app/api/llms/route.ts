@@ -75,6 +75,9 @@ export async function GET(request: Request) {
     'Homepage feature: Use local models on remote devices with `tiles remote share`, running local models on a remote device peer-to-peer from any device.',
   )
   lines.push(
+    'Homepage feature (coming soon): Every chat is a sandbox — resume or share chats as sandboxed environments with friends or agents across devices.',
+  )
+  lines.push(
     'Homepage use cases: Individuals (plan finances, track health notes, and keep a private journal with local models, device sync, and sharing only when chosen); Coworking spaces (shared compute as private AI infrastructure for members); Researchers (review literature, analyze datasets, and launch AI agents in preconfigured, resumable sandboxes with the right research tools already installed).',
   )
   lines.push('')
