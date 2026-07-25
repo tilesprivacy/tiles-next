@@ -1265,6 +1265,64 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   flex: none;
   color: var(--muted-foreground);
 }
+.minimal-download-browser-logos {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.35rem;
+  flex: none;
+  height: 1em;
+  line-height: 0;
+}
+.minimal-download-browser-logos .minimal-download-platform-icon {
+  display: block;
+  width: 1em;
+  height: 1em;
+}
+.minimal-download-browser-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.5rem;
+  min-height: 44px;
+  padding: 0.55rem 1.25rem 0.55rem 1.05rem;
+  border-radius: 6px;
+  border: 1px solid var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+  font: inherit;
+}
+.minimal-download-browser-badge--coming-soon {
+  opacity: 0.45;
+  pointer-events: none;
+  user-select: none;
+}
+.minimal-download-browser-badge-globe {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: none;
+  stroke-width: 1.75;
+  color: inherit;
+}
+.minimal-download-browser-badge-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.05rem;
+  line-height: 1.1;
+  color: inherit;
+}
+.minimal-download-browser-badge-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.85;
+}
+.minimal-download-browser-badge-title {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
 .minimal-download-platform > p {
   margin: 0.65rem 0 0;
   color: var(--muted-foreground);

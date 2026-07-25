@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Check, Copy, Download } from "lucide-react"
-import { FaApple, FaLinux } from "react-icons/fa6"
+import { Check, Copy, Download, Globe } from "lucide-react"
+import { FaApple, FaChrome, FaFirefox, FaLinux, FaSafari } from "react-icons/fa6"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
 import Image from "next/image"
@@ -100,6 +100,29 @@ export function DownloadContent({
               {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
             </button>
             <p className="minimal-note">Paste this command in your terminal.</p>
+          </section>
+
+          <section className="minimal-download-platform" aria-labelledby="browser-heading">
+            <h2 id="browser-heading">
+              <span className="minimal-download-browser-logos" aria-hidden>
+                <FaChrome className="minimal-download-platform-icon" />
+                <FaFirefox className="minimal-download-platform-icon" />
+                <FaSafari className="minimal-download-platform-icon" />
+              </span>
+              <span>Web Browser</span>
+            </h2>
+            <p>Coming soon on all modern browsers across platforms · Runs with remote inference.</p>
+            <div
+              className={`minimal-download-browser-badge minimal-download-browser-badge--coming-soon ${themeAwareHeaderPrimaryCtaClasses}`}
+              role="status"
+              aria-label="Web Browser coming soon"
+            >
+              <Globe className="minimal-download-browser-badge-globe" aria-hidden />
+              <span className="minimal-download-browser-badge-copy">
+                <span className="minimal-download-browser-badge-eyebrow">Use it on your</span>
+                <span className="minimal-download-browser-badge-title">Web Browser</span>
+              </span>
+            </div>
           </section>
 
           <p className="minimal-legal">
