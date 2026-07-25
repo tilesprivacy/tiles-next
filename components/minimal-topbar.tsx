@@ -7,11 +7,15 @@ import { usePathname } from "next/navigation"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { isOwnYourAiForceDarkPath } from "@/lib/own-your-ai-theme"
+import { isSponsorForceDarkPath } from "@/lib/sponsor-page-theme"
+import { cn } from "@/lib/utils"
 
 export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
-  const hideThemeSwitcher = isOwnYourAiForceDarkPath(pathname)
+  const isSponsorPage = isSponsorForceDarkPath(pathname)
+  const hideThemeSwitcher =
+    isOwnYourAiForceDarkPath(pathname) || isSponsorPage
   const isActive = (href: string) =>
     href === "/book"
       ? pathname === "/book" || pathname.startsWith("/book/")
@@ -68,7 +72,11 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
             size="nav"
             label="Download"
             ariaLabel="Download Tiles"
-            className="minimal-topbar-download"
+            className={cn(
+              "minimal-topbar-download",
+              isSponsorPage &&
+                "!border-2 !border-[var(--sponsor-yellow,#f7ff61)] !bg-[var(--sponsor-yellow,#f7ff61)] !text-black shadow-none hover:!bg-black hover:!text-[var(--sponsor-yellow,#f7ff61)] hover:!opacity-100",
+            )}
           />
         ) : null}
         <button

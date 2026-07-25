@@ -3,7 +3,7 @@ export interface SponsorsGoalData {
   progressPercent: string | null
 }
 
-const SPONSORS_PROGRESS_PERCENT_FALLBACK = "20%"
+const SPONSORS_PROGRESS_PERCENT_FALLBACK = "90%"
 const SPONSORS_GOAL_AMOUNT_MONTHLY = "$1,500 per month"
 
 export async function getGithubSponsorsGoalData(): Promise<SponsorsGoalData> {

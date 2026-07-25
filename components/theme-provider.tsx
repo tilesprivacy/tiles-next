@@ -10,27 +10,36 @@ import {
   OWN_YOUR_AI_PAGE_THEME,
   isOwnYourAiForceDarkPath,
 } from '@/lib/own-your-ai-theme'
+import {
+  SPONSOR_PAGE_THEME,
+  isSponsorForceDarkPath,
+} from '@/lib/sponsor-page-theme'
+
+function getForcedPageTheme(pathname: string | null): string | null {
+  if (isOwnYourAiForceDarkPath(pathname)) return OWN_YOUR_AI_PAGE_THEME
+  if (isSponsorForceDarkPath(pathname)) return SPONSOR_PAGE_THEME
+  return null
+}
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const pathname = usePathname()
-  const forceDark = isOwnYourAiForceDarkPath(pathname)
+  const pageTheme = getForcedPageTheme(pathname)
+  const forceDark = pageTheme !== null
 
   React.useLayoutEffect(() => {
     const root = document.documentElement
 
-    if (forceDark) {
-      root.dataset.pageTheme = OWN_YOUR_AI_PAGE_THEME
+    if (pageTheme) {
+      root.dataset.pageTheme = pageTheme
       return () => {
-        if (root.dataset.pageTheme === OWN_YOUR_AI_PAGE_THEME) {
+        if (root.dataset.pageTheme === pageTheme) {
           delete root.dataset.pageTheme
         }
       }
     }
 
-    if (root.dataset.pageTheme === OWN_YOUR_AI_PAGE_THEME) {
-      delete root.dataset.pageTheme
-    }
-  }, [forceDark])
+    delete root.dataset.pageTheme
+  }, [pageTheme])
 
   return (
     <NextThemesProvider {...props} forcedTheme={forceDark ? 'dark' : undefined}>

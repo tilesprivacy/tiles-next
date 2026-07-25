@@ -2,8 +2,7 @@ import Image from "next/image"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
-import { SocialIcon, SocialLinks } from "@/components/social-links"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import { SocialIcon } from "@/components/social-links"
 import { people, splitPersonDisplayName } from "@/lib/people"
 
 interface SponsorContentProps {
@@ -32,25 +31,20 @@ function SponsorList({
           isAnonymous ? "Anonymous sponsor" : person.name,
         )
         return (
-          <div key={person.id} className="minimal-sponsor-row !m-0 flex !min-h-11 items-center !py-2">
-            <span className="minimal-sponsor-person flex w-full min-w-0 items-center !gap-2.5">
+          <div key={person.id} className="minimal-sponsor-row !m-0 flex !min-h-11 items-center !py-4">
+            <span className="minimal-sponsor-person flex w-full min-w-0 items-center !gap-3">
               <PersonAvatar
                 name={person.name}
                 links={person.links}
                 className="minimal-sponsor-avatar"
               />
-              <span className="minimal-sponsor-name inline-flex min-w-0 items-baseline !gap-1 overflow-hidden text-ellipsis whitespace-nowrap leading-tight">
-                <strong>{nameWithoutHandle}</strong>
-                {handle ? <small>{handle}</small> : null}
+              <span className="minimal-sponsor-name inline-flex min-w-0 flex-1 items-baseline !gap-1 overflow-hidden text-ellipsis whitespace-nowrap leading-tight">
+                <strong className="truncate">{nameWithoutHandle}</strong>
               </span>
-              {person.links.length > 0 ? (
-                <SocialLinks
-                  name={nameWithoutHandle}
-                  links={person.links}
-                  className="minimal-sponsor-socials ml-auto flex shrink-0 items-center gap-0"
-                  linkClassName="inline-flex size-7 items-center justify-center rounded-md text-[#777] no-underline transition-colors hover:bg-black/[0.04] hover:text-[#111] dark:text-[#aaa] dark:hover:bg-white/[0.08] dark:hover:text-white"
-                  iconClassName="h-3.5 w-3.5"
-                />
+              {handle ? (
+                <small className="minimal-sponsor-handle max-w-[44%] shrink-0 truncate text-right">
+                  {handle}
+                </small>
               ) : null}
             </span>
           </div>
@@ -61,7 +55,9 @@ function SponsorList({
 }
 
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
-  const progress = "90%"
+  const progress = sponsorsGoal.progressPercent
+    ? `${sponsorsGoal.progressPercent.replace(/%$/, "")}%`
+    : "90%"
   return (
     <div className="minimal-product-page">
       <MinimalTopbar />
@@ -75,43 +71,45 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </p>
           </header>
 
-          <section className="minimal-funding">
-            <div>
-              <strong>{progress}</strong>
-              <span>
-                {sponsorsGoal.goalAmountMonthly || "$1,500 per month"}
-              </span>
+          <section className="minimal-sponsor-funding-band">
+            <div className="minimal-funding">
+              <div>
+                <strong>{progress}</strong>
+                <span>
+                  {sponsorsGoal.goalAmountMonthly || "$1,500 per month"}
+                </span>
+              </div>
+              <p>Baseline funding to support three full time contributors.</p>
+              <div className="minimal-progress">
+                <span style={{ width: progress }} />
+              </div>
+              <div className="minimal-sponsor-actions">
+                <a
+                  className="minimal-primary-button"
+                  href="https://github.com/sponsors/tilesprivacy"
+                >
+                  <SocialIcon
+                    type="github"
+                    className="minimal-sponsor-button-icon"
+                  />
+                  Sponsor on GitHub
+                </a>
+                <a
+                  className="minimal-secondary-button"
+                  href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
+                >
+                  <SocialIcon
+                    type="opencollective"
+                    className="minimal-sponsor-button-icon"
+                  />
+                  Sponsor on OpenCollective
+                </a>
+              </div>
+              <p className="minimal-note">
+                You can also support us by spreading the word and keeping in touch
+                with us
+              </p>
             </div>
-            <p>Baseline funding to support three full time contributors.</p>
-            <div className="minimal-progress">
-              <span style={{ width: progress }} />
-            </div>
-            <div className="minimal-sponsor-actions">
-              <a
-                className={`minimal-primary-button ${themeAwareHeaderPrimaryCtaClasses}`}
-                href="https://github.com/sponsors/tilesprivacy"
-              >
-                <SocialIcon
-                  type="github"
-                  className="minimal-sponsor-button-icon"
-                />
-                Sponsor on GitHub
-              </a>
-              <a
-                className={`minimal-secondary-button ${themeAwareHeaderPrimaryCtaClasses}`}
-                href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
-              >
-                <SocialIcon
-                  type="opencollective"
-                  className="minimal-sponsor-button-icon"
-                />
-                Sponsor on OpenCollective
-              </a>
-            </div>
-            <p className="minimal-note">
-              You can also support us by spreading the word and keeping in touch
-              with us
-            </p>
           </section>
 
           <section className="minimal-section minimal-sponsor-copy">
@@ -215,7 +213,20 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
           </div>
         </article>
       </main>
-      <SiteFooter showDownloadCta={false} />
+      <SiteFooter
+        showDownloadCta={false}
+        decoration={
+          <div className="minimal-sponsor-footer-graphic">
+            <Image
+              src="/razor.png"
+              alt=""
+              width={1450}
+              height={1085}
+              className="minimal-sponsor-footer-graphic-img"
+            />
+          </div>
+        }
+      />
     </div>
   )
 }
