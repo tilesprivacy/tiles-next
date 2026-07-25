@@ -79,7 +79,7 @@ const useCases = [
   {
     title: "Individuals",
     icon: User,
-    body: "Use Tiles for sensitive personal work like financial planning, health notes, and private journaling. Run models locally so that context stays on your machines, sync across your devices, and share only when you choose.",
+    body: "Plan finances, track health notes, and keep a private journal. Run models locally so that context stays on your machines, sync across your devices, and share only when you choose.",
   },
   {
     title: "Coworking spaces",
@@ -89,7 +89,7 @@ const useCases = [
   {
     title: "Researchers",
     icon: FlaskConical,
-    body: "Run literature reviews, analyze datasets, and collaborate on research without uploading unpublished findings to a hosted AI provider. Ideal for sovereign compute and sensitive data.",
+    body: "Review literature, analyze datasets, and launch AI agents in preconfigured, resumable sandboxes with the right research tools already installed.",
   },
 ] as const
 
