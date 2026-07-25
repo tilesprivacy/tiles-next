@@ -485,25 +485,26 @@ export async function POST(request: NextRequest) {
                       </td>
                     </tr>
                     <tr>
-                      <td style="padding:30px 0 0 0;">
-                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse; margin-top:14px;">
+                      <td style="padding:40px 0 0 0;">
+                        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse;">
                           <tr>
-                            <td align="center" style="padding:0 0 14px 0; line-height:0;">
-                              <table role="presentation" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
-                                <tr>
-                                  <td align="center" style="line-height:0;">
-                                    <a href="https://www.tiles.run" style="text-decoration:none;">
-                                      <img src="https://www.tiles.run/lighticon.png" width="28" height="28" alt="Tiles" style="display:block; width:28px; max-width:28px; height:28px; border:0;">
-                                    </a>
-                                  </td>
-                                </tr>
-                              </table>
+                            <td align="center" style="padding:0 0 10px 0; line-height:0;">
+                              <a href="https://www.tiles.run" style="text-decoration:none;">
+                                <img src="https://www.tiles.run/lighticon.png" width="28" height="28" alt="" aria-hidden="true" style="display:block; width:28px; max-width:28px; height:28px; border:0;">
+                              </a>
                             </td>
                           </tr>
                           <tr>
-                            <td align="center" style="padding:0 0 18px 0;">
-                              <p style="margin:0; color:#555555; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.45; font-weight:400;">
-                                A private, collaborative AI assistant that works for you.
+                            <td align="center" style="padding:0 0 14px 0;">
+                              <a href="https://www.tiles.run" style="color:#111111; text-decoration:none; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:16px; line-height:1.2; font-weight:600; letter-spacing:-0.02em;">
+                                Tiles
+                              </a>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="padding:0 24px 18px 24px;">
+                              <p style="margin:0; color:#555555; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:14px; line-height:1.5; font-weight:400;">
+                                Tiles is a private local-first AI assistant with built-in collaboration for the Atmosphere.
                               </p>
                             </td>
                           </tr>
@@ -546,10 +547,21 @@ export async function POST(request: NextRequest) {
                             </td>
                           </tr>
                           <tr>
-                            <td align="center" style="padding:0 0 4px 0;">
-                              <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#333333; text-decoration:underline; text-underline-offset:4px; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6;">
-                                Unsubscribe
-                              </a>
+                            <td align="center" style="padding:0 0 10px 0;">
+                              <p style="margin:0; color:#666666; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
+                                <a href="mailto:hello@tiles.run?subject=Unsubscribe%20from%20Tiles%20emails" style="color:#333333; text-decoration:underline; text-underline-offset:4px;"><span style="color:#333333;">Unsubscribe</span></a>
+                                <span style="color:#bbbbbb;">&nbsp;·&nbsp;</span>
+                                <a href="https://tiles.run/privacy" style="color:#333333; text-decoration:underline; text-underline-offset:4px;"><span style="color:#333333;">Privacy</span></a>
+                                <span style="color:#bbbbbb;">&nbsp;·&nbsp;</span>
+                                <a href="https://tiles.run/terms" style="color:#333333; text-decoration:underline; text-underline-offset:4px;"><span style="color:#333333;">Terms</span></a>
+                              </p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="center" style="padding:0;">
+                              <p style="margin:0; color:#888888; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
+                                Copyright © 2026 Tiles Privacy
+                              </p>
                             </td>
                           </tr>
                         </table>

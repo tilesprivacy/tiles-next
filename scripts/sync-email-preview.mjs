@@ -15,16 +15,19 @@ function extractHtmlFromRoute() {
   try {
     const content = readFileSync(routeFile, 'utf-8');
     
-    // Find the html template literal - look for `html: \`` pattern
-    const htmlMatch = content.match(/html:\s*`([\s\S]*?)`\s*,/);
-    
+    // Match either `html: \`` or `html: isLinuxWaitlist ? undefined : \``
+    const htmlMatch =
+      content.match(/html:\s*isLinuxWaitlist\s*\?\s*undefined\s*:\s*`([\s\S]*?)`\s*,/) ||
+      content.match(/html:\s*`([\s\S]*?)`\s*,/);
+
     if (!htmlMatch) {
       console.error('❌ Could not find HTML template in route.ts');
       return false;
     }
-    
-    const htmlContent = htmlMatch[1];
-    
+
+    // Strip the common 8-space indent from the template literal body
+    const htmlContent = htmlMatch[1].replace(/^\n/, '').replace(/^ {8}/gm, '');
+
     // Write to preview file
     writeFileSync(previewFile, htmlContent, 'utf-8');
     console.log('✅ Updated email-preview.html');
