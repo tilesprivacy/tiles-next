@@ -17,22 +17,9 @@ interface PluginDetailContentProps {
   skills: TilesPluginSkill[]
 }
 
-function OutgoingIcon() {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-2.5 w-2.5 shrink-0" aria-hidden>
-      <path d="M3 9L9 3M9 3H4.5M9 3V7.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  )
-}
-
 export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps) {
   const [copiedCommand, setCopiedCommand] = useState(false)
   const [copiedUsageCommand, setCopiedUsageCommand] = useState(false)
-  const sourceUrl =
-    plugin.slug === "caldir"
-      ? skills[0]?.sourceUrl ?? `https://github.com/tilesprivacy/plugins/blob/main/caldir/skills/caldir/SKILL.md`
-      : `https://github.com/tilesprivacy/plugins/tree/main/${plugin.slug}`
-  const sourceLabel = "View Source"
   const primarySkillName = skills[0]?.name || plugin.slug
   const usageCommand = `/ $${primarySkillName}`
   const usageCommandClipboardText = `$${primarySkillName}`
@@ -74,37 +61,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
-        <div className="mx-auto grid w-full max-w-[1300px] gap-10 lg:grid-cols-[310px_minmax(0,768px)] lg:gap-5">
-          <aside className="hidden pt-2 lg:block">
-            <div className="sticky top-28 space-y-7">
-              <nav className="space-y-3 text-sm text-muted-foreground" aria-label={`${plugin.name} plugin links`}>
-                <div className="flex min-w-0 items-center gap-1.5 text-foreground">
-                  <Link className="shrink-0 transition-colors hover:text-foreground/70" href="/plugins">
-                    Plugins
-                  </Link>
-                  <span className="text-muted-foreground">/</span>
-                  <span className="truncate text-muted-foreground">{plugin.name}</span>
-                </div>
-                <a
-                  className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
-                  href={sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {sourceLabel}
-                  <OutgoingIcon />
-                </a>
-              </nav>
-              <p className="max-w-[11rem] text-sm leading-6 text-muted-foreground">
-                Learn how to use plugins in{" "}
-                <Link className="text-foreground underline-offset-4 hover:underline" href="/book/manual#plugins">
-                  Book/Manual
-                </Link>
-                .
-              </p>
-            </div>
-          </aside>
-
+        <div className="mx-auto w-full max-w-[768px]">
           <section className="min-w-0">
             <Link
               href="/plugins"
@@ -158,25 +115,6 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
                 plugin.description
               )}
             </p>
-
-            <div className="mb-10 space-y-3 text-sm leading-6 text-muted-foreground lg:hidden">
-              <a
-                className="inline-flex items-center gap-1.5 transition-colors hover:text-foreground"
-                href={sourceUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {sourceLabel}
-                <OutgoingIcon />
-              </a>
-              <p>
-                Learn how to use plugins in{" "}
-                <Link className="text-foreground underline-offset-4 hover:underline" href="/book/manual#plugins">
-                  Book/Manual
-                </Link>
-                .
-              </p>
-            </div>
 
             <div className="mb-12">
               <h2 className={`mb-3 ${marketingPageSubsectionTitleClass}`}>Usage</h2>
