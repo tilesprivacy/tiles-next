@@ -148,25 +148,6 @@ export function HomeContent() {
         </div>
       </section>
 
-      <section className="minimal-copy" aria-labelledby="use-cases-heading">
-        <div>
-          <h2 id="use-cases-heading" className="minimal-copy-heading">
-            Use cases
-          </h2>
-        </div>
-        {useCases.map((useCase) => (
-          <article key={useCase.title}>
-            <h3>
-              <span className="minimal-feature-icon" aria-hidden="true">
-                <useCase.icon strokeWidth={1.75} />
-              </span>
-              {useCase.title}
-            </h3>
-            <p>{useCase.body}</p>
-          </article>
-        ))}
-      </section>
-
       <section className="minimal-copy" aria-labelledby="whats-inside-heading">
         <div>
           <h2 id="whats-inside-heading" className="minimal-copy-heading">
@@ -182,6 +163,25 @@ export function HomeContent() {
               {feature.title}
             </h3>
             <p>{feature.body}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="minimal-copy" aria-labelledby="use-cases-heading">
+        <div>
+          <h2 id="use-cases-heading" className="minimal-copy-heading">
+            Use cases
+          </h2>
+        </div>
+        {useCases.map((useCase) => (
+          <article key={useCase.title}>
+            <h3>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <useCase.icon strokeWidth={1.75} />
+              </span>
+              {useCase.title}
+            </h3>
+            <p>{useCase.body}</p>
           </article>
         ))}
       </section>
