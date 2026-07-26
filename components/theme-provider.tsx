@@ -13,7 +13,7 @@ import {
 } from '@/lib/home-page-theme'
 import {
   OWN_YOUR_AI_PAGE_THEME,
-  isOwnYourAiForceDarkPath,
+  isOwnYourAiThemePath,
 } from '@/lib/own-your-ai-theme'
 import {
   CYBERPUNK_THEME,
@@ -27,14 +27,14 @@ import {
 } from '@/lib/sponsor-page-theme'
 
 function getPageTheme(pathname: string | null): string | null {
-  if (isOwnYourAiForceDarkPath(pathname)) return OWN_YOUR_AI_PAGE_THEME
+  if (isOwnYourAiThemePath(pathname)) return OWN_YOUR_AI_PAGE_THEME
   if (isSponsorPath(pathname)) return SPONSOR_PAGE_THEME
   if (isHomePageThemePath(pathname)) return HOME_PAGE_THEME
   return null
 }
 
 function getForcedTheme(pageTheme: string | null): string | undefined {
-  if (pageTheme === OWN_YOUR_AI_PAGE_THEME) return 'dark'
+  if (pageTheme === OWN_YOUR_AI_PAGE_THEME) return CYBERPUNK_THEME
   if (pageTheme === SPONSOR_PAGE_THEME) return CYBERPUNK_THEME
   return undefined
 }
