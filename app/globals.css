@@ -2863,6 +2863,69 @@ html.cyberpunk [data-book-section] {
   color: var(--foreground) !important;
 }
 
+/* Cyberpunk book code blocks: use the dark syntax palette and yellow controls
+   so the script surface and clipboard action stay distinct from the black page. */
+html.cyberpunk [data-book-section] .nextra-code pre {
+  background: var(--secondary) !important;
+  box-shadow: inset 0 0 0 1px
+    color-mix(in srgb, var(--sponsor-yellow) 42%, transparent) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  pre
+  code.nextra-code {
+  color: var(--foreground) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  pre
+  code.nextra-code
+  span {
+  background-color: var(--shiki-dark-bg, transparent) !important;
+  color: color-mix(
+    in srgb,
+    var(--shiki-dark, var(--foreground)) 84%,
+    white
+  ) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  button[title="Copy code"] {
+  border: 1px solid var(--sponsor-yellow) !important;
+  background-color: var(--background) !important;
+  color: var(--sponsor-yellow) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  button[title="Copy code"]
+  svg {
+  color: var(--sponsor-yellow) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  button[title="Copy code"]:hover {
+  background-color: var(--sponsor-yellow) !important;
+  color: var(--background) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  button[title="Copy code"]:hover
+  svg {
+  color: var(--background) !important;
+}
+
 /* Syntax highlighting tokens in dark mode - Shiki/Nextra */
 /* Shiki uses CSS variables like --shiki-light and --shiki-dark in inline styles */
 /* Nextra's CSS uses color: var(--shiki-dark) but we need to ensure it works in our dark mode */
