@@ -21,6 +21,8 @@
   background: #020202;
   color: #fff;
   font-size: 0.8125rem;
+  font-weight: 400;
+  letter-spacing: 0;
   line-height: 1.35;
 }
 
@@ -128,14 +130,12 @@ html[data-page-theme="sponsor"] .site-announcement {
   border-bottom-color: transparent;
   background: #000;
   color: #fff;
-  font-weight: 700;
 }
 
 html[data-page-theme="sponsor"].dark .site-announcement {
   border-bottom-color: transparent;
   background: var(--sponsor-yellow);
   color: #000;
-  font-weight: 700;
 }
 
 html[data-page-theme="sponsor"] .site-announcement-logo {
@@ -177,7 +177,6 @@ html.cyberpunk .site-announcement {
   border-bottom-color: transparent;
   background: var(--sponsor-yellow);
   color: #000;
-  font-weight: 700;
 }
 
 html.cyberpunk .site-announcement-logo {
