@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
+import { isDarkResolvedTheme } from "@/lib/site-theme"
 
 export function SponsorFooterGraphic() {
   const { resolvedTheme } = useTheme()
@@ -13,7 +14,7 @@ export function SponsorFooterGraphic() {
   }, [])
 
   const src =
-    mounted && resolvedTheme === "dark" ? "/razor.png" : "/razordark.png"
+    mounted && isDarkResolvedTheme(resolvedTheme) ? "/razor.png" : "/razordark.png"
 
   return (
     <div className="minimal-sponsor-footer-graphic">

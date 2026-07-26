@@ -4,6 +4,7 @@ import type { ChangeItem, Release } from "@/lib/releases"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { formatBinarySize } from "@/lib/format-binary-size"
+import { isDarkResolvedTheme } from "@/lib/site-theme"
 import {
   marketingPageBodyClass,
   marketingPageLeadClass,
@@ -143,7 +144,7 @@ export function ChangelogContent({ releases, error }: ChangelogContentProps) {
     setMounted(true)
   }, [])
 
-  const isDark = mounted && resolvedTheme === 'dark'
+  const isDark = mounted && isDarkResolvedTheme(resolvedTheme)
 
   const bgColor = 'bg-background'
   const textColor = 'text-foreground'

@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { isDarkResolvedTheme } from '@/lib/site-theme'
 
 export function BookLogo() {
   const { theme, systemTheme, resolvedTheme } = useTheme()
@@ -14,7 +15,7 @@ export function BookLogo() {
 
   // Use resolvedTheme if available, otherwise determine from theme/systemTheme
   const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
-  const isDark = currentTheme === 'dark'
+  const isDark = isDarkResolvedTheme(currentTheme)
 
   // Show light theme logo during SSR to avoid hydration mismatch
   // This matches the default light theme

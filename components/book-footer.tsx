@@ -6,6 +6,7 @@ import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { ThemeSwitcher } from "@/components/theme-switcher"
+import { isDarkResolvedTheme } from "@/lib/site-theme"
 
 export function BookFooter() {
   const { theme, systemTheme, resolvedTheme } = useTheme()
@@ -17,7 +18,7 @@ export function BookFooter() {
 
   // Use resolvedTheme if available, otherwise determine from theme/systemTheme
   const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
-  const isDark = currentTheme === 'dark'
+  const isDark = isDarkResolvedTheme(currentTheme)
   
   // Invert: if book page is light, show dark footer; if dark, show light footer
   const footerIsDark = !isDark

@@ -9,7 +9,7 @@ export default function SponsorLayout({
     <>
       <script
         dangerouslySetInnerHTML={{
-          __html: `document.documentElement.dataset.pageTheme=${JSON.stringify(SPONSOR_PAGE_THEME)};`,
+          __html: `document.documentElement.dataset.pageTheme=${JSON.stringify(SPONSOR_PAGE_THEME)};document.documentElement.classList.add("cyberpunk","dark");`,
         }}
       />
       {children}

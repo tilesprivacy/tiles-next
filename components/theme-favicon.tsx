@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react'
 import { useTheme } from 'next-themes'
+import { isDarkResolvedTheme } from '@/lib/site-theme'
 
 const BUST = 'v=20260413'
 
@@ -26,7 +27,7 @@ export function ThemeFavicon() {
 
   useEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const isDark = resolvedTheme ? resolvedTheme === 'dark' : prefersDark
+    const isDark = resolvedTheme ? isDarkResolvedTheme(resolvedTheme) : prefersDark
 
     const svg = isDark ? `/icon-mark-light.svg?${BUST}` : `/icon-mark-dark.svg?${BUST}`
     const png96 = isDark ? `/icon-light-96x96.png?${BUST}` : `/icon-dark-96x96.png?${BUST}`

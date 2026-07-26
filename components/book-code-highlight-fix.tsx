@@ -11,7 +11,11 @@ export function BookCodeHighlightFix() {
       const bookSection = document.querySelector('[data-book-section]')
       if (!bookSection) return
       
-      const isDark = resolvedTheme === 'dark' || document.documentElement.classList.contains('dark')
+      const isDark =
+        resolvedTheme === 'dark' ||
+        resolvedTheme === 'cyberpunk' ||
+        document.documentElement.classList.contains('dark') ||
+        document.documentElement.classList.contains('cyberpunk')
       if (!isDark) {
         // In light mode, remove our dark mode data attribute to allow normal rendering
         bookSection.querySelectorAll('[data-dark-highlight]').forEach((el) => {

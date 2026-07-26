@@ -4,6 +4,7 @@ import * as React from 'react'
 import { usePathname } from 'next/navigation'
 import {
   ThemeProvider as NextThemesProvider,
+  useTheme,
   type ThemeProviderProps,
 } from 'next-themes'
 import {
@@ -14,6 +15,11 @@ import {
   OWN_YOUR_AI_PAGE_THEME,
   isOwnYourAiForceDarkPath,
 } from '@/lib/own-your-ai-theme'
+import {
+  CYBERPUNK_THEME,
+  SITE_THEMES,
+  SITE_THEME_CLASS_VALUES,
+} from '@/lib/site-theme'
 import {
   SPONSOR_PAGE_THEME,
   isSponsorPath,
@@ -26,14 +32,33 @@ function getPageTheme(pathname: string | null): string | null {
   return null
 }
 
-function shouldForceDark(pageTheme: string | null): boolean {
-  return pageTheme === OWN_YOUR_AI_PAGE_THEME
+function getForcedTheme(pageTheme: string | null): string | undefined {
+  if (pageTheme === OWN_YOUR_AI_PAGE_THEME) return 'dark'
+  if (pageTheme === SPONSOR_PAGE_THEME) return CYBERPUNK_THEME
+  return undefined
+}
+
+/**
+ * next-themes can only apply one class token per theme. Cyberpunk also needs
+ * `.dark` so existing `.dark` CSS and `dark:` utilities keep working.
+ */
+function CyberpunkDarkClassSync() {
+  const { resolvedTheme } = useTheme()
+
+  React.useLayoutEffect(() => {
+    const root = document.documentElement
+    if (resolvedTheme === CYBERPUNK_THEME) {
+      root.classList.add('dark')
+    }
+  }, [resolvedTheme])
+
+  return null
 }
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const pathname = usePathname()
   const pageTheme = getPageTheme(pathname)
-  const forceDark = shouldForceDark(pageTheme)
+  const forcedTheme = getForcedTheme(pageTheme)
 
   React.useLayoutEffect(() => {
     const root = document.documentElement
@@ -51,7 +76,19 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   }, [pageTheme])
 
   return (
-    <NextThemesProvider {...props} forcedTheme={forceDark ? 'dark' : undefined}>
+    <NextThemesProvider
+      {...props}
+      themes={[...SITE_THEMES]}
+      value={SITE_THEME_CLASS_VALUES}
+      forcedTheme={forcedTheme}
+    >
+      {/* Runs immediately after next-themes’ blocking script so first paint has `.dark`. */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `(function(){try{var d=document.documentElement;if(d.classList.contains(${JSON.stringify(CYBERPUNK_THEME)}))d.classList.add("dark");}catch(e){}})();`,
+        }}
+      />
+      <CyberpunkDarkClassSync />
       {children}
     </NextThemesProvider>
   )

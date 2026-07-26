@@ -14,7 +14,8 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSponsorPage = isSponsorPath(pathname)
-  const hideThemeSwitcher = isOwnYourAiForceDarkPath(pathname)
+  const hideThemeSwitcher =
+    isOwnYourAiForceDarkPath(pathname) || isSponsorPage
   const isActive = (href: string) =>
     href === "/book"
       ? pathname === "/book" || pathname.startsWith("/book/")

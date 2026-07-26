@@ -2,6 +2,7 @@
 
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
+import { isDarkResolvedTheme } from '@/lib/site-theme'
 import Link from "next/link"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SocialLinks } from "@/components/social-links"
@@ -28,7 +29,7 @@ export function MissionSection({ title, compact = false, className }: MissionSec
     setMounted(true)
   }, [])
 
-  const isDark = mounted && resolvedTheme === 'dark'
+  const isDark = mounted && isDarkResolvedTheme(resolvedTheme)
   const textColor = 'text-foreground'
   const textColorMuted = isDark ? 'text-[#E6E6E6]' : 'text-black/80'
   const textColorSubtle = isDark ? 'text-[#8A8A8A]' : 'text-black/50'

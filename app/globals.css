@@ -1,7 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .cyberpunk *));
+@custom-variant cyberpunk (&:is(.cyberpunk *));
 
 :root {
   --site-announcement-height: 2.25rem;
@@ -147,6 +148,62 @@ html[data-page-theme="sponsor"].dark .site-announcement-logo {
   mix-blend-mode: multiply;
 }
 
+/* Site-wide cyberpunk theme: sponsor yellow on a pure black canvas. */
+html.cyberpunk {
+  --sponsor-yellow: #f7ff61;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #000000;
+  --card-foreground: #ffffff;
+  --popover: #000000;
+  --popover-foreground: #ffffff;
+  --secondary: #111111;
+  --secondary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.1);
+  --muted-foreground: #a1a1aa;
+  --accent: #18181b;
+  --accent-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.1);
+  --sidebar: #000000;
+  --sidebar-foreground: #ffffff;
+  --sidebar-accent: #18181b;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  color-scheme: dark;
+}
+
+html.cyberpunk .site-announcement {
+  border-bottom-color: transparent;
+  background: var(--sponsor-yellow);
+  color: #000;
+  font-weight: 700;
+}
+
+html.cyberpunk .site-announcement-logo {
+  filter: none;
+  mix-blend-mode: multiply;
+}
+
+html.cyberpunk .minimal-primary-button,
+html.cyberpunk .minimal-secondary-button {
+  border: 2px solid var(--sponsor-yellow) !important;
+  background: var(--sponsor-yellow) !important;
+  color: #000 !important;
+  box-shadow: none !important;
+}
+
+html.cyberpunk .minimal-primary-button:hover,
+html.cyberpunk .minimal-secondary-button:hover {
+  background: #000 !important;
+  color: var(--sponsor-yellow) !important;
+  opacity: 1 !important;
+}
+
+html.cyberpunk .refined-site-footer {
+  background: #000;
+}
+
 /* Homepage: pure black dark canvas; keep light theme unchanged. */
 html[data-page-theme="home"].dark {
   --background: #000000;
@@ -163,13 +220,13 @@ html[data-page-theme="home"].dark {
   --sidebar-border: rgba(255, 255, 255, 0.12);
 }
 
-html[data-page-theme="home"].dark .site-announcement {
+html[data-page-theme="home"].dark:not(.cyberpunk) .site-announcement {
   border-bottom-color: #e5e5e5;
   background: #fff;
   color: #111;
 }
 
-html[data-page-theme="home"].dark .site-announcement-logo {
+html[data-page-theme="home"].dark:not(.cyberpunk) .site-announcement-logo {
   filter: grayscale(1);
 }
 

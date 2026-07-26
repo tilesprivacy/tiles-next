@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useTheme } from 'next-themes'
 import { cn } from "@/lib/utils"
+import { isDarkResolvedTheme } from "@/lib/site-theme"
 import Script from "next/script"
 import { triggerHaptic } from "@/lib/haptics"
 
@@ -42,7 +43,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
     }
   }, [])
 
-  const isDark = surface === "auto" ? mounted && resolvedTheme === "dark" : surface === "dark"
+  const isDark = surface === "auto" ? mounted && isDarkResolvedTheme(resolvedTheme) : surface === "dark"
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
