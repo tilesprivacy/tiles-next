@@ -28,7 +28,8 @@
   width: min(100%, 64rem);
   min-height: 100%;
   display: grid;
-  grid-template-columns: minmax(1.5rem, 1fr) minmax(0, auto) minmax(1.5rem, 1fr);
+  grid-template-columns: auto minmax(0, auto);
+  justify-content: center;
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 3.25rem;
@@ -61,7 +62,6 @@
   width: 1.5rem;
   height: 1.5rem;
   flex: none;
-  justify-self: end;
   filter: grayscale(1) invert(1);
 }
 
@@ -263,8 +263,6 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
 
 @media (max-width: 520px) {
   .site-announcement a {
-    grid-template-columns: auto minmax(0, auto);
-    justify-content: center;
     padding-inline: 0.75rem;
     font-size: clamp(0.625rem, 2.7vw, 0.75rem);
   }
