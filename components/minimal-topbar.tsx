@@ -6,7 +6,6 @@ import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { ThemeSwitcher } from "@/components/theme-switcher"
-import { isOwnYourAiForceDarkPath } from "@/lib/own-your-ai-theme"
 import { isSponsorPath } from "@/lib/sponsor-page-theme"
 import { cn } from "@/lib/utils"
 
@@ -14,8 +13,7 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const isSponsorPage = isSponsorPath(pathname)
-  const hideThemeSwitcher =
-    isOwnYourAiForceDarkPath(pathname) || isSponsorPage
+  const hideThemeSwitcher = isSponsorPage
   const isActive = (href: string) =>
     href === "/book"
       ? pathname === "/book" || pathname.startsWith("/book/")

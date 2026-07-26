@@ -58,7 +58,7 @@ export default function OwnYourAiLayout({
     <>
       <script
         dangerouslySetInnerHTML={{
-          __html: `document.documentElement.dataset.pageTheme=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};document.documentElement.classList.add("dark");`,
+          __html: `document.documentElement.dataset.pageTheme=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};`,
         }}
       />
       <StandardSiteLinkTags documentSlug="own-your-ai" includePublication={false} />
