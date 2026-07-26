@@ -2,7 +2,7 @@
 title: "Own your AI with local models and open protocols"
 description: "A Local-First Conf talk about local models, open protocols, and user-owned AI."
 publishDate: "2026-07-14"
-updatedAt: "2026-07-24"
+updatedAt: "2026-07-26"
 ogImage: "/own-your-ai-og.png"
 tags:
   - Tiles
@@ -17,6 +17,8 @@ This post is adapted from a talk I gave at [Local-First Conf](https://www.localf
 As AI becomes central to how we work and communicate, I believe we are seeing a new form of technological feudalism, where a handful of platforms control the models, identities, data, and distribution channels people depend on. Local-first AI offers an alternative, but many tools still lack the identity, sync, and collaboration features people expect.
 
 In the talk, I shared what I have learned building Tiles, a local-first private AI assistant. I discussed the tradeoffs I have encountered while combining local models with decentralized identity, peer-to-peer encrypted sync, and AT Protocol based collaboration. I also covered exploratory research we are conducting to bring the convenience of modern AI services to a user-owned stack.
+
+![Ankesh Bharti presenting Tiles at Local-First Conf in Berlin](/own-your-ai-local-first-conf-stage.jpeg)
 
 ## Slides and Transcript
 
