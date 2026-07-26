@@ -8,6 +8,7 @@ import SiteHeader from "@/components/site-header"
 import { AnnouncementBanner } from "@/components/announcement-banner"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
+import { DEFAULT_SITE_THEME } from "@/lib/site-theme"
 import "./globals.css"
 
 const geist = Geist({
@@ -101,8 +102,7 @@ export default function RootLayout({
       <body className={`${geist.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme={DEFAULT_SITE_THEME}
           disableTransitionOnChange
           storageKey="tiles-theme"
         >

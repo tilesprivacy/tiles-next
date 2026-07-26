@@ -13,7 +13,7 @@ interface ThemeSwitcherProps {
   touchFriendly?: boolean
 }
 
-type ThemeMode = 'light' | 'dark' | 'cyberpunk' | 'system'
+type ThemeMode = 'light' | 'dark' | 'cyberpunk'
 
 function SunIcon({ className }: { className?: string }) {
   return (
@@ -31,14 +31,6 @@ function MoonIcon({ className }: { className?: string }) {
   )
 }
 
-function SystemIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className}>
-      <path fillRule="evenodd" d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.484-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z" clipRule="evenodd" />
-    </svg>
-  )
-}
-
 /** Neon bolt for the cyberpunk theme. */
 function CyberpunkIcon({ className }: { className?: string }) {
   return (
@@ -49,7 +41,6 @@ function CyberpunkIcon({ className }: { className?: string }) {
 }
 
 function resolveToggleMode(theme: string | undefined, resolvedTheme: string | undefined): ThemeMode {
-  if (theme === 'system') return 'system'
   if (theme === CYBERPUNK_THEME || resolvedTheme === CYBERPUNK_THEME) return 'cyberpunk'
   if (resolvedTheme === 'dark') return 'dark'
   return 'light'
@@ -58,7 +49,6 @@ function resolveToggleMode(theme: string | undefined, resolvedTheme: string | un
 function nextToggleMode(mode: ThemeMode): ThemeMode {
   if (mode === 'light') return 'dark'
   if (mode === 'dark') return 'cyberpunk'
-  if (mode === 'cyberpunk') return 'system'
   return 'light'
 }
 
@@ -98,7 +88,7 @@ export function ThemeSwitcher({
 
   const iconSize = size === 'sm' ? 'h-3.5 w-3.5' : 'h-4 w-4'
   const togglePadding = quiet ? 'p-1' : 'p-1.5'
-  const segmentCount = 4
+  const segmentCount = 3
 
   if (!mounted) {
     const placeholderBg = 'bg-foreground/[0.06]'
@@ -145,10 +135,8 @@ export function ThemeSwitcher({
         <SunIcon className={iconSize} />
       ) : effectiveMode === 'dark' ? (
         <MoonIcon className={iconSize} />
-      ) : effectiveMode === 'cyberpunk' ? (
-        <CyberpunkIcon className={iconSize} />
       ) : (
-        <SystemIcon className={iconSize} />
+        <CyberpunkIcon className={iconSize} />
       )
 
     const themeLabel = locked
@@ -249,19 +237,6 @@ export function ThemeSwitcher({
         aria-label="Cyberpunk mode"
       >
         <CyberpunkIcon className={iconSize} />
-      </button>
-      <button
-        type="button"
-        onClick={() => setTheme('system')}
-        disabled={locked}
-        className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 disabled:cursor-default ${
-          theme === 'system'
-            ? `${activeBg} ${activeText}`
-            : `${inactiveText} ${hoverText}`
-        }`}
-        aria-label="System theme"
-      >
-        <SystemIcon className={iconSize} />
       </button>
     </div>
   )

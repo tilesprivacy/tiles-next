@@ -26,8 +26,7 @@ export function ThemeFavicon() {
   const { resolvedTheme } = useTheme()
 
   useEffect(() => {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const isDark = resolvedTheme ? isDarkResolvedTheme(resolvedTheme) : prefersDark
+    const isDark = resolvedTheme ? isDarkResolvedTheme(resolvedTheme) : true
 
     const svg = isDark ? `/icon-mark-light.svg?${BUST}` : `/icon-mark-dark.svg?${BUST}`
     const png96 = isDark ? `/icon-light-96x96.png?${BUST}` : `/icon-dark-96x96.png?${BUST}`

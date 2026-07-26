@@ -1900,6 +1900,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 [data-book-section] article :where(h1, h2, h3, h4, h5, h6) {
   font-family: inherit;
   text-wrap: balance;
+  /* Theme tokens beat Nextra's x:text-slate-900 / x:dark:text-slate-100 so
+     light, dark, and cyberpunk (which may only set .cyberpunk) all stay readable. */
+  color: var(--foreground) !important;
 }
 
 [data-book-section] article main > h1 {
@@ -2198,17 +2201,14 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   --brand-accent: #64b5f6;
 }
 
-/* Nextra dark theme overrides - ensure book pages use our dark colors */
-.dark [data-book-section] {
+/* Dark / cyberpunk book surfaces: match site canvas (cyberpunk is pure black). */
+:is(.dark, .cyberpunk) [data-book-section] {
   --tw-bg-opacity: 1;
-}
-
-.dark [data-book-section] {
   background-color: var(--background) !important;
 }
 
-.dark [data-book-section] article,
-.dark [data-book-section] main {
+:is(.dark, .cyberpunk) [data-book-section] article,
+:is(.dark, .cyberpunk) [data-book-section] main {
   background-color: var(--background) !important;
 }
 
@@ -2224,6 +2224,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 .dark [data-book-section] {
   --nextra-bg: 31 31 31;
+  --sidebar: var(--background);
+  --sidebar-accent: var(--muted);
+  --sidebar-border: var(--border);
+}
+
+html.cyberpunk [data-book-section] {
+  --nextra-bg: 0 0 0;
   --sidebar: var(--background);
   --sidebar-accent: var(--muted);
   --sidebar-border: var(--border);
@@ -2296,18 +2303,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   background-color: var(--sidebar-border) !important;
 }
 
-/* Nextra text colors in dark mode */
-.dark [data-book-section] h1,
-.dark [data-book-section] h2,
-.dark [data-book-section] h3,
-.dark [data-book-section] h4,
-.dark [data-book-section] h5,
-.dark [data-book-section] h6 {
-  color: var(--foreground) !important;
-}
-
-.dark [data-book-section] p,
-.dark [data-book-section] li {
+/* Nextra body colors in dark / cyberpunk (headings use --foreground above). */
+:is(.dark, .cyberpunk) [data-book-section] p,
+:is(.dark, .cyberpunk) [data-book-section] li {
   color: var(--muted-foreground) !important;
 }
 
@@ -2318,7 +2316,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   line-height: 1.72 !important;
 }
 
-.dark [data-book-section] article :where(p, li) {
+:is(.dark, .cyberpunk) [data-book-section] article :where(p, li) {
   color: color-mix(in srgb, var(--foreground) 72%, transparent) !important;
 }
 
@@ -3365,6 +3363,40 @@ sniper-link[hidden] {
   margin: 0 !important;
   font-size: 0.875rem !important;
   line-height: 1.25rem !important;
+}
+
+/* Nextra's Copy page split button is rendered with light-theme utilities.
+   Keep its trigger and portalled dropdown readable in the Cyberpunk theme. */
+html.cyberpunk
+  [data-book-section]
+  article
+  div.nextra-border:has(> button[aria-haspopup="listbox"])
+  > button:first-child {
+  color: var(--foreground) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  article
+  button[aria-haspopup="listbox"] {
+  background-color: var(--muted) !important;
+  color: var(--foreground) !important;
+}
+
+html.cyberpunk [role="listbox"] {
+  border-color: var(--border) !important;
+  background-color: var(--popover) !important;
+}
+
+html.cyberpunk [role="listbox"] [role="option"] {
+  color: var(--popover-foreground) !important;
+}
+
+html.cyberpunk
+  [role="listbox"]
+  [role="option"]
+  [class*="text-xs"] {
+  color: var(--muted-foreground) !important;
 }
 
 /* Hide Nextra's default pagination component - we use our custom BookPageNavigation instead */

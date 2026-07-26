@@ -1,7 +1,10 @@
-/** User-selectable themes stored in `tiles-theme` (plus `system` when enabled). */
+/** User-selectable themes stored in `tiles-theme`. */
 export const CYBERPUNK_THEME = "cyberpunk" as const
 
 export const SITE_THEMES = ["light", "dark", CYBERPUNK_THEME] as const
+
+/** Default for new visitors and when no valid preference is stored. */
+export const DEFAULT_SITE_THEME = CYBERPUNK_THEME
 
 export type SiteThemeName = (typeof SITE_THEMES)[number]
 

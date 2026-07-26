@@ -6,24 +6,22 @@ import { useEffect, useState } from 'react'
 import { isDarkResolvedTheme } from '@/lib/site-theme'
 
 export function BookLogo() {
-  const { theme, systemTheme, resolvedTheme } = useTheme()
+  const { theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Use resolvedTheme if available, otherwise determine from theme/systemTheme
-  const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
+  const currentTheme = resolvedTheme || theme
   const isDark = isDarkResolvedTheme(currentTheme)
 
-  // Show light theme logo during SSR to avoid hydration mismatch
-  // This matches the default light theme
+  // Show dark logo during SSR to match the default cyberpunk theme.
   if (!mounted) {
     return (
       <div className="flex items-center gap-2 sm:gap-3">
         <Image
-          src="/light.png"
+          src="/grey.png"
           alt="Tiles"
           width={120}
           height={40}

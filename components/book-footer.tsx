@@ -9,15 +9,14 @@ import { ThemeSwitcher } from "@/components/theme-switcher"
 import { isDarkResolvedTheme } from "@/lib/site-theme"
 
 export function BookFooter() {
-  const { theme, systemTheme, resolvedTheme } = useTheme()
+  const { theme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // Use resolvedTheme if available, otherwise determine from theme/systemTheme
-  const currentTheme = resolvedTheme || (theme === 'system' ? systemTheme : theme)
+  const currentTheme = resolvedTheme || theme
   const isDark = isDarkResolvedTheme(currentTheme)
   
   // Invert: if book page is light, show dark footer; if dark, show light footer

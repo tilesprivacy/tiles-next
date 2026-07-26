@@ -17,6 +17,7 @@ import {
 } from '@/lib/own-your-ai-theme'
 import {
   CYBERPUNK_THEME,
+  DEFAULT_SITE_THEME,
   SITE_THEMES,
   SITE_THEME_CLASS_VALUES,
 } from '@/lib/site-theme'
@@ -85,7 +86,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       {/* Runs immediately after next-themes’ blocking script so first paint has `.dark`. */}
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){try{var d=document.documentElement;if(d.classList.contains(${JSON.stringify(CYBERPUNK_THEME)}))d.classList.add("dark");}catch(e){}})();`,
+          __html: `(function(){try{var k="tiles-theme",s=localStorage.getItem(k);if(s==="system")localStorage.setItem(k,${JSON.stringify(DEFAULT_SITE_THEME)});var d=document.documentElement;if(d.classList.contains(${JSON.stringify(CYBERPUNK_THEME)}))d.classList.add("dark");}catch(e){}})();`,
         }}
       />
       <CyberpunkDarkClassSync />
