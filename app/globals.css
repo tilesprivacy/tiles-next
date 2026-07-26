@@ -2314,9 +2314,14 @@ html.cyberpunk [data-book-section] {
   color: color-mix(in srgb, var(--foreground) 72%, transparent) !important;
 }
 
-/* Keep Markdown table text aligned with the active book theme. */
+/* Keep Markdown tables aligned with the active book theme. */
 [data-book-section] article table :where(th, td) {
   color: var(--foreground) !important;
+}
+
+[data-book-section] article table tbody tr:nth-child(even),
+[data-book-section] article table tbody tr:nth-child(even) > :where(th, td) {
+  background-color: var(--muted) !important;
 }
 
 /* Memory agent diagram: centered, ~85% of article column width on research exploration pages */
