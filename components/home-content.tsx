@@ -133,18 +133,18 @@ export function HomeContent() {
         />
         <div className="minimal-hero-device-banner" aria-hidden="true">
           <Image
-            src="/razordark.png"
+            src="/tiles_banner_outline_blk.svg"
             alt=""
-            width={1450}
-            height={1085}
+            width={1200}
+            height={220}
             className="dark:hidden"
           />
           <Image
-            src="/razor.png"
+            src="/tiles_banner_outline_wht.svg"
             alt=""
-            width={1450}
-            height={1085}
-            className="hidden dark:block"
+            width={1200}
+            height={220}
+            className="hidden bg-background dark:block"
           />
         </div>
       </div>
