@@ -76,7 +76,7 @@ const features = [
     title: "Every chat is a sandbox",
     icon: Box,
     badge: <ComingSoonTag />,
-    body: "Resume or share chats as sandboxed environments with friends or agents across devices.",
+    body: "Resume or share chats as sandboxed microVM environments with friends or agents across devices.",
   },
   {
     title: "Open source and free forever",
