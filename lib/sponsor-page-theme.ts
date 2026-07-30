@@ -9,10 +9,3 @@ export function isSponsorPath(
     pathname?.startsWith(`${SPONSOR_PATH}/`) === true
   )
 }
-
-/** @deprecated Use isSponsorPath. Kept for call-site compatibility. */
-export function isSponsorForceDarkPath(
-  pathname: string | null | undefined,
-): boolean {
-  return isSponsorPath(pathname)
-}

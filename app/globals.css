@@ -92,9 +92,8 @@ html[data-page-theme="own-your-ai"].dark .site-announcement-logo {
   filter: grayscale(1) invert(1);
 }
 
-/* /sponsor: yellow accents always; black canvas only in dark mode. */
+/* /sponsor: follow the normal light/dark palette. Yellow belongs to cyberpunk. */
 html[data-page-theme="sponsor"] {
-  --sponsor-yellow: #f7ff61;
   --background: #fdfdfd;
   --card: #fdfdfd;
   --popover: #fdfdfd;
@@ -121,28 +120,6 @@ html[data-page-theme="sponsor"].dark {
   --sidebar-accent: #18181b;
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgba(255, 255, 255, 0.1);
-}
-
-html[data-page-theme="sponsor"] .site-announcement {
-  border-bottom-color: transparent;
-  background: #000;
-  color: #fff;
-}
-
-html[data-page-theme="sponsor"].dark .site-announcement {
-  border-bottom-color: transparent;
-  background: var(--sponsor-yellow);
-  color: #000;
-}
-
-html[data-page-theme="sponsor"] .site-announcement-logo {
-  filter: grayscale(1) invert(1);
-  mix-blend-mode: normal;
-}
-
-html[data-page-theme="sponsor"].dark .site-announcement-logo {
-  filter: none;
-  mix-blend-mode: multiply;
 }
 
 /* Site-wide cyberpunk theme: sponsor yellow on a pure black canvas. */
@@ -675,6 +652,18 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-footer p {
   margin: 0;
 }
+.minimal-footer-legal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.minimal-footer-address {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-style: normal;
+  line-height: 1.5;
+}
 .minimal-footer-brand {
   display: flex;
   align-items: center;
@@ -751,6 +740,12 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   height: 1rem;
 }
 @media (min-width: 768px) {
+  .minimal-footer-address {
+    position: absolute;
+    left: 0;
+    bottom: 1rem;
+    text-align: left;
+  }
   .minimal-footer-links {
     position: absolute;
     right: 0;
@@ -1219,6 +1214,16 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--muted-foreground);
 }
 .minimal-sponsor-funding-band {
+  position: static;
+  width: auto;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  transform: none;
+  background: transparent;
+  color: inherit;
+}
+html.cyberpunk .minimal-sponsor-funding-band {
   position: relative;
   left: 50%;
   width: 100vw;
@@ -1226,40 +1231,40 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   margin: 1.5rem 0 2.5rem;
   padding: 3rem 1.25rem;
   transform: translateX(-50%);
-  background: var(--sponsor-yellow, #f7ff61);
+  background: var(--sponsor-yellow);
   color: #000;
 }
-.minimal-sponsor-funding-band .minimal-funding {
+html.cyberpunk .minimal-sponsor-funding-band .minimal-funding {
   width: min(100%, 46rem);
   margin: 0 auto;
   padding: 0;
 }
-.minimal-sponsor-page .minimal-funding > div:first-child strong {
+html.cyberpunk .minimal-sponsor-page .minimal-funding > div:first-child strong {
   font-weight: 300;
   letter-spacing: -0.05em;
   color: #000;
 }
-.minimal-sponsor-page .minimal-funding > div:first-child span,
-.minimal-sponsor-page .minimal-funding > p,
-.minimal-sponsor-page .minimal-note {
+html.cyberpunk .minimal-sponsor-page .minimal-funding > div:first-child span,
+html.cyberpunk .minimal-sponsor-page .minimal-funding > p,
+html.cyberpunk .minimal-sponsor-page .minimal-note {
   color: rgba(0, 0, 0, 0.65);
 }
-.minimal-sponsor-page .minimal-progress {
+html.cyberpunk .minimal-sponsor-page .minimal-progress {
   height: 0.375rem;
   background: rgba(0, 0, 0, 0.15);
 }
-.minimal-sponsor-page .minimal-progress span {
+html.cyberpunk .minimal-sponsor-page .minimal-progress span {
   background: #000;
 }
-.minimal-sponsor-page .minimal-sponsor-actions .minimal-primary-button,
-.minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary-button {
+html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-primary-button,
+html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary-button {
   border: 2px solid #000 !important;
   background: #000 !important;
-  color: var(--sponsor-yellow, #f7ff61) !important;
+  color: var(--sponsor-yellow) !important;
   box-shadow: none !important;
 }
-.minimal-sponsor-page .minimal-sponsor-actions .minimal-primary-button:hover,
-.minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary-button:hover {
+html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-primary-button:hover,
+html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary-button:hover {
   background: rgba(0, 0, 0, 0.8) !important;
   opacity: 1 !important;
 }

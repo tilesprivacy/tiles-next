@@ -6,14 +6,10 @@ import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { ThemeSwitcher } from "@/components/theme-switcher"
-import { isSponsorPath } from "@/lib/sponsor-page-theme"
-import { cn } from "@/lib/utils"
 
 export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
-  const isSponsorPage = isSponsorPath(pathname)
-  const hideThemeSwitcher = isSponsorPage
   const isActive = (href: string) =>
     href === "/book"
       ? pathname === "/book" || pathname.startsWith("/book/")
@@ -60,21 +56,15 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
         ))}
       </nav>
       <nav className="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
-        {!hideThemeSwitcher ? (
-          <div className="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8">
-            <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
-          </div>
-        ) : null}
+        <div className="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8">
+          <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
+        </div>
         {!hideBrand ? (
           <DownloadTilesCta
             size="nav"
             label="Download"
             ariaLabel="Download Tiles"
-            className={cn(
-              "minimal-topbar-download",
-              isSponsorPage &&
-                "!border-2 !border-black !bg-black !text-[var(--sponsor-yellow,#f7ff61)] shadow-none hover:!bg-[var(--sponsor-yellow,#f7ff61)] hover:!text-black hover:!opacity-100 dark:!border-[var(--sponsor-yellow,#f7ff61)] dark:!bg-[var(--sponsor-yellow,#f7ff61)] dark:!text-black dark:hover:!bg-black dark:hover:!text-[var(--sponsor-yellow,#f7ff61)]",
-            )}
+            className="minimal-topbar-download"
           />
         ) : null}
         <button

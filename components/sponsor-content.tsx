@@ -132,7 +132,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               , supporting an open, interoperable, and publicly accountable
               digital ecosystem for Europe.
             </p>
-            <p>Tiles Privacy is built by a small independent team of three.</p>
+            <p>We’re a small independent team based out of Bangalore, India.</p>
             <div className="minimal-team">
               {people.contributorsCore.map((person) => {
                 const { nameWithoutHandle } = splitPersonDisplayName(

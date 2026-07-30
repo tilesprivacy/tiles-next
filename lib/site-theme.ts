@@ -3,8 +3,8 @@ export const CYBERPUNK_THEME = "cyberpunk" as const
 
 export const SITE_THEMES = ["light", "dark", CYBERPUNK_THEME] as const
 
-/** Default for new visitors and when no valid preference is stored. */
-export const DEFAULT_SITE_THEME = CYBERPUNK_THEME
+/** Follow the device preference until the visitor explicitly selects a theme. */
+export const DEFAULT_SITE_THEME = "system" as const
 
 export type SiteThemeName = (typeof SITE_THEMES)[number]
 

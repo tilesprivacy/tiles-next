@@ -15,7 +15,18 @@ export function MinimalFooter() {
         </span>
         <span>Tiles</span>
       </Link>
-      <p>Copyright © 2026 Tiles Privacy</p>
+      <div className="minimal-footer-legal">
+        <p>© 2026 Tiles Privacy Technologies Pvt. Ltd.</p>
+        <address className="minimal-footer-address">
+          WeWork Prestige Atlanta, 80 Feet Rd
+          <br />
+          Koramangala
+          <br />
+          Bengaluru 560024
+          <br />
+          India
+        </address>
+      </div>
       <p>
         Embed Tiles into your product with <Link href="/book/tilekit">Tilekit</Link>.
       </p>

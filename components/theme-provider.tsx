@@ -17,7 +17,6 @@ import {
 } from '@/lib/own-your-ai-theme'
 import {
   CYBERPUNK_THEME,
-  DEFAULT_SITE_THEME,
   SITE_THEMES,
   SITE_THEME_CLASS_VALUES,
 } from '@/lib/site-theme'
@@ -31,11 +30,6 @@ function getPageTheme(pathname: string | null): string | null {
   if (isSponsorPath(pathname)) return SPONSOR_PAGE_THEME
   if (isHomePageThemePath(pathname)) return HOME_PAGE_THEME
   return null
-}
-
-function getForcedTheme(pageTheme: string | null): string | undefined {
-  if (pageTheme === SPONSOR_PAGE_THEME) return CYBERPUNK_THEME
-  return undefined
 }
 
 /**
@@ -58,7 +52,6 @@ function CyberpunkDarkClassSync() {
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const pathname = usePathname()
   const pageTheme = getPageTheme(pathname)
-  const forcedTheme = getForcedTheme(pageTheme)
 
   React.useLayoutEffect(() => {
     const root = document.documentElement
@@ -80,12 +73,11 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       {...props}
       themes={[...SITE_THEMES]}
       value={SITE_THEME_CLASS_VALUES}
-      forcedTheme={forcedTheme}
     >
       {/* Runs immediately after next-themes’ blocking script so first paint has `.dark`. */}
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){try{var k="tiles-theme",s=localStorage.getItem(k);if(s==="system")localStorage.setItem(k,${JSON.stringify(DEFAULT_SITE_THEME)});var d=document.documentElement;if(d.classList.contains(${JSON.stringify(CYBERPUNK_THEME)}))d.classList.add("dark");}catch(e){}})();`,
+          __html: `(function(){try{var d=document.documentElement;if(d.classList.contains(${JSON.stringify(CYBERPUNK_THEME)}))d.classList.add("dark");}catch(e){}})();`,
         }}
       />
       <CyberpunkDarkClassSync />
