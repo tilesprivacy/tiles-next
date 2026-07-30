@@ -177,8 +177,8 @@ html.cyberpunk .refined-site-footer {
   background: #000;
 }
 
-/* Homepage: pure black dark canvas; keep light theme unchanged. */
-html[data-page-theme="home"].dark {
+/* Site-wide dark theme: use the homepage pitch-black canvas on every page. */
+html.dark {
   --background: #000000;
   --card: #000000;
   --popover: #000000;
