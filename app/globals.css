@@ -511,11 +511,44 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  vertical-align: -0.12em;
   border: 1px solid var(--border);
   border-radius: 4px;
-  padding: 0.05rem 0.3rem;
-  font-size: 0.7rem;
-  line-height: 1.3;
+  padding: 0.14rem 0.3rem;
+  line-height: 1;
+}
+.ai-search-ask-hint kbd svg {
+  width: 11px;
+  height: 11px;
+}
+.ai-search-hint-desktop {
+  display: inline;
+}
+.ai-search-hint-mobile {
+  display: none;
+}
+.ai-search-hint-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -0.22em;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+}
+.ai-search-hint-arrow svg {
+  width: 10px;
+  height: 10px;
+}
+@media (max-width: 767px) {
+  .ai-search-hint-desktop {
+    display: none;
+  }
+  .ai-search-hint-mobile {
+    display: inline;
+  }
 }
 .ai-search-close {
   display: inline-flex;

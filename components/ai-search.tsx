@@ -388,8 +388,35 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
           {answerStatus === "idle" && query.trim() ? (
             <button type="button" className="ai-search-ask-hint" onClick={() => askAi()}>
               <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
-              <span>
-                Press <kbd>↵</kbd> for an AI answer
+              <span className="ai-search-hint-desktop">
+                Press{" "}
+                <kbd aria-label="Enter">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M20 5 V11 A3 3 0 0 1 17 14 H5 M9 10 L5 14 L9 18"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </kbd>{" "}
+                for an AI answer
+              </span>
+              <span className="ai-search-hint-mobile">
+                Tap{" "}
+                <span className="ai-search-hint-arrow" aria-label="the arrow button">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M5 12 H19 M13 6 L19 12 L13 18"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>{" "}
+                for an AI answer
               </span>
             </button>
           ) : null}
@@ -401,7 +428,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
             </div>
             {answerStatus === "error" ? (
               <p className="ai-search-answer-note">
-                Something went wrong. Press Enter to try again.
+                Something went wrong. Try asking again.
               </p>
             ) : answerStatus === "unconfigured" ? (
               <p className="ai-search-answer-note">
