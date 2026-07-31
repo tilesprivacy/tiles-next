@@ -324,14 +324,29 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
     }
   }, [showPanel])
 
-  // Unique site pages the answer cites inline, in order of first mention.
-  const sources = useMemo(() => {
+  // The model ends its answer with a `SOURCES:` line of markdown links; show
+  // those in the sources row and keep the answer body itself link-free. Any
+  // stray inline citation is folded into the sources and rendered as plain
+  // text so page links only ever appear after the answer.
+  const { displayAnswer, sources } = useMemo(() => {
+    const linkPattern = /\[([^\]]+)\]\((\/[^)\s]*)\)/g
     const seen = new Map<string, string>()
-    for (const match of answer.matchAll(/\[([^\]]+)\]\((\/[^)\s]*)\)/g)) {
-      const [, label, href] = match
-      if (!seen.has(href)) seen.set(href, label)
+    let body = answer
+    const sourcesLine = body.match(/(?:^|\n)\s*SOURCES:\s*([^\n]*)\s*$/)
+    if (sourcesLine) {
+      body = body.slice(0, sourcesLine.index).trimEnd()
+      for (const match of sourcesLine[1].matchAll(linkPattern)) {
+        const [, label, href] = match
+        if (!seen.has(href)) seen.set(href, label)
+      }
     }
-    return [...seen.entries()]
+    body = body.replace(linkPattern, (_, label: string, href: string) => {
+      if (!seen.has(href)) seen.set(href, label)
+      return label
+    })
+    // Hide a partially streamed `SOURCES:` marker so it never flashes.
+    body = body.replace(/\n\s*S(?:O(?:U(?:R(?:C(?:E(?:S:?)?)?)?)?)?)?$/, "")
+    return { displayAnswer: body, sources: [...seen.entries()] }
   }, [answer])
 
   return (
@@ -464,8 +479,8 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
               </p>
             ) : (
               <div className="ai-search-answer-body">
-                {answer ? (
-                  <ReactMarkdown>{answer}</ReactMarkdown>
+                {displayAnswer ? (
+                  <ReactMarkdown>{displayAnswer}</ReactMarkdown>
                 ) : (
                   <p className="ai-search-answer-note">Thinking…</p>
                 )}
