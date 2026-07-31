@@ -9,11 +9,21 @@
   --site-announcement-offset: var(--site-announcement-height);
 }
 
+/*
+ * Pinned to the viewport (not the document) so overscroll bounce, iOS momentum
+ * scrolling and body scroll locks can never push it down past the topbar.
+ * It hides by sliding out of view with the same offset that drives the topbar's
+ * `top`, so the two always move as one unit: `--site-announcement-offset` is the
+ * banner height at the very top of the page and 0 once scrolled, and the 100%
+ * here resolves against the banner's own height, so the slide is exact.
+ */
 .site-announcement {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto;
   z-index: 40;
   height: var(--site-announcement-height);
+  transform: translate3d(0, calc(var(--site-announcement-offset) - 100%), 0);
+  will-change: transform;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -283,6 +293,10 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
+}
+
+html[data-site-announcement-ready="true"] .site-announcement {
+  transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html[data-site-announcement-ready="true"] .minimal-topbar {
@@ -1740,6 +1754,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html[data-site-announcement-ready="true"] .site-announcement,
   html[data-site-announcement-ready="true"] .minimal-topbar,
   html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     transition: none;
