@@ -1,6 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import ReactMarkdown from "react-markdown"
 
@@ -152,6 +153,22 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
     if (isOpen) inputRef.current?.focus()
   }, [isOpen])
 
+  // Cmd+K / Ctrl+K opens the search from anywhere.
+  useEffect(() => {
+    const onGlobalKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault()
+        if (isOpen) {
+          inputRef.current?.focus()
+        } else {
+          open()
+        }
+      }
+    }
+    window.addEventListener("keydown", onGlobalKeyDown)
+    return () => window.removeEventListener("keydown", onGlobalKeyDown)
+  }, [isOpen, open])
+
   // Close on Escape and on click outside.
   useEffect(() => {
     if (!isOpen) return
@@ -291,6 +308,27 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
   const showPanel = isOpen && (query.trim().length > 0 || answerStatus !== "idle")
 
+  // Lock page scroll behind the full-screen results view on desktop.
+  useEffect(() => {
+    if (!showPanel) return
+    if (!window.matchMedia("(min-width: 768px)").matches) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [showPanel])
+
+  // Unique site pages the answer cites inline, in order of first mention.
+  const sources = useMemo(() => {
+    const seen = new Map<string, string>()
+    for (const match of answer.matchAll(/\[([^\]]+)\]\((\/[^)\s]*)\)/g)) {
+      const [, label, href] = match
+      if (!seen.has(href)) seen.set(href, label)
+    }
+    return [...seen.entries()]
+  }, [answer])
+
   return (
     <div ref={rootRef} className="ai-search-root" data-open={isOpen || undefined}>
       <button
@@ -298,6 +336,8 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
         className="ai-search-trigger"
         aria-label="Search with AI"
         aria-expanded={isOpen}
+        aria-keyshortcuts="Meta+K Control+K"
+        title="Search (⌘K)"
         onClick={() => (isOpen ? close() : open())}
       >
         <AiSearchGlyph className="ai-search-glyph" />
@@ -343,6 +383,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
       {showPanel ? (
         <div className="ai-search-panel">
+          <div className="ai-search-panel-inner">
           {answerStatus !== "idle" || query.trim().length >= MIN_AUTO_ASK_LENGTH ? (
           <div className="ai-search-answer">
             <div className="ai-search-answer-label">
@@ -366,10 +407,22 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
                 )}
               </div>
             )}
+            {sources.length > 0 ? (
+              <p className="ai-search-sources">
+                <span className="ai-search-sources-label">Sources</span>
+                {sources.map(([href, label]) => (
+                  <Link key={href} href={href} className="ai-search-source-link">
+                    {label}
+                  </Link>
+                ))}
+              </p>
+            ) : null}
           </div>
           ) : null}
 
           {hits.length > 0 ? (
+            <>
+            <p className="ai-search-section-label">Pages</p>
             <ul className="ai-search-results" role="listbox" aria-label="Search results">
               {hits.map((hit, index) => {
                 const isActive = index === activeIndex
@@ -393,9 +446,11 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
                 )
               })}
             </ul>
+            </>
           ) : query.trim() && hasIndex ? (
             <p className="ai-search-empty">No matching pages.</p>
           ) : null}
+          </div>
         </div>
       ) : null}
     </div>
