@@ -7,6 +7,7 @@ import {
 } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
+import { getResourceLinks, type ResourceLink } from '@/lib/resource-links'
 import fs from 'fs'
 import path from 'path'
 
@@ -39,9 +40,11 @@ function readBookPages(): Array<{ slug: string; title: string; content: string }
   const contentDir = path.join(process.cwd(), 'content')
 
   try {
+    // resources.mdx is emitted as its own structured section with link URLs
+    // preserved; the generic sanitizer here would strip them.
     const files = fs
       .readdirSync(contentDir)
-      .filter((file) => file.endsWith('.mdx'))
+      .filter((file) => file.endsWith('.mdx') && file !== 'resources.mdx')
       .sort((a, b) => a.localeCompare(b))
 
     return files
@@ -57,6 +60,37 @@ function readBookPages(): Array<{ slug: string; title: string; content: string }
   } catch {
     return []
   }
+}
+
+function buildResourcesSection(links: ResourceLink[]): string[] {
+  const bySection = new Map<string, ResourceLink[]>()
+  for (const link of links) {
+    const group = bySection.get(link.section)
+    if (group) {
+      group.push(link)
+    } else {
+      bySection.set(link.section, [link])
+    }
+  }
+
+  const sectionLines: string[] = [
+    'A living index of resources (articles, papers, talks, videos, and tools) that inform and inspire the Tiles team\'s work.',
+    'The list can also be viewed on Semble: https://semble.so/profile/tiles.run/collections/3mkplxagc4i2q',
+    `Total links: ${links.length}. Links marked as highlighted are team picks (shown with a sparkle on the page).`,
+    '',
+  ]
+
+  for (const [section, sectionLinks] of bySection) {
+    sectionLines.push(`Category: ${section}`)
+    for (const link of sectionLinks) {
+      sectionLines.push(
+        `- ${link.title}${link.highlighted ? ' (highlighted)' : ''}: ${link.url}`,
+      )
+    }
+    sectionLines.push('')
+  }
+
+  return sectionLines
 }
 
 function pushSection(lines: string[], heading: string, content: string[]) {
@@ -180,6 +214,15 @@ export async function GET(request: Request) {
   for (const page of bookPages) {
     const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
     pushSection(lines, `Book: ${page.title} (${pageUrl})`, [page.content])
+  }
+
+  const resourceLinks = getResourceLinks()
+  if (resourceLinks.length > 0) {
+    pushSection(
+      lines,
+      `Book: Resources (${baseUrl}/book/resources)`,
+      buildResourcesSection(resourceLinks),
+    )
   }
 
   pushSection(lines, 'Additional URLs', [
