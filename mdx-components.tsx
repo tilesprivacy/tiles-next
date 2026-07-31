@@ -34,6 +34,9 @@ function CustomAnchor(props: ComponentProps<'a'>) {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
+        // Pagefind indexes the destination URL alongside the link text so
+        // full-text search matches domains, e.g. "arxiv" or "cloudflare".
+        data-pagefind-index-attrs="href"
         {...rest}
         className={`${rest.className || ''} external-link`.trim()}
       >
