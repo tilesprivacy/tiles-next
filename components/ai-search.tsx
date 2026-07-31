@@ -99,10 +99,6 @@ function AiSearchGlyph({ className }: { className?: string }) {
 
 type AnswerStatus = "idle" | "streaming" | "done" | "error" | "unconfigured"
 
-/** How long after the visitor stops typing before the AI answer starts. */
-const AUTO_ASK_DELAY_MS = 900
-const MIN_AUTO_ASK_LENGTH = 4
-
 export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => void }) {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
@@ -224,14 +220,12 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   }, [query, isOpen])
 
   const askAi = useCallback(
-    async ({ auto = false }: { auto?: boolean } = {}) => {
+    async () => {
       const trimmed = query.trim()
       if (!trimmed) return
-      // Auto-asking fires once per query; manual retry is allowed after an
-      // error but never interrupts an in-flight answer for the same query.
-      if (askedQuery === trimmed) {
-        if (auto || answerStatus === "streaming") return
-      }
+      // Never interrupt an in-flight answer for the same query; retrying
+      // after an error is allowed.
+      if (askedQuery === trimmed && answerStatus === "streaming") return
       abortRef.current?.abort()
       const controller = new AbortController()
       abortRef.current = controller
@@ -269,18 +263,6 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
     },
     [query, askedQuery, answerStatus],
   )
-
-  // Generate the natural language answer automatically once the visitor
-  // pauses typing; Enter asks immediately.
-  useEffect(() => {
-    if (!isOpen) return
-    const trimmed = query.trim()
-    if (trimmed.length < MIN_AUTO_ASK_LENGTH) return
-    const timer = setTimeout(() => {
-      askAi({ auto: true })
-    }, AUTO_ASK_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [query, isOpen, askAi])
 
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
@@ -362,6 +344,25 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
             spellCheck={false}
             className="ai-search-input"
           />
+          {query.trim() ? (
+            <button
+              type="button"
+              className="ai-search-submit"
+              aria-label="Get AI answer"
+              title="Get AI answer (Enter)"
+              onClick={() => askAi()}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="ai-search-submit-glyph" aria-hidden>
+                <path
+                  d="M5 12 H19 M13 6 L19 12 L13 18"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          ) : null}
           <button
             type="button"
             className="ai-search-close"
@@ -384,7 +385,15 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
       {showPanel ? (
         <div className="ai-search-panel">
           <div className="ai-search-panel-inner">
-          {answerStatus !== "idle" || query.trim().length >= MIN_AUTO_ASK_LENGTH ? (
+          {answerStatus === "idle" && query.trim() ? (
+            <button type="button" className="ai-search-ask-hint" onClick={() => askAi()}>
+              <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
+              <span>
+                Press <kbd>↵</kbd> for an AI answer
+              </span>
+            </button>
+          ) : null}
+          {answerStatus !== "idle" ? (
           <div className="ai-search-answer">
             <div className="ai-search-answer-label">
               <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />

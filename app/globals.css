@@ -468,6 +468,55 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .ai-search-input::placeholder {
   color: var(--muted-foreground);
 }
+.ai-search-submit {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--foreground);
+  color: var(--background);
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 160ms ease;
+}
+.ai-search-submit:hover {
+  opacity: 0.85;
+}
+.ai-search-submit-glyph {
+  width: 16px;
+  height: 16px;
+}
+.ai-search-ask-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  padding: 0.55rem 0.75rem;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  text-align: left;
+  cursor: pointer;
+}
+.ai-search-ask-hint:hover {
+  background: var(--muted);
+}
+.ai-search-ask-hint kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.7rem;
+  line-height: 1.3;
+}
 .ai-search-close {
   display: inline-flex;
   flex: none;
@@ -1959,7 +2008,8 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   .ai-search-bar {
     gap: 0.6rem;
   }
-  .ai-search-close {
+  .ai-search-close,
+  .ai-search-submit {
     width: 32px;
     height: 32px;
   }
