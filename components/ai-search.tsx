@@ -1,6 +1,7 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import ReactMarkdown from "react-markdown"
 
@@ -98,10 +99,6 @@ function AiSearchGlyph({ className }: { className?: string }) {
 
 type AnswerStatus = "idle" | "streaming" | "done" | "error" | "unconfigured"
 
-/** How long after the visitor stops typing before the AI answer starts. */
-const AUTO_ASK_DELAY_MS = 900
-const MIN_AUTO_ASK_LENGTH = 4
-
 export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => void }) {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState("")
@@ -111,6 +108,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   const [answerStatus, setAnswerStatus] = useState<AnswerStatus>("idle")
   const [askedQuery, setAskedQuery] = useState("")
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [shortcutLabel, setShortcutLabel] = useState<string | null>(null)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -151,6 +149,28 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   useEffect(() => {
     if (isOpen) inputRef.current?.focus()
   }, [isOpen])
+
+  // Rendered after mount so the server markup stays platform-neutral.
+  useEffect(() => {
+    const isApplePlatform = /Mac|iPhone|iPad/.test(navigator.platform ?? "")
+    setShortcutLabel(isApplePlatform ? "⌘ K" : "Ctrl K")
+  }, [])
+
+  // Cmd+K / Ctrl+K opens the search from anywhere.
+  useEffect(() => {
+    const onGlobalKeyDown = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault()
+        if (isOpen) {
+          inputRef.current?.focus()
+        } else {
+          open()
+        }
+      }
+    }
+    window.addEventListener("keydown", onGlobalKeyDown)
+    return () => window.removeEventListener("keydown", onGlobalKeyDown)
+  }, [isOpen, open])
 
   // Close on Escape and on click outside.
   useEffect(() => {
@@ -207,14 +227,12 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   }, [query, isOpen])
 
   const askAi = useCallback(
-    async ({ auto = false }: { auto?: boolean } = {}) => {
+    async () => {
       const trimmed = query.trim()
       if (!trimmed) return
-      // Auto-asking fires once per query; manual retry is allowed after an
-      // error but never interrupts an in-flight answer for the same query.
-      if (askedQuery === trimmed) {
-        if (auto || answerStatus === "streaming") return
-      }
+      // Never interrupt an in-flight answer for the same query; retrying
+      // after an error is allowed.
+      if (askedQuery === trimmed && answerStatus === "streaming") return
       abortRef.current?.abort()
       const controller = new AbortController()
       abortRef.current = controller
@@ -253,18 +271,6 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
     [query, askedQuery, answerStatus],
   )
 
-  // Generate the natural language answer automatically once the visitor
-  // pauses typing; Enter asks immediately.
-  useEffect(() => {
-    if (!isOpen) return
-    const trimmed = query.trim()
-    if (trimmed.length < MIN_AUTO_ASK_LENGTH) return
-    const timer = setTimeout(() => {
-      askAi({ auto: true })
-    }, AUTO_ASK_DELAY_MS)
-    return () => clearTimeout(timer)
-  }, [query, isOpen, askAi])
-
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       if (hits.length === 0) return
@@ -291,6 +297,26 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
   const showPanel = isOpen && (query.trim().length > 0 || answerStatus !== "idle")
 
+  // Lock page scroll behind the full-screen results view.
+  useEffect(() => {
+    if (!showPanel) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [showPanel])
+
+  // Unique site pages the answer cites inline, in order of first mention.
+  const sources = useMemo(() => {
+    const seen = new Map<string, string>()
+    for (const match of answer.matchAll(/\[([^\]]+)\]\((\/[^)\s]*)\)/g)) {
+      const [, label, href] = match
+      if (!seen.has(href)) seen.set(href, label)
+    }
+    return [...seen.entries()]
+  }, [answer])
+
   return (
     <div ref={rootRef} className="ai-search-root" data-open={isOpen || undefined}>
       <button
@@ -298,9 +324,16 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
         className="ai-search-trigger"
         aria-label="Search with AI"
         aria-expanded={isOpen}
+        aria-keyshortcuts="Meta+K Control+K"
+        title="Search (⌘K)"
         onClick={() => (isOpen ? close() : open())}
       >
         <AiSearchGlyph className="ai-search-glyph" />
+        {shortcutLabel ? (
+          <kbd className="ai-search-trigger-kbd" aria-hidden>
+            {shortcutLabel}
+          </kbd>
+        ) : null}
       </button>
 
       {isOpen ? (
@@ -322,6 +355,25 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
             spellCheck={false}
             className="ai-search-input"
           />
+          {query.trim() ? (
+            <button
+              type="button"
+              className="ai-search-submit"
+              aria-label="Get AI answer"
+              title="Get AI answer (Enter)"
+              onClick={() => askAi()}
+            >
+              <svg viewBox="0 0 24 24" fill="none" className="ai-search-submit-glyph" aria-hidden>
+                <path
+                  d="M5 12 H19 M13 6 L19 12 L13 18"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          ) : null}
           <button
             type="button"
             className="ai-search-close"
@@ -343,7 +395,43 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
       {showPanel ? (
         <div className="ai-search-panel">
-          {answerStatus !== "idle" || query.trim().length >= MIN_AUTO_ASK_LENGTH ? (
+          <div className="ai-search-panel-inner">
+          {answerStatus === "idle" && query.trim() ? (
+            <button type="button" className="ai-search-ask-hint" onClick={() => askAi()}>
+              <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
+              <span className="ai-search-hint-desktop">
+                Press{" "}
+                <kbd aria-label="Enter">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M20 5 V11 A3 3 0 0 1 17 14 H5 M9 10 L5 14 L9 18"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </kbd>{" "}
+                for an AI answer
+              </span>
+              <span className="ai-search-hint-mobile">
+                Tap{" "}
+                <span className="ai-search-hint-arrow" aria-label="the arrow button">
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M5 12 H19 M13 6 L19 12 L13 18"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </span>{" "}
+                for an AI answer
+              </span>
+            </button>
+          ) : null}
+          {answerStatus !== "idle" ? (
           <div className="ai-search-answer">
             <div className="ai-search-answer-label">
               <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
@@ -351,7 +439,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
             </div>
             {answerStatus === "error" ? (
               <p className="ai-search-answer-note">
-                Something went wrong. Press Enter to try again.
+                Something went wrong. Try asking again.
               </p>
             ) : answerStatus === "unconfigured" ? (
               <p className="ai-search-answer-note">
@@ -366,10 +454,22 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
                 )}
               </div>
             )}
+            {sources.length > 0 ? (
+              <p className="ai-search-sources">
+                <span className="ai-search-sources-label">Sources</span>
+                {sources.map(([href, label]) => (
+                  <Link key={href} href={href} className="ai-search-source-link">
+                    {label}
+                  </Link>
+                ))}
+              </p>
+            ) : null}
           </div>
           ) : null}
 
           {hits.length > 0 ? (
+            <>
+            <p className="ai-search-section-label">Pages</p>
             <ul className="ai-search-results" role="listbox" aria-label="Search results">
               {hits.map((hit, index) => {
                 const isActive = index === activeIndex
@@ -393,9 +493,11 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
                 )
               })}
             </ul>
+            </>
           ) : query.trim() && hasIndex ? (
             <p className="ai-search-empty">No matching pages.</p>
           ) : null}
+          </div>
         </div>
       ) : null}
     </div>
