@@ -7,6 +7,7 @@ import {
   ownYourAiSlideSrc,
   ownYourAiSlides,
   ownYourAiTalkIntro,
+  ownYourAiTalkRecording,
   ownYourAiVideoSrc,
   type OwnYourAiSlide,
 } from "@/lib/own-your-ai-talk"
@@ -194,6 +195,21 @@ export default function OwnYourAiPage() {
           alt="Ankesh Bharti presenting Tiles at Local-First Conf in Berlin"
           className="h-auto w-full"
         />
+      </figure>
+
+      <h2>{ownYourAiTalkRecording.title}</h2>
+
+      <figure className="my-8 overflow-hidden rounded-lg border border-white/10 shadow-[0_18px_48px_rgba(0,0,0,0.24)]">
+        <div className="relative aspect-video w-full">
+          <iframe
+            src={ownYourAiTalkRecording.embedUrl}
+            title={ownYourAiTalkRecording.iframeTitle}
+            className="absolute inset-0 h-full w-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
       </figure>
 
       <h2>Slides and Transcript</h2>

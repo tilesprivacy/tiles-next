@@ -281,6 +281,16 @@ export function ownYourAiVideoSrc(): string {
   return "/lofi-talk/demo.mp4"
 }
 
+/** Local-First Conf 2026 recording of the talk this post is adapted from. */
+export const ownYourAiTalkRecording = {
+  title: "Local-First Conference Video",
+  watchUrl: "https://youtu.be/WY_M7TMQ8do",
+  /** nocookie host so the player does not set tracking cookies before playback. */
+  embedUrl: "https://www.youtube-nocookie.com/embed/WY_M7TMQ8do",
+  iframeTitle:
+    "Own your AI with local models and open protocols — Local-First Conf 2026, Berlin",
+} as const
+
 export const ownYourAiBlogContent = `${ownYourAiTalkIntro}
 
 ${ownYourAiSlides
