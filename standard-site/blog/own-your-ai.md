@@ -18,8 +18,6 @@ As AI becomes central to how we work and communicate, I believe we are seeing a 
 
 In the talk, I shared what I have learned building Tiles, a local-first private AI assistant. I discussed the tradeoffs I have encountered while combining local models with decentralized identity, peer-to-peer encrypted sync, and AT Protocol based collaboration. I also covered exploratory research we are conducting to bring the convenience of modern AI services to a user-owned stack.
 
-![Ankesh Bharti presenting Tiles at Local-First Conf in Berlin](/own-your-ai-local-first-conf-stage.jpeg)
-
 ## Local-First Conference Video
 
 [Watch the talk on YouTube](https://youtu.be/WY_M7TMQ8do)

@@ -189,14 +189,6 @@ export default function OwnYourAiPage() {
     >
       <div className="space-y-4" dangerouslySetInnerHTML={{ __html: ownYourAiTalkIntro }} />
 
-      <figure className="my-12 overflow-hidden rounded-lg border border-white/10 shadow-[0_18px_48px_rgba(0,0,0,0.24)]">
-        <img
-          src="/own-your-ai-local-first-conf-stage.jpeg"
-          alt="Ankesh Bharti presenting Tiles at Local-First Conf in Berlin"
-          className="h-auto w-full"
-        />
-      </figure>
-
       <h2>{ownYourAiTalkRecording.title}</h2>
 
       <figure className="my-8 overflow-hidden rounded-lg border border-white/10 shadow-[0_18px_48px_rgba(0,0,0,0.24)]">
