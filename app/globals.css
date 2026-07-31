@@ -436,6 +436,28 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .ai-search-trigger:hover {
   background: var(--muted);
 }
+.ai-search-trigger-kbd {
+  display: none;
+}
+@media (min-width: 768px) {
+  .ai-search-trigger {
+    width: auto;
+    gap: 0.45rem;
+    padding: 0 0.6rem;
+  }
+  .ai-search-trigger-kbd {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 0.12rem 0.32rem;
+    color: var(--muted-foreground);
+    font-family: inherit;
+    font-size: 0.68rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+}
 .ai-search-glyph {
   width: 18px;
   height: 18px;
@@ -590,39 +612,24 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   );
   pointer-events: none;
 }
+/* Results take over the viewport below the top nav, centered. */
 .ai-search-panel {
-  position: absolute;
-  top: 100%;
-  right: 0;
+  position: fixed;
+  inset: calc(4rem + var(--site-announcement-offset, 0px)) 0 0;
   z-index: 60;
-  width: min(40rem, 100%);
-  max-height: min(70vh, 32rem);
+  width: 100%;
   overflow-y: auto;
-  margin-top: 0.4rem;
-  padding: 0.5rem;
-  background: var(--popover, var(--background));
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.14);
+  padding: 1rem 1rem 3rem;
+  background: var(--background);
 }
-/* Desktop: results take over the viewport below the top nav, centered. */
+.ai-search-panel-inner {
+  max-width: 42rem;
+  margin-inline: auto;
+}
 @media (min-width: 768px) {
   .ai-search-panel {
-    position: fixed;
     inset: calc(5.5rem + var(--site-announcement-offset, 0px)) 0 0;
-    width: 100%;
-    max-height: none;
-    overflow-y: auto;
-    margin-top: 0;
     padding: 2.25rem 2rem 4rem;
-    background: var(--background);
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-  }
-  .ai-search-panel-inner {
-    max-width: 42rem;
-    margin-inline: auto;
   }
   .ai-search-panel .ai-search-answer-body {
     font-size: 0.9375rem;
@@ -2045,10 +2052,6 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   .ai-search-submit {
     width: 32px;
     height: 32px;
-  }
-  .ai-search-panel {
-    width: 100%;
-    max-height: min(70dvh, 30rem);
   }
   .minimal-topbar-menu-button {
     position: relative;

@@ -108,6 +108,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   const [answerStatus, setAnswerStatus] = useState<AnswerStatus>("idle")
   const [askedQuery, setAskedQuery] = useState("")
   const [activeIndex, setActiveIndex] = useState(-1)
+  const [shortcutLabel, setShortcutLabel] = useState<string | null>(null)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -148,6 +149,12 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   useEffect(() => {
     if (isOpen) inputRef.current?.focus()
   }, [isOpen])
+
+  // Rendered after mount so the server markup stays platform-neutral.
+  useEffect(() => {
+    const isApplePlatform = /Mac|iPhone|iPad/.test(navigator.platform ?? "")
+    setShortcutLabel(isApplePlatform ? "⌘K" : "Ctrl K")
+  }, [])
 
   // Cmd+K / Ctrl+K opens the search from anywhere.
   useEffect(() => {
@@ -290,10 +297,9 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
   const showPanel = isOpen && (query.trim().length > 0 || answerStatus !== "idle")
 
-  // Lock page scroll behind the full-screen results view on desktop.
+  // Lock page scroll behind the full-screen results view.
   useEffect(() => {
     if (!showPanel) return
-    if (!window.matchMedia("(min-width: 768px)").matches) return
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
     return () => {
@@ -323,6 +329,11 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
         onClick={() => (isOpen ? close() : open())}
       >
         <AiSearchGlyph className="ai-search-glyph" />
+        {shortcutLabel ? (
+          <kbd className="ai-search-trigger-kbd" aria-hidden>
+            {shortcutLabel}
+          </kbd>
+        ) : null}
       </button>
 
       {isOpen ? (
