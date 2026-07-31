@@ -68,6 +68,20 @@ function normalizePagefindUrl(rawUrl: string): string {
   return url.startsWith("/") ? url : `/${url}`
 }
 
+/** The anchored section of the page that matches the query hardest, so a
+ * click can land on that section instead of the top of the page. */
+function pickAnchoredSubResult(
+  item: PagefindResultData,
+): PagefindSubResult | null {
+  const countMarks = (excerpt: string) => excerpt.split("<mark>").length - 1
+  let best: PagefindSubResult | null = null
+  for (const sub of item.sub_results ?? []) {
+    if (!sub.url.includes("#")) continue
+    if (!best || countMarks(sub.excerpt) > countMarks(best.excerpt)) best = sub
+  }
+  return best
+}
+
 function AiSearchGlyph({ className }: { className?: string }) {
   return (
     <svg
@@ -215,12 +229,15 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
       )
       if (seq !== searchSeqRef.current) return
       setHits(
-        data.map((item, index) => ({
-          id: `${index}-${item.url}`,
-          url: normalizePagefindUrl(item.url),
-          title: item.meta?.title || item.url,
-          excerpt: item.excerpt,
-        })),
+        data.map((item, index) => {
+          const sub = pickAnchoredSubResult(item)
+          return {
+            id: `${index}-${item.url}`,
+            url: normalizePagefindUrl(sub?.url ?? item.url),
+            title: item.meta?.title || item.url,
+            excerpt: sub?.excerpt || item.excerpt,
+          }
+        }),
       )
       setActiveIndex(-1)
     })()
@@ -459,7 +476,19 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
                 <span className="ai-search-sources-label">Sources</span>
                 {sources.map(([href, label]) => (
                   <Link key={href} href={href} className="ai-search-source-link">
-                    {label}
+                    <span className="ai-search-source-favicon" aria-hidden>
+                      <img
+                        src="/lighticon.png"
+                        alt=""
+                        className="ai-search-source-favicon-light"
+                      />
+                      <img
+                        src="/grey.png"
+                        alt=""
+                        className="ai-search-source-favicon-dark"
+                      />
+                    </span>
+                    <span className="ai-search-source-label">{label}</span>
                   </Link>
                 ))}
               </p>

@@ -634,7 +634,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .ai-search-sources {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   gap: 0.35rem 0.75rem;
   margin: 0.65rem 0 0;
   font-size: 0.8125rem;
@@ -644,12 +644,38 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-size: 0.75rem;
 }
 .ai-search-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   color: var(--foreground);
+  text-decoration: none;
+}
+.ai-search-source-favicon {
+  display: inline-flex;
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+}
+.ai-search-source-favicon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.ai-search-source-favicon-dark {
+  display: none;
+}
+.dark .ai-search-source-favicon-light {
+  display: none;
+}
+.dark .ai-search-source-favicon-dark {
+  display: block;
+}
+.ai-search-source-label {
   text-decoration: underline;
-  text-decoration-color: var(--border);
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
   text-underline-offset: 3px;
 }
-.ai-search-source-link:hover {
+.ai-search-source-link:hover .ai-search-source-label {
   text-decoration-color: currentColor;
 }
 .ai-search-results {
@@ -694,6 +720,14 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   background: transparent;
   color: var(--foreground);
   font-weight: 600;
+}
+/* Anchored deep links (e.g. search results jumping to a page section) land
+   below the fixed topbar and announcement banner. :where() keeps specificity
+   at zero so page-specific scroll-margin rules still win. */
+:where(h1, h2, h3, h4, h5, h6, section)[id] {
+  scroll-margin-top: calc(
+    6.5rem + var(--site-announcement-offset, 0px) + env(safe-area-inset-top, 0px)
+  );
 }
 .ai-search-empty {
   margin: 0;
