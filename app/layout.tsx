@@ -110,7 +110,12 @@ export default function RootLayout({
           <SiteOfflineCacheRegistrar />
           <AnnouncementBanner />
           <SiteHeader themeAware />
-          {children}
+          {/* Marks page content for the Pagefind full-text index used by the
+              top-nav AI search; chrome inside pages opts out with
+              data-pagefind-ignore. */}
+          <div style={{ display: "contents" }} data-pagefind-body>
+            {children}
+          </div>
         </ThemeProvider>
         <Analytics />
       </body>

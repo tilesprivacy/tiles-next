@@ -17,7 +17,7 @@ export function SiteFooter({
   decoration,
 }: SiteFooterProps) {
   return (
-    <div className="refined-site-footer">
+    <div className="refined-site-footer" data-pagefind-ignore="all">
       {showNewsletterCta ? (
         <section className="refined-site-footer-newsletter">
           <NewsletterCta />

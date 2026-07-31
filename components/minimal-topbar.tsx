@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
+import { AiSearch } from "@/components/ai-search"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 
@@ -33,7 +34,7 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   ] as const
 
   return (
-    <header className="minimal-topbar max-[767px]:gap-1">
+    <header className="minimal-topbar max-[767px]:gap-1" data-pagefind-ignore="all">
       <div className="minimal-topbar-left flex min-w-0 items-center gap-3 max-[520px]:gap-2">
         {hideBrand ? <span aria-hidden /> : (
           <Link href="/" className="minimal-topbar-brand" aria-label="Tiles home">
@@ -56,6 +57,7 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
         ))}
       </nav>
       <nav className="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
+        <AiSearch onOpenChange={(open) => open && setMenuOpen(false)} />
         <div className="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8">
           <ThemeSwitcher variant="auto" size="md" mode="toggle" tone="quiet" touchFriendly />
         </div>
