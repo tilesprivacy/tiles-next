@@ -448,13 +448,12 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   .ai-search-trigger-kbd {
     display: inline-flex;
     align-items: center;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.12rem 0.32rem;
     color: var(--muted-foreground);
     font-family: inherit;
-    font-size: 0.68rem;
-    line-height: 1.2;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1;
     white-space: nowrap;
   }
 }

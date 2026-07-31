@@ -153,7 +153,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   // Rendered after mount so the server markup stays platform-neutral.
   useEffect(() => {
     const isApplePlatform = /Mac|iPhone|iPad/.test(navigator.platform ?? "")
-    setShortcutLabel(isApplePlatform ? "⌘K" : "Ctrl K")
+    setShortcutLabel(isApplePlatform ? "⌘ K" : "Ctrl K")
   }, [])
 
   // Cmd+K / Ctrl+K opens the search from anywhere.
