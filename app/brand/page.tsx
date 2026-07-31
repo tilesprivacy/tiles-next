@@ -2,7 +2,11 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { Download } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
-import { themeAwareHeaderPrimaryCtaClasses } from "@/lib/header-primary-cta-classes"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 import {
   marketingPageSectionTitleClass,
   marketingPageSubsectionTitleClass,
@@ -59,10 +63,13 @@ export default function BrandPage() {
           </p>
           <a
             href="/tiles-brand-assets.zip"
-            className={`minimal-primary-button mt-8 !no-underline ${themeAwareHeaderPrimaryCtaClasses}`}
+            className={`group minimal-primary-button minimal-download-action mt-8 !no-underline ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
           >
-            <Download className="h-4 w-4" aria-hidden />
-            Download brand assets
+            <span>Download brand assets</span>
+            <Download
+              className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+              aria-hidden
+            />
           </a>
 
           <h2 className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand assets</h2>
