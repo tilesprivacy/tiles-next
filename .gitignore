@@ -67,3 +67,4 @@ public/_pagefind/pagefind.en_*.pf_meta
 public/_pagefind/wasm.*.pagefind
 
 .sequoia-state.json
+.env*
