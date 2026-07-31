@@ -87,19 +87,9 @@
   filter: grayscale(1);
 }
 
-/* /blog/own-your-ai: near-black canvas in dark themes; keep announcement banner dark. */
+/* /blog/own-your-ai: near-black canvas in dark themes. */
 html[data-page-theme="own-your-ai"].dark {
   --background: #020202;
-}
-
-html[data-page-theme="own-your-ai"].dark .site-announcement {
-  border-bottom-color: #111;
-  background: #020202;
-  color: #fff;
-}
-
-html[data-page-theme="own-your-ai"].dark .site-announcement-logo {
-  filter: grayscale(1) invert(1);
 }
 
 /* /sponsor: follow the normal light/dark palette. Yellow belongs to cyberpunk. */
