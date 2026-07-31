@@ -549,33 +549,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .ai-search-item[data-active] {
   background: var(--muted);
 }
-.ai-search-ask {
-  flex-direction: row;
-  align-items: center;
-  gap: 0.6rem;
-}
-.ai-search-item-glyph {
-  flex: none;
-  width: 16px;
-  height: 16px;
-  color: var(--muted-foreground);
-}
-.ai-search-ask-text {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.ai-search-kbd {
-  flex: none;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.1rem 0.35rem;
-  color: var(--muted-foreground);
-  font-size: 0.7rem;
-  line-height: 1.2;
-}
 .ai-search-hit-title {
   font-weight: 500;
 }

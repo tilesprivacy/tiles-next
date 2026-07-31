@@ -96,7 +96,11 @@ function AiSearchGlyph({ className }: { className?: string }) {
   )
 }
 
-type AnswerStatus = "idle" | "streaming" | "done" | "error"
+type AnswerStatus = "idle" | "streaming" | "done" | "error" | "unconfigured"
+
+/** How long after the visitor stops typing before the AI answer starts. */
+const AUTO_ASK_DELAY_MS = 900
+const MIN_AUTO_ASK_LENGTH = 4
 
 export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => void }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -106,7 +110,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
   const [answer, setAnswer] = useState("")
   const [answerStatus, setAnswerStatus] = useState<AnswerStatus>("idle")
   const [askedQuery, setAskedQuery] = useState("")
-  const [activeIndex, setActiveIndex] = useState(0)
+  const [activeIndex, setActiveIndex] = useState(-1)
 
   const inputRef = useRef<HTMLInputElement>(null)
   const rootRef = useRef<HTMLDivElement>(null)
@@ -128,7 +132,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
     setIsOpen(false)
     setQuery("")
     setHits([])
-    setActiveIndex(0)
+    setActiveIndex(-1)
     resetAnswer()
     onOpenChange?.(false)
   }, [onOpenChange, resetAnswer])
@@ -198,74 +202,94 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
           excerpt: item.excerpt,
         })),
       )
-      setActiveIndex(0)
+      setActiveIndex(-1)
     })()
   }, [query, isOpen])
 
-  const askAi = useCallback(async () => {
-    const trimmed = query.trim()
-    if (!trimmed || answerStatus === "streaming") return
-    abortRef.current?.abort()
-    const controller = new AbortController()
-    abortRef.current = controller
-    setAskedQuery(trimmed)
-    setAnswer("")
-    setAnswerStatus("streaming")
-    try {
-      const response = await fetch("/api/ai-search", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: trimmed }),
-        signal: controller.signal,
-      })
-      if (!response.ok || !response.body) {
-        throw new Error(`Request failed with status ${response.status}`)
+  const askAi = useCallback(
+    async ({ auto = false }: { auto?: boolean } = {}) => {
+      const trimmed = query.trim()
+      if (!trimmed) return
+      // Auto-asking fires once per query; manual retry is allowed after an
+      // error but never interrupts an in-flight answer for the same query.
+      if (askedQuery === trimmed) {
+        if (auto || answerStatus === "streaming") return
       }
-      const reader = response.body.getReader()
-      const decoder = new TextDecoder()
-      let text = ""
-      for (;;) {
-        const { done, value } = await reader.read()
-        if (done) break
-        text += decoder.decode(value, { stream: true })
-        setAnswer(text)
+      abortRef.current?.abort()
+      const controller = new AbortController()
+      abortRef.current = controller
+      setAskedQuery(trimmed)
+      setAnswer("")
+      setAnswerStatus("streaming")
+      try {
+        const response = await fetch("/api/ai-search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: trimmed }),
+          signal: controller.signal,
+        })
+        if (response.status === 503) {
+          setAnswerStatus("unconfigured")
+          return
+        }
+        if (!response.ok || !response.body) {
+          throw new Error(`Request failed with status ${response.status}`)
+        }
+        const reader = response.body.getReader()
+        const decoder = new TextDecoder()
+        let text = ""
+        for (;;) {
+          const { done, value } = await reader.read()
+          if (done) break
+          text += decoder.decode(value, { stream: true })
+          setAnswer(text)
+        }
+        setAnswerStatus("done")
+      } catch (error) {
+        if ((error as Error).name === "AbortError") return
+        setAnswerStatus("error")
       }
-      setAnswerStatus("done")
-    } catch (error) {
-      if ((error as Error).name === "AbortError") return
-      setAnswerStatus("error")
-    }
-  }, [query, answerStatus])
+    },
+    [query, askedQuery, answerStatus],
+  )
 
-  const alreadyAsked = answerStatus !== "idle" && askedQuery === query.trim()
-  const items = query.trim()
-    ? [
-        ...(alreadyAsked ? [] : [{ kind: "ask" as const }]),
-        ...hits.map((hit) => ({ kind: "hit" as const, hit })),
-      ]
-    : []
+  // Generate the natural language answer automatically once the visitor
+  // pauses typing; Enter asks immediately.
+  useEffect(() => {
+    if (!isOpen) return
+    const trimmed = query.trim()
+    if (trimmed.length < MIN_AUTO_ASK_LENGTH) return
+    const timer = setTimeout(() => {
+      askAi({ auto: true })
+    }, AUTO_ASK_DELAY_MS)
+    return () => clearTimeout(timer)
+  }, [query, isOpen, askAi])
 
   const onInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
-      if (items.length === 0) return
+      if (hits.length === 0) return
       event.preventDefault()
       const delta = event.key === "ArrowDown" ? 1 : -1
-      setActiveIndex((index) => (index + delta + items.length) % items.length)
+      setActiveIndex((index) => {
+        const next = index + delta
+        if (next < -1) return hits.length - 1
+        if (next >= hits.length) return -1
+        return next
+      })
       return
     }
     if (event.key === "Enter") {
-      const item = items[activeIndex]
-      if (!item) return
       event.preventDefault()
-      if (item.kind === "ask") {
-        askAi()
+      const hit = activeIndex >= 0 ? hits[activeIndex] : null
+      if (hit) {
+        router.push(hit.url)
       } else {
-        router.push(item.hit.url)
+        askAi()
       }
     }
   }
 
-  const showPanel = isOpen && (items.length > 0 || answerStatus !== "idle")
+  const showPanel = isOpen && (query.trim().length > 0 || answerStatus !== "idle")
 
   return (
     <div ref={rootRef} className="ai-search-root" data-open={isOpen || undefined}>
@@ -319,74 +343,58 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
       {showPanel ? (
         <div className="ai-search-panel">
-          {answerStatus !== "idle" ? (
-            <div className="ai-search-answer">
-              <div className="ai-search-answer-label">
-                <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
-                <span>{askedQuery}</span>
-              </div>
-              {answerStatus === "error" ? (
-                <p className="ai-search-answer-note">
-                  Something went wrong. Please try again.
-                </p>
-              ) : (
-                <div className="ai-search-answer-body">
-                  {answer ? (
-                    <ReactMarkdown>{answer}</ReactMarkdown>
-                  ) : (
-                    <p className="ai-search-answer-note">Thinking…</p>
-                  )}
-                </div>
-              )}
+          {answerStatus !== "idle" || query.trim().length >= MIN_AUTO_ASK_LENGTH ? (
+          <div className="ai-search-answer">
+            <div className="ai-search-answer-label">
+              <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
+              <span>AI answer</span>
             </div>
+            {answerStatus === "error" ? (
+              <p className="ai-search-answer-note">
+                Something went wrong. Press Enter to try again.
+              </p>
+            ) : answerStatus === "unconfigured" ? (
+              <p className="ai-search-answer-note">
+                AI answers are not configured on this deployment yet.
+              </p>
+            ) : (
+              <div className="ai-search-answer-body">
+                {answer ? (
+                  <ReactMarkdown>{answer}</ReactMarkdown>
+                ) : (
+                  <p className="ai-search-answer-note">Thinking…</p>
+                )}
+              </div>
+            )}
+          </div>
           ) : null}
 
-          {items.length > 0 ? (
+          {hits.length > 0 ? (
             <ul className="ai-search-results" role="listbox" aria-label="Search results">
-              {items.map((item, index) => {
+              {hits.map((hit, index) => {
                 const isActive = index === activeIndex
-                if (item.kind === "ask") {
-                  return (
-                    <li key="ask" role="option" aria-selected={isActive}>
-                      <button
-                        type="button"
-                        className="ai-search-item ai-search-ask"
-                        data-active={isActive || undefined}
-                        onMouseEnter={() => setActiveIndex(index)}
-                        onClick={askAi}
-                      >
-                        <AiSearchGlyph className="ai-search-glyph ai-search-item-glyph" />
-                        <span className="ai-search-ask-text">
-                          Ask AI about “{query.trim()}”
-                        </span>
-                        <kbd className="ai-search-kbd">↵</kbd>
-                      </button>
-                    </li>
-                  )
-                }
                 return (
-                  <li key={item.hit.id} role="option" aria-selected={isActive}>
+                  <li key={hit.id} role="option" aria-selected={isActive}>
                     <button
                       type="button"
                       className="ai-search-item"
                       data-active={isActive || undefined}
                       onMouseEnter={() => setActiveIndex(index)}
-                      onClick={() => router.push(item.hit.url)}
+                      onMouseLeave={() => setActiveIndex(-1)}
+                      onClick={() => router.push(hit.url)}
                     >
-                      <span className="ai-search-hit-title">{item.hit.title}</span>
+                      <span className="ai-search-hit-title">{hit.title}</span>
                       <span
                         className="ai-search-hit-excerpt"
-                        dangerouslySetInnerHTML={{ __html: item.hit.excerpt }}
+                        dangerouslySetInnerHTML={{ __html: hit.excerpt }}
                       />
                     </button>
                   </li>
                 )
               })}
             </ul>
-          ) : null}
-
-          {query.trim() && hits.length === 0 && hasIndex ? (
-            <p className="ai-search-empty">No matching pages yet. Ask AI instead.</p>
+          ) : query.trim() && hasIndex ? (
+            <p className="ai-search-empty">No matching pages.</p>
           ) : null}
         </div>
       ) : null}

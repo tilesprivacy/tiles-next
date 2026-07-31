@@ -39,6 +39,12 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Both routes read content/*.mdx through fs at request time, which output
+  // file tracing cannot detect statically.
+  outputFileTracingIncludes: {
+    '/api/llms-full': ['./content/**/*'],
+    '/api/ai-search': ['./content/**/*'],
+  },
   // Transpile nextra packages to fix Turbopack ESM issues
   transpilePackages: ['nextra', 'nextra-theme-docs'],
   images: {
