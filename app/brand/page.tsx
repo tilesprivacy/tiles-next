@@ -44,6 +44,19 @@ export default function BrandPage() {
           <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             Resources to represent Tiles consistently and accurately.
           </p>
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-black/55 dark:text-[#9A9A9D]">
+            Visual identity developed in collaboration with{" "}
+            <a
+              href="https://darkshapes.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
+            >
+              <Image src="/darkshapes-logo.svg" alt="Darkshapes logo" width={14} height={14} className="h-3.5 w-auto" />
+              <span>Darkshapes</span>
+            </a>
+            , an umbrella organization rethinking machine-learning tools that work for people, not corporations.
+          </p>
           <a
             href="/tiles-brand-assets.zip"
             className={`minimal-primary-button mt-8 !no-underline ${themeAwareHeaderPrimaryCtaClasses}`}
@@ -165,26 +178,6 @@ export default function BrandPage() {
           <p className="mt-4 text-base leading-[1.7] text-black/80 dark:text-[#D0D0D3]">
             Refer to us as Tiles Privacy. Not Tiles Assistant or Tiles AI .
           </p>
-
-          <div className="mt-14 border-t border-black/10 pt-6 dark:border-white/10">
-            <div className="flex flex-col gap-3 text-sm leading-relaxed text-black/55 dark:text-[#9A9A9D]">
-              <div className="min-w-0">
-                <p className="text-sm leading-relaxed text-black/55 dark:text-[#9A9A9D]">
-                  Visual identity developed in collaboration with{" "}
-                  <a
-                    href="https://darkshapes.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
-                  >
-                    <Image src="/darkshapes-logo.svg" alt="Darkshapes logo" width={14} height={14} className="h-3.5 w-auto" />
-                    <span>Darkshapes</span>
-                  </a>
-                  , an umbrella organization rethinking machine-learning tools that work for people, not corporations.
-                </p>
-              </div>
-            </div>
-          </div>
         </section>
       </main>
 
