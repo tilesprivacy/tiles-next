@@ -111,7 +111,7 @@ export function DownloadContent({
               </span>
               <span>Web Browser</span>
             </h2>
-            <p>Coming soon on all modern browsers across platforms · Runs with remote inference.</p>
+            <p>Coming soon on all modern browsers across platforms · Runs local models with remote inference.</p>
             <div
               className={`minimal-download-browser-badge minimal-download-browser-badge--coming-soon ${themeAwareHeaderPrimaryCtaClasses}`}
               role="status"
