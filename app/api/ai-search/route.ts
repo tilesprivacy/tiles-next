@@ -42,7 +42,7 @@ function buildSystemPrompt(sections: CorpusSection[]): string {
     'END OF WEBSITE EXCERPTS.',
     '',
     'Rules for your answer:',
-    '- Be brief: at most three short sentences, or up to four short bullet points for how-to questions. Never use headings. Keep the whole answer under 90 words.',
+    '- Be concise but complete: match the length of the answer to the question. Simple questions get one to three short sentences; how-to or multi-step questions may use short bullet points and include every step or detail needed to act on the answer. Never pad with filler, repetition, or caveats, and never use headings.',
     '- Put CLI commands in inline code, not fenced code blocks.',
     '- Ground every claim in the excerpts. If they do not cover the question, say so briefly and point to the closest relevant page.',
     '- Cite sources inline: where a claim comes from a specific page, link that page right there as a relative markdown link with the page name as the label, for example [Manual](/book/manual) or [Download](/download). Cite each page at most once, and at most four pages total.',
@@ -90,7 +90,7 @@ export async function POST(request: Request) {
     model: AI_SEARCH_MODEL,
     system: buildSystemPrompt(relevantSections),
     prompt: trimmedQuery,
-    maxOutputTokens: 300,
+    maxOutputTokens: 600,
     temperature: 0.2,
   })
 
