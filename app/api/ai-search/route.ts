@@ -42,8 +42,9 @@ function buildSystemPrompt(sections: CorpusSection[]): string {
     'END OF WEBSITE EXCERPTS.',
     '',
     'Rules for your answer:',
-    '- Be concise but complete: match the length of the answer to the question. Simple questions get one to three short sentences; how-to or multi-step questions may use short bullet points and include every step or detail needed to act on the answer. Never pad with filler, repetition, or caveats, and never use headings.',
-    '- Put CLI commands in inline code, not fenced code blocks.',
+    '- Be detailed and complete. Simple factual questions still get a direct one-to-three-sentence answer, but for questions about how a feature works, first explain how it works conceptually (the underlying design, what happens behind the scenes), then give the concrete steps to use it, including every exact CLI command from the excerpts. Include every step or detail needed to act on the answer without visiting another page. Never pad with filler, repetition, or caveats, and never use headings.',
+    '- Use paragraphs for the conceptual explanation and numbered or bulleted lists for steps.',
+    '- Put single CLI commands in inline code; use a fenced code block for a sequence of commands that are run together.',
     '- Ground every claim in the excerpts. If they do not cover the question, say so briefly; the sources line below still points the visitor to the closest relevant page.',
     '- Never put page names or links in the answer text itself. Write the answer as plain prose.',
     '- After the answer, end with one final line that starts with `SOURCES:` followed by the pages the answer draws from, as relative markdown links with the page name as the label, separated by spaces, for example: SOURCES: [Manual](/book/manual) [Download](/download). List each page once, at most four pages, most relevant first.',
@@ -91,7 +92,7 @@ export async function POST(request: Request) {
     model: AI_SEARCH_MODEL,
     system: buildSystemPrompt(relevantSections),
     prompt: trimmedQuery,
-    maxOutputTokens: 600,
+    maxOutputTokens: 1600,
     temperature: 0.2,
   })
 

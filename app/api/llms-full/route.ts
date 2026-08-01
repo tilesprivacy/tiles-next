@@ -27,7 +27,9 @@ function stripHtml(html: string): string {
 function sanitizeMdxText(mdx: string): string {
   return mdx
     .replace(/^---[\s\S]*?---\n?/, '')
-    .replace(/```[\s\S]*?```/g, '[code block]')
+    // Keep code block contents (CLI commands the AI search answers rely on);
+    // strip only the fences and their info string.
+    .replace(/```[^\n]*\n([\s\S]*?)```/g, '$1')
     .replace(/`([^`]+)`/g, '$1')
     .replace(/\[(.*?)\]\((.*?)\)/g, '$1')
     .split('\n')

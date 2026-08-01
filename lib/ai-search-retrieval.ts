@@ -10,8 +10,10 @@ export interface CorpusSection {
 const SECTION_DIVIDER = /^={80}$/m
 
 // Character budget for the context included in the system prompt.
-// ~24k chars is roughly 6k tokens, versus 100k+ chars for the full corpus.
-const DEFAULT_MAX_CONTEXT_CHARS = 24_000
+// ~36k chars is roughly 9k tokens, versus 100k+ chars for the full corpus.
+// Sized so how-to questions get both the conceptual docs and the CLI
+// reference sections they need for a detailed answer.
+const DEFAULT_MAX_CONTEXT_CHARS = 36_000
 
 // Sections used when a query matches nothing (or matches too little), so the
 // model always has the core site facts to answer or redirect from.
