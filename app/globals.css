@@ -2250,6 +2250,32 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
 }
 
+/* Short viewports (phones rotated to landscape, squat desktop windows):
+ * the viewport-height hero with copy pinned around its vertical center and
+ * the MacBook pulled up under it has no room and everything overlaps, so
+ * the title, copy, CTA, and device flow in normal document order instead.
+ * Placed after the width-based hero rules so it wins over them. */
+@media (max-height: 560px) {
+  .minimal-hero {
+    min-height: 0;
+    height: auto;
+    gap: 1.5rem;
+    padding-top: calc(var(--site-announcement-offset, 0px) + 7.5rem);
+  }
+  .minimal-hero-title,
+  .minimal-hero > p,
+  .minimal-hero > .minimal-download-cta {
+    position: static;
+    transform: none;
+  }
+  .minimal-hero-title {
+    font-size: 48px;
+  }
+  .minimal-hero-device {
+    margin: 2.5rem auto 0;
+  }
+}
+
 @media (max-width: 360px) {
   .minimal-topbar-alpha {
     display: none;
