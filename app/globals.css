@@ -429,7 +429,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .ai-search-trigger-kbd {
   display: none;
 }
-@media (min-width: 768px) {
+/* The ⌘K label only fits once the centered nav and right-side actions have
+ * generous clearance; below this the trigger stays icon-only. */
+@media (min-width: 1100px) {
   .ai-search-trigger {
     width: auto;
     gap: 0.45rem;
@@ -2024,62 +2026,17 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   font-size: inherit;
 }
 
-@media (max-width: 767px) {
-  /*
-   * Keep the homepage hero stable while mobile browser chrome expands or
-   * collapses. `dvh` changes during scroll and moves both the centered copy
-   * and the MacBook that follows the hero; `svh` remains fixed.
-   */
-  .minimal-hero {
-    min-height: 100svh;
-    height: 100svh;
-  }
-  .minimal-topbar {
-    width: calc(100% - 2rem);
-    height: 4rem;
-    gap: 0.25rem;
-  }
-  .minimal-topbar-left {
-    gap: 0.625rem;
-  }
-  .minimal-topbar-theme {
-    width: 32px;
-    height: 32px;
-  }
-  .minimal-topbar-theme > div,
-  .minimal-topbar-theme > div > div {
-    width: 32px;
-    height: 32px;
-  }
-  .minimal-topbar-theme > div > div > button {
-    inset: -6px;
-  }
+/* Below 900px the absolutely centered nav can collide with the right-side
+ * actions, so the links collapse into the hamburger menu instead. The
+ * ≤767px block after this one layers compact sizes on top. */
+@media (max-width: 899px) {
   .minimal-topbar nav.minimal-topbar-center-nav {
     display: none;
   }
-  .minimal-topbar nav.minimal-topbar-actions {
-    gap: 0.5rem;
-  }
-  .ai-search-trigger {
-    width: 32px;
-    height: 32px;
-  }
-  .ai-search-glyph {
-    width: 17px;
-    height: 17px;
-  }
-  .ai-search-bar {
-    gap: 0.6rem;
-  }
-  .ai-search-close,
-  .ai-search-submit {
-    width: 32px;
-    height: 32px;
-  }
   .minimal-topbar-menu-button {
     position: relative;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2131,7 +2088,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   }
   .minimal-topbar-menu {
     position: fixed;
-    inset: calc(4rem + var(--site-announcement-offset)) 0 0;
+    inset: calc(5.5rem + var(--site-announcement-offset)) 0 0;
     z-index: 40;
     display: block;
     overflow-y: auto;
@@ -2156,6 +2113,64 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   }
   .minimal-topbar-menu nav a:hover {
     opacity: 0.65;
+  }
+}
+
+@media (max-width: 767px) {
+  /*
+   * Keep the homepage hero stable while mobile browser chrome expands or
+   * collapses. `dvh` changes during scroll and moves both the centered copy
+   * and the MacBook that follows the hero; `svh` remains fixed.
+   */
+  .minimal-hero {
+    min-height: 100svh;
+    height: 100svh;
+  }
+  .minimal-topbar {
+    width: calc(100% - 2rem);
+    height: 4rem;
+    gap: 0.25rem;
+  }
+  .minimal-topbar-left {
+    gap: 0.625rem;
+  }
+  .minimal-topbar-theme {
+    width: 32px;
+    height: 32px;
+  }
+  .minimal-topbar-theme > div,
+  .minimal-topbar-theme > div > div {
+    width: 32px;
+    height: 32px;
+  }
+  .minimal-topbar-theme > div > div > button {
+    inset: -6px;
+  }
+  .minimal-topbar nav.minimal-topbar-actions {
+    gap: 0.5rem;
+  }
+  .ai-search-trigger {
+    width: 32px;
+    height: 32px;
+  }
+  .ai-search-glyph {
+    width: 17px;
+    height: 17px;
+  }
+  .ai-search-bar {
+    gap: 0.6rem;
+  }
+  .ai-search-close,
+  .ai-search-submit {
+    width: 32px;
+    height: 32px;
+  }
+  .minimal-topbar-menu-button {
+    width: 32px;
+    height: 32px;
+  }
+  .minimal-topbar-menu {
+    inset: calc(4rem + var(--site-announcement-offset)) 0 0;
   }
 }
 
