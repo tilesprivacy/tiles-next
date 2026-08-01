@@ -63,7 +63,7 @@ export default function BrandPage() {
           </p>
           <a
             href="/tiles-brand-assets.zip"
-            className={`group minimal-primary-button minimal-download-action mt-8 !no-underline ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+            className={`group minimal-primary-button minimal-download-action mt-8 !min-w-0 !no-underline ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
           >
             <span>Download brand assets</span>
             <Download
