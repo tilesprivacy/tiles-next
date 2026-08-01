@@ -430,7 +430,6 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
           <div className="ai-search-panel-inner">
           {answerStatus === "idle" && query.trim() ? (
             <button type="button" className="ai-search-ask-hint" onClick={() => askAi()}>
-              <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
               <span className="ai-search-hint-desktop">
                 Press{" "}
                 <kbd aria-label="Enter">
