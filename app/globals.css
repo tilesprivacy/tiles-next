@@ -750,11 +750,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--muted-foreground);
   font-size: 0.75rem;
 }
-.ai-search-answer-glyph {
-  flex: none;
-  width: 14px;
-  height: 14px;
-}
 .ai-search-answer-body {
   font-size: 0.875rem;
   line-height: 1.55;
