@@ -78,9 +78,6 @@ export function ThemeSwitcher({
   const activeText = isLightVariant ? 'text-white' : 'text-black'
   const inactiveText = isLightVariant ? (quiet ? 'text-black/45' : 'text-black/60') : (quiet ? 'text-white/50' : 'text-white/60')
   const hoverText = isLightVariant ? 'hover:text-black' : 'hover:text-white'
-  // Dark renders the cyberpunk skin, so its active segment goes sponsor yellow.
-  const cyberpunkActive =
-    !isLightVariant && isDark ? 'bg-[var(--sponsor-yellow,#f7ff61)] text-black' : null
 
   const sizeClasses = size === 'sm'
     ? 'text-[11px] px-2.5 py-1 gap-0.5'
@@ -127,15 +124,15 @@ export function ThemeSwitcher({
     const focusRing = isLightVariant ? 'focus-visible:ring-black/25' : 'focus-visible:ring-white/25'
     const shell = isLightVariant
       ? `${bgColor} ${quiet ? 'text-black/55' : 'text-black/70'} hover:text-black`
-      : isDark
-        ? 'bg-[var(--sponsor-yellow,#f7ff61)]/15 text-[var(--sponsor-yellow,#f7ff61)] hover:text-[var(--sponsor-yellow,#f7ff61)]'
-        : `${bgColor} ${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
+      : `${bgColor} ${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
     const iconButtonClass = `inline-flex items-center justify-center rounded-sm ${togglePadding} transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${shell}`
     const themeIcon =
       selectedMode === 'light' ? (
         <SunIcon className={iconSize} />
       ) : selectedMode === 'dark' ? (
-        <MoonIcon className={iconSize} />
+        // The moon glyph fills its viewBox more densely than the sun/monitor;
+        // scale it down so the icons read at the same visual size.
+        <MoonIcon className={`${iconSize} scale-90`} />
       ) : (
         <SystemIcon className={iconSize} />
       )
@@ -151,16 +148,11 @@ export function ThemeSwitcher({
       const touchIconClass = `inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${
         isLightVariant
           ? `${quiet ? 'text-black/55' : 'text-black/70'} hover:text-black`
-          : isDark
-            ? 'text-[var(--sponsor-yellow,#f7ff61)]'
-            : `${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
+          : `${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
       }`
-      const touchShell = !isLightVariant && isDark
-        ? 'bg-[var(--sponsor-yellow,#f7ff61)]/15'
-        : bgColor
 
       return (
-        <div className={`inline-flex shrink-0 items-center rounded-sm leading-none ${touchShell} h-6`}>
+        <div className={`inline-flex shrink-0 items-center rounded-sm leading-none ${bgColor} h-6`}>
           <div className="relative flex h-6 w-6 items-center justify-center">
             <button
               type="button"
@@ -195,7 +187,7 @@ export function ThemeSwitcher({
     )
   }
 
-  const activeClasses = cyberpunkActive ?? `${activeBg} ${activeText}`
+  const activeClasses = `${activeBg} ${activeText}`
 
   return (
     <div className={`inline-flex items-center rounded-sm ${bgColor} p-1`}>
@@ -223,7 +215,7 @@ export function ThemeSwitcher({
         }`}
         aria-label="Dark theme"
       >
-        <MoonIcon className={iconSize} />
+        <MoonIcon className={`${iconSize} scale-90`} />
       </button>
       <button
         type="button"
