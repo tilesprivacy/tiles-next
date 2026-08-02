@@ -13,7 +13,7 @@ interface ThemeSwitcherProps {
   touchFriendly?: boolean
 }
 
-type ThemeMode = 'light' | 'dark' | 'cyberpunk'
+type ThemeMode = 'light' | 'dark' | 'system'
 
 function SunIcon({ className }: { className?: string }) {
   return (
@@ -31,24 +31,25 @@ function MoonIcon({ className }: { className?: string }) {
   )
 }
 
-/** Neon bolt for the cyberpunk theme. */
-function CyberpunkIcon({ className }: { className?: string }) {
+/** Desktop monitor for the system (device preference) option. */
+function SystemIcon({ className }: { className?: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={className}>
-      <path d="M11.25 2a.75.75 0 01.66.39l4.5 8.25A.75.75 0 0115.75 12h-3.038l1.127 5.073a.75.75 0 01-1.348.663l-5.75-8.5A.75.75 0 017.25 8h2.962L9.162 2.927A.75.75 0 0110 2.25h1.25z" />
+      <path fillRule="evenodd" d="M2 4.25A2.25 2.25 0 014.25 2h11.5A2.25 2.25 0 0118 4.25v8.5A2.25 2.25 0 0115.75 15h-3.105a3.501 3.501 0 001.1 1.677A.75.75 0 0113.26 18H6.74a.75.75 0 01-.485-1.323A3.501 3.501 0 007.355 15H4.25A2.25 2.25 0 012 12.75v-8.5zm1.5 0a.75.75 0 01.75-.75h11.5a.75.75 0 01.75.75v7.5a.75.75 0 01-.75.75H4.25a.75.75 0 01-.75-.75v-7.5z" clipRule="evenodd" />
     </svg>
   )
 }
 
-function resolveToggleMode(theme: string | undefined, resolvedTheme: string | undefined): ThemeMode {
-  if (theme === CYBERPUNK_THEME || resolvedTheme === CYBERPUNK_THEME) return 'cyberpunk'
-  if (resolvedTheme === 'dark') return 'dark'
-  return 'light'
+function resolveSelectedMode(theme: string | undefined): ThemeMode {
+  if (theme === 'light') return 'light'
+  // Legacy stored "cyberpunk" selections behave as dark until migrated.
+  if (theme === 'dark' || theme === CYBERPUNK_THEME) return 'dark'
+  return 'system'
 }
 
 function nextToggleMode(mode: ThemeMode): ThemeMode {
   if (mode === 'light') return 'dark'
-  if (mode === 'dark') return 'cyberpunk'
+  if (mode === 'dark') return 'system'
   return 'light'
 }
 
@@ -77,10 +78,9 @@ export function ThemeSwitcher({
   const activeText = isLightVariant ? 'text-white' : 'text-black'
   const inactiveText = isLightVariant ? (quiet ? 'text-black/45' : 'text-black/60') : (quiet ? 'text-white/50' : 'text-white/60')
   const hoverText = isLightVariant ? 'hover:text-black' : 'hover:text-white'
+  // Dark renders the cyberpunk skin, so its active segment goes sponsor yellow.
   const cyberpunkActive =
-    !isLightVariant && (theme === CYBERPUNK_THEME || resolvedTheme === CYBERPUNK_THEME)
-      ? 'bg-[var(--sponsor-yellow,#f7ff61)] text-black'
-      : null
+    !isLightVariant && isDark ? 'bg-[var(--sponsor-yellow,#f7ff61)] text-black' : null
 
   const sizeClasses = size === 'sm'
     ? 'text-[11px] px-2.5 py-1 gap-0.5'
@@ -119,45 +119,45 @@ export function ThemeSwitcher({
     )
   }
 
+  const selectedMode = resolveSelectedMode(theme)
+
   if (mode === 'toggle') {
-    const effectiveMode = resolveToggleMode(theme, resolvedTheme)
-    const nextMode = nextToggleMode(effectiveMode)
+    const nextMode = nextToggleMode(selectedMode)
 
     const focusRing = isLightVariant ? 'focus-visible:ring-black/25' : 'focus-visible:ring-white/25'
     const shell = isLightVariant
       ? `${bgColor} ${quiet ? 'text-black/55' : 'text-black/70'} hover:text-black`
-      : effectiveMode === 'cyberpunk'
+      : isDark
         ? 'bg-[var(--sponsor-yellow,#f7ff61)]/15 text-[var(--sponsor-yellow,#f7ff61)] hover:text-[var(--sponsor-yellow,#f7ff61)]'
         : `${bgColor} ${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
     const iconButtonClass = `inline-flex items-center justify-center rounded-sm ${togglePadding} transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${shell}`
     const themeIcon =
-      effectiveMode === 'light' ? (
+      selectedMode === 'light' ? (
         <SunIcon className={iconSize} />
-      ) : effectiveMode === 'dark' ? (
+      ) : selectedMode === 'dark' ? (
         <MoonIcon className={iconSize} />
       ) : (
-        <CyberpunkIcon className={iconSize} />
+        <SystemIcon className={iconSize} />
       )
 
     const themeLabel = locked
-      ? `Theme: ${effectiveMode} (locked on this page)`
-      : `Theme: ${effectiveMode}. Click to switch to ${nextMode}.`
+      ? `Theme: ${selectedMode} (locked on this page)`
+      : `Theme: ${selectedMode}. Click to switch to ${nextMode}.`
     const themeTitle = locked
-      ? `Theme: ${effectiveMode.toUpperCase()} (locked)`
-      : `Theme: ${effectiveMode.toUpperCase()} (click for ${nextMode.toUpperCase()})`
+      ? `Theme: ${selectedMode.toUpperCase()} (locked)`
+      : `Theme: ${selectedMode.toUpperCase()} (click for ${nextMode.toUpperCase()})`
 
     if (touchFriendly) {
       const touchIconClass = `inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 ${focusRing} ${
         isLightVariant
           ? `${quiet ? 'text-black/55' : 'text-black/70'} hover:text-black`
-          : effectiveMode === 'cyberpunk'
+          : isDark
             ? 'text-[var(--sponsor-yellow,#f7ff61)]'
             : `${quiet ? 'text-white/58' : 'text-white/75'} hover:text-white`
       }`
-      const touchShell =
-        effectiveMode === 'cyberpunk'
-          ? 'bg-[var(--sponsor-yellow,#f7ff61)]/15'
-          : bgColor
+      const touchShell = !isLightVariant && isDark
+        ? 'bg-[var(--sponsor-yellow,#f7ff61)]/15'
+        : bgColor
 
       return (
         <div className={`inline-flex shrink-0 items-center rounded-sm leading-none ${touchShell} h-6`}>
@@ -195,7 +195,7 @@ export function ThemeSwitcher({
     )
   }
 
-  const isCyberpunk = theme === CYBERPUNK_THEME || resolvedTheme === CYBERPUNK_THEME
+  const activeClasses = cyberpunkActive ?? `${activeBg} ${activeText}`
 
   return (
     <div className={`inline-flex items-center rounded-sm ${bgColor} p-1`}>
@@ -204,11 +204,11 @@ export function ThemeSwitcher({
         onClick={() => setTheme('light')}
         disabled={locked}
         className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 disabled:cursor-default ${
-          resolvedTheme === 'light'
-            ? `${activeBg} ${activeText}`
+          selectedMode === 'light'
+            ? activeClasses
             : `${inactiveText} ${hoverText}`
         }`}
-        aria-label="Light mode"
+        aria-label="Light theme"
       >
         <SunIcon className={iconSize} />
       </button>
@@ -217,26 +217,26 @@ export function ThemeSwitcher({
         onClick={() => setTheme('dark')}
         disabled={locked}
         className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 disabled:cursor-default ${
-          resolvedTheme === 'dark'
-            ? `${activeBg} ${activeText}`
+          selectedMode === 'dark'
+            ? activeClasses
             : `${inactiveText} ${hoverText}`
         }`}
-        aria-label="Dark mode"
+        aria-label="Dark theme"
       >
         <MoonIcon className={iconSize} />
       </button>
       <button
         type="button"
-        onClick={() => setTheme(CYBERPUNK_THEME)}
+        onClick={() => setTheme('system')}
         disabled={locked}
         className={`inline-flex items-center ${sizeClasses} rounded-sm font-medium transition-all duration-200 disabled:cursor-default ${
-          isCyberpunk
-            ? cyberpunkActive ?? `${activeBg} ${activeText}`
+          selectedMode === 'system'
+            ? activeClasses
             : `${inactiveText} ${hoverText}`
         }`}
-        aria-label="Cyberpunk mode"
+        aria-label="System theme"
       >
-        <CyberpunkIcon className={iconSize} />
+        <SystemIcon className={iconSize} />
       </button>
     </div>
   )
