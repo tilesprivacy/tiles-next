@@ -465,7 +465,6 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
           {answerStatus !== "idle" ? (
           <div className="ai-search-answer">
             <div className="ai-search-answer-label">
-              <AiSearchGlyph className="ai-search-glyph ai-search-answer-glyph" />
               <span>AI answer</span>
             </div>
             {answerStatus === "error" ? (
