@@ -33,16 +33,19 @@ function getPageTheme(pathname: string | null): string | null {
 }
 
 /**
- * next-themes can only apply one class token per theme. Cyberpunk also needs
- * `.dark` so existing `.dark` CSS and `dark:` utilities keep working.
+ * next-themes can only apply one class token per theme, and the dark theme
+ * maps to `.cyberpunk`. Mirror `.dark` onto <html> so existing `.dark` CSS
+ * and `dark:` utilities keep working.
  */
-function CyberpunkDarkClassSync() {
+function DarkClassSync() {
   const { resolvedTheme } = useTheme()
 
   React.useLayoutEffect(() => {
     const root = document.documentElement
-    if (resolvedTheme === CYBERPUNK_THEME) {
+    if (resolvedTheme === 'dark') {
       root.classList.add('dark')
+    } else {
+      root.classList.remove('dark')
     }
   }, [resolvedTheme])
 
@@ -52,6 +55,7 @@ function CyberpunkDarkClassSync() {
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const pathname = usePathname()
   const pageTheme = getPageTheme(pathname)
+  const storageKey = props.storageKey ?? 'theme'
 
   React.useLayoutEffect(() => {
     const root = document.documentElement
@@ -74,13 +78,14 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       themes={[...SITE_THEMES]}
       value={SITE_THEME_CLASS_VALUES}
     >
-      {/* Runs immediately after next-themes’ blocking script so first paint has `.dark`. */}
+      {/* Runs immediately after next-themes’ blocking script so first paint has `.dark`.
+          Also migrates the retired stored "cyberpunk" selection to "dark". */}
       <script
         dangerouslySetInnerHTML={{
-          __html: `(function(){try{var d=document.documentElement;if(d.classList.contains(${JSON.stringify(CYBERPUNK_THEME)}))d.classList.add("dark");}catch(e){}})();`,
+          __html: `(function(){try{var d=document.documentElement,k=${JSON.stringify(storageKey)},c=${JSON.stringify(CYBERPUNK_THEME)};try{if(localStorage.getItem(k)===c){localStorage.setItem(k,"dark");d.classList.remove("light");d.classList.add(c);d.style.colorScheme="dark";}}catch(e){}if(d.classList.contains(c))d.classList.add("dark");else d.classList.remove("dark");}catch(e){}})();`,
         }}
       />
-      <CyberpunkDarkClassSync />
+      <DarkClassSync />
       {children}
     </NextThemesProvider>
   )
