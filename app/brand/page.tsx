@@ -48,6 +48,16 @@ export default function BrandPage() {
           <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             Resources to represent Tiles consistently and accurately.
           </p>
+          <a
+            href="/tiles-brand-assets.zip"
+            className={`group minimal-primary-button minimal-download-action mt-8 !min-w-0 !no-underline ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+          >
+            <span>Download brand assets</span>
+            <Download
+              className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+              aria-hidden
+            />
+          </a>
           <p className="mt-6 max-w-2xl text-sm leading-relaxed text-black/55 dark:text-[#9A9A9D]">
             Visual identity developed in collaboration with{" "}
             <a
@@ -61,16 +71,6 @@ export default function BrandPage() {
             </a>
             , an umbrella organization rethinking machine-learning tools that work for people, not corporations.
           </p>
-          <a
-            href="/tiles-brand-assets.zip"
-            className={`group minimal-primary-button minimal-download-action mt-8 !min-w-0 !no-underline ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
-          >
-            <span>Download brand assets</span>
-            <Download
-              className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
-              aria-hidden
-            />
-          </a>
 
           <h2 className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand assets</h2>
           <div className="mt-4 max-w-3xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
