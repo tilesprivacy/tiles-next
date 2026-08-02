@@ -4235,6 +4235,9 @@ header[data-tiles-site-header] {
 
   /* Hide fixed overlays/navigation chrome that causes misplaced print output. */
   .site-header-chrome,
+  .site-announcement,
+  header.minimal-topbar,
+  .refined-site-footer,
   [data-book-section] header,
   [data-book-section] aside.nextra-sidebar,
   [data-book-section] .nextra-sidebar,
@@ -4531,13 +4534,25 @@ header[data-tiles-site-header] {
     visibility: hidden !important;
   }
 
+  [data-blog-article] iframe {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
   [data-blog-article] [data-blog-print-footer] {
+    break-inside: avoid !important;
     color: #6f6f74 !important;
     display: block !important;
     font-size: 0.8rem !important;
     line-height: 1.5 !important;
     margin: 14mm 0 0 !important;
+    page-break-inside: avoid !important;
     visibility: visible !important;
+  }
+
+  [data-blog-article] [data-blog-print-footer] p {
+    color: #6f6f74 !important;
+    margin: 0 !important;
   }
 }
 

@@ -287,9 +287,13 @@ export function BlogPostContent({
               />
             </div>
 
-            <p data-blog-print-footer className="mt-0 hidden print:block">
-              © 2026 <a href="https://www.tilesprivacy.org">Tiles Privacy</a>
-            </p>
+            <div data-blog-print-footer className="mt-0 hidden print:block">
+              <p>© 2026 Tiles Privacy Technologies Pvt. Ltd.</p>
+              <p>WeWork Prestige Atlanta, 80 Feet Rd</p>
+              <p>Koramangala</p>
+              <p>Bengaluru 560024</p>
+              <p>India</p>
+            </div>
           </div>
         </div>
       </main>

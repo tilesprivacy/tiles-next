@@ -189,9 +189,9 @@ export default function OwnYourAiPage() {
     >
       <div className="space-y-4" dangerouslySetInnerHTML={{ __html: ownYourAiTalkIntro }} />
 
-      <h2>{ownYourAiTalkRecording.title}</h2>
+      <h2 className="blog-print-screen-only">{ownYourAiTalkRecording.title}</h2>
 
-      <figure className="my-8 overflow-hidden rounded-lg border border-white/10 shadow-[0_18px_48px_rgba(0,0,0,0.24)]">
+      <figure className="blog-print-screen-only my-8 overflow-hidden rounded-lg border border-white/10 shadow-[0_18px_48px_rgba(0,0,0,0.24)]">
         <div className="relative aspect-video w-full">
           <iframe
             src={ownYourAiTalkRecording.embedUrl}
