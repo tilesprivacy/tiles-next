@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { getPaymentStatus, pay } from "@base-org/account"
-import { Wallet } from "lucide-react"
+import { Check, ChevronRight, Copy, Wallet, X } from "lucide-react"
 import { SiCircle, SiWalletconnect } from "react-icons/si"
 import { erc20Abi, parseUnits } from "viem"
 import {
@@ -24,6 +24,8 @@ export const SPONSOR_USDC_ETH_ADDRESS =
   "0x7d6ab3dbdf510d6669e72f0e27ada61bbad0821d" as const
 
 export const SPONSOR_USDC_BASESCAN_URL = `https://basescan.org/address/${SPONSOR_USDC_ETH_ADDRESS}`
+
+const SPONSOR_USDC_ADDRESS_SHORT = `${SPONSOR_USDC_ETH_ADDRESS.slice(0, 6)}…${SPONSOR_USDC_ETH_ADDRESS.slice(-4)}`
 
 // Native USDC on Base mainnet (6 decimals).
 const BASE_USDC_ADDRESS =
@@ -51,13 +53,25 @@ const queryClient = new QueryClient()
 const HIDDEN_DISCOVERED_IDS = new Set(["com.coinbase.wallet"])
 const METAMASK_IDS = new Set(["io.metamask", "io.metamask.mobile"])
 
-type PanelStatus =
-  | { kind: "idle" }
-  | { kind: "connecting"; wallet: string }
-  | { kind: "paying"; wallet: string; amount: string }
-  | { kind: "confirming" }
-  | { kind: "success"; txHash?: string }
-  | { kind: "error"; message: string }
+const BASE_PAY_KEY = "base-pay"
+const AMOUNT_KEY = "amount"
+
+type FlowState =
+  | { step: "idle" }
+  | {
+      step: "working"
+      phase: "connecting" | "approving" | "confirming"
+      walletKey: string
+      walletName: string
+      amount: string
+    }
+  | { step: "success"; walletKey: string; txHash?: string }
+  | {
+      step: "error"
+      walletKey: string
+      message: string
+      retry: (() => void) | null
+    }
 
 function errorMessage(error: unknown) {
   if (typeof error === "object" && error !== null) {
@@ -72,7 +86,7 @@ function errorMessage(error: unknown) {
       err.name === "UserRejectedRequestError" ||
       /rejected|denied|cancell?ed/i.test(err.message ?? "")
     ) {
-      return "Request canceled in the wallet."
+      return "Request cancelled in the wallet."
     }
     const message = err.shortMessage ?? err.message
     if (message) {
@@ -113,7 +127,8 @@ function DonatePanel() {
   const [open, setOpen] = useState(false)
   const [preset, setPreset] = useState<string | null>(DEFAULT_AMOUNT)
   const [customAmount, setCustomAmount] = useState("")
-  const [status, setStatus] = useState<PanelStatus>({ kind: "idle" })
+  const [flow, setFlow] = useState<FlowState>({ step: "idle" })
+  const [copied, setCopied] = useState(false)
 
   const account = useAccount()
   const { connectors, connectAsync } = useConnect()
@@ -121,55 +136,99 @@ function DonatePanel() {
   const { writeContractAsync } = useWriteContract()
   const publicClient = usePublicClient({ chainId: base.id })
 
-  const busy =
-    status.kind === "connecting" ||
-    status.kind === "paying" ||
-    status.kind === "confirming"
+  const busy = flow.step === "working"
 
   const amount = preset ?? customAmount
   const amountValid = /^\d+(\.\d{1,2})?$/.test(amount) && Number(amount) > 0
 
+  const clearTransientFlow = () => {
+    if (flow.step === "error" || flow.step === "success") {
+      setFlow({ step: "idle" })
+    }
+  }
+
   const selectPreset = (value: string) => {
     setPreset(value)
-    if (status.kind === "error") setStatus({ kind: "idle" })
+    clearTransientFlow()
+  }
+
+  const selectCustom = () => {
+    setPreset(null)
+    clearTransientFlow()
   }
 
   const onCustomAmountChange = (value: string) => {
     if (value !== "" && !/^\d*(\.\d{0,2})?$/.test(value)) return
-    setPreset(null)
     setCustomAmount(value)
-    if (status.kind === "error") setStatus({ kind: "idle" })
+    clearTransientFlow()
   }
 
   const requireAmount = () => {
     if (amountValid) return true
-    setStatus({ kind: "error", message: "Enter a valid amount first." })
+    setFlow({
+      step: "error",
+      walletKey: AMOUNT_KEY,
+      message: "Enter an amount first.",
+      retry: null,
+    })
     return false
   }
 
   const donateWithBasePay = async () => {
     if (busy || !requireAmount()) return
-    setStatus({ kind: "paying", wallet: "Base", amount })
+    const currentAmount = amount
+    setFlow({
+      step: "working",
+      phase: "approving",
+      walletKey: BASE_PAY_KEY,
+      walletName: "Base",
+      amount: currentAmount,
+    })
     try {
       const payment = await pay({
-        amount,
+        amount: currentAmount,
         to: SPONSOR_USDC_ETH_ADDRESS,
       })
-      setStatus({ kind: "confirming" })
+      setFlow({
+        step: "working",
+        phase: "confirming",
+        walletKey: BASE_PAY_KEY,
+        walletName: "Base",
+        amount: currentAmount,
+      })
       const completed = await waitForBasePayCompletion(payment.id)
-      setStatus(
+      setFlow(
         completed
-          ? { kind: "success" }
-          : { kind: "error", message: "The payment didn’t go through." },
+          ? { step: "success", walletKey: BASE_PAY_KEY }
+          : {
+              step: "error",
+              walletKey: BASE_PAY_KEY,
+              message: "The payment didn’t go through.",
+              retry: () => void donateWithBasePay(),
+            },
       )
     } catch (error) {
-      setStatus({ kind: "error", message: errorMessage(error) })
+      setFlow({
+        step: "error",
+        walletKey: BASE_PAY_KEY,
+        message: errorMessage(error),
+        retry: () => void donateWithBasePay(),
+      })
     }
   }
 
   const donateWithConnector = async (connector: Connector) => {
     if (busy || !requireAmount()) return
-    setStatus({ kind: "connecting", wallet: connector.name })
+    const currentAmount = amount
+    const walletKey = connector.uid
+    const walletName = connector.name
+    setFlow({
+      step: "working",
+      phase: "connecting",
+      walletKey,
+      walletName,
+      amount: currentAmount,
+    })
     try {
       let chainId = account.chainId
       if (!account.isConnected || account.connector?.uid !== connector.uid) {
@@ -179,23 +238,45 @@ function DonatePanel() {
       if (chainId !== base.id) {
         await switchChainAsync({ chainId: base.id })
       }
-      setStatus({ kind: "paying", wallet: connector.name, amount })
+      setFlow({
+        step: "working",
+        phase: "approving",
+        walletKey,
+        walletName,
+        amount: currentAmount,
+      })
       const hash = await writeContractAsync({
         abi: erc20Abi,
         address: BASE_USDC_ADDRESS,
         functionName: "transfer",
-        args: [SPONSOR_USDC_ETH_ADDRESS, parseUnits(amount, 6)],
+        args: [SPONSOR_USDC_ETH_ADDRESS, parseUnits(currentAmount, 6)],
         chainId: base.id,
       })
-      setStatus({ kind: "confirming" })
+      setFlow({
+        step: "working",
+        phase: "confirming",
+        walletKey,
+        walletName,
+        amount: currentAmount,
+      })
       const receipt = await publicClient?.waitForTransactionReceipt({ hash })
-      setStatus(
+      setFlow(
         receipt?.status === "success"
-          ? { kind: "success", txHash: hash }
-          : { kind: "error", message: "The transaction reverted on Base." },
+          ? { step: "success", walletKey, txHash: hash }
+          : {
+              step: "error",
+              walletKey,
+              message: "The transaction reverted on Base.",
+              retry: () => void donateWithConnector(connector),
+            },
       )
     } catch (error) {
-      setStatus({ kind: "error", message: errorMessage(error) })
+      setFlow({
+        step: "error",
+        walletKey,
+        message: errorMessage(error),
+        retry: () => void donateWithConnector(connector),
+      })
     }
   }
 
@@ -223,28 +304,76 @@ function DonatePanel() {
     window.location.href = `https://metamask.app.link/dapp/${host}${pathname}`
   }
 
-  const statusLine = (() => {
-    switch (status.kind) {
-      case "idle":
-        return null
-      case "connecting":
-        return `Opening ${status.wallet}…`
-      case "paying":
-        return `Approve the $${status.amount} USDC payment in ${status.wallet}…`
-      case "confirming":
-        return "Waiting for confirmation on Base…"
-      case "success":
-        return "Thank you for your support!"
-      case "error":
-        return status.message
+  const copyAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(SPONSOR_USDC_ETH_ADDRESS)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Clipboard access denied; the address stays selectable as text.
     }
-  })()
+  }
+
+  const flowFor = (walletKey: string) => {
+    if (flow.step === "idle" || flow.walletKey !== walletKey) return null
+    if (flow.step === "working") {
+      const message =
+        flow.phase === "connecting"
+          ? `Opening ${flow.walletName}…`
+          : flow.phase === "approving"
+            ? `Approve the $${flow.amount} USDC payment in ${flow.walletName}…`
+            : "Waiting for confirmation on Base…"
+      return (
+        <p className="minimal-wallet-flow" role="status">
+          {message}
+        </p>
+      )
+    }
+    if (flow.step === "success") {
+      return (
+        <p className="minimal-wallet-flow" data-kind="success" role="status">
+          Thank you for your support!
+          {flow.txHash ? (
+            <>
+              {" "}
+              <a
+                href={`https://basescan.org/tx/${flow.txHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View transaction
+              </a>
+            </>
+          ) : null}
+        </p>
+      )
+    }
+    return (
+      <div className="minimal-wallet-error" role="alert">
+        <span>{flow.message}</span>
+        <span className="minimal-wallet-error-actions">
+          {flow.retry ? (
+            <button type="button" onClick={flow.retry}>
+              Try again
+            </button>
+          ) : null}
+          <button
+            type="button"
+            aria-label="Dismiss"
+            onClick={() => setFlow({ step: "idle" })}
+          >
+            <X aria-hidden />
+          </button>
+        </span>
+      </div>
+    )
+  }
 
   return (
     <>
       <button
         type="button"
-        className="minimal-secondary-button"
+        className="minimal-secondary-button minimal-wallet-toggle"
         onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
         aria-controls="sponsor-usdc-panel"
@@ -254,7 +383,21 @@ function DonatePanel() {
       </button>
       {open ? (
         <div className="minimal-wallet-panel" id="sponsor-usdc-panel">
-          <div>
+          <header className="minimal-wallet-panel-header">
+            <div className="minimal-wallet-panel-heading">
+              <h3>Donate USDC</h3>
+              <span>USDC · Base network</span>
+            </div>
+            <button
+              type="button"
+              className="minimal-wallet-panel-close"
+              aria-label="Close donation panel"
+              onClick={() => setOpen(false)}
+            >
+              <X aria-hidden />
+            </button>
+          </header>
+          <section>
             <p className="minimal-wallet-panel-label">Amount</p>
             <div className="minimal-wallet-amounts">
               {PRESET_AMOUNTS.map((value) => (
@@ -269,40 +412,57 @@ function DonatePanel() {
                   ${value}
                 </button>
               ))}
-              <label
-                className="minimal-wallet-amount-custom"
+              <button
+                type="button"
+                className="minimal-wallet-amount-chip"
                 data-selected={preset === null}
+                onClick={selectCustom}
+                disabled={busy}
               >
-                $
+                Custom amount
+              </button>
+            </div>
+            {preset === null ? (
+              <label className="minimal-wallet-amount-inputrow">
+                <span aria-hidden>$</span>
                 <input
                   type="text"
                   inputMode="decimal"
-                  placeholder="Custom"
+                  placeholder="0.00"
+                  autoFocus
                   value={customAmount}
                   onChange={(event) => onCustomAmountChange(event.target.value)}
-                  onFocus={() => setPreset(null)}
                   disabled={busy}
                   aria-label="Custom amount in US dollars"
                 />
+                <span className="minimal-wallet-amount-currency">USDC</span>
               </label>
-            </div>
-          </div>
-          <div>
-            <p className="minimal-wallet-panel-label">Pay with</p>
+            ) : null}
+            {flowFor(AMOUNT_KEY)}
+          </section>
+          <section>
+            <p className="minimal-wallet-panel-label">Choose a wallet</p>
             <div className="minimal-wallet-options">
               <button
                 type="button"
                 className="minimal-wallet-option"
-                onClick={donateWithBasePay}
+                onClick={() => void donateWithBasePay()}
                 disabled={busy}
               >
                 <span
                   className="minimal-wallet-option-icon minimal-wallet-option-icon-base"
                   aria-hidden
                 />
-                Base
-                <small>Coinbase &amp; passkeys — no app needed</small>
+                <span className="minimal-wallet-option-text">
+                  Base
+                  <small>Coinbase &amp; passkeys — no wallet app needed</small>
+                </span>
+                <ChevronRight
+                  className="minimal-wallet-option-chevron"
+                  aria-hidden
+                />
               </button>
+              {flowFor(BASE_PAY_KEY)}
               {!metaMaskConnector ? (
                 <button
                   type="button"
@@ -317,56 +477,59 @@ function DonatePanel() {
                     alt=""
                     aria-hidden
                   />
-                  MetaMask
-                  <small>Opens the MetaMask app</small>
+                  <span className="minimal-wallet-option-text">
+                    MetaMask
+                    <small>Opens the MetaMask app</small>
+                  </span>
+                  <ChevronRight
+                    className="minimal-wallet-option-chevron"
+                    aria-hidden
+                  />
                 </button>
               ) : null}
               {walletOptions.map((connector) => (
-                <button
-                  key={connector.uid}
-                  type="button"
-                  className="minimal-wallet-option"
-                  onClick={() => donateWithConnector(connector)}
-                  disabled={busy}
-                >
-                  <ConnectorIcon connector={connector} />
-                  {connector.name}
-                  {connector.id === "walletConnect" ? (
-                    <small>Rainbow, Trust &amp; more</small>
-                  ) : null}
-                </button>
+                <div key={connector.uid} className="minimal-wallet-option-slot">
+                  <button
+                    type="button"
+                    className="minimal-wallet-option"
+                    onClick={() => void donateWithConnector(connector)}
+                    disabled={busy}
+                  >
+                    <ConnectorIcon connector={connector} />
+                    <span className="minimal-wallet-option-text">
+                      {connector.name}
+                      {connector.id === "walletConnect" ? (
+                        <small>Rainbow, Trust &amp; more</small>
+                      ) : null}
+                    </span>
+                    <ChevronRight
+                      className="minimal-wallet-option-chevron"
+                      aria-hidden
+                    />
+                  </button>
+                  {flowFor(connector.uid)}
+                </div>
               ))}
             </div>
-          </div>
-          {statusLine ? (
-            <p
-              className="minimal-wallet-status"
-              data-kind={status.kind}
-              role="status"
-            >
-              {statusLine}
-              {status.kind === "success" && status.txHash ? (
-                <>
-                  {" "}
-                  <a
-                    href={`https://basescan.org/tx/${status.txHash}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    View transaction
-                  </a>
-                </>
-              ) : null}
-            </p>
-          ) : null}
+          </section>
           <p className="minimal-wallet-note">
-            USDC on the Base network, sent to{" "}
+            Sent to <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
+            <button
+              type="button"
+              className="minimal-wallet-copy"
+              onClick={copyAddress}
+              aria-label="Copy recipient address"
+            >
+              {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+            <span aria-hidden>·</span>
             <a
               href={SPONSOR_USDC_BASESCAN_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
-              0x7d6a…821d
+              View on BaseScan
             </a>
           </p>
         </div>
