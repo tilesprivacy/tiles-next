@@ -1915,20 +1915,26 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   background: var(--foreground);
 }
 .minimal-sponsor-actions {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1rem;
 }
+/* Content-based widths plus an equal share of the leftover space, so every
+   label gets the same breathing room regardless of its length. */
 .minimal-sponsor-actions > .minimal-primary-button,
 .minimal-sponsor-actions > .minimal-secondary-button {
-  width: 100%;
+  flex: 1 1 auto;
   padding-inline: 0.75rem;
   white-space: nowrap;
 }
 @media (max-width: 700px) {
   .minimal-sponsor-actions {
-    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
+  }
+  .minimal-sponsor-actions > .minimal-primary-button,
+  .minimal-sponsor-actions > .minimal-secondary-button {
+    width: 100%;
   }
 }
 .minimal-wallet-toggle[aria-expanded="true"] {
@@ -1952,7 +1958,7 @@ html.cyberpunk
   );
   --wallet-accent: var(--foreground);
   --wallet-accent-contrast: var(--background);
-  grid-column: 1 / -1;
+  flex-basis: 100%;
   margin-top: 0.35rem;
   display: flex;
   flex-direction: column;
