@@ -2137,7 +2137,6 @@ html.cyberpunk .minimal-wallet-panel {
 }
 .minimal-wallet-option-chevron[data-open="true"] {
   transform: rotate(90deg);
-  color: var(--wallet-accent);
 }
 .minimal-wallet-qr {
   display: flex;
