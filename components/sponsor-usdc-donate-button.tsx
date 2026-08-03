@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { getPaymentStatus, pay } from "@base-org/account"
-import { Check, ChevronRight, Copy, Wallet, X } from "lucide-react"
+import { Check, ChevronRight, Copy, QrCode, Wallet, X } from "lucide-react"
 import { SiCircle, SiWalletconnect } from "react-icons/si"
 import { erc20Abi, parseUnits } from "viem"
 import {
@@ -129,6 +129,7 @@ function DonatePanel() {
   const [customAmount, setCustomAmount] = useState("")
   const [flow, setFlow] = useState<FlowState>({ step: "idle" })
   const [copied, setCopied] = useState(false)
+  const [qrOpen, setQrOpen] = useState(false)
 
   const account = useAccount()
   const { connectors, connectAsync } = useConnect()
@@ -455,7 +456,7 @@ function DonatePanel() {
                 />
                 <span className="minimal-wallet-option-text">
                   Base
-                  <small>Coinbase &amp; passkeys — no wallet app needed</small>
+                  <small>Opens the Coinbase website</small>
                 </span>
                 <ChevronRight
                   className="minimal-wallet-option-chevron"
@@ -510,20 +511,55 @@ function DonatePanel() {
                   {flowFor(connector.uid)}
                 </div>
               ))}
+              <button
+                type="button"
+                className="minimal-wallet-option"
+                onClick={() => setQrOpen((current) => !current)}
+                disabled={busy}
+                aria-expanded={qrOpen}
+              >
+                <QrCode className="minimal-wallet-option-icon" aria-hidden />
+                <span className="minimal-wallet-option-text">
+                  QR code
+                  <small>Scan with any wallet app</small>
+                </span>
+                <ChevronRight
+                  className="minimal-wallet-option-chevron"
+                  data-open={qrOpen}
+                  aria-hidden
+                />
+              </button>
+              {qrOpen ? (
+                <div className="minimal-wallet-qr">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/wallets/usdc-address-qr.svg"
+                    alt="QR code of the USDC recipient address"
+                  />
+                  <div className="minimal-wallet-qr-details">
+                    <code>{SPONSOR_USDC_ETH_ADDRESS}</code>
+                    <p>Send USDC on the Base network only.</p>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </section>
           <p className="minimal-wallet-note">
-            Sent to <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
-            <button
-              type="button"
-              className="minimal-wallet-copy"
-              onClick={copyAddress}
-              aria-label="Copy recipient address"
-            >
-              {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
-              {copied ? "Copied" : "Copy"}
-            </button>
-            <span aria-hidden>·</span>
+            <span className="minimal-wallet-note-address">
+              Sent to <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
+              <button
+                type="button"
+                className="minimal-wallet-copy"
+                onClick={copyAddress}
+                aria-label="Copy recipient address"
+              >
+                {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+                {copied ? "Copied" : "Copy"}
+              </button>
+            </span>
+            <span className="minimal-wallet-note-sep" aria-hidden>
+              ·
+            </span>
             <a
               href={SPONSOR_USDC_BASESCAN_URL}
               target="_blank"

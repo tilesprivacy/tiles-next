@@ -2108,6 +2108,48 @@ html.cyberpunk
   flex: none;
   margin-left: auto;
   color: var(--wallet-muted);
+  transition: transform 0.15s ease;
+}
+.minimal-wallet-option-chevron[data-open="true"] {
+  transform: rotate(90deg);
+}
+.minimal-wallet-qr {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.minimal-wallet-qr img {
+  width: 8.5rem;
+  height: 8.5rem;
+  flex: none;
+  padding: 0.4rem;
+  border-radius: 6px;
+  background: #fff;
+}
+.minimal-wallet-qr-details {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.minimal-wallet-qr-details code {
+  color: var(--foreground);
+  font-size: 0.75rem;
+  word-break: break-all;
+}
+.minimal-wallet-qr-details p {
+  margin: 0;
+  color: var(--wallet-muted);
+  font-size: 0.75rem;
+}
+@media (max-width: 480px) {
+  .minimal-wallet-qr {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 .minimal-wallet-flow {
   margin: 0.5rem 0 0;
@@ -2175,9 +2217,16 @@ html.cyberpunk
 .minimal-wallet-note a {
   color: inherit;
 }
-.minimal-wallet-copy {
+.minimal-wallet-note-address {
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
+}
+.minimal-wallet-copy {
+  min-width: 4.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   gap: 0.25rem;
   padding: 0.15rem 0.4rem;
   border: 1px solid var(--border);
@@ -2188,6 +2237,16 @@ html.cyberpunk
   font-size: 0.7rem;
   font-weight: 600;
   cursor: pointer;
+}
+@media (max-width: 640px) {
+  .minimal-wallet-note {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.55rem;
+  }
+  .minimal-wallet-note-sep {
+    display: none;
+  }
 }
 .minimal-wallet-copy:hover {
   border-color: var(--foreground);
