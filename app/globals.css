@@ -2033,7 +2033,7 @@ html.cyberpunk
   font-weight: 600;
   cursor: pointer;
 }
-.minimal-wallet-amount-chip:hover:not(:disabled) {
+.minimal-wallet-amount-chip:hover:not(:disabled):not([data-selected="true"]) {
   color: var(--foreground);
 }
 .minimal-wallet-amount-chip[data-selected="true"] {
@@ -2137,8 +2137,7 @@ html.cyberpunk .minimal-wallet-panel {
 }
 .minimal-wallet-qr {
   display: flex;
-  justify-content: center;
-  padding: 0.65rem 0.5rem 0.5rem;
+  padding: 0.65rem 0.5rem 0.5rem 2.5rem;
 }
 .minimal-wallet-qr-code {
   position: relative;
@@ -2201,12 +2200,26 @@ html.cyberpunk .minimal-wallet-panel {
   overflow-wrap: anywhere;
 }
 @media (max-width: 480px) {
+  .minimal-wallet-panel {
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+  .minimal-wallet-amounts {
+    gap: 0.4rem;
+  }
   .minimal-wallet-amount-inputrow {
     flex: 1 1 100%;
     max-width: none;
+    margin-top: 0.1rem;
   }
   .minimal-wallet-amount-inputrow input {
     padding: 0.45rem 0;
+  }
+  .minimal-wallet-qr {
+    padding-right: 0;
+  }
+  .minimal-wallet-note {
+    margin-top: -0.9rem;
   }
 }
 .minimal-wallet-flow {
