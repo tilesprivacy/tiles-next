@@ -1937,6 +1937,7 @@ html.cyberpunk
   );
   --wallet-accent: var(--sponsor-yellow, #f7ff61);
   flex-basis: 100%;
+  max-width: 32rem;
   margin-top: 0.35rem;
   display: flex;
   flex-direction: column;
@@ -1945,6 +1946,15 @@ html.cyberpunk
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--popover);
+}
+.minimal-wallet-toggle-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  transition: transform 0.15s ease;
+}
+.minimal-wallet-toggle-chevron[data-open="true"] {
+  transform: rotate(180deg);
 }
 .minimal-wallet-panel-header {
   display: flex;
@@ -2098,9 +2108,10 @@ html.cyberpunk
   flex: none;
   border-radius: 4px;
 }
-.minimal-wallet-option-icon-base {
-  background: #0052ff;
-  border-radius: 50%;
+.minimal-wallet-option[data-open="true"] {
+  border-color: var(--wallet-accent);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .minimal-wallet-option-chevron {
   width: 1rem;
@@ -2118,32 +2129,58 @@ html.cyberpunk
   align-items: center;
   gap: 1rem;
   padding: 0.85rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid var(--wallet-accent);
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
 }
-.minimal-wallet-qr img {
-  width: 8.5rem;
-  height: 8.5rem;
+.minimal-wallet-qr-code {
   flex: none;
   padding: 0.4rem;
   border-radius: 6px;
   background: #fff;
+  line-height: 0;
 }
 .minimal-wallet-qr-details {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
+  font-size: 0.8125rem;
 }
-.minimal-wallet-qr-details code {
+.minimal-wallet-qr-details > strong {
   color: var(--foreground);
-  font-size: 0.75rem;
-  word-break: break-all;
+  font-size: 0.875rem;
 }
-.minimal-wallet-qr-details p {
-  margin: 0;
+.minimal-wallet-qr-details > span {
   color: var(--wallet-muted);
+}
+.minimal-wallet-qr-recipient {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+.minimal-wallet-qr-recipient code {
+  color: var(--foreground);
+  font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.75rem;
+  overflow-wrap: anywhere;
+}
+.minimal-wallet-qr-warning {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+}
+.minimal-wallet-qr-warning svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+  color: #d97706;
+}
+.minimal-wallet-qr-warning strong {
+  color: var(--foreground);
 }
 @media (max-width: 480px) {
   .minimal-wallet-qr {
@@ -2212,7 +2249,9 @@ html.cyberpunk
   font-size: 0.75rem;
 }
 .minimal-wallet-note code {
+  font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.75rem;
+  overflow-wrap: anywhere;
 }
 .minimal-wallet-note a {
   color: inherit;

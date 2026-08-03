@@ -3,7 +3,17 @@
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { getPaymentStatus, pay } from "@base-org/account"
-import { Check, ChevronRight, Copy, QrCode, Wallet, X } from "lucide-react"
+import {
+  Check,
+  ChevronDown,
+  ChevronRight,
+  Copy,
+  QrCode,
+  TriangleAlert,
+  Wallet,
+  X,
+} from "lucide-react"
+import QRCode from "react-qr-code"
 import { SiCircle, SiWalletconnect } from "react-icons/si"
 import { erc20Abi, parseUnits } from "viem"
 import {
@@ -141,6 +151,14 @@ function DonatePanel() {
 
   const amount = preset ?? customAmount
   const amountValid = /^\d+(\.\d{1,2})?$/.test(amount) && Number(amount) > 0
+
+  // EIP-681 payment request: USDC contract on Base (chain 8453), recipient,
+  // and the amount in token units, so scanning pre-fills the whole transfer.
+  // Without a valid amount, fall back to the bare address (maximum scanner
+  // compatibility) and tell the donor to enter the amount in their wallet.
+  const qrValue = amountValid
+    ? `ethereum:${BASE_USDC_ADDRESS}@8453/transfer?address=${SPONSOR_USDC_ETH_ADDRESS}&uint256=${parseUnits(amount, 6).toString()}`
+    : SPONSOR_USDC_ETH_ADDRESS
 
   const clearTransientFlow = () => {
     if (flow.step === "error" || flow.step === "success") {
@@ -380,7 +398,12 @@ function DonatePanel() {
         aria-controls="sponsor-usdc-panel"
       >
         <SiCircle className="minimal-sponsor-button-icon" aria-hidden />
-        Donate USDC
+        Donate with USDC
+        <ChevronDown
+          className="minimal-wallet-toggle-chevron"
+          data-open={open}
+          aria-hidden
+        />
       </button>
       {open ? (
         <div className="minimal-wallet-panel" id="sponsor-usdc-panel">
@@ -450,12 +473,19 @@ function DonatePanel() {
                 onClick={() => void donateWithBasePay()}
                 disabled={busy}
               >
-                <span
-                  className="minimal-wallet-option-icon minimal-wallet-option-icon-base"
+                <svg
+                  className="minimal-wallet-option-icon"
+                  viewBox="0 0 24 24"
                   aria-hidden
-                />
+                >
+                  <circle cx="12" cy="12" r="12" fill="#0052ff" />
+                  <path
+                    d="M12 6.5a5.5 5.5 0 1 0 5.42 6.45h-2.6a3 3 0 1 1 0-1.9h2.6A5.5 5.5 0 0 0 12 6.5Z"
+                    fill="#fff"
+                  />
+                </svg>
                 <span className="minimal-wallet-option-text">
-                  Base
+                  Coinbase
                   <small>Opens the Coinbase website</small>
                 </span>
                 <ChevronRight
@@ -511,42 +541,69 @@ function DonatePanel() {
                   {flowFor(connector.uid)}
                 </div>
               ))}
-              <button
-                type="button"
-                className="minimal-wallet-option"
-                onClick={() => setQrOpen((current) => !current)}
-                disabled={busy}
-                aria-expanded={qrOpen}
-              >
-                <QrCode className="minimal-wallet-option-icon" aria-hidden />
-                <span className="minimal-wallet-option-text">
-                  QR code
-                  <small>Scan with any wallet app</small>
-                </span>
-                <ChevronRight
-                  className="minimal-wallet-option-chevron"
+              <div className="minimal-wallet-option-slot">
+                <button
+                  type="button"
+                  className="minimal-wallet-option"
+                  onClick={() => setQrOpen((current) => !current)}
+                  disabled={busy}
+                  aria-expanded={qrOpen}
                   data-open={qrOpen}
-                  aria-hidden
-                />
-              </button>
-              {qrOpen ? (
-                <div className="minimal-wallet-qr">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/wallets/usdc-address-qr.svg"
-                    alt="QR code of the USDC recipient address"
+                >
+                  <QrCode className="minimal-wallet-option-icon" aria-hidden />
+                  <span className="minimal-wallet-option-text">
+                    QR code
+                    <small>Scan with any wallet app</small>
+                  </span>
+                  <ChevronRight
+                    className="minimal-wallet-option-chevron"
+                    data-open={qrOpen}
+                    aria-hidden
                   />
-                  <div className="minimal-wallet-qr-details">
-                    <code>{SPONSOR_USDC_ETH_ADDRESS}</code>
-                    <p>Send USDC on the Base network only.</p>
+                </button>
+                {qrOpen ? (
+                  <div className="minimal-wallet-qr">
+                    <div className="minimal-wallet-qr-code">
+                      <QRCode
+                        value={qrValue}
+                        size={132}
+                        bgColor="#ffffff"
+                        fgColor="#0a0a0a"
+                        aria-label="QR code for the USDC payment request"
+                      />
+                    </div>
+                    <div className="minimal-wallet-qr-details">
+                      <strong>Scan with any wallet</strong>
+                      <span>
+                        {amountValid
+                          ? `$${amount} USDC on Base`
+                          : "Amount must be entered in your wallet"}
+                      </span>
+                      <span className="minimal-wallet-qr-recipient">
+                        Recipient: <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
+                        <button
+                          type="button"
+                          className="minimal-wallet-copy"
+                          onClick={copyAddress}
+                          aria-label="Copy recipient address"
+                        >
+                          {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+                          {copied ? "Copied" : "Copy"}
+                        </button>
+                      </span>
+                      <span className="minimal-wallet-qr-warning">
+                        <TriangleAlert aria-hidden />
+                        Send only USDC on the <strong>Base network</strong>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
             </div>
           </section>
           <p className="minimal-wallet-note">
             <span className="minimal-wallet-note-address">
-              Sent to <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
+              Recipient <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
               <button
                 type="button"
                 className="minimal-wallet-copy"
