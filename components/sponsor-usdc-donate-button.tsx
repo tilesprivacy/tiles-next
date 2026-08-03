@@ -17,7 +17,7 @@ import {
   useWriteContract,
 } from "wagmi"
 import { base } from "wagmi/chains"
-import { coinbaseWallet, metaMask, walletConnect } from "wagmi/connectors"
+import { walletConnect } from "wagmi/connectors"
 import type { Connector } from "wagmi"
 
 export const SPONSOR_USDC_ETH_ADDRESS =
@@ -37,29 +37,19 @@ const walletConnectProjectId =
 
 const wagmiConfig = createConfig({
   chains: [base],
-  connectors: [
-    metaMask({
-      dapp: { name: "Tiles Privacy", url: "https://tiles.run" },
-    }),
-    coinbaseWallet({ appName: "Tiles Privacy", preference: { options: "all" } }),
-    ...(walletConnectProjectId
-      ? [walletConnect({ projectId: walletConnectProjectId })]
-      : []),
-  ],
+  connectors: walletConnectProjectId
+    ? [walletConnect({ projectId: walletConnectProjectId })]
+    : [],
   transports: { [base.id]: http() },
   ssr: true,
 })
 
 const queryClient = new QueryClient()
 
-// Extensions for wallets we already offer through their SDK connector also
-// announce themselves via EIP-6963; hide those so nothing is listed twice.
-const DUPLICATE_DISCOVERED_IDS = new Set([
-  "io.metamask",
-  "io.metamask.mobile",
-  "com.coinbase.wallet",
-])
-const CONFIGURED_IDS = ["metaMaskSDK", "coinbaseWalletSDK", "walletConnect"]
+// The Coinbase extension announces itself via EIP-6963, but Coinbase users are
+// already covered by the Base Pay option; hide it so the two aren't confused.
+const HIDDEN_DISCOVERED_IDS = new Set(["com.coinbase.wallet"])
+const METAMASK_IDS = new Set(["io.metamask", "io.metamask.mobile"])
 
 type PanelStatus =
   | { kind: "idle" }
@@ -105,24 +95,16 @@ async function waitForBasePayCompletion(id: string) {
 
 function ConnectorIcon({ connector }: { connector: Connector }) {
   const className = "minimal-wallet-option-icon"
-  if (connector.id === "metaMaskSDK") {
-    // eslint-disable-next-line @next/next/no-img-element
-    return <img className={className} src="/wallets/metamask.svg" alt="" aria-hidden />
-  }
-  if (connector.id === "coinbaseWalletSDK") {
-    return (
-      <svg className={className} viewBox="0 0 24 24" aria-hidden>
-        <circle cx="12" cy="12" r="12" fill="#0052ff" />
-        <rect x="7.6" y="7.6" width="8.8" height="8.8" rx="2" fill="#fff" />
-      </svg>
-    )
-  }
   if (connector.id === "walletConnect") {
     return <SiWalletconnect className={className} style={{ color: "#3b99fc" }} aria-hidden />
   }
   if (connector.icon) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img className={className} src={connector.icon} alt="" aria-hidden />
+  }
+  if (METAMASK_IDS.has(connector.id)) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className={className} src="/wallets/metamask.svg" alt="" aria-hidden />
   }
   return <Wallet className={className} aria-hidden />
 }
@@ -217,17 +199,29 @@ function DonatePanel() {
     }
   }
 
+  // MetaMask first when its extension is installed, then other detected
+  // extension wallets, with WalletConnect (if configured) last.
+  const metaMaskConnector = connectors.find((connector) =>
+    METAMASK_IDS.has(connector.id),
+  )
   const walletOptions = [
-    ...CONFIGURED_IDS.filter((id) => id !== "walletConnect").flatMap((id) =>
-      connectors.filter((connector) => connector.id === id),
-    ),
+    ...(metaMaskConnector ? [metaMaskConnector] : []),
     ...connectors.filter(
       (connector) =>
-        !CONFIGURED_IDS.includes(connector.id) &&
-        !DUPLICATE_DISCOVERED_IDS.has(connector.id),
+        connector.id !== "walletConnect" &&
+        !METAMASK_IDS.has(connector.id) &&
+        !HIDDEN_DISCOVERED_IDS.has(connector.id),
     ),
     ...connectors.filter((connector) => connector.id === "walletConnect"),
   ]
+
+  // Without the extension, hand off to the MetaMask app's in-app browser,
+  // where the page reloads with MetaMask available as an injected wallet.
+  const openInMetaMaskApp = () => {
+    if (busy) return
+    const { host, pathname } = window.location
+    window.location.href = `https://metamask.app.link/dapp/${host}${pathname}`
+  }
 
   const statusLine = (() => {
     switch (status.kind) {
@@ -307,8 +301,26 @@ function DonatePanel() {
                   aria-hidden
                 />
                 Base
-                <small>No wallet app needed</small>
+                <small>Coinbase &amp; passkeys — no app needed</small>
               </button>
+              {!metaMaskConnector ? (
+                <button
+                  type="button"
+                  className="minimal-wallet-option"
+                  onClick={openInMetaMaskApp}
+                  disabled={busy}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    className="minimal-wallet-option-icon"
+                    src="/wallets/metamask.svg"
+                    alt=""
+                    aria-hidden
+                  />
+                  MetaMask
+                  <small>Opens the MetaMask app</small>
+                </button>
+              ) : null}
               {walletOptions.map((connector) => (
                 <button
                   key={connector.uid}
