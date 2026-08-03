@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { getPaymentStatus, pay } from "@base-org/account"
 import {
   Check,
   ChevronDown,
@@ -14,7 +13,7 @@ import {
   X,
 } from "lucide-react"
 import QRCode from "react-qr-code"
-import { SiCircle, SiWalletconnect } from "react-icons/si"
+import { SiCircle, SiEthereum, SiTether, SiWalletconnect } from "react-icons/si"
 import { erc20Abi, parseUnits } from "viem"
 import {
   WagmiProvider,
@@ -26,20 +25,20 @@ import {
   useSwitchChain,
   useWriteContract,
 } from "wagmi"
-import { base } from "wagmi/chains"
-import { walletConnect } from "wagmi/connectors"
+import { mainnet } from "wagmi/chains"
+import { coinbaseWallet, walletConnect } from "wagmi/connectors"
 import type { Connector } from "wagmi"
 
-export const SPONSOR_USDC_ETH_ADDRESS =
+export const SPONSOR_USDT_ETH_ADDRESS =
   "0x7d6ab3dbdf510d6669e72f0e27ada61bbad0821d" as const
 
-export const SPONSOR_USDC_BASESCAN_URL = `https://basescan.org/address/${SPONSOR_USDC_ETH_ADDRESS}`
+export const SPONSOR_USDT_ETHERSCAN_URL = `https://etherscan.io/address/${SPONSOR_USDT_ETH_ADDRESS}`
 
-const SPONSOR_USDC_ADDRESS_SHORT = `${SPONSOR_USDC_ETH_ADDRESS.slice(0, 6)}…${SPONSOR_USDC_ETH_ADDRESS.slice(-4)}`
+const SPONSOR_USDT_ADDRESS_SHORT = `${SPONSOR_USDT_ETH_ADDRESS.slice(0, 6)}…${SPONSOR_USDT_ETH_ADDRESS.slice(-4)}`
 
-// Native USDC on Base mainnet (6 decimals).
-const BASE_USDC_ADDRESS =
-  "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const
+// USDT (Tether) on Ethereum mainnet (6 decimals).
+const ETHEREUM_USDT_ADDRESS =
+  "0xdAC17F958D2ee523a2206206994597C13D831ec7" as const
 
 const PRESET_AMOUNTS = ["5", "10", "25", "100"]
 const DEFAULT_AMOUNT = "10"
@@ -48,22 +47,23 @@ const walletConnectProjectId =
   process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
 
 const wagmiConfig = createConfig({
-  chains: [base],
-  connectors: walletConnectProjectId
-    ? [walletConnect({ projectId: walletConnectProjectId })]
-    : [],
-  transports: { [base.id]: http() },
+  chains: [mainnet],
+  connectors: [
+    coinbaseWallet({ appName: "Tiles Privacy", preference: { options: "all" } }),
+    ...(walletConnectProjectId
+      ? [walletConnect({ projectId: walletConnectProjectId })]
+      : []),
+  ],
+  transports: { [mainnet.id]: http() },
   ssr: true,
 })
 
 const queryClient = new QueryClient()
 
-// The Coinbase extension announces itself via EIP-6963, but Coinbase users are
-// already covered by the Base Pay option; hide it so the two aren't confused.
+// The Coinbase extension announces itself via EIP-6963 too; hide it so it
+// isn't listed twice next to the configured Coinbase connector.
 const HIDDEN_DISCOVERED_IDS = new Set(["com.coinbase.wallet"])
 const METAMASK_IDS = new Set(["io.metamask", "io.metamask.mobile"])
-
-const BASE_PAY_KEY = "base-pay"
 const AMOUNT_KEY = "amount"
 
 type FlowState =
@@ -106,19 +106,23 @@ function errorMessage(error: unknown) {
   return "Something went wrong. Please try again."
 }
 
-async function waitForBasePayCompletion(id: string) {
-  for (let attempt = 0; attempt < 15; attempt++) {
-    const { status } = await getPaymentStatus({ id })
-    if (status === "completed") return true
-    if (status === "failed") return false
-    await new Promise((resolve) => setTimeout(resolve, 2000))
-  }
-  // Still pending after polling; the payment was submitted, so treat as success.
-  return true
+function CoinbaseIcon() {
+  return (
+    <svg className="minimal-wallet-option-icon" viewBox="0 0 24 24" aria-hidden>
+      <circle cx="12" cy="12" r="12" fill="#0052ff" />
+      <path
+        d="M12 6.5a5.5 5.5 0 1 0 5.42 6.45h-2.6a3 3 0 1 1 0-1.9h2.6A5.5 5.5 0 0 0 12 6.5Z"
+        fill="#fff"
+      />
+    </svg>
+  )
 }
 
 function ConnectorIcon({ connector }: { connector: Connector }) {
   const className = "minimal-wallet-option-icon"
+  if (connector.id === "coinbaseWalletSDK") {
+    return <CoinbaseIcon />
+  }
   if (connector.id === "walletConnect") {
     return <SiWalletconnect className={className} style={{ color: "#3b99fc" }} aria-hidden />
   }
@@ -145,20 +149,21 @@ function DonatePanel() {
   const { connectors, connectAsync } = useConnect()
   const { switchChainAsync } = useSwitchChain()
   const { writeContractAsync } = useWriteContract()
-  const publicClient = usePublicClient({ chainId: base.id })
+  const publicClient = usePublicClient({ chainId: mainnet.id })
 
   const busy = flow.step === "working"
 
   const amount = preset ?? customAmount
   const amountValid = /^\d+(\.\d{1,2})?$/.test(amount) && Number(amount) > 0
 
-  // EIP-681 payment request: USDC contract on Base (chain 8453), recipient,
-  // and the amount in token units, so scanning pre-fills the whole transfer.
-  // Without a valid amount, fall back to the bare address (maximum scanner
-  // compatibility) and tell the donor to enter the amount in their wallet.
+  // EIP-681 payment request: USDT contract on Ethereum mainnet (chain 1),
+  // recipient, and the amount in token units, so scanning pre-fills the whole
+  // transfer. Without a valid amount, fall back to the bare address (maximum
+  // scanner compatibility) and tell the donor to enter the amount in their
+  // wallet.
   const qrValue = amountValid
-    ? `ethereum:${BASE_USDC_ADDRESS}@8453/transfer?address=${SPONSOR_USDC_ETH_ADDRESS}&uint256=${parseUnits(amount, 6).toString()}`
-    : SPONSOR_USDC_ETH_ADDRESS
+    ? `ethereum:${ETHEREUM_USDT_ADDRESS}@1/transfer?address=${SPONSOR_USDT_ETH_ADDRESS}&uint256=${parseUnits(amount, 6).toString()}`
+    : SPONSOR_USDT_ETH_ADDRESS
 
   const clearTransientFlow = () => {
     if (flow.step === "error" || flow.step === "success") {
@@ -190,54 +195,11 @@ function DonatePanel() {
     return false
   }
 
-  const donateWithBasePay = async () => {
-    if (busy || !requireAmount()) return
-    const currentAmount = amount
-    setFlow({
-      step: "working",
-      phase: "approving",
-      walletKey: BASE_PAY_KEY,
-      walletName: "Base",
-      amount: currentAmount,
-    })
-    try {
-      const payment = await pay({
-        amount: currentAmount,
-        to: SPONSOR_USDC_ETH_ADDRESS,
-      })
-      setFlow({
-        step: "working",
-        phase: "confirming",
-        walletKey: BASE_PAY_KEY,
-        walletName: "Base",
-        amount: currentAmount,
-      })
-      const completed = await waitForBasePayCompletion(payment.id)
-      setFlow(
-        completed
-          ? { step: "success", walletKey: BASE_PAY_KEY }
-          : {
-              step: "error",
-              walletKey: BASE_PAY_KEY,
-              message: "The payment didn’t go through.",
-              retry: () => void donateWithBasePay(),
-            },
-      )
-    } catch (error) {
-      setFlow({
-        step: "error",
-        walletKey: BASE_PAY_KEY,
-        message: errorMessage(error),
-        retry: () => void donateWithBasePay(),
-      })
-    }
-  }
-
   const donateWithConnector = async (connector: Connector) => {
     if (busy || !requireAmount()) return
     const currentAmount = amount
     const walletKey = connector.uid
-    const walletName = connector.name
+    const walletName = connector.id === "coinbaseWalletSDK" ? "Coinbase" : connector.name
     setFlow({
       step: "working",
       phase: "connecting",
@@ -248,11 +210,14 @@ function DonatePanel() {
     try {
       let chainId = account.chainId
       if (!account.isConnected || account.connector?.uid !== connector.uid) {
-        const connection = await connectAsync({ connector, chainId: base.id })
+        const connection = await connectAsync({
+          connector,
+          chainId: mainnet.id,
+        })
         chainId = connection.chainId
       }
-      if (chainId !== base.id) {
-        await switchChainAsync({ chainId: base.id })
+      if (chainId !== mainnet.id) {
+        await switchChainAsync({ chainId: mainnet.id })
       }
       setFlow({
         step: "working",
@@ -263,10 +228,10 @@ function DonatePanel() {
       })
       const hash = await writeContractAsync({
         abi: erc20Abi,
-        address: BASE_USDC_ADDRESS,
+        address: ETHEREUM_USDT_ADDRESS,
         functionName: "transfer",
-        args: [SPONSOR_USDC_ETH_ADDRESS, parseUnits(currentAmount, 6)],
-        chainId: base.id,
+        args: [SPONSOR_USDT_ETH_ADDRESS, parseUnits(currentAmount, 6)],
+        chainId: mainnet.id,
       })
       setFlow({
         step: "working",
@@ -282,7 +247,7 @@ function DonatePanel() {
           : {
               step: "error",
               walletKey,
-              message: "The transaction reverted on Base.",
+              message: "The transaction reverted on Ethereum.",
               retry: () => void donateWithConnector(connector),
             },
       )
@@ -296,21 +261,32 @@ function DonatePanel() {
     }
   }
 
-  // MetaMask first when its extension is installed, then other detected
-  // extension wallets, with WalletConnect (if configured) last.
+  // Coinbase first, then MetaMask (extension when installed), then other
+  // detected extension wallets, with WalletConnect (if configured) last.
+  const coinbaseConnector = connectors.find(
+    (connector) => connector.id === "coinbaseWalletSDK",
+  )
   const metaMaskConnector = connectors.find((connector) =>
     METAMASK_IDS.has(connector.id),
   )
   const walletOptions = [
+    ...(coinbaseConnector ? [coinbaseConnector] : []),
     ...(metaMaskConnector ? [metaMaskConnector] : []),
     ...connectors.filter(
       (connector) =>
         connector.id !== "walletConnect" &&
+        connector.id !== "coinbaseWalletSDK" &&
         !METAMASK_IDS.has(connector.id) &&
         !HIDDEN_DISCOVERED_IDS.has(connector.id),
     ),
     ...connectors.filter((connector) => connector.id === "walletConnect"),
   ]
+
+  const optionDescription = (connector: Connector) => {
+    if (connector.id === "coinbaseWalletSDK") return "Opens the Coinbase website"
+    if (connector.id === "walletConnect") return "Rainbow, Trust & more"
+    return null
+  }
 
   // Without the extension, hand off to the MetaMask app's in-app browser,
   // where the page reloads with MetaMask available as an injected wallet.
@@ -322,7 +298,7 @@ function DonatePanel() {
 
   const copyAddress = async () => {
     try {
-      await navigator.clipboard.writeText(SPONSOR_USDC_ETH_ADDRESS)
+      await navigator.clipboard.writeText(SPONSOR_USDT_ETH_ADDRESS)
       setCopied(true)
       setTimeout(() => setCopied(false), 2000)
     } catch {
@@ -337,8 +313,8 @@ function DonatePanel() {
         flow.phase === "connecting"
           ? `Opening ${flow.walletName}…`
           : flow.phase === "approving"
-            ? `Approve the $${flow.amount} USDC payment in ${flow.walletName}…`
-            : "Waiting for confirmation on Base…"
+            ? `Approve the $${flow.amount} USDT payment in ${flow.walletName}…`
+            : "Waiting for confirmation on Ethereum…"
       return (
         <p className="minimal-wallet-flow" role="status">
           {message}
@@ -353,7 +329,7 @@ function DonatePanel() {
             <>
               {" "}
               <a
-                href={`https://basescan.org/tx/${flow.txHash}`}
+                href={`https://etherscan.io/tx/${flow.txHash}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -392,10 +368,10 @@ function DonatePanel() {
         className="minimal-secondary-button minimal-wallet-toggle"
         onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
-        aria-controls="sponsor-usdc-panel"
+        aria-controls="sponsor-usdt-panel"
       >
         <SiCircle className="minimal-sponsor-button-icon" aria-hidden />
-        Donate with USDC
+        Donate with USDT
         <ChevronDown
           className="minimal-wallet-toggle-chevron"
           data-open={open}
@@ -403,10 +379,10 @@ function DonatePanel() {
         />
       </button>
       {open ? (
-        <div className="minimal-wallet-panel" id="sponsor-usdc-panel">
+        <div className="minimal-wallet-panel" id="sponsor-usdt-panel">
           <header className="minimal-wallet-panel-header">
             <div className="minimal-wallet-panel-heading">
-              <h3>Donate with USDC on Base network</h3>
+              <h3>Donate with USDT on Ethereum network</h3>
             </div>
             <button
               type="button"
@@ -454,33 +430,31 @@ function DonatePanel() {
           <section>
             <p className="minimal-wallet-panel-label">Choose a wallet</p>
             <div className="minimal-wallet-options">
-              <button
-                type="button"
-                className="minimal-wallet-option"
-                onClick={() => void donateWithBasePay()}
-                disabled={busy}
-              >
-                <svg
-                  className="minimal-wallet-option-icon"
-                  viewBox="0 0 24 24"
-                  aria-hidden
-                >
-                  <circle cx="12" cy="12" r="12" fill="#0052ff" />
-                  <path
-                    d="M12 6.5a5.5 5.5 0 1 0 5.42 6.45h-2.6a3 3 0 1 1 0-1.9h2.6A5.5 5.5 0 0 0 12 6.5Z"
-                    fill="#fff"
-                  />
-                </svg>
-                <span className="minimal-wallet-option-text">
-                  Coinbase
-                  <small>Opens the Coinbase website</small>
-                </span>
-                <ChevronRight
-                  className="minimal-wallet-option-chevron"
-                  aria-hidden
-                />
-              </button>
-              {flowFor(BASE_PAY_KEY)}
+              {walletOptions.map((connector) => (
+                <div key={connector.uid} className="minimal-wallet-option-slot">
+                  <button
+                    type="button"
+                    className="minimal-wallet-option"
+                    onClick={() => void donateWithConnector(connector)}
+                    disabled={busy}
+                  >
+                    <ConnectorIcon connector={connector} />
+                    <span className="minimal-wallet-option-text">
+                      {connector.id === "coinbaseWalletSDK"
+                        ? "Coinbase"
+                        : connector.name}
+                      {optionDescription(connector) ? (
+                        <small>{optionDescription(connector)}</small>
+                      ) : null}
+                    </span>
+                    <ChevronRight
+                      className="minimal-wallet-option-chevron"
+                      aria-hidden
+                    />
+                  </button>
+                  {flowFor(connector.uid)}
+                </div>
+              ))}
               {!metaMaskConnector ? (
                 <button
                   type="button"
@@ -505,29 +479,6 @@ function DonatePanel() {
                   />
                 </button>
               ) : null}
-              {walletOptions.map((connector) => (
-                <div key={connector.uid} className="minimal-wallet-option-slot">
-                  <button
-                    type="button"
-                    className="minimal-wallet-option"
-                    onClick={() => void donateWithConnector(connector)}
-                    disabled={busy}
-                  >
-                    <ConnectorIcon connector={connector} />
-                    <span className="minimal-wallet-option-text">
-                      {connector.name}
-                      {connector.id === "walletConnect" ? (
-                        <small>Rainbow, Trust &amp; more</small>
-                      ) : null}
-                    </span>
-                    <ChevronRight
-                      className="minimal-wallet-option-chevron"
-                      aria-hidden
-                    />
-                  </button>
-                  {flowFor(connector.uid)}
-                </div>
-              ))}
               <div className="minimal-wallet-option-slot">
                 <button
                   type="button"
@@ -554,20 +505,27 @@ function DonatePanel() {
                       <QRCode
                         value={qrValue}
                         size={132}
+                        level="H"
                         bgColor="#ffffff"
                         fgColor="#0a0a0a"
-                        aria-label="QR code for the USDC payment request"
+                        aria-label="QR code for the USDT payment request"
                       />
+                      <span className="minimal-wallet-qr-logo" aria-hidden>
+                        <SiTether />
+                        <span className="minimal-wallet-qr-logo-eth">
+                          <SiEthereum />
+                        </span>
+                      </span>
                     </div>
                     <div className="minimal-wallet-qr-details">
                       <strong>Scan with any wallet</strong>
                       <span>
                         {amountValid
-                          ? `$${amount} USDC on Base`
+                          ? `$${amount} USDT on Ethereum`
                           : "Amount must be entered in your wallet"}
                       </span>
                       <span className="minimal-wallet-qr-recipient">
-                        Recipient: <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
+                        Recipient: <code>{SPONSOR_USDT_ADDRESS_SHORT}</code>
                         <button
                           type="button"
                           className="minimal-wallet-copy"
@@ -580,7 +538,7 @@ function DonatePanel() {
                       </span>
                       <span className="minimal-wallet-qr-warning">
                         <TriangleAlert aria-hidden />
-                        Send only USDC on the <strong>Base network</strong>
+                        Send only USDT on the <strong>Ethereum network</strong>
                       </span>
                     </div>
                   </div>
@@ -590,11 +548,11 @@ function DonatePanel() {
           </section>
           <p className="minimal-wallet-note">
             <a
-              href={SPONSOR_USDC_BASESCAN_URL}
+              href={SPONSOR_USDT_ETHERSCAN_URL}
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on BaseScan
+              View on Etherscan
             </a>
           </p>
         </div>
@@ -603,7 +561,7 @@ function DonatePanel() {
   )
 }
 
-export function SponsorUsdcDonateButton() {
+export function SponsorUsdtDonateButton() {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>

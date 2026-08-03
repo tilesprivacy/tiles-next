@@ -2123,11 +2123,49 @@ html.cyberpunk
   border-radius: 0 0 8px 8px;
 }
 .minimal-wallet-qr-code {
+  position: relative;
   flex: none;
   padding: 0.4rem;
   border-radius: 6px;
   background: #fff;
   line-height: 0;
+}
+.minimal-wallet-qr-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.35rem;
+  height: 2.35rem;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  background: #26a17b;
+}
+.minimal-wallet-qr-logo > svg {
+  width: 1.3rem;
+  height: 1.3rem;
+  color: #fff;
+}
+.minimal-wallet-qr-logo-eth {
+  position: absolute;
+  right: -0.3rem;
+  bottom: -0.3rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #627eea;
+}
+.minimal-wallet-qr-logo-eth svg {
+  width: 0.6rem;
+  height: 0.6rem;
+  color: #fff;
 }
 .minimal-wallet-qr-details {
   min-width: 0;
