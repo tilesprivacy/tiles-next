@@ -1915,10 +1915,21 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   background: var(--foreground);
 }
 .minimal-sponsor-actions {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
   margin-top: 1rem;
+}
+.minimal-sponsor-actions > .minimal-primary-button,
+.minimal-sponsor-actions > .minimal-secondary-button {
+  width: 100%;
+  padding-inline: 0.75rem;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  .minimal-sponsor-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .minimal-wallet-toggle[aria-expanded="true"] {
   border-color: var(--foreground) !important;
@@ -1936,12 +1947,12 @@ html.cyberpunk
 .minimal-wallet-panel {
   --wallet-muted: color-mix(
     in srgb,
-    var(--muted-foreground) 45%,
+    var(--muted-foreground) 30%,
     var(--foreground)
   );
   --wallet-accent: var(--foreground);
   --wallet-accent-contrast: var(--background);
-  flex-basis: 100%;
+  grid-column: 1 / -1;
   margin-top: 0.35rem;
   display: flex;
   flex-direction: column;
@@ -1976,12 +1987,6 @@ html.cyberpunk
 .minimal-wallet-toggle-chevron[data-open="true"] {
   transform: rotate(180deg);
 }
-.minimal-wallet-panel-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-}
 .minimal-wallet-panel-heading h3 {
   margin: 0;
   color: var(--popover-foreground, var(--foreground));
@@ -2005,23 +2010,6 @@ html.cyberpunk
 }
 .minimal-wallet-panel-warning strong {
   color: var(--foreground);
-}
-.minimal-wallet-panel-close {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.35rem;
-  border: 0;
-  background: transparent;
-  color: var(--wallet-muted);
-  cursor: pointer;
-}
-.minimal-wallet-panel-close:hover {
-  color: var(--foreground);
-}
-.minimal-wallet-panel-close svg {
-  width: 1rem;
-  height: 1rem;
 }
 .minimal-wallet-panel-label {
   margin: 0 0 0.6rem;
@@ -2054,6 +2042,9 @@ html.cyberpunk
 .minimal-wallet-amount-chip[data-selected="true"] {
   background: var(--wallet-accent);
   color: var(--wallet-accent-contrast);
+}
+html.cyberpunk .minimal-sponsor-page {
+  --muted-foreground: #3f3f46;
 }
 html.cyberpunk .minimal-wallet-panel {
   --wallet-accent: var(--sponsor-yellow, #f7ff61);

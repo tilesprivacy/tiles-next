@@ -383,22 +383,12 @@ function DonatePanel() {
       </button>
       {open ? (
         <div className="minimal-wallet-panel" id="sponsor-usdt-panel">
-          <header className="minimal-wallet-panel-header">
-            <div className="minimal-wallet-panel-heading">
-              <h3>Donate with USDT</h3>
-              <span className="minimal-wallet-panel-warning">
-                <TriangleAlert aria-hidden />
-                Send only USDT on the <strong>Ethereum network</strong>
-              </span>
-            </div>
-            <button
-              type="button"
-              className="minimal-wallet-panel-close"
-              aria-label="Close donation panel"
-              onClick={() => setOpen(false)}
-            >
-              <X aria-hidden />
-            </button>
+          <header className="minimal-wallet-panel-heading">
+            <h3>Donate with USDT</h3>
+            <span className="minimal-wallet-panel-warning">
+              <TriangleAlert aria-hidden />
+              Send only USDT on the <strong>Ethereum network</strong>
+            </span>
           </header>
           <section>
             <p className="minimal-wallet-panel-label">Amount</p>
