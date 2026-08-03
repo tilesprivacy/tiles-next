@@ -1920,6 +1920,66 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   gap: 0.75rem;
   margin-top: 1rem;
 }
+.minimal-wallet-donate {
+  position: relative;
+}
+.minimal-wallet-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  z-index: 30;
+  min-width: 15.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.35rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--popover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+.minimal-wallet-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.65rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+.minimal-wallet-menu-item:hover {
+  background: var(--muted);
+}
+.minimal-wallet-menu-item small {
+  margin-left: auto;
+  padding-left: 0.75rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.minimal-wallet-menu-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: none;
+  border-radius: 4px;
+}
+.minimal-wallet-menu-icon-base {
+  background: #0052ff;
+  border-radius: 50%;
+}
+.minimal-wallet-menu-note {
+  margin: 0.15rem 0 0.1rem;
+  padding: 0.3rem 0.65rem 0.25rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+}
 .minimal-partner {
   width: fit-content;
   margin: 2rem 0;
