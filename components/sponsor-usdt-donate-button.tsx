@@ -370,7 +370,10 @@ function DonatePanel() {
         aria-expanded={open}
         aria-controls="sponsor-usdt-panel"
       >
-        <SiTether className="minimal-sponsor-button-icon" aria-hidden />
+        <span className="minimal-wallet-button-token" aria-hidden>
+          <SiTether className="minimal-sponsor-button-icon" />
+          <SiEthereum className="minimal-wallet-button-token-eth" />
+        </span>
         Donate with USDT
         <ChevronDown
           className="minimal-wallet-toggle-chevron"

@@ -1946,6 +1946,22 @@ html.cyberpunk
   border-radius: 8px;
   background: var(--popover);
 }
+.minimal-wallet-button-token {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  background: inherit;
+}
+.minimal-wallet-button-token-eth {
+  position: absolute;
+  right: -0.3rem;
+  bottom: -0.14rem;
+  width: 0.62rem;
+  height: 0.62rem;
+  padding: 0.08rem;
+  border-radius: 50%;
+  background: inherit;
+}
 .minimal-wallet-toggle-chevron {
   width: 1rem;
   height: 1rem;
