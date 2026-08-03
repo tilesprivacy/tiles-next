@@ -168,16 +168,13 @@ function DonatePanel() {
 
   const selectPreset = (value: string) => {
     setPreset(value)
-    clearTransientFlow()
-  }
-
-  const selectCustom = () => {
-    setPreset(null)
+    setCustomAmount("")
     clearTransientFlow()
   }
 
   const onCustomAmountChange = (value: string) => {
     if (value !== "" && !/^\d*(\.\d{0,2})?$/.test(value)) return
+    setPreset(null)
     setCustomAmount(value)
     clearTransientFlow()
   }
@@ -409,8 +406,7 @@ function DonatePanel() {
         <div className="minimal-wallet-panel" id="sponsor-usdc-panel">
           <header className="minimal-wallet-panel-header">
             <div className="minimal-wallet-panel-heading">
-              <h3>Donate USDC</h3>
-              <span>USDC · Base network</span>
+              <h3>Donate with USDC on Base network</h3>
             </div>
             <button
               type="button"
@@ -436,31 +432,23 @@ function DonatePanel() {
                   ${value}
                 </button>
               ))}
-              <button
-                type="button"
-                className="minimal-wallet-amount-chip"
+              <label
+                className="minimal-wallet-amount-inputrow"
                 data-selected={preset === null}
-                onClick={selectCustom}
-                disabled={busy}
               >
-                Custom amount
-              </button>
-            </div>
-            {preset === null ? (
-              <label className="minimal-wallet-amount-inputrow">
                 <span aria-hidden>$</span>
                 <input
                   type="text"
                   inputMode="decimal"
                   placeholder="enter custom amount"
-                  autoFocus
                   value={customAmount}
                   onChange={(event) => onCustomAmountChange(event.target.value)}
+                  onFocus={() => setPreset(null)}
                   disabled={busy}
                   aria-label="Custom amount in US dollars"
                 />
               </label>
-            ) : null}
+            </div>
             {flowFor(AMOUNT_KEY)}
           </section>
           <section>
