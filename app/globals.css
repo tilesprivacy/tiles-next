@@ -1920,29 +1920,89 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   gap: 0.75rem;
   margin-top: 1rem;
 }
-.minimal-wallet-donate {
-  position: relative;
-}
-.minimal-wallet-menu {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
-  z-index: 30;
-  min-width: 15.5rem;
+.minimal-wallet-panel {
+  flex-basis: 100%;
+  max-width: 26rem;
+  margin-top: 0.35rem;
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
-  padding: 0.35rem;
+  gap: 1rem;
+  padding: 1rem;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--popover);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
-.minimal-wallet-menu-item {
+.minimal-wallet-panel-label {
+  margin: 0 0 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.minimal-wallet-amounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.minimal-wallet-amount-chip {
+  min-width: 3.4rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--foreground);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.minimal-wallet-amount-chip:hover {
+  border-color: var(--foreground);
+}
+.minimal-wallet-amount-chip[data-selected="true"] {
+  border-color: var(--foreground);
+  background: var(--foreground);
+  color: var(--background);
+}
+.minimal-wallet-amount-custom {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  padding: 0 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--foreground);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: text;
+}
+.minimal-wallet-amount-custom[data-selected="true"] {
+  border-color: var(--foreground);
+}
+.minimal-wallet-amount-custom input {
+  width: 4.25rem;
+  padding: 0.45rem 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: none;
+}
+.minimal-wallet-amount-custom input::placeholder {
+  color: var(--muted-foreground);
+  font-weight: 500;
+}
+.minimal-wallet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.minimal-wallet-option {
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.55rem 0.65rem;
+  padding: 0.6rem 0.65rem;
   border: 0;
   border-radius: 6px;
   background: transparent;
@@ -1953,29 +2013,45 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   text-align: left;
   cursor: pointer;
 }
-.minimal-wallet-menu-item:hover {
+.minimal-wallet-option:hover:not(:disabled) {
   background: var(--muted);
 }
-.minimal-wallet-menu-item small {
+.minimal-wallet-option:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.minimal-wallet-option small {
   margin-left: auto;
   padding-left: 0.75rem;
   color: var(--muted-foreground);
   font-size: 0.75rem;
   white-space: nowrap;
 }
-.minimal-wallet-menu-icon {
-  width: 1.05rem;
-  height: 1.05rem;
+.minimal-wallet-option-icon {
+  width: 1.15rem;
+  height: 1.15rem;
   flex: none;
   border-radius: 4px;
 }
-.minimal-wallet-menu-icon-base {
+.minimal-wallet-option-icon-base {
   background: #0052ff;
   border-radius: 50%;
 }
-.minimal-wallet-menu-note {
-  margin: 0.15rem 0 0.1rem;
-  padding: 0.3rem 0.65rem 0.25rem;
+.minimal-wallet-status {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+}
+.minimal-wallet-status[data-kind="success"] {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.minimal-wallet-status[data-kind="error"] {
+  color: var(--destructive-foreground);
+}
+.minimal-wallet-note {
+  margin: 0;
+  padding-top: 0.65rem;
   border-top: 1px solid var(--border);
   color: var(--muted-foreground);
   font-size: 0.75rem;

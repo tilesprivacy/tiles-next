@@ -1,10 +1,10 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { getPaymentStatus, pay } from "@base-org/account"
 import { Wallet } from "lucide-react"
-import { SiCircle } from "react-icons/si"
+import { SiCircle, SiWalletconnect } from "react-icons/si"
 import { erc20Abi, parseUnits } from "viem"
 import {
   WagmiProvider,
@@ -17,17 +17,20 @@ import {
   useWriteContract,
 } from "wagmi"
 import { base } from "wagmi/chains"
-import { coinbaseWallet, walletConnect } from "wagmi/connectors"
+import { coinbaseWallet, metaMask, walletConnect } from "wagmi/connectors"
 import type { Connector } from "wagmi"
 
 export const SPONSOR_USDC_ETH_ADDRESS =
   "0x7d6ab3dbdf510d6669e72f0e27ada61bbad0821d" as const
 
-export const SPONSOR_USDC_DONATION_AMOUNT = "5.00"
+export const SPONSOR_USDC_BASESCAN_URL = `https://basescan.org/address/${SPONSOR_USDC_ETH_ADDRESS}`
 
 // Native USDC on Base mainnet (6 decimals).
 const BASE_USDC_ADDRESS =
   "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913" as const
+
+const PRESET_AMOUNTS = ["5", "10", "25", "100"]
+const DEFAULT_AMOUNT = "10"
 
 const walletConnectProjectId =
   process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
@@ -35,6 +38,9 @@ const walletConnectProjectId =
 const wagmiConfig = createConfig({
   chains: [base],
   connectors: [
+    metaMask({
+      dapp: { name: "Tiles Privacy", url: "https://tiles.run" },
+    }),
     coinbaseWallet({ appName: "Tiles Privacy", preference: { options: "all" } }),
     ...(walletConnectProjectId
       ? [walletConnect({ projectId: walletConnectProjectId })]
@@ -46,21 +52,44 @@ const wagmiConfig = createConfig({
 
 const queryClient = new QueryClient()
 
-type DonationState =
-  | "idle"
-  | "connecting"
-  | "paying"
-  | "confirming"
-  | "success"
-  | "error"
+// Extensions for wallets we already offer through their SDK connector also
+// announce themselves via EIP-6963; hide those so nothing is listed twice.
+const DUPLICATE_DISCOVERED_IDS = new Set([
+  "io.metamask",
+  "io.metamask.mobile",
+  "com.coinbase.wallet",
+])
+const CONFIGURED_IDS = ["metaMaskSDK", "coinbaseWalletSDK", "walletConnect"]
 
-const STATE_LABELS: Record<DonationState, string> = {
-  idle: "Donate USDC",
-  connecting: "Connecting wallet…",
-  paying: "Confirm in wallet…",
-  confirming: "Processing…",
-  success: "Thank you!",
-  error: "Payment failed — retry",
+type PanelStatus =
+  | { kind: "idle" }
+  | { kind: "connecting"; wallet: string }
+  | { kind: "paying"; wallet: string; amount: string }
+  | { kind: "confirming" }
+  | { kind: "success"; txHash?: string }
+  | { kind: "error"; message: string }
+
+function errorMessage(error: unknown) {
+  if (typeof error === "object" && error !== null) {
+    const err = error as {
+      code?: number
+      name?: string
+      shortMessage?: string
+      message?: string
+    }
+    if (
+      err.code === 4001 ||
+      err.name === "UserRejectedRequestError" ||
+      /rejected|denied|cancell?ed/i.test(err.message ?? "")
+    ) {
+      return "Request canceled in the wallet."
+    }
+    const message = err.shortMessage ?? err.message
+    if (message) {
+      return message.length > 140 ? `${message.slice(0, 137)}…` : message
+    }
+  }
+  return "Something went wrong. Please try again."
 }
 
 async function waitForBasePayCompletion(id: string) {
@@ -74,11 +103,35 @@ async function waitForBasePayCompletion(id: string) {
   return true
 }
 
-function DonateMenu() {
-  const [state, setState] = useState<DonationState>("idle")
+function ConnectorIcon({ connector }: { connector: Connector }) {
+  const className = "minimal-wallet-option-icon"
+  if (connector.id === "metaMaskSDK") {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className={className} src="/wallets/metamask.svg" alt="" aria-hidden />
+  }
+  if (connector.id === "coinbaseWalletSDK") {
+    return (
+      <svg className={className} viewBox="0 0 24 24" aria-hidden>
+        <circle cx="12" cy="12" r="12" fill="#0052ff" />
+        <rect x="7.6" y="7.6" width="8.8" height="8.8" rx="2" fill="#fff" />
+      </svg>
+    )
+  }
+  if (connector.id === "walletConnect") {
+    return <SiWalletconnect className={className} style={{ color: "#3b99fc" }} aria-hidden />
+  }
+  if (connector.icon) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img className={className} src={connector.icon} alt="" aria-hidden />
+  }
+  return <Wallet className={className} aria-hidden />
+}
+
+function DonatePanel() {
   const [open, setOpen] = useState(false)
-  const containerRef = useRef<HTMLDivElement | null>(null)
-  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [preset, setPreset] = useState<string | null>(DEFAULT_AMOUNT)
+  const [customAmount, setCustomAmount] = useState("")
+  const [status, setStatus] = useState<PanelStatus>({ kind: "idle" })
 
   const account = useAccount()
   const { connectors, connectAsync } = useConnect()
@@ -87,58 +140,54 @@ function DonateMenu() {
   const publicClient = usePublicClient({ chainId: base.id })
 
   const busy =
-    state === "connecting" || state === "paying" || state === "confirming"
+    status.kind === "connecting" ||
+    status.kind === "paying" ||
+    status.kind === "confirming"
 
-  useEffect(() => {
-    if (!open) return
-    const onPointerDown = (event: PointerEvent) => {
-      if (!containerRef.current?.contains(event.target as Node)) {
-        setOpen(false)
-      }
-    }
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false)
-    }
-    document.addEventListener("pointerdown", onPointerDown)
-    document.addEventListener("keydown", onKeyDown)
-    return () => {
-      document.removeEventListener("pointerdown", onPointerDown)
-      document.removeEventListener("keydown", onKeyDown)
-    }
-  }, [open])
+  const amount = preset ?? customAmount
+  const amountValid = /^\d+(\.\d{1,2})?$/.test(amount) && Number(amount) > 0
 
-  useEffect(() => {
-    return () => {
-      if (resetTimer.current) clearTimeout(resetTimer.current)
-    }
-  }, [])
+  const selectPreset = (value: string) => {
+    setPreset(value)
+    if (status.kind === "error") setStatus({ kind: "idle" })
+  }
 
-  const scheduleReset = useCallback((delay: number) => {
-    if (resetTimer.current) clearTimeout(resetTimer.current)
-    resetTimer.current = setTimeout(() => setState("idle"), delay)
-  }, [])
+  const onCustomAmountChange = (value: string) => {
+    if (value !== "" && !/^\d*(\.\d{0,2})?$/.test(value)) return
+    setPreset(null)
+    setCustomAmount(value)
+    if (status.kind === "error") setStatus({ kind: "idle" })
+  }
+
+  const requireAmount = () => {
+    if (amountValid) return true
+    setStatus({ kind: "error", message: "Enter a valid amount first." })
+    return false
+  }
 
   const donateWithBasePay = async () => {
-    setOpen(false)
-    setState("paying")
+    if (busy || !requireAmount()) return
+    setStatus({ kind: "paying", wallet: "Base", amount })
     try {
       const payment = await pay({
-        amount: SPONSOR_USDC_DONATION_AMOUNT,
+        amount,
         to: SPONSOR_USDC_ETH_ADDRESS,
       })
-      setState("confirming")
+      setStatus({ kind: "confirming" })
       const completed = await waitForBasePayCompletion(payment.id)
-      setState(completed ? "success" : "error")
-      scheduleReset(5000)
-    } catch {
-      setState("error")
-      scheduleReset(4000)
+      setStatus(
+        completed
+          ? { kind: "success" }
+          : { kind: "error", message: "The payment didn’t go through." },
+      )
+    } catch (error) {
+      setStatus({ kind: "error", message: errorMessage(error) })
     }
   }
 
   const donateWithConnector = async (connector: Connector) => {
-    setOpen(false)
-    setState("connecting")
+    if (busy || !requireAmount()) return
+    setStatus({ kind: "connecting", wallet: connector.name })
     try {
       let chainId = account.chainId
       if (!account.isConnected || account.connector?.uid !== connector.uid) {
@@ -148,95 +197,169 @@ function DonateMenu() {
       if (chainId !== base.id) {
         await switchChainAsync({ chainId: base.id })
       }
-      setState("paying")
+      setStatus({ kind: "paying", wallet: connector.name, amount })
       const hash = await writeContractAsync({
         abi: erc20Abi,
         address: BASE_USDC_ADDRESS,
         functionName: "transfer",
-        args: [
-          SPONSOR_USDC_ETH_ADDRESS,
-          parseUnits(SPONSOR_USDC_DONATION_AMOUNT, 6),
-        ],
+        args: [SPONSOR_USDC_ETH_ADDRESS, parseUnits(amount, 6)],
         chainId: base.id,
       })
-      setState("confirming")
+      setStatus({ kind: "confirming" })
       const receipt = await publicClient?.waitForTransactionReceipt({ hash })
-      setState(receipt?.status === "success" ? "success" : "error")
-      scheduleReset(5000)
-    } catch {
-      setState("error")
-      scheduleReset(4000)
+      setStatus(
+        receipt?.status === "success"
+          ? { kind: "success", txHash: hash }
+          : { kind: "error", message: "The transaction reverted on Base." },
+      )
+    } catch (error) {
+      setStatus({ kind: "error", message: errorMessage(error) })
     }
   }
 
-  // The Coinbase Wallet browser extension announces itself via EIP-6963 too;
-  // keep only the configured SDK connector so it isn't listed twice.
-  const walletOptions = connectors.filter(
-    (connector) => connector.id !== "com.coinbase.wallet",
-  )
+  const walletOptions = [
+    ...CONFIGURED_IDS.filter((id) => id !== "walletConnect").flatMap((id) =>
+      connectors.filter((connector) => connector.id === id),
+    ),
+    ...connectors.filter(
+      (connector) =>
+        !CONFIGURED_IDS.includes(connector.id) &&
+        !DUPLICATE_DISCOVERED_IDS.has(connector.id),
+    ),
+    ...connectors.filter((connector) => connector.id === "walletConnect"),
+  ]
+
+  const statusLine = (() => {
+    switch (status.kind) {
+      case "idle":
+        return null
+      case "connecting":
+        return `Opening ${status.wallet}…`
+      case "paying":
+        return `Approve the $${status.amount} USDC payment in ${status.wallet}…`
+      case "confirming":
+        return "Waiting for confirmation on Base…"
+      case "success":
+        return "Thank you for your support!"
+      case "error":
+        return status.message
+    }
+  })()
 
   return (
-    <div className="minimal-wallet-donate" ref={containerRef}>
+    <>
       <button
         type="button"
         className="minimal-secondary-button"
-        onClick={() => {
-          if (!busy) setOpen((current) => !current)
-        }}
-        disabled={busy}
-        aria-haspopup="menu"
+        onClick={() => setOpen((current) => !current)}
         aria-expanded={open}
-        title={`Donate $${SPONSOR_USDC_DONATION_AMOUNT} USDC on Base`}
+        aria-controls="sponsor-usdc-panel"
       >
         <SiCircle className="minimal-sponsor-button-icon" aria-hidden />
-        {STATE_LABELS[state]}
+        Donate USDC
       </button>
       {open ? (
-        <div className="minimal-wallet-menu" role="menu">
-          <button
-            type="button"
-            role="menuitem"
-            className="minimal-wallet-menu-item"
-            onClick={donateWithBasePay}
-          >
-            <span
-              className="minimal-wallet-menu-icon minimal-wallet-menu-icon-base"
-              aria-hidden
-            />
-            Base Pay
-            <small>No wallet needed</small>
-          </button>
-          {walletOptions.map((connector) => (
-            <button
-              key={connector.uid}
-              type="button"
-              role="menuitem"
-              className="minimal-wallet-menu-item"
-              onClick={() => donateWithConnector(connector)}
-            >
-              {connector.icon ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  className="minimal-wallet-menu-icon"
-                  src={connector.icon}
-                  alt=""
+        <div className="minimal-wallet-panel" id="sponsor-usdc-panel">
+          <div>
+            <p className="minimal-wallet-panel-label">Amount</p>
+            <div className="minimal-wallet-amounts">
+              {PRESET_AMOUNTS.map((value) => (
+                <button
+                  key={value}
+                  type="button"
+                  className="minimal-wallet-amount-chip"
+                  data-selected={preset === value}
+                  onClick={() => selectPreset(value)}
+                  disabled={busy}
+                >
+                  ${value}
+                </button>
+              ))}
+              <label
+                className="minimal-wallet-amount-custom"
+                data-selected={preset === null}
+              >
+                $
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="Custom"
+                  value={customAmount}
+                  onChange={(event) => onCustomAmountChange(event.target.value)}
+                  onFocus={() => setPreset(null)}
+                  disabled={busy}
+                  aria-label="Custom amount in US dollars"
+                />
+              </label>
+            </div>
+          </div>
+          <div>
+            <p className="minimal-wallet-panel-label">Pay with</p>
+            <div className="minimal-wallet-options">
+              <button
+                type="button"
+                className="minimal-wallet-option"
+                onClick={donateWithBasePay}
+                disabled={busy}
+              >
+                <span
+                  className="minimal-wallet-option-icon minimal-wallet-option-icon-base"
                   aria-hidden
                 />
-              ) : (
-                <Wallet className="minimal-wallet-menu-icon" aria-hidden />
-              )}
-              {connector.name}
-              {connector.id === "walletConnect" ? (
-                <small>Rainbow, Trust…</small>
+                Base
+                <small>No wallet app needed</small>
+              </button>
+              {walletOptions.map((connector) => (
+                <button
+                  key={connector.uid}
+                  type="button"
+                  className="minimal-wallet-option"
+                  onClick={() => donateWithConnector(connector)}
+                  disabled={busy}
+                >
+                  <ConnectorIcon connector={connector} />
+                  {connector.name}
+                  {connector.id === "walletConnect" ? (
+                    <small>Rainbow, Trust &amp; more</small>
+                  ) : null}
+                </button>
+              ))}
+            </div>
+          </div>
+          {statusLine ? (
+            <p
+              className="minimal-wallet-status"
+              data-kind={status.kind}
+              role="status"
+            >
+              {statusLine}
+              {status.kind === "success" && status.txHash ? (
+                <>
+                  {" "}
+                  <a
+                    href={`https://basescan.org/tx/${status.txHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View transaction
+                  </a>
+                </>
               ) : null}
-            </button>
-          ))}
-          <p className="minimal-wallet-menu-note">
-            ${SPONSOR_USDC_DONATION_AMOUNT} USDC on Base
+            </p>
+          ) : null}
+          <p className="minimal-wallet-note">
+            USDC on the Base network, sent to{" "}
+            <a
+              href={SPONSOR_USDC_BASESCAN_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              0x7d6a…821d
+            </a>
           </p>
         </div>
       ) : null}
-    </div>
+    </>
   )
 }
 
@@ -244,7 +367,7 @@ export function SponsorUsdcDonateButton() {
   return (
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-        <DonateMenu />
+        <DonatePanel />
       </QueryClientProvider>
     </WagmiProvider>
   )
