@@ -5,6 +5,8 @@
 @custom-variant cyberpunk (&:is(.cyberpunk *));
 
 :root {
+  /* Shared accent for light and dark (cyberpunk) themes alike. */
+  --sponsor-accent: #5897b6;
   --site-announcement-height: 2.25rem;
   --site-announcement-offset: var(--site-announcement-height);
 }
@@ -92,7 +94,7 @@ html[data-page-theme="own-your-ai"].dark {
   --background: #020202;
 }
 
-/* /sponsor: follow the normal light/dark palette. Forest green belongs to cyberpunk. */
+/* /sponsor: follow the normal light/dark palette; --sponsor-accent is shared. */
 html[data-page-theme="sponsor"] {
   --background: #fdfdfd;
   --card: #fdfdfd;
@@ -122,9 +124,8 @@ html[data-page-theme="sponsor"].dark {
   --sidebar-border: rgba(255, 255, 255, 0.1);
 }
 
-/* Site-wide cyberpunk theme: sponsor forest green on a pure black canvas. */
+/* Site-wide cyberpunk theme: the shared accent on a pure black canvas. */
 html.cyberpunk {
-  --sponsor-accent: #2f9e44;
   --background: #000000;
   --foreground: #ffffff;
   --card: #000000;
@@ -175,6 +176,33 @@ html.cyberpunk .minimal-secondary-button:hover {
 
 html.cyberpunk .refined-site-footer {
   background: #000;
+}
+
+/* Light theme shares the accent on the same surfaces as cyberpunk. */
+html.light .site-announcement {
+  border-bottom-color: transparent;
+  background: var(--sponsor-accent);
+  color: #000;
+}
+
+html.light .site-announcement-logo {
+  filter: none;
+  mix-blend-mode: multiply;
+}
+
+html.light .minimal-primary-button,
+html.light .minimal-secondary-button {
+  border: 2px solid var(--sponsor-accent) !important;
+  background: var(--sponsor-accent) !important;
+  color: #000 !important;
+  box-shadow: none !important;
+}
+
+html.light .minimal-primary-button:hover,
+html.light .minimal-secondary-button:hover {
+  background: #000 !important;
+  color: var(--sponsor-accent) !important;
+  opacity: 1 !important;
 }
 
 /* Site-wide dark theme: use the homepage pitch-black canvas on every page. */
@@ -1649,7 +1677,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-funding > div:first-child strong {
   letter-spacing: -0.05em;
   color: #000;
 }
-/* Forest green is darker than the old yellow, so secondary text needs more ink. */
+/* The accent is darker than the original yellow, so secondary text needs more ink. */
 html.cyberpunk .minimal-sponsor-page .minimal-funding > div:first-child span,
 html.cyberpunk .minimal-sponsor-page .minimal-funding > p,
 html.cyberpunk .minimal-sponsor-page .minimal-note {
@@ -1948,7 +1976,7 @@ html.cyberpunk
   .minimal-sponsor-actions
   .minimal-wallet-toggle[aria-expanded="true"] {
   border-color: #0a0a0a !important;
-  background: var(--sponsor-accent, #2f9e44) !important;
+  background: var(--sponsor-accent, #5897b6) !important;
   color: #0a0a0a !important;
 }
 .minimal-wallet-panel {
@@ -2051,7 +2079,7 @@ html.cyberpunk .minimal-sponsor-page {
   --muted-foreground: #3f3f46;
 }
 html.cyberpunk .minimal-wallet-panel {
-  --wallet-accent: var(--sponsor-accent, #2f9e44);
+  --wallet-accent: var(--sponsor-accent, #5897b6);
   --wallet-accent-contrast: #0a0a0a;
 }
 .minimal-wallet-amount-inputrow {
@@ -3718,8 +3746,8 @@ html.cyberpunk [data-book-section] {
   color: var(--foreground) !important;
 }
 
-/* Cyberpunk book code blocks: use the dark syntax palette and forest green controls
-   so the script surface and clipboard action stay distinct from the black page. */
+/* Cyberpunk book code blocks: use the dark syntax palette and accent-coloured
+   controls so the script surface and clipboard action stay distinct from the black page. */
 html.cyberpunk [data-book-section] .nextra-code pre {
   background: var(--secondary) !important;
   box-shadow: inset 0 0 0 1px
