@@ -1984,11 +1984,22 @@ html.cyberpunk
   font-weight: 700;
   line-height: 1.3;
 }
-.minimal-wallet-panel-heading span {
-  display: block;
-  margin-top: 0.25rem;
+.minimal-wallet-panel-warning {
+  margin-top: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
   color: var(--wallet-muted);
   font-size: 0.8125rem;
+}
+.minimal-wallet-panel-warning svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: none;
+  color: #d97706;
+}
+.minimal-wallet-panel-warning strong {
+  color: var(--foreground);
 }
 .minimal-wallet-panel-close {
   display: inline-flex;
@@ -2215,22 +2226,6 @@ html.cyberpunk
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.75rem;
   overflow-wrap: anywhere;
-}
-.minimal-wallet-qr-warning {
-  margin-top: 0.35rem;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.75rem;
-}
-.minimal-wallet-qr-warning svg {
-  width: 0.9rem;
-  height: 0.9rem;
-  flex: none;
-  color: #d97706;
-}
-.minimal-wallet-qr-warning strong {
-  color: var(--foreground);
 }
 @media (max-width: 480px) {
   .minimal-wallet-qr {

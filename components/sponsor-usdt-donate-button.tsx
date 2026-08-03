@@ -386,7 +386,10 @@ function DonatePanel() {
           <header className="minimal-wallet-panel-header">
             <div className="minimal-wallet-panel-heading">
               <h3>Donate with USDT</h3>
-              <span>On the Ethereum network</span>
+              <span className="minimal-wallet-panel-warning">
+                <TriangleAlert aria-hidden />
+                Send only USDT on the <strong>Ethereum network</strong>
+              </span>
             </div>
             <button
               type="button"
@@ -539,10 +542,6 @@ function DonatePanel() {
                           {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
                           {copied ? "Copied" : "Copy"}
                         </button>
-                      </span>
-                      <span className="minimal-wallet-qr-warning">
-                        <TriangleAlert aria-hidden />
-                        Send only USDT on the <strong>Ethereum network</strong>
                       </span>
                     </div>
                   </div>
