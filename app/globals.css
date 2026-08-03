@@ -1955,40 +1955,6 @@ html.cyberpunk
 .minimal-wallet-toggle-chevron[data-open="true"] {
   transform: rotate(180deg);
 }
-.minimal-wallet-token-icon {
-  position: relative;
-  width: 1.1rem;
-  height: 1.1rem;
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: #26a17b;
-}
-.minimal-wallet-token-icon > svg {
-  width: 0.62rem;
-  height: 0.62rem;
-  color: #fff;
-}
-.minimal-wallet-token-icon-eth {
-  position: absolute;
-  right: -0.22rem;
-  bottom: -0.22rem;
-  width: 0.58rem;
-  height: 0.58rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #fff;
-  border-radius: 50%;
-  background: #627eea;
-}
-.minimal-wallet-token-icon-eth svg {
-  width: 0.32rem;
-  height: 0.32rem;
-  color: #fff;
-}
 .minimal-wallet-panel-header {
   display: flex;
   align-items: flex-start;

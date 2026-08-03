@@ -106,17 +106,6 @@ function errorMessage(error: unknown) {
   return "Something went wrong. Please try again."
 }
 
-function TetherEthIcon() {
-  return (
-    <span className="minimal-wallet-token-icon" aria-hidden>
-      <SiTether />
-      <span className="minimal-wallet-token-icon-eth">
-        <SiEthereum />
-      </span>
-    </span>
-  )
-}
-
 function CoinbaseIcon() {
   return (
     <svg className="minimal-wallet-option-icon" viewBox="0 0 24 24" aria-hidden>
@@ -381,7 +370,7 @@ function DonatePanel() {
         aria-expanded={open}
         aria-controls="sponsor-usdt-panel"
       >
-        <TetherEthIcon />
+        <SiTether className="minimal-sponsor-button-icon" aria-hidden />
         Donate with USDT
         <ChevronDown
           className="minimal-wallet-toggle-chevron"
