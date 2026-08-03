@@ -19,6 +19,7 @@
     "serve:upload-file": "npm --prefix serve run upload:file --"
   },
   "dependencies": {
+    "@base-org/account": "^2.5.8",
     "@hookform/resolvers": "^3.10.0",
     "@polar-sh/checkout": "^0.2.0",
     "@polar-sh/nextjs": "^0.9.5",
