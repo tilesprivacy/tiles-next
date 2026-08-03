@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import { ReactNode, useEffect, useRef } from 'react'
+import { ReactNode, useEffect, useRef, useState } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogReference } from "@/components/blog-reference"
@@ -63,6 +63,23 @@ export function BlogPostContent({
   const author = authorId ? getPersonById(authorId) : null
   // Print forces a white page, so always prefer the light cover variant.
   const printCover = coverImage ?? printCoverImage
+  const [coverInArticleBody, setCoverInArticleBody] = useState(false)
+
+  useEffect(() => {
+    if (!printCover) return
+
+    const article = articleRef.current
+    if (!article) return
+
+    // Skip the print cover when the article body already shows the same
+    // image inline, so print/PDF output does not repeat it.
+    const isDuplicated = Array.from(article.querySelectorAll('img')).some((img) => {
+      const src = img.getAttribute('src') ?? ''
+      return src === printCover || decodeURIComponent(src).includes(printCover)
+    })
+
+    setCoverInArticleBody(isDuplicated)
+  }, [printCover, content])
   const standardSiteDocumentUrl = standardSiteDocumentUri
     ? buildAtprotoAtUriUrl(standardSiteDocumentUri)
     : null
@@ -210,7 +227,7 @@ export function BlogPostContent({
             </div>
           </div>
 
-          {printCover ? (
+          {printCover && !coverInArticleBody ? (
             <div data-blog-print-cover className="hidden" aria-hidden>
               {/* Native img keeps print/PDF output reliable across browsers. */}
               <img
