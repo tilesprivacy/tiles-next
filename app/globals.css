@@ -6,7 +6,7 @@
 
 :root {
   /* Shared accent for light and dark (cyberpunk) themes alike. */
-  --sponsor-accent: #5897b6;
+  --sponsor-accent: #32b5e4;
   --site-announcement-height: 2.25rem;
   --site-announcement-offset: var(--site-announcement-height);
 }
@@ -1976,7 +1976,7 @@ html.cyberpunk
   .minimal-sponsor-actions
   .minimal-wallet-toggle[aria-expanded="true"] {
   border-color: #0a0a0a !important;
-  background: var(--sponsor-accent, #5897b6) !important;
+  background: var(--sponsor-accent, #32b5e4) !important;
   color: #0a0a0a !important;
 }
 .minimal-wallet-panel {
@@ -2079,7 +2079,7 @@ html.cyberpunk .minimal-sponsor-page {
   --muted-foreground: #3f3f46;
 }
 html.cyberpunk .minimal-wallet-panel {
-  --wallet-accent: var(--sponsor-accent, #5897b6);
+  --wallet-accent: var(--sponsor-accent, #32b5e4);
   --wallet-accent-contrast: #0a0a0a;
 }
 .minimal-wallet-amount-inputrow {

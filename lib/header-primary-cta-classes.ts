@@ -3,7 +3,7 @@
  * Keep homepage and download CTAs on this palette so they match the top bar exactly.
  */
 export const themeAwareHeaderPrimaryCtaClasses =
-  "!bg-[var(--sponsor-accent,#5897b6)] !text-black hover:!bg-black hover:!text-[var(--sponsor-accent,#5897b6)] hover:!opacity-100 ring-1 ring-black/5 dark:ring-white/10 cyberpunk:ring-2 cyberpunk:ring-inset cyberpunk:ring-[var(--sponsor-accent,#5897b6)]" as const
+  "!bg-[var(--sponsor-accent,#32b5e4)] !text-black hover:!bg-black hover:!text-[var(--sponsor-accent,#32b5e4)] hover:!opacity-100 ring-1 ring-black/5 dark:ring-white/10 cyberpunk:ring-2 cyberpunk:ring-inset cyberpunk:ring-[var(--sponsor-accent,#32b5e4)]" as const
 
 export const downloadButtonMotionClasses =
   "transform-gpu shadow-[0_1px_2px_rgba(0,0,0,0.12)] transition-[transform,box-shadow,opacity] duration-200 ease-out motion-reduce:transform-none motion-reduce:transition-none hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(0,0,0,0.12)] focus-visible:-translate-y-px focus-visible:shadow-[0_4px_12px_rgba(0,0,0,0.12)] active:translate-y-0 active:shadow-[0_1px_2px_rgba(0,0,0,0.1)] dark:hover:shadow-[0_4px_12px_rgba(0,0,0,0.28)] dark:focus-visible:shadow-[0_4px_12px_rgba(0,0,0,0.28)] dark:active:shadow-[0_1px_2px_rgba(0,0,0,0.22)]" as const
