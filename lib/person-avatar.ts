@@ -10,6 +10,13 @@ function sortLinksByAvatarPriority(links: string[]): string[] {
   })
 }
 
+// Without fallback=false, unavatar answers failed lookups with a generic
+// placeholder and HTTP 200, so <img> onError never fires and the candidate
+// chain (other providers → Bluesky API → initials) is silently skipped.
+function unavatarUrl(provider: string, username: string): string {
+  return `https://unavatar.io/${provider}/${encodeURIComponent(username)}?fallback=false`
+}
+
 function collectAvatarUrlsFromLink(link: string): string[] {
   const urls: string[] = []
 
@@ -19,18 +26,18 @@ function collectAvatarUrlsFromLink(link: string): string[] {
     const parts = url.pathname.split("/").filter(Boolean)
 
     if (host.includes("github.com") && parts[0]) {
-      urls.push(`https://unavatar.io/github/${parts[0]}`)
+      urls.push(unavatarUrl("github", parts[0]))
     }
     if ((host.includes("x.com") || host.includes("twitter.com")) && parts[0]) {
-      urls.push(`https://unavatar.io/x/${parts[0]}`)
+      urls.push(unavatarUrl("x", parts[0]))
     }
     if (host.includes("reddit.com")) {
       const username = parts[0] === "user" ? parts[1] : parts[0]
-      if (username) urls.push(`https://unavatar.io/reddit/${username}`)
+      if (username) urls.push(unavatarUrl("reddit", username))
     }
     if (host.includes("bsky.app")) {
       const handle = parts[0] === "profile" ? parts[1] : parts[0]
-      if (handle) urls.push(`https://unavatar.io/bluesky/${handle}`)
+      if (handle) urls.push(unavatarUrl("bluesky", handle))
     }
     if (host.includes("pimtron.dev")) {
       urls.push("/pimmy.png")
