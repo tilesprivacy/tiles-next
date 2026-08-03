@@ -452,14 +452,13 @@ function DonatePanel() {
                 <input
                   type="text"
                   inputMode="decimal"
-                  placeholder="0.00"
+                  placeholder="enter custom amount"
                   autoFocus
                   value={customAmount}
                   onChange={(event) => onCustomAmountChange(event.target.value)}
                   disabled={busy}
                   aria-label="Custom amount in US dollars"
                 />
-                <span className="minimal-wallet-amount-currency">USDC</span>
               </label>
             ) : null}
             {flowFor(AMOUNT_KEY)}
@@ -602,21 +601,6 @@ function DonatePanel() {
             </div>
           </section>
           <p className="minimal-wallet-note">
-            <span className="minimal-wallet-note-address">
-              Recipient <code>{SPONSOR_USDC_ADDRESS_SHORT}</code>
-              <button
-                type="button"
-                className="minimal-wallet-copy"
-                onClick={copyAddress}
-                aria-label="Copy recipient address"
-              >
-                {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
-                {copied ? "Copied" : "Copy"}
-              </button>
-            </span>
-            <span className="minimal-wallet-note-sep" aria-hidden>
-              ·
-            </span>
             <a
               href={SPONSOR_USDC_BASESCAN_URL}
               target="_blank"

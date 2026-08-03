@@ -2029,7 +2029,7 @@ html.cyberpunk
 }
 .minimal-wallet-amount-inputrow {
   margin-top: 0.6rem;
-  max-width: 13rem;
+  max-width: 15rem;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -2053,11 +2053,6 @@ html.cyberpunk
 .minimal-wallet-amount-inputrow input::placeholder {
   color: var(--wallet-muted);
   font-weight: 500;
-}
-.minimal-wallet-amount-currency {
-  color: var(--wallet-muted);
-  font-size: 0.75rem;
-  font-weight: 600;
 }
 .minimal-wallet-options {
   display: flex;
@@ -2248,18 +2243,8 @@ html.cyberpunk
   color: var(--wallet-muted);
   font-size: 0.75rem;
 }
-.minimal-wallet-note code {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.75rem;
-  overflow-wrap: anywhere;
-}
 .minimal-wallet-note a {
   color: inherit;
-}
-.minimal-wallet-note-address {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
 }
 .minimal-wallet-copy {
   min-width: 4.5rem;
@@ -2276,16 +2261,6 @@ html.cyberpunk
   font-size: 0.7rem;
   font-weight: 600;
   cursor: pointer;
-}
-@media (max-width: 640px) {
-  .minimal-wallet-note {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.55rem;
-  }
-  .minimal-wallet-note-sep {
-    display: none;
-  }
 }
 .minimal-wallet-copy:hover {
   border-color: var(--foreground);
