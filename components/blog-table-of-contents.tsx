@@ -16,7 +16,7 @@ interface TocItem {
 
 interface BlogTableOfContentsProps {
   contentSelector?: string
-  mode?: 'desktop' | 'mobile'
+  mode?: 'desktop' | 'mobile' | 'print'
   introId?: string
   mobileTitle?: string
   navAriaLabel?: string
@@ -203,6 +203,30 @@ export function BlogTableOfContents({
   }
 
   const minHeadingLevel = getMinHeadingLevel(items)
+
+  if (mode === 'print') {
+    return (
+      <nav aria-label={navAriaLabel} data-blog-print-toc className="hidden">
+        <p data-blog-print-toc-title>Table of Contents</p>
+        <ul>
+          {items.map((item) => (
+            <li key={item.id} className={getTocItemIndentClass(item.level, minHeadingLevel)}>
+              <a href={`#${item.id}`}>
+                {item.sectionNumber ? (
+                  <>
+                    <span className="tabular-nums">{item.sectionNumber}</span> {item.text}
+                  </>
+                ) : (
+                  item.text
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )
+  }
+
   const navItems = (
     <ul className="space-y-2.5">
       {items.map((item) => {

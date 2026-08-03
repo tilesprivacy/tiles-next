@@ -183,6 +183,7 @@ export default function OwnYourAiPage() {
       description={post.description}
       date={formattedDate}
       authorId={post.author}
+      printCoverImage={post.coverImage}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
       content={post.content}
       showTableOfContents={false}

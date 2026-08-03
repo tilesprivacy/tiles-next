@@ -25,6 +25,8 @@ interface BlogPostContentProps {
   coverAlt?: string
   coverImageWidth?: number
   coverImageHeight?: number
+  /** Print-only cover fallback for posts whose `coverImage` is OG/listing-only. */
+  printCoverImage?: string
   standardSiteDocumentUri?: string
   content: string
   /** When false, hides the mobile and desktop table of contents. Defaults to true. */
@@ -51,13 +53,16 @@ export function BlogPostContent({
   coverAlt, 
   coverImageWidth = 1200,
   coverImageHeight = 600,
+  printCoverImage,
   standardSiteDocumentUri,
   content,
   showTableOfContents = true,
-  children 
+  children
 }: BlogPostContentProps) {
   const articleRef = useRef<HTMLElement>(null)
   const author = authorId ? getPersonById(authorId) : null
+  // Print forces a white page, so always prefer the light cover variant.
+  const printCover = coverImage ?? printCoverImage
   const standardSiteDocumentUrl = standardSiteDocumentUri
     ? buildAtprotoAtUriUrl(standardSiteDocumentUri)
     : null
@@ -204,6 +209,20 @@ export function BlogPostContent({
               )}
             </div>
           </div>
+
+          {printCover ? (
+            <div data-blog-print-cover className="hidden" aria-hidden>
+              {/* Native img keeps print/PDF output reliable across browsers. */}
+              <img
+                src={printCover}
+                alt={coverAlt ?? title}
+                width={coverImageWidth}
+                height={coverImageHeight}
+              />
+            </div>
+          ) : null}
+
+          {showTableOfContents ? <BlogTableOfContents mode="print" /> : null}
 
           {coverImage ? (
             <div className="blog-print-screen-only mb-8 lg:mb-16">

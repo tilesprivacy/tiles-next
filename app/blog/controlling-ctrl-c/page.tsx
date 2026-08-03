@@ -130,6 +130,7 @@ export default function ControllingCtrlCPage() {
       description={post.description}
       date={formattedDate}
       authorId={post.author}
+      printCoverImage={post.coverImage}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
       content={post.content}
     >
