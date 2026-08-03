@@ -1915,14 +1915,10 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   background: var(--foreground);
 }
 .minimal-sponsor-actions {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   margin-top: 1rem;
-}
-.minimal-sponsor-actions > .minimal-primary-button,
-.minimal-sponsor-actions > .minimal-secondary-button {
-  width: 100%;
 }
 .minimal-wallet-toggle[aria-expanded="true"],
 html.cyberpunk
@@ -1940,7 +1936,7 @@ html.cyberpunk
     var(--foreground)
   );
   --wallet-accent: var(--sponsor-yellow, #f7ff61);
-  grid-column: 1 / -1;
+  flex-basis: 100%;
   margin-top: 0.35rem;
   display: flex;
   flex-direction: column;
