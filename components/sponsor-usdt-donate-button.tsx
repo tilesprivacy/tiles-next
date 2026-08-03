@@ -514,14 +514,6 @@ function DonatePanel() {
                         </span>
                       </span>
                     </div>
-                    <div className="minimal-wallet-qr-details">
-                      <strong>Scan with any wallet</strong>
-                      <span>
-                        {amountValid
-                          ? `$${amount} USDT on Ethereum`
-                          : "Amount must be entered in your wallet"}
-                      </span>
-                    </div>
                   </div>
                 ) : null}
               </div>
