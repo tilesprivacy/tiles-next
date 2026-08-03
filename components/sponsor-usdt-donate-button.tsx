@@ -13,7 +13,7 @@ import {
   X,
 } from "lucide-react"
 import QRCode from "react-qr-code"
-import { SiCircle, SiEthereum, SiTether, SiWalletconnect } from "react-icons/si"
+import { SiEthereum, SiTether, SiWalletconnect } from "react-icons/si"
 import { erc20Abi, parseUnits } from "viem"
 import {
   WagmiProvider,
@@ -104,6 +104,17 @@ function errorMessage(error: unknown) {
     }
   }
   return "Something went wrong. Please try again."
+}
+
+function TetherEthIcon() {
+  return (
+    <span className="minimal-wallet-token-icon" aria-hidden>
+      <SiTether />
+      <span className="minimal-wallet-token-icon-eth">
+        <SiEthereum />
+      </span>
+    </span>
+  )
 }
 
 function CoinbaseIcon() {
@@ -370,7 +381,7 @@ function DonatePanel() {
         aria-expanded={open}
         aria-controls="sponsor-usdt-panel"
       >
-        <SiCircle className="minimal-sponsor-button-icon" aria-hidden />
+        <TetherEthIcon />
         Donate with USDT
         <ChevronDown
           className="minimal-wallet-toggle-chevron"
@@ -382,7 +393,8 @@ function DonatePanel() {
         <div className="minimal-wallet-panel" id="sponsor-usdt-panel">
           <header className="minimal-wallet-panel-header">
             <div className="minimal-wallet-panel-heading">
-              <h3>Donate with USDT on Ethereum network</h3>
+              <h3>Donate with USDT</h3>
+              <span>On the Ethereum network</span>
             </div>
             <button
               type="button"
