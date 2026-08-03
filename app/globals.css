@@ -2220,6 +2220,13 @@ html.cyberpunk .minimal-wallet-panel {
     flex-direction: column;
     align-items: flex-start;
   }
+  .minimal-wallet-amount-inputrow {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+  .minimal-wallet-amount-inputrow input {
+    padding: 0.45rem 0;
+  }
 }
 .minimal-wallet-flow {
   margin: 0.5rem 0 0;
