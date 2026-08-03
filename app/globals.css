@@ -2008,9 +2008,6 @@ html.cyberpunk
   flex: none;
   color: #d97706;
 }
-.minimal-wallet-panel-warning strong {
-  color: var(--foreground);
-}
 .minimal-wallet-panel-label {
   margin: 0 0 0.6rem;
   color: var(--wallet-muted);
@@ -2203,13 +2200,16 @@ html.cyberpunk .minimal-wallet-panel {
 .minimal-wallet-qr-details > span {
   color: var(--wallet-muted);
 }
-.minimal-wallet-qr-recipient {
+.minimal-wallet-recipient {
+  margin: -0.6rem 0 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem;
+  color: var(--wallet-muted);
+  font-size: 0.8125rem;
 }
-.minimal-wallet-qr-recipient code {
+.minimal-wallet-recipient code {
   color: var(--foreground);
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.75rem;
@@ -2275,7 +2275,7 @@ html.cyberpunk .minimal-wallet-panel {
   height: 0.9rem;
 }
 .minimal-wallet-note {
-  margin: -0.6rem 0 0;
+  margin: -1.05rem 0 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

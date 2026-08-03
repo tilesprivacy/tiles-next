@@ -387,7 +387,7 @@ function DonatePanel() {
             <h3>Donate with USDT</h3>
             <span className="minimal-wallet-panel-warning">
               <TriangleAlert aria-hidden />
-              Send only USDT on the <strong>Ethereum network</strong>
+              Send only USDT on the Ethereum network
             </span>
           </header>
           <section>
@@ -521,24 +521,24 @@ function DonatePanel() {
                           ? `$${amount} USDT on Ethereum`
                           : "Amount must be entered in your wallet"}
                       </span>
-                      <span className="minimal-wallet-qr-recipient">
-                        Recipient: <code>{SPONSOR_USDT_ADDRESS_SHORT}</code>
-                        <button
-                          type="button"
-                          className="minimal-wallet-copy"
-                          onClick={copyAddress}
-                          aria-label="Copy recipient address"
-                        >
-                          {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
-                          {copied ? "Copied" : "Copy"}
-                        </button>
-                      </span>
                     </div>
                   </div>
                 ) : null}
               </div>
             </div>
           </section>
+          <p className="minimal-wallet-recipient">
+            Recipient: <code>{SPONSOR_USDT_ADDRESS_SHORT}</code>
+            <button
+              type="button"
+              className="minimal-wallet-copy"
+              onClick={copyAddress}
+              aria-label="Copy recipient address"
+            >
+              {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </p>
           <p className="minimal-wallet-note">
             <a
               href={SPONSOR_USDT_ETHERSCAN_URL}
