@@ -1920,7 +1920,11 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   gap: 0.75rem;
   margin-top: 1rem;
 }
-.minimal-wallet-toggle[aria-expanded="true"],
+.minimal-wallet-toggle[aria-expanded="true"] {
+  border-color: var(--foreground) !important;
+  background: var(--background) !important;
+  color: var(--foreground) !important;
+}
 html.cyberpunk
   .minimal-sponsor-page
   .minimal-sponsor-actions
@@ -1935,7 +1939,8 @@ html.cyberpunk
     var(--muted-foreground) 45%,
     var(--foreground)
   );
-  --wallet-accent: var(--sponsor-yellow, #f7ff61);
+  --wallet-accent: var(--foreground);
+  --wallet-accent-contrast: var(--background);
   flex-basis: 100%;
   margin-top: 0.35rem;
   display: flex;
@@ -2049,7 +2054,11 @@ html.cyberpunk
 .minimal-wallet-amount-chip[data-selected="true"] {
   border-color: var(--wallet-accent);
   background: var(--wallet-accent);
-  color: #0a0a0a;
+  color: var(--wallet-accent-contrast);
+}
+html.cyberpunk .minimal-wallet-panel {
+  --wallet-accent: var(--sponsor-yellow, #f7ff61);
+  --wallet-accent-contrast: #0a0a0a;
 }
 .minimal-wallet-amount-inputrow {
   flex: 1 1 12rem;
