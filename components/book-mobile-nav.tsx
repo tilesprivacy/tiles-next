@@ -29,7 +29,7 @@ const bookPages: BookPage[] = [
   {
     number: '04',
     title: 'Tilekit',
-    description: 'Tilekit CLI usage for Modelfiles, MIR Extension, parser grammar, instructions, parameters, and API usage.',
+    description: 'Embed Tiles into your product with Tilekit.',
     href: '/book/tilekit',
   },
   {
