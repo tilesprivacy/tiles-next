@@ -60,7 +60,7 @@ export function BlogReadingProgress() {
       aria-label={`${percent}% read — scroll back to top`}
       aria-hidden={visible ? undefined : true}
       tabIndex={visible ? 0 : -1}
-      className={`blog-print-screen-only fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-[calc(1.25rem+env(safe-area-inset-right,0px))] z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full border-0 bg-transparent text-black/80 transition-all duration-300 hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/70 dark:text-white/90 dark:hover:text-white dark:focus-visible:outline-white/70 print:hidden ${
+      className={`blog-print-screen-only fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-[calc(1.25rem+env(safe-area-inset-right,0px))] z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full border-0 bg-transparent text-black transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/70 dark:text-white dark:focus-visible:outline-white/70 print:hidden ${
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >
@@ -85,10 +85,10 @@ export function BlogReadingProgress() {
           strokeLinecap="round"
           strokeDasharray={RING_CIRCUMFERENCE}
           strokeDashoffset={RING_CIRCUMFERENCE * (1 - progress)}
-          className="stroke-black/85 transition-[stroke-dashoffset] duration-150 ease-out dark:stroke-white/95"
+          className="stroke-black transition-[stroke-dashoffset] duration-150 ease-out dark:stroke-white"
         />
       </svg>
-      <ArrowUp className="h-4 w-4" aria-hidden="true" />
+      <ArrowUp className="relative h-4 w-4" aria-hidden="true" />
     </button>
   )
 }
