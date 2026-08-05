@@ -59,7 +59,7 @@ function SponsorList({
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
   const progress = sponsorsGoal.progressPercent
     ? `${sponsorsGoal.progressPercent.replace(/%$/, "")}%`
-    : "90%"
+    : "95%"
   return (
     <div className="minimal-product-page">
       <MinimalTopbar />
@@ -95,16 +95,6 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                     className="minimal-sponsor-button-icon"
                   />
                   Sponsor on GitHub
-                </a>
-                <a
-                  className="minimal-secondary-button"
-                  href="https://opencollective.com/user-and-agents/projects/tiles-privacy"
-                >
-                  <SocialIcon
-                    type="opencollective"
-                    className="minimal-sponsor-button-icon"
-                  />
-                  Sponsor on OpenCollective
                 </a>
                 <SponsorUsdtDonateButton />
               </div>
@@ -171,26 +161,12 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
 
           <p className="minimal-partner-intro">
             We are grateful to the organizations supporting our work financially
-            through our Partner Program on{" "}
-            <a href="https://opencollective.com/user-and-agents/projects/tiles-privacy">
-              Open Collective
-            </a>
-            , which belongs to the{" "}
-            <a href="https://userandagents.org/" className="underline">
-              <Image
-                src="/ua-logo.svg"
-                alt="User &amp; Agents logo"
-                width={16}
-                height={16}
-              />{" "}
-              User &amp; Agents
-            </a>{" "}
-            with Open Source Europe as its fiscal host, and to everyone who has
-            supported our project through{" "}
+            through our Partner Program, and to everyone who has supported our
+            project through{" "}
             <a href="https://github.com/sponsors/tilesprivacy">
               GitHub Sponsors
-            </a>
-            .
+            </a>{" "}
+            and cryptocurrency donations.
           </p>
 
           <section className="minimal-section minimal-partners-section">
