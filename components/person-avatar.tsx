@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image"
 import { useEffect, useMemo, useState } from "react"
 import {
   getAvatarUrlCandidates,
@@ -41,6 +42,15 @@ async function resolveBlueskyAvatarUrl(handle: string): Promise<string> {
   blueskyAvatarRequests.set(handle, request)
   return request
 }
+
+// Intrinsic size hints for next/image (2x the largest rendered CSS size per
+// variant so retina displays stay sharp); display size comes from the class.
+const VARIANT_IMAGE_SIZE = {
+  default: 48,
+  inline: 34,
+  blog: 40,
+  research: 88,
+} as const
 
 const VARIANT_STYLES = {
   default: {
@@ -138,19 +148,37 @@ export function PersonAvatar({
     setExhaustedCandidates(true)
   }
 
+  // Build-time prefetched avatars are project assets; serve them through
+  // next/image so they are resized, converted, and cached by the framework.
+  const isLocalAvatar = Boolean(activeAvatarUrl?.startsWith("/"))
+
   const inner =
     activeAvatarUrl && !exhaustedCandidates ? (
-      <img
-        key={activeAvatarUrl}
-        src={activeAvatarUrl}
-        alt=""
-        className={styles.img}
-        referrerPolicy="no-referrer"
-        loading={loading}
-        fetchPriority={fetchPriority}
-        decoding="async"
-        onError={handleImageError}
-      />
+      isLocalAvatar ? (
+        <Image
+          key={activeAvatarUrl}
+          src={activeAvatarUrl}
+          alt=""
+          width={VARIANT_IMAGE_SIZE[variant]}
+          height={VARIANT_IMAGE_SIZE[variant]}
+          className={styles.img}
+          loading={loading}
+          fetchPriority={fetchPriority}
+          onError={handleImageError}
+        />
+      ) : (
+        <img
+          key={activeAvatarUrl}
+          src={activeAvatarUrl}
+          alt=""
+          className={styles.img}
+          referrerPolicy="no-referrer"
+          loading={loading}
+          fetchPriority={fetchPriority}
+          decoding="async"
+          onError={handleImageError}
+        />
+      )
     ) : (
       <span className={styles.initials}>{initials}</span>
     )

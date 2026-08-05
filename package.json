@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "next build && sequoia inject --output .next/server/app && pagefind --site .next/server/app --output-path public/_pagefind",
+    "build": "node scripts/fetch-avatars.mjs && next build && sequoia inject --output .next/server/app && pagefind --site .next/server/app --output-path public/_pagefind",
     "dev": "next dev",
+    "avatars:fetch": "node scripts/fetch-avatars.mjs",
     "lint": "eslint .",
     "start": "next start",
     "generate:wireframe": "node scripts/extract-wireframe.mjs",
