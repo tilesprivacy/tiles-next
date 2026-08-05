@@ -6,6 +6,7 @@ import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsle
 import { SiteFooter } from "@/components/site-footer"
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
+import { BlogReadingProgress } from "@/components/blog-reading-progress"
 import { ReadingTime } from "@/components/reading-time"
 import { BlogAuthorDisplayName } from "@/components/blog-author-display-name"
 import { PersonAvatar } from "@/components/person-avatar"
@@ -333,6 +334,8 @@ export function BlogPostContent({
           </div>
         </div>
       </main>
+
+      <BlogReadingProgress />
 
       <SiteFooter />
     </div>
