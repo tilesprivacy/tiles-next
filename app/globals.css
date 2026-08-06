@@ -1645,8 +1645,6 @@ html.cyberpunk .minimal-sponsor-funding-band .minimal-funding {
   padding: 0;
 }
 html.cyberpunk .minimal-sponsor-page .minimal-funding > div:first-child strong {
-  font-weight: 300;
-  letter-spacing: -0.05em;
   color: #000;
 }
 html.cyberpunk .minimal-sponsor-page .minimal-funding > div:first-child span,
@@ -1892,8 +1890,10 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   align-items: baseline;
   gap: 1.25rem;
 }
+/* Thin percentage figure in both themes, matching the cyberpunk band. */
 .minimal-funding > div:first-child strong {
   font-size: 3rem;
+  font-weight: 300;
   letter-spacing: -0.05em;
 }
 .minimal-funding > div:first-child span,
