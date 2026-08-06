@@ -153,6 +153,7 @@ export default function BlogPostLayout({
       <StandardSiteLinkTags
         documentSlug="move-along-python"
         includePublication={false}
+        authorId="anandu-pavanan"
       />
       <script
         type="application/ld+json"

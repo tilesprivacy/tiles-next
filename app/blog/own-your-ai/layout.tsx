@@ -61,7 +61,7 @@ export default function OwnYourAiLayout({
           __html: `document.documentElement.dataset.pageTheme=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};`,
         }}
       />
-      <StandardSiteLinkTags documentSlug="own-your-ai" includePublication={false} />
+      <StandardSiteLinkTags documentSlug="own-your-ai" includePublication={false} authorId="ankesh-bharti" />
       {children}
     </>
   )

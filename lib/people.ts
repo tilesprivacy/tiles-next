@@ -5,6 +5,8 @@ export interface PersonIdentity {
   name: string
   /** Social/profile links. */
   links: string[]
+  /** AT Protocol DID, used for `at:author` meta tags on authored pages. */
+  did?: string
   /** When true, render as an anonymous sponsor with no identifying links. */
   anonymous?: boolean
 }
@@ -20,11 +22,13 @@ export const people = {
         "https://bsky.app/profile/ankeshbharti.com",
         "https://github.com/feynon",
       ],
+      did: "did:plc:vkxf6i65kehff6kjwr3ch2vx",
     },
     {
       id: "anandu-pavanan",
       name: "Anandu Pavanan @madcla.ws",
       links: ["https://bsky.app/profile/madcla.ws"],
+      did: "did:plc:mbk6wgmxiatotzy5b3q57naw",
     },
     {
       id: "prashant-mishra",

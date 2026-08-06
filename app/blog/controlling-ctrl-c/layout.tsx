@@ -122,7 +122,7 @@ export default function BlogPostLayout({
 
   return (
     <>
-      <StandardSiteLinkTags documentSlug="controlling-ctrl-c" includePublication={false} />
+      <StandardSiteLinkTags documentSlug="controlling-ctrl-c" includePublication={false} authorId="anandu-pavanan" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

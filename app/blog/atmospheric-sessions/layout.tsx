@@ -62,6 +62,7 @@ export default function AtmosphericSessionsLayout({
       <StandardSiteLinkTags
         documentSlug="atmospheric-sessions"
         includePublication={false}
+        authorId="anandu-pavanan"
       />
       {children}
     </>

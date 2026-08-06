@@ -5,6 +5,8 @@ import sequoiaConfig from "../sequoia.json"
 
 export const STANDARD_SITE_PUBLICATION_URI = sequoiaConfig.publicationUri
 export const STANDARD_SITE_PUBLICATION_URL = sequoiaConfig.siteUrl
+/** DID of the account that owns the Standard publication (the site identity). */
+export const STANDARD_SITE_DID = sequoiaConfig.publicationUri.replace(/^at:\/\//, "").split("/")[0]
 const publicationPath = new URL(sequoiaConfig.siteUrl).pathname.replace(/\/$/, "")
 export const STANDARD_SITE_PUBLICATION_WELL_KNOWN_PATH = publicationPath
   ? `/.well-known/site.standard.publication${publicationPath}`
