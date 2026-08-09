@@ -246,16 +246,14 @@ export function HomeContent() {
             conversations, public memory spaces, and community extensions can plug into an existing social graph
             already used by tens of millions of people. Instead of creating another siloed network, Tiles can build
             on open identity, portable accounts, and interoperable social interactions across the wider ATproto
-            ecosystem.
-          </p>
-          <p>
-            For the full picture, see the{" "}
+            ecosystem. For the full picture, see the{" "}
             <AtmosphereExternalLink href="https://atproto.com/guides/the-at-stack">
               official ATproto stack overview
             </AtmosphereExternalLink>
             .
           </p>
         </div>
+        <span className="minimal-atmosphere-icon" aria-hidden="true" />
       </section>
 
       <SiteFooter />

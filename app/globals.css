@@ -224,6 +224,10 @@ html[data-page-theme="home"].dark .minimal-atmosphere-note p {
   color: #a3a3a3;
 }
 
+html[data-page-theme="home"].dark .minimal-atmosphere-icon {
+  background: rgba(255, 255, 255, 0.16);
+}
+
 html[data-page-theme="home"].dark .minimal-footer p,
 html[data-page-theme="home"].dark .minimal-footer-links {
   color: #a3a3a3;
@@ -980,6 +984,16 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-size: 0.9rem;
   line-height: 1.55;
   color: var(--muted-foreground);
+}
+.minimal-atmosphere-icon {
+  align-self: center;
+  width: 9rem;
+  height: 9rem;
+  background: rgba(0, 0, 0, 0.15);
+  mask-image: url("/atmosphere-icon.svg");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
 }
 .minimal-atmosphere-link {
   display: inline-flex;
