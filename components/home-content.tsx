@@ -1,5 +1,6 @@
+import type { ReactNode } from "react"
 import Image from "next/image"
-import { Bot, Box, Building2, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
+import { ArrowUpRight, Bot, Box, Building2, Check, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -89,6 +90,21 @@ const features = [
     ),
   },
 ] as const
+
+const atmosphereBullets = [
+  "You control who hosts your Personal Data Server (PDS).",
+  "Apps connect to you, not the other way around.",
+  "No starting over when apps change or disappear.",
+] as const
+
+function AtmosphereExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a className="minimal-atmosphere-link" href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+      <ArrowUpRight aria-hidden />
+    </a>
+  )
+}
 
 const useCases = [
   {
@@ -200,6 +216,46 @@ export function HomeContent() {
             <p>{useCase.body}</p>
           </article>
         ))}
+      </section>
+
+      <section className="minimal-copy" aria-labelledby="atmosphere-heading">
+        <div>
+          <h2 id="atmosphere-heading" className="minimal-copy-heading">
+            Designed for the ATmosphere
+          </h2>
+          <ul className="minimal-atmosphere-list">
+            {atmosphereBullets.map((bullet) => (
+              <li key={bullet}>
+                <span className="minimal-feature-icon" aria-hidden="true">
+                  <Check strokeWidth={1.75} />
+                </span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="minimal-atmosphere-note">
+          <h3>What&apos;s the Atmosphere?</h3>
+          <p>
+            The Atmosphere is the growing network of apps built on the{" "}
+            <AtmosphereExternalLink href="https://atproto.com">AT Protocol</AtmosphereExternalLink> (ATproto), an
+            open decentralized protocol for social applications and portable identity.
+          </p>
+          <p>
+            For Tiles, this means social features do not need to live inside a closed platform. Shared chats, group
+            conversations, public memory spaces, and community extensions can plug into an existing social graph
+            already used by tens of millions of people. Instead of creating another siloed network, Tiles can build
+            on open identity, portable accounts, and interoperable social interactions across the wider ATproto
+            ecosystem.
+          </p>
+          <p>
+            For the full picture, see the{" "}
+            <AtmosphereExternalLink href="https://atproto.com/guides/the-at-stack">
+              official ATproto stack overview
+            </AtmosphereExternalLink>
+            .
+          </p>
+        </div>
       </section>
 
       <SiteFooter />

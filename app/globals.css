@@ -216,6 +216,14 @@ html[data-page-theme="home"].dark .minimal-copy article p {
   color: #d4d4d8;
 }
 
+html[data-page-theme="home"].dark .minimal-atmosphere-list li {
+  color: #d4d4d8;
+}
+
+html[data-page-theme="home"].dark .minimal-atmosphere-note p {
+  color: #a3a3a3;
+}
+
 html[data-page-theme="home"].dark .minimal-footer p,
 html[data-page-theme="home"].dark .minimal-footer-links {
   color: #a3a3a3;
@@ -940,6 +948,48 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-feature-icon svg {
   width: 1rem;
   height: 1rem;
+}
+.minimal-atmosphere-list {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.minimal-atmosphere-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.minimal-atmosphere-note {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.minimal-atmosphere-note h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  font-weight: 600;
+}
+.minimal-atmosphere-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+.minimal-atmosphere-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.minimal-atmosphere-link svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: none;
 }
 .minimal-coming-soon-tag {
   display: inline-flex;
