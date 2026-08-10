@@ -904,31 +904,34 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
    h1 hero title (elsewhere) → section heading → section lede → item title → item body */
 .minimal-copy {
   width: min(100% - 2rem, 720px);
-  margin: 7rem auto 0;
+  margin: 7.5rem auto 0;
   padding: 0 12px;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 .minimal-copy.minimal-copy--after-device {
-  margin-top: 4.5rem;
+  margin-top: 5rem;
 }
 .minimal-copy-heading {
   margin: 0;
-  font-size: 1.5rem;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: 1.625rem;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
   font-weight: 600;
 }
+.minimal-copy-content {
+  min-width: 0;
+}
 .minimal-copy-lede {
-  margin: 1rem 0 0;
+  margin: 0;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   letter-spacing: 0;
   font-weight: 400;
 }
 .minimal-copy article h3 {
-  margin: 0 0 1rem;
+  margin: 0 0 0.65rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -940,15 +943,28 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-copy article p {
   margin: 0;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
+}
+.minimal-use-case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .minimal-disclosure-list {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+}
+.minimal-disclosure {
+  border-bottom: 1px solid var(--border);
+}
+.minimal-disclosure:first-child {
+  border-top: 1px solid var(--border);
 }
 .minimal-disclosure summary {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
   cursor: pointer;
   list-style: none;
 }
@@ -958,6 +974,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-disclosure summary h3 {
   margin: 0;
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.55rem;
@@ -966,6 +983,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-weight: 700;
 }
 .minimal-disclosure-chevron {
+  margin-left: auto;
   width: 1rem;
   height: 1rem;
   flex: none;
@@ -976,9 +994,10 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   transform: rotate(180deg);
 }
 .minimal-disclosure > p {
-  margin: 0.85rem 0 0;
+  margin: -0.15rem 0 1rem;
+  padding-left: 1.55rem;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
 }
 .minimal-feature-icon {
@@ -993,12 +1012,23 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   height: 1rem;
 }
 .minimal-atmosphere-list {
-  margin: 1.25rem 0 0;
+  grid-area: list;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+}
+.minimal-atmosphere-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 9rem;
+  grid-template-areas:
+    "list icon"
+    "note icon";
+  column-gap: 3rem;
+  row-gap: 2rem;
+  align-items: start;
 }
 .minimal-atmosphere-list li {
   display: flex;
@@ -1008,6 +1038,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.5;
 }
 .minimal-atmosphere-note {
+  grid-area: note;
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
@@ -1019,14 +1050,32 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--muted-foreground);
 }
 .minimal-atmosphere-icon {
+  grid-area: icon;
   align-self: center;
+  justify-self: end;
   width: 9rem;
   height: 9rem;
+  transform: translateY(-1.75rem);
   background: rgba(0, 0, 0, 0.15);
   mask-image: url("/atmosphere-icon.svg");
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: contain;
+}
+@media (max-width: 767px) {
+  .minimal-atmosphere-content {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "list"
+      "note"
+      "icon";
+    row-gap: 2rem;
+  }
+  .minimal-atmosphere-icon {
+    justify-self: center;
+    margin-top: 0.5rem;
+    transform: none;
+  }
 }
 .minimal-atmosphere-link {
   display: inline-flex;

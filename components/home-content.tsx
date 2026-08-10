@@ -159,23 +159,40 @@ export function HomeContent() {
         className="minimal-copy minimal-copy--after-device"
         aria-labelledby="why-tiles-heading"
       >
-        <div>
-          <h2 id="why-tiles-heading" className="minimal-copy-heading">
-            Why Tiles?
-          </h2>
+        <h2 id="why-tiles-heading" className="minimal-copy-heading">
+          Why Tiles?
+        </h2>
+        <div className="minimal-copy-content">
           <p className="minimal-copy-lede">
             For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on <a href="https://atproto.com">AT Protocol</a>. Tiles gives you user-owned keys for your digital life with <a href="https://www.w3.org/TR/did-1.1/">DIDs</a> and <a href="https://ucan.xyz">UCANs</a>, so your data and identity truly remain yours.
           </p>
         </div>
       </section>
 
-      <section className="minimal-copy" aria-labelledby="whats-inside-heading">
-        <div>
-          <h2 id="whats-inside-heading" className="minimal-copy-heading">
-            What&apos;s inside
-          </h2>
+      <section className="minimal-copy" aria-labelledby="use-cases-heading">
+        <h2 id="use-cases-heading" className="minimal-copy-heading">
+          Use cases
+        </h2>
+        <div className="minimal-copy-content minimal-use-case-list">
+          {useCases.map((useCase) => (
+            <article key={useCase.title}>
+              <h3>
+                <span className="minimal-feature-icon" aria-hidden="true">
+                  <useCase.icon strokeWidth={1.75} />
+                </span>
+                {useCase.title}
+              </h3>
+              <p>{useCase.body}</p>
+            </article>
+          ))}
         </div>
-        <div className="minimal-disclosure-list">
+      </section>
+
+      <section className="minimal-copy" aria-labelledby="whats-inside-heading">
+        <h2 id="whats-inside-heading" className="minimal-copy-heading">
+          What&apos;s inside
+        </h2>
+        <div className="minimal-copy-content minimal-disclosure-list">
           {features.map((feature) => (
             <details className="minimal-disclosure" key={feature.title}>
               <summary>
@@ -193,30 +210,11 @@ export function HomeContent() {
         </div>
       </section>
 
-      <section className="minimal-copy" aria-labelledby="use-cases-heading">
-        <div>
-          <h2 id="use-cases-heading" className="minimal-copy-heading">
-            Use cases
-          </h2>
-        </div>
-        {useCases.map((useCase) => (
-          <article key={useCase.title}>
-            <h3>
-              <span className="minimal-feature-icon" aria-hidden="true">
-                <useCase.icon strokeWidth={1.75} />
-              </span>
-              {useCase.title}
-            </h3>
-            <p>{useCase.body}</p>
-          </article>
-        ))}
-      </section>
-
       <section className="minimal-copy" aria-labelledby="atmosphere-heading">
-        <div>
-          <h2 id="atmosphere-heading" className="minimal-copy-heading">
-            Designed for the ATmosphere
-          </h2>
+        <h2 id="atmosphere-heading" className="minimal-copy-heading">
+          Designed for the ATmosphere
+        </h2>
+        <div className="minimal-copy-content minimal-atmosphere-content">
           <ul className="minimal-atmosphere-list">
             {atmosphereBullets.map((bullet) => (
               <li key={bullet}>
@@ -227,15 +225,15 @@ export function HomeContent() {
               </li>
             ))}
           </ul>
+          <div className="minimal-atmosphere-note">
+            <p>
+              Learn more about AT Protocol in{" "}
+              <AtmosphereExternalLink href="https://overreacted.io/open-social/">Open Social</AtmosphereExternalLink>{" "}
+              by Dan Abramov.
+            </p>
+          </div>
+          <span className="minimal-atmosphere-icon" aria-hidden="true" />
         </div>
-        <div className="minimal-atmosphere-note">
-          <p>
-            Learn more about AT Protocol in{" "}
-            <AtmosphereExternalLink href="https://overreacted.io/open-social/">Open Social</AtmosphereExternalLink>{" "}
-            by Dan Abramov.
-          </p>
-        </div>
-        <span className="minimal-atmosphere-icon" aria-hidden="true" />
       </section>
 
       <SiteFooter />
