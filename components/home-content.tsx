@@ -1,5 +1,6 @@
+import type { ReactNode } from "react"
 import Image from "next/image"
-import { Bot, Box, Building2, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
+import { ArrowUpRight, Bot, Box, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -13,15 +14,6 @@ function AtprotoIcon() {
 
 function OpenSourceIcon() {
   return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
-}
-
-function ComingSoonTag() {
-  return (
-    <span className="minimal-coming-soon-tag">
-      <span className="minimal-coming-soon-dot" aria-hidden="true" />
-      Coming soon
-    </span>
-  )
 }
 
 const features = [
@@ -75,7 +67,6 @@ const features = [
   {
     title: "Every chat is a sandbox",
     icon: Box,
-    badge: <ComingSoonTag />,
     body: "Resume or share chats as sandboxed microVM environments with friends or agents across devices.",
   },
   {
@@ -89,6 +80,21 @@ const features = [
     ),
   },
 ] as const
+
+const atmosphereBullets = [
+  "You control who hosts your Personal Data Server (PDS).",
+  "Apps connect to you, not the other way around.",
+  "No starting over when apps change or disappear.",
+] as const
+
+function AtmosphereExternalLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a className="minimal-atmosphere-link" href={href} target="_blank" rel="noopener noreferrer">
+      {children}
+      <ArrowUpRight aria-hidden />
+    </a>
+  )
+}
 
 const useCases = [
   {
@@ -169,18 +175,22 @@ export function HomeContent() {
             What&apos;s inside
           </h2>
         </div>
-        {features.map((feature) => (
-          <article key={feature.title}>
-            <h3>
-              <span className="minimal-feature-icon" aria-hidden="true">
-                <feature.icon strokeWidth={1.75} />
-              </span>
-              {feature.title}
-              {"badge" in feature ? feature.badge : null}
-            </h3>
-            <p>{feature.body}</p>
-          </article>
-        ))}
+        <div className="minimal-disclosure-list">
+          {features.map((feature) => (
+            <details className="minimal-disclosure" key={feature.title}>
+              <summary>
+                <h3>
+                  <span className="minimal-feature-icon" aria-hidden="true">
+                    <feature.icon strokeWidth={1.75} />
+                  </span>
+                  {feature.title}
+                  <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+                </h3>
+              </summary>
+              <p>{feature.body}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       <section className="minimal-copy" aria-labelledby="use-cases-heading">
@@ -200,6 +210,32 @@ export function HomeContent() {
             <p>{useCase.body}</p>
           </article>
         ))}
+      </section>
+
+      <section className="minimal-copy" aria-labelledby="atmosphere-heading">
+        <div>
+          <h2 id="atmosphere-heading" className="minimal-copy-heading">
+            Designed for the ATmosphere
+          </h2>
+          <ul className="minimal-atmosphere-list">
+            {atmosphereBullets.map((bullet) => (
+              <li key={bullet}>
+                <span className="minimal-feature-icon" aria-hidden="true">
+                  <Check strokeWidth={1.75} />
+                </span>
+                <span>{bullet}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="minimal-atmosphere-note">
+          <p>
+            Learn more about AT Protocol in{" "}
+            <AtmosphereExternalLink href="https://overreacted.io/open-social/">Open Social</AtmosphereExternalLink>{" "}
+            by Dan Abramov.
+          </p>
+        </div>
+        <span className="minimal-atmosphere-icon" aria-hidden="true" />
       </section>
 
       <SiteFooter />

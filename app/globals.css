@@ -212,8 +212,21 @@ html[data-page-theme="home"].dark .minimal-model-label img {
 }
 
 html[data-page-theme="home"].dark .minimal-copy-lede,
-html[data-page-theme="home"].dark .minimal-copy article p {
+html[data-page-theme="home"].dark .minimal-copy article p,
+html[data-page-theme="home"].dark .minimal-disclosure-list p {
   color: #d4d4d8;
+}
+
+html[data-page-theme="home"].dark .minimal-atmosphere-list li {
+  color: #d4d4d8;
+}
+
+html[data-page-theme="home"].dark .minimal-atmosphere-note p {
+  color: #a3a3a3;
+}
+
+html[data-page-theme="home"].dark .minimal-atmosphere-icon {
+  background: rgba(255, 255, 255, 0.16);
 }
 
 html[data-page-theme="home"].dark .minimal-footer p,
@@ -930,6 +943,44 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.5;
   font-weight: 400;
 }
+.minimal-disclosure-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.minimal-disclosure summary {
+  cursor: pointer;
+  list-style: none;
+}
+.minimal-disclosure summary::-webkit-details-marker {
+  display: none;
+}
+.minimal-disclosure summary h3 {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 700;
+}
+.minimal-disclosure-chevron {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+  color: var(--muted-foreground);
+  transition: transform 160ms ease;
+}
+.minimal-disclosure[open] .minimal-disclosure-chevron {
+  transform: rotate(180deg);
+}
+.minimal-disclosure > p {
+  margin: 0.85rem 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+}
 .minimal-feature-icon {
   display: inline-flex;
   flex: none;
@@ -940,6 +991,52 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-feature-icon svg {
   width: 1rem;
   height: 1rem;
+}
+.minimal-atmosphere-list {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.minimal-atmosphere-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.minimal-atmosphere-note {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.minimal-atmosphere-note p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--muted-foreground);
+}
+.minimal-atmosphere-icon {
+  align-self: center;
+  width: 9rem;
+  height: 9rem;
+  background: rgba(0, 0, 0, 0.15);
+  mask-image: url("/atmosphere-icon.svg");
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+}
+.minimal-atmosphere-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+.minimal-atmosphere-link svg {
+  width: 0.75rem;
+  height: 0.75rem;
+  flex: none;
 }
 .minimal-coming-soon-tag {
   display: inline-flex;
