@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
+  FaAt,
   FaBluesky,
   FaLinkedinIn,
   FaLink,
@@ -21,12 +22,15 @@ interface ArticleShareAndNewsletterProps {
   title: string;
   moreLinkHref: string;
   moreLinkLabel: string;
+  /** aturi.to universal link for the article's ATproto record (see https://aturi.to/docs). */
+  atmosphereUrl?: string;
 }
 
 export function ArticleShareAndNewsletter({
   title,
   moreLinkHref,
   moreLinkLabel,
+  atmosphereUrl,
 }: ArticleShareAndNewsletterProps) {
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -131,6 +135,27 @@ export function ArticleShareAndNewsletter({
           >
             {copied ? "Copied" : "Copy link"}
           </button>
+        </>
+      ) : null}
+      {atmosphereUrl ? (
+        <>
+          <a
+            href={atmosphereUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open in your Atmosphere client"
+            className="inline-flex items-center justify-center"
+          >
+            <FaAt className={shareIconClass} />
+          </a>
+          <a
+            href={atmosphereUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={copyLabelClass}
+          >
+            Open in your Atmosphere client
+          </a>
         </>
       ) : null}
     </div>

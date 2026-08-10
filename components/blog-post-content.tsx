@@ -14,6 +14,7 @@ import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
 import { blogArticleProseClass } from "@/lib/blog-article-prose-classes"
 import { marketingPageArticleTitleClass } from "@/lib/marketing-page-title-classes"
+import { buildAturiUrl } from "@/lib/aturi"
 
 interface BlogPostContentProps {
   title: string
@@ -83,6 +84,9 @@ export function BlogPostContent({
   }, [printCover, content])
   const standardSiteDocumentUrl = standardSiteDocumentUri
     ? buildAtprotoAtUriUrl(standardSiteDocumentUri)
+    : null
+  const aturiUrl = standardSiteDocumentUri
+    ? buildAturiUrl(standardSiteDocumentUri)
     : null
 
   useEffect(() => {
@@ -309,6 +313,21 @@ export function BlogPostContent({
                     <span className="break-all">{standardSiteDocumentUri}</span>
                   )}
                   <span>.</span>
+                  {aturiUrl ? (
+                    <>
+                      {" "}
+                      <span>Open it in your favorite Atmosphere client via </span>
+                      <a
+                        href={aturiUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-black underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-black/40 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+                      >
+                        aturi.to
+                      </a>
+                      <span>.</span>
+                    </>
+                  ) : null}
                 </div>
               ) : null}
           </article>
@@ -321,6 +340,7 @@ export function BlogPostContent({
                 title={title}
                 moreLinkHref="/blog"
                 moreLinkLabel="more posts"
+                atmosphereUrl={aturiUrl ?? undefined}
               />
             </div>
 
