@@ -218,7 +218,7 @@ export function HomeContent() {
 
       <section className="minimal-copy" aria-labelledby="atmosphere-heading">
         <h2 id="atmosphere-heading" className="minimal-copy-heading">
-          Designed for Atmosphere
+          Designed for the Atmosphere
         </h2>
         <div className="minimal-copy-content minimal-atmosphere-content">
           <ul className="minimal-atmosphere-list">
