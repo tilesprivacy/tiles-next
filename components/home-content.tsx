@@ -201,14 +201,13 @@ export function HomeContent() {
                   <span className="minimal-feature-icon" aria-hidden="true">
                     <feature.icon strokeWidth={1.75} />
                   </span>
-                  {feature.title}
-                  {"comingSoon" in feature && feature.comingSoon ? (
-                    <span className="minimal-coming-soon-tag">
-                      <span className="minimal-coming-soon-dot" aria-hidden="true" />
-                      Coming soon
-                    </span>
-                  ) : null}
-                  <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+                  <span className="minimal-disclosure-title">{feature.title}</span>
+                  <span className="minimal-disclosure-meta">
+                    {"comingSoon" in feature && feature.comingSoon ? (
+                      <span className="minimal-disclosure-status">Coming soon</span>
+                    ) : null}
+                    <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+                  </span>
                 </h3>
               </summary>
               <p>{feature.body}</p>
