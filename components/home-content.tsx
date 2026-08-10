@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
-import { ArrowUpRight, Bot, Box, Building2, Check, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
+import { ArrowUpRight, Bot, Box, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -185,18 +185,23 @@ export function HomeContent() {
             What&apos;s inside
           </h2>
         </div>
-        {features.map((feature) => (
-          <article key={feature.title}>
-            <h3>
-              <span className="minimal-feature-icon" aria-hidden="true">
-                <feature.icon strokeWidth={1.75} />
-              </span>
-              {feature.title}
-              {"badge" in feature ? feature.badge : null}
-            </h3>
-            <p>{feature.body}</p>
-          </article>
-        ))}
+        <div className="minimal-disclosure-list">
+          {features.map((feature) => (
+            <details className="minimal-disclosure" key={feature.title}>
+              <summary>
+                <h3>
+                  <span className="minimal-feature-icon" aria-hidden="true">
+                    <feature.icon strokeWidth={1.75} />
+                  </span>
+                  {feature.title}
+                  {"badge" in feature ? feature.badge : null}
+                  <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+                </h3>
+              </summary>
+              <p>{feature.body}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       <section className="minimal-copy" aria-labelledby="use-cases-heading">
@@ -205,17 +210,22 @@ export function HomeContent() {
             Use cases
           </h2>
         </div>
-        {useCases.map((useCase) => (
-          <article key={useCase.title}>
-            <h3>
-              <span className="minimal-feature-icon" aria-hidden="true">
-                <useCase.icon strokeWidth={1.75} />
-              </span>
-              {useCase.title}
-            </h3>
-            <p>{useCase.body}</p>
-          </article>
-        ))}
+        <div className="minimal-disclosure-list">
+          {useCases.map((useCase) => (
+            <details className="minimal-disclosure" key={useCase.title}>
+              <summary>
+                <h3>
+                  <span className="minimal-feature-icon" aria-hidden="true">
+                    <useCase.icon strokeWidth={1.75} />
+                  </span>
+                  {useCase.title}
+                  <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+                </h3>
+              </summary>
+              <p>{useCase.body}</p>
+            </details>
+          ))}
+        </div>
       </section>
 
       <section className="minimal-copy" aria-labelledby="atmosphere-heading">
@@ -234,8 +244,13 @@ export function HomeContent() {
             ))}
           </ul>
         </div>
-        <div className="minimal-atmosphere-note">
-          <h3>What&apos;s the Atmosphere?</h3>
+        <details className="minimal-disclosure minimal-atmosphere-note">
+          <summary>
+            <h3>
+              What&apos;s the Atmosphere?
+              <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+            </h3>
+          </summary>
           <p>
             The Atmosphere is the growing network of apps built on the{" "}
             <AtmosphereExternalLink href="https://atproto.com">AT Protocol</AtmosphereExternalLink> (ATproto), an
@@ -252,7 +267,7 @@ export function HomeContent() {
             </AtmosphereExternalLink>
             .
           </p>
-        </div>
+        </details>
         <span className="minimal-atmosphere-icon" aria-hidden="true" />
       </section>
 
