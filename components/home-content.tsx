@@ -68,6 +68,7 @@ const features = [
     title: "Every chat is a sandbox",
     icon: Box,
     body: "Resume or share chats as sandboxed microVM environments with friends or agents across devices.",
+    comingSoon: true,
   },
   {
     title: "Open source and free forever",
@@ -201,6 +202,12 @@ export function HomeContent() {
                     <feature.icon strokeWidth={1.75} />
                   </span>
                   {feature.title}
+                  {"comingSoon" in feature && feature.comingSoon ? (
+                    <span className="minimal-coming-soon-tag">
+                      <span className="minimal-coming-soon-dot" aria-hidden="true" />
+                      Coming soon
+                    </span>
+                  ) : null}
                   <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
                 </h3>
               </summary>
@@ -227,9 +234,11 @@ export function HomeContent() {
           </ul>
           <div className="minimal-atmosphere-note">
             <p>
-              Learn more about AT Protocol in{" "}
-              <AtmosphereExternalLink href="https://overreacted.io/open-social/">Open Social</AtmosphereExternalLink>{" "}
-              by Dan Abramov.
+              Learn more about the AT Protocol in the{" "}
+              <AtmosphereExternalLink href="https://atproto.com/guides/understanding-atproto">
+                official documentation
+              </AtmosphereExternalLink>
+              .
             </p>
           </div>
           <span className="minimal-atmosphere-icon" aria-hidden="true" />
