@@ -210,22 +210,17 @@ export function HomeContent() {
             Use cases
           </h2>
         </div>
-        <div className="minimal-disclosure-list">
-          {useCases.map((useCase) => (
-            <details className="minimal-disclosure" key={useCase.title}>
-              <summary>
-                <h3>
-                  <span className="minimal-feature-icon" aria-hidden="true">
-                    <useCase.icon strokeWidth={1.75} />
-                  </span>
-                  {useCase.title}
-                  <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
-                </h3>
-              </summary>
-              <p>{useCase.body}</p>
-            </details>
-          ))}
-        </div>
+        {useCases.map((useCase) => (
+          <article key={useCase.title}>
+            <h3>
+              <span className="minimal-feature-icon" aria-hidden="true">
+                <useCase.icon strokeWidth={1.75} />
+              </span>
+              {useCase.title}
+            </h3>
+            <p>{useCase.body}</p>
+          </article>
+        ))}
       </section>
 
       <section className="minimal-copy" aria-labelledby="atmosphere-heading">
@@ -244,13 +239,8 @@ export function HomeContent() {
             ))}
           </ul>
         </div>
-        <details className="minimal-disclosure minimal-atmosphere-note">
-          <summary>
-            <h3>
-              What&apos;s the Atmosphere?
-              <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
-            </h3>
-          </summary>
+        <div className="minimal-atmosphere-note">
+          <h3>What&apos;s the Atmosphere?</h3>
           <p>
             The Atmosphere is the growing network of apps built on the{" "}
             <AtmosphereExternalLink href="https://atproto.com">AT Protocol</AtmosphereExternalLink> (ATproto), an
@@ -267,7 +257,7 @@ export function HomeContent() {
             </AtmosphereExternalLink>
             .
           </p>
-        </details>
+        </div>
         <span className="minimal-atmosphere-icon" aria-hidden="true" />
       </section>
 
