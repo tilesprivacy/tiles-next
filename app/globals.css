@@ -904,31 +904,34 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
    h1 hero title (elsewhere) → section heading → section lede → item title → item body */
 .minimal-copy {
   width: min(100% - 2rem, 720px);
-  margin: 7rem auto 0;
+  margin: 7.5rem auto 0;
   padding: 0 12px;
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 .minimal-copy.minimal-copy--after-device {
-  margin-top: 4.5rem;
+  margin-top: 5rem;
 }
 .minimal-copy-heading {
   margin: 0;
-  font-size: 1.5rem;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
+  font-size: 1.625rem;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
   font-weight: 600;
 }
+.minimal-copy-content {
+  min-width: 0;
+}
 .minimal-copy-lede {
-  margin: 1rem 0 0;
+  margin: 0;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   letter-spacing: 0;
   font-weight: 400;
 }
 .minimal-copy article h3 {
-  margin: 0 0 1rem;
+  margin: 0 0 0.65rem;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -940,13 +943,18 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-copy article p {
   margin: 0;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
 }
 .minimal-disclosure-list {
   display: flex;
   flex-direction: column;
-  gap: 1.1rem;
+  gap: 1.25rem;
+}
+.minimal-use-case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .minimal-disclosure summary {
   cursor: pointer;
@@ -978,7 +986,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-disclosure > p {
   margin: 0.85rem 0 0;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   font-weight: 400;
 }
 .minimal-feature-icon {
@@ -993,12 +1001,17 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   height: 1rem;
 }
 .minimal-atmosphere-list {
-  margin: 1.25rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+}
+.minimal-atmosphere-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 .minimal-atmosphere-list li {
   display: flex;
