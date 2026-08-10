@@ -1012,12 +1012,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   flex-direction: column;
   gap: 0.85rem;
 }
-.minimal-atmosphere-note h3 {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  font-weight: 600;
-}
 .minimal-atmosphere-note p {
   margin: 0;
   font-size: 0.9rem;

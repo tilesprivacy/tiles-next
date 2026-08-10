@@ -16,15 +16,6 @@ function OpenSourceIcon() {
   return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
 }
 
-function ComingSoonTag() {
-  return (
-    <span className="minimal-coming-soon-tag">
-      <span className="minimal-coming-soon-dot" aria-hidden="true" />
-      Coming soon
-    </span>
-  )
-}
-
 const features = [
   {
     title: "Run polished local models",
@@ -76,7 +67,6 @@ const features = [
   {
     title: "Every chat is a sandbox",
     icon: Box,
-    badge: <ComingSoonTag />,
     body: "Resume or share chats as sandboxed microVM environments with friends or agents across devices.",
   },
   {
@@ -194,7 +184,6 @@ export function HomeContent() {
                     <feature.icon strokeWidth={1.75} />
                   </span>
                   {feature.title}
-                  {"badge" in feature ? feature.badge : null}
                   <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
                 </h3>
               </summary>
@@ -240,22 +229,10 @@ export function HomeContent() {
           </ul>
         </div>
         <div className="minimal-atmosphere-note">
-          <h3>What&apos;s the Atmosphere?</h3>
           <p>
-            The Atmosphere is the growing network of apps built on the{" "}
-            <AtmosphereExternalLink href="https://atproto.com">AT Protocol</AtmosphereExternalLink> (ATproto), an
-            open decentralized protocol for social applications and portable identity.
-          </p>
-          <p>
-            For Tiles, this means social features do not need to live inside a closed platform. Shared chats, group
-            conversations, public memory spaces, and community extensions can plug into an existing social graph
-            already used by tens of millions of people. Instead of creating another siloed network, Tiles can build
-            on open identity, portable accounts, and interoperable social interactions across the wider ATproto
-            ecosystem. For the full picture, see the{" "}
-            <AtmosphereExternalLink href="https://atproto.com/guides/the-at-stack">
-              official ATproto stack overview
-            </AtmosphereExternalLink>
-            .
+            Learn more about AT Protocol in{" "}
+            <AtmosphereExternalLink href="https://overreacted.io/open-social/">Open Social</AtmosphereExternalLink>{" "}
+            by Dan Abramov.
           </p>
         </div>
         <span className="minimal-atmosphere-icon" aria-hidden="true" />
