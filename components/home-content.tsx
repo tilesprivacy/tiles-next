@@ -83,7 +83,7 @@ const features = [
 ] as const
 
 const atmosphereBullets = [
-  "You control who hosts your Personal Data Server (PDS).",
+  "Your online data lives on a Personal Data Server (PDS), and you choose who hosts it.",
   "Apps connect to you, not the other way around.",
   "No starting over when apps change or disappear.",
 ] as const
@@ -218,7 +218,7 @@ export function HomeContent() {
 
       <section className="minimal-copy" aria-labelledby="atmosphere-heading">
         <h2 id="atmosphere-heading" className="minimal-copy-heading">
-          Designed for the ATmosphere
+          Designed for Atmosphere
         </h2>
         <div className="minimal-copy-content minimal-atmosphere-content">
           <ul className="minimal-atmosphere-list">
@@ -232,6 +232,13 @@ export function HomeContent() {
             ))}
           </ul>
           <div className="minimal-atmosphere-note">
+            <h3>What&apos;s the Atmosphere?</h3>
+            <p>
+              The Atmosphere is the growing network of apps built on the{" "}
+              <AtmosphereExternalLink href="https://atproto.com">AT Protocol</AtmosphereExternalLink>{" "}
+              (ATproto), an open decentralized protocol for social applications and portable identity. For Tiles,
+              this means social features do not need to live inside a closed platform.
+            </p>
             <p>
               Learn more about the AT Protocol in the{" "}
               <AtmosphereExternalLink href="https://atproto.com/guides/understanding-atproto">
