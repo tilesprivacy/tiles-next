@@ -1,16 +1,12 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
-import { ArrowUpRight, Bot, Box, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, User } from "lucide-react"
+import { ArrowUpRight, Bot, Box, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, Share2, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
 import { SiteFooter } from "@/components/site-footer"
 import { TILES_PRODUCT_TECHNOLOGY_LINE } from "@/lib/product-description"
-
-function AtprotoIcon() {
-  return <span aria-hidden="true">@</span>
-}
 
 function OpenSourceIcon() {
   return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
@@ -55,7 +51,7 @@ const features = [
   },
   {
     title: "Share chats with friends",
-    icon: AtprotoIcon,
+    icon: Share2,
     body: (
       <>
         Create a public or private link to a chat session, published on{" "}
