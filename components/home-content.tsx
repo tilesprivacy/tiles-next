@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
-import { ArrowUpRight, Bot, Box, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, Share2, User } from "lucide-react"
+import { ArrowUpRight, Bot, Box, Briefcase, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, Share2, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -108,6 +108,11 @@ const useCases = [
     title: "Researchers",
     icon: FlaskConical,
     body: "Review literature, analyze datasets, and launch AI agents in preconfigured, resumable sandboxes with the right research tools already installed.",
+  },
+  {
+    title: "Enterprises",
+    icon: Briefcase,
+    body: "Deploy a complete agentic system for knowledge work powered by open frontier models. Keep sensitive data private, secure every user and agent with zero-trust authentication and authorization, simplify team management, and reduce infrastructure and model costs.",
   },
 ] as const
 
