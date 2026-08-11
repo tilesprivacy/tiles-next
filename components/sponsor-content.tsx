@@ -45,7 +45,13 @@ function SponsorList({
               </span>
               {handle ? (
                 <small className="minimal-sponsor-handle max-w-[44%] shrink-0 truncate text-right">
-                  {handle}
+                  <span
+                    aria-hidden="true"
+                    className="before:content-['@']"
+                  >
+                    {handle.slice(1)}
+                  </span>
+                  <span className="sr-only">Handle {handle.slice(1)}</span>
                 </small>
               ) : null}
             </span>
