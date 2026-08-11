@@ -97,22 +97,22 @@ const useCases = [
   {
     title: "Individuals",
     icon: User,
-    body: "Plan finances, track health notes, and keep a private journal. Run models locally so that context stays on your machines, sync across your devices, and share only when you choose.",
+    body: "Plan finances, track health notes, and journal privately. Run models locally, sync across devices, and share only when you choose.",
   },
   {
     title: "Coworking spaces",
     icon: Building2,
-    body: "Turn shared compute workstations into private AI infrastructure. Members connect from their own laptops, use the space's local models, and collaborate while keeping their identity and data theirs.",
+    body: "Turn shared compute into private AI infrastructure. Let members use local models from their own devices while keeping identity and data private.",
   },
   {
     title: "Researchers",
     icon: FlaskConical,
-    body: "Review literature, analyze datasets, and launch AI agents in preconfigured, resumable sandboxes with the right research tools already installed.",
+    body: "Review literature, analyze datasets, and run agents in preconfigured, resumable research sandboxes.",
   },
   {
     title: "Enterprises",
     icon: Briefcase,
-    body: "Deploy a complete agentic system for knowledge work powered by open frontier models. Keep sensitive data private, secure every user and agent with zero-trust authentication and authorization, simplify team management, and reduce infrastructure and model costs.",
+    body: "Deploy private agentic systems powered by open frontier models. Secure users and agents, simplify team management, and reduce infrastructure and model costs.",
   },
 ] as const
 
