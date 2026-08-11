@@ -78,7 +78,7 @@ export async function GET(request: Request) {
     'Homepage feature (coming soon): Every chat is a sandbox — resume or share chats as sandboxed environments with friends or agents across devices.',
   )
   lines.push(
-    'Homepage use cases: Individuals (plan finances, track health notes, and journal privately with local models, device sync, and sharing only when chosen); Coworking spaces (shared compute as private AI infrastructure with local models available from members’ own devices while keeping identity and data private); Researchers (review literature, analyze datasets, and run agents in preconfigured, resumable research sandboxes); Enterprises (deploy private agentic systems powered by open frontier models, secure users and agents, simplify team management, and reduce infrastructure and model costs).',
+    'Homepage use cases: Individuals (plan finances, track health notes, and journal privately with local models, device sync, and sharing only when chosen); Coworking spaces (shared compute as private AI infrastructure with local models available from members’ own devices while keeping identity and data private); Researchers (review literature, analyze datasets, and run agents in preconfigured, resumable research sandboxes); Enterprises (deploy private agentic systems powered by open frontier models, secure users and agents with zero-trust authentication and authorization, simplify team management, and reduce infrastructure and model costs).',
   )
   lines.push('')
 

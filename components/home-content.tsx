@@ -112,7 +112,7 @@ const useCases = [
   {
     title: "Enterprises",
     icon: Briefcase,
-    body: "Deploy private agentic systems powered by open frontier models. Secure users and agents, simplify team management, and reduce infrastructure and model costs.",
+    body: "Deploy private agentic systems powered by open frontier models. Secure users and agents with zero-trust authentication and authorization, simplify team management, and reduce infrastructure and model costs.",
   },
 ] as const
 
