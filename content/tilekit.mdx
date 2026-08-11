@@ -5,7 +5,7 @@ description: "Complete reference for the Modelfile parser, grammar, instructions
 
 # Tilekit
 
-Tilekit aims to be the app-server interface behind Tiles and future rich client experiences. **It is a work in progress, and its API and source code have not yet been released.** When available, developers will be able to embed it into their local clients by bundling or fetching a platform-specific App Server binary, running it as a long-lived child process, and communicating over bidirectional stdio JSON-RPC.
+Tilekit aims to be the app-server interface behind Tiles and future rich client experiences. **It is a work in progress, and its API and source code have not yet been released.** When available, developers will be able to embed it into their local clients by bundling or fetching a platform-specific App Server binary, running it as a long-lived child process, and communicating with it through REST endpoints.
 
 Use it when you want a deep integration inside your own product: identity, memory, sync, and agent templates. It is built with privacy-first engineering and uses open standards like Modelfile, DIDs, and UCANs, so user data, identity, and control stay on their device.
 
@@ -55,12 +55,10 @@ If `FROM` is missing, parsing fails.
 
 ##### Important nuance
 
-- Runtime cache resolution is currently implemented for model names that start with `mlx-community/`.
-- Values outside that pattern are currently not supported by the runtime path.
-- Local file paths are not wired into the model loading flow yet.
-- Arbitrary model files (for example `.gguf`) are not currently supported via `FROM`.
+- Any GGUF file hosted on Hugging Face is supported through `FROM`.
+- Local file paths are not supported yet.
 
-In short: while `FROM` accepts a free-form string at parse time, runtime support is currently aligned to Hugging Face repo IDs in the `mlx-community/*` namespace.
+In short: `FROM` supports Hugging Face model repositories, including any GGUF file hosted on Hugging Face. Local paths are not yet supported.
 
 #### SYSTEM
 
@@ -130,7 +128,7 @@ Lines beginning with `#` are accepted and preserved in serialized Modelfile outp
 
 In the current implementation, the Modelfile fields that directly influence execution are:
 
-1. `FROM` (model identifier, currently `mlx-community/*` in practice)
+1. `FROM` (Hugging Face model repository identifier, including repositories containing GGUF files)
 2. `SYSTEM` (prompt override/fallback behavior)
 
 Other parsed fields are available at parse/validation level and can be considered forward-compatible surface for future runtime expansion.
