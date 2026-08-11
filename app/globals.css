@@ -3625,6 +3625,12 @@ html.cyberpunk [data-book-section] {
     scroll-behavior: auto;
   }
 
+  /* Do not let root momentum scrolling expose an empty viewport below the footer. */
+  html,
+  body {
+    overscroll-behavior-y: none;
+  }
+
   /* Prevent layout shift during navigation */
   body {
     min-height: 100dvh;
