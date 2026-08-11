@@ -3894,6 +3894,24 @@ html.cyberpunk
   color: var(--background) !important;
 }
 
+/* Nextra swaps the clipboard for a filled check after copying. Keep that
+   confirmation state high-contrast even after the pointer leaves the button. */
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  button[title="Copy code"]:has(.nextra-copy-icon[fill="currentColor"]) {
+  background-color: var(--sponsor-yellow) !important;
+  color: var(--background) !important;
+}
+
+html.cyberpunk
+  [data-book-section]
+  .nextra-code
+  button[title="Copy code"]
+  .nextra-copy-icon[fill="currentColor"] {
+  color: var(--background) !important;
+}
+
 /* Syntax highlighting tokens in dark mode - Shiki/Nextra */
 /* Shiki uses CSS variables like --shiki-light and --shiki-dark in inline styles */
 /* Nextra's CSS uses color: var(--shiki-dark) but we need to ensure it works in our dark mode */
