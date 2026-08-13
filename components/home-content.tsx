@@ -175,17 +175,22 @@ export function HomeContent() {
         <h2 id="use-cases-heading" className="minimal-copy-heading">
           Use cases
         </h2>
-        <div className="minimal-copy-content minimal-use-case-list">
+        <div className="minimal-copy-content minimal-disclosure-list">
           {useCases.map((useCase) => (
-            <article key={useCase.title}>
-              <h3>
-                <span className="minimal-feature-icon" aria-hidden="true">
-                  <useCase.icon strokeWidth={1.75} />
-                </span>
-                {useCase.title}
-              </h3>
+            <details className="minimal-disclosure" key={useCase.title}>
+              <summary>
+                <h3>
+                  <span className="minimal-feature-icon" aria-hidden="true">
+                    <useCase.icon strokeWidth={1.75} />
+                  </span>
+                  <span className="minimal-disclosure-title">{useCase.title}</span>
+                  <span className="minimal-disclosure-meta">
+                    <ChevronDown className="minimal-disclosure-chevron" aria-hidden />
+                  </span>
+                </h3>
+              </summary>
               <p>{useCase.body}</p>
-            </article>
+            </details>
           ))}
         </div>
       </section>
