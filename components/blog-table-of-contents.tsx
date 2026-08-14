@@ -92,9 +92,11 @@ export function BlogTableOfContents({
     // Ensure there is a stable anchor at the beginning of article content.
     root.id = introId
 
-    const headings = Array.from(
+    const headings = (Array.from(
       root.querySelectorAll('h2, h3, h4'),
-    ) as HTMLHeadingElement[]
+    ) as HTMLHeadingElement[]).filter(
+      (heading) => mode !== 'print' || !heading.closest('[data-blog-discussion]'),
+    )
 
     if (headings.length === 0) {
       setItems([])
@@ -165,7 +167,7 @@ export function BlogTableOfContents({
       window.removeEventListener('scroll', syncActiveState)
       window.removeEventListener('resize', syncActiveState)
     }
-  }, [contentSelector, enableResearchSectionNumbers, getScrollOffset, introId])
+  }, [contentSelector, enableResearchSectionNumbers, getScrollOffset, introId, mode])
 
   useEffect(() => {
     const hashId = window.location.hash.replace('#', '')

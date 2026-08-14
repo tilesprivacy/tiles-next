@@ -185,6 +185,7 @@ export default function OwnYourAiPage() {
       authorId={post.author}
       printCoverImage={post.coverImage}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
+      blueskyPostUrl={post.blueskyPostUrl}
       content={post.content}
       showTableOfContents={false}
     >
