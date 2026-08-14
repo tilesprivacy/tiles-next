@@ -1,6 +1,6 @@
 'use client'
 
-import { Fragment, useEffect, useMemo, useState } from 'react'
+import { Fragment, ReactNode, useEffect, useMemo, useState } from 'react'
 import {
   BlueskyAuthor,
   BlueskyThreadViewPost,
@@ -40,7 +40,8 @@ function countLabel(count: number, singular: string, plural: string): string {
   return `${count} ${count === 1 ? singular : plural}`
 }
 
-function DiscussionSummary({
+/** Exported for tests; rendered by BlogDiscussion below. */
+export function DiscussionSummary({
   thread,
   reposters,
   postUrl,
@@ -55,45 +56,71 @@ function DiscussionSummary({
   const repostCount = thread.post.repostCount ?? 0
   const namedReposters = reposters.slice(0, MAX_NAMED_REPOSTERS)
   const otherReposterCount = Math.max(0, repostCount - namedReposters.length)
+  // The "has been reposted by @a, @b" clause needs at least one name; without
+  // names, reposts fall back to a plain count alongside the other stats.
+  const hasRepostedByClause = repostCount > 0 && namedReposters.length > 0
 
-  const reposterLinks = namedReposters.map((reposter) => (
-    <a
-      key={reposter.did}
-      href={blueskyProfileWebUrl(reposter.did)}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={discussionLinkClass}
-    >
-      @{reposter.handle}
-    </a>
-  ))
+  const statParts: ReactNode[] = []
+  if (replyCount > 0) statParts.push(countLabel(replyCount, 'reply', 'replies'))
+  if (quoteCount > 0) statParts.push(countLabel(quoteCount, 'quote', 'quotes'))
+  if (likeCount > 0) {
+    statParts.push(
+      <a
+        href={`${postUrl}/liked-by`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={discussionLinkClass}
+      >
+        {countLabel(likeCount, 'like', 'likes')}
+      </a>,
+    )
+  }
+  if (repostCount > 0 && !hasRepostedByClause) {
+    statParts.push(countLabel(repostCount, 'repost', 'reposts'))
+  }
+
+  const hasAnyStats = statParts.length > 0 || hasRepostedByClause
 
   return (
     <>
-      <p className="text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm">
-        This post has {countLabel(replyCount, 'reply', 'replies')},{' '}
-        {countLabel(quoteCount, 'quote', 'quotes')},{repostCount > 0 ? ' ' : ' and '}
-        <a
-          href={`${postUrl}/liked-by`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={discussionLinkClass}
-        >
-          {countLabel(likeCount, 'like', 'likes')}
-        </a>
-        {repostCount > 0 ? (
-          namedReposters.length > 0 ? (
+      {hasAnyStats ? (
+        <p className="text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm">
+          This post has{' '}
+          {statParts.map((part, index) => (
+            <Fragment key={index}>
+              {index > 0 &&
+                (index === statParts.length - 1 && !hasRepostedByClause
+                  ? statParts.length > 2
+                    ? ', and '
+                    : ' and '
+                  : ', ')}
+              {part}
+            </Fragment>
+          ))}
+          {hasRepostedByClause ? (
             <>
-              , and has been reposted by{' '}
-              {reposterLinks.map((link, index) => (
-                <Fragment key={namedReposters[index].did}>
+              {statParts.length > 0
+                ? statParts.length > 1
+                  ? ', and has '
+                  : ' and has '
+                : ''}
+              been reposted by{' '}
+              {namedReposters.map((reposter, index) => (
+                <Fragment key={reposter.did}>
                   {index > 0 &&
-                    (index === reposterLinks.length - 1 && otherReposterCount === 0
-                      ? reposterLinks.length > 2
+                    (index === namedReposters.length - 1 && otherReposterCount === 0
+                      ? namedReposters.length > 2
                         ? ', and '
                         : ' and '
                       : ', ')}
-                  {link}
+                  <a
+                    href={blueskyProfileWebUrl(reposter.did)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={discussionLinkClass}
+                  >
+                    @{reposter.handle}
+                  </a>
                 </Fragment>
               ))}
               {otherReposterCount > 0 ? (
@@ -110,13 +137,11 @@ function DiscussionSummary({
                 </>
               ) : null}
             </>
-          ) : (
-            <>, and {countLabel(repostCount, 'repost', 'reposts')}</>
-          )
-        ) : null}
-        .
-      </p>
-      <p className="mt-2">
+          ) : null}
+          .
+        </p>
+      ) : null}
+      <p className={hasAnyStats ? 'mt-2' : undefined}>
         <a
           href={postUrl}
           target="_blank"
