@@ -30,6 +30,7 @@ export default function MoveAlongPythonPage() {
       coverImageDark={post.coverImageDark ?? post.coverImage ?? "/og-image.jpg"}
       coverAlt={post.coverAlt ?? post.title}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
+      blueskyPostUrl={post.blueskyPostUrl}
       content={post.content}
     >
       <p>

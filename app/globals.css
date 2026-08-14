@@ -1121,6 +1121,42 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--syntax-json-literal);
 }
 
+[data-blog-discussion] bsky-conversation {
+  display: block;
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+[data-blog-discussion] .bsky-conversation {
+  --bsky-border-color: rgba(0, 0, 0, 0.1) !important;
+  --bsky-link-color: #171717 !important;
+  --bsky-link-hover: rgba(0, 0, 0, 0.8) !important;
+  --bsky-link-underline: rgba(0, 0, 0, 0.25) !important;
+  --bsky-link-underline-hover: rgba(0, 0, 0, 0.4) !important;
+  --bsky-muted-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark [data-blog-discussion] bsky-conversation {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dark [data-blog-discussion] .bsky-conversation {
+  --bsky-border-color: rgba(255, 255, 255, 0.12) !important;
+  --bsky-link-color: #ffffff !important;
+  --bsky-link-hover: rgba(255, 255, 255, 0.8) !important;
+  --bsky-link-underline: rgba(255, 255, 255, 0.25) !important;
+  --bsky-link-underline-hover: rgba(255, 255, 255, 0.4) !important;
+  --bsky-muted-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+[data-blog-discussion] .bsky-conversation .reply,
+[data-blog-discussion] .bsky-conversation .quote,
+[data-blog-discussion] .bsky-conversation .original,
+[data-blog-discussion] .bsky-conversation .continue {
+  margin-bottom: 0;
+}
+
 .minimal-actions {
   width: min(100% - 2rem, 720px);
   min-height: 0;

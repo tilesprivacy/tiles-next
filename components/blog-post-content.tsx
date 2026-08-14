@@ -14,6 +14,7 @@ import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
 import { blogArticleProseClass } from "@/lib/blog-article-prose-classes"
 import { marketingPageArticleTitleClass } from "@/lib/marketing-page-title-classes"
+import { BlueskyDiscussion } from "@/components/bluesky-discussion"
 
 interface BlogPostContentProps {
   title: string
@@ -29,6 +30,7 @@ interface BlogPostContentProps {
   /** Print-only cover fallback for posts whose `coverImage` is OG/listing-only. */
   printCoverImage?: string
   standardSiteDocumentUri?: string
+  blueskyPostUrl?: string
   content: string
   /** When false, hides the mobile and desktop table of contents. Defaults to true. */
   showTableOfContents?: boolean
@@ -56,6 +58,7 @@ export function BlogPostContent({
   coverImageHeight = 600,
   printCoverImage,
   standardSiteDocumentUri,
+  blueskyPostUrl,
   content,
   showTableOfContents = true,
   children
@@ -240,7 +243,9 @@ export function BlogPostContent({
             </div>
           ) : null}
 
-          {showTableOfContents ? <BlogTableOfContents mode="print" /> : null}
+          {showTableOfContents ? (
+            <BlogTableOfContents contentSelector=".blog-article-container" mode="print" />
+          ) : null}
 
           {coverImage ? (
             <div className="blog-print-screen-only mb-8 lg:mb-16">
@@ -275,14 +280,14 @@ export function BlogPostContent({
 
           {showTableOfContents ? (
             <div className="blog-print-screen-only mb-8 lg:mb-16 xl:hidden">
-              <BlogTableOfContents mode="mobile" />
+              <BlogTableOfContents contentSelector=".blog-article-container" mode="mobile" />
             </div>
           ) : null}
           </div>
 
           {showTableOfContents ? (
             <aside className="blog-print-screen-only hidden xl:col-start-1 xl:row-start-2 xl:block xl:min-h-0 xl:self-stretch">
-              <BlogTableOfContents />
+              <BlogTableOfContents contentSelector=".blog-article-container" />
             </aside>
           ) : null}
 
@@ -311,6 +316,7 @@ export function BlogPostContent({
                   <span>.</span>
                 </div>
               ) : null}
+              {blueskyPostUrl ? <BlueskyDiscussion postUrl={blueskyPostUrl} /> : null}
           </article>
 
           <div className="hidden xl:col-start-3 xl:row-start-2 xl:block" aria-hidden="true" />
