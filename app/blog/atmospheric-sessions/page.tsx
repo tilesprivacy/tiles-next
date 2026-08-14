@@ -28,6 +28,7 @@ export default function AtmosphericSessionsPage() {
       coverAlt={post.coverAlt}
       content={post.content}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
+      blueskyPostUri={post.blueskyPostUri}
       showTableOfContents
     >
       <div className="atmospheric-sessions-content" dangerouslySetInnerHTML={{ __html: post.content }} />

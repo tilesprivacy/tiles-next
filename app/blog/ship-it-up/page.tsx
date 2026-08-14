@@ -31,6 +31,7 @@ export default function ShipItUpPage() {
       coverImage={post.coverImage ?? "/og-image.jpg"}
       coverAlt={post.coverAlt ?? post.title}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
+      blueskyPostUri={post.blueskyPostUri}
       content={post.content}
     >
       <p>

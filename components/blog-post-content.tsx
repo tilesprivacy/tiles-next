@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
+import { BlogDiscussion } from "@/components/blog-discussion"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
@@ -29,6 +30,8 @@ interface BlogPostContentProps {
   /** Print-only cover fallback for posts whose `coverImage` is OG/listing-only. */
   printCoverImage?: string
   standardSiteDocumentUri?: string
+  /** at:// URI of the Bluesky announcement post whose replies form the discussion section. */
+  blueskyPostUri?: string
   content: string
   /** When false, hides the mobile and desktop table of contents. Defaults to true. */
   showTableOfContents?: boolean
@@ -56,6 +59,7 @@ export function BlogPostContent({
   coverImageHeight = 600,
   printCoverImage,
   standardSiteDocumentUri,
+  blueskyPostUri,
   content,
   showTableOfContents = true,
   children
@@ -323,6 +327,8 @@ export function BlogPostContent({
                 moreLinkLabel="more posts"
               />
             </div>
+
+            {blueskyPostUri ? <BlogDiscussion blueskyPostUri={blueskyPostUri} /> : null}
 
             <div data-blog-print-footer className="mt-0 hidden print:block">
               <p>© 2026 Tiles Privacy Technologies Pvt. Ltd.</p>
