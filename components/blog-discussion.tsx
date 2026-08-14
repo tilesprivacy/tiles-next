@@ -51,6 +51,7 @@ function DiscussionSummary({
 }) {
   const replyCount = thread.post.replyCount ?? 0
   const quoteCount = thread.post.quoteCount ?? 0
+  const likeCount = thread.post.likeCount ?? 0
   const repostCount = thread.post.repostCount ?? 0
   const namedReposters = reposters.slice(0, MAX_NAMED_REPOSTERS)
   const otherReposterCount = Math.max(0, repostCount - namedReposters.length)
@@ -71,7 +72,15 @@ function DiscussionSummary({
     <>
       <p className="text-base leading-[1.7] text-black/70 dark:text-white/70">
         This post has {countLabel(replyCount, 'reply', 'replies')},{' '}
-        {countLabel(quoteCount, 'quote', 'quotes')}
+        {countLabel(quoteCount, 'quote', 'quotes')},{repostCount > 0 ? ' ' : ' and '}
+        <a
+          href={`${postUrl}/liked-by`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={discussionLinkClass}
+        >
+          {countLabel(likeCount, 'like', 'likes')}
+        </a>
         {repostCount > 0 ? (
           namedReposters.length > 0 ? (
             <>
