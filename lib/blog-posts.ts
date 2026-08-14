@@ -16,6 +16,11 @@ export interface BlogPost {
   listingImageDark?: string;
   coverAlt?: string;
   standardSiteDocumentUri?: string;
+  /**
+   * at:// URI of the Bluesky post announcing this article. Replies to it are
+   * shown as the post's discussion section.
+   */
+  blueskyPostUri?: string;
   content: string; // Full HTML content for RSS feed
   /** Draft posts stay in the codebase but are only shown in development. */
   draft?: boolean;
@@ -58,6 +63,8 @@ export const blogPosts: BlogPost[] = [
     listingImageDark: "/atmospheric-sessions-listing-centered.png",
     standardSiteDocumentUri:
       "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mrdixuvpez23",
+    blueskyPostUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mrdjjxixbs2p",
     content: atmosphericSessionsBlogContent,
   },
   {
@@ -72,6 +79,8 @@ export const blogPosts: BlogPost[] = [
     coverAlt: "Tiles: Own your AI with local models and open protocols",
     standardSiteDocumentUri:
       "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mqkrpvbar22l",
+    blueskyPostUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mqq45bvxts24",
     content: ownYourAiBlogContent,
   },
   {
@@ -85,6 +94,8 @@ export const blogPosts: BlogPost[] = [
     coverAlt: "Tiles REPL request and response flow",
     standardSiteDocumentUri:
       "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrumkdftw2p",
+    blueskyPostUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mnrvt2gjls23",
     content: controllingCtrlCBlogContent,
   },
   {
@@ -97,6 +108,8 @@ export const blogPosts: BlogPost[] = [
     coverAlt: "Cover image for Ship it up",
     standardSiteDocumentUri:
       "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj37iuhz2d",
+    blueskyPostUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mir2vki6es2m",
     content: shipItUpBlogContent,
   },
   {
@@ -111,6 +124,8 @@ export const blogPosts: BlogPost[] = [
     coverAlt: "Tiles banner",
     standardSiteDocumentUri:
       "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj3b7f5u2g",
+    blueskyPostUri:
+      "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mf4nsqlst22c",
     content: `<p>We have been working on <a href="https://www.tiles.run/" target="_blank" rel="noopener noreferrer">Tiles</a>. Tiles is a local-first private AI assistant that runs on-device models with encrypted P2P sync, keeps your data and identity yours, and supports sharing chats with ATproto.</p>
 
 <h2>The Python Problem</h2>

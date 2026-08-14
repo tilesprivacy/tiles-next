@@ -132,6 +132,7 @@ export default function ControllingCtrlCPage() {
       authorId={post.author}
       printCoverImage={post.coverImage}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
+      blueskyPostUri={post.blueskyPostUri}
       content={post.content}
     >
       <h2>The REPL UI issue</h2>

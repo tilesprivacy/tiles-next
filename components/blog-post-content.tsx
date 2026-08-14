@@ -1,8 +1,10 @@
 'use client'
 
 import Image from "next/image"
+import Link from "next/link"
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
+import { BlogDiscussion } from "@/components/blog-discussion"
 import { SiteFooter } from "@/components/site-footer"
 import { BlogReference } from "@/components/blog-reference"
 import { BlogTableOfContents } from "@/components/blog-table-of-contents"
@@ -13,6 +15,10 @@ import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
 import { blogArticleProseClass } from "@/lib/blog-article-prose-classes"
+import {
+  TILES_PRODUCT_DESCRIPTION_CORE,
+  TILES_PRODUCT_TECHNOLOGY_LINE,
+} from "@/lib/product-description"
 import { marketingPageArticleTitleClass } from "@/lib/marketing-page-title-classes"
 
 interface BlogPostContentProps {
@@ -29,11 +35,15 @@ interface BlogPostContentProps {
   /** Print-only cover fallback for posts whose `coverImage` is OG/listing-only. */
   printCoverImage?: string
   standardSiteDocumentUri?: string
+  /** at:// URI of the Bluesky announcement post whose replies form the discussion section. */
+  blueskyPostUri?: string
   content: string
   /** When false, hides the mobile and desktop table of contents. Defaults to true. */
   showTableOfContents?: boolean
   children: ReactNode
 }
+
+const TILES_OUTRO_DESCRIPTION_LINE = `Tiles is ${TILES_PRODUCT_DESCRIPTION_CORE.charAt(0).toLowerCase()}${TILES_PRODUCT_DESCRIPTION_CORE.slice(1)}`
 
 function buildAtprotoAtUriUrl(sourceUri: string): string | null {
   if (!sourceUri.startsWith("at://")) {
@@ -56,6 +66,7 @@ export function BlogPostContent({
   coverImageHeight = 600,
   printCoverImage,
   standardSiteDocumentUri,
+  blueskyPostUri,
   content,
   showTableOfContents = true,
   children
@@ -293,8 +304,32 @@ export function BlogPostContent({
               <div className={blogArticleProseClass}>
                 {children}
               </div>
+              <div className="blog-print-screen-only mt-10 space-y-2 text-xs text-black/60 dark:text-white/60 lg:mt-12 lg:text-sm">
+                <p>
+                  <span className="block">{TILES_OUTRO_DESCRIPTION_LINE}</span>
+                  <span className="block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
+                </p>
+                <p>
+                  There are{" "}
+                  <Link
+                    href="/blog"
+                    className="text-black underline hover:text-black/80 dark:text-white dark:hover:text-white/80"
+                  >
+                    more posts
+                  </Link>
+                  .
+                </p>
+                <p>Keep on Tiling!</p>
+              </div>
+              {blueskyPostUri ? <BlogDiscussion blueskyPostUri={blueskyPostUri} /> : null}
               {standardSiteDocumentUri ? (
-                <div className="blog-print-screen-only mt-10 border-t border-black/8 pt-5 text-xs leading-6 text-black/54 dark:border-white/10 dark:text-white/54 lg:text-sm">
+                <div
+                  className={`blog-print-screen-only text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm ${
+                    blueskyPostUri
+                      ? "mt-6"
+                      : "mt-10 border-t border-black/8 pt-5 dark:border-white/10"
+                  }`}
+                >
                   <span>Published on ATproto: </span>
                   {standardSiteDocumentUrl ? (
                     <a
@@ -321,6 +356,7 @@ export function BlogPostContent({
                 title={title}
                 moreLinkHref="/blog"
                 moreLinkLabel="more posts"
+                showIntro={false}
               />
             </div>
 
