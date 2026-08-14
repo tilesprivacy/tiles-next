@@ -5188,3 +5188,46 @@ body {
   fill: none !important;
   stroke-width: 1.5;
 }
+
+/*
+ * Blog discussion (bsky-conversation web component, lib/vendor/).
+ * The component themes itself through --bsky-* custom properties; map them to
+ * the site's black/white opacity palette. The dark selectors outrank the
+ * component's own `.dark .bsky-conversation` runtime defaults.
+ */
+[data-blog-discussion] .bsky-conversation {
+  --bsky-link-color: rgb(0 0 0);
+  --bsky-link-underline: rgb(0 0 0 / 0.25);
+  --bsky-link-hover: rgb(0 0 0 / 0.8);
+  --bsky-link-underline-hover: rgb(0 0 0 / 0.4);
+  --bsky-muted-color: rgb(0 0 0 / 0.45);
+  --bsky-border-color: rgb(0 0 0 / 0.08);
+}
+
+:is(html.dark, html.cyberpunk) [data-blog-discussion] .bsky-conversation {
+  --bsky-link-color: rgb(255 255 255);
+  --bsky-link-underline: rgb(255 255 255 / 0.25);
+  --bsky-link-hover: rgb(255 255 255 / 0.8);
+  --bsky-link-underline-hover: rgb(255 255 255 / 0.4);
+  --bsky-muted-color: rgb(255 255 255 / 0.45);
+  --bsky-border-color: rgb(255 255 255 / 0.12);
+}
+
+/* Display names read as full-contrast text, like author bylines elsewhere. */
+[data-blog-discussion] .bsky-conversation .displayname {
+  color: rgb(0 0 0);
+}
+
+:is(html.dark, html.cyberpunk) [data-blog-discussion] .bsky-conversation .displayname {
+  color: rgb(255 255 255);
+}
+
+/*
+ * The component empties itself when the thread cannot be loaded; hide the
+ * whole section (heading and separator included) rather than leaving a
+ * dangling "Discussion" title. Before the client script registers the
+ * element it is also empty, so the section appears once content renders.
+ */
+[data-blog-discussion]:has(bsky-conversation:empty) {
+  display: none;
+}
