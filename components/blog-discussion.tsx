@@ -23,7 +23,7 @@ const MAX_NESTING_DEPTH = 3
 const MAX_NAMED_REPOSTERS = 3
 
 const discussionLinkClass =
-  'text-black underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/75 hover:decoration-black/45 dark:text-white dark:decoration-white/30 dark:hover:text-white/75 dark:hover:decoration-white/45'
+  'text-black underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-black/40 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40'
 
 function formatCommentDate(createdAt?: string): string | null {
   if (!createdAt) return null
@@ -70,7 +70,7 @@ function DiscussionSummary({
 
   return (
     <>
-      <p className="text-base leading-[1.7] text-black/70 dark:text-white/70">
+      <p className="text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm">
         This post has {countLabel(replyCount, 'reply', 'replies')},{' '}
         {countLabel(quoteCount, 'quote', 'quotes')},{repostCount > 0 ? ' ' : ' and '}
         <a
@@ -116,12 +116,12 @@ function DiscussionSummary({
         ) : null}
         .
       </p>
-      <p className="mt-4">
+      <p className="mt-2">
         <a
           href={postUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={`text-base leading-[1.7] ${discussionLinkClass}`}
+          className={`text-xs leading-6 lg:text-sm ${discussionLinkClass}`}
         >
           Add your thoughts on Bluesky
         </a>
@@ -146,7 +146,7 @@ function DiscussionComment({
 
   return (
     <div>
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2">
         <a
           href={blueskyProfileWebUrl(author.did)}
           target="_blank"
@@ -160,13 +160,13 @@ function DiscussionComment({
             <img
               src={author.avatar}
               alt=""
-              width={36}
-              height={36}
+              width={28}
+              height={28}
               loading="lazy"
-              className="h-9 w-9 rounded-full bg-black/5 object-cover dark:bg-white/10"
+              className="h-7 w-7 rounded-full bg-black/5 object-cover dark:bg-white/10"
             />
           ) : (
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-sm font-medium uppercase text-black/50 dark:bg-white/10 dark:text-white/50">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-black/5 text-[0.65rem] font-medium uppercase text-black/50 dark:bg-white/10 dark:text-white/50">
               {authorName.slice(0, 1)}
             </span>
           )}
@@ -176,7 +176,7 @@ function DiscussionComment({
             href={blueskyProfileWebUrl(author.did)}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-w-0 max-w-full truncate text-base font-semibold text-black hover:text-black/80 dark:text-white dark:hover:text-white/80"
+            className="min-w-0 max-w-full truncate text-xs font-semibold text-black hover:text-black/80 dark:text-white dark:hover:text-white/80 lg:text-sm"
           >
             {authorName}
           </a>
@@ -184,37 +184,37 @@ function DiscussionComment({
             href={blueskyProfileWebUrl(author.did)}
             target="_blank"
             rel="noopener noreferrer"
-            className="min-w-0 max-w-full truncate text-[0.95rem] text-black/45 hover:text-black/65 dark:text-white/45 dark:hover:text-white/65"
+            className="min-w-0 max-w-full truncate text-xs text-black/45 hover:text-black/65 dark:text-white/45 dark:hover:text-white/65 lg:text-sm"
           >
             @{author.handle}
           </a>
         </span>
       </div>
 
-      <p className="mt-3 whitespace-pre-wrap break-words text-base leading-[1.7] text-black/70 dark:text-white/70">
+      <p className="mt-2 whitespace-pre-wrap break-words text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm">
         {post.record.text}
       </p>
 
       {commentDate ? (
-        <p className="mt-2">
+        <p className="mt-1.5">
           {commentUrl ? (
             <a
               href={commentUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-black/55 underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-black/40 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+              className="text-xs text-black/45 underline decoration-black/20 underline-offset-2 transition-colors hover:text-black/70 hover:decoration-black/35 dark:text-white/45 dark:decoration-white/20 dark:hover:text-white/70 dark:hover:decoration-white/35"
             >
               {commentDate}
             </a>
           ) : (
-            <span className="text-sm text-black/55 dark:text-white/55">{commentDate}</span>
+            <span className="text-xs text-black/45 dark:text-white/45">{commentDate}</span>
           )}
         </p>
       ) : null}
 
       {replies.length > 0 ? (
         depth < MAX_NESTING_DEPTH ? (
-          <div className="ml-1 mt-6 space-y-6 border-l border-black/8 pl-4 dark:border-white/12 sm:pl-5">
+          <div className="ml-1 mt-5 space-y-5 border-l border-black/8 pl-4 dark:border-white/12 sm:pl-5">
             {replies.map((reply) => (
               <DiscussionComment key={reply.post.uri} comment={reply} depth={depth + 1} />
             ))}
@@ -225,7 +225,7 @@ function DiscussionComment({
               href={commentUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-black/55 underline decoration-black/25 underline-offset-2 hover:text-black/80 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80"
+              className="text-xs text-black/45 underline decoration-black/20 underline-offset-2 hover:text-black/70 dark:text-white/45 dark:decoration-white/20 dark:hover:text-white/70 lg:text-sm"
             >
               Continue this thread on Bluesky
             </a>
@@ -307,19 +307,19 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
   return (
     <section
       data-blog-discussion
-      className="blog-print-screen-only mt-14 w-full"
+      className="blog-print-screen-only mt-10 w-full border-t border-black/8 pt-5 dark:border-white/10"
       aria-label="Discussion"
     >
-      <h2 className="mb-4 text-[1.375rem] font-semibold leading-[1.25] tracking-[-0.02em] text-black dark:text-white lg:text-2xl">
+      <h2 className="mb-3 text-sm font-semibold text-black dark:text-white lg:text-base">
         Discussion
       </h2>
 
       {status === 'loading' ? (
-        <p className="text-sm text-black/42 dark:text-white/42">Loading discussion…</p>
+        <p className="text-xs leading-6 text-black/42 dark:text-white/42 lg:text-sm">Loading discussion…</p>
       ) : null}
 
       {status === 'error' ? (
-        <p className="text-base leading-[1.7] text-black/70 dark:text-white/70">
+        <p className="text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm">
           Couldn’t load the discussion right now.{' '}
           <a
             href={postUrl}
@@ -338,7 +338,7 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
       ) : null}
 
       {status === 'ready' && comments.length > 0 ? (
-        <div className="mt-10 space-y-10">
+        <div className="mt-7 space-y-7">
           {visibleComments.map((comment) => (
             <DiscussionComment key={comment.post.uri} comment={comment} depth={0} />
           ))}
@@ -346,11 +346,11 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
       ) : null}
 
       {status === 'ready' && comments.length > visibleCount ? (
-        <p className="mt-8">
+        <p className="mt-6">
           <button
             type="button"
             onClick={() => setVisibleCount((count) => count + INITIAL_VISIBLE_COMMENTS)}
-            className="text-sm text-black/55 underline decoration-black/25 underline-offset-2 hover:text-black/80 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80"
+            className="text-xs text-black/45 underline decoration-black/20 underline-offset-2 hover:text-black/70 dark:text-white/45 dark:decoration-white/20 dark:hover:text-white/70 lg:text-sm"
           >
             Show more comments
           </button>

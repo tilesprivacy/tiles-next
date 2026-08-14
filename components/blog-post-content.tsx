@@ -299,7 +299,13 @@ export function BlogPostContent({
               </div>
               {blueskyPostUri ? <BlogDiscussion blueskyPostUri={blueskyPostUri} /> : null}
               {standardSiteDocumentUri ? (
-                <div className="blog-print-screen-only mt-10 border-t border-black/8 pt-5 text-xs leading-6 text-black/54 dark:border-white/10 dark:text-white/54 lg:text-sm">
+                <div
+                  className={`blog-print-screen-only text-xs leading-6 text-black/54 dark:text-white/54 lg:text-sm ${
+                    blueskyPostUri
+                      ? "mt-6"
+                      : "mt-10 border-t border-black/8 pt-5 dark:border-white/10"
+                  }`}
+                >
                   <span>Published on ATproto: </span>
                   {standardSiteDocumentUrl ? (
                     <a
