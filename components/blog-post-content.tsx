@@ -1,6 +1,7 @@
 'use client'
 
 import Image from "next/image"
+import Link from "next/link"
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
 import { BlogDiscussion } from "@/components/blog-discussion"
@@ -14,6 +15,10 @@ import { PersonAvatar } from "@/components/person-avatar"
 import { getPersonById } from "@/lib/people"
 import { SocialLinks } from "@/components/social-links"
 import { blogArticleProseClass } from "@/lib/blog-article-prose-classes"
+import {
+  TILES_PRODUCT_DESCRIPTION_CORE,
+  TILES_PRODUCT_TECHNOLOGY_LINE,
+} from "@/lib/product-description"
 import { marketingPageArticleTitleClass } from "@/lib/marketing-page-title-classes"
 
 interface BlogPostContentProps {
@@ -37,6 +42,8 @@ interface BlogPostContentProps {
   showTableOfContents?: boolean
   children: ReactNode
 }
+
+const TILES_OUTRO_DESCRIPTION_LINE = `Tiles is ${TILES_PRODUCT_DESCRIPTION_CORE.charAt(0).toLowerCase()}${TILES_PRODUCT_DESCRIPTION_CORE.slice(1)}`
 
 function buildAtprotoAtUriUrl(sourceUri: string): string | null {
   if (!sourceUri.startsWith("at://")) {
@@ -297,6 +304,23 @@ export function BlogPostContent({
               <div className={blogArticleProseClass}>
                 {children}
               </div>
+              <div className="blog-print-screen-only mt-10 space-y-2 text-xs text-black/60 dark:text-white/60 lg:mt-12 lg:text-sm">
+                <p>
+                  <span className="block">{TILES_OUTRO_DESCRIPTION_LINE}</span>
+                  <span className="block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
+                </p>
+                <p>
+                  There are{" "}
+                  <Link
+                    href="/blog"
+                    className="text-black underline hover:text-black/80 dark:text-white dark:hover:text-white/80"
+                  >
+                    more posts
+                  </Link>
+                  .
+                </p>
+                <p>Keep on Tiling!</p>
+              </div>
               {blueskyPostUri ? <BlogDiscussion blueskyPostUri={blueskyPostUri} /> : null}
               {standardSiteDocumentUri ? (
                 <div
@@ -332,6 +356,7 @@ export function BlogPostContent({
                 title={title}
                 moreLinkHref="/blog"
                 moreLinkLabel="more posts"
+                showIntro={false}
               />
             </div>
 

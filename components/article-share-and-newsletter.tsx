@@ -21,12 +21,15 @@ interface ArticleShareAndNewsletterProps {
   title: string;
   moreLinkHref: string;
   moreLinkLabel: string;
+  /** Hide the product-blurb intro when the page renders its own outro copy. */
+  showIntro?: boolean;
 }
 
 export function ArticleShareAndNewsletter({
   title,
   moreLinkHref,
   moreLinkLabel,
+  showIntro = true,
 }: ArticleShareAndNewsletterProps) {
   const [shareUrl, setShareUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
@@ -139,25 +142,27 @@ export function ArticleShareAndNewsletter({
   return (
     <>
       <div className="mx-auto mt-10 w-full max-w-[44rem] lg:mt-12">
-        <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:text-sm">
-          <p>
-            <span className="block">{TILES_PRODUCT_DESCRIPTION_CORE}</span>
-            <span className="block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
-          </p>
-          <p>
-            There are{" "}
-            <Link
-              href={moreLinkHref}
-              className="text-black underline hover:text-black/80 dark:text-white dark:hover:text-white/80"
-            >
-              {moreLinkLabel}
-            </Link>
-            .
-          </p>
-          <p>Keep on Tiling!</p>
-        </div>
+        {showIntro ? (
+          <div className="space-y-2 text-xs text-black/60 dark:text-white/60 lg:text-sm">
+            <p>
+              <span className="block">{TILES_PRODUCT_DESCRIPTION_CORE}</span>
+              <span className="block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
+            </p>
+            <p>
+              There are{" "}
+              <Link
+                href={moreLinkHref}
+                className="text-black underline hover:text-black/80 dark:text-white dark:hover:text-white/80"
+              >
+                {moreLinkLabel}
+              </Link>
+              .
+            </p>
+            <p>Keep on Tiling!</p>
+          </div>
+        ) : null}
 
-        <div className="mt-8 lg:mt-10">
+        <div className={showIntro ? "mt-8 lg:mt-10" : ""}>
           <ArticlePrintButton />
           <p className={`${shareLabelClass} mt-4`}>Share this:</p>
           {shareActions}
