@@ -1,11 +1,12 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
-import { FaBluesky, FaRegComment, FaRegHeart, FaRetweet } from 'react-icons/fa6'
+import { Fragment, useEffect, useMemo, useState } from 'react'
 import {
+  BlueskyAuthor,
   BlueskyThreadViewPost,
   blueskyPostWebUrl,
   blueskyProfileWebUrl,
+  blueskyRepostedByApiUrl,
   blueskyThreadApiUrl,
   isThreadViewPost,
   parseBlueskyPostUri,
@@ -19,36 +20,104 @@ interface BlogDiscussionProps {
 
 const INITIAL_VISIBLE_COMMENTS = 8
 const MAX_NESTING_DEPTH = 3
+const MAX_NAMED_REPOSTERS = 3
+
+const discussionLinkClass =
+  'text-black underline decoration-black/30 underline-offset-2 transition-colors hover:text-black/75 hover:decoration-black/45 dark:text-white dark:decoration-white/30 dark:hover:text-white/75 dark:hover:decoration-white/45'
 
 function formatCommentDate(createdAt?: string): string | null {
   if (!createdAt) return null
   const date = new Date(createdAt)
   if (Number.isNaN(date.getTime())) return null
-  const sameYear = date.getFullYear() === new Date().getFullYear()
   return date.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
-    ...(sameYear ? {} : { year: 'numeric' }),
+    year: 'numeric',
   })
 }
 
-function CommentStat({
-  icon,
-  count,
-  label,
+function countLabel(count: number, singular: string, plural: string): string {
+  return `${count} ${count === 1 ? singular : plural}`
+}
+
+function DiscussionSummary({
+  thread,
+  reposters,
+  postUrl,
 }: {
-  icon: React.ReactNode
-  count: number
-  label: string
+  thread: BlueskyThreadViewPost
+  reposters: BlueskyAuthor[]
+  postUrl: string
 }) {
-  return (
-    <span
-      className="inline-flex items-center gap-1.5 text-xs text-black/42 dark:text-white/42"
-      aria-label={`${count} ${label}`}
+  const replyCount = thread.post.replyCount ?? 0
+  const quoteCount = thread.post.quoteCount ?? 0
+  const repostCount = thread.post.repostCount ?? 0
+  const namedReposters = reposters.slice(0, MAX_NAMED_REPOSTERS)
+  const otherReposterCount = Math.max(0, repostCount - namedReposters.length)
+
+  const reposterLinks = namedReposters.map((reposter) => (
+    <a
+      key={reposter.did}
+      href={blueskyProfileWebUrl(reposter.did)}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={discussionLinkClass}
     >
-      {icon}
-      {count > 0 ? <span>{count}</span> : null}
-    </span>
+      @{reposter.handle}
+    </a>
+  ))
+
+  return (
+    <>
+      <p className="text-base leading-[1.7] text-black/70 dark:text-white/70">
+        This post has {countLabel(replyCount, 'reply', 'replies')},{' '}
+        {countLabel(quoteCount, 'quote', 'quotes')}
+        {repostCount > 0 ? (
+          namedReposters.length > 0 ? (
+            <>
+              , and has been reposted by{' '}
+              {reposterLinks.map((link, index) => (
+                <Fragment key={namedReposters[index].did}>
+                  {index > 0 &&
+                    (index === reposterLinks.length - 1 && otherReposterCount === 0
+                      ? reposterLinks.length > 2
+                        ? ', and '
+                        : ' and '
+                      : ', ')}
+                  {link}
+                </Fragment>
+              ))}
+              {otherReposterCount > 0 ? (
+                <>
+                  , and{' '}
+                  <a
+                    href={`${postUrl}/reposted-by`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={discussionLinkClass}
+                  >
+                    {otherReposterCount} other {otherReposterCount === 1 ? 'person' : 'people'}
+                  </a>
+                </>
+              ) : null}
+            </>
+          ) : (
+            <>, and {countLabel(repostCount, 'repost', 'reposts')}</>
+          )
+        ) : null}
+        .
+      </p>
+      <p className="mt-4">
+        <a
+          href={postUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`text-base leading-[1.7] ${discussionLinkClass}`}
+        >
+          Add your thoughts on Bluesky
+        </a>
+      </p>
+    </>
   )
 }
 
@@ -67,13 +136,13 @@ function DiscussionComment({
   const replies = sortDiscussionReplies(comment.replies)
 
   return (
-    <div className={depth > 0 ? 'mt-4 border-l border-black/8 pl-4 dark:border-white/12 sm:pl-5' : ''}>
-      <div className="flex items-start gap-3">
+    <div>
+      <div className="flex items-center gap-2.5">
         <a
           href={blueskyProfileWebUrl(author.did)}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-0.5 shrink-0"
+          className="shrink-0"
           aria-label={`${authorName} on Bluesky`}
         >
           {author.avatar ? (
@@ -82,109 +151,76 @@ function DiscussionComment({
             <img
               src={author.avatar}
               alt=""
-              width={32}
-              height={32}
+              width={36}
+              height={36}
               loading="lazy"
-              className="h-8 w-8 rounded-full bg-black/5 object-cover dark:bg-white/10"
+              className="h-9 w-9 rounded-full bg-black/5 object-cover dark:bg-white/10"
             />
           ) : (
-            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black/5 text-xs font-medium uppercase text-black/50 dark:bg-white/10 dark:text-white/50">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black/5 text-sm font-medium uppercase text-black/50 dark:bg-white/10 dark:text-white/50">
               {authorName.slice(0, 1)}
             </span>
           )}
         </a>
-
-        <div className="min-w-0 flex-1">
-          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-            <a
-              href={blueskyProfileWebUrl(author.did)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="min-w-0 max-w-full truncate text-sm font-medium text-black hover:text-black/80 dark:text-white dark:hover:text-white/80"
-            >
-              {authorName}
-            </a>
-            <a
-              href={blueskyProfileWebUrl(author.did)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="min-w-0 max-w-full truncate text-xs text-black/42 hover:text-black/60 dark:text-white/42 dark:hover:text-white/60"
-            >
-              @{author.handle}
-            </a>
-            {commentDate ? (
-              <>
-                <span className="text-xs text-black/25 dark:text-white/25" aria-hidden>
-                  ·
-                </span>
-                {commentUrl ? (
-                  <a
-                    href={commentUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-black/42 hover:text-black/60 dark:text-white/42 dark:hover:text-white/60"
-                  >
-                    {commentDate}
-                  </a>
-                ) : (
-                  <span className="text-xs text-black/42 dark:text-white/42">{commentDate}</span>
-                )}
-              </>
-            ) : null}
-          </div>
-
-          <p className="mt-1 whitespace-pre-wrap break-words text-[0.92rem] leading-[1.6] text-black/70 dark:text-white/70">
-            {post.record.text}
-          </p>
-
-          <div className="mt-2 flex items-center gap-4">
-            <CommentStat
-              icon={<FaRegComment className="h-3 w-3" aria-hidden />}
-              count={post.replyCount ?? 0}
-              label="replies"
-            />
-            <CommentStat
-              icon={<FaRetweet className="h-3.5 w-3.5" aria-hidden />}
-              count={(post.repostCount ?? 0) + (post.quoteCount ?? 0)}
-              label="reposts"
-            />
-            <CommentStat
-              icon={<FaRegHeart className="h-3 w-3" aria-hidden />}
-              count={post.likeCount ?? 0}
-              label="likes"
-            />
-            {commentUrl ? (
-              <a
-                href={commentUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-xs text-black/42 underline decoration-black/20 underline-offset-2 hover:text-black/65 dark:text-white/42 dark:decoration-white/20 dark:hover:text-white/65"
-              >
-                Reply
-              </a>
-            ) : null}
-          </div>
-        </div>
+        <span className="flex min-w-0 flex-wrap items-baseline gap-x-2">
+          <a
+            href={blueskyProfileWebUrl(author.did)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-w-0 max-w-full truncate text-base font-semibold text-black hover:text-black/80 dark:text-white dark:hover:text-white/80"
+          >
+            {authorName}
+          </a>
+          <a
+            href={blueskyProfileWebUrl(author.did)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="min-w-0 max-w-full truncate text-[0.95rem] text-black/45 hover:text-black/65 dark:text-white/45 dark:hover:text-white/65"
+          >
+            @{author.handle}
+          </a>
+        </span>
       </div>
+
+      <p className="mt-3 whitespace-pre-wrap break-words text-base leading-[1.7] text-black/70 dark:text-white/70">
+        {post.record.text}
+      </p>
+
+      {commentDate ? (
+        <p className="mt-2">
+          {commentUrl ? (
+            <a
+              href={commentUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-black/55 underline decoration-black/25 underline-offset-2 transition-colors hover:text-black/80 hover:decoration-black/40 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
+            >
+              {commentDate}
+            </a>
+          ) : (
+            <span className="text-sm text-black/55 dark:text-white/55">{commentDate}</span>
+          )}
+        </p>
+      ) : null}
 
       {replies.length > 0 ? (
         depth < MAX_NESTING_DEPTH ? (
-          <div className="ml-4 sm:ml-5">
+          <div className="ml-1 mt-6 space-y-6 border-l border-black/8 pl-4 dark:border-white/12 sm:pl-5">
             {replies.map((reply) => (
               <DiscussionComment key={reply.post.uri} comment={reply} depth={depth + 1} />
             ))}
           </div>
         ) : commentUrl ? (
-          <div className="ml-11 mt-2">
+          <p className="mt-2">
             <a
               href={commentUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs text-black/42 underline decoration-black/20 underline-offset-2 hover:text-black/65 dark:text-white/42 dark:decoration-white/20 dark:hover:text-white/65"
+              className="text-sm text-black/55 underline decoration-black/25 underline-offset-2 hover:text-black/80 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80"
             >
               Continue this thread on Bluesky
             </a>
-          </div>
+          </p>
         ) : null
       ) : null}
     </div>
@@ -193,6 +229,7 @@ function DiscussionComment({
 
 export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
   const [thread, setThread] = useState<BlueskyThreadViewPost | null>(null)
+  const [reposters, setReposters] = useState<BlueskyAuthor[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE_COMMENTS)
 
@@ -207,28 +244,48 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
     const controller = new AbortController()
     setStatus('loading')
     setThread(null)
+    setReposters([])
     setVisibleCount(INITIAL_VISIBLE_COMMENTS)
 
-    fetch(blueskyThreadApiUrl(blueskyPostUri), {
-      signal: controller.signal,
-      headers: { Accept: 'application/json' },
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Bluesky thread request failed: ${response.status}`)
-        return response.json()
-      })
-      .then((data) => {
-        if (controller.signal.aborted) return
-        if (isThreadViewPost(data?.thread)) {
-          setThread(data.thread)
-          setStatus('ready')
-        } else {
-          setStatus('error')
+    const fetchJson = (url: string) =>
+      fetch(url, { signal: controller.signal, headers: { Accept: 'application/json' } }).then(
+        (response) => {
+          if (!response.ok) throw new Error(`Bluesky request failed: ${response.status}`)
+          return response.json()
+        },
+      )
+
+    // The reposter list only decorates the summary sentence, so its failure
+    // must not take down the whole discussion.
+    Promise.allSettled([
+      fetchJson(blueskyThreadApiUrl(blueskyPostUri)),
+      fetchJson(blueskyRepostedByApiUrl(blueskyPostUri, MAX_NAMED_REPOSTERS)),
+    ]).then(([threadResult, repostersResult]) => {
+      if (controller.signal.aborted) return
+
+      if (
+        threadResult.status === 'fulfilled' &&
+        isThreadViewPost(threadResult.value?.thread)
+      ) {
+        setThread(threadResult.value.thread)
+        setStatus('ready')
+      } else {
+        setStatus('error')
+        return
+      }
+
+      if (repostersResult.status === 'fulfilled') {
+        const repostedBy = repostersResult.value?.repostedBy
+        if (Array.isArray(repostedBy)) {
+          setReposters(
+            repostedBy.filter(
+              (profile): profile is BlueskyAuthor =>
+                Boolean(profile && typeof profile === 'object' && profile.did && profile.handle),
+            ),
+          )
         }
-      })
-      .catch(() => {
-        if (!controller.signal.aborted) setStatus('error')
-      })
+      }
+    })
 
     return () => controller.abort()
   }, [blueskyPostUri])
@@ -241,71 +298,25 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
   return (
     <section
       data-blog-discussion
-      className="blog-print-screen-only mx-auto mt-10 w-full max-w-[44rem] lg:mt-12"
+      className="blog-print-screen-only mt-14 w-full"
       aria-label="Discussion"
     >
-      <h2 className="text-[1.375rem] font-semibold leading-[1.25] tracking-[-0.02em] text-black dark:text-white lg:text-2xl">
+      <h2 className="mb-4 text-[1.375rem] font-semibold leading-[1.25] tracking-[-0.02em] text-black dark:text-white lg:text-2xl">
         Discussion
       </h2>
 
-      {status === 'ready' && thread ? (
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5">
-          <a
-            href={`${postUrl}/liked-by`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-black/55 hover:text-black/80 dark:text-white/55 dark:hover:text-white/80"
-          >
-            <FaRegHeart className="h-3.5 w-3.5" aria-hidden />
-            <span>{thread.post.likeCount ?? 0} likes</span>
-          </a>
-          <a
-            href={`${postUrl}/reposted-by`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-black/55 hover:text-black/80 dark:text-white/55 dark:hover:text-white/80"
-          >
-            <FaRetweet className="h-4 w-4" aria-hidden />
-            <span>{(thread.post.repostCount ?? 0) + (thread.post.quoteCount ?? 0)} reposts</span>
-          </a>
-          <a
-            href={postUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-sm text-black/55 hover:text-black/80 dark:text-white/55 dark:hover:text-white/80"
-          >
-            <FaRegComment className="h-3.5 w-3.5" aria-hidden />
-            <span>{thread.post.replyCount ?? 0} replies</span>
-          </a>
-        </div>
-      ) : null}
-
-      <p className="mt-3 text-sm leading-[1.65] text-black/55 dark:text-white/55">
-        Join the discussion by{' '}
-        <a
-          href={postUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-baseline gap-1 text-black underline decoration-black/25 underline-offset-2 hover:text-black/80 hover:decoration-black/40 dark:text-white dark:decoration-white/25 dark:hover:text-white/80 dark:hover:decoration-white/40"
-        >
-          <FaBluesky className="h-3 w-3 self-center" aria-hidden />
-          replying on Bluesky
-        </a>
-        . Replies to the announcement post appear here.
-      </p>
-
       {status === 'loading' ? (
-        <p className="mt-6 text-sm text-black/42 dark:text-white/42">Loading discussion…</p>
+        <p className="text-sm text-black/42 dark:text-white/42">Loading discussion…</p>
       ) : null}
 
       {status === 'error' ? (
-        <p className="mt-6 text-sm text-black/42 dark:text-white/42">
+        <p className="text-base leading-[1.7] text-black/70 dark:text-white/70">
           Couldn’t load the discussion right now.{' '}
           <a
             href={postUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-black/60 underline decoration-black/25 underline-offset-2 hover:text-black/80 dark:text-white/60 dark:decoration-white/25 dark:hover:text-white/80"
+            className={discussionLinkClass}
           >
             View it on Bluesky
           </a>
@@ -313,8 +324,12 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
         </p>
       ) : null}
 
+      {status === 'ready' && thread ? (
+        <DiscussionSummary thread={thread} reposters={reposters} postUrl={postUrl} />
+      ) : null}
+
       {status === 'ready' && comments.length > 0 ? (
-        <div className="mt-7 space-y-7">
+        <div className="mt-10 space-y-10">
           {visibleComments.map((comment) => (
             <DiscussionComment key={comment.post.uri} comment={comment} depth={0} />
           ))}
@@ -322,18 +337,14 @@ export function BlogDiscussion({ blueskyPostUri }: BlogDiscussionProps) {
       ) : null}
 
       {status === 'ready' && comments.length > visibleCount ? (
-        <button
-          type="button"
-          onClick={() => setVisibleCount((count) => count + INITIAL_VISIBLE_COMMENTS)}
-          className="mt-6 text-sm text-black/55 underline decoration-black/25 underline-offset-2 hover:text-black/80 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80"
-        >
-          Show more comments
-        </button>
-      ) : null}
-
-      {status === 'ready' && comments.length === 0 ? (
-        <p className="mt-6 text-sm text-black/42 dark:text-white/42">
-          No comments yet. Be the first to reply.
+        <p className="mt-8">
+          <button
+            type="button"
+            onClick={() => setVisibleCount((count) => count + INITIAL_VISIBLE_COMMENTS)}
+            className="text-sm text-black/55 underline decoration-black/25 underline-offset-2 hover:text-black/80 dark:text-white/55 dark:decoration-white/25 dark:hover:text-white/80"
+          >
+            Show more comments
+          </button>
         </p>
       ) : null}
     </section>

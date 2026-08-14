@@ -73,6 +73,11 @@ export function blueskyThreadApiUrl(uri: string, depth = 8): string {
   return `${BLUESKY_PUBLIC_API_BASE}/xrpc/app.bsky.feed.getPostThread?${params.toString()}`;
 }
 
+export function blueskyRepostedByApiUrl(uri: string, limit = 3): string {
+  const params = new URLSearchParams({ uri, limit: String(limit) });
+  return `${BLUESKY_PUBLIC_API_BASE}/xrpc/app.bsky.feed.getRepostedBy?${params.toString()}`;
+}
+
 /** Replies sorted the way the discussion renders them: most liked first, then oldest first. */
 export function sortDiscussionReplies(
   replies: BlueskyThreadViewPost[] | undefined,
