@@ -1,6 +1,6 @@
 import type { ReactNode } from "react"
 import Image from "next/image"
-import { ArrowUpRight, Bot, Box, Briefcase, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, Share2, User } from "lucide-react"
+import { ArrowUpRight, Bot, Box, Briefcase, Building2, Check, ChevronDown, Fingerprint, FlaskConical, Monitor, RefreshCw, Share2, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -18,15 +18,25 @@ const features = [
     icon: Bot,
     body: (
       <>
-        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, built around OpenAI’s{" "}
+        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, running OpenAI’s{" "}
         <span className="minimal-model-label">
           <Image src="/openai-logo.svg" alt="" width={15} height={15} />
           <span>gpt-oss-20b</span>
-        </span>
-        , with plugin support for reusable,{" "}
-        skill-based workflows.
+        </span>{" "}
+        on <a href="https://llama.app/">llama.cpp</a>, with plugin support for reusable, skill-based workflows.
       </>
     ),
+  },
+  {
+    title: "WebUI",
+    icon: Monitor,
+    body: (
+      <>
+        A browser-based interactive chat interface for Tiles. Based on{" "}
+        <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> inference stack.
+      </>
+    ),
+    comingSoon: true,
   },
   {
     title: "Own your identity",
