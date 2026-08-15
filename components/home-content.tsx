@@ -30,7 +30,12 @@ const features = [
   {
     title: "WebUI",
     icon: Monitor,
-    body: "A browser-based interactive chat interface for Tiles.",
+    body: (
+      <>
+        A browser-based interactive chat interface for Tiles. Based on{" "}
+        <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> inference stack.
+      </>
+    ),
     comingSoon: true,
   },
   {
