@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useTheme } from "next-themes"
 import { isDarkResolvedTheme } from "@/lib/site-theme"
 
-export function SponsorFooterGraphic() {
+export function FooterGraphic() {
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -17,13 +17,13 @@ export function SponsorFooterGraphic() {
     mounted && isDarkResolvedTheme(resolvedTheme) ? "/razor.png" : "/razordark.png"
 
   return (
-    <div className="minimal-sponsor-footer-graphic">
+    <div className="minimal-footer-graphic">
       <Image
         src={src}
         alt=""
         width={1450}
         height={1085}
-        className="minimal-sponsor-footer-graphic-img"
+        className="minimal-footer-graphic-img"
       />
     </div>
   )

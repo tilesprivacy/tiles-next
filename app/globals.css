@@ -1394,13 +1394,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .refined-site-footer .minimal-footer {
   padding-bottom: 2rem;
 }
-.minimal-sponsor-footer-graphic {
+.minimal-footer-graphic {
   display: flex;
   justify-content: center;
   width: min(100%, 36rem);
   margin: 0 auto 3rem;
 }
-.minimal-sponsor-footer-graphic-img {
+.minimal-footer-graphic-img {
   width: 100%;
   height: auto;
   display: block;

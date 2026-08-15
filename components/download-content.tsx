@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Check, Copy, Download, Globe } from "lucide-react"
 import { FaApple, FaChrome, FaFirefox, FaLinux, FaSafari } from "react-icons/fa6"
+import { FooterGraphic } from "@/components/footer-graphic"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
 import Image from "next/image"
@@ -130,7 +131,7 @@ export function DownloadContent({
           </p>
         </article>
       </main>
-      <SiteFooter showDownloadCta={false} />
+      <SiteFooter showDownloadCta={false} decoration={<FooterGraphic />} />
     </div>
   )
 }
