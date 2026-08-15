@@ -1,4 +1,3 @@
-import type { ReactNode } from "react"
 import Link from "next/link"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalFooter } from "@/components/minimal-footer"
@@ -8,13 +7,11 @@ interface SiteFooterProps {
   showNewsletterCta?: boolean
   newsletterCtaLayout?: "default" | "landing"
   showDownloadCta?: boolean
-  decoration?: ReactNode
 }
 
 export function SiteFooter({
   showNewsletterCta = false,
   showDownloadCta = true,
-  decoration,
 }: SiteFooterProps) {
   return (
     <div className="refined-site-footer" data-pagefind-ignore="all">
@@ -32,7 +29,6 @@ export function SiteFooter({
           </Link>
         </section>
       ) : null}
-      {decoration}
       <MinimalFooter />
     </div>
   )
