@@ -18,13 +18,12 @@ const features = [
     icon: Bot,
     body: (
       <>
-        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, built around OpenAI’s{" "}
+        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, running OpenAI’s{" "}
         <span className="minimal-model-label">
           <Image src="/openai-logo.svg" alt="" width={15} height={15} />
           <span>gpt-oss-20b</span>
-        </span>
-        , with plugin support for reusable,{" "}
-        skill-based workflows.
+        </span>{" "}
+        on <a href="https://llama.app/">llama.cpp</a>, with plugin support for reusable, skill-based workflows.
       </>
     ),
   },
