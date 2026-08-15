@@ -3,6 +3,7 @@ import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
 import { FaBluesky, FaDiscord, FaGithub, FaXTwitter } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
+import { AnalyticsChoicesButton } from "@/components/analytics-choices-button"
 import { TangledIcon } from "@/components/tangled-icon"
 
 export function MinimalFooter() {
@@ -34,6 +35,7 @@ export function MinimalFooter() {
         <Link href="/sub-processors">Subprocessors</Link>
         <Link href="/terms">Terms</Link>
         <Link href="/privacy">Privacy</Link>
+        <AnalyticsChoicesButton />
         <Link href="/brand">Brand</Link>
         <a className="minimal-footer-status" href="https://status.tiles.run" target="_blank" rel="noopener noreferrer">
           Status

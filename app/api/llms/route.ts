@@ -75,7 +75,7 @@ export async function GET(request: Request) {
     'Homepage feature: Use local models on remote devices with `tiles remote share`, running local models on a remote device peer-to-peer from any device.',
   )
   lines.push(
-    'Homepage feature (coming soon): WebUI: A browser-based interactive chat interface for Tiles. Based on llama.cpp inference stack (https://github.com/ggml-org/llama.cpp).',
+    'Homepage feature (coming soon): WebUI: A browser-based interactive chat interface for Tiles. Based on llama-ui (https://github.com/ggml-org/llama.cpp/tree/master/tools/ui).',
   )
   lines.push(
     'Homepage feature (coming soon): Every chat is a sandbox — resume or share chats as sandboxed environments with friends or agents across devices.',

@@ -25,16 +25,16 @@ export default function PrivacyPage() {
       </div>
 
       <div className="space-y-4">
-        <h2>No Tracking</h2>
+        <h2>No Product Tracking</h2>
         <p>
-          We do not track your usage, collect analytics, or monitor your behavior. Tiles does not include any telemetry, tracking pixels, or analytics services.
+          The Tiles app does not include product analytics, telemetry, or tracking pixels. We do not monitor how you use the app or receive your prompts, responses, memories, or files.
         </p>
       </div>
 
       <div className="space-y-4">
         <h2>No Data Collection</h2>
         <p>
-          We do not collect, store, or transmit any personal information. This includes but is not limited to: your identity, location, device information, usage statistics, or any content you create with Tiles.
+          The Tiles app does not collect, store, or transmit your personal information to us. This includes your identity, location, device information, usage statistics, and any content you create with Tiles.
         </p>
       </div>
 
@@ -48,7 +48,13 @@ export default function PrivacyPage() {
       <div className="space-y-4">
         <h2>Website Privacy</h2>
         <p>
-          This website may use standard web technologies like cookies for basic functionality. We do not use third-party analytics or advertising services. We do not track visitors across sites or build profiles of visitors.
+          If you select Accept in our analytics notice, we use Vercel Web Analytics to understand aggregate website traffic and improve our marketing, book, and blog pages. It may process the page visited, referrer, approximate country, browser, operating system, and device type. Vercel Web Analytics does not use cookies, does not store your IP address, and does not track you across websites or days. It never receives information about your activity in the Tiles app.
+        </p>
+        <p>
+          Before you accept, or after you reject or withdraw consent, the analytics script does not run. We store your analytics choice in your browser for up to six months so we can respect it. You can change that choice at any time using Analytics choices in the website footer.
+        </p>
+        <p>
+          We do not use advertising cookies or build visitor profiles. Other preferences that you choose, such as the site theme, may also be stored locally in your browser so the website works as expected.
         </p>
       </div>
 

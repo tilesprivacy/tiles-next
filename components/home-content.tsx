@@ -33,7 +33,7 @@ const features = [
     body: (
       <>
         A browser-based interactive chat interface for Tiles. Based on{" "}
-        <a href="https://github.com/ggml-org/llama.cpp">llama.cpp</a> inference stack.
+        <a href="https://github.com/ggml-org/llama.cpp/tree/master/tools/ui">llama-ui</a>.
       </>
     ),
     comingSoon: true,
