@@ -3,6 +3,9 @@ import { notFound } from "next/navigation"
 import { PluginDetailContent } from "@/components/plugin-detail-content"
 import { getTilesPlugin, getTilesPluginSkills, getTilesPlugins } from "@/lib/plugins"
 
+const DEFAULT_SOCIAL_IMAGE =
+  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+
 interface PluginPageProps {
   params: Promise<{
     slug: string
@@ -36,9 +39,10 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
       type: "website",
       images: [
         {
-          url: "https://www.tiles.run/api/og",
-          width: 1200,
-          height: 630,
+          url: DEFAULT_SOCIAL_IMAGE,
+          width: 1672,
+          height: 941,
+          type: "image/png",
           alt: `${plugin.name} | Tiles Plugins`,
         },
       ],
@@ -47,7 +51,7 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
       card: "summary_large_image",
       title: `${plugin.name} | Tiles Plugins`,
       description: plugin.description,
-      images: ["https://www.tiles.run/api/og"],
+      images: [DEFAULT_SOCIAL_IMAGE],
     },
   }
 }
