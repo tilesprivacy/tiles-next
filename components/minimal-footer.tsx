@@ -27,9 +27,14 @@ export function MinimalFooter() {
           India
         </address>
       </div>
-      <p>
-        Embed Tiles into your product with <Link href="/book/tilekit">Tilekit</Link>.
-      </p>
+      <div className="space-y-1">
+        <p className="lg:whitespace-nowrap">
+          Read the <Link href="/book/manual">User Manual</Link>.
+        </p>
+        <p className="lg:whitespace-nowrap">
+          Embed Tiles into your product with <Link href="/book/tilekit">Tilekit</Link>.
+        </p>
+      </div>
       <nav className="minimal-footer-links" aria-label="Footer links">
         <Link href="/sub-processors">Subprocessors</Link>
         <Link href="/terms">Terms</Link>
