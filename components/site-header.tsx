@@ -73,6 +73,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
     if (href === "/blog") return pathname === "/blog" || pathname.startsWith("/blog/")
     if (href === "/sponsor") return pathname === "/sponsor" || pathname.startsWith("/sponsor/")
     if (href === "/help") return pathname === "/help" || pathname.startsWith("/help/")
+    if (href === "/pricing") return pathname === "/pricing" || pathname.startsWith("/pricing/")
     if (href === "/download") return pathname === "/download" || pathname.startsWith("/download/")
     return pathname === href
   }
@@ -192,6 +193,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
             <nav className="hidden min-w-max items-center gap-8 lg:absolute lg:left-1/2 lg:flex lg:-translate-x-1/2 xl:gap-10">
               <Link href="/book" className={`${baseLinkClass} ${isRouteActive("/book") ? activeLinkClass : ""}`}>Book</Link>
               <Link href="/plugins" className={`${baseLinkClass} ${isRouteActive("/plugins") ? activeLinkClass : ""}`}>Plugins</Link>
+              <Link href="/pricing" className={`${baseLinkClass} ${isRouteActive("/pricing") ? activeLinkClass : ""}`}>Pricing</Link>
               <Link href="/blog" className={`${baseLinkClass} ${isRouteActive("/blog") ? activeLinkClass : ""}`}>Blog</Link>
               <Link href="/releases" className={`${baseLinkClass} ${isRouteActive("/releases") ? activeLinkClass : ""}`}>Releases</Link>
               <Link href="/help" className={`${baseLinkClass} ${isRouteActive("/help") ? activeLinkClass : ""}`}>Help</Link>
@@ -276,6 +278,7 @@ const SiteHeaderChrome = memo(function SiteHeaderChrome({
         <nav className={`flex flex-col gap-4 pb-[max(1.75rem,env(safe-area-inset-bottom,0px))] pt-4 sm:gap-5 sm:pt-5 ${mobileInlinePaddingClass}`}>
           <Link href="/book" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Book</Link>
           <Link href="/plugins" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Plugins</Link>
+          <Link href="/pricing" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Pricing</Link>
           <Link href="/blog" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Blog</Link>
           <Link href="/releases" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Releases</Link>
           <Link href="/help" onClick={onCloseMobileMenu} className={mobileMenuLinkClass}>Help</Link>

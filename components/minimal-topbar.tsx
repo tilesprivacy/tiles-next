@@ -22,11 +22,14 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
             ? pathname === "/releases" || pathname.startsWith("/releases/")
             : href === "/help"
               ? pathname === "/help" || pathname.startsWith("/help/")
-              : pathname === href
+              : href === "/pricing"
+                ? pathname === "/pricing" || pathname.startsWith("/pricing/")
+                : pathname === href
 
   const centerLinks = [
     ["/book", "Book"],
     ["/plugins", "Plugins"],
+    ["/pricing", "Pricing"],
     ["/blog", "Blog"],
     ["/releases", "Releases"],
     ["/help", "Help"],

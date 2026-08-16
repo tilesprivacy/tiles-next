@@ -90,6 +90,7 @@ export async function GET(request: Request) {
     `- Download: ${baseUrl}/download`,
     `- Book: ${baseUrl}/book`,
     `- Plugins: ${baseUrl}/plugins`,
+    `- Pricing: ${baseUrl}/pricing`,
     `- Blog: ${baseUrl}/blog`,
     `- Releases: ${baseUrl}/releases`,
     `- Help: ${baseUrl}/help`,
