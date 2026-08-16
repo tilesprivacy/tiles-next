@@ -96,7 +96,7 @@ export default UseCasesPage
 
 ## Polar.sh Integration (`/pricing`)
 
-Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There is exactly **one paid license, Tiles Pro** ($10 USD per user, per month). Checkout is live in code; what gates it is whether the secrets are present in the environment.
+Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There is exactly **one paid license, Tiles Pro** ($10 USD per user, per month). Checkout is **live**: `/pricing` opens Polar's embedded checkout against a public Checkout Link, which needs no secret. Webhooks still need `POLAR_WEBHOOK_SECRET` before entitlements can be granted.
 
 **Never commit real credentials.** Secrets belong in `.env.local` locally and in Vercel project settings in production. Product ids are not secrets and are committed.
 
@@ -105,14 +105,30 @@ Billing runs on [Polar](https://polar.sh), which acts as merchant of record. The
 | File | Role |
 | --- | --- |
 | `lib/pricing-plans.ts` | Canonical plan copy (Free, Tiles Pro), placeholder pill note, sections, FAQs |
-| `components/pricing-content.tsx` | `/pricing` UI. Takes `checkoutReady` as a prop and never reads `process.env` |
-| `app/pricing/page.tsx` | Route, metadata, and where `isPolarCheckoutConfigured()` is resolved |
-| `lib/polar.ts` | Server-only Polar config, live product id, spoofed secrets, configured checks |
+| `components/pricing-content.tsx` | `/pricing` UI. Takes `checkoutMode` as a prop and never reads `process.env` |
+| `components/polar-subscribe-button.tsx` | Client component that opens Polar's **embedded** checkout overlay |
+| `app/pricing/page.tsx` | Route, metadata, and where `getPolarCheckoutMode()` is resolved |
+| `lib/polar.ts` | Server-only Polar config, live product id, checkout link, spoofed secrets |
 | `lib/feature-flags.ts` | `POLAR_BILLING_ENABLED` master switch (currently `true`) |
-| `app/api/polar/checkout/pro/route.ts` | Tiles Pro checkout |
+| `app/api/polar/checkout/session/route.ts` | Mints a checkout session as JSON for the embed |
+| `app/api/polar/checkout/pro/route.ts` | Redirecting checkout, used as the no-JS fallback and from `licenses.mdx` |
 | `app/api/polar/webhooks/route.ts` | Webhook receiver |
 | `content/licenses.mdx` | Tiles Pro license page at `/book/licenses` |
 | `.env.example` | Env template (force-added; `.env*` is gitignored) |
+
+### Embedded checkout on `/pricing`
+
+Subscribe opens Polar's embedded checkout overlay (`PolarEmbedCheckout` from `@polar-sh/checkout/embed`) rather than navigating away. The embed needs a **URL it can put in an iframe**, and there are exactly two ways to get one. `getPolarCheckoutMode()` picks whichever is configured and `app/pricing/page.tsx` passes the result down as `checkoutMode`:
+
+| Mode | Requires | Behaviour |
+| --- | --- | --- |
+| `link` | `POLAR_PRO_CHECKOUT_LINK` | **Current mode.** Embed opens the public checkout link directly. No server round trip, no secrets |
+| `session` | `POLAR_ACCESS_TOKEN` | On click the browser POSTs `/api/polar/checkout/session`, which mints a fresh session, then the embed opens its URL |
+| `unavailable` | neither | Subscribe renders as a disabled button with an "unavailable" note |
+
+**A product id is not a checkout link.** `buy.polar.sh/<product-id>` soft-404s to the Polar homepage, so the embed URL cannot be derived from `POLAR_PRO_PRODUCT_ID` in the browser. Checkout Links are created in the Polar dashboard (**Checkout Links > New Link**) and are persistent; checkout **sessions** are short lived, which is why `session` mode mints one per click instead of at render time.
+
+The Subscribe anchor keeps a real `href` so the flow degrades to a full page checkout when JavaScript is unavailable: the checkout link in `link` mode, `/api/polar/checkout/pro` in `session` mode.
 
 ### Fail-closed model
 
@@ -121,20 +137,22 @@ Checkout and webhooks are gated independently, so a missing signing secret canno
 - `isPolarCheckoutConfigured()` = `POLAR_BILLING_ENABLED` **and** `POLAR_ACCESS_TOKEN` is not the spoofed placeholder.
 - `isPolarWebhookConfigured()` = `POLAR_BILLING_ENABLED` **and** `POLAR_WEBHOOK_SECRET` is not the spoofed placeholder.
 
-Both API routes call their check first and return `polarNotConfiguredResponse()` (503) **before** constructing any SDK client, so a placeholder secret never reaches Polar. `app/pricing/page.tsx` resolves `isPolarCheckoutConfigured()` server side and passes it to `PricingContent` as `checkoutReady`; when false the Subscribe action renders as a disabled button with an "unavailable" note instead of linking to a checkout that would 503.
+Every API route calls its check first and returns `polarNotConfiguredResponse()` (503) **before** constructing an SDK client, so a placeholder secret never reaches Polar.
 
 Setting `POLAR_BILLING_ENABLED` to `false` takes billing down everywhere without touching secrets.
 
 ### Packages
 
 - `@polar-sh/nextjs` (direct dependency) exports `Checkout`, `Webhooks`, and `CustomerPortal` route adapters. Prefer these.
-- `@polar-sh/sdk` exports the `Polar` client for direct API calls. It is currently only a **transitive** dependency of `@polar-sh/nextjs`; add it to `package.json` explicitly before importing it directly.
+- `@polar-sh/checkout` provides the **embedded** checkout. `PolarEmbedCheckout.create(url, { theme })` injects the overlay iframe; `PolarEmbedCheckout.init()` is the alternative that binds `[data-polar-checkout]` elements. The module is SSR safe (it guards `typeof window`), so it can be imported at the top of a client component.
+- `@polar-sh/sdk` exports the `Polar` client for direct API calls, and is a direct dependency.
 
 ### Environment variables
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `POLAR_ACCESS_TOKEN` | Yes, for checkout | Organization access token (`polar_oat_...`), from Polar **Settings > Developers** |
+| `POLAR_PRO_CHECKOUT_LINK` | One of these two | Public Polar Checkout Link (`https://buy.polar.sh/polar_cl_...`). Overrides the committed constant in `lib/polar.ts`, which is where it normally lives since it is not a secret |
+| `POLAR_ACCESS_TOKEN` | One of these two | Organization access token (`polar_oat_...`), from Polar **Settings > Developers**. Also required for direct API calls |
 | `POLAR_WEBHOOK_SECRET` | Yes, for webhooks | Webhook signing secret (`polar_whs_...`), from Polar **Settings > Webhooks** |
 | `POLAR_PRO_PRODUCT_ID` | No | Overrides the committed Tiles Pro product id. Only needed to point a preview build at a different product |
 | `POLAR_SERVER` | No | `production` (default) or `sandbox` |
@@ -197,8 +215,8 @@ Always gate these behind the matching `isPolar*Configured()` check, and never im
 
 ### Deploy checklist
 
-1. Set `POLAR_ACCESS_TOKEN` and `POLAR_WEBHOOK_SECRET` in Vercel. Checkout stays disabled and 503s until the token is present.
-2. Register the webhook endpoint in Polar and copy the signing secret.
+1. Subscribe is already live: `POLAR_PRO_CHECKOUT_LINK` in `lib/polar.ts` holds the Tiles Pro Checkout Link, so no secret is needed for checkout. If that link is ever revoked, either replace it from the Polar dashboard (**Checkout Links > New Link**) or set `POLAR_ACCESS_TOKEN` to fall back to session mode.
+2. Set `POLAR_WEBHOOK_SECRET` in Vercel, register the webhook endpoint in Polar, and copy the signing secret.
 3. Verify against `POLAR_SERVER=sandbox` before pointing at production.
 4. Fill in the webhook handler stubs so entitlements are actually granted and revoked.
 5. When pricing stops being provisional, drop `PRICING_PLACEHOLDER_NOTE` from `lib/pricing-plans.ts` (and its render in `components/pricing-content.tsx`), refresh the "Is this pricing final?" FAQ, and update the Availability section in `content/licenses.mdx`.

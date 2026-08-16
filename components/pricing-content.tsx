@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowUpRight, Check } from "lucide-react"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
+import { PolarSubscribeButton } from "@/components/polar-subscribe-button"
 import { SiteFooter } from "@/components/site-footer"
 import {
   downloadButtonMotionClasses,
@@ -11,6 +12,7 @@ import {
   marketingPageSectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
+import type { PolarCheckoutMode } from "@/lib/polar"
 import {
   PRICING_CHECKOUT_UNAVAILABLE_NOTE,
   PRICING_FAQS,
@@ -33,38 +35,42 @@ const faqLinkClass =
 
 interface PricingContentProps {
   /**
-   * Whether Polar checkout can actually run. Resolved server side in
+   * How the Subscribe action should behave. Resolved server side in
    * `app/pricing/page.tsx` so this component never touches `process.env`.
    */
-  checkoutReady: boolean
+  checkoutMode: PolarCheckoutMode
 }
 
 /**
- * Paid plan action. Renders disabled when checkout credentials are missing, so
- * the page never sends anyone to a checkout that would 503.
+ * Paid plan action. Opens Polar's embedded checkout when it is configured, and
+ * renders disabled otherwise so the page never points at a checkout that would
+ * fail.
  */
 function ProPlanCta({
   plan,
-  checkoutReady,
+  checkoutMode,
 }: {
   plan: PricingPlan
-  checkoutReady: boolean
+  checkoutMode: PolarCheckoutMode
 }) {
-  return checkoutReady ? (
-    <a
-      href="/api/polar/checkout/pro"
+  if (checkoutMode.kind === "unavailable") {
+    return (
+      <button
+        type="button"
+        disabled
+        className={`${ctaBaseClass} cursor-not-allowed border border-black/12 bg-transparent text-black/45 dark:border-white/15 dark:text-white/45`}
+      >
+        {plan.ctaLabel}
+      </button>
+    )
+  }
+
+  return (
+    <PolarSubscribeButton
+      mode={checkoutMode}
+      label={plan.ctaLabel}
       className={`${ctaBaseClass} ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
-    >
-      {plan.ctaLabel}
-    </a>
-  ) : (
-    <button
-      type="button"
-      disabled
-      className={`${ctaBaseClass} cursor-not-allowed border border-black/12 bg-transparent text-black/45 dark:border-white/15 dark:text-white/45`}
-    >
-      {plan.ctaLabel}
-    </button>
+    />
   )
 }
 
@@ -93,17 +99,20 @@ function FaqLink({ link }: { link: NonNullable<PricingFaq["link"]> }) {
 
 function PlanCard({
   plan,
-  checkoutReady,
+  checkoutMode,
 }: {
   plan: PricingPlan
-  checkoutReady: boolean
+  checkoutMode: PolarCheckoutMode
 }) {
   const surfaceClass = plan.highlighted
     ? "border-black/15 bg-black/[0.03] dark:border-white/20 dark:bg-white/[0.05]"
     : "border-black/8 bg-black/[0.015] dark:border-white/10 dark:bg-white/[0.025]"
 
   const isPro = plan.id === "pro"
-  const note = isPro && !checkoutReady ? PRICING_CHECKOUT_UNAVAILABLE_NOTE : plan.ctaNote
+  const note =
+    isPro && checkoutMode.kind === "unavailable"
+      ? PRICING_CHECKOUT_UNAVAILABLE_NOTE
+      : plan.ctaNote
 
   return (
     <article
@@ -143,7 +152,7 @@ function PlanCard({
 
       <div className="mt-auto pt-10">
         {isPro ? (
-          <ProPlanCta plan={plan} checkoutReady={checkoutReady} />
+          <ProPlanCta plan={plan} checkoutMode={checkoutMode} />
         ) : (
           <DownloadTilesCta label={plan.ctaLabel} className="w-full" />
         )}
@@ -155,7 +164,7 @@ function PlanCard({
   )
 }
 
-export function PricingContent({ checkoutReady }: PricingContentProps) {
+export function PricingContent({ checkoutMode }: PricingContentProps) {
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
       <main className="flex flex-1 flex-col px-4 pb-24 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pb-32 lg:pt-[calc(12.5rem+env(safe-area-inset-top,0px))]">
@@ -176,11 +185,7 @@ export function PricingContent({ checkoutReady }: PricingContentProps) {
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:mt-20">
             {PRICING_PLANS.map((plan) => (
-              <PlanCard
-                key={plan.id}
-                plan={plan}
-                checkoutReady={checkoutReady}
-              />
+              <PlanCard key={plan.id} plan={plan} checkoutMode={checkoutMode} />
             ))}
           </div>
 

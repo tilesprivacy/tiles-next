@@ -34,6 +34,23 @@ export const POLAR_PLACEHOLDER_WEBHOOK_SECRET =
  */
 export const POLAR_PRO_PRODUCT_ID = "98d19697-7811-437f-933e-c5a55caa9362"
 
+/**
+ * Public Polar Checkout Link for Tiles Pro, opened directly by the embedded
+ * checkout on `/pricing`.
+ *
+ * Create it in the Polar dashboard (**Checkout Links > New Link**, select the
+ * Tiles Pro product) and paste the resulting `https://buy.polar.sh/polar_cl_…`
+ * URL here. It is a public URL, safe to commit, and needs **no** access token:
+ * the embed loads it straight into an iframe.
+ *
+ * A product id is not a checkout link and cannot be turned into one from the
+ * browser, so this cannot be derived from `POLAR_PRO_PRODUCT_ID`. Clear it to
+ * fall back to creating a checkout session on demand, which needs
+ * `POLAR_ACCESS_TOKEN` instead.
+ */
+export const POLAR_PRO_CHECKOUT_LINK =
+  "https://buy.polar.sh/polar_cl_3LyXhxgqyNTiHERg0sdzEzKM7Z7jRxsFFH24d3asCns"
+
 export type PolarServer = "sandbox" | "production"
 
 function readEnv(name: string, fallback: string): string {
@@ -61,6 +78,43 @@ export function getPolarWebhookSecret(): string {
 /** Polar product id backing the Tiles Pro plan on `/pricing`. */
 export function getPolarProProductId(): string {
   return readEnv("POLAR_PRO_PRODUCT_ID", POLAR_PRO_PRODUCT_ID)
+}
+
+/**
+ * Public checkout link for Tiles Pro, or null when none is configured.
+ * `POLAR_PRO_CHECKOUT_LINK` in the environment overrides the committed value.
+ */
+export function getPolarProCheckoutLink(): string | null {
+  const value =
+    process.env.POLAR_PRO_CHECKOUT_LINK?.trim() || POLAR_PRO_CHECKOUT_LINK.trim()
+  return value ? value : null
+}
+
+/**
+ * How the Subscribe action on `/pricing` should behave.
+ *
+ * - `link`: a public checkout link exists, so the embed opens it directly with
+ *   no server round trip and no secrets.
+ * - `session`: no checkout link, but an access token is set, so the browser
+ *   asks `/api/polar/checkout/session` to mint a fresh checkout session on
+ *   click and the embed opens that. Sessions are short lived, which is why
+ *   they are created on demand rather than at render time.
+ * - `unavailable`: neither is configured, so the action renders disabled.
+ */
+export type PolarCheckoutMode =
+  | { kind: "link"; url: string }
+  | { kind: "session" }
+  | { kind: "unavailable" }
+
+export function getPolarCheckoutMode(): PolarCheckoutMode {
+  if (!POLAR_BILLING_ENABLED) return { kind: "unavailable" }
+
+  const link = getPolarProCheckoutLink()
+  if (link) return { kind: "link", url: link }
+
+  if (!isPolarPlaceholder(getPolarAccessToken())) return { kind: "session" }
+
+  return { kind: "unavailable" }
 }
 
 /** True when a value is still one of the spoofed placeholders above. */
