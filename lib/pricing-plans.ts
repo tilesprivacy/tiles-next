@@ -85,9 +85,9 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Supports independent development and the services we host.",
     featuresIntro: "Everything in Free, plus",
     features: [
+      "Managed public relays for P2P network",
       "Unlimited private web searches",
       "Access to private cloud models",
-      "Managed public relays",
       "Data backup and key recovery",
     ],
     ctaLabel: "Subscribe",
