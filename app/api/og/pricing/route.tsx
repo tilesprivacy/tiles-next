@@ -174,7 +174,7 @@ export function GET() {
                 style={{
                   position: "relative",
                   display: "flex",
-                  width: "calc(50% - 9px)",
+                  flex: 1,
                   minHeight: 326,
                   flexDirection: "column",
                   overflow: "hidden",
