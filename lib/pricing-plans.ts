@@ -187,7 +187,7 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Who handles payments?",
     answer:
-      "Polar acts as merchant of record on behalf of Tiles Privacy Technologies Pvt. Ltd., with Stripe as payments facilitator. Your card details never reach us.",
+      "Polar acts as merchant of record on behalf of Tiles Privacy Technologies Pvt. Ltd. Your card details never reach us.",
     link: { label: "See licenses", href: "/book/licenses" },
   },
   {
