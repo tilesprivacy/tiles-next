@@ -66,6 +66,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Everything that runs on your own hardware.",
     featuresIntro: "Included",
     features: [
+      "Unlimited local AI and remote inference",
       "Limited private web searches",
       "All client side features that run locally",
       "All collaboration features, including shared chats on the web",
