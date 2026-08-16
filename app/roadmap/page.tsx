@@ -3,6 +3,9 @@ import { Suspense } from "react"
 import { RoadmapContent } from "@/components/roadmap-content"
 import { getRoadmapNotesMap } from "@/lib/roadmap-notes-server"
 
+const DEFAULT_SOCIAL_IMAGE =
+  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+
 export const metadata: Metadata = {
   title: "Roadmap | Tiles",
   description: "Tiles roadmap and implementation priorities.",
@@ -13,9 +16,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og?page=roadmap",
-        width: 1200,
-        height: 630,
+        url: DEFAULT_SOCIAL_IMAGE,
+        width: 1672,
+        height: 941,
+        type: "image/png",
         alt: "Roadmap | Tiles",
       },
     ],
@@ -24,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Roadmap | Tiles",
     description: "Tiles roadmap and implementation priorities.",
-    images: ["https://www.tiles.run/api/og?page=roadmap"],
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
 }
 
