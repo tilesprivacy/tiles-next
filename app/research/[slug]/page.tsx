@@ -5,6 +5,8 @@ import { ResearchLogMdx } from "@/components/research-log-mdx"
 import { getResearchLogEntryById, getResearchLogEntryIds } from "@/lib/research-log"
 
 const baseUrl = "https://www.tiles.run"
+const DEFAULT_SOCIAL_IMAGE =
+  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
 
 type ResearchExplorationPageProps = {
   params: Promise<{ slug: string }>
@@ -38,9 +40,10 @@ export async function generateMetadata({ params }: ResearchExplorationPageProps)
       type: "article",
       images: [
         {
-          url: "/api/og",
-          width: 1200,
-          height: 630,
+          url: DEFAULT_SOCIAL_IMAGE,
+          width: 1672,
+          height: 941,
+          type: "image/png",
           alt: ogTitle,
         },
       ],
@@ -49,7 +52,7 @@ export async function generateMetadata({ params }: ResearchExplorationPageProps)
       card: "summary_large_image",
       title: ogTitle,
       description: entry.description,
-      images: ["/api/og"],
+      images: [DEFAULT_SOCIAL_IMAGE],
     },
   }
 }
