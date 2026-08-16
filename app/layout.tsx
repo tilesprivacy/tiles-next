@@ -22,6 +22,9 @@ const geistMono = Geist_Mono({
   preload: true,
 })
 
+const DEFAULT_SOCIAL_IMAGE =
+  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -72,9 +75,10 @@ export const metadata: Metadata = {
     siteName: "Tiles Privacy",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
-        width: 1200,
-        height: 630,
+        url: DEFAULT_SOCIAL_IMAGE,
+        width: 1672,
+        height: 941,
+        type: "image/png",
         alt: TILES_SITE_TITLE,
       },
     ],
@@ -84,7 +88,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: TILES_SITE_TITLE,
     description: TILES_PRODUCT_DESCRIPTION,
-    images: ["https://www.tiles.run/api/og"],
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
 }
 
