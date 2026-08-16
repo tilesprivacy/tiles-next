@@ -21,7 +21,6 @@ export function AnalyticsConsent() {
   useEffect(() => {
     const storedChoice = readAnalyticsConsent()
     setChoice(storedChoice)
-    setIsOpen(storedChoice === null)
     setIsReady(true)
 
     const openConsent = () => {
