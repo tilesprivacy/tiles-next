@@ -154,8 +154,10 @@ export function HomeContent() {
           A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
-        <MinimalDownload />
-        <GemmaInferenceNote />
+        <div className="absolute left-1/2 top-[calc(50%+93px)] flex -translate-x-1/2 flex-col items-center">
+          <MinimalDownload />
+          <GemmaInferenceNote />
+        </div>
       </section>
 
       <div className="minimal-hero-device">
