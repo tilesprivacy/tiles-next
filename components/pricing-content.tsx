@@ -97,6 +97,22 @@ function FaqLink({ link }: { link: NonNullable<PricingFaq["link"]> }) {
   )
 }
 
+function FeatureList({ features }: { features: string[] }) {
+  return (
+    <ul className="mt-4 flex flex-col gap-3.5">
+      {features.map((feature) => (
+        <li
+          key={feature}
+          className="flex gap-2.5 text-sm leading-6 text-foreground/85"
+        >
+          <Check className="mt-[0.3rem] h-3.5 w-3.5 shrink-0" aria-hidden />
+          <span>{feature}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 function PlanCard({
   plan,
   checkoutMode,
@@ -138,17 +154,17 @@ function PlanCard({
       <p className="mt-9 text-[0.6875rem] font-medium uppercase tracking-[0.09em] text-black/45 dark:text-white/45">
         {plan.featuresIntro}
       </p>
-      <ul className="mt-4 flex flex-col gap-3.5">
-        {plan.features.map((feature) => (
-          <li
-            key={feature}
-            className="flex gap-2.5 text-sm leading-6 text-foreground/85"
-          >
-            <Check className="mt-[0.3rem] h-3.5 w-3.5 shrink-0" aria-hidden />
-            <span>{feature}</span>
-          </li>
-        ))}
-      </ul>
+      {isPro ? (
+        <>
+          <FeatureList features={plan.features.slice(0, 1)} />
+          <p className="mt-7 text-[0.6875rem] font-medium uppercase tracking-[0.09em] text-black/45 dark:text-white/45">
+            Shipping Q3 2026
+          </p>
+          <FeatureList features={plan.features.slice(1)} />
+        </>
+      ) : (
+        <FeatureList features={plan.features} />
+      )}
 
       <div className="mt-auto pt-10">
         {isPro ? (
