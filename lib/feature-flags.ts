@@ -2,11 +2,12 @@
 export const SHOW_REMOTE_LINK = false
 
 /**
- * Set to true when Polar billing goes live at the 0.5.0 Private Beta.
+ * Master switch for Polar billing. On, so `/pricing` offers a real checkout.
  *
- * While false, `/pricing` renders as a placeholder (no checkout link) and the
- * Polar API routes short-circuit before touching the SDK. Flipping this alone
- * is not enough: real Polar credentials also have to replace the spoofed
- * placeholders in `lib/polar.ts`. See "Polar.sh Integration" in AGENTS.md.
+ * This alone does not make checkout work: `POLAR_ACCESS_TOKEN` must also be set
+ * in the environment, otherwise `isPolarCheckoutConfigured()` in `lib/polar.ts`
+ * stays false, the Subscribe action renders disabled, and the route returns
+ * 503. Set this to false to take billing down without touching secrets.
+ * See "Polar.sh Integration" in AGENTS.md.
  */
-export const POLAR_BILLING_ENABLED: boolean = false
+export const POLAR_BILLING_ENABLED: boolean = true

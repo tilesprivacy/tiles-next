@@ -68,7 +68,7 @@ const bookPages: BookPage[] = [
   // {
   //   number: '09',
   //   title: 'Licenses',
-  //   description: 'Backer and Commercial licenses, payment terms, and purchasing options.',
+  //   description: 'The Tiles Pro license, payment terms, and purchasing options.',
   //   href: '/book/licenses',
   // },
 ]

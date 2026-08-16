@@ -1,8 +1,10 @@
 /**
  * Canonical pricing copy for `/pricing`.
  *
- * The page is a placeholder until the 0.5.0 Private Beta, so plan names,
- * prices, and limits here are provisional and nothing is billable yet.
+ * There is exactly one paid license, Tiles Pro. Plans and included services
+ * stay provisional until the 0.5.0 Private Beta, which is what the placeholder
+ * pill on the page communicates, but checkout itself is live.
+ *
  * `components/pricing-content.tsx` reads everything from this module so the
  * copy lives in one place.
  *
@@ -10,11 +12,11 @@
  * not sentences. Keep it that way when editing.
  *
  * Related sources to keep aligned when these change:
- * - `content/licenses.mdx` (Backer and Commercial licenses at `/book/licenses`)
- * - `lib/polar.ts` (the Polar product each paid plan maps to)
+ * - `content/licenses.mdx` (the Tiles Pro license page at `/book/licenses`)
+ * - `lib/polar.ts` (the Polar product Tiles Pro maps to)
  */
 
-/** Release that turns this page from a placeholder into real pricing. */
+/** Release that firms up provisional pricing. */
 export const PRICING_BETA_RELEASE = "0.5.0 Private Beta"
 
 /** Scheduled window for that release. */
@@ -23,13 +25,14 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 export const PRICING_PAGE_TITLE = "Pricing"
 
 export const PRICING_PAGE_DESCRIPTION =
-  "Tiles is free. A paid plan funds independent development and the services we host for you."
+  "Tiles is free. Tiles Pro funds independent development and the services we host for you."
 
-/** Short badge label on the placeholder notice. */
-export const PRICING_PLACEHOLDER_LABEL = "Placeholder"
-
-/** One-line placeholder notice shown under the hero. */
+/** One-line notice shown as a pill under the hero. */
 export const PRICING_PLACEHOLDER_NOTE = `Pricing goes live with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}.`
+
+/** Shown under the paid action when checkout credentials are missing. */
+export const PRICING_CHECKOUT_UNAVAILABLE_NOTE =
+  "Checkout is temporarily unavailable. Please try again shortly."
 
 export type PricingPlanId = "free" | "pro"
 
@@ -46,7 +49,7 @@ export interface PricingPlan {
   /** Short scannable labels, one line each. */
   features: string[]
   ctaLabel: string
-  /** Note under the action explaining current availability. */
+  /** Note under the action. */
   ctaNote: string
   /** Draws the accent border on the paid plan. */
   highlighted: boolean
@@ -70,7 +73,7 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
   {
     id: "pro",
-    name: "Pro",
+    name: "Tiles Pro",
     price: "$10",
     cadence: "per month",
     tagline: "Supports independent development and the services we host.",
@@ -82,7 +85,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Data backup and key recovery",
     ],
     ctaLabel: "Subscribe",
-    ctaNote: `Opens with the ${PRICING_BETA_RELEASE}.`,
+    ctaNote: "Cancel anytime. Payments handled by Polar.",
     highlighted: true,
   },
 ]
@@ -96,33 +99,47 @@ export interface PricingSection {
 export const PRICING_SECTIONS: PricingSection[] = [
   {
     title: "Independent by design",
-    body: "Tiles is funded by the people who use it. No ads, no trackers, no data resale. Paid plans are what let a small team keep working on it.",
+    body: "Tiles is funded by the people who use it. No ads, no trackers, no data resale. Tiles Pro is what lets a small team keep working on it.",
   },
   {
     title: "Free stays free",
-    body: "Everything that runs on your own hardware stays free, without limits. Pro covers only the services we host on your behalf.",
+    body: "Everything that runs on your own hardware stays free, without limits. Tiles Pro covers only the services we host on your behalf.",
   },
 ]
 
 export interface PricingFaq {
   question: string
   answer: string
-  link?: { label: string; href: string }
+  link?: { label: string; href: string; external?: boolean }
 }
 
 export const PRICING_FAQS: PricingFaq[] = [
   {
-    question: "When does billing start?",
-    answer: `With the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Nothing is billable until then.`,
+    question: "Is this pricing final?",
+    answer: `No. Plans and included services stay provisional until the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}.`,
   },
   {
     question: "Do I need an account?",
     answer: "No. Every local feature works without one.",
   },
   {
-    question: "Is there a plan for teams?",
-    answer: "Backer and Commercial licenses cover individuals and organizations.",
-    link: { label: "See licenses", href: "/book/licenses" },
+    question: "Can I use Tiles for work?",
+    answer: "Yes. Tiles Pro covers commercial use. Get in touch for bulk purchases.",
+    link: {
+      label: "support@tiles.run",
+      href: "mailto:support@tiles.run",
+      external: true,
+    },
+  },
+  {
+    question: "How do I manage my subscription?",
+    answer:
+      "License keys, renewals, and billing details live in the Polar customer portal.",
+    link: {
+      label: "Open customer portal",
+      href: "https://polar.sh/tilesprivacy/portal/",
+      external: true,
+    },
   },
   {
     question: "Can I support the project another way?",

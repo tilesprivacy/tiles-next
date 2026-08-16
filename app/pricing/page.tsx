@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { PricingContent } from "@/components/pricing-content"
+import { isPolarCheckoutConfigured } from "@/lib/polar"
 import { PRICING_PAGE_DESCRIPTION } from "@/lib/pricing-plans"
 
 const title = "Pricing | Tiles"
@@ -32,5 +33,6 @@ export const metadata: Metadata = {
 }
 
 export default function PricingPage() {
-  return <PricingContent />
+  // Resolved here so the client-facing component never reads process.env.
+  return <PricingContent checkoutReady={isPolarCheckoutConfigured()} />
 }

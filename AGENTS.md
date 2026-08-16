@@ -96,33 +96,34 @@ export default UseCasesPage
 
 ## Polar.sh Integration (`/pricing`)
 
-Billing runs on [Polar](https://polar.sh), which acts as merchant of record. The integration is **scaffolded but deliberately inert**: `/pricing` is a placeholder until the **0.5.0 Private Beta** (scheduled for the last week of Q3 2026), every credential is a spoofed placeholder, and nothing can transact.
+Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There is exactly **one paid license, Tiles Pro** ($10 USD per user, per month). Checkout is live in code; what gates it is whether the secrets are present in the environment.
 
-**Do not wire real credentials into the repo.** Secrets belong in `.env.local` locally and in Vercel project settings in production.
+**Never commit real credentials.** Secrets belong in `.env.local` locally and in Vercel project settings in production. Product ids are not secrets and are committed.
 
 ### Current files
 
 | File | Role |
 | --- | --- |
-| `lib/pricing-plans.ts` | Canonical plan copy (Free, Pro `$10/month`), placeholder notice, beta window |
-| `components/pricing-content.tsx` | `/pricing` UI, reads plan copy from `lib/pricing-plans.ts` |
-| `app/pricing/page.tsx` | Route and metadata |
-| `lib/polar.ts` | Server-only Polar config, spoofed placeholders, `isPolarBillingLive()` |
-| `lib/feature-flags.ts` | `POLAR_BILLING_ENABLED` master switch |
-| `app/api/polar/checkout/pro/route.ts` | Pro subscription checkout (returns 503 while inert) |
-| `app/api/polar/webhooks/route.ts` | Webhook receiver (returns 503 while inert) |
-| `app/api/polar/checkout/backer/route.ts` | Existing Backer license checkout |
-| `app/api/polar/checkout/commercial/route.ts` | Existing Commercial license checkout |
-| `.env.example` | Spoofed env template (force-added; `.env*` is gitignored) |
+| `lib/pricing-plans.ts` | Canonical plan copy (Free, Tiles Pro), placeholder pill note, sections, FAQs |
+| `components/pricing-content.tsx` | `/pricing` UI. Takes `checkoutReady` as a prop and never reads `process.env` |
+| `app/pricing/page.tsx` | Route, metadata, and where `isPolarCheckoutConfigured()` is resolved |
+| `lib/polar.ts` | Server-only Polar config, live product id, spoofed secrets, configured checks |
+| `lib/feature-flags.ts` | `POLAR_BILLING_ENABLED` master switch (currently `true`) |
+| `app/api/polar/checkout/pro/route.ts` | Tiles Pro checkout |
+| `app/api/polar/webhooks/route.ts` | Webhook receiver |
+| `content/licenses.mdx` | Tiles Pro license page at `/book/licenses` |
+| `.env.example` | Env template (force-added; `.env*` is gitignored) |
 
-### Two-part safety interlock
+### Fail-closed model
 
-Billing only runs when **both** conditions hold, so flipping one alone fails closed:
+Checkout and webhooks are gated independently, so a missing signing secret cannot take down checkout and vice versa:
 
-1. `POLAR_BILLING_ENABLED` is `true` in `lib/feature-flags.ts`.
-2. Every credential from `lib/polar.ts` is a real value, not a `SPOOFED_PLACEHOLDER`.
+- `isPolarCheckoutConfigured()` = `POLAR_BILLING_ENABLED` **and** `POLAR_ACCESS_TOKEN` is not the spoofed placeholder.
+- `isPolarWebhookConfigured()` = `POLAR_BILLING_ENABLED` **and** `POLAR_WEBHOOK_SECRET` is not the spoofed placeholder.
 
-`isPolarBillingLive()` checks both. API routes call it first and return `polarBillingNotLiveResponse()` (503) before constructing any SDK client, so a spoofed token never reaches Polar. `components/pricing-content.tsx` branches on `POLAR_BILLING_ENABLED` alone, because `lib/polar.ts` reads `process.env` and must stay server-only.
+Both API routes call their check first and return `polarNotConfiguredResponse()` (503) **before** constructing any SDK client, so a placeholder secret never reaches Polar. `app/pricing/page.tsx` resolves `isPolarCheckoutConfigured()` server side and passes it to `PricingContent` as `checkoutReady`; when false the Subscribe action renders as a disabled button with an "unavailable" note instead of linking to a checkout that would 503.
+
+Setting `POLAR_BILLING_ENABLED` to `false` takes billing down everywhere without touching secrets.
 
 ### Packages
 
@@ -131,21 +132,23 @@ Billing only runs when **both** conditions hold, so flipping one alone fails clo
 
 ### Environment variables
 
-| Variable | Purpose |
-| --- | --- |
-| `POLAR_ACCESS_TOKEN` | Organization access token (`polar_oat_...`), from Polar **Settings > Developers** |
-| `POLAR_WEBHOOK_SECRET` | Webhook signing secret (`polar_whs_...`), from Polar **Settings > Webhooks** |
-| `POLAR_PRO_PRODUCT_ID` | Product id backing the `$10/month` Pro plan |
-| `POLAR_SERVER` | `sandbox` (default) or `production`. Defaults to sandbox so a stray token cannot charge anyone |
-| `NEXT_PUBLIC_SITE_URL` | Origin for `successUrl` / `returnUrl` via `getSiteUrl()` in `lib/site-url.ts` |
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `POLAR_ACCESS_TOKEN` | Yes, for checkout | Organization access token (`polar_oat_...`), from Polar **Settings > Developers** |
+| `POLAR_WEBHOOK_SECRET` | Yes, for webhooks | Webhook signing secret (`polar_whs_...`), from Polar **Settings > Webhooks** |
+| `POLAR_PRO_PRODUCT_ID` | No | Overrides the committed Tiles Pro product id. Only needed to point a preview build at a different product |
+| `POLAR_SERVER` | No | `production` (default) or `sandbox` |
+| `NEXT_PUBLIC_SITE_URL` | In dev | Origin for `successUrl` / `returnUrl` via `getSiteUrl()` in `lib/site-url.ts` |
 
-### Checkout routes
+The live Tiles Pro product id is `98d19697-7811-437f-933e-c5a55caa9362`, committed as `POLAR_PRO_PRODUCT_ID` in `lib/polar.ts`.
 
-`Checkout()` instantiates a `Polar` client immediately, so build the handler **lazily inside** the live check rather than at module scope:
+### Checkout route
+
+`Checkout()` instantiates a `Polar` client immediately, so build the handler **lazily inside** the configured check rather than at module scope:
 
 ```ts
 export async function GET(request: NextRequest) {
-  if (!isPolarBillingLive()) return polarBillingNotLiveResponse()
+  if (!isPolarCheckoutConfigured()) return polarNotConfiguredResponse()
 
   const url = new URL(request.url)
   if (!url.searchParams.has("products")) {
@@ -163,17 +166,17 @@ export async function GET(request: NextRequest) {
 }
 ```
 
-The adapter reads `products` from query params and 400s when absent, so defaulting the product id server side keeps it out of the client bundle. `successUrl` gets a `checkoutId={CHECKOUT_ID}` param appended automatically. Other supported query params include `customerEmail`, `customerExternalId`, `discountId`, `seats`, and `metadata`.
+The adapter reads `products` from query params and 400s when absent, so defaulting the product id server side keeps `/api/polar/checkout/pro` callable with no query string. `successUrl` gets a `checkoutId={CHECKOUT_ID}` param appended automatically. Other supported query params include `customerEmail`, `customerExternalId`, `discountId`, `seats`, and `metadata`.
 
 ### Webhooks
 
 Register `https://www.tiles.run/api/polar/webhooks` in Polar **Settings > Webhooks**. The `Webhooks()` adapter validates the signature and dispatches typed handlers: `onOrderPaid`, `onSubscriptionCreated`, `onSubscriptionActive`, `onSubscriptionUpdated`, `onSubscriptionCanceled`, `onSubscriptionRevoked`, `onSubscriptionUncanceled`, plus a catch-all `onPayload`.
 
-Grant entitlements on `onSubscriptionActive` and revoke on `onSubscriptionRevoked`. Treat `onSubscriptionCanceled` as "ends at period end", not immediate loss of access. Handlers must be idempotent, since Polar retries on non-2xx.
+Grant entitlements on `onSubscriptionActive` and revoke on `onSubscriptionRevoked`. Treat `onSubscriptionCanceled` as "ends at period end", not immediate loss of access. Handlers must be idempotent, since Polar retries on non-2xx. The handler bodies are still `TODO` stubs that only log.
 
 ### Customer portal
 
-`content/licenses.mdx` links the hosted portal at `https://polar.sh/tilesprivacy/portal/` for license keys, renewals, billing, and purchase details. Keep using the hosted link unless an authenticated in-app portal is needed; only then add a `CustomerPortal({ accessToken, server, getCustomerId })` route, which requires resolving the signed-in customer.
+`content/licenses.mdx` and the `/pricing` FAQ link the hosted portal at `https://polar.sh/tilesprivacy/portal/` for license keys, renewals, billing, and purchase details. Keep using the hosted link unless an authenticated in-app portal is needed; only then add a `CustomerPortal({ accessToken, server, getCustomerId })` route, which requires resolving the signed-in customer.
 
 ### Direct SDK calls
 
@@ -190,17 +193,15 @@ const polar = new Polar({
 const products = await polar.products.list({ isArchived: false })
 ```
 
-Always gate these behind `isPolarBillingLive()` too, and never import them into client components.
+Always gate these behind the matching `isPolar*Configured()` check, and never import them into client components.
 
-### Go-live checklist
+### Deploy checklist
 
-1. Create the Pro subscription product (`$10/month`) in the Polar dashboard and copy its product id.
-2. Create an organization access token with checkout and subscription scopes.
-3. Set `POLAR_ACCESS_TOKEN`, `POLAR_WEBHOOK_SECRET`, `POLAR_PRO_PRODUCT_ID`, and `POLAR_SERVER=production` in Vercel.
-4. Register the webhook endpoint and copy the signing secret.
-5. Verify end to end against `POLAR_SERVER=sandbox` first.
-6. Flip `POLAR_BILLING_ENABLED` to `true` in `lib/feature-flags.ts`. The Pro CTA on `/pricing` turns from a disabled button into a link to `/api/polar/checkout/pro`.
-7. Remove the placeholder notice from `lib/pricing-plans.ts` (`PRICING_PLACEHOLDER_LABEL` / `PRICING_PLACEHOLDER_NOTE`), update `ctaNote` on the Pro plan, and refresh the "When does billing start?" entry in `PRICING_FAQS`.
+1. Set `POLAR_ACCESS_TOKEN` and `POLAR_WEBHOOK_SECRET` in Vercel. Checkout stays disabled and 503s until the token is present.
+2. Register the webhook endpoint in Polar and copy the signing secret.
+3. Verify against `POLAR_SERVER=sandbox` before pointing at production.
+4. Fill in the webhook handler stubs so entitlements are actually granted and revoked.
+5. When pricing stops being provisional, drop `PRICING_PLACEHOLDER_NOTE` from `lib/pricing-plans.ts` (and its render in `components/pricing-content.tsx`), refresh the "Is this pricing final?" FAQ, and update the Availability section in `content/licenses.mdx`.
 
 ## Learned User Preferences
 
@@ -227,7 +228,7 @@ Always gate these behind `isPolarBillingLive()` too, and never import them into 
 - On `/share`, link footer `at://` source URIs to `https://atproto.at/uri/` with the full URI URL-encoded (not atexplore.social). Render assistant LaTeX via Streamdown with `@streamdown/math` after normalizing Tiles `\(...\)` / `\[...\]` delimiters through `lib/normalize-share-math-markdown.ts`.
 - Footer Google Translate wiring lives in `components/footer-language-selector.tsx`; restoring English clears `googtrans` across host variants then drives the hidden `.goog-te-combo` back to the empty “original” option (avoid full reload so scroll position stays stable). If the combo is not ready yet, the same RAF poll as other languages runs, with reload only as a last-resort timeout fallback. Footer `TechAttribution` should take an explicit light/dark `variant` from `SiteFooter` theme state instead of `dark:` Tailwind classes so it stays aligned with the blocking theme script and avoids hydration mismatches.
 - Nextra book MDX can produce fragile auto-generated heading slugs; prefer plain in-section references (for example “see step 3 below”) for cross-references inside a page unless stable explicit heading ids are verified for the theme. Blog posts that mirror body HTML in `lib/blog-post-*-content.ts` (for example RSS and reading-time strings) should be edited in both the App Router `page.tsx` and that companion `lib` file so on-site and syndicated content stay aligned. `coverImage` in `lib/blog-posts.ts` feeds Open Graph (`layout.tsx` / `getBlogPostSocialImageUrl`) and the blog listing carousel, not the post-page hero unless explicitly passed to `BlogPostContent`.
-- Keep paired content sources in sync: canonical product copy lives in `lib/product-description.ts` (`TILES_HOMEPAGE_DESCRIPTION` for homepage metadata and the default OG image tagline; `TILES_PRODUCT_DESCRIPTION` for hero, download, emails, and LLM indexes; `TILES_PRODUCT_DESCRIPTION_SHORT` for blog and research article footers; `DOWNLOAD_PLATFORM_SUBTEXT` for the compact platform line under Download Tiles CTAs) and should stay aligned with homepage hero copy and `app/api/llms/route.ts`; homepage “Why Tiles” tagline and `whyTilesBullets` in `lib/why-tiles-content.ts` (via `components/why-tiles-section.tsx`) and the matching Why Tiles line in `app/api/llms-full/route.ts` should be updated together; the homepage Private AI comparison table in `components/book-marketing-sections.tsx` / `content/overview.mdx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix (use **Plugins**, not Connectors, keep the Plugins row with a Tiles checkmark when shipped and gate the Remote Link comparison row behind `SHOW_REMOTE_LINK` in `lib/feature-flags.ts`, and keep **Open source** as the last row); plan copy for `/pricing` lives in `lib/pricing-plans.ts` (rendered by `components/pricing-content.tsx`) and should stay aligned with the “What it includes” sections in `content/licenses.mdx`; `/pricing` is public but is a placeholder until the 0.5.0 Private Beta, so it is listed in the sitemap while staying out of the top nav and LLM indexes until billing goes live, Polar success flows point to `/download` and the Pro return/cancel flow to `/pricing` (see **Polar.sh Integration** above); the public `/use-case` page is intentionally offline with implementation archived in `components/archived/use-cases-page.tsx` (see **Archived Use Cases Page** above for restore steps), so keep it out of nav, sitemap, and LLM indexes until restored; `content/licenses.mdx` should keep the Polar checkout details focused on the Customer portal with the live `https://polar.sh/tilesprivacy/portal/` link for license keys, renewals, billing, and purchase details; and each roadmap item in `lib/roadmap-data.ts` needs a matching `roadmap-notes/<track>/<item>.md` file because missing notes throw at runtime. The roadmap notes side pane should scroll independently of the main roadmap column, `/roadmap` main content top spacing should match blog and changelog pages, and the roadmap notes markdown pane uses `components/roadmap-notes-markdown.tsx` with real heading components for `h1`–`h6` (mapping them to null hides every Markdown heading in that pane). Research explorations are defined in `lib/research-log.ts` (`RESEARCH_PAGE_INTRO` for the `/research` intro, page metadata, and Research bullet in `app/api/llms/route.ts`; append new entries only to the end of `RESEARCH_LOG_ENTRIES`; cite explorations by month rather than a numeric index); former `/book/memory` content lives on `/research` routes and archived MDX under `content/_archived/`. On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.
+- Keep paired content sources in sync: canonical product copy lives in `lib/product-description.ts` (`TILES_HOMEPAGE_DESCRIPTION` for homepage metadata and the default OG image tagline; `TILES_PRODUCT_DESCRIPTION` for hero, download, emails, and LLM indexes; `TILES_PRODUCT_DESCRIPTION_SHORT` for blog and research article footers; `DOWNLOAD_PLATFORM_SUBTEXT` for the compact platform line under Download Tiles CTAs) and should stay aligned with homepage hero copy and `app/api/llms/route.ts`; homepage “Why Tiles” tagline and `whyTilesBullets` in `lib/why-tiles-content.ts` (via `components/why-tiles-section.tsx`) and the matching Why Tiles line in `app/api/llms-full/route.ts` should be updated together; the homepage Private AI comparison table in `components/book-marketing-sections.tsx` / `content/overview.mdx` and the matching “Private AI comparison” bullet lines in `app/api/llms/route.ts` should be updated together so `/llms.txt` stays consistent with the live matrix (use **Plugins**, not Connectors, keep the Plugins row with a Tiles checkmark when shipped and gate the Remote Link comparison row behind `SHOW_REMOTE_LINK` in `lib/feature-flags.ts`, and keep **Open source** as the last row); plan copy for `/pricing` lives in `lib/pricing-plans.ts` (rendered by `components/pricing-content.tsx`) and its Tiles Pro feature labels should stay aligned with the “What it includes” section in `content/licenses.mdx`; there is exactly one paid license, **Tiles Pro** ($10 per user per month), so do not reintroduce Backer or Commercial tiers; `/pricing` is live in the top nav, the sitemap, and the Primary Pages list in `app/api/llms/route.ts` (the **live** top nav is `centerLinks` in `components/minimal-topbar.tsx`, which drives both the desktop row and the mobile menu; `SiteHeader` in `components/site-header.tsx` just delegates to it and that file's own `SiteHeaderChrome` nav markup is currently unreachable, so change both to keep them from drifting), pricing stays provisional until the 0.5.0 Private Beta via the placeholder pill under the hero, and Polar success flows point to `/download` with the return/cancel flow to `/pricing` (see **Polar.sh Integration** above); the public `/use-case` page is intentionally offline with implementation archived in `components/archived/use-cases-page.tsx` (see **Archived Use Cases Page** above for restore steps), so keep it out of nav, sitemap, and LLM indexes until restored; `content/licenses.mdx` should keep the Polar checkout details focused on the Customer portal with the live `https://polar.sh/tilesprivacy/portal/` link for license keys, renewals, billing, and purchase details; and each roadmap item in `lib/roadmap-data.ts` needs a matching `roadmap-notes/<track>/<item>.md` file because missing notes throw at runtime. The roadmap notes side pane should scroll independently of the main roadmap column, `/roadmap` main content top spacing should match blog and changelog pages, and the roadmap notes markdown pane uses `components/roadmap-notes-markdown.tsx` with real heading components for `h1`–`h6` (mapping them to null hides every Markdown heading in that pane). Research explorations are defined in `lib/research-log.ts` (`RESEARCH_PAGE_INTRO` for the `/research` intro, page metadata, and Research bullet in `app/api/llms/route.ts`; append new entries only to the end of `RESEARCH_LOG_ENTRIES`; cite explorations by month rather than a numeric index); former `/book/memory` content lives on `/research` routes and archived MDX under `content/_archived/`. On both subprocessors routes (`/subprocessors` and `/sub-processors`), Vercel’s purpose should be described as website hosting only.
 - The macOS uninstaller skill at `public/tiles-uninstaller-skill/SKILL.md` (legacy copy `public/tiles-uninstaller-skill.md`, linked from `content/manual.mdx`) should preserve user config and data by default; remove config or wipe user data only when explicitly requested.
 - Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing  `@handle`, which the UI shows as a distinct handle segment instead of stripping it silently. Some posts duplicate byline markup in their own `app/blog/*/page.tsx`; keep those copies aligned when changing `components/blog-post-content.tsx`.
 - Banner wordmark SVGs exported on oversized artboards can add large transparent margins; cropping the SVG `viewBox` (or similar) is often needed when tightening whitespace around homepage, about-page, or `/brand` banner sections. `public/_pagefind/` build artifacts belong in `.gitignore`. The `/brand` page credits visual identity work to Darkshapes (https://darkshapes.org) with the Darkshapes logo mark. Favicon SVGs should use a square viewport for common audits. In static `public/index.html`, use root-relative asset URLs; Next.js does not substitute `%PUBLIC_URL%` (unlike CRA). Files named `icon-dark-*` / `icon-mark-dark.svg` are dark glyphs for light browser chrome; `icon-light-*` / `icon-mark-light.svg` are light glyphs for dark chrome, so pair `prefers-color-scheme: light` with dark-named assets and vice versa when wiring tab favicons or metadata. The offline site service worker in `public/site-sw.js` has historically applied cache-first handling to broad image classes, which can leave logos and favicons stale after deploys until cache versioning or per-path fetch rules are updated; pair any worker changes with sensible `Cache-Control` on key public branding files in `next.config.mjs` when refreshed assets must reach returning visitors.

@@ -2,7 +2,6 @@ import Link from "next/link"
 import { ArrowUpRight, Check } from "lucide-react"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { SiteFooter } from "@/components/site-footer"
-import { POLAR_BILLING_ENABLED } from "@/lib/feature-flags"
 import {
   downloadButtonMotionClasses,
   themeAwareHeaderPrimaryCtaClasses,
@@ -13,13 +12,14 @@ import {
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 import {
+  PRICING_CHECKOUT_UNAVAILABLE_NOTE,
   PRICING_FAQS,
   PRICING_PAGE_DESCRIPTION,
   PRICING_PAGE_TITLE,
-  PRICING_PLACEHOLDER_LABEL,
   PRICING_PLACEHOLDER_NOTE,
   PRICING_PLANS,
   PRICING_SECTIONS,
+  type PricingFaq,
   type PricingPlan,
 } from "@/lib/pricing-plans"
 
@@ -28,12 +28,29 @@ const mutedTextClass = "text-black/62 dark:text-white/62"
 const ctaBaseClass =
   "inline-flex h-11 w-full items-center justify-center whitespace-nowrap rounded-[6px] px-5 text-sm font-medium leading-none !no-underline"
 
+const faqLinkClass =
+  "mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
+
+interface PricingContentProps {
+  /**
+   * Whether Polar checkout can actually run. Resolved server side in
+   * `app/pricing/page.tsx` so this component never touches `process.env`.
+   */
+  checkoutReady: boolean
+}
+
 /**
- * Paid plan action. Stays inert while `POLAR_BILLING_ENABLED` is false, so the
- * placeholder page never sends anyone to a checkout that cannot complete.
+ * Paid plan action. Renders disabled when checkout credentials are missing, so
+ * the page never sends anyone to a checkout that would 503.
  */
-function ProPlanCta({ plan }: { plan: PricingPlan }) {
-  return POLAR_BILLING_ENABLED ? (
+function ProPlanCta({
+  plan,
+  checkoutReady,
+}: {
+  plan: PricingPlan
+  checkoutReady: boolean
+}) {
+  return checkoutReady ? (
     <a
       href="/api/polar/checkout/pro"
       className={`${ctaBaseClass} ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
@@ -51,10 +68,42 @@ function ProPlanCta({ plan }: { plan: PricingPlan }) {
   )
 }
 
-function PlanCard({ plan }: { plan: PricingPlan }) {
+function FaqLink({ link }: { link: NonNullable<PricingFaq["link"]> }) {
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={faqLinkClass}
+      >
+        {link.label}
+        <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+      </a>
+    )
+  }
+
+  return (
+    <Link href={link.href} className={faqLinkClass}>
+      {link.label}
+      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+    </Link>
+  )
+}
+
+function PlanCard({
+  plan,
+  checkoutReady,
+}: {
+  plan: PricingPlan
+  checkoutReady: boolean
+}) {
   const surfaceClass = plan.highlighted
     ? "border-black/15 bg-black/[0.03] dark:border-white/20 dark:bg-white/[0.05]"
     : "border-black/8 bg-black/[0.015] dark:border-white/10 dark:bg-white/[0.025]"
+
+  const isPro = plan.id === "pro"
+  const note = isPro && !checkoutReady ? PRICING_CHECKOUT_UNAVAILABLE_NOTE : plan.ctaNote
 
   return (
     <article
@@ -93,20 +142,20 @@ function PlanCard({ plan }: { plan: PricingPlan }) {
       </ul>
 
       <div className="mt-auto pt-10">
-        {plan.id === "free" ? (
-          <DownloadTilesCta label={plan.ctaLabel} className="w-full" />
+        {isPro ? (
+          <ProPlanCta plan={plan} checkoutReady={checkoutReady} />
         ) : (
-          <ProPlanCta plan={plan} />
+          <DownloadTilesCta label={plan.ctaLabel} className="w-full" />
         )}
         <p className="mt-3 text-xs leading-5 text-black/50 dark:text-white/50">
-          {plan.ctaNote}
+          {note}
         </p>
       </div>
     </article>
   )
 }
 
-export function PricingContent() {
+export function PricingContent({ checkoutReady }: PricingContentProps) {
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
       <main className="flex flex-1 flex-col px-4 pb-24 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pb-32 lg:pt-[calc(12.5rem+env(safe-area-inset-top,0px))]">
@@ -116,19 +165,22 @@ export function PricingContent() {
             <p className={`mt-6 ${marketingPageBodyClass}`}>
               {PRICING_PAGE_DESCRIPTION}
             </p>
-            <p className="mt-8 inline-flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 rounded-2xl border border-dashed border-black/20 px-4 py-2.5 dark:border-white/25">
-              <span className="text-[0.6875rem] font-medium uppercase tracking-[0.09em] text-foreground">
-                {PRICING_PLACEHOLDER_LABEL}
-              </span>
-              <span className="text-xs leading-5 text-black/60 dark:text-white/60">
-                {PRICING_PLACEHOLDER_NOTE}
-              </span>
+            <p className="mt-8 inline-flex items-center gap-2 rounded-full border border-black/8 bg-black/[0.04] px-4 py-2 text-left text-xs leading-5 text-black/60 dark:border-white/10 dark:bg-white/[0.07] dark:text-white/60">
+              <span
+                className="h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40"
+                aria-hidden
+              />
+              {PRICING_PLACEHOLDER_NOTE}
             </p>
           </header>
 
           <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:mt-20">
             {PRICING_PLANS.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} />
+              <PlanCard
+                key={plan.id}
+                plan={plan}
+                checkoutReady={checkoutReady}
+              />
             ))}
           </div>
 
@@ -138,7 +190,9 @@ export function PricingContent() {
                 <h2 className={marketingPageSectionTitleClass}>
                   {section.title}
                 </h2>
-                <p className={`mt-4 text-pretty text-sm leading-6 ${mutedTextClass}`}>
+                <p
+                  className={`mt-4 text-pretty text-sm leading-6 ${mutedTextClass}`}
+                >
                   {section.body}
                 </p>
               </div>
@@ -153,18 +207,12 @@ export function PricingContent() {
                   <h3 className="text-base font-light text-foreground">
                     {faq.question}
                   </h3>
-                  <p className={`mt-2 text-sm leading-6 ${mutedTextClass}`}>
+                  <p
+                    className={`mt-2 text-pretty text-sm leading-6 ${mutedTextClass}`}
+                  >
                     {faq.answer}
                   </p>
-                  {faq.link ? (
-                    <Link
-                      href={faq.link.href}
-                      className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
-                    >
-                      {faq.link.label}
-                      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
-                    </Link>
-                  ) : null}
+                  {faq.link ? <FaqLink link={faq.link} /> : null}
                 </div>
               ))}
             </div>
