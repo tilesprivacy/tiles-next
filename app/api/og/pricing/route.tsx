@@ -1,10 +1,12 @@
-import { ImageResponse } from "next/og"
+import { ImageResponse } from "@vercel/og"
 import { TilesOgLogo } from "@/components/tiles-og-logo"
 import {
   PRICING_PAGE_DESCRIPTION,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
 } from "@/lib/pricing-plans"
+
+export const runtime = "edge"
 
 export const size = {
   width: 1200,
