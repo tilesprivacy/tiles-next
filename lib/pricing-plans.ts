@@ -30,9 +30,11 @@ export const PRICING_PAGE_DESCRIPTION =
 /** One-line notice shown as a pill under the hero. */
 export const PRICING_PLACEHOLDER_NOTE = `Pricing goes live with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}.`
 
-/** Shown under the paid action when checkout credentials are missing. */
-export const PRICING_CHECKOUT_UNAVAILABLE_NOTE =
-  "Checkout is temporarily unavailable. Please try again shortly."
+/**
+ * Shown under the paid action while checkout is not configured, which is the
+ * current state: Subscribe renders disabled until Polar credentials are set.
+ */
+export const PRICING_CHECKOUT_UNAVAILABLE_NOTE = `Subscriptions open with the ${PRICING_BETA_RELEASE}.`
 
 export type PricingPlanId = "free" | "pro"
 
@@ -73,7 +75,9 @@ export const PRICING_PLANS: PricingPlan[] = [
   },
   {
     id: "pro",
-    name: "Tiles Pro",
+    // Card heading is the short "Pro"; the license is called Tiles Pro in
+    // prose, metadata, and content/licenses.mdx.
+    name: "Pro",
     price: "$10",
     cadence: "per month",
     tagline: "Supports independent development and the services we host.",
