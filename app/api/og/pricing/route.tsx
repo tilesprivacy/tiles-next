@@ -1,11 +1,10 @@
-import { ImageResponse } from "@vercel/og"
+import { ImageResponse } from "next/og"
+import { TilesOgLogo } from "@/components/tiles-og-logo"
 import {
   PRICING_PAGE_DESCRIPTION,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
 } from "@/lib/pricing-plans"
-
-export const runtime = "edge"
 
 export const size = {
   width: 1200,
@@ -14,39 +13,7 @@ export const size = {
 
 export const contentType = "image/png"
 
-async function toDataUrl(url: string): Promise<string | null> {
-  try {
-    const response = await fetch(url)
-    if (!response.ok) return null
-
-    const responseContentType =
-      response.headers.get("content-type") ?? "image/png"
-    const bytes = new Uint8Array(await response.arrayBuffer())
-    const chunkSize = 8192
-    let binary = ""
-
-    for (let i = 0; i < bytes.length; i += chunkSize) {
-      const chunk = bytes.subarray(i, i + chunkSize)
-      for (let j = 0; j < chunk.length; j++) {
-        binary += String.fromCharCode(chunk[j])
-      }
-    }
-
-    return (
-      "data:" +
-      responseContentType +
-      ";base64," +
-      btoa(binary)
-    )
-  } catch {
-    return null
-  }
-}
-
-export async function GET(request: Request) {
-  const origin = new URL(request.url).origin
-  const logoDataUrl = await toDataUrl(origin + "/icon-mark-light.svg")
-
+export function GET() {
   return new ImageResponse(
     (
       <div
@@ -110,31 +77,7 @@ export async function GET(request: Request) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center" }}>
-            {logoDataUrl ? (
-              <img
-                src={logoDataUrl}
-                alt=""
-                width={48}
-                height={48}
-                style={{ objectFit: "contain" }}
-              />
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  width: 48,
-                  height: 48,
-                  alignItems: "center",
-                  justifyContent: "center",
-                  border: "1px solid rgba(255, 255, 255, 0.24)",
-                  borderRadius: 14,
-                  fontSize: 25,
-                  fontWeight: 700,
-                }}
-              >
-                T
-              </div>
-            )}
+            <TilesOgLogo size={48} />
             <div
               style={{
                 display: "flex",

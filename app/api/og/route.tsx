@@ -1,7 +1,6 @@
-import { ImageResponse } from "@vercel/og"
+import { ImageResponse } from "next/og"
+import { TilesOgLogo } from "@/components/tiles-og-logo"
 import { TILES_PRODUCT_DESCRIPTION_CORE } from "@/lib/product-description"
-
-export const runtime = "edge"
 
 // Helpful hints for Next / Vercel:
 // - `size` / `contentType` exports let tooling know image dimensions and mime type.
@@ -12,30 +11,6 @@ export const size = {
 }
 
 export const contentType = "image/png"
-
-async function toDataUrl(url: string): Promise<string | null> {
-  try {
-    const response = await fetch(url)
-    if (!response.ok) {
-      return null
-    }
-
-    const contentType = response.headers.get("content-type") ?? "image/png"
-    const buffer = await response.arrayBuffer()
-    const bytes = new Uint8Array(buffer)
-    const chunkSize = 8192
-    let binary = ""
-    for (let i = 0; i < bytes.length; i += chunkSize) {
-      const chunk = bytes.subarray(i, i + chunkSize)
-      for (let j = 0; j < chunk.length; j++) {
-        binary += String.fromCharCode(chunk[j])
-      }
-    }
-    return `data:${contentType};base64,${btoa(binary)}`
-  } catch {
-    return null
-  }
-}
 
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@400;600;700&text=${encodeURIComponent(text)}`
@@ -54,15 +29,11 @@ async function loadGoogleFont(font: string, text: string) {
   return response.arrayBuffer()
 }
 
-export async function GET(request: Request) {
-  const url = new URL(request.url)
-  const origin = url.origin
+export async function GET() {
   const tagline = TILES_PRODUCT_DESCRIPTION_CORE
   const fontText = tagline
 
-  // Fetch logo/font opportunistically; never fail the OG image if unavailable.
-  const logoDataUrl = await toDataUrl(`${origin}/icon-mark-light.svg`)
-
+  // Fetch the font opportunistically; never fail the OG image if unavailable.
   let geistFontData: ArrayBuffer | null = null
   try {
     geistFontData = await loadGoogleFont("Geist", fontText)
@@ -94,34 +65,7 @@ export async function GET(request: Request) {
             flexDirection: "column",
           }}
         >
-          {logoDataUrl ? (
-            <img
-              src={logoDataUrl}
-              alt="Tiles logo"
-              width={200}
-              height={200}
-              style={{
-                objectFit: "contain",
-              }}
-            />
-          ) : (
-            <div
-              style={{
-                width: 200,
-                height: 200,
-                borderRadius: 9999,
-                backgroundColor: "rgba(255,255,255,0.12)",
-                color: "#FFFFFF",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 96,
-                fontWeight: 700,
-              }}
-            >
-              T
-            </div>
-          )}
+          <TilesOgLogo size={200} />
           <div
             style={{
               display: "flex",
