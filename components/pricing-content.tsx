@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Check } from "lucide-react"
+import { ArrowUpRight, Check, ChevronDown } from "lucide-react"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { PolarSubscribeButton } from "@/components/polar-subscribe-button"
 import { SiteFooter } from "@/components/site-footer"
@@ -174,11 +174,7 @@ export function PricingContent({ checkoutMode }: PricingContentProps) {
             <p className={`mt-6 ${marketingPageBodyClass}`}>
               {PRICING_PAGE_DESCRIPTION}
             </p>
-            <p className="mt-8 inline-flex items-center gap-2 rounded-full border border-black/8 bg-black/[0.04] px-4 py-2 text-left text-xs leading-5 text-black/60 dark:border-white/10 dark:bg-white/[0.07] dark:text-white/60">
-              <span
-                className="h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/40"
-                aria-hidden
-              />
+            <p className="mx-auto mt-8 max-w-lg text-pretty text-sm font-medium leading-6 text-foreground/80">
               {PRICING_PLACEHOLDER_NOTE}
             </p>
           </header>
@@ -206,19 +202,23 @@ export function PricingContent({ checkoutMode }: PricingContentProps) {
 
           <section className="mt-20 lg:mt-24">
             <h2 className={marketingPageSectionTitleClass}>Questions</h2>
-            <div className="mt-8 divide-y divide-black/8 dark:divide-white/10">
+            <div className="mt-8 border-t border-black/8 divide-y divide-black/8 dark:border-white/10 dark:divide-white/10">
               {PRICING_FAQS.map((faq) => (
-                <div key={faq.question} className="py-6 first:pt-0 last:pb-0">
-                  <h3 className="text-base font-light text-foreground">
-                    {faq.question}
-                  </h3>
-                  <p
-                    className={`mt-2 text-pretty text-sm leading-6 ${mutedTextClass}`}
-                  >
-                    {faq.answer}
-                  </p>
-                  {faq.link ? <FaqLink link={faq.link} /> : null}
-                </div>
+                <details key={faq.question} className="group">
+                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 py-5 text-left text-base font-light text-foreground transition-colors hover:text-foreground/75 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/25 dark:focus-visible:outline-white/25 [&::-webkit-details-marker]:hidden">
+                    <span className="min-w-0 flex-1 leading-snug">
+                      {faq.question}
+                    </span>
+                    <ChevronDown
+                      className="mt-0.5 h-4 w-4 shrink-0 text-black/40 transition-transform group-open:rotate-180 dark:text-white/40"
+                      aria-hidden
+                    />
+                  </summary>
+                  <div className={`pb-6 pr-8 text-pretty text-sm leading-6 ${mutedTextClass}`}>
+                    <p>{faq.answer}</p>
+                    {faq.link ? <FaqLink link={faq.link} /> : null}
+                  </div>
+                </details>
               ))}
             </div>
           </section>
