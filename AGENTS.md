@@ -200,7 +200,7 @@ Always gate these behind `isPolarBillingLive()` too, and never import them into 
 4. Register the webhook endpoint and copy the signing secret.
 5. Verify end to end against `POLAR_SERVER=sandbox` first.
 6. Flip `POLAR_BILLING_ENABLED` to `true` in `lib/feature-flags.ts`. The Pro CTA on `/pricing` turns from a disabled button into a link to `/api/polar/checkout/pro`.
-7. Remove the placeholder notice from `lib/pricing-plans.ts` (`PRICING_PLACEHOLDER_HEADING` / `PRICING_PLACEHOLDER_BODY`) and update `ctaNote` on the Pro plan.
+7. Remove the placeholder notice from `lib/pricing-plans.ts` (`PRICING_PLACEHOLDER_LABEL` / `PRICING_PLACEHOLDER_NOTE`), update `ctaNote` on the Pro plan, and refresh the "When does billing start?" entry in `PRICING_FAQS`.
 
 ## Learned User Preferences
 
