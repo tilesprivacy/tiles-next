@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { ArrowUpRight, Check } from "lucide-react"
+import { BookFaq, BookFaqItem } from "@/components/book-faq"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { PolarSubscribeButton } from "@/components/polar-subscribe-button"
 import { SiteFooter } from "@/components/site-footer"
@@ -206,21 +207,14 @@ export function PricingContent({ checkoutMode }: PricingContentProps) {
 
           <section className="mt-20 lg:mt-24">
             <h2 className={marketingPageSectionTitleClass}>Questions</h2>
-            <div className="mt-8 divide-y divide-black/8 dark:divide-white/10">
+            <BookFaq omitHeading className="mt-8">
               {PRICING_FAQS.map((faq) => (
-                <div key={faq.question} className="py-6 first:pt-0 last:pb-0">
-                  <h3 className="text-base font-light text-foreground">
-                    {faq.question}
-                  </h3>
-                  <p
-                    className={`mt-2 text-pretty text-sm leading-6 ${mutedTextClass}`}
-                  >
-                    {faq.answer}
-                  </p>
+                <BookFaqItem key={faq.question} question={faq.question}>
+                  <p className="text-pretty">{faq.answer}</p>
                   {faq.link ? <FaqLink link={faq.link} /> : null}
-                </div>
+                </BookFaqItem>
               ))}
-            </div>
+            </BookFaq>
           </section>
         </div>
       </main>
