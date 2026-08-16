@@ -12,6 +12,22 @@ function OpenSourceIcon() {
   return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
 }
 
+function GemmaInferenceNote() {
+  return (
+    <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-black/55 dark:text-white/55">
+      <span>Inference powered locally by</span>
+      <img
+        src="https://ai.google.dev/gemma/images/gemma_sq.png"
+        alt=""
+        width={15}
+        height={15}
+        aria-hidden
+      />
+      <span>Gemma 4 series.</span>
+    </p>
+  )
+}
+
 const features = [
   {
     title: "Run polished local models",
@@ -139,6 +155,7 @@ export function HomeContent() {
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
         <MinimalDownload />
+        <GemmaInferenceNote />
       </section>
 
       <div className="minimal-hero-device">
@@ -262,7 +279,7 @@ export function HomeContent() {
         </div>
       </section>
 
-      <SiteFooter />
+      <SiteFooter showGemmaInferenceNote />
     </main>
   )
 }
