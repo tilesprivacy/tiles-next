@@ -1,15 +1,14 @@
-// Build-time avatar prefetcher.
+// Manual avatar asset refresher.
 //
 // Downloads every person's avatar (unavatar.io for GitHub/X/Reddit, the
 // public Bluesky API for bsky handles) into public/avatars/ and writes
 // lib/avatar-manifest.json mapping each profile link to the local asset.
-// The runtime avatar resolver serves the local copy first, so the sponsor
-// and blog pages no longer depend on third-party avatar services at
-// request time.
+// The generated files are committed to the repository and consumed by the
+// normal build, so production builds do not need network access for avatars.
+// Run `npm run avatars:fetch` whenever the people list or an avatar changes.
 //
 // Best-effort by design: a failed lookup keeps the previously committed
-// asset (or falls back to the runtime candidate chain), and the script
-// always exits 0 so offline builds still succeed.
+// asset (or falls back to the runtime candidate chain).
 
 import { mkdir, readFile, unlink, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'

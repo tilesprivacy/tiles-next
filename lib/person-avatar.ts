@@ -3,12 +3,12 @@ import { getBlueskyHandleFromLinks, getRemoteAvatarUrlCandidates } from "./avata
 
 export { getBlueskyHandleFromLinks }
 
-// Build-time snapshot from scripts/fetch-avatars.mjs: profile link → local
-// asset under public/avatars. Keeps avatars loading even when third-party
-// avatar services are slow, rate-limited, or down.
+// Committed snapshot from scripts/fetch-avatars.mjs: profile link → local
+// asset under public/avatars. Normal builds consume these files without
+// contacting third-party avatar services.
 const localAvatarByLink: Record<string, string> = avatarManifest.byLink
 
-/** Ordered profile image URLs: prefetched local assets first, remote providers as fallbacks. */
+/** Ordered profile image URLs: committed local assets first, remote providers as fallbacks. */
 export function getAvatarUrlCandidates(links: string[]): string[] {
   const seen = new Set<string>()
   const candidates: string[] = []

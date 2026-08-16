@@ -148,7 +148,7 @@ export function PersonAvatar({
     setExhaustedCandidates(true)
   }
 
-  // Build-time prefetched avatars are project assets; serve them through
+  // Committed avatars are project assets; serve them through
   // next/image so they are resized, converted, and cached by the framework.
   const isLocalAvatar = Boolean(activeAvatarUrl?.startsWith("/"))
 
