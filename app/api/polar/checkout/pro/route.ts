@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
   const handler = Checkout({
     accessToken: getPolarAccessToken(),
     server: getPolarServer(),
-    successUrl: `${siteUrl}/download`,
+    successUrl: `${siteUrl}/pricing/success`,
     returnUrl: `${siteUrl}/pricing`,
   })
 

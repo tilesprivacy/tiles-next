@@ -51,6 +51,34 @@ export const POLAR_PRO_PRODUCT_ID = "98d19697-7811-437f-933e-c5a55caa9362"
 export const POLAR_PRO_CHECKOUT_LINK =
   "https://buy.polar.sh/polar_cl_3LyXhxgqyNTiHERg0sdzEzKM7Z7jRxsFFH24d3asCns"
 
+/**
+ * Polar benefit id for the Tiles Pro **License Key**.
+ *
+ * Entitlement is carried by the license key itself, so there is no entitlement
+ * store on this site. The Tiles app validates a key against Polar's customer
+ * portal endpoint, which is unauthenticated and needs no access token:
+ *
+ * ```ts
+ * await polar.customerPortal.licenseKeys.validate({
+ *   key,
+ *   organizationId: POLAR_ORGANIZATION_ID,
+ *   benefitId: POLAR_PRO_LICENSE_KEY_BENEFIT_ID, // scopes it to Tiles Pro
+ * })
+ * ```
+ *
+ * Device limits come from the benefit's activation limit, via `activate()` /
+ * `deactivate()`. Not a secret; safe to commit.
+ */
+export const POLAR_PRO_LICENSE_KEY_BENEFIT_ID =
+  "c9ebdd84-854f-44ef-a27f-7b729dd1840e"
+
+/**
+ * Polar organization id, required alongside the key when validating.
+ * Not a secret. Only needed by whichever client validates license keys, so
+ * this site records it for reference rather than reading it at runtime.
+ */
+export const POLAR_ORGANIZATION_ID = "028ca25d-5316-46a1-8771-28c6403d8348"
+
 export type PolarServer = "sandbox" | "production"
 
 function readEnv(name: string, fallback: string): string {

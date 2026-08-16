@@ -66,6 +66,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Everything that runs on your own hardware.",
     featuresIntro: "Included",
     features: [
+      "Limited private web searches",
       "All client side features that run locally",
       "All collaboration features, including shared chats on the web",
     ],
@@ -83,7 +84,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Supports independent development and the services we host.",
     featuresIntro: "Everything in Free, plus",
     features: [
-      "Unlimited private web search",
+      "Unlimited private web searches",
       "Access to private cloud models",
       "Managed public relays",
       "Data backup and key recovery",
@@ -93,6 +94,39 @@ export const PRICING_PLANS: PricingPlan[] = [
     highlighted: true,
   },
 ]
+
+/** Polar customer portal, where license keys and billing live. */
+export const POLAR_CUSTOMER_PORTAL_URL = "https://polar.sh/tilesprivacy/portal/"
+
+/** Copy for `/pricing/success`, where Polar sends people after checkout. */
+export const PRICING_SUCCESS = {
+  title: "You're on Tiles Pro",
+  description:
+    "Thanks for backing independent development. Here is how to get set up.",
+  steps: [
+    {
+      title: "Find your license key",
+      body: "It is in your receipt email and in the Polar customer portal, along with renewals and billing details.",
+      link: {
+        label: "Open customer portal",
+        href: POLAR_CUSTOMER_PORTAL_URL,
+        external: true,
+      },
+    },
+    {
+      title: "Install Tiles",
+      body: "Tiles runs on macOS and Linux. Everything local works straight away, with or without a key.",
+      link: { label: "Download Tiles", href: "/download", external: false },
+    },
+    {
+      title: "Activate your key",
+      body: `Key activation ships with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Your key stays valid until then, and your subscription covers the hosted services from the day they open.`,
+      link: null,
+    },
+  ],
+  footnote:
+    "Need a hand, or bought by mistake? Email support@tiles.run and we will sort it out.",
+} as const
 
 export interface PricingSection {
   title: string
@@ -136,12 +170,17 @@ export const PRICING_FAQS: PricingFaq[] = [
     },
   },
   {
+    question: "How do I get access after paying?",
+    answer:
+      "Tiles Pro is a license key, issued at checkout and sent by email. There is no account to create.",
+  },
+  {
     question: "How do I manage my subscription?",
     answer:
       "License keys, renewals, and billing details live in the Polar customer portal.",
     link: {
       label: "Open customer portal",
-      href: "https://polar.sh/tilesprivacy/portal/",
+      href: POLAR_CUSTOMER_PORTAL_URL,
       external: true,
     },
   },

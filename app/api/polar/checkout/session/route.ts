@@ -23,7 +23,7 @@ export async function POST() {
   const siteUrl = getSiteUrl()
 
   // Polar substitutes {CHECKOUT_ID} server side, so keep the braces unescaped.
-  const successUrl = new URL(`${siteUrl}/download`)
+  const successUrl = new URL(`${siteUrl}/pricing/success`)
   successUrl.searchParams.set("checkoutId", "{CHECKOUT_ID}")
 
   const polar = new Polar({

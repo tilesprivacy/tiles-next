@@ -96,7 +96,7 @@ export default UseCasesPage
 
 ## Polar.sh Integration (`/pricing`)
 
-Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There is exactly **one paid license, Tiles Pro** ($10 USD per user, per month). Checkout is **live**: `/pricing` opens Polar's embedded checkout against a public Checkout Link, which needs no secret. Webhooks still need `POLAR_WEBHOOK_SECRET` before entitlements can be granted.
+Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There is exactly **one paid license, Tiles Pro** ($10 USD per user, per month). Checkout is **live** and needs no secret: `/pricing` opens Polar's embedded checkout against a public Checkout Link, and entitlement is carried by a Polar-issued license key rather than any store on this site.
 
 **Never commit real credentials.** Secrets belong in `.env.local` locally and in Vercel project settings in production. Product ids are not secrets and are committed.
 
@@ -113,6 +113,8 @@ Billing runs on [Polar](https://polar.sh), which acts as merchant of record. The
 | `app/api/polar/checkout/session/route.ts` | Mints a checkout session as JSON for the embed |
 | `app/api/polar/checkout/pro/route.ts` | Redirecting checkout, used as the no-JS fallback and from `licenses.mdx` |
 | `app/api/polar/webhooks/route.ts` | Webhook receiver |
+| `app/pricing/success/page.tsx` | Post-checkout confirmation (noindex), where Polar sends buyers |
+| `components/pricing-success-content.tsx` | Success page UI, copy from `PRICING_SUCCESS` |
 | `content/licenses.mdx` | Tiles Pro license page at `/book/licenses` |
 | `.env.example` | Env template (force-added; `.env*` is gitignored) |
 
@@ -129,6 +131,26 @@ Subscribe opens Polar's embedded checkout overlay (`PolarEmbedCheckout` from `@p
 **A product id is not a checkout link.** `buy.polar.sh/<product-id>` soft-404s to the Polar homepage, so the embed URL cannot be derived from `POLAR_PRO_PRODUCT_ID` in the browser. Checkout Links are created in the Polar dashboard (**Checkout Links > New Link**) and are persistent; checkout **sessions** are short lived, which is why `session` mode mints one per click instead of at render time.
 
 The Subscribe anchor keeps a real `href` so the flow degrades to a full page checkout when JavaScript is unavailable: the checkout link in `link` mode, `/api/polar/checkout/pro` in `session` mode.
+
+### Entitlement: license keys, no backend
+
+This site has **no database, auth, or session store**, and deliberately none is needed. Entitlement rides on a Polar **License Key** benefit attached to the Tiles Pro product: Polar issues a key at checkout and revokes it when the subscription ends.
+
+Validation happens in the Tiles app, not here, against Polar's **customer portal** endpoint, which is unauthenticated and needs no access token:
+
+```ts
+await polar.customerPortal.licenseKeys.validate({
+  key,                                            // pasted by the user
+  organizationId: POLAR_ORGANIZATION_ID,          // 028ca25d-…
+  benefitId: POLAR_PRO_LICENSE_KEY_BENEFIT_ID,    // c9ebdd84-… scopes it to Tiles Pro
+})
+```
+
+A bogus key returns `404 ResourceNotFound`; a malformed organization id returns `422`. Device limits come from the benefit's activation limit via `licenseKeys.activate()` / `.deactivate()`. Both ids live in `lib/polar.ts` and are not secrets.
+
+The CLI side is specced in [`docs/tiles-pro-license-activation.md`](docs/tiles-pro-license-activation.md): `tiles activate <key>` / `tiles deactivate`, keyring storage, and the endpoint contracts. It also lists the copy in this repo that must change once those commands ship (step 3 of `PRICING_SUCCESS`, `content/licenses.mdx`, `content/manual.mdx`).
+
+Because of this, webhooks are **optional**. Only add them if something needs server-side authorization per request (for example the managed relays or private cloud models); the handler stubs in `app/api/polar/webhooks/route.ts` stay unused until then.
 
 ### Fail-closed model
 
@@ -216,9 +238,9 @@ Always gate these behind the matching `isPolar*Configured()` check, and never im
 ### Deploy checklist
 
 1. Subscribe is already live: `POLAR_PRO_CHECKOUT_LINK` in `lib/polar.ts` holds the Tiles Pro Checkout Link, so no secret is needed for checkout. If that link is ever revoked, either replace it from the Polar dashboard (**Checkout Links > New Link**) or set `POLAR_ACCESS_TOKEN` to fall back to session mode.
-2. Set `POLAR_WEBHOOK_SECRET` in Vercel, register the webhook endpoint in Polar, and copy the signing secret.
+2. Set the Checkout Link's success URL in the Polar dashboard to `https://www.tiles.run/pricing/success`. The committed `successUrl` in the API routes only applies to the session and redirect flows, not to a dashboard-created Checkout Link.
 3. Verify against `POLAR_SERVER=sandbox` before pointing at production.
-4. Fill in the webhook handler stubs so entitlements are actually granted and revoked.
+4. Only if server-side authorization is needed: set `POLAR_WEBHOOK_SECRET`, register the webhook endpoint, and fill in the handler stubs. License keys cover entitlement without this.
 5. When pricing stops being provisional, drop `PRICING_PLACEHOLDER_NOTE` from `lib/pricing-plans.ts` (and its render in `components/pricing-content.tsx`), refresh the "Is this pricing final?" FAQ, and update the Availability section in `content/licenses.mdx`.
 
 ## Learned User Preferences
