@@ -185,6 +185,18 @@ export function PricingContent({ checkoutMode }: PricingContentProps) {
             ))}
           </div>
 
+          <p className="mt-5 text-center text-xs leading-5 text-black/50 dark:text-white/50">
+            By downloading or subscribing, you agree to the{" "}
+            <Link href="/terms" className="underline underline-offset-2">
+              terms
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="underline underline-offset-2">
+              privacy statement
+            </Link>
+            .
+          </p>
+
           <section className="mt-24 grid gap-12 border-t border-black/8 pt-14 dark:border-white/10 sm:grid-cols-2 sm:gap-14 lg:mt-28">
             {PRICING_SECTIONS.map((section) => (
               <div key={section.title}>
