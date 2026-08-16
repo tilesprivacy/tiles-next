@@ -22,6 +22,22 @@ interface DownloadMetadata {
   fileName: string
 }
 
+function GemmaInferenceNote() {
+  return (
+    <p className="mt-2 flex items-center gap-1.5 text-sm text-black/55 dark:text-white/55">
+      <span>Inference powered locally by</span>
+      <img
+        src="https://ai.google.dev/gemma/images/gemma_sq.png"
+        alt=""
+        width={15}
+        height={15}
+        aria-hidden
+      />
+      <span>Gemma 4 series.</span>
+    </p>
+  )
+}
+
 export function DownloadContent({
   initialDownload,
 }: {
@@ -52,6 +68,7 @@ export function DownloadContent({
               macOS
             </h2>
             <p>Apple Silicon (M1+) · macOS 14+ · 16 GB unified memory recommended</p>
+            <GemmaInferenceNote />
             <div className="minimal-download-actions">
               {initialDownload?.downloadUrl ? (
                 <a
@@ -99,6 +116,7 @@ export function DownloadContent({
               Linux
             </h2>
             <p>NVIDIA GPU · CUDA 12.8+ · 16 GB VRAM recommended</p>
+            <GemmaInferenceNote />
             <button className="minimal-command" type="button" onClick={copyLinuxCommand}>
               <code>{LINUX_INSTALL_COMMAND}</code>
               {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
