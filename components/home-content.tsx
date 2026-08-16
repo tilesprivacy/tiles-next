@@ -14,7 +14,7 @@ function OpenSourceIcon() {
 
 function GemmaInferenceNote() {
   return (
-    <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-black/55 dark:text-white/55">
+    <div className="mt-3 flex items-center justify-center gap-1.5 text-sm text-black/55 dark:text-white/55">
       <span>Inference powered locally by</span>
       <img
         src="https://ai.google.dev/gemma/images/gemma_sq.png"
@@ -24,7 +24,7 @@ function GemmaInferenceNote() {
         aria-hidden
       />
       <span>Gemma 4 series.</span>
-    </p>
+    </div>
   )
 }
 
