@@ -4,6 +4,10 @@ import { getPolarCheckoutMode } from "@/lib/polar"
 import { PRICING_PAGE_DESCRIPTION } from "@/lib/pricing-plans"
 
 const title = "Pricing | Tiles"
+const canonicalUrl = "https://www.tiles.run/pricing"
+const socialImageUrl = "https://www.tiles.run/api/og/pricing"
+const socialImageAlt =
+  "Tiles pricing with Free at $0 forever and Pro at $10 per month"
 
 export const metadata: Metadata = {
   title,
@@ -14,21 +18,32 @@ export const metadata: Metadata = {
   openGraph: {
     title,
     description: PRICING_PAGE_DESCRIPTION,
+    url: canonicalUrl,
+    siteName: "Tiles Privacy",
+    locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
+        url: socialImageUrl,
         width: 1200,
         height: 630,
-        alt: title,
+        type: "image/png",
+        alt: socialImageAlt,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
+    site: "@tilesprivacy",
+    creator: "@tilesprivacy",
     title,
     description: PRICING_PAGE_DESCRIPTION,
-    images: ["https://www.tiles.run/api/og"],
+    images: [
+      {
+        url: socialImageUrl,
+        alt: socialImageAlt,
+      },
+    ],
   },
 }
 
