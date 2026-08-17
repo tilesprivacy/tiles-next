@@ -15,7 +15,7 @@ function OpenSourceIcon() {
 function GemmaInferenceNote() {
   return (
     <div className="mt-3 flex items-center justify-center gap-1.5 whitespace-nowrap text-sm text-black/55 dark:text-white/55">
-      <span>Runs on the</span>
+      <span>Runs on</span>
       <img
         src="https://ai.google.dev/gemma/images/gemma_sq.png"
         alt=""
