@@ -29,7 +29,7 @@ function GemmaInferenceNote() {
 export function SiteFooter({
   showNewsletterCta = false,
   showDownloadCta = true,
-  showGemmaInferenceNote = false,
+  showGemmaInferenceNote = true,
 }: SiteFooterProps) {
   return (
     <div className="refined-site-footer" data-pagefind-ignore="all">
