@@ -12,23 +12,6 @@ function OpenSourceIcon() {
   return <RiOpenSourceLine style={{ width: "0.9375rem", height: "0.9375rem" }} />
 }
 
-function GemmaInferenceNote() {
-  return (
-    <div className="mt-3 flex items-center justify-center gap-1.5 whitespace-nowrap text-sm text-black/55 dark:text-white/55">
-      <span>Runs on</span>
-      <img
-        src="https://ai.google.dev/gemma/images/gemma_sq.png"
-        alt=""
-        width={18}
-        height={18}
-        className="drop-shadow-[0_0_5px_rgba(124,85,255,0.5)] dark:drop-shadow-[0_0_7px_rgba(166,137,255,0.75)]"
-        aria-hidden
-      />
-      <span>Gemma 4 12B by default.</span>
-    </div>
-  )
-}
-
 const features = [
   {
     title: "Run polished local models",
@@ -155,10 +138,7 @@ export function HomeContent() {
           A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
-        <div className="absolute left-1/2 top-[calc(50%+93px)] flex -translate-x-1/2 flex-col items-center">
-          <MinimalDownload />
-          <GemmaInferenceNote />
-        </div>
+        <MinimalDownload showGemmaNote />
       </section>
 
       <div className="minimal-hero-device">
@@ -282,7 +262,7 @@ export function HomeContent() {
         </div>
       </section>
 
-      <SiteFooter showGemmaInferenceNote />
+      <SiteFooter />
     </main>
   )
 }
