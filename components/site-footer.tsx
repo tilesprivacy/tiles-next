@@ -12,7 +12,7 @@ interface SiteFooterProps {
 function GemmaInferenceNote() {
   return (
     <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-black/55 dark:text-white/55">
-      <span>Inference powered locally by</span>
+      <span>Runs on the</span>
       <img
         src="https://ai.google.dev/gemma/images/gemma_sq.png"
         alt=""
@@ -21,7 +21,7 @@ function GemmaInferenceNote() {
         className="drop-shadow-[0_0_5px_rgba(124,85,255,0.5)] dark:drop-shadow-[0_0_7px_rgba(166,137,255,0.75)]"
         aria-hidden
       />
-      <span>Gemma 4 series.</span>
+      <span>Gemma 4 series by default.</span>
     </p>
   )
 }
