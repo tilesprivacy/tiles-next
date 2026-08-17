@@ -24,7 +24,7 @@ function GemmaInferenceNote() {
         className="drop-shadow-[0_0_5px_rgba(124,85,255,0.5)] dark:drop-shadow-[0_0_7px_rgba(166,137,255,0.75)]"
         aria-hidden
       />
-      <span>Gemma 4 series by default.</span>
+      <span>Gemma 4 12B by default.</span>
     </div>
   )
 }
