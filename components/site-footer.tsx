@@ -9,23 +9,6 @@ interface SiteFooterProps {
   showGemmaInferenceNote?: boolean
 }
 
-function GemmaInferenceNote() {
-  return (
-    <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-black/55 dark:text-white/55">
-      <span>Runs on</span>
-      <img
-        src="https://ai.google.dev/gemma/images/gemma_sq.png"
-        alt=""
-        width={18}
-        height={18}
-        className="drop-shadow-[0_0_5px_rgba(124,85,255,0.5)] dark:drop-shadow-[0_0_7px_rgba(166,137,255,0.75)]"
-        aria-hidden
-      />
-      <span>Gemma 4 12B by default.</span>
-    </p>
-  )
-}
-
 export function SiteFooter({
   showNewsletterCta = false,
   showDownloadCta = true,
@@ -41,8 +24,7 @@ export function SiteFooter({
       {showDownloadCta ? (
         <section className="refined-site-footer-download">
           <h2>Try Tiles now.</h2>
-          <MinimalDownload platformSize="footer" />
-          {showGemmaInferenceNote ? <GemmaInferenceNote /> : null}
+          <MinimalDownload platformSize="footer" showGemmaNote={showGemmaInferenceNote} />
         </section>
       ) : null}
       <MinimalFooter />
