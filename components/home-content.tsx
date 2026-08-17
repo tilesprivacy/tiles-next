@@ -19,8 +19,9 @@ function GemmaInferenceNote() {
       <img
         src="https://ai.google.dev/gemma/images/gemma_sq.png"
         alt=""
-        width={15}
-        height={15}
+        width={18}
+        height={18}
+        className="drop-shadow-[0_0_5px_rgba(124,85,255,0.5)] dark:drop-shadow-[0_0_7px_rgba(166,137,255,0.75)]"
         aria-hidden
       />
       <span>Gemma 4 series.</span>
