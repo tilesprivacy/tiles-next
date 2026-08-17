@@ -87,7 +87,13 @@ export function DownloadContent({
                   width={15}
                   height={15}
                 />
-                <span>gemma4-12b</span>
+                <a
+                  href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  gemma-4-12b
+                </a>
               </span>{" "}
               model for air-gapped installation and use.
             </p>
