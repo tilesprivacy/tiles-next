@@ -22,7 +22,7 @@ export function MinimalFooter() {
           <br />
           Koramangala
           <br />
-          Bengaluru 560024
+          Bengaluru 560034
           <br />
           India
         </address>
