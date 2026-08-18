@@ -145,6 +145,10 @@ export function DownloadContent({
             </div>
           </section>
 
+          <p className="minimal-legal">
+            By downloading and using Tiles, you agree to the <Link href="/terms">terms</Link> and <Link href="/privacy">privacy statement</Link>.
+          </p>
+
           <section className="minimal-download-platform" aria-labelledby="latest-release-heading">
             <h2
               id="latest-release-heading"
@@ -172,10 +176,6 @@ export function DownloadContent({
               <Link href={`/releases#${LATEST_RELEASE_VERSION}`}>View full release details</Link>.
             </p>
           </section>
-
-          <p className="minimal-legal">
-            By downloading and using Tiles, you agree to the <Link href="/terms">terms</Link> and <Link href="/privacy">privacy statement</Link>.
-          </p>
         </article>
       </main>
       <SiteFooter showDownloadCta={false} />
