@@ -13,10 +13,10 @@ export default function RefundPolicyPage() {
       </div>
 
       <div className="space-y-4">
-        <h2>30-Day Money-Back Guarantee</h2>
+        <h2>7-Day Money-Back Guarantee</h2>
         <p>
           If you are not satisfied with Tiles Pro, you may request a full refund
-          of your initial subscription payment within 30 calendar days of the
+          of your initial subscription payment within 7 calendar days of the
           purchase date. The guarantee covers the full amount paid for that
           eligible purchase.
         </p>
@@ -29,7 +29,7 @@ export default function RefundPolicyPage() {
           <a className="underline" href="mailto:support@tiles.run">
             support@tiles.run
           </a>{" "}
-          within the 30-day period. Include the email address used at checkout
+          within the 7-day period. Include the email address used at checkout
           and your Polar receipt or order number so we can locate the purchase.
           You do not need to provide a reason, although feedback is welcome.
         </p>
@@ -52,7 +52,7 @@ export default function RefundPolicyPage() {
       <div className="space-y-4">
         <h2>Renewals and Cancellations</h2>
         <p>
-          The 30-day money-back guarantee applies to the initial Tiles Pro
+          The 7-day money-back guarantee applies to the initial Tiles Pro
           subscription payment and does not apply to renewal payments. You can
           cancel future renewals at any time through the{" "}
           <a

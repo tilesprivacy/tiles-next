@@ -231,7 +231,7 @@ export async function GET(request: Request) {
   pushSection(lines, 'Additional URLs', [
     `- Privacy: ${baseUrl}/privacy`,
     `- Terms: ${baseUrl}/terms`,
-    `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 30-day money-back guarantee on the initial subscription payment.`,
+    `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 7-day money-back guarantee on the initial subscription payment.`,
     `- Research: ${baseUrl}/book/research`,
     `- Roadmap: ${baseUrl}/roadmap`,
     `- Sponsor: ${baseUrl}/sponsor`,

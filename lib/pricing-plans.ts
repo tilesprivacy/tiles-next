@@ -46,14 +46,12 @@ export interface PricingPlan {
   priceNote?: string
   /** One short line. Not a paragraph. */
   tagline?: string
-  /** Small label above the feature list. */
-  featuresIntro: string
+  /** Small label above the feature list. Omit on Free to match a title → price → CTA stack. */
+  featuresIntro?: string
   /** Short scannable labels, one line each. */
   features: string[]
   ctaLabel: string
-  /** Note under the action. */
-  ctaNote: string
-  /** Draws the accent border on the paid plan. */
+  /** True for Tiles Pro. The pricing OG image uses this to accent the paid card. */
   highlighted: boolean
 }
 
@@ -64,14 +62,12 @@ export const PRICING_PLANS: PricingPlan[] = [
     price: "$0",
     cadence: "forever",
     tagline: "Everything that runs on your hardware.",
-    featuresIntro: "Included",
     features: [
       "Private local AI models",
       "All features that run locally",
-      "Share chats publicly or privately",
+      "Share chats publicly or privately on the web",
     ],
-    ctaLabel: "Download Tiles",
-    ctaNote: "Available today for macOS and Linux.",
+    ctaLabel: "Download",
     highlighted: false,
   },
   {
@@ -79,20 +75,18 @@ export const PRICING_PLANS: PricingPlan[] = [
     // Card heading is the short "Pro"; the license is called Tiles Pro in
     // prose, metadata, and content/licenses.mdx.
     name: "Pro",
-    badge: "Coming Q3 2026",
+    badge: "Introductory pricing • Features shipping Q4 2026",
     price: "$10",
     cadence: "/ month",
-    priceNote: "Early Member price, locked in when you subscribe.",
-    tagline: "Independent development and cloud based features we host for you.",
-    featuresIntro: "Everything in Free, plus",
+    tagline: "Cloud based services we host for you.",
+    featuresIntro: "Everything in Free, plus:",
     features: [
+      "Chat sync across your linked devices",
       "Private cloud AI models",
-      "Remote access to your local models",
       "Unlimited private web searches",
-      "Chat sync across linked devices",
+      "Remote inference",
     ],
-    ctaLabel: "Subscribe",
-    ctaNote: "Cancel anytime. Payments handled by Polar.",
+    ctaLabel: "Get Pro",
     highlighted: true,
   },
 ]
@@ -139,7 +133,7 @@ export interface PricingFaq {
 export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Is this pricing final?",
-    answer: `No. Plans and included services stay provisional until the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Subscribe today and your Early Member price stays locked in.`,
+    answer: `No. Plans and included services stay provisional until the first Beta release, scheduled for ${PRICING_BETA_WINDOW}. Subscribe today and your Early Member price stays locked in.`,
   },
   {
     question: "Do I need an account?",

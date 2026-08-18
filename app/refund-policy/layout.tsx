@@ -4,7 +4,7 @@ const DEFAULT_SOCIAL_IMAGE =
   "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
 
 const description =
-  "Read the Tiles Refund Policy and 30-day money-back guarantee for Tiles Pro."
+  "Read the Tiles Refund Policy and 7-day money-back guarantee for Tiles Pro."
 
 export const metadata: Metadata = {
   title: "Refund Policy | Tiles",
