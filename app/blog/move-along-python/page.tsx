@@ -26,8 +26,8 @@ export default function MoveAlongPythonPage() {
       description={post.description}
       date={formattedDate}
       authorId={post.author}
-      coverImage={post.coverImage ?? "/og-image.jpg"}
-      coverImageDark={post.coverImageDark ?? post.coverImage ?? "/og-image.jpg"}
+      coverImage={post.coverImage ?? "/og-image.png"}
+      coverImageDark={post.coverImageDark ?? post.coverImage ?? "/og-image.png"}
       coverAlt={post.coverAlt ?? post.title}
       standardSiteDocumentUri={post.standardSiteDocumentUri}
       blueskyPostUri={post.blueskyPostUri}

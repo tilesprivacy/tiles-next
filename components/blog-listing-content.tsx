@@ -47,7 +47,7 @@ function formatDate(date: Date): string {
 }
 
 function getPostImage(post: BlogPost): { src: string; srcDark: string; alt: string } {
-  const src = post.listingImage || post.coverImage || "/og-image.jpg"
+  const src = post.listingImage || post.coverImage || "/og-image.png"
   return {
     src,
     srcDark: post.listingImage
@@ -108,7 +108,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
               className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
-              onError={() => setImageSrc("/og-image.jpg")}
+              onError={() => setImageSrc("/og-image.png")}
             />
             <Image
               src={imageSrcDark}
@@ -117,7 +117,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
               className="hidden h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03] dark:block"
-              onError={() => setImageSrcDark("/og-image.jpg")}
+              onError={() => setImageSrcDark("/og-image.png")}
             />
           </div>
         </div>

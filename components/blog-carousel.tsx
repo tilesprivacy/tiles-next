@@ -15,7 +15,7 @@ export default function BlogCarousel() {
       [...getVisibleBlogPosts()]
         .sort((a, b) => b.date.getTime() - a.date.getTime())
         .map((post) => {
-          const imageSrc = post.coverImage || extractFirstImageSrc(post.content) || '/og-image.jpg'
+          const imageSrc = post.coverImage || extractFirstImageSrc(post.content) || '/og-image.png'
           const imageSrcDark = post.coverImageDark || imageSrc
 
           return {

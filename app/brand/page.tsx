@@ -12,9 +12,7 @@ import {
   marketingPageSubsectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
-
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from "@/lib/social-image"
 
 export const metadata: Metadata = {
   title: "Brand | Tiles",
@@ -23,21 +21,13 @@ export const metadata: Metadata = {
     title: "Brand | Tiles",
     description: "Resources to represent Tiles consistently and accurately.",
     type: "website",
-    images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Brand | Tiles",
-      },
-    ],
+    images: [socialImage("Brand | Tiles")],
   },
   twitter: {
     card: "summary_large_image",
     title: "Brand | Tiles",
     description: "Resources to represent Tiles consistently and accurately.",
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [DEFAULT_SOCIAL_IMAGE_URL],
   },
 }
 

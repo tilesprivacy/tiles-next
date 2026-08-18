@@ -1,6 +1,7 @@
 import { generateStaticParamsFor, importPage } from 'nextra/pages'
 import { useMDXComponents as getMDXComponents } from '../../../mdx-components'
 import { BookPageNavigation } from '@/components/book-page-navigation'
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from '@/lib/social-image'
 
 export const generateStaticParams = generateStaticParamsFor('mdxPath')
 
@@ -36,19 +37,12 @@ export async function generateMetadata(props: {
     openGraph: {
       ...metadata.openGraph,
       title: ogTitle,
-      images: [
-        {
-          url: '/api/og',
-          width: 1200,
-          height: 630,
-          alt: ogTitle,
-        },
-      ],
+      images: [socialImage(ogTitle)],
     },
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
-      images: ['/api/og'],
+      images: [DEFAULT_SOCIAL_IMAGE_URL],
     },
   }
 }

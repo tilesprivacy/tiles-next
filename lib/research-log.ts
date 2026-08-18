@@ -61,7 +61,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     period: "January 2026 - March 2026",
     kind: "mdx",
     mdxSlug: "memory-online-rl",
-    coverImage: "/og-image.jpg",
+    coverImage: "/og-image.png",
     coverAlt: "Memory Model Trained with Online RL",
   },
   {
@@ -94,7 +94,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     badge: "wip",
     period: "May 2026 - Present",
     kind: "inline",
-    coverImage: "/og-image.jpg",
+    coverImage: "/og-image.png",
     coverAlt: "Local models meet AT Protocol",
   },
   {
@@ -109,7 +109,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     badge: "wip",
     period: "May 2026 - Present",
     kind: "inline",
-    coverImage: "/og-image.jpg",
+    coverImage: "/og-image.png",
     coverAlt: "Local-first agent sandboxes",
   },
   {
@@ -124,7 +124,7 @@ export const RESEARCH_LOG_ENTRIES: readonly ResearchLogEntry[] = [
     badge: "wip",
     period: "May 2026 - Present",
     kind: "inline",
-    coverImage: "/og-image.jpg",
+    coverImage: "/og-image.png",
     coverAlt: "Using Iroh Tunnels to access local agents remotely",
   },
 ] as const

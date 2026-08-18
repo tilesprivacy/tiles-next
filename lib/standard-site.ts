@@ -11,7 +11,11 @@ export const STANDARD_SITE_PUBLICATION_WELL_KNOWN_PATH = publicationPath
   : "/.well-known/site.standard.publication"
 
 const SITE_ORIGIN = new URL(sequoiaConfig.siteUrl).origin
-const DEFAULT_BLOG_OG_IMAGE_PATH = "/og-image.jpg"
+// The checked-in card is PNG data. It also still exists at the legacy
+// `/og-image.jpg` path so links shared before the rename keep resolving, but new
+// metadata must use the `.png` path so the served `Content-Type` matches the
+// bytes -- strict crawlers reject an image whose type contradicts its content.
+const DEFAULT_BLOG_OG_IMAGE_PATH = "/og-image.png"
 
 const STANDARD_SITE_CONTENT_DIR = path.join(process.cwd(), "standard-site/blog")
 

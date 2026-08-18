@@ -2,9 +2,8 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { PluginDetailContent } from "@/components/plugin-detail-content"
 import { getTilesPlugin, getTilesPluginSkills, getTilesPlugins } from "@/lib/plugins"
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from "@/lib/social-image"
 
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
 
 interface PluginPageProps {
   params: Promise<{
@@ -37,21 +36,13 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
       title: `${plugin.name} | Tiles Plugins`,
       description: plugin.description,
       type: "website",
-      images: [
-        {
-          url: DEFAULT_SOCIAL_IMAGE,
-          width: 1672,
-          height: 941,
-          type: "image/png",
-          alt: `${plugin.name} | Tiles Plugins`,
-        },
-      ],
+      images: [socialImage(`${plugin.name} | Tiles Plugins`)],
     },
     twitter: {
       card: "summary_large_image",
       title: `${plugin.name} | Tiles Plugins`,
       description: plugin.description,
-      images: [DEFAULT_SOCIAL_IMAGE],
+      images: [DEFAULT_SOCIAL_IMAGE_URL],
     },
   }
 }

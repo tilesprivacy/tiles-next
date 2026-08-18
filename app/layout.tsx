@@ -9,6 +9,7 @@ import { AnnouncementBanner } from "@/components/announcement-banner"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 import { DEFAULT_SITE_THEME } from "@/lib/site-theme"
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from "@/lib/social-image"
 import "./globals.css"
 
 const geist = Geist({
@@ -21,9 +22,6 @@ const geistMono = Geist_Mono({
   display: 'swap',
   preload: true,
 })
-
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -73,22 +71,14 @@ export const metadata: Metadata = {
     description: TILES_PRODUCT_DESCRIPTION,
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
-    images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: TILES_SITE_TITLE,
-      },
-    ],
+    images: [socialImage(TILES_SITE_TITLE)],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: TILES_SITE_TITLE,
     description: TILES_PRODUCT_DESCRIPTION,
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [DEFAULT_SOCIAL_IMAGE_URL],
   },
 }
 

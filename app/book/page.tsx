@@ -2,6 +2,7 @@ import { importPage } from 'nextra/pages'
 import { useMDXComponents as getMDXComponents } from '../../mdx-components'
 import { BookPageNavigation } from '@/components/book-page-navigation'
 import { BookMobileNav } from '@/components/book-mobile-nav'
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from '@/lib/social-image'
 
 export async function generateMetadata() {
   const { metadata } = await importPage([])
@@ -20,20 +21,13 @@ export async function generateMetadata() {
       ...metadata.openGraph,
       title: ogTitle,
       description,
-      images: [
-        {
-          url: '/api/og',
-          width: 1200,
-          height: 630,
-          alt: ogTitle,
-        },
-      ],
+      images: [socialImage(ogTitle)],
     },
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
       description,
-      images: ['/api/og'],
+      images: [DEFAULT_SOCIAL_IMAGE_URL],
     },
   }
 }

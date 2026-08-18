@@ -2,12 +2,16 @@ import type { Metadata } from "next"
 import { PricingContent } from "@/components/pricing-content"
 import { getPolarCheckoutMode } from "@/lib/polar"
 import { PRICING_PAGE_DESCRIPTION } from "@/lib/pricing-plans"
+import {
+  PRICING_SOCIAL_IMAGE_PATH,
+  PRICING_SOCIAL_IMAGE_URL,
+  socialImage,
+} from "@/lib/social-image"
 
 const title = "Pricing | Tiles"
 const canonicalUrl = "https://www.tiles.run/pricing"
-const socialImageUrl =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
-const socialImageAlt = "Tiles | Own your AI"
+const socialImageAlt =
+  "Tiles pricing with Free at $0 forever and Pro at $10 per month"
 
 export const metadata: Metadata = {
   title,
@@ -22,15 +26,7 @@ export const metadata: Metadata = {
     siteName: "Tiles Privacy",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: socialImageUrl,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: socialImageAlt,
-      },
-    ],
+    images: [socialImage(socialImageAlt, PRICING_SOCIAL_IMAGE_PATH)],
   },
   twitter: {
     card: "summary_large_image",
@@ -40,7 +36,7 @@ export const metadata: Metadata = {
     description: PRICING_PAGE_DESCRIPTION,
     images: [
       {
-        url: socialImageUrl,
+        url: PRICING_SOCIAL_IMAGE_URL,
         alt: socialImageAlt,
       },
     ],

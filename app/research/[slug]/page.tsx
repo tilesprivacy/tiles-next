@@ -3,10 +3,9 @@ import { notFound } from "next/navigation"
 import { ResearchExplorationContent } from "@/components/research-exploration-content"
 import { ResearchLogMdx } from "@/components/research-log-mdx"
 import { getResearchLogEntryById, getResearchLogEntryIds } from "@/lib/research-log"
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from "@/lib/social-image"
 
 const baseUrl = "https://www.tiles.run"
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
 
 type ResearchExplorationPageProps = {
   params: Promise<{ slug: string }>
@@ -38,21 +37,13 @@ export async function generateMetadata({ params }: ResearchExplorationPageProps)
       description: entry.description,
       url: pageUrl,
       type: "article",
-      images: [
-        {
-          url: DEFAULT_SOCIAL_IMAGE,
-          width: 1672,
-          height: 941,
-          type: "image/png",
-          alt: ogTitle,
-        },
-      ],
+      images: [socialImage(ogTitle)],
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: entry.description,
-      images: [DEFAULT_SOCIAL_IMAGE],
+      images: [DEFAULT_SOCIAL_IMAGE_URL],
     },
   }
 }

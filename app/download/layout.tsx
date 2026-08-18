@@ -1,8 +1,6 @@
 import type { Metadata } from "next"
 import { TILES_PRODUCT_DESCRIPTION } from "@/lib/product-description"
-
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+import { DEFAULT_SOCIAL_IMAGE_URL, socialImage } from "@/lib/social-image"
 
 export const metadata: Metadata = {
   title: "Download | Tiles",
@@ -13,21 +11,13 @@ export const metadata: Metadata = {
     url: "https://www.tiles.run/download",
     siteName: "Tiles Privacy",
     type: "website",
-    images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Download | Tiles",
-      },
-    ],
+    images: [socialImage("Download | Tiles")],
   },
   twitter: {
     card: "summary_large_image",
     title: "Download | Tiles",
     description: TILES_PRODUCT_DESCRIPTION,
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [DEFAULT_SOCIAL_IMAGE_URL],
   },
 }
 
