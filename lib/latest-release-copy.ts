@@ -1,13 +1,23 @@
 import type { ChangeSection } from "@/lib/releases"
 
-export const LATEST_RELEASE_VERSION = "0.4.16"
+export const LATEST_RELEASE_VERSION = "0.14.7"
+export const LATEST_RELEASE_TITLE = "Alpha 21"
 
 export const LATEST_RELEASE_SECTIONS: ChangeSection[] = [
   {
     title: "Added",
     changes: [
       {
-        text: "Peer-to-peer remote inference over Iroh, so linked devices can run models for each other",
+        text: "Quantization selection in Modelfiles with Ollama-style tags, defaulting to Q4_K_M when no quantization is specified",
+      },
+      {
+        text: "MTP speculative decoding now enables automatically when a model includes an MTP head",
+      },
+      {
+        text: "Linux release builds now attach x86_64 tarballs and SHA256 checksums to tagged GitHub releases",
+      },
+      {
+        text: "Scripted offline-installer builds that bundle the default Gemma GGUF and MTP head",
       },
     ],
   },
@@ -15,7 +25,21 @@ export const LATEST_RELEASE_SECTIONS: ChangeSection[] = [
     title: "Changed",
     changes: [
       {
-        text: "Unified inference on llama.cpp’s llama-server across supported platforms for a consistent local runtime",
+        text: "Default model switched to Unsloth’s Gemma 4 12B GGUF at Q4_K_M",
+      },
+      {
+        text: "Pi upgraded to v0.84.2 from the upstream badlogic/pi-mono project",
+      },
+    ],
+  },
+  {
+    title: "Fixed",
+    changes: [
+      {
+        text: "macOS notarization for Pi’s bundled native modules",
+      },
+      {
+        text: "Incomplete cached model snapshots now re-download a missing GGUF instead of failing",
       },
     ],
   },
