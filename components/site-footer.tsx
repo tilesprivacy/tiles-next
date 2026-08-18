@@ -6,13 +6,11 @@ interface SiteFooterProps {
   showNewsletterCta?: boolean
   newsletterCtaLayout?: "default" | "landing"
   showDownloadCta?: boolean
-  showGemmaInferenceNote?: boolean
 }
 
 export function SiteFooter({
   showNewsletterCta = false,
   showDownloadCta = true,
-  showGemmaInferenceNote = true,
 }: SiteFooterProps) {
   return (
     <div className="refined-site-footer" data-pagefind-ignore="all">
@@ -24,7 +22,7 @@ export function SiteFooter({
       {showDownloadCta ? (
         <section className="refined-site-footer-download">
           <h2>Try Tiles now.</h2>
-          <MinimalDownload platformSize="footer" showGemmaNote={showGemmaInferenceNote} />
+          <MinimalDownload platformSize="footer" />
         </section>
       ) : null}
       <MinimalFooter />
