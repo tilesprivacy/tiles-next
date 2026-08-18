@@ -69,7 +69,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Share chats publicly or privately on the web",
       "Extend the agent with plugins",
     ],
-    ctaLabel: "Download",
+    ctaLabel: "Download for free",
     highlighted: false,
   },
   {
@@ -83,11 +83,11 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Cloud based services we host for you.",
     featuresIntro: "Everything in Free, plus:",
     features: [
-      "Private cloud AI models",
+      "Runs cloud models privately",
       "Unlimited private web searches",
       "Backup and key recovery services",
     ],
-    ctaLabel: "Get Pro",
+    ctaLabel: "Join waitlist for Pro",
     highlighted: true,
   },
 ]
