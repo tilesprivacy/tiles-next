@@ -2,7 +2,7 @@ import { fetchReleases, Release } from "@/lib/releases"
 import { ChangelogContent } from "@/components/changelog-content"
 import {
   LATEST_RELEASE_SECTIONS,
-  LATEST_RELEASE_VERSION,
+  LATEST_RELEASE_TITLE,
 } from "@/lib/latest-release-copy"
 import type { Metadata } from "next"
 
@@ -42,9 +42,13 @@ export default async function ReleasesPage() {
   let error: string | null = null
 
   try {
-    releases = (await fetchReleases()).map((release) =>
-      release.version.replace(/^v/, "") === LATEST_RELEASE_VERSION
-        ? { ...release, sections: LATEST_RELEASE_SECTIONS }
+    releases = (await fetchReleases()).map((release, index) =>
+      index === 0
+        ? {
+            ...release,
+            title: LATEST_RELEASE_TITLE,
+            sections: LATEST_RELEASE_SECTIONS,
+          }
         : release
     )
   } catch (e) {
