@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import {
   LATEST_RELEASE_SECTIONS,
+  LATEST_RELEASE_TITLE,
   LATEST_RELEASE_VERSION,
 } from "@/lib/latest-release-copy"
 import {
@@ -28,7 +29,6 @@ interface DownloadMetadata {
 
 export function DownloadContent({
   initialDownload,
-  initialLatestReleaseVersion,
 }: {
   initialDownload?: DownloadMetadata
   initialLatestReleaseVersion?: string | null
@@ -40,9 +40,6 @@ export function DownloadContent({
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1400)
   }
-
-  const latestReleaseVersion = initialLatestReleaseVersion || LATEST_RELEASE_VERSION
-  const showRefinedLatestNotes = latestReleaseVersion.replace(/^v/, "") === LATEST_RELEASE_VERSION
 
   return (
     <div className="minimal-product-page">
@@ -143,26 +140,25 @@ export function DownloadContent({
             </div>
           </section>
 
-          {showRefinedLatestNotes ? (
-            <section className="minimal-download-platform" aria-labelledby="latest-release-heading">
-              <h2 id="latest-release-heading">Latest release · {latestReleaseVersion}</h2>
-              <div className="space-y-4">
-                {LATEST_RELEASE_SECTIONS.map((section) => (
-                  <div key={section.title}>
-                    <h3 className="mb-2 text-sm font-semibold">{section.title}</h3>
-                    <ul className="list-disc space-y-1 pl-5 text-sm text-black/65 dark:text-white/65">
-                      {section.changes.map((change) => (
-                        <li key={change.text}>{change.text}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-              <p className="minimal-note">
-                <Link href={`/releases#${latestReleaseVersion}`}>View full release details</Link>.
-              </p>
-            </section>
-          ) : null}
+          <section className="minimal-download-platform" aria-labelledby="latest-release-heading">
+            <h2 id="latest-release-heading">Latest release · {LATEST_RELEASE_TITLE}</h2>
+            <p className="minimal-note">Version {LATEST_RELEASE_VERSION}</p>
+            <div className="space-y-4">
+              {LATEST_RELEASE_SECTIONS.map((section) => (
+                <div key={section.title}>
+                  <h3 className="mb-2 text-sm font-semibold">{section.title}</h3>
+                  <ul className="list-disc space-y-1 pl-5 text-sm text-black/65 dark:text-white/65">
+                    {section.changes.map((change) => (
+                      <li key={change.text}>{change.text}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="minimal-note">
+              <Link href={`/releases#${LATEST_RELEASE_VERSION}`}>View full release details</Link>.
+            </p>
+          </section>
 
           <p className="minimal-legal">
             By downloading and using Tiles, you agree to the <Link href="/terms">terms</Link> and <Link href="/privacy">privacy statement</Link>.
