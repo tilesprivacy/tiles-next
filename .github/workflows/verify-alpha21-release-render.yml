@@ -19,10 +19,8 @@ jobs:
           node-version: 22
       - name: Install site dependencies
         run: bun install
-      - name: Install Playwright
-        run: |
-          npm install --no-save playwright@1.55.0
-          npx playwright install --with-deps chromium
+      - name: Install browser driver
+        run: npm install --no-save playwright-core@1.55.0
       - name: Start Tiles site locally
         run: |
           bun run dev > /tmp/tiles-next-dev.log 2>&1 &
@@ -39,10 +37,14 @@ jobs:
         run: |
           node <<'NODE'
           const fs = require('fs')
-          const { chromium } = require('playwright')
+          const { chromium } = require('playwright-core')
 
           ;(async () => {
-            const browser = await chromium.launch({ headless: true })
+            const browser = await chromium.launch({
+              headless: true,
+              executablePath: '/usr/bin/google-chrome',
+              args: ['--no-sandbox'],
+            })
             const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
             await page.goto('http://127.0.0.1:3000/releases', { waitUntil: 'networkidle', timeout: 120000 })
             await page.screenshot({ path: 'alpha21-releases.png', fullPage: true })
