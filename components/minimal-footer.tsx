@@ -36,6 +36,7 @@ export function MinimalFooter() {
       <nav className="minimal-footer-links" aria-label="Footer links">
         <Link href="/sub-processors">Subprocessors</Link>
         <Link href="/terms">Terms</Link>
+        <Link href="/refund-policy">Refunds</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/brand">Brand</Link>
         <a className="minimal-footer-status" href="https://status.tiles.run" target="_blank" rel="noopener noreferrer">

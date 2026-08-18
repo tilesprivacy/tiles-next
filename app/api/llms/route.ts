@@ -126,6 +126,7 @@ export async function GET(request: Request) {
   addSection(lines, 'Legal And Site Information', [
     `- Privacy: ${baseUrl}/privacy`,
     `- Terms: ${baseUrl}/terms`,
+    `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 30-day money-back guarantee on the initial subscription payment.`,
     `- Subprocessors: ${baseUrl}/sub-processors`,
     `- Brand: ${baseUrl}/brand`,
     `- AI-readable website index: ${baseUrl}/llms.txt`,

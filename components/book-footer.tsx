@@ -69,6 +69,9 @@ export function BookFooter() {
               <Link href="/terms" className="text-white transition-colors hover:text-white/70 whitespace-nowrap">
                 Terms
               </Link>
+              <Link href="/refund-policy" className="text-white transition-colors hover:text-white/70 whitespace-nowrap">
+                Refunds
+              </Link>
               <Link href="/privacy" className="text-white transition-colors hover:text-white/70 whitespace-nowrap">
                 Privacy
               </Link>
@@ -141,6 +144,9 @@ export function BookFooter() {
             </Link>
             <Link href="/terms" className={`${linkClasses} whitespace-nowrap`}>
               Terms
+            </Link>
+            <Link href="/refund-policy" className={`${linkClasses} whitespace-nowrap`}>
+              Refunds
             </Link>
             <Link href="/privacy" className={`${linkClasses} whitespace-nowrap`}>
               Privacy
