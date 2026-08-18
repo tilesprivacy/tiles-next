@@ -946,11 +946,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.6;
   font-weight: 400;
 }
-.minimal-use-case-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
 .minimal-disclosure-list {
   display: flex;
   flex-direction: column;
