@@ -2,8 +2,7 @@
  * Canonical pricing copy for `/pricing`.
  *
  * There is exactly one paid license, Tiles Pro. Plans and included services
- * stay provisional until the 0.5.0 Private Beta, which is what the placeholder
- * pill on the page communicates, but checkout itself is live.
+ * stay provisional until the 0.5.0 Private Beta, but checkout itself is live.
  *
  * `components/pricing-content.tsx` reads everything from this module so the
  * copy lives in one place.
@@ -25,10 +24,7 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 export const PRICING_PAGE_TITLE = "Pricing"
 
 export const PRICING_PAGE_DESCRIPTION =
-  "Tiles is free. Tiles Pro funds independent development and the services we host for you."
-
-/** One-line notice shown as a pill under the hero. */
-export const PRICING_PLACEHOLDER_NOTE = `Pricing goes live with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}.`
+  "Tiles is free. Tiles Pro funds independent development and cloud based services we host for you."
 
 /**
  * Shown under the paid action while checkout is not configured, which is the
@@ -41,11 +37,15 @@ export type PricingPlanId = "free" | "pro"
 export interface PricingPlan {
   id: PricingPlanId
   name: string
+  /** Small status pill next to the plan name. */
+  badge?: string
   /** Display price. Kept as a string so formatting stays in one place. */
   price: string
   cadence: string
+  /** One short line under the price, e.g. the Early Member lock-in. */
+  priceNote?: string
   /** One short line. Not a paragraph. */
-  tagline: string
+  tagline?: string
   /** Small label above the feature list. */
   featuresIntro: string
   /** Short scannable labels, one line each. */
@@ -63,12 +63,12 @@ export const PRICING_PLANS: PricingPlan[] = [
     name: "Free",
     price: "$0",
     cadence: "forever",
-    tagline: "Everything that runs on your own hardware.",
+    tagline: "Everything that runs on your hardware.",
     featuresIntro: "Included",
     features: [
-      "Unlimited local AI and remote inference",
-      "All client side features that run locally",
-      "All collaboration features, including shared chats on the web",
+      "Private local AI models",
+      "All features that run locally",
+      "Share chats publicly or privately",
     ],
     ctaLabel: "Download Tiles",
     ctaNote: "Available today for macOS and Linux.",
@@ -79,15 +79,17 @@ export const PRICING_PLANS: PricingPlan[] = [
     // Card heading is the short "Pro"; the license is called Tiles Pro in
     // prose, metadata, and content/licenses.mdx.
     name: "Pro",
+    badge: "Coming Q3 2026",
     price: "$10",
-    cadence: "per month",
-    tagline: "Supports independent development and the services we host.",
+    cadence: "/ month",
+    priceNote: "Early Member price, locked in when you subscribe.",
+    tagline: "Independent development and cloud based features we host for you.",
     featuresIntro: "Everything in Free, plus",
     features: [
-      "Managed public relays for P2P network",
+      "Private cloud AI models",
+      "Remote access to your local models",
       "Unlimited private web searches",
-      "Access to private cloud models",
-      "Data backup and key recovery",
+      "Chat sync across linked devices",
     ],
     ctaLabel: "Subscribe",
     ctaNote: "Cancel anytime. Payments handled by Polar.",
@@ -128,23 +130,6 @@ export const PRICING_SUCCESS = {
     "Need a hand, or bought by mistake? Email support@tiles.run and we will sort it out.",
 } as const
 
-export interface PricingSection {
-  title: string
-  body: string
-}
-
-/** Short sections stacked below the plan grid. */
-export const PRICING_SECTIONS: PricingSection[] = [
-  {
-    title: "Independent by design",
-    body: "Tiles is funded by the people who use it. No ads, no trackers, no data resale. Tiles Pro is what lets a small team keep working on it.",
-  },
-  {
-    title: "Free stays free",
-    body: "Everything that runs on your own hardware stays free, without limits. Tiles Pro covers only the services we host on your behalf.",
-  },
-]
-
 export interface PricingFaq {
   question: string
   answer: string
@@ -154,7 +139,7 @@ export interface PricingFaq {
 export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Is this pricing final?",
-    answer: `No. Plans and included services stay provisional until the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}.`,
+    answer: `No. Plans and included services stay provisional until the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Subscribe today and your Early Member price stays locked in.`,
   },
   {
     question: "Do I need an account?",

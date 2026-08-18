@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Check, ChevronDown, CircleDashed } from "lucide-react"
+import { ArrowUpRight, Check, ChevronDown } from "lucide-react"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { PolarSubscribeButton } from "@/components/polar-subscribe-button"
 import { SiteFooter } from "@/components/site-footer"
@@ -18,9 +18,7 @@ import {
   PRICING_FAQS,
   PRICING_PAGE_DESCRIPTION,
   PRICING_PAGE_TITLE,
-  PRICING_PLACEHOLDER_NOTE,
   PRICING_PLANS,
-  PRICING_SECTIONS,
   type PricingFaq,
   type PricingPlan,
 } from "@/lib/pricing-plans"
@@ -97,23 +95,15 @@ function FaqLink({ link }: { link: NonNullable<PricingFaq["link"]> }) {
   )
 }
 
-function FeatureList({
-  features,
-  inProgress = false,
-}: {
-  features: string[]
-  inProgress?: boolean
-}) {
-  const Icon = inProgress ? CircleDashed : Check
-
+function FeatureList({ features }: { features: string[] }) {
   return (
-    <ul className="mt-4 flex flex-col gap-3.5">
+    <ul className="mt-3 flex flex-col gap-2.5">
       {features.map((feature) => (
         <li
           key={feature}
-          className="flex gap-2.5 text-sm leading-6 text-foreground/85"
+          className="flex gap-2 text-sm leading-6 text-foreground/85"
         >
-          <Icon className="mt-[0.3rem] h-3.5 w-3.5 shrink-0" aria-hidden />
+          <Check className="mt-1.5 h-3 w-3 shrink-0" aria-hidden />
           <span>{feature}</span>
         </li>
       ))}
@@ -129,7 +119,7 @@ function PlanCard({
   checkoutMode: PolarCheckoutMode
 }) {
   const surfaceClass = plan.highlighted
-    ? "border-black/15 bg-black/[0.03] dark:border-white/20 dark:bg-white/[0.05]"
+    ? "border-black/20 bg-black/[0.045] dark:border-white/25 dark:bg-white/[0.065]"
     : "border-black/8 bg-black/[0.015] dark:border-white/10 dark:bg-white/[0.025]"
 
   const isPro = plan.id === "pro"
@@ -142,45 +132,49 @@ function PlanCard({
     <article
       className={`flex flex-col rounded-2xl border p-7 sm:p-8 ${surfaceClass}`}
     >
-      <h2 className="font-sans text-base font-semibold tracking-[-0.01em] text-foreground">
-        {plan.name}
-      </h2>
+      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-2">
+        <h2 className="font-sans text-base font-semibold tracking-[-0.01em] text-foreground">
+          {plan.name}
+        </h2>
+        {plan.badge ? (
+          <span className="rounded-full border border-black/12 px-2 py-[3px] text-[0.6875rem] font-medium leading-none text-black/55 dark:border-white/15 dark:text-white/55">
+            {plan.badge}
+          </span>
+        ) : null}
+      </div>
 
       <p className="mt-4 flex items-baseline gap-2">
-        <span className="font-sans text-[2.5rem] font-normal leading-none tracking-[-0.035em] text-foreground">
+        <span className="font-sans text-[2.25rem] font-normal leading-none tracking-[-0.035em] text-foreground">
           {plan.price}
         </span>
         <span className="text-sm text-black/55 dark:text-white/55">
           {plan.cadence}
         </span>
       </p>
+      {plan.priceNote ? (
+        <p className="mt-2 text-xs leading-5 text-black/55 dark:text-white/55">
+          {plan.priceNote}
+        </p>
+      ) : null}
 
-      <p className={`mt-4 text-sm leading-6 ${mutedTextClass}`}>
-        {plan.tagline}
-      </p>
+      {plan.tagline ? (
+        <p className="mt-3 text-sm font-medium leading-6 text-foreground/90">
+          {plan.tagline}
+        </p>
+      ) : null}
 
-      <p className="mt-9 text-[0.6875rem] font-medium uppercase tracking-[0.09em] text-black/45 dark:text-white/45">
+      <p className="mt-6 text-xs font-medium text-black/40 dark:text-white/40">
         {plan.featuresIntro}
       </p>
-      {isPro ? (
-        <>
-          <FeatureList features={plan.features.slice(0, 1)} />
-          <p className="mt-7 text-[0.6875rem] font-medium uppercase tracking-[0.09em] text-black/45 dark:text-white/45">
-            Shipping Q3 2026
-          </p>
-          <FeatureList features={plan.features.slice(1)} inProgress />
-        </>
-      ) : (
-        <FeatureList features={plan.features} />
-      )}
+      <FeatureList features={plan.features} />
 
-      <div className="mt-auto pt-10">
+      <div className="mt-auto pt-7">
         {isPro ? (
           <ProPlanCta plan={plan} checkoutMode={checkoutMode} />
         ) : (
           <DownloadTilesCta label={plan.ctaLabel} className="w-full" />
         )}
-        <p className="mt-3 text-xs leading-5 text-black/50 dark:text-white/50">
+        <p className="mt-3 text-[0.6875rem] leading-5 text-black/45 dark:text-white/45">
           {note}
         </p>
       </div>
@@ -197,9 +191,6 @@ export function PricingContent({ checkoutMode }: PricingContentProps) {
             <h1 className={marketingPageTitleClass}>{PRICING_PAGE_TITLE}</h1>
             <p className={`mt-6 ${marketingPageBodyClass}`}>
               {PRICING_PAGE_DESCRIPTION}
-            </p>
-            <p className="mx-auto mt-8 max-w-lg text-pretty text-sm font-medium leading-6 text-foreground/80">
-              {PRICING_PLACEHOLDER_NOTE}
             </p>
           </header>
 
@@ -221,23 +212,10 @@ export function PricingContent({ checkoutMode }: PricingContentProps) {
             .
           </p>
 
-          <section className="mt-24 grid gap-12 border-t border-black/8 pt-14 dark:border-white/10 sm:grid-cols-2 sm:gap-14 lg:mt-28">
-            {PRICING_SECTIONS.map((section) => (
-              <div key={section.title}>
-                <h2 className={marketingPageSectionTitleClass}>
-                  {section.title}
-                </h2>
-                <p
-                  className={`mt-4 text-pretty text-sm leading-6 ${mutedTextClass}`}
-                >
-                  {section.body}
-                </p>
-              </div>
-            ))}
-          </section>
-
           <section className="mt-20 lg:mt-24">
-            <h2 className={marketingPageSectionTitleClass}>Questions</h2>
+            <h2 className={marketingPageSectionTitleClass}>
+              Frequently Asked Questions
+            </h2>
             <div className="mt-8 border-t border-black/8 divide-y divide-black/8 dark:border-white/10 dark:divide-white/10">
               {PRICING_FAQS.map((faq) => (
                 <details key={faq.question} className="group">

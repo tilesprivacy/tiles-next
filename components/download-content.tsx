@@ -154,13 +154,14 @@ export function DownloadContent({
               id="latest-release-heading"
               className="!text-[1.0625rem] !font-semibold !leading-[1.35] !tracking-[-0.01em]"
             >
-              Latest release · {LATEST_RELEASE_TITLE}
+              Latest release
             </h2>
             <p className="minimal-note">
-              Version {LATEST_RELEASE_VERSION} · Released{" "}
-              <time dateTime="2026-08-18">Aug 18, 2026</time>
+              {LATEST_RELEASE_TITLE} · Version {LATEST_RELEASE_VERSION}
+              <br />
+              Released <time dateTime="2026-08-18">Aug 18, 2026</time>
             </p>
-            <div className="space-y-4">
+            <div className="mt-6 space-y-4">
               {LATEST_RELEASE_SECTIONS.map((section) => (
                 <div key={section.title}>
                   <h3 className="mb-2 text-sm font-semibold">{section.title}</h3>
