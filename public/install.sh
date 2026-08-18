@@ -42,7 +42,7 @@ usage() {
   echo ""
   echo "  --dev       Install from a local dist/*.tar.gz instead of GitHub"
   echo "  --nightly   Install the latest nightly GitHub release"
-  echo "              (e.g. tiles-v0.14.7-x86_64-linux.tar.gz)"
+  echo "              (e.g. tiles-v0.4.17-x86_64-linux.tar.gz)"
 }
 
 # Resolve the newest GitHub nightly release that has a tarball for this platform.
