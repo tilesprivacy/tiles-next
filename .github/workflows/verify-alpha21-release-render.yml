@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - verify-alpha21-release-copy
+  pull_request:
+    branches:
+      - main
 
 jobs:
   verify-release-page:
