@@ -147,15 +147,17 @@ function PlanCard({
           <span className="font-sans text-[2.5rem] font-normal leading-none tracking-[-0.04em] text-foreground">
             {plan.price}
           </span>
-          <span
-            className={
-              isPro
-                ? "text-lg font-medium tracking-[-0.02em] text-foreground/65"
-                : "text-sm font-medium text-black/45 dark:text-white/45"
-            }
-          >
-            {plan.cadence}
-          </span>
+          {plan.cadence ? (
+            <span
+              className={
+                isPro
+                  ? "text-lg font-medium tracking-[-0.02em] text-foreground/65"
+                  : "text-sm font-medium text-black/45 dark:text-white/45"
+              }
+            >
+              {plan.cadence}
+            </span>
+          ) : null}
         </p>
         {plan.priceNote ? (
           <p className="mt-2 text-sm leading-5 text-black/50 dark:text-white/50">

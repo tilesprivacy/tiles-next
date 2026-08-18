@@ -41,7 +41,7 @@ export interface PricingPlan {
   badge?: string
   /** Display price. Kept as a string so formatting stays in one place. */
   price: string
-  cadence: string
+  cadence?: string
   /** One short line under the price, e.g. the Early Member lock-in. */
   priceNote?: string
   /** One short line. Not a paragraph. */
@@ -60,14 +60,13 @@ export const PRICING_PLANS: PricingPlan[] = [
     id: "free",
     name: "Free",
     price: "$0",
-    cadence: "forever",
     tagline: "Everything that runs on your hardware.",
     features: [
       "Run open models locally",
       "Keep your data private",
-      "Sync chats across your linked devices",
-      "Share chats publicly or privately on the web",
       "Remote inference for local models across devices",
+      "Sync chats across linked devices",
+      "Share chats publicly or privately on the web",
       "Extend the agent with plugins",
     ],
     ctaLabel: "Download",

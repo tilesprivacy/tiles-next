@@ -230,16 +230,18 @@ export function GET() {
                   >
                     {plan.price}
                   </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      marginLeft: 10,
-                      color: "rgba(244, 244, 245, 0.52)",
-                      fontSize: 17,
-                    }}
-                  >
-                    {plan.cadence}
-                  </div>
+                  {plan.cadence ? (
+                    <div
+                      style={{
+                        display: "flex",
+                        marginLeft: 10,
+                        color: "rgba(244, 244, 245, 0.52)",
+                        fontSize: 17,
+                      }}
+                    >
+                      {plan.cadence}
+                    </div>
+                  ) : null}
                 </div>
                 <div
                   style={{
