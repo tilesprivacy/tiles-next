@@ -108,7 +108,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
     : "!bg-white !border-black/15 !text-black placeholder:!text-black/45 focus-visible:!ring-black/10 focus-visible:!border-black/25"
 
   const buttonClasses = isDark
-    ? "!bg-white !text-black hover:!bg-[#F2F2F2] focus-visible:!ring-white/30"
+    ? "!bg-[var(--sponsor-yellow,#f7ff61)] !text-black hover:!bg-[#e8f24f] focus-visible:!ring-[var(--sponsor-yellow,#f7ff61)]/40"
     : "!bg-black !text-white hover:!bg-black/90 focus-visible:!ring-black/20"
 
   const messageClasses =
