@@ -146,8 +146,16 @@ export function DownloadContent({
           </section>
 
           <section className="minimal-download-platform" aria-labelledby="latest-release-heading">
-            <h2 id="latest-release-heading">Latest release · {LATEST_RELEASE_TITLE}</h2>
-            <p className="minimal-note">Version {LATEST_RELEASE_VERSION}</p>
+            <h2
+              id="latest-release-heading"
+              className="!text-[1.0625rem] !font-semibold !leading-[1.35] !tracking-[-0.01em]"
+            >
+              Latest release · {LATEST_RELEASE_TITLE}
+            </h2>
+            <p className="minimal-note">
+              Version {LATEST_RELEASE_VERSION} · Released{" "}
+              <time dateTime="2026-08-18">Aug 18, 2026</time>
+            </p>
             <div className="space-y-4">
               {LATEST_RELEASE_SECTIONS.map((section) => (
                 <div key={section.title}>
