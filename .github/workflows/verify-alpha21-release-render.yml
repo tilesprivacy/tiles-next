@@ -1,0 +1,70 @@
+name: Verify Alpha 21 release render
+
+on:
+  push:
+    branches:
+      - verify-alpha21-release-copy
+
+jobs:
+  verify-release-page:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Capture and verify releases page
+        env:
+          RELEASES_URL: https://tiles-next-git-verify-alpha21-release-copy-tilesprivacy.vercel.app/releases?_vercel_share=mbxy85NlkCg6d5ZmTCvX8DphUUqOuX5r
+        run: |
+          node <<'NODE'
+          const fs = require('fs')
+          const { chromium } = require('playwright')
+
+          ;(async () => {
+            const browser = await chromium.launch({ headless: true })
+            const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
+            await page.goto(process.env.RELEASES_URL, { waitUntil: 'networkidle', timeout: 120000 })
+            await page.screenshot({ path: 'alpha21-releases.png', fullPage: true })
+            const body = await page.locator('body').innerText()
+            fs.writeFileSync('alpha21-releases.txt', body)
+
+            const required = [
+              'Alpha 21',
+              'Quantization selection in Modelfiles with Ollama-style tags',
+              'MTP speculative decoding now enables automatically',
+              'Default model switched to Unsloth’s Gemma 4 12B GGUF at Q4_K_M',
+              'Incomplete cached model snapshots now re-download a missing GGUF instead of failing',
+            ]
+            const forbidden = [
+              'Remote-inference v0',
+              'Decouple Pi agent from repl',
+              'LLama-server refactors',
+              'Chore: security patch upgrades',
+              'Release 0.14.7',
+            ]
+
+            for (const text of required) {
+              if (!body.includes(text)) throw new Error(`Missing rendered text: ${text}`)
+            }
+            for (const text of forbidden) {
+              if (body.includes(text)) throw new Error(`Raw release text is still rendered: ${text}`)
+            }
+
+            await browser.close()
+          })().catch((error) => {
+            console.error(error)
+            process.exit(1)
+          })
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: alpha21-release-render
+          path: |
+            alpha21-releases.png
+            alpha21-releases.txt
