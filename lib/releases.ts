@@ -88,6 +88,47 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
+  "0.14.7": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "Quantization selection in Modelfiles with Ollama-style tags, defaulting to Q4_K_M when no quantization is specified",
+        },
+        {
+          text: "MTP speculative decoding now enables automatically when a model includes an MTP head",
+        },
+        {
+          text: "Linux release builds now attach x86_64 tarballs and SHA256 checksums to tagged GitHub releases",
+        },
+        {
+          text: "Scripted offline-installer builds that bundle the default Gemma GGUF and MTP head",
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Default model switched to Unsloth’s Gemma 4 12B GGUF at Q4_K_M",
+        },
+        {
+          text: "Pi upgraded to v0.84.2 from the upstream badlogic/pi-mono project",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "macOS notarization for Pi’s bundled native modules",
+        },
+        {
+          text: "Incomplete cached model snapshots now re-download a missing GGUF instead of failing",
+        },
+      ],
+    },
+  ],
   "0.4.16": [
     {
       title: "Added",
@@ -368,6 +409,7 @@ const additionalSections: Record<string, ChangeSection[]> = {}
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
+  "0.14.7": "Alpha 21",
   "0.4.1": "Alpha 5",
 }
 
