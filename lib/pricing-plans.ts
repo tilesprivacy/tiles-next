@@ -64,8 +64,9 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Everything that runs on your hardware.",
     features: [
       "Private local AI models",
-      "All features that run locally",
+      "Chat sync across your linked devices",
       "Share chats publicly or privately on the web",
+      "Remote inference for local models across devices",
     ],
     ctaLabel: "Download",
     highlighted: false,
@@ -81,10 +82,9 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Cloud based services we host for you.",
     featuresIntro: "Everything in Free, plus:",
     features: [
-      "Chat sync across your linked devices",
       "Private cloud AI models",
       "Unlimited private web searches",
-      "Remote inference",
+      "Backup and key recovery services",
     ],
     ctaLabel: "Get Pro",
     highlighted: true,
