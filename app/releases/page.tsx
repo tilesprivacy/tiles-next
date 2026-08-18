@@ -2,8 +2,10 @@ import { fetchReleases, Release } from "@/lib/releases"
 import { ChangelogContent } from "@/components/changelog-content"
 import {
   LATEST_RELEASE_SECTIONS,
+  LATEST_RELEASE_TITLE,
   LATEST_RELEASE_VERSION,
 } from "@/lib/latest-release-copy"
+import { normalizeReleaseVersion } from "@/lib/release-visibility"
 import type { Metadata } from "next"
 
 const DEFAULT_SOCIAL_IMAGE =
@@ -43,8 +45,12 @@ export default async function ReleasesPage() {
 
   try {
     releases = (await fetchReleases()).map((release) =>
-      release.version.replace(/^v/, "") === LATEST_RELEASE_VERSION
-        ? { ...release, sections: LATEST_RELEASE_SECTIONS }
+      normalizeReleaseVersion(release.version) === LATEST_RELEASE_VERSION
+        ? {
+            ...release,
+            title: LATEST_RELEASE_TITLE,
+            sections: LATEST_RELEASE_SECTIONS,
+          }
         : release
     )
   } catch (e) {
