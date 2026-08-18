@@ -17,6 +17,7 @@ import {
   downloadButtonMotionClasses,
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
+import { SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE } from "@/lib/feature-flags"
 import type { SponsorsGoalData } from "@/lib/sponsors-goal"
 
 interface DownloadMetadata {
@@ -72,36 +73,40 @@ export function DownloadContent({
               ) : (
                 <span className="minimal-disabled-button">Network installer unavailable</span>
               )}
-              <a
-                className={`group minimal-secondary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
-                href={OFFLINE_INSTALLER.downloadUrl}
-              >
-                <span>Download offline installer</span>
-                <Download
-                  className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
-                  aria-hidden
-                />
-              </a>
-            </div>
-            <p className="minimal-download-detail">
-              The offline installer includes the default{" "}
-              <span className="minimal-model-label">
-                <img
-                  src="https://ai.google.dev/gemma/images/gemma_sq.png"
-                  alt="Gemma logo"
-                  width={15}
-                  height={15}
-                />
+              {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
                 <a
-                  href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  className={`group minimal-secondary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+                  href={OFFLINE_INSTALLER.downloadUrl}
                 >
-                  gemma-4-12b
+                  <span>Download offline installer</span>
+                  <Download
+                    className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+                    aria-hidden
+                  />
                 </a>
-              </span>{" "}
-              model for air-gapped installation and use.
-            </p>
+              ) : null}
+            </div>
+            {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
+              <p className="minimal-download-detail">
+                The offline installer includes the default{" "}
+                <span className="minimal-model-label">
+                  <img
+                    src="https://ai.google.dev/gemma/images/gemma_sq.png"
+                    alt="Gemma logo"
+                    width={15}
+                    height={15}
+                  />
+                  <a
+                    href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    gemma-4-12b
+                  </a>
+                </span>{" "}
+                model for air-gapped installation and use.
+              </p>
+            ) : null}
           </section>
 
           <section className="minimal-download-platform" aria-labelledby="linux-heading">

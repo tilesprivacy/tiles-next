@@ -895,7 +895,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.125rem;
 }
 .minimal-download-cta [aria-label*="Apple Silicon"] {
   line-height: 1.5;
@@ -945,11 +945,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-size: 1rem;
   line-height: 1.6;
   font-weight: 400;
-}
-.minimal-use-case-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
 }
 .minimal-disclosure-list {
   display: flex;
@@ -1389,7 +1384,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-bottom: 5rem;
   text-align: center;
 }

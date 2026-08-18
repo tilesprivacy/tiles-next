@@ -1,6 +1,9 @@
 /** Set to true when Remote Link is ready to show in marketing UI again. */
 export const SHOW_REMOTE_LINK = false
 
+/** Set to true once the offline installer has been uploaded to the download bucket. */
+export const SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE = false
+
 /**
  * Master switch for Polar billing. On, so `/pricing` offers a real checkout.
  *

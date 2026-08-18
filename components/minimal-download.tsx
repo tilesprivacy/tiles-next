@@ -28,7 +28,7 @@ export function MinimalDownload({
   return (
     <div className="minimal-download-cta">
       <DownloadTilesCta size={platformSize} label="Download for free" />
-      <div className="flex flex-col items-center gap-1.5">
+      <div className="minimal-download-details flex flex-col items-center gap-2.5">
         <DownloadPlatformSubtext size={platformSize} />
         {showGemmaNote ? <GemmaDefaultModelNote /> : null}
       </div>
