@@ -3,7 +3,7 @@ import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
 
 function GemmaDefaultModelNote() {
   return (
-    <p className="mt-3 flex items-center justify-center gap-1.5 whitespace-nowrap text-sm text-black/55 dark:text-white/55">
+    <p className="flex items-center justify-center gap-1.5 whitespace-nowrap text-sm text-black/55 dark:text-white/55">
       <span>Runs on</span>
       <img
         src="https://ai.google.dev/gemma/images/gemma_sq.png"
@@ -28,8 +28,10 @@ export function MinimalDownload({
   return (
     <div className="minimal-download-cta">
       <DownloadTilesCta size={platformSize} label="Download for free" />
-      <DownloadPlatformSubtext size={platformSize} />
-      {showGemmaNote ? <GemmaDefaultModelNote /> : null}
+      <div className="flex flex-col items-center gap-1.5">
+        <DownloadPlatformSubtext size={platformSize} />
+        {showGemmaNote ? <GemmaDefaultModelNote /> : null}
+      </div>
     </div>
   )
 }
