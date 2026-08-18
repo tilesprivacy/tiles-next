@@ -129,6 +129,27 @@ export function SupportContent() {
             </div>
 
             <section className="mt-14 border-t border-black/8 pt-8 dark:border-white/10">
+              <h2 className={marketingPageSectionTitleClass}>Press Inquiries</h2>
+              <p className="mt-4 text-sm leading-6 text-black/62 dark:text-white/62">
+                For press and media inquiries, contact us by email or phone.
+              </p>
+              <div className="mt-4 flex flex-col items-start gap-2">
+                <a
+                  href="mailto:hello@tiles.run"
+                  className="text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-current dark:hover:text-white/80"
+                >
+                  hello@tiles.run
+                </a>
+                <a
+                  href="tel:+917338014129"
+                  className="text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:text-black/70 hover:decoration-current dark:hover:text-white/80"
+                >
+                  +91 7338014129
+                </a>
+              </div>
+            </section>
+
+            <section className="mt-14 border-t border-black/8 pt-8 dark:border-white/10">
               <h2 className={marketingPageSectionTitleClass}>
                 Support FAQ
               </h2>

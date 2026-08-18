@@ -18,10 +18,10 @@ const features = [
     icon: Bot,
     body: (
       <>
-        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, running OpenAI’s{" "}
+        Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, running Google’s{" "}
         <span className="minimal-model-label">
-          <Image src="/openai-logo.svg" alt="" width={15} height={15} />
-          <span>gpt-oss-20b</span>
+          <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={15} height={15} />
+          <span>gemma-4-12b</span>
         </span>{" "}
         on <a href="https://llama.app/">llama.cpp</a>, with plugin support for reusable, skill-based workflows.
       </>
@@ -138,7 +138,7 @@ export function HomeContent() {
           A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
-        <MinimalDownload />
+        <MinimalDownload showGemmaNote />
       </section>
 
       <div className="minimal-hero-device">

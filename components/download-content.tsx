@@ -6,7 +6,6 @@ import { Check, Copy, Download, Globe } from "lucide-react"
 import { FaApple, FaChrome, FaFirefox, FaLinux, FaSafari } from "react-icons/fa6"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
-import Image from "next/image"
 import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import {
   downloadButtonIconMotionClasses,
@@ -82,8 +81,19 @@ export function DownloadContent({
             <p className="minimal-download-detail">
               The offline installer includes the default{" "}
               <span className="minimal-model-label">
-                <Image src="/openai-logo.svg" alt="OpenAI" width={15} height={15} />
-                <span>gpt-oss-20b</span>
+                <img
+                  src="https://ai.google.dev/gemma/images/gemma_sq.png"
+                  alt="Gemma logo"
+                  width={15}
+                  height={15}
+                />
+                <a
+                  href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  gemma-4-12b
+                </a>
               </span>{" "}
               model for air-gapped installation and use.
             </p>

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react"
-import Image from "next/image"
 import Link from "next/link"
 import { Bot, Cpu, FileCode, KeyRound, Link as LinkIcon, Package, RefreshCw, Share2 } from "lucide-react"
 import { SHOW_REMOTE_LINK } from "@/lib/feature-flags"
@@ -99,10 +98,10 @@ export function ProductFeatureWidgets({
         <a href="https://pi.dev" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
           Pi
         </a>{" "}
-        agent harness for knowledge work, built around{" "}
+        agent harness for knowledge work, built around Google’s{" "}
         <span className="inline-flex items-center gap-1.5 rounded bg-black/[0.045] px-1.5 py-0.5 align-baseline dark:bg-white/[0.08]">
-          <Image src="/openai-logo.svg" alt="OpenAI logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
-          <span className="font-mono text-[0.95em]">gpt-oss-20b</span>
+          <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+          <span className="font-mono text-[0.95em]">gemma4-12b</span>
         </span>
         {', with Plugins support.'}
       </FeatureWidget>

@@ -13,6 +13,9 @@ import {
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
 
+const DEFAULT_SOCIAL_IMAGE =
+  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+
 export const metadata: Metadata = {
   title: "Brand | Tiles",
   description: "Resources to represent Tiles consistently and accurately.",
@@ -22,9 +25,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://www.tiles.run/api/og",
-        width: 1200,
-        height: 630,
+        url: DEFAULT_SOCIAL_IMAGE,
+        width: 1672,
+        height: 941,
+        type: "image/png",
         alt: "Brand | Tiles",
       },
     ],
@@ -33,7 +37,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Brand | Tiles",
     description: "Resources to represent Tiles consistently and accurately.",
-    images: ["https://www.tiles.run/api/og"],
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
 }
 

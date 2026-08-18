@@ -59,11 +59,11 @@ Values you set on the command line are persisted in `config.toml` and apply on l
 Create a new Modelfile by adding a plain text file named `Modelfile`:
 
 ```text word-wrap=false
-FROM mlx-community/Qwen3.5-4B-MLX-4bit
+FROM unsloth/gemma-4-12b-it-GGUF
 SYSTEM You are Mario from Super Mario Bros, acting as an assistant.
 ```
 
-Use any `mlx-community/` model (macOS) or GGUF model (Linux) hosted on Hugging Face in the `FROM` field. We are working on adding more model path sources in `FROM`, including local paths. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
+Tiles uses [llama.cpp](https://github.com/ggml-org/llama.cpp) for local inference on supported platforms. Use a GGUF model hosted on Hugging Face in the `FROM` field. We are working on adding more model path sources in `FROM`, including local paths. Learn more in the [Tilekit Modelfile reference](/book/tilekit).
 
 ### Help (`tiles help`)
 

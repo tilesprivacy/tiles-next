@@ -5,9 +5,9 @@ import { PRICING_PAGE_DESCRIPTION } from "@/lib/pricing-plans"
 
 const title = "Pricing | Tiles"
 const canonicalUrl = "https://www.tiles.run/pricing"
-const socialImageUrl = "https://www.tiles.run/api/og/pricing"
-const socialImageAlt =
-  "Tiles pricing with Free at $0 forever and Pro at $10 per month"
+const socialImageUrl =
+  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+const socialImageAlt = "Tiles | Own your AI"
 
 export const metadata: Metadata = {
   title,
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImageUrl,
-        width: 1200,
-        height: 630,
+        width: 1672,
+        height: 941,
         type: "image/png",
         alt: socialImageAlt,
       },
