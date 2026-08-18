@@ -130,7 +130,7 @@ function PlanCard({
             {plan.name}
           </h2>
           {plan.badge ? (
-            <span className="rounded-full border border-black/12 px-2.5 py-1 text-[0.6875rem] font-medium leading-snug text-black/55 dark:border-white/15 dark:text-white/55">
+            <span className="rounded-full border border-black/12 bg-black/[0.05] px-2.5 py-1 text-[0.6875rem] font-medium leading-snug text-black/55 dark:border-white/15 dark:bg-white/[0.08] dark:text-white/55">
               {plan.badge}
             </span>
           ) : null}

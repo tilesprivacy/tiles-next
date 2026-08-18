@@ -83,7 +83,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Cloud based services we host for you.",
     featuresIntro: "Everything in Free, plus:",
     features: [
-      "Runs cloud models privately",
+      "Run cloud models privately",
       "Unlimited private web searches",
       "Backup and key recovery services",
     ],
@@ -134,7 +134,8 @@ export interface PricingFaq {
 export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Is this pricing final?",
-    answer: `No. Plans and included services stay provisional until the first Beta release, scheduled for ${PRICING_BETA_WINDOW}. Subscribe today and your Early Member price stays locked in.`,
+    answer:
+      "No. The $10/month price is introductory Early Member pricing that can be locked in during the waitlist period. Once Tiles is stable, the standard price will increase.",
   },
   {
     question: "Do I need an account?",
