@@ -138,7 +138,7 @@ export function HomeContent() {
           A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
-        <MinimalDownload showGemmaNote />
+        <MinimalDownload />
       </section>
 
       <div className="minimal-hero-device">
