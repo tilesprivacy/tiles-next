@@ -13,16 +13,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Install site dependencies
+        run: bun install
       - name: Install Playwright
         run: |
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
+      - name: Start Tiles site locally
+        run: |
+          bun run dev > /tmp/tiles-next-dev.log 2>&1 &
+          echo $! > /tmp/tiles-next-dev.pid
+          for i in {1..60}; do
+            if curl --fail --silent http://127.0.0.1:3000/releases > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          cat /tmp/tiles-next-dev.log
+          exit 1
       - name: Capture and verify releases page
-        env:
-          RELEASES_URL: https://tiles-next-git-verify-alpha21-release-copy-tilesprivacy.vercel.app/releases?_vercel_share=mbxy85NlkCg6d5ZmTCvX8DphUUqOuX5r
         run: |
           node <<'NODE'
           const fs = require('fs')
@@ -31,7 +44,7 @@ jobs:
           ;(async () => {
             const browser = await chromium.launch({ headless: true })
             const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } })
-            await page.goto(process.env.RELEASES_URL, { waitUntil: 'networkidle', timeout: 120000 })
+            await page.goto('http://127.0.0.1:3000/releases', { waitUntil: 'networkidle', timeout: 120000 })
             await page.screenshot({ path: 'alpha21-releases.png', fullPage: true })
             const body = await page.locator('body').innerText()
             fs.writeFileSync('alpha21-releases.txt', body)
@@ -64,6 +77,9 @@ jobs:
             process.exit(1)
           })
           NODE
+      - name: Print dev server log on failure
+        if: failure()
+        run: cat /tmp/tiles-next-dev.log || true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
