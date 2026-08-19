@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowUpRight } from "lucide-react"
-import { FaBluesky, FaDiscord, FaGithub, FaXTwitter } from "react-icons/fa6"
+import { FaBluesky, FaDiscord, FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { TangledIcon } from "@/components/tangled-icon"
 
@@ -47,6 +47,7 @@ export function MinimalFooter() {
       <nav className="minimal-footer-social" aria-label="Social links">
         <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><FaXTwitter aria-hidden /></a>
         <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><FaBluesky aria-hidden /></a>
+        <a href="https://www.linkedin.com/company/tilesprivacy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn aria-hidden /></a>
         <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden /></a>
         <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub aria-hidden /></a>
         <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Tangled"><TangledIcon aria-hidden /></a>

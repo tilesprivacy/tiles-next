@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaRss } from "react-icons/fa6"
+import { FaXTwitter, FaBluesky, FaInstagram, FaDiscord, FaGithub, FaLinkedinIn, FaRss } from "react-icons/fa6"
 import { SiHuggingface } from "react-icons/si"
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
@@ -48,6 +48,7 @@ export function BookFooter() {
     twitter: monochromeIconHover,
     bluesky: monochromeIconHover,
     instagram: monochromeIconHover,
+    linkedin: monochromeIconHover,
     discord: monochromeIconHover,
     github: monochromeIconHover,
     huggingface: monochromeIconHover,
@@ -198,6 +199,15 @@ export function BookFooter() {
               aria-label="Instagram"
             >
               <FaInstagram className={`h-4 w-4 sm:h-5 sm:w-5 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.instagram}`} />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/tilesprivacy/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center p-1.5 -m-1.5"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedinIn className={`h-4 w-4 sm:h-5 sm:w-5 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.linkedin}`} />
             </a>
             <a
               href="https://go.tiles.run/discord"
