@@ -5,9 +5,9 @@ import {
   LATEST_RELEASE_TITLE,
 } from "@/lib/latest-release-copy"
 import type { Metadata } from "next"
+import { getSocialImage } from "@/lib/social-image"
 
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+const socialImage = getSocialImage("Releases")
 
 export const dynamic = "force-dynamic"
 
@@ -20,20 +20,14 @@ export const metadata: Metadata = {
     url: "https://www.tiles.run/releases",
     type: "website",
     images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Releases | Tiles",
-      },
+      socialImage,
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Releases | Tiles",
     description: "All notable changes and releases for Tiles.",
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [socialImage.url],
   },
 }
 

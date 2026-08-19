@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Check } from "lucide-react"
+import { ArrowUpRight, Check, ChevronDown } from "lucide-react"
 import { PolarSubscribeButton } from "@/components/polar-subscribe-button"
 import { SiteFooter } from "@/components/site-footer"
 import {
@@ -10,6 +10,7 @@ import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
 import {
   PRICING_FAQS,
   PRICING_PAGE_FUNDING_NOTE,
+  PRICING_PAGE_STATUS_BADGE,
   PRICING_PAGE_STATUS_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
@@ -27,6 +28,13 @@ const outlinedCtaClass =
 
 const filledCtaClass =
   `${ctaBaseClass} bg-foreground text-background hover:opacity-90`
+
+/**
+ * Warm tint so the badge reads as time limited against an otherwise neutral
+ * page. Tuned for contrast in both themes rather than picked from the palette.
+ */
+const statusBadgeClass =
+  "inline-flex items-center gap-2 rounded-full border border-[#C98A0A]/25 bg-[#FBF0D9] px-3 py-1 text-xs font-medium text-[#8A5A00] dark:border-[#E9B949]/25 dark:bg-[#3A2E17] dark:text-[#EDC77C]"
 
 const faqLinkClass =
   "mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
@@ -100,6 +108,31 @@ function FaqLink({ link }: { link: NonNullable<PricingFaq["link"]> }) {
   )
 }
 
+/**
+ * One FAQ row, collapsed to its question. Native `details` so the page stays a
+ * server component and the answers are still reachable with JavaScript off.
+ */
+function FaqItem({ faq }: { faq: PricingFaq }) {
+  return (
+    <details className="group">
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-5 [&::-webkit-details-marker]:hidden">
+        <h3 className="text-base font-light leading-snug text-foreground">
+          {faq.question}
+        </h3>
+        <ChevronDown
+          className="h-4 w-4 shrink-0 text-black/35 transition-transform duration-200 group-open:rotate-180 dark:text-white/35"
+          strokeWidth={1.75}
+          aria-hidden
+        />
+      </summary>
+      <div className={`-mt-2 pb-5 pr-8 text-pretty text-sm leading-6 ${mutedTextClass}`}>
+        <p>{faq.answer}</p>
+        {faq.link ? <FaqLink link={faq.link} /> : null}
+      </div>
+    </details>
+  )
+}
+
 function FeatureList({ features }: { features: string[] }) {
   return (
     <ul className="flex flex-col gap-2.5">
@@ -143,7 +176,7 @@ function PlanCard({
       </div>
 
       <div>
-        <p className="flex items-baseline gap-1.5">
+        <p className="flex items-baseline gap-0.5">
           <span className="font-sans text-[2.5rem] font-normal leading-none tracking-[-0.04em] text-foreground">
             {plan.price}
           </span>
@@ -199,11 +232,17 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
         <div className="mx-auto w-full max-w-5xl">
           <header className="mx-auto max-w-xl text-center">
             <h1 className={marketingPageTitleClass}>{PRICING_PAGE_TITLE}</h1>
-            <p className="mt-4 text-sm leading-6 text-black/55 dark:text-white/55">
+            <div className="mt-5 flex justify-center">
+              <span className={statusBadgeClass}>
+                <span
+                  className="size-1.5 rounded-full bg-[#C98A0A] dark:bg-[#E9B949]"
+                  aria-hidden="true"
+                />
+                {PRICING_PAGE_STATUS_BADGE}
+              </span>
+            </div>
+            <p className="mt-3 text-balance text-sm leading-6 text-black/55 dark:text-white/55">
               {PRICING_PAGE_STATUS_NOTE}
-            </p>
-            <p className="mt-3 text-pretty text-sm leading-6 text-black/55 dark:text-white/55">
-              {PRICING_PAGE_FUNDING_NOTE}
             </p>
           </header>
 
@@ -217,7 +256,22 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
             ))}
           </div>
 
-          <p className="mt-5 text-center text-xs leading-5 text-black/50 dark:text-white/50">
+          <p className="mx-auto mt-8 max-w-xl text-pretty text-center text-sm leading-6 text-black/55 dark:text-white/55">
+            {PRICING_PAGE_FUNDING_NOTE}
+          </p>
+
+          <section className="mt-20 lg:mt-24">
+            <h2 className={marketingPageSectionTitleClass}>
+              Frequently Asked Questions
+            </h2>
+            <div className="mt-8 border-t border-black/8 divide-y divide-black/8 dark:border-white/10 dark:divide-white/10">
+              {PRICING_FAQS.map((faq) => (
+                <FaqItem key={faq.question} faq={faq} />
+              ))}
+            </div>
+          </section>
+
+          <p className="mt-16 text-center text-xs leading-5 text-black/50 dark:text-white/50 lg:mt-20">
             By downloading or subscribing, you agree to the{" "}
             <Link href="/terms" className="underline underline-offset-2">
               terms
@@ -232,25 +286,6 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
             </Link>
             .
           </p>
-
-          <section className="mt-20 lg:mt-24">
-            <h2 className={marketingPageSectionTitleClass}>
-              Frequently Asked Questions
-            </h2>
-            <div className="mt-8 border-t border-black/8 divide-y divide-black/8 dark:border-white/10 dark:divide-white/10">
-              {PRICING_FAQS.map((faq) => (
-                <div key={faq.question} className="py-5">
-                  <h3 className="text-base font-light leading-snug text-foreground">
-                    {faq.question}
-                  </h3>
-                  <div className={`mt-3 text-pretty text-sm leading-6 ${mutedTextClass}`}>
-                    <p>{faq.answer}</p>
-                    {faq.link ? <FaqLink link={faq.link} /> : null}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
         </div>
       </main>
 

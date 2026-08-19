@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
+import { getSocialImage } from "@/lib/social-image"
 import { PluginsContent } from "@/components/plugins-content"
 import { getTilesPlugins } from "@/lib/plugins"
 
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+const socialImage = getSocialImage("Plugins")
 
 export const metadata: Metadata = {
   title: "Plugins | Tiles",
@@ -13,20 +13,14 @@ export const metadata: Metadata = {
     description: "Use plugins in Tiles to add reusable workflows with skills.",
     type: "website",
     images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Plugins | Tiles",
-      },
+      socialImage,
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Plugins | Tiles",
     description: "Use plugins in Tiles to add reusable workflows with skills.",
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [socialImage.url],
   },
 }
 

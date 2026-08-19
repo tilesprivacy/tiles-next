@@ -234,7 +234,7 @@ export function GET() {
                     <div
                       style={{
                         display: "flex",
-                        marginLeft: 8,
+                        marginLeft: 3,
                         color: "rgba(244, 244, 245, 0.52)",
                         fontSize: 15,
                       }}
