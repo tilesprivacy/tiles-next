@@ -1525,9 +1525,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   background: color-mix(in srgb, var(--foreground) 90%, var(--background));
 }
 /*
- * Installer choices. One stanza per route: the button (with its Recommended
- * tag beside it), then a one-line caption underneath. Equal button widths
- * keep the two captions on a shared left edge.
+ * Installer choices. One stanza per route: the button, then a one-line
+ * caption underneath. Buttons shrink-wrap to their labels; the stanzas'
+ * shared left edge keeps the captions aligned.
  */
 .minimal-download-actions {
   display: flex;
@@ -1542,11 +1542,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   align-items: flex-start;
   gap: 0.55rem;
   min-width: 0;
-}
-.minimal-download-option .minimal-download-action,
-.minimal-download-option .minimal-disabled-button {
-  width: 17rem;
-  flex: none;
 }
 .minimal-download-action {
   min-width: 15.5rem;
@@ -2776,15 +2771,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
   .minimal-page-intro {
     margin-bottom: 5rem;
-  }
-  /* Stretch the stanzas, or the buttons' 100% resolves against a
-     shrink-wrapped parent and stays at min-width. */
-  .minimal-download-actions {
-    align-items: stretch;
-  }
-  .minimal-download-option .minimal-download-action,
-  .minimal-download-option .minimal-disabled-button {
-    width: 100%;
   }
   .minimal-download-email {
     display: block;

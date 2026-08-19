@@ -32,3 +32,8 @@ export const DOWNLOAD_PLATFORM_LINUX_REQUIREMENT_LABEL = "NVIDIA" as const
 
 export const DOWNLOAD_PLATFORM_SUBTEXT =
   `${DOWNLOAD_PLATFORM_MACOS_LABEL} · ${DOWNLOAD_PLATFORM_LINUX_LABEL}` as const
+
+/** Pricing note under primary Download Tiles CTAs, split around the /pricing link. */
+export const DOWNLOAD_PRICING_NOTE_LABEL = "Free to start." as const
+
+export const DOWNLOAD_PRICING_LINK_LABEL = "See pricing" as const
