@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { ArrowUpRight, Check, ChevronDown } from "lucide-react"
+import { ArrowUpRight, Check, ChevronDown, ChevronRight, Gem, Sparkle } from "lucide-react"
 import { PolarSubscribeButton } from "@/components/polar-subscribe-button"
 import { SiteFooter } from "@/components/site-footer"
 import {
@@ -11,7 +11,6 @@ import {
   PRICING_FAQS,
   PRICING_PAGE_FUNDING_NOTE,
   PRICING_PAGE_STATUS_BADGE,
-  PRICING_PAGE_STATUS_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
   type PricingFaq,
@@ -21,7 +20,7 @@ import {
 const mutedTextClass = "text-black/62 dark:text-white/62"
 
 const ctaBaseClass =
-  "inline-flex h-11 w-full items-center justify-center whitespace-nowrap rounded-full px-5 text-sm font-medium leading-none !no-underline transition-colors"
+  "inline-flex h-11 w-full items-center justify-center gap-1 whitespace-nowrap rounded-full px-5 text-sm font-medium leading-none !no-underline transition-colors"
 
 const outlinedCtaClass =
   `${ctaBaseClass} border border-black/15 bg-transparent text-foreground hover:bg-black/[0.04] dark:border-white/20 dark:hover:bg-white/[0.06]`
@@ -38,6 +37,31 @@ const statusBadgeClass =
 
 const faqLinkClass =
   "mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
+
+/**
+ * Trailing mark on a plan action. A chevron rather than `ArrowUpRight`, which
+ * this page reserves for links that leave the site in a new tab: the paid
+ * actions open Polar's checkout in an overlay.
+ */
+function CtaChevron() {
+  return (
+    <ChevronRight
+      className="-mr-1 h-4 w-4 shrink-0 opacity-70"
+      strokeWidth={2}
+      aria-hidden
+    />
+  )
+}
+
+/**
+ * Icons for `featuresIntro`, keyed by the plan's token so the copy module stays
+ * free of JSX. Sized and offset to sit in the same gutter as the check marks
+ * below, so the whole list shares one left edge.
+ */
+const featuresIntroIcons = {
+  sparkle: Sparkle,
+  gem: Gem,
+} as const
 
 type PricingCheckoutModes = Record<PolarPaidPlanId, PolarCheckoutMode>
 
@@ -80,6 +104,7 @@ function PaidPlanCta({
       plan={planId}
       mode={checkoutMode}
       label={ctaLabel}
+      trailingIcon={<CtaChevron />}
       className={planId === "pro" ? filledCtaClass : outlinedCtaClass}
     />
   )
@@ -161,6 +186,9 @@ function PlanCard({
   checkoutModes: PricingCheckoutModes
 }) {
   const isPaid = plan.id !== "free"
+  const FeaturesIntroIcon = plan.featuresIntroIcon
+    ? featuresIntroIcons[plan.featuresIntroIcon]
+    : null
 
   return (
     <article className="flex flex-col gap-6 rounded-2xl border border-black/10 p-7 dark:border-white/12 lg:grid lg:grid-rows-subgrid lg:row-span-4 lg:p-8">
@@ -192,17 +220,13 @@ function PlanCard({
             </span>
           ) : null}
         </p>
-        {plan.priceNote ? (
-          <p className="mt-2 text-sm leading-5 text-black/50 dark:text-white/50">
-            {plan.priceNote}
-          </p>
-        ) : null}
       </div>
 
       <div>
         {plan.id === "free" ? (
           <Link href="/download" className={outlinedCtaClass}>
             {plan.ctaLabel}
+            <CtaChevron />
           </Link>
         ) : (
           <PaidPlanCta
@@ -215,11 +239,23 @@ function PlanCard({
 
       <div className="flex flex-col gap-3">
         {plan.featuresIntro ? (
-          <p className="text-sm font-medium text-foreground">
-            {plan.featuresIntro}
+          <p className="flex gap-2.5 text-sm font-medium leading-6 text-foreground">
+            {FeaturesIntroIcon ? (
+              <FeaturesIntroIcon
+                className="mt-[0.3rem] h-3.5 w-3.5 shrink-0 text-black/45 dark:text-white/45"
+                strokeWidth={1.75}
+                aria-hidden
+              />
+            ) : null}
+            <span>{plan.featuresIntro}</span>
           </p>
         ) : null}
         <FeatureList features={plan.features} />
+        {plan.footnote ? (
+          <p className="mt-auto pt-8 text-xs leading-5 text-black/45 dark:text-white/45">
+            {plan.footnote}
+          </p>
+        ) : null}
       </div>
     </article>
   )
@@ -241,9 +277,6 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
                 {PRICING_PAGE_STATUS_BADGE}
               </span>
             </div>
-            <p className="mt-3 text-balance text-sm leading-6 text-black/55 dark:text-white/55">
-              {PRICING_PAGE_STATUS_NOTE}
-            </p>
           </header>
 
           <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-3 lg:grid-rows-[repeat(4,auto)] lg:gap-x-5 lg:gap-y-0">

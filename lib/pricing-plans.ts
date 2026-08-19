@@ -24,16 +24,12 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 
 export const PRICING_PAGE_TITLE = "Pricing"
 
-/** Badge above the status line, so the temporary price is caught at a glance. */
-export const PRICING_PAGE_STATUS_BADGE = "Introductory Early Member pricing"
-
 /**
- * Status line under the page title. Applies to every paid plan, so it sits in
- * the header rather than on an individual card. Fragments, not sentences: it is
- * skimmed, not read. Never name the prices here, or it drifts from the cards.
+ * The page's whole status line, under the title, so the temporary price is
+ * caught at a glance. Anything true of one plan only belongs on that card, in
+ * `footnote`.
  */
-export const PRICING_PAGE_STATUS_NOTE =
-  "Lock in your price during the waitlist · Features shipping Q3 2026"
+export const PRICING_PAGE_STATUS_BADGE = "Introductory Early Member pricing"
 
 /**
  * Why the paid plans exist. Sits under the cards, not in the header, so the
@@ -59,14 +55,24 @@ export interface PricingPlan {
   /** Display price. Kept as a string so formatting stays in one place. */
   price: string
   cadence?: string
-  /** One short line under the price, e.g. the Early Member lock-in. */
-  priceNote?: string
   /** One short line. Not a paragraph. */
   tagline?: string
   /** Small label above the feature list. Omit on Free to match a title → price → CTA stack. */
   featuresIntro?: string
+  /**
+   * Icon token for `featuresIntro`, so this module stays copy and
+   * `components/pricing-content.tsx` owns the rendering. Omit it with
+   * `featuresIntro`.
+   */
+  featuresIntroIcon?: "sparkle" | "gem"
   /** Short scannable labels, one line each. */
   features: string[]
+  /**
+   * Short line at the foot of the card, under the features and bottom aligned
+   * across the row, e.g. the Early Member lock-in. A caveat on the plan, so it
+   * sits apart from the price rather than beside it.
+   */
+  footnote?: string
   ctaLabel: string
   /** True for Tiles Pro. The pricing OG image uses this to accent the paid card. */
   highlighted: boolean
@@ -95,11 +101,13 @@ export const PRICING_PLANS: PricingPlan[] = [
     price: "$3",
     cadence: "/mo",
     tagline: "Peer to peer sync and collaboration features across devices",
-    featuresIntro: "Everything in Free, plus:",
+    featuresIntro: "Everything in Free, and:",
+    featuresIntroIcon: "sparkle",
     features: [
       "Sync chats across linked devices",
       "Remote inference for local models across devices",
     ],
+    footnote: "Lock in your price during the waitlist.",
     ctaLabel: "Join waitlist for Plus",
     highlighted: false,
   },
@@ -111,12 +119,14 @@ export const PRICING_PLANS: PricingPlan[] = [
     price: "$10",
     cadence: "/mo",
     tagline: "Confidential compute based cloud services we host for you",
-    featuresIntro: "Everything in Plus, plus:",
+    featuresIntro: "Everything in Plus, and:",
+    featuresIntroIcon: "gem",
     features: [
       "Run open cloud models privately",
       "Unlimited private web searches",
       "Backup and key recovery",
     ],
+    footnote: "Lock in your price during the waitlist.",
     ctaLabel: "Join waitlist for Pro",
     highlighted: true,
   },

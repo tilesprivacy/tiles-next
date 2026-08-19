@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useState, type MouseEvent } from "react"
+import { useCallback, useState, type MouseEvent, type ReactNode } from "react"
 import { useTheme } from "next-themes"
 import { PolarEmbedCheckout } from "@polar-sh/checkout/embed"
 import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
@@ -18,11 +18,14 @@ export function PolarSubscribeButton({
   plan,
   mode,
   label,
+  trailingIcon,
   className,
 }: {
   plan: PolarPaidPlanId
   mode: Extract<PolarCheckoutMode, { kind: "link" } | { kind: "session" }>
   label: string
+  /** Sits after the label, and drops out while the checkout is opening. */
+  trailingIcon?: ReactNode
   className?: string
 }) {
   const { resolvedTheme } = useTheme()
@@ -83,7 +86,14 @@ export function PolarSubscribeButton({
         aria-busy={isOpening || undefined}
         className={className}
       >
-        {isOpening ? "Opening checkout" : label}
+        {isOpening ? (
+          "Opening checkout"
+        ) : (
+          <>
+            {label}
+            {trailingIcon}
+          </>
+        )}
       </a>
       {hasFailed ? (
         <p role="alert" className="mt-2 text-xs leading-5 text-red-600 dark:text-red-400">
