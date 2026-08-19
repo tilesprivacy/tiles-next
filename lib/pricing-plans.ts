@@ -25,11 +25,20 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 export const PRICING_PAGE_TITLE = "Pricing"
 
 /**
+ * Badge above the status line. The prices on this page are temporary, and a
+ * muted sentence read as fine print, so the badge carries that fact first and
+ * the status line under it explains what changes.
+ */
+export const PRICING_PAGE_STATUS_BADGE = "Introductory pricing"
+
+/**
  * Status line under the page title. Applies to every paid plan, so it sits in
- * the header rather than on an individual card.
+ * the header rather than on an individual card. Say the increase before the
+ * ship date: it is the part people need before they decide to wait. The prices
+ * themselves are not repeated here, so this line cannot drift from the cards.
  */
 export const PRICING_PAGE_STATUS_NOTE =
-  "Introductory pricing • Features shipping Q3 2026"
+  "Lock in today's price. It increases once Tiles is stable. Features shipping Q3 2026."
 
 /** Why the paid plans exist. Applies to every plan, so it sits in the header. */
 export const PRICING_PAGE_FUNDING_NOTE =
