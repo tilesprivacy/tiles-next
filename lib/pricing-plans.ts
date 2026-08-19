@@ -25,7 +25,7 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 export const PRICING_PAGE_TITLE = "Pricing"
 
 /** Badge above the status line, so the temporary price is caught at a glance. */
-export const PRICING_PAGE_STATUS_BADGE = "Introductory pricing"
+export const PRICING_PAGE_STATUS_BADGE = "Introductory Early Member pricing"
 
 /**
  * Status line under the page title. Applies to every paid plan, so it sits in
@@ -33,14 +33,14 @@ export const PRICING_PAGE_STATUS_BADGE = "Introductory pricing"
  * skimmed, not read. Never name the prices here, or it drifts from the cards.
  */
 export const PRICING_PAGE_STATUS_NOTE =
-  "Prices increase soon • Features shipping Q3 2026"
+  "Lock in your price during the waitlist · Features shipping Q3 2026"
 
 /**
  * Why the paid plans exist. Sits under the cards, not in the header, so the
  * title stack stays title -> badge -> status.
  */
 export const PRICING_PAGE_FUNDING_NOTE =
-  "Every paid plan helps keep Tiles free and funds the independent development and operation of the business."
+  "Every paid plan helps keep Tiles free and funds its independent development."
 
 export const PRICING_PAGE_DESCRIPTION =
   "Tiles is free. Tiles Pro funds independent development and cloud based services we host for you."
@@ -93,8 +93,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     // prose, metadata, and content/licenses.mdx.
     name: "Plus",
     price: "$3",
-    cadence: "/ month",
-    tagline: "Peer to peer sync and collaboration features",
+    cadence: "/mo",
+    tagline: "Peer to peer sync and collaboration features across devices",
     featuresIntro: "Everything in Free, plus:",
     features: [
       "Sync chats across linked devices",
@@ -109,13 +109,13 @@ export const PRICING_PLANS: PricingPlan[] = [
     // prose, metadata, and content/licenses.mdx.
     name: "Pro",
     price: "$10",
-    cadence: "/ month",
-    tagline: "Cloud based services we host for you.",
-    featuresIntro: "Everything in Plus, and:",
+    cadence: "/mo",
+    tagline: "Confidential compute based cloud services we host for you",
+    featuresIntro: "Everything in Plus, plus:",
     features: [
       "Run open cloud models privately",
       "Unlimited private web searches",
-      "Backup and key recovery services",
+      "Backup and key recovery",
     ],
     ctaLabel: "Join waitlist for Pro",
     highlighted: true,
@@ -218,7 +218,7 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Is this pricing final?",
     answer:
-      "No. The $3 and $10 monthly prices are introductory Early Member pricing that can be locked in during the waitlist period. Once Tiles is stable, the standard prices will increase.",
+      "No. $3 and $10/month are introductory Early Member prices. Join the waitlist to lock them in before standard pricing takes effect.",
   },
   {
     question: "Do I need an account?",
