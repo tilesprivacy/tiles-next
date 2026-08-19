@@ -3667,10 +3667,19 @@ html.cyberpunk [data-book-section] {
     scroll-behavior: auto;
   }
 
-  /* Do not let root momentum scrolling expose an empty viewport below the footer. */
+  /* Do not let root momentum scrolling expose an empty viewport below the footer.
+     A blanket `none` on the root scroller also swallows mobile pull-to-refresh,
+     so ScrollAtTopMarker stamps <html data-scroll-at-top> while the page rests
+     at the very top — the only position the gesture can start from — and the
+     browser gets its default overscroll (and pull-to-refresh) back there. */
   html,
   body {
     overscroll-behavior-y: none;
+  }
+
+  html[data-scroll-at-top],
+  html[data-scroll-at-top] body {
+    overscroll-behavior-y: auto;
   }
 
   /* Prevent layout shift during navigation */

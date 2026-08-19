@@ -7,6 +7,7 @@ import { ThemeFavicon } from "@/components/theme-favicon"
 import SiteHeader from "@/components/site-header"
 import { AnnouncementBanner } from "@/components/announcement-banner"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
+import { ScrollAtTopMarker } from "@/components/scroll-at-top-marker"
 import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 import { getSocialImage } from "@/lib/social-image"
 import { DEFAULT_SITE_THEME } from "@/lib/site-theme"
@@ -106,6 +107,7 @@ export default function RootLayout({
         >
           <ThemeFavicon />
           <SiteOfflineCacheRegistrar />
+          <ScrollAtTopMarker />
           <AnnouncementBanner />
           <SiteHeader themeAware />
           {/* Marks page content for the Pagefind full-text index used by the
