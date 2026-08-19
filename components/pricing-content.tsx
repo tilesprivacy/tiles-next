@@ -216,7 +216,7 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
                 {PRICING_PAGE_STATUS_BADGE}
               </span>
             </div>
-            <p className="mt-4 text-pretty text-sm leading-6 text-black/55 dark:text-white/55">
+            <p className="mt-3 text-sm leading-6 text-black/55 dark:text-white/55">
               {PRICING_PAGE_STATUS_NOTE}
             </p>
             <p className="mt-3 text-pretty text-sm leading-6 text-black/55 dark:text-white/55">
