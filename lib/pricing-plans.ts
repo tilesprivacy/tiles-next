@@ -29,7 +29,7 @@ export const PRICING_PAGE_TITLE = "Pricing"
  * the header rather than on an individual card.
  */
 export const PRICING_PAGE_STATUS_NOTE =
-  "Introductory pricing • Features shipping Q4 2026"
+  "Introductory pricing • Features shipping Q3 2026"
 
 /** Why the paid plans exist. Applies to every plan, so it sits in the header. */
 export const PRICING_PAGE_FUNDING_NOTE =
@@ -90,8 +90,8 @@ export const PRICING_PLANS: PricingPlan[] = [
     tagline: "Peer to peer sync and collaboration features",
     featuresIntro: "Everything in Free, plus:",
     features: [
-      "Remote inference for local models across devices",
       "Sync chats across linked devices",
+      "Remote inference for local models across devices",
     ],
     ctaLabel: "Join waitlist for Plus",
     highlighted: false,
