@@ -55,13 +55,6 @@
       "timestamp": true
     }
   },
-  "resources": {
-    "title": "Resources",
-    "theme": {
-      "copyPage": true,
-      "timestamp": true
-    }
-  },
   "opensource": {
     "title": "Open source",
     "theme": {

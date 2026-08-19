@@ -85,9 +85,9 @@ export default async function BookLayout({
   })
 
   // Keep sidebar aligned with the `/book` mobile card grid.
-  // Licenses is hidden from nav for now; restore by adding 'licenses' back here and in book-mobile-nav / book-page-navigation.
-  const desiredOrder = ['index', 'overview', 'manual', 'models', 'tilekit', 'security', 'community', 'resources', 'opensource']
-  const hiddenBookSidebarPages = new Set(['licenses', 'research'])
+  // Resources is hidden from nav; restore by adding 'resources' back here and in book-mobile-nav / book-page-navigation / content/_meta.json.
+  const desiredOrder = ['index', 'overview', 'manual', 'models', 'tilekit', 'security', 'community', 'opensource', 'licenses']
+  const hiddenBookSidebarPages = new Set(['research'])
 
   const cardPageSet = new Set(desiredOrder)
 

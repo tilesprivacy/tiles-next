@@ -20,8 +20,8 @@ const visibleBookSlugs = [
   'tilekit',
   'security',
   'community',
-  'resources',
   'opensource',
+  'licenses',
 ] as const
 
 function readBookPage(slug: (typeof visibleBookSlugs)[number]): BookPageMeta | null {

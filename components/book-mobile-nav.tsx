@@ -52,25 +52,27 @@ const bookPages: BookPage[] = [
     description: 'See how you can make Tiles better.',
     href: '/book/community',
   },
+  // Hidden from book nav; restore by re-adding this entry (number '07'), bumping the
+  // following cards back to 08/09, and restoring it in book-page-navigation,
+  // book/layout, and content/_meta.json.
+  // {
+  //   number: '07',
+  //   title: 'Resources',
+  //   description: 'A living index of resources that inform and inspire our work.',
+  //   href: '/book/resources',
+  // },
   {
     number: '07',
-    title: 'Resources',
-    description: 'A living index of resources that inform and inspire our work.',
-    href: '/book/resources',
-  },
-  {
-    number: '08',
     title: 'Open source',
     description: 'Open-source software that Tiles builds on.',
     href: '/book/opensource',
   },
-  // Hidden from book nav for now; restore when re-enabling the Licenses page in the sidebar.
-  // {
-  //   number: '09',
-  //   title: 'Licenses',
-  //   description: 'The Tiles Pro license, payment terms, and purchasing options.',
-  //   href: '/book/licenses',
-  // },
+  {
+    number: '08',
+    title: 'Licenses',
+    description: 'The Tiles Plus and Tiles Pro licenses, payment terms, and purchasing options.',
+    href: '/book/licenses',
+  },
 ]
 
 export function BookMobileNav() {
