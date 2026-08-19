@@ -1,4 +1,5 @@
 import { importPage } from 'nextra/pages'
+import { getSocialImage } from '@/lib/social-image'
 import { useMDXComponents as getMDXComponents } from '../../mdx-components'
 import { BookPageNavigation } from '@/components/book-page-navigation'
 import { BookMobileNav } from '@/components/book-mobile-nav'
@@ -9,6 +10,7 @@ export async function generateMetadata() {
   const canonicalTabTitle =
     'Tiles Book: Technical documentation for Tiles and Tilekit'
   const ogTitle = canonicalTabTitle
+  const socialImage = getSocialImage('Tiles Book')
   const description =
     'Technical documentation covering the models, infrastructure, and cryptography behind Tiles, the consumer product, and Tilekit, the developer-facing SDK written in Rust.'
   // Use absolute title for the index page so it does not depend on a child heading.
@@ -20,20 +22,13 @@ export async function generateMetadata() {
       ...metadata.openGraph,
       title: ogTitle,
       description,
-      images: [
-        {
-          url: '/api/og',
-          width: 1200,
-          height: 630,
-          alt: ogTitle,
-        },
-      ],
+      images: [{ ...socialImage, alt: ogTitle }],
     },
     twitter: {
       ...metadata.twitter,
       title: ogTitle,
       description,
-      images: ['/api/og'],
+      images: [socialImage.url],
     },
   }
 }

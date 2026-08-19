@@ -1,10 +1,10 @@
 import type { Metadata } from "next"
+import { getSocialImage } from "@/lib/social-image"
 import { Suspense } from "react"
 import { RoadmapContent } from "@/components/roadmap-content"
 import { getRoadmapNotesMap } from "@/lib/roadmap-notes-server"
 
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+const socialImage = getSocialImage("Roadmap")
 
 export const metadata: Metadata = {
   title: "Roadmap | Tiles",
@@ -15,20 +15,14 @@ export const metadata: Metadata = {
     url: "https://www.tiles.run/roadmap",
     type: "website",
     images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Roadmap | Tiles",
-      },
+      socialImage,
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Roadmap | Tiles",
     description: "Tiles roadmap and implementation priorities.",
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [socialImage.url],
   },
 }
 

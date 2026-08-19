@@ -5,9 +5,9 @@ import { PRICING_PAGE_DESCRIPTION } from "@/lib/pricing-plans"
 
 const title = "Pricing | Tiles"
 const canonicalUrl = "https://www.tiles.run/pricing"
-const socialImageUrl =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
-const socialImageAlt = "Tiles | Own your AI"
+// The plans render into this card, so it stays in step with the page.
+const socialImageUrl = "/api/og/pricing"
+const socialImageAlt = "Tiles pricing: Free, Plus, and Pro"
 
 export const metadata: Metadata = {
   title,
@@ -25,8 +25,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: socialImageUrl,
-        width: 1672,
-        height: 941,
+        width: 1200,
+        height: 630,
         type: "image/png",
         alt: socialImageAlt,
       },

@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
+import { getSocialImage } from "@/lib/social-image"
 
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+const socialImage = getSocialImage("Subprocessors")
 
 export const metadata: Metadata = {
   title: "Subprocessors | Tiles",
@@ -11,20 +11,14 @@ export const metadata: Metadata = {
     description: "Third-party subprocessors that Tiles uses to provide services.",
     type: "website",
     images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Subprocessors | Tiles",
-      },
+      socialImage,
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Subprocessors | Tiles",
     description: "Third-party subprocessors that Tiles uses to provide services.",
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [socialImage.url],
   },
 }
 

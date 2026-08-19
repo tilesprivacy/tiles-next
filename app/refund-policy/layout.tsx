@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
+import { getSocialImage } from "@/lib/social-image"
 
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
+const socialImage = getSocialImage("Refund Policy")
 
 const description =
   "Read the Tiles Refund Policy and 7-day money-back guarantee for Tiles Pro."
@@ -14,20 +14,14 @@ export const metadata: Metadata = {
     description,
     type: "website",
     images: [
-      {
-        url: DEFAULT_SOCIAL_IMAGE,
-        width: 1672,
-        height: 941,
-        type: "image/png",
-        alt: "Refund Policy | Tiles",
-      },
+      socialImage,
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Refund Policy | Tiles",
     description,
-    images: [DEFAULT_SOCIAL_IMAGE],
+    images: [socialImage.url],
   },
 }
 

@@ -1,12 +1,11 @@
 import type { Metadata } from "next"
+import { getSocialImage } from "@/lib/social-image"
 import { notFound } from "next/navigation"
 import { ResearchExplorationContent } from "@/components/research-exploration-content"
 import { ResearchLogMdx } from "@/components/research-log-mdx"
 import { getResearchLogEntryById, getResearchLogEntryIds } from "@/lib/research-log"
 
 const baseUrl = "https://www.tiles.run"
-const DEFAULT_SOCIAL_IMAGE =
-  "https://raw.githubusercontent.com/tilesprivacy/tiles-next/main/public/own-your-ai-og.png"
 
 type ResearchExplorationPageProps = {
   params: Promise<{ slug: string }>
@@ -26,6 +25,7 @@ export async function generateMetadata({ params }: ResearchExplorationPageProps)
 
   const pageUrl = `${baseUrl}/research/${entry.id}`
   const ogTitle = `${entry.title} | Research | Tiles`
+  const socialImage = getSocialImage(entry.title)
 
   return {
     title: ogTitle,
@@ -39,20 +39,14 @@ export async function generateMetadata({ params }: ResearchExplorationPageProps)
       url: pageUrl,
       type: "article",
       images: [
-        {
-          url: DEFAULT_SOCIAL_IMAGE,
-          width: 1672,
-          height: 941,
-          type: "image/png",
-          alt: ogTitle,
-        },
+        { ...socialImage, alt: ogTitle },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title: ogTitle,
       description: entry.description,
-      images: [DEFAULT_SOCIAL_IMAGE],
+      images: [socialImage.url],
     },
   }
 }
