@@ -35,7 +35,10 @@ export const PRICING_PAGE_STATUS_BADGE = "Introductory pricing"
 export const PRICING_PAGE_STATUS_NOTE =
   "Prices increase soon • Features shipping Q3 2026"
 
-/** Why the paid plans exist. Applies to every plan, so it sits in the header. */
+/**
+ * Why the paid plans exist. Sits under the cards, not in the header, so the
+ * title stack stays title -> badge -> status.
+ */
 export const PRICING_PAGE_FUNDING_NOTE =
   "Every paid plan helps keep Tiles free and funds the independent development and operation of the business."
 

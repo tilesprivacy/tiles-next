@@ -219,9 +219,6 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
             <p className="mt-3 text-sm leading-6 text-black/55 dark:text-white/55">
               {PRICING_PAGE_STATUS_NOTE}
             </p>
-            <p className="mt-3 text-pretty text-sm leading-6 text-black/55 dark:text-white/55">
-              {PRICING_PAGE_FUNDING_NOTE}
-            </p>
           </header>
 
           <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-3 lg:grid-rows-[repeat(4,auto)] lg:gap-x-5 lg:gap-y-0">
@@ -234,7 +231,11 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
             ))}
           </div>
 
-          <p className="mt-5 text-center text-xs leading-5 text-black/50 dark:text-white/50">
+          <p className="mx-auto mt-8 max-w-xl text-pretty text-center text-sm leading-6 text-black/55 dark:text-white/55">
+            {PRICING_PAGE_FUNDING_NOTE}
+          </p>
+
+          <p className="mt-4 text-center text-xs leading-5 text-black/50 dark:text-white/50">
             By downloading or subscribing, you agree to the{" "}
             <Link href="/terms" className="underline underline-offset-2">
               terms
