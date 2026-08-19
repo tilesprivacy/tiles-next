@@ -25,11 +25,18 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 export const PRICING_PAGE_TITLE = "Pricing"
 
 /**
- * The page's whole status line, under the title, so the temporary price is
- * caught at a glance. Anything true of one plan only belongs on that card, in
- * `footnote`.
+ * Badge under the title, so the temporary price is caught at a glance. Says
+ * what the pricing is; `PRICING_PAGE_STATUS_NOTE` under it says why to act.
  */
 export const PRICING_PAGE_STATUS_BADGE = "Introductory Early Member pricing"
+
+/**
+ * The urgency behind the badge, on the line below it. True of both paid plans,
+ * so it belongs to the page: repeated per card it read as detached fine print
+ * and cost a block of height inside every card. Never name the prices here, or
+ * it drifts from the cards.
+ */
+export const PRICING_PAGE_STATUS_NOTE = "Lock in your price during the waitlist."
 
 /**
  * Why the paid plans exist. Sits under the cards, not in the header, so the
@@ -67,12 +74,6 @@ export interface PricingPlan {
   featuresIntroIcon?: "sparkle" | "gem"
   /** Short scannable labels, one line each. */
   features: string[]
-  /**
-   * Short line at the foot of the card, under the features and bottom aligned
-   * across the row, e.g. the Early Member lock-in. A caveat on the plan, so it
-   * sits apart from the price rather than beside it.
-   */
-  footnote?: string
   ctaLabel: string
   /** True for Tiles Pro. The pricing OG image uses this to accent the paid card. */
   highlighted: boolean
@@ -107,7 +108,6 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Sync chats across linked devices",
       "Remote inference for local models across devices",
     ],
-    footnote: "Lock in your price during the waitlist.",
     ctaLabel: "Join waitlist for Plus",
     highlighted: false,
   },
@@ -126,7 +126,6 @@ export const PRICING_PLANS: PricingPlan[] = [
       "Unlimited private web searches",
       "Backup and key recovery",
     ],
-    footnote: "Lock in your price during the waitlist.",
     ctaLabel: "Join waitlist for Pro",
     highlighted: true,
   },

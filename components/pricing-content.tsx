@@ -11,13 +11,27 @@ import {
   PRICING_FAQS,
   PRICING_PAGE_FUNDING_NOTE,
   PRICING_PAGE_STATUS_BADGE,
+  PRICING_PAGE_STATUS_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
   type PricingFaq,
   type PricingPlan,
 } from "@/lib/pricing-plans"
 
-const mutedTextClass = "text-black/62 dark:text-white/62"
+/**
+ * Secondary text ramp, shared so the steps stay in step with each other.
+ *
+ * Measured on both themes and quoted at the worse of the two, which is the
+ * light one: secondary lands at 7.7:1, tertiary at 4.7:1, and the icons at
+ * 3.3:1. That keeps every run of copy past WCAG AA (4.5:1) and the icons past
+ * the 3:1 for meaningful graphics. The margins on tertiary and the icons are
+ * thin, so re-measure against light before dimming either.
+ */
+const secondaryTextClass = "text-black/68 dark:text-white/68"
+
+const tertiaryTextClass = "text-black/55 dark:text-white/55"
+
+const mutedIconClass = "text-black/45 dark:text-white/45"
 
 const ctaBaseClass =
   "inline-flex h-11 w-full items-center justify-center gap-1 whitespace-nowrap rounded-full px-5 text-sm font-medium leading-none !no-underline transition-colors"
@@ -145,12 +159,12 @@ function FaqItem({ faq }: { faq: PricingFaq }) {
           {faq.question}
         </h3>
         <ChevronDown
-          className="h-4 w-4 shrink-0 text-black/35 transition-transform duration-200 group-open:rotate-180 dark:text-white/35"
+          className={`h-4 w-4 shrink-0 transition-transform duration-200 group-open:rotate-180 ${mutedIconClass}`}
           strokeWidth={1.75}
           aria-hidden
         />
       </summary>
-      <div className={`-mt-2 pb-5 pr-8 text-pretty text-sm leading-6 ${mutedTextClass}`}>
+      <div className={`-mt-2 pb-5 pr-8 text-pretty text-sm leading-6 ${secondaryTextClass}`}>
         <p>{faq.answer}</p>
         {faq.link ? <FaqLink link={faq.link} /> : null}
       </div>
@@ -167,7 +181,7 @@ function FeatureList({ features }: { features: string[] }) {
           className="flex gap-2.5 text-sm leading-6 text-foreground/80"
         >
           <Check
-            className="mt-[0.3rem] h-3.5 w-3.5 shrink-0 text-black/30 dark:text-white/30"
+            className={`mt-[0.3rem] h-3.5 w-3.5 shrink-0 ${mutedIconClass}`}
             strokeWidth={1.75}
             aria-hidden
           />
@@ -197,7 +211,7 @@ function PlanCard({
           {plan.name}
         </h2>
         {plan.tagline ? (
-          <p className="text-sm leading-6 text-black/55 dark:text-white/55">
+          <p className={`text-sm leading-6 ${secondaryTextClass}`}>
             {plan.tagline}
           </p>
         ) : null}
@@ -242,7 +256,7 @@ function PlanCard({
           <p className="flex gap-2.5 text-sm font-medium leading-6 text-foreground">
             {FeaturesIntroIcon ? (
               <FeaturesIntroIcon
-                className="mt-[0.3rem] h-3.5 w-3.5 shrink-0 text-black/45 dark:text-white/45"
+                className={`mt-[0.3rem] h-3.5 w-3.5 shrink-0 ${tertiaryTextClass}`}
                 strokeWidth={1.75}
                 aria-hidden
               />
@@ -251,11 +265,6 @@ function PlanCard({
           </p>
         ) : null}
         <FeatureList features={plan.features} />
-        {plan.footnote ? (
-          <p className="mt-auto pt-8 text-xs leading-5 text-black/45 dark:text-white/45">
-            {plan.footnote}
-          </p>
-        ) : null}
       </div>
     </article>
   )
@@ -277,6 +286,9 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
                 {PRICING_PAGE_STATUS_BADGE}
               </span>
             </div>
+            <p className={`mt-3 text-balance text-sm leading-6 ${secondaryTextClass}`}>
+              {PRICING_PAGE_STATUS_NOTE}
+            </p>
           </header>
 
           <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-3 lg:grid-rows-[repeat(4,auto)] lg:gap-x-5 lg:gap-y-0">
@@ -289,12 +301,18 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
             ))}
           </div>
 
-          <p className="mx-auto mt-8 max-w-xl text-pretty text-center text-sm leading-6 text-black/55 dark:text-white/55">
+          <p
+            className={`mx-auto mt-12 max-w-xl text-pretty text-center text-sm leading-6 ${secondaryTextClass}`}
+          >
             {PRICING_PAGE_FUNDING_NOTE}
           </p>
 
-          <section className="mt-20 lg:mt-24">
-            <h2 className={marketingPageSectionTitleClass}>
+          <section className="mt-14 lg:mt-16">
+            <div
+              className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent dark:via-white/12"
+              aria-hidden
+            />
+            <h2 className={`${marketingPageSectionTitleClass} mt-10 lg:mt-12`}>
               Frequently Asked Questions
             </h2>
             <div className="mt-8 border-t border-black/8 divide-y divide-black/8 dark:border-white/10 dark:divide-white/10">
@@ -304,7 +322,9 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
             </div>
           </section>
 
-          <p className="mt-16 text-center text-xs leading-5 text-black/50 dark:text-white/50 lg:mt-20">
+          <p
+            className={`mt-16 text-center text-xs leading-5 lg:mt-20 ${tertiaryTextClass}`}
+          >
             By downloading or subscribing, you agree to the{" "}
             <Link href="/terms" className="underline underline-offset-2">
               terms
