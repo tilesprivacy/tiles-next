@@ -116,9 +116,9 @@ export function GET() {
           <div
             style={{
               display: "flex",
-              width: "48%",
+              width: "36%",
               flexDirection: "column",
-              paddingRight: 54,
+              paddingRight: 40,
             }}
           >
             <div
@@ -136,9 +136,9 @@ export function GET() {
             <div
               style={{
                 display: "flex",
-                maxWidth: 500,
+                maxWidth: 420,
                 marginTop: 18,
-                fontSize: 70,
+                fontSize: 62,
                 fontWeight: 600,
                 letterSpacing: "-0.055em",
                 lineHeight: 1.02,
@@ -149,10 +149,10 @@ export function GET() {
             <div
               style={{
                 display: "flex",
-                maxWidth: 495,
-                marginTop: 25,
+                maxWidth: 420,
+                marginTop: 22,
                 color: "rgba(244, 244, 245, 0.68)",
-                fontSize: 25,
+                fontSize: 23,
                 lineHeight: 1.38,
                 letterSpacing: "-0.015em",
               }}
@@ -164,7 +164,7 @@ export function GET() {
           <div
             style={{
               display: "flex",
-              width: "52%",
+              width: "64%",
               alignItems: "stretch",
             }}
           >
@@ -178,15 +178,15 @@ export function GET() {
                   minHeight: 326,
                   flexDirection: "column",
                   overflow: "hidden",
-                  marginLeft: index === 0 ? 0 : 18,
+                  marginLeft: index === 0 ? 0 : 14,
                   border: plan.highlighted
                     ? "1px solid rgba(255, 255, 255, 0.3)"
                     : "1px solid rgba(255, 255, 255, 0.14)",
-                  borderRadius: 22,
+                  borderRadius: 20,
                   background: plan.highlighted
                     ? "linear-gradient(145deg, rgba(203, 48, 224, 0.15), rgba(255, 255, 255, 0.07))"
                     : "rgba(255, 255, 255, 0.035)",
-                  padding: "26px 25px 24px",
+                  padding: "22px 20px 20px",
                 }}
               >
                 {plan.highlighted ? (
@@ -205,7 +205,7 @@ export function GET() {
                 <div
                   style={{
                     display: "flex",
-                    fontSize: 22,
+                    fontSize: 20,
                     fontWeight: 600,
                     letterSpacing: "-0.02em",
                   }}
@@ -216,13 +216,13 @@ export function GET() {
                   style={{
                     display: "flex",
                     alignItems: "baseline",
-                    marginTop: 24,
+                    marginTop: 20,
                   }}
                 >
                   <div
                     style={{
                       display: "flex",
-                      fontSize: 58,
+                      fontSize: 46,
                       fontWeight: 500,
                       letterSpacing: "-0.055em",
                       lineHeight: 1,
@@ -234,9 +234,9 @@ export function GET() {
                     <div
                       style={{
                         display: "flex",
-                        marginLeft: 10,
+                        marginLeft: 8,
                         color: "rgba(244, 244, 245, 0.52)",
-                        fontSize: 17,
+                        fontSize: 15,
                       }}
                     >
                       {plan.cadence}
@@ -246,11 +246,11 @@ export function GET() {
                 <div
                   style={{
                     display: "flex",
-                    minHeight: 58,
-                    marginTop: 20,
+                    minHeight: 72,
+                    marginTop: 16,
                     color: "rgba(244, 244, 245, 0.64)",
-                    fontSize: 18,
-                    lineHeight: 1.38,
+                    fontSize: 16,
+                    lineHeight: 1.35,
                   }}
                 >
                   {plan.tagline}
@@ -259,41 +259,40 @@ export function GET() {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    marginTop: "auto",
-                    paddingTop: 24,
+                    marginTop: 22,
                   }}
                 >
                   <div
                     style={{
                       display: "flex",
                       color: "rgba(244, 244, 245, 0.4)",
-                      fontSize: 12,
+                      fontSize: 11,
                       fontWeight: 600,
-                      letterSpacing: "0.12em",
+                      letterSpacing: "0.1em",
                       textTransform: "uppercase",
                     }}
                   >
-                    {plan.featuresIntro}
+                    {plan.featuresIntro ?? "\u00A0"}
                   </div>
                   <div
                     style={{
                       display: "flex",
                       alignItems: "flex-start",
-                      marginTop: 12,
+                      marginTop: 10,
                       color: "rgba(244, 244, 245, 0.88)",
-                      fontSize: 17,
-                      lineHeight: 1.35,
+                      fontSize: 15,
+                      lineHeight: 1.32,
                     }}
                   >
                     <div
                       style={{
                         display: "flex",
-                        width: 7,
-                        height: 7,
+                        width: 6,
+                        height: 6,
                         flexShrink: 0,
-                        marginTop: 8,
-                        marginRight: 10,
-                        borderRadius: 7,
+                        marginTop: 7,
+                        marginRight: 8,
+                        borderRadius: 6,
                         backgroundColor: plan.highlighted
                           ? "#CB30E0"
                           : "rgba(244, 244, 245, 0.7)",

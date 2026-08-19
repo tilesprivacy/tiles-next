@@ -2,8 +2,26 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
 import { usePathname, useRouter } from "next/navigation"
-import ReactMarkdown from "react-markdown"
+
+// react-markdown (plus its micromark/unified dependency tree) is only needed
+// once an AI answer streams in, so it loads on demand instead of shipping
+// with every page via the site header. While the chunk is in flight the
+// fallback matches the pre-answer "Thinking…" note exactly.
+const ReactMarkdown = dynamic(() => import("react-markdown"), {
+  ssr: false,
+  loading: ({ error }) =>
+    error ? (
+      <p className="ai-search-answer-note">Something went wrong. Try asking again.</p>
+    ) : (
+      <p className="ai-search-answer-note">Thinking…</p>
+    ),
+})
+
+const preloadMarkdown = () => {
+  void import("react-markdown")
+}
 
 interface PagefindSubResult {
   url: string
@@ -151,6 +169,9 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
   const open = useCallback(() => {
     setIsOpen(true)
+    // Warm the markdown renderer while the visitor types, so it is ready
+    // well before the first AI answer arrives.
+    preloadMarkdown()
     onOpenChange?.(true)
   }, [onOpenChange])
 

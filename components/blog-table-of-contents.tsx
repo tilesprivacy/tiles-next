@@ -150,6 +150,11 @@ export function BlogTableOfContents({
     }
 
     setItems(tocItems)
+
+    // The print variant never reads activeId, so it can skip the scroll
+    // tracking below entirely.
+    if (mode === 'print') return
+
     setActiveId((current) => current || getActiveIdFromScroll())
 
     const syncActiveState = () => {
@@ -157,15 +162,27 @@ export function BlogTableOfContents({
       setActiveId((current) => (current === nextActiveId ? current : nextActiveId))
     }
 
+    // Sync once immediately so the highlight is correct on mount and hash
+    // navigation, but gate the scroll/resize listeners behind rAF so each
+    // frame measures the headings at most once instead of per event.
     syncActiveState()
-    window.addEventListener('scroll', syncActiveState, { passive: true })
-    window.addEventListener('resize', syncActiveState)
+    let frameId: number | null = null
+    const requestSync = () => {
+      if (frameId !== null) return
+      frameId = window.requestAnimationFrame(() => {
+        frameId = null
+        syncActiveState()
+      })
+    }
+    window.addEventListener('scroll', requestSync, { passive: true })
+    window.addEventListener('resize', requestSync)
 
     return () => {
-      window.removeEventListener('scroll', syncActiveState)
-      window.removeEventListener('resize', syncActiveState)
+      if (frameId !== null) window.cancelAnimationFrame(frameId)
+      window.removeEventListener('scroll', requestSync)
+      window.removeEventListener('resize', requestSync)
     }
-  }, [contentSelector, enableResearchSectionNumbers, getScrollOffset, introId])
+  }, [contentSelector, enableResearchSectionNumbers, getScrollOffset, introId, mode])
 
   useEffect(() => {
     const hashId = window.location.hash.replace('#', '')

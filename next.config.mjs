@@ -30,7 +30,10 @@ const BRANDING_ASSET_FILES = [
 const brandingCacheControlHeaders = [
   {
     key: 'Cache-Control',
-    value: 'public, max-age=0, must-revalidate',
+    // stale-while-revalidate keeps every use revalidating (updates still
+    // propagate within one navigation) but serves the cached copy instantly
+    // instead of blocking paint on a 304 round trip.
+    value: 'public, max-age=0, stale-while-revalidate=604800',
   },
 ]
 

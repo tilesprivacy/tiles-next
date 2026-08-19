@@ -3,6 +3,8 @@ title: "Tilekit"
 description: "Complete reference for the Modelfile parser, grammar, instructions, parameters, and Tilekit API usage"
 ---
 
+import NextImage from "next/image"
+
 # Tilekit
 
 Tilekit aims to be the app-server interface behind Tiles and future rich client experiences. **It is a work in progress, and its API and source code have not yet been released.** When available, developers will be able to embed it into their local clients by bundling or fetching a platform-specific App Server binary, running it as a long-lived child process, and communicating with it through REST endpoints.
@@ -151,8 +153,8 @@ The example above is valid. Today, `FROM` and `SYSTEM` drive behavior directly; 
 
 <div className="my-6 flex justify-start">
   <div className="rounded bg-black p-3 inline-block dark:bg-black bg-neutral-100">
-    <img src="/mir300_light.png" alt="MIR" className="h-[90px] w-auto dark:hidden" />
-    <img src="/mir300_dark.png" alt="MIR" className="h-[90px] w-auto hidden dark:block" />
+    <NextImage src="/mir300_light.png" alt="MIR" width={876} height={876} sizes="90px" className="h-[90px] w-auto dark:hidden" />
+    <NextImage src="/mir300_dark.png" alt="MIR" width={876} height={876} sizes="90px" className="h-[90px] w-auto hidden dark:block" />
   </div>
 </div>
 

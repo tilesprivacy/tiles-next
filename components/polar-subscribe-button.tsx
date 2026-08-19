@@ -3,22 +3,24 @@
 import { useCallback, useState, type MouseEvent } from "react"
 import { useTheme } from "next-themes"
 import { PolarEmbedCheckout } from "@polar-sh/checkout/embed"
-import type { PolarCheckoutMode } from "@/lib/polar"
+import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
 import { isDarkResolvedTheme } from "@/lib/site-theme"
 
 /**
- * Subscribe action for Tiles Pro, opening Polar's embedded checkout in an
+ * Subscribe action for a paid plan, opening Polar's embedded checkout in an
  * overlay instead of navigating away.
  *
  * The anchor keeps a real `href` so the flow degrades to a full page checkout
  * when JavaScript is unavailable: the public checkout link in `link` mode, and
- * the redirecting `/api/polar/checkout/pro` route in `session` mode.
+ * the redirecting `/api/polar/checkout/<plan>` route in `session` mode.
  */
 export function PolarSubscribeButton({
+  plan,
   mode,
   label,
   className,
 }: {
+  plan: PolarPaidPlanId
   mode: Extract<PolarCheckoutMode, { kind: "link" } | { kind: "session" }>
   label: string
   className?: string
@@ -28,7 +30,7 @@ export function PolarSubscribeButton({
   const [hasFailed, setHasFailed] = useState(false)
 
   const fallbackHref =
-    mode.kind === "link" ? mode.url : "/api/polar/checkout/pro"
+    mode.kind === "link" ? mode.url : `/api/polar/checkout/${plan}`
 
   const openCheckout = useCallback(
     async (event: MouseEvent<HTMLAnchorElement>) => {
@@ -47,9 +49,10 @@ export function PolarSubscribeButton({
         let url = mode.kind === "link" ? mode.url : null
 
         if (!url) {
-          const response = await fetch("/api/polar/checkout/session", {
-            method: "POST",
-          })
+          const response = await fetch(
+            `/api/polar/checkout/session?plan=${plan}`,
+            { method: "POST" },
+          )
           if (!response.ok) {
             throw new Error(`checkout session request failed: ${response.status}`)
           }
@@ -69,7 +72,7 @@ export function PolarSubscribeButton({
         setIsOpening(false)
       }
     },
-    [isOpening, mode, resolvedTheme],
+    [isOpening, mode, plan, resolvedTheme],
   )
 
   return (

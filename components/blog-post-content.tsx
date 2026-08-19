@@ -255,6 +255,9 @@ export function BlogPostContent({
 
           {coverImage ? (
             <div className="blog-print-screen-only mb-8 lg:mb-16">
+              {/* The cover is the LCP element on posts that have one, so it
+                  must not lazy-load. The theme is unknown at SSR time, so the
+                  dual-variant case eagerly fetches both. */}
               {coverImageDark ? (
                 <>
                   <Image
@@ -262,6 +265,7 @@ export function BlogPostContent({
                     alt={coverAlt ?? title}
                     width={coverImageWidth}
                     height={coverImageHeight}
+                    priority
                     className="w-full h-auto rounded-lg dark:hidden"
                   />
                   <Image
@@ -269,6 +273,8 @@ export function BlogPostContent({
                     alt={coverAlt ?? title}
                     width={coverImageWidth}
                     height={coverImageHeight}
+                    loading="eager"
+                    fetchPriority="high"
                     className="hidden w-full h-auto rounded-lg dark:block"
                   />
                 </>
@@ -278,6 +284,7 @@ export function BlogPostContent({
                   alt={coverAlt ?? title}
                   width={coverImageWidth}
                   height={coverImageHeight}
+                  priority
                   className="w-full h-auto rounded-lg"
                 />
               )}

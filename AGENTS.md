@@ -96,7 +96,9 @@ export default UseCasesPage
 
 ## Polar.sh Integration (`/pricing`)
 
-Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There is exactly **one paid license, Tiles Pro** ($10 USD per user, per month). Checkout is **live** and needs no secret: `/pricing` opens Polar's embedded checkout against a public Checkout Link, and entitlement is carried by a Polar-issued license key rather than any store on this site.
+Billing runs on [Polar](https://polar.sh), which acts as merchant of record. There are **two paid licenses**: **Tiles Plus** ($3 USD per user, per month) and **Tiles Pro** ($10 USD per user, per month), each backed by its own Polar product under the same organization. Entitlement is carried by a Polar-issued license key rather than any store on this site.
+
+Checkout is **live for both plans** and needs no secret: `/pricing` opens Polar's embedded checkout against a public Checkout Link, one per product, both committed in `lib/polar.ts`.
 
 **Never commit real credentials.** Secrets belong in `.env.local` locally and in Vercel project settings in production. Product ids are not secrets and are committed.
 
@@ -104,33 +106,36 @@ Billing runs on [Polar](https://polar.sh), which acts as merchant of record. The
 
 | File | Role |
 | --- | --- |
-| `lib/pricing-plans.ts` | Canonical plan copy (Free, Tiles Pro), placeholder pill note, sections, FAQs |
-| `components/pricing-content.tsx` | `/pricing` UI. Takes `checkoutMode` as a prop and never reads `process.env` |
+| `lib/pricing-plans.ts` | Canonical plan copy (Free, Tiles Plus, Tiles Pro), header status note, sections, FAQs |
+| `components/pricing-content.tsx` | `/pricing` UI. Takes `checkoutModes` as a prop and never reads `process.env` |
 | `components/polar-subscribe-button.tsx` | Client component that opens Polar's **embedded** checkout overlay |
 | `app/pricing/page.tsx` | Route, metadata, and where `getPolarCheckoutMode()` is resolved |
-| `lib/polar.ts` | Server-only Polar config, live product id, checkout link, spoofed secrets |
+| `lib/polar.ts` | Server-only Polar config, live product ids, checkout links, spoofed secrets |
 | `lib/feature-flags.ts` | `POLAR_BILLING_ENABLED` master switch (currently `true`) |
-| `app/api/polar/checkout/session/route.ts` | Mints a checkout session as JSON for the embed |
-| `app/api/polar/checkout/pro/route.ts` | Redirecting checkout, used as the no-JS fallback and from `licenses.mdx` |
+| `app/api/polar/checkout/session/route.ts` | Mints a checkout session as JSON for the embed, per `?plan=plus\|pro` |
+| `app/api/polar/checkout/plan-checkout.ts` | Shared redirecting-checkout handler for the two plan routes |
+| `app/api/polar/checkout/pro/route.ts` | Redirecting Pro checkout, the no-JS fallback and the link in `licenses.mdx` |
+| `app/api/polar/checkout/plus/route.ts` | Redirecting Plus checkout, the no-JS fallback for Plus |
 | `app/api/polar/webhooks/route.ts` | Webhook receiver |
-| `app/pricing/success/page.tsx` | Post-checkout confirmation (noindex), where Polar sends buyers |
-| `components/pricing-success-content.tsx` | Success page UI, copy from `PRICING_SUCCESS` |
+| `app/pricing/success/page.tsx` | Post-checkout confirmation (noindex), where Polar sends buyers. Resolves which plan was bought |
+| `components/pricing-success-content.tsx` | Success page UI, copy from `PRICING_SUCCESS[plan]` |
+| `lib/polar-checkout-plan.ts` | Resolves a completed checkout to a plan, for the success page |
 | `content/licenses.mdx` | Tiles Pro license page at `/book/licenses` |
 | `.env.example` | Env template (force-added; `.env*` is gitignored) |
 
 ### Embedded checkout on `/pricing`
 
-Subscribe opens Polar's embedded checkout overlay (`PolarEmbedCheckout` from `@polar-sh/checkout/embed`) rather than navigating away. The embed needs a **URL it can put in an iframe**, and there are exactly two ways to get one. `getPolarCheckoutMode()` picks whichever is configured and `app/pricing/page.tsx` passes the result down as `checkoutMode`:
+Subscribe opens Polar's embedded checkout overlay (`PolarEmbedCheckout` from `@polar-sh/checkout/embed`) rather than navigating away. The embed needs a **URL it can put in an iframe**, and there are exactly two ways to get one. `getPolarCheckoutMode(plan)` picks whichever is configured for that plan, and `app/pricing/page.tsx` passes the whole set down as `checkoutModes` via `getPolarCheckoutModes()`:
 
 | Mode | Requires | Behaviour |
 | --- | --- | --- |
-| `link` | `POLAR_PRO_CHECKOUT_LINK` | **Current mode.** Embed opens the public checkout link directly. No server round trip, no secrets |
-| `session` | `POLAR_ACCESS_TOKEN` | On click the browser POSTs `/api/polar/checkout/session`, which mints a fresh session, then the embed opens its URL |
+| `link` | the plan's checkout link | **Current mode for both plans.** Embed opens the public checkout link directly. No server round trip, no secrets |
+| `session` | `POLAR_ACCESS_TOKEN` | On click the browser POSTs `/api/polar/checkout/session?plan=…`, which mints a fresh session, then the embed opens its URL |
 | `unavailable` | neither | Subscribe renders as a disabled button with an "unavailable" note |
 
-**A product id is not a checkout link.** `buy.polar.sh/<product-id>` soft-404s to the Polar homepage, so the embed URL cannot be derived from `POLAR_PRO_PRODUCT_ID` in the browser. Checkout Links are created in the Polar dashboard (**Checkout Links > New Link**) and are persistent; checkout **sessions** are short lived, which is why `session` mode mints one per click instead of at render time.
+**A product id is not a checkout link.** `buy.polar.sh/<product-id>` soft-404s to the Polar homepage, so the embed URL cannot be derived from a product id in the browser. Checkout Links are created in the Polar dashboard (**Checkout Links > New Link**) and are persistent; checkout **sessions** are short lived, which is why `session` mode mints one per click instead of at render time.
 
-The Subscribe anchor keeps a real `href` so the flow degrades to a full page checkout when JavaScript is unavailable: the checkout link in `link` mode, `/api/polar/checkout/pro` in `session` mode.
+The Subscribe anchor keeps a real `href` so the flow degrades to a full page checkout when JavaScript is unavailable: the checkout link in `link` mode, `/api/polar/checkout/<plan>` in `session` mode.
 
 ### Entitlement: license keys, no backend
 
@@ -148,9 +153,18 @@ await polar.customerPortal.licenseKeys.validate({
 
 A bogus key returns `404 ResourceNotFound`; a malformed organization id returns `422`. Device limits come from the benefit's activation limit via `licenseKeys.activate()` / `.deactivate()`. Both ids live in `lib/polar.ts` and are not secrets.
 
-The CLI side is specced in [`docs/tiles-pro-license-activation.md`](docs/tiles-pro-license-activation.md): `tiles activate <key>` / `tiles deactivate`, keyring storage, and the endpoint contracts. It also lists the copy in this repo that must change once those commands ship (step 3 of `PRICING_SUCCESS`, `content/licenses.mdx`, `content/manual.mdx`).
+The CLI side is specced in [`docs/tiles-pro-license-activation.md`](docs/tiles-pro-license-activation.md): `tiles activate <key>` / `tiles deactivate`, keyring storage, and the endpoint contracts. It also lists the copy in this repo that must change once those commands ship (step 3 of each `PRICING_SUCCESS` entry, `content/licenses.mdx`, `content/manual.mdx`).
 
 Because of this, webhooks are **optional**. Only add them if something needs server-side authorization per request (for example the managed relays or private cloud models); the handler stubs in `app/api/polar/webhooks/route.ts` stay unused until then.
+
+### Which plan the success page names
+
+`/pricing/success` renders `PRICING_SUCCESS[plan]`, one entry per plan plus an `unknown` fallback, so it never tells a Plus subscriber they are on Pro. `resolveCheckoutPlan()` in `lib/polar-checkout-plan.ts` decides, in order:
+
+1. `?plan=plus|pro` on the URL. The API routes append it to their `successUrl`; dashboard Checkout Links need it added by hand (see the deploy checklist). Needs no secret.
+2. The checkout id Polar appends, looked up with `polar.checkouts.get()` and matched against the committed product ids. Needs `POLAR_ACCESS_TOKEN`.
+
+With neither, the page falls back to the plan-neutral `unknown` copy. The lookup is wrapped in React `cache` so the page body and `generateMetadata` share one call per request.
 
 ### Fail-closed model
 
@@ -173,14 +187,14 @@ Setting `POLAR_BILLING_ENABLED` to `false` takes billing down everywhere without
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `POLAR_PRO_CHECKOUT_LINK` | One of these two | Public Polar Checkout Link (`https://buy.polar.sh/polar_cl_...`). Overrides the committed constant in `lib/polar.ts`, which is where it normally lives since it is not a secret |
+| `POLAR_PRO_CHECKOUT_LINK` / `POLAR_PLUS_CHECKOUT_LINK` | One of these two, per plan | Public Polar Checkout Link (`https://buy.polar.sh/polar_cl_...`). Overrides the committed constant in `lib/polar.ts`, which is where both normally live since they are not secrets |
 | `POLAR_ACCESS_TOKEN` | One of these two | Organization access token (`polar_oat_...`), from Polar **Settings > Developers**. Also required for direct API calls |
 | `POLAR_WEBHOOK_SECRET` | Yes, for webhooks | Webhook signing secret (`polar_whs_...`), from Polar **Settings > Webhooks** |
-| `POLAR_PRO_PRODUCT_ID` | No | Overrides the committed Tiles Pro product id. Only needed to point a preview build at a different product |
+| `POLAR_PRO_PRODUCT_ID` / `POLAR_PLUS_PRODUCT_ID` | No | Overrides the committed product ids. Only needed to point a preview build at different products |
 | `POLAR_SERVER` | No | `production` (default) or `sandbox` |
 | `NEXT_PUBLIC_SITE_URL` | In dev | Origin for `successUrl` / `returnUrl` via `getSiteUrl()` in `lib/site-url.ts` |
 
-The live Tiles Pro product id is `98d19697-7811-437f-933e-c5a55caa9362`, committed as `POLAR_PRO_PRODUCT_ID` in `lib/polar.ts`.
+The live product ids are committed in `lib/polar.ts`: Tiles Pro is `98d19697-7811-437f-933e-c5a55caa9362`, Tiles Plus is `e8338574-288a-42c3-93d6-b8c5e0fa0809`.
 
 ### Checkout route
 
@@ -192,7 +206,7 @@ export async function GET(request: NextRequest) {
 
   const url = new URL(request.url)
   if (!url.searchParams.has("products")) {
-    url.searchParams.set("products", getPolarProProductId())
+    url.searchParams.set("products", getPolarProductId(plan))
   }
 
   const handler = Checkout({
@@ -237,11 +251,12 @@ Always gate these behind the matching `isPolar*Configured()` check, and never im
 
 ### Deploy checklist
 
-1. Subscribe is already live: `POLAR_PRO_CHECKOUT_LINK` in `lib/polar.ts` holds the Tiles Pro Checkout Link, so no secret is needed for checkout. If that link is ever revoked, either replace it from the Polar dashboard (**Checkout Links > New Link**) or set `POLAR_ACCESS_TOKEN` to fall back to session mode.
-2. Set the Checkout Link's success URL in the Polar dashboard to `https://www.tiles.run/pricing/success`. The committed `successUrl` in the API routes only applies to the session and redirect flows, not to a dashboard-created Checkout Link.
-3. Verify against `POLAR_SERVER=sandbox` before pointing at production.
-4. Only if server-side authorization is needed: set `POLAR_WEBHOOK_SECRET`, register the webhook endpoint, and fill in the handler stubs. License keys cover entitlement without this.
-5. When pricing stops being provisional, drop `PRICING_PLACEHOLDER_NOTE` from `lib/pricing-plans.ts` (and its render in `components/pricing-content.tsx`), refresh the "Is this pricing final?" FAQ, and update the Availability section in `content/licenses.mdx`.
+1. Subscribe is already live for both plans: `POLAR_PLUS_CHECKOUT_LINK` and `POLAR_PRO_CHECKOUT_LINK` in `lib/polar.ts` hold the two Checkout Links, so no secret is needed for checkout. If a link is ever revoked, either replace it from the Polar dashboard (**Checkout Links > New Link**) or set `POLAR_ACCESS_TOKEN` to fall back to session mode.
+2. Attach a **License Key** benefit to the Tiles Plus product and record its id as `POLAR_PLUS_LICENSE_KEY_BENEFIT_ID` in `lib/polar.ts`. Benefits are per product, so Plus cannot reuse the Pro benefit id.
+3. Set **each** Checkout Link's success URL in the Polar dashboard, including the plan so the page can name it: `https://www.tiles.run/pricing/success?plan=plus` and `…?plan=pro`. The committed `successUrl` in the API routes only applies to the session and redirect flows, not to a dashboard-created Checkout Link.
+4. Verify against `POLAR_SERVER=sandbox` before pointing at production.
+5. Only if server-side authorization is needed: set `POLAR_WEBHOOK_SECRET`, register the webhook endpoint, and fill in the handler stubs. License keys cover entitlement without this.
+6. When pricing stops being provisional, drop `PRICING_PAGE_STATUS_NOTE` from `lib/pricing-plans.ts` (and its render in `components/pricing-content.tsx`), refresh the "Is this pricing final?" FAQ, and update the Availability section in `content/licenses.mdx`.
 
 ## Learned User Preferences
 

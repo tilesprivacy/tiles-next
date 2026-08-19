@@ -100,7 +100,7 @@ export function ProductFeatureWidgets({
         </a>{" "}
         agent harness for knowledge work, built around Google’s{" "}
         <span className="inline-flex items-center gap-1.5 rounded bg-black/[0.045] px-1.5 py-0.5 align-baseline dark:bg-white/[0.08]">
-          <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={14} height={14} className="h-3.5 w-3.5 shrink-0" />
+          <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={14} height={14} loading="lazy" className="h-3.5 w-3.5 shrink-0" />
           <span className="font-mono text-[0.95em]">gemma4-12b</span>
         </span>
         {', with Plugins support.'}

@@ -76,7 +76,36 @@ export function SiteOfflineCacheRegistrar() {
       }
     }
 
-    registerServiceWorker()
+    // Registering the service worker kicks off precaching, which competes
+    // with page startup for bandwidth and main-thread time. Wait for the
+    // window load event, then an idle slot, before registering.
+    let idleHandle: number | undefined
+    let usedIdleCallback = false
+    const scheduleRegistration = () => {
+      if ('requestIdleCallback' in window) {
+        usedIdleCallback = true
+        idleHandle = window.requestIdleCallback(() => void registerServiceWorker())
+      } else {
+        idleHandle = window.setTimeout(() => void registerServiceWorker(), 1)
+      }
+    }
+
+    if (document.readyState === 'complete') {
+      scheduleRegistration()
+      return () => {
+        if (idleHandle === undefined) return
+        if (usedIdleCallback) window.cancelIdleCallback(idleHandle)
+        else window.clearTimeout(idleHandle)
+      }
+    }
+
+    window.addEventListener('load', scheduleRegistration, { once: true })
+    return () => {
+      window.removeEventListener('load', scheduleRegistration)
+      if (idleHandle === undefined) return
+      if (usedIdleCallback) window.cancelIdleCallback(idleHandle)
+      else window.clearTimeout(idleHandle)
+    }
   }, [])
 
   return null

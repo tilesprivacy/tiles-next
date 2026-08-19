@@ -2,7 +2,7 @@
 export const SHOW_REMOTE_LINK = false
 
 /** Set to true once the offline installer has been uploaded to the download bucket. */
-export const SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE = false
+export const SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE = true
 
 /**
  * Master switch for Polar billing. On, so `/pricing` offers a real checkout.

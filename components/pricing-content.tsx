@@ -6,9 +6,11 @@ import {
   marketingPageSectionTitleClass,
   marketingPageTitleClass,
 } from "@/lib/marketing-page-title-classes"
-import type { PolarCheckoutMode } from "@/lib/polar"
+import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
 import {
   PRICING_FAQS,
+  PRICING_PAGE_FUNDING_NOTE,
+  PRICING_PAGE_STATUS_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
   type PricingFaq,
@@ -29,12 +31,14 @@ const filledCtaClass =
 const faqLinkClass =
   "mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
 
+type PricingCheckoutModes = Record<PolarPaidPlanId, PolarCheckoutMode>
+
 interface PricingContentProps {
   /**
-   * How the Subscribe action should behave. Resolved server side in
-   * `app/pricing/page.tsx` so this component never touches `process.env`.
+   * How each paid plan's Subscribe action should behave. Resolved server side
+   * in `app/pricing/page.tsx` so this component never touches `process.env`.
    */
-  checkoutMode: PolarCheckoutMode
+  checkoutModes: PricingCheckoutModes
 }
 
 /**
@@ -42,11 +46,13 @@ interface PricingContentProps {
  * renders disabled otherwise so the page never points at a checkout that would
  * fail.
  */
-function ProPlanCta({
-  plan,
+function PaidPlanCta({
+  planId,
+  ctaLabel,
   checkoutMode,
 }: {
-  plan: PricingPlan
+  planId: PolarPaidPlanId
+  ctaLabel: string
   checkoutMode: PolarCheckoutMode
 }) {
   if (checkoutMode.kind === "unavailable") {
@@ -56,16 +62,17 @@ function ProPlanCta({
         disabled
         className={`${ctaBaseClass} cursor-not-allowed border border-black/12 bg-transparent text-black/45 dark:border-white/15 dark:text-white/45`}
       >
-        {plan.ctaLabel}
+        {ctaLabel}
       </button>
     )
   }
 
   return (
     <PolarSubscribeButton
+      plan={planId}
       mode={checkoutMode}
-      label={plan.ctaLabel}
-      className={filledCtaClass}
+      label={ctaLabel}
+      className={planId === "pro" ? filledCtaClass : outlinedCtaClass}
     />
   )
 }
@@ -115,26 +122,19 @@ function FeatureList({ features }: { features: string[] }) {
 
 function PlanCard({
   plan,
-  checkoutMode,
+  checkoutModes,
 }: {
   plan: PricingPlan
-  checkoutMode: PolarCheckoutMode
+  checkoutModes: PricingCheckoutModes
 }) {
-  const isPro = plan.id === "pro"
+  const isPaid = plan.id !== "free"
 
   return (
-    <article className="flex flex-col gap-6 rounded-2xl border border-black/10 p-7 dark:border-white/12 sm:grid sm:grid-rows-subgrid sm:row-span-4 sm:p-8">
+    <article className="flex flex-col gap-6 rounded-2xl border border-black/10 p-7 dark:border-white/12 lg:grid lg:grid-rows-subgrid lg:row-span-4 lg:p-8">
       <div className="flex flex-col gap-2.5">
-        <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
-          <h2 className="font-sans text-[1.5rem] font-semibold leading-none tracking-[-0.03em] text-foreground">
-            {plan.name}
-          </h2>
-          {plan.badge ? (
-            <span className="rounded-full border border-black/12 bg-black/[0.05] px-2.5 py-1 text-[0.6875rem] font-medium leading-snug text-black/55 dark:border-white/15 dark:bg-white/[0.08] dark:text-white/55">
-              {plan.badge}
-            </span>
-          ) : null}
-        </div>
+        <h2 className="font-sans text-[1.5rem] font-semibold leading-none tracking-[-0.03em] text-foreground">
+          {plan.name}
+        </h2>
         {plan.tagline ? (
           <p className="text-sm leading-6 text-black/55 dark:text-white/55">
             {plan.tagline}
@@ -150,7 +150,7 @@ function PlanCard({
           {plan.cadence ? (
             <span
               className={
-                isPro
+                isPaid
                   ? "text-lg font-medium tracking-[-0.02em] text-foreground/65"
                   : "text-sm font-medium text-black/45 dark:text-white/45"
               }
@@ -167,12 +167,16 @@ function PlanCard({
       </div>
 
       <div>
-        {isPro ? (
-          <ProPlanCta plan={plan} checkoutMode={checkoutMode} />
-        ) : (
+        {plan.id === "free" ? (
           <Link href="/download" className={outlinedCtaClass}>
             {plan.ctaLabel}
           </Link>
+        ) : (
+          <PaidPlanCta
+            planId={plan.id}
+            ctaLabel={plan.ctaLabel}
+            checkoutMode={checkoutModes[plan.id]}
+          />
         )}
       </div>
 
@@ -188,18 +192,28 @@ function PlanCard({
   )
 }
 
-export function PricingContent({ checkoutMode }: PricingContentProps) {
+export function PricingContent({ checkoutModes }: PricingContentProps) {
   return (
     <div className="relative flex min-h-[100dvh] flex-col bg-background">
       <main className="flex flex-1 flex-col px-4 pb-24 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pb-32 lg:pt-[calc(12.5rem+env(safe-area-inset-top,0px))]">
-        <div className="mx-auto w-full max-w-4xl">
+        <div className="mx-auto w-full max-w-5xl">
           <header className="mx-auto max-w-xl text-center">
             <h1 className={marketingPageTitleClass}>{PRICING_PAGE_TITLE}</h1>
+            <p className="mt-4 text-sm leading-6 text-black/55 dark:text-white/55">
+              {PRICING_PAGE_STATUS_NOTE}
+            </p>
+            <p className="mt-3 text-pretty text-sm leading-6 text-black/55 dark:text-white/55">
+              {PRICING_PAGE_FUNDING_NOTE}
+            </p>
           </header>
 
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 sm:grid-rows-[repeat(4,auto)] sm:gap-x-5 sm:gap-y-0 lg:mt-16">
+          <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-3 lg:grid-rows-[repeat(4,auto)] lg:gap-x-5 lg:gap-y-0">
             {PRICING_PLANS.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} checkoutMode={checkoutMode} />
+              <PlanCard
+                key={plan.id}
+                plan={plan}
+                checkoutModes={checkoutModes}
+              />
             ))}
           </div>
 

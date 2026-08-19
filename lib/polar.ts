@@ -1,9 +1,10 @@
 /**
  * Polar.sh billing configuration.
  *
- * The integration is real: `POLAR_BILLING_ENABLED` is on and the Tiles Pro
- * product id below is the live one. What is deliberately NOT committed is the
- * pair of secrets, which stay spoofed until they are set in the environment.
+ * The integration is real: `POLAR_BILLING_ENABLED` is on and the Tiles Plus and
+ * Tiles Pro product ids below are the live ones. What is deliberately NOT
+ * committed is the pair of secrets, which stay spoofed until they are set in
+ * the environment.
  * Checkout therefore fails closed with a 503 until `POLAR_ACCESS_TOKEN` is
  * present, rather than erroring somewhere inside the Polar SDK.
  *
@@ -26,30 +27,65 @@ export const POLAR_PLACEHOLDER_ACCESS_TOKEN =
 export const POLAR_PLACEHOLDER_WEBHOOK_SECRET =
   "polar_whs_SPOOFED_PLACEHOLDER_NOT_A_REAL_SECRET"
 
+/** The paid plans on `/pricing`, each backed by its own Polar product. */
+export type PolarPaidPlanId = "plus" | "pro"
+
 /**
- * Live Polar product backing the Tiles Pro subscription.
+ * Live Polar products backing the paid subscriptions.
  *
- * Product ids are not secrets, so this is committed as the default and only
- * needs `POLAR_PRO_PRODUCT_ID` set to point a preview build somewhere else.
+ * Product ids are not secrets, so these are committed as the defaults and only
+ * need `POLAR_PLUS_PRODUCT_ID` / `POLAR_PRO_PRODUCT_ID` set to point a preview
+ * build somewhere else. Both live under the same Polar organization.
  */
+export const POLAR_PLUS_PRODUCT_ID = "e8338574-288a-42c3-93d6-b8c5e0fa0809"
 export const POLAR_PRO_PRODUCT_ID = "98d19697-7811-437f-933e-c5a55caa9362"
 
 /**
- * Public Polar Checkout Link for Tiles Pro, opened directly by the embedded
- * checkout on `/pricing`.
+ * Public Polar Checkout Links, opened directly by the embedded checkout on
+ * `/pricing`.
  *
- * Create it in the Polar dashboard (**Checkout Links > New Link**, select the
- * Tiles Pro product) and paste the resulting `https://buy.polar.sh/polar_cl_…`
- * URL here. It is a public URL, safe to commit, and needs **no** access token:
- * the embed loads it straight into an iframe.
+ * Create one per product in the Polar dashboard (**Checkout Links > New Link**)
+ * and paste the resulting `https://buy.polar.sh/polar_cl_…` URL here. These are
+ * public URLs, safe to commit, and need **no** access token: the embed loads
+ * them straight into an iframe.
  *
  * A product id is not a checkout link and cannot be turned into one from the
- * browser, so this cannot be derived from `POLAR_PRO_PRODUCT_ID`. Clear it to
- * fall back to creating a checkout session on demand, which needs
- * `POLAR_ACCESS_TOKEN` instead.
+ * browser, so these cannot be derived from the product ids above. Leave one
+ * empty to fall back to creating a checkout session on demand for that plan,
+ * which needs `POLAR_ACCESS_TOKEN` instead.
  */
+export const POLAR_PLUS_CHECKOUT_LINK =
+  "https://buy.polar.sh/polar_cl_cIV2Vl0K60hJzHJqoOCrvd2xYuQtECY6PPlPy4gdoxp"
+
 export const POLAR_PRO_CHECKOUT_LINK =
   "https://buy.polar.sh/polar_cl_3LyXhxgqyNTiHERg0sdzEzKM7Z7jRxsFFH24d3asCns"
+
+/**
+ * Per-plan Polar wiring. Adding a paid plan means adding a row here plus a
+ * matching entry in `PRICING_PLANS` (`lib/pricing-plans.ts`).
+ */
+const PAID_PLANS: Record<
+  PolarPaidPlanId,
+  {
+    productId: string
+    productIdEnv: string
+    checkoutLink: string
+    checkoutLinkEnv: string
+  }
+> = {
+  plus: {
+    productId: POLAR_PLUS_PRODUCT_ID,
+    productIdEnv: "POLAR_PLUS_PRODUCT_ID",
+    checkoutLink: POLAR_PLUS_CHECKOUT_LINK,
+    checkoutLinkEnv: "POLAR_PLUS_CHECKOUT_LINK",
+  },
+  pro: {
+    productId: POLAR_PRO_PRODUCT_ID,
+    productIdEnv: "POLAR_PRO_PRODUCT_ID",
+    checkoutLink: POLAR_PRO_CHECKOUT_LINK,
+    checkoutLinkEnv: "POLAR_PRO_CHECKOUT_LINK",
+  },
+}
 
 /**
  * Polar benefit id for the Tiles Pro **License Key**.
@@ -71,6 +107,13 @@ export const POLAR_PRO_CHECKOUT_LINK =
  */
 export const POLAR_PRO_LICENSE_KEY_BENEFIT_ID =
   "c9ebdd84-854f-44ef-a27f-7b729dd1840e"
+
+/**
+ * Tiles Plus's own License Key benefit id, once one is attached to the Plus
+ * product in the Polar dashboard. Benefits are per product, so Plus cannot
+ * reuse the Pro id above; the organization id below is shared.
+ */
+export const POLAR_PLUS_LICENSE_KEY_BENEFIT_ID = ""
 
 /**
  * Polar organization id, required alongside the key when validating.
@@ -103,18 +146,38 @@ export function getPolarWebhookSecret(): string {
   return readEnv("POLAR_WEBHOOK_SECRET", POLAR_PLACEHOLDER_WEBHOOK_SECRET)
 }
 
-/** Polar product id backing the Tiles Pro plan on `/pricing`. */
-export function getPolarProProductId(): string {
-  return readEnv("POLAR_PRO_PRODUCT_ID", POLAR_PRO_PRODUCT_ID)
+/** Polar product id backing a paid plan on `/pricing`. */
+export function getPolarProductId(plan: PolarPaidPlanId): string {
+  const config = PAID_PLANS[plan]
+  return readEnv(config.productIdEnv, config.productId)
+}
+
+/** True for the paid plan ids Polar knows about, for validating route input. */
+export function isPolarPaidPlanId(value: string): value is PolarPaidPlanId {
+  return Object.hasOwn(PAID_PLANS, value)
 }
 
 /**
- * Public checkout link for Tiles Pro, or null when none is configured.
- * `POLAR_PRO_CHECKOUT_LINK` in the environment overrides the committed value.
+ * Which plan a Polar product id belongs to, or null for anything else. Used to
+ * name the plan on `/pricing/success` from a completed checkout.
  */
-export function getPolarProCheckoutLink(): string | null {
+export function getPolarPlanForProductId(
+  productId: string,
+): PolarPaidPlanId | null {
+  for (const plan of Object.keys(PAID_PLANS) as PolarPaidPlanId[]) {
+    if (getPolarProductId(plan) === productId) return plan
+  }
+  return null
+}
+
+/**
+ * Public checkout link for a paid plan, or null when none is configured.
+ * The matching env var overrides the committed value.
+ */
+export function getPolarCheckoutLink(plan: PolarPaidPlanId): string | null {
+  const config = PAID_PLANS[plan]
   const value =
-    process.env.POLAR_PRO_CHECKOUT_LINK?.trim() || POLAR_PRO_CHECKOUT_LINK.trim()
+    process.env[config.checkoutLinkEnv]?.trim() || config.checkoutLink.trim()
   return value ? value : null
 }
 
@@ -134,15 +197,25 @@ export type PolarCheckoutMode =
   | { kind: "session" }
   | { kind: "unavailable" }
 
-export function getPolarCheckoutMode(): PolarCheckoutMode {
+export function getPolarCheckoutMode(
+  plan: PolarPaidPlanId,
+): PolarCheckoutMode {
   if (!POLAR_BILLING_ENABLED) return { kind: "unavailable" }
 
-  const link = getPolarProCheckoutLink()
+  const link = getPolarCheckoutLink(plan)
   if (link) return { kind: "link", url: link }
 
   if (!isPolarPlaceholder(getPolarAccessToken())) return { kind: "session" }
 
   return { kind: "unavailable" }
+}
+
+/** Checkout mode for every paid plan, keyed by plan id. */
+export function getPolarCheckoutModes(): Record<
+  PolarPaidPlanId,
+  PolarCheckoutMode
+> {
+  return { plus: getPolarCheckoutMode("plus"), pro: getPolarCheckoutMode("pro") }
 }
 
 /** True when a value is still one of the spoofed placeholders above. */

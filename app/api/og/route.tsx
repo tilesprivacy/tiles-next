@@ -14,14 +14,14 @@ export const contentType = "image/png"
 
 async function loadGoogleFont(font: string, text: string) {
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@400;600;700&text=${encodeURIComponent(text)}`
-  const css = await (await fetch(url)).text()
+  const css = await (await fetch(url, { cache: "force-cache" })).text()
   const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
 
   if (!resource) {
     throw new Error(`Failed to load ${font} font CSS`)
   }
 
-  const response = await fetch(resource[1])
+  const response = await fetch(resource[1], { cache: "force-cache" })
   if (!response.ok) {
     throw new Error(`Failed to load ${font} font file`)
   }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import Image from "next/image"
 import { getBlogPostBySlug } from "@/lib/blog-posts"
 import { BlogPostContent } from "@/components/blog-post-content"
 import {
@@ -38,10 +39,15 @@ function TalkSlideMedia({
   }
 
   return (
-    <img
+    // next/image keeps the geometry identical (fill matches the existing
+    // absolute inset-0 h-full w-full classes) while serving column-width
+    // WebP instead of the raw multi-MB PNG for each of the ~30 slides.
+    <Image
       className={`${className} ${active ? "pointer-events-auto" : "pointer-events-none"}`}
       src={ownYourAiSlideSrc(slide.number)}
       alt=""
+      fill
+      sizes="(min-width: 1280px) 56vw, calc(100vw - 3rem)"
       loading={slide.number === 1 ? "eager" : "lazy"}
     />
   )
@@ -130,9 +136,12 @@ function TilesScrollyTalk() {
                   <source src={ownYourAiVideoSrc()} type="video/mp4" />
                 </video>
               ) : (
-                <img
+                <Image
                   src={ownYourAiSlideSrc(slide.number)}
                   alt={`Slide ${slide.number}`}
+                  width={1920}
+                  height={1080}
+                  sizes="(min-width: 1280px) 56vw, calc(100vw - 3rem)"
                   loading={slide.number === 1 ? "eager" : "lazy"}
                   className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
                 />

@@ -116,7 +116,10 @@ self.addEventListener('fetch', (event) => {
         try {
           const networkResponse = await fetch(request)
           if (networkResponse.ok) {
-            await documentCache.put(request, networkResponse.clone())
+            // Write the cache in the background: awaiting put() here would
+            // hold the response until the full body downloads, defeating
+            // HTML streaming. clone() must happen before returning.
+            event.waitUntil(documentCache.put(request, networkResponse.clone()).catch(() => {}))
           }
           return networkResponse
         } catch {
@@ -156,7 +159,7 @@ self.addEventListener('fetch', (event) => {
 
         const networkResponse = await fetch(request)
         if (networkResponse.ok) {
-          await assetCache.put(request, networkResponse.clone())
+          event.waitUntil(assetCache.put(request, networkResponse.clone()).catch(() => {}))
         }
         return networkResponse
       })(),
@@ -172,7 +175,7 @@ self.addEventListener('fetch', (event) => {
         try {
           const networkResponse = await fetch(request)
           if (networkResponse.ok) {
-            await dataCache.put(request, networkResponse.clone())
+            event.waitUntil(dataCache.put(request, networkResponse.clone()).catch(() => {}))
           }
           return networkResponse
         } catch {

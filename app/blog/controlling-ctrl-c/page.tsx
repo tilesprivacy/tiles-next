@@ -1,6 +1,7 @@
 'use client'
 
-import { useMemo, type ReactNode } from "react"
+import { useEffect, useMemo, useRef, type ReactNode } from "react"
+import Image from "next/image"
 import { blogPosts } from "@/lib/blog-posts"
 import { BlogPostContent } from "@/components/blog-post-content"
 
@@ -8,20 +9,36 @@ function ArticleImage({
   src,
   srcDark,
   alt = "",
+  width,
+  height,
+  darkWidth,
+  darkHeight,
 }: {
   src: string
   srcDark?: string
   alt?: string
+  width: number
+  height: number
+  darkWidth?: number
+  darkHeight?: number
 }) {
+  const sizes = "(max-width: 48rem) 100vw, 44rem"
   return (
     <div className="my-6 overflow-hidden rounded-lg bg-black/5 dark:bg-white/5">
       {srcDark ? (
         <>
-          <img src={src} alt={alt} className="block h-auto w-full dark:hidden" />
-          <img src={srcDark} alt={alt} className="hidden h-auto w-full dark:block" />
+          <Image src={src} alt={alt} width={width} height={height} sizes={sizes} className="block h-auto w-full dark:hidden" />
+          <Image
+            src={srcDark}
+            alt={alt}
+            width={darkWidth ?? width}
+            height={darkHeight ?? height}
+            sizes={sizes}
+            className="hidden h-auto w-full dark:block"
+          />
         </>
       ) : (
-        <img src={src} alt={alt} className="block h-auto w-full" />
+        <Image src={src} alt={alt} width={width} height={height} sizes={sizes} className="block h-auto w-full" />
       )}
     </div>
   )
@@ -36,15 +53,43 @@ function ArticleVideo({
   poster?: string
   alt?: string
 }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  // preload="none" plus play-on-approach replaces autoPlay + preload="auto",
+  // which downloaded every video in full at page load. Browsers ignore
+  // preload="none" when the autoplay attribute is present, so playback is
+  // started from script instead; muted keeps gesture-free play() allowed.
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    if (!("IntersectionObserver" in window)) {
+      video.play().catch(() => {})
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          video.play().catch(() => {})
+          observer.disconnect()
+        }
+      },
+      { rootMargin: "800px 0px" },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div className="my-6 overflow-hidden rounded-lg bg-black/5 dark:bg-white/5">
       <video
+        ref={videoRef}
         className="block h-auto w-full"
-        autoPlay
         loop
         muted
         playsInline
-        preload="auto"
+        preload="none"
         poster={poster}
         aria-label={alt}
       >
@@ -155,6 +200,10 @@ export default function ControllingCtrlCPage() {
         src="/repl_flow.png"
         srcDark="/repl_flow_dark.png"
         alt="Tiles REPL request and response flow"
+        width={1719}
+        height={915}
+        darkWidth={1744}
+        darkHeight={902}
       />
 
       <p>

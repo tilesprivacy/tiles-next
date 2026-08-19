@@ -1,8 +1,9 @@
 /**
  * Canonical pricing copy for `/pricing`.
  *
- * There is exactly one paid license, Tiles Pro. Plans and included services
- * stay provisional until the 0.5.0 Private Beta, but checkout itself is live.
+ * There are two paid licenses, Tiles Plus and Tiles Pro. Plans and included
+ * services stay provisional until the 0.5.0 Private Beta, but checkout itself
+ * is live.
  *
  * `components/pricing-content.tsx` reads everything from this module so the
  * copy lives in one place.
@@ -11,8 +12,8 @@
  * not sentences. Keep it that way when editing.
  *
  * Related sources to keep aligned when these change:
- * - `content/licenses.mdx` (the Tiles Pro license page at `/book/licenses`)
- * - `lib/polar.ts` (the Polar product Tiles Pro maps to)
+ * - `content/licenses.mdx` (the license page at `/book/licenses`)
+ * - `lib/polar.ts` (the Polar products the paid plans map to)
  */
 
 /** Release that firms up provisional pricing. */
@@ -23,6 +24,17 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 
 export const PRICING_PAGE_TITLE = "Pricing"
 
+/**
+ * Status line under the page title. Applies to every paid plan, so it sits in
+ * the header rather than on an individual card.
+ */
+export const PRICING_PAGE_STATUS_NOTE =
+  "Introductory pricing • Features shipping Q4 2026"
+
+/** Why the paid plans exist. Applies to every plan, so it sits in the header. */
+export const PRICING_PAGE_FUNDING_NOTE =
+  "Every paid plan helps keep Tiles free and funds the independent development and operation of the business."
+
 export const PRICING_PAGE_DESCRIPTION =
   "Tiles is free. Tiles Pro funds independent development and cloud based services we host for you."
 
@@ -32,13 +44,11 @@ export const PRICING_PAGE_DESCRIPTION =
  */
 export const PRICING_CHECKOUT_UNAVAILABLE_NOTE = `Subscriptions open with the ${PRICING_BETA_RELEASE}.`
 
-export type PricingPlanId = "free" | "pro"
+export type PricingPlanId = "free" | "plus" | "pro"
 
 export interface PricingPlan {
   id: PricingPlanId
   name: string
-  /** Small status pill next to the plan name. */
-  badge?: string
   /** Display price. Kept as a string so formatting stays in one place. */
   price: string
   cadence?: string
@@ -64,8 +74,6 @@ export const PRICING_PLANS: PricingPlan[] = [
     features: [
       "Run open models locally",
       "Keep your data private",
-      "Remote inference for local models across devices",
-      "Sync chats across linked devices",
       "Share chats publicly or privately on the web",
       "Extend the agent with plugins",
     ],
@@ -73,17 +81,32 @@ export const PRICING_PLANS: PricingPlan[] = [
     highlighted: false,
   },
   {
+    id: "plus",
+    // Card heading is the short "Plus"; the license is called Tiles Plus in
+    // prose, metadata, and content/licenses.mdx.
+    name: "Plus",
+    price: "$3",
+    cadence: "/ month",
+    tagline: "Peer to peer sync and collaboration features",
+    featuresIntro: "Everything in Free, plus:",
+    features: [
+      "Remote inference for local models across devices",
+      "Sync chats across linked devices",
+    ],
+    ctaLabel: "Join waitlist for Plus",
+    highlighted: false,
+  },
+  {
     id: "pro",
     // Card heading is the short "Pro"; the license is called Tiles Pro in
     // prose, metadata, and content/licenses.mdx.
     name: "Pro",
-    badge: "Introductory pricing • Features shipping Q4 2026",
     price: "$10",
     cadence: "/ month",
     tagline: "Cloud based services we host for you.",
-    featuresIntro: "Everything in Free, plus:",
+    featuresIntro: "Everything in Plus, and:",
     features: [
-      "Run cloud models privately",
+      "Run open cloud models privately",
       "Unlimited private web searches",
       "Backup and key recovery services",
     ],
@@ -95,35 +118,88 @@ export const PRICING_PLANS: PricingPlan[] = [
 /** Polar customer portal, where license keys and billing live. */
 export const POLAR_CUSTOMER_PORTAL_URL = "https://polar.sh/tilesprivacy/portal/"
 
-/** Copy for `/pricing/success`, where Polar sends people after checkout. */
-export const PRICING_SUCCESS = {
-  title: "You're on Tiles Pro",
-  description:
-    "Thanks for backing independent development. Here is how to get set up.",
-  steps: [
-    {
-      title: "Find your license key",
-      body: "It is in your receipt email and in the Polar customer portal, along with renewals and billing details.",
-      link: {
-        label: "Open customer portal",
-        href: POLAR_CUSTOMER_PORTAL_URL,
-        external: true,
+/**
+ * Which plan's success copy `/pricing/success` should render. `unknown` covers
+ * the case where the checkout did not say, so the page stays truthful rather
+ * than naming a plan the buyer may not be on.
+ */
+export type PricingSuccessPlanId = "plus" | "pro" | "unknown"
+
+export interface PricingSuccessStep {
+  title: string
+  body: string
+  link: { label: string; href: string; external?: boolean } | null
+}
+
+export interface PricingSuccessCopy {
+  title: string
+  description: string
+  steps: PricingSuccessStep[]
+  footnote: string
+}
+
+/**
+ * Success copy for one plan. Steps 1 and 2 are identical everywhere; only the
+ * title, the license name, and what the subscription covers change.
+ */
+function buildPricingSuccess({
+  title,
+  licenseName,
+  coverage,
+}: {
+  title: string
+  licenseName: string
+  coverage: string
+}): PricingSuccessCopy {
+  return {
+    title,
+    description:
+      "Thanks for backing independent development. Here is how to get set up.",
+    steps: [
+      {
+        title: "Find your license key",
+        body: `Your ${licenseName} key is in your receipt email and in the Polar customer portal, along with renewals and billing details.`,
+        link: {
+          label: "Open customer portal",
+          href: POLAR_CUSTOMER_PORTAL_URL,
+          external: true,
+        },
       },
-    },
-    {
-      title: "Install Tiles",
-      body: "Tiles runs on macOS and Linux. Everything local works straight away, with or without a key.",
-      link: { label: "Download Tiles", href: "/download", external: false },
-    },
-    {
-      title: "Activate your key",
-      body: `Key activation ships with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Your key stays valid until then, and your subscription covers the hosted services from the day they open.`,
-      link: null,
-    },
-  ],
-  footnote:
-    "Need a hand, or bought by mistake? Email support@tiles.run and we will sort it out.",
-} as const
+      {
+        title: "Install Tiles",
+        body: "Tiles runs on macOS and Linux. Everything local works straight away, with or without a key.",
+        link: { label: "Download Tiles", href: "/download", external: false },
+      },
+      {
+        title: "Activate your key",
+        body: `Key activation ships with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Your key stays valid until then, and your subscription covers ${coverage} from the day they open.`,
+        link: null,
+      },
+    ],
+    footnote:
+      "Need a hand, or bought by mistake? Email support@tiles.run and we will sort it out.",
+  }
+}
+
+/** Copy for `/pricing/success`, where Polar sends people after checkout. */
+export const PRICING_SUCCESS: Record<PricingSuccessPlanId, PricingSuccessCopy> =
+  {
+    plus: buildPricingSuccess({
+      title: "You're on Tiles Plus",
+      licenseName: "Tiles Plus license",
+      coverage: "peer to peer sync and collaboration features",
+    }),
+    pro: buildPricingSuccess({
+      title: "You're on Tiles Pro",
+      licenseName: "Tiles Pro license",
+      coverage: "the hosted services",
+    }),
+    unknown: buildPricingSuccess({
+      title: "You're subscribed",
+      licenseName: "license",
+      coverage: "your plan's paid features",
+    }),
+  }
 
 export interface PricingFaq {
   question: string
@@ -135,7 +211,7 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Is this pricing final?",
     answer:
-      "No. The $10/month price is introductory Early Member pricing that can be locked in during the waitlist period. Once Tiles is stable, the standard price will increase.",
+      "No. The $3 and $10 monthly prices are introductory Early Member pricing that can be locked in during the waitlist period. Once Tiles is stable, the standard prices will increase.",
   },
   {
     question: "Do I need an account?",
@@ -143,7 +219,8 @@ export const PRICING_FAQS: PricingFaq[] = [
   },
   {
     question: "Can I use Tiles for work?",
-    answer: "Yes. Tiles Pro covers commercial use. Get in touch for bulk purchases.",
+    answer:
+      "Yes. Commercial use is covered on every tier, including Free. Get in touch for bulk purchases.",
     link: {
       label: "support@tiles.run",
       href: "mailto:support@tiles.run",

@@ -97,11 +97,20 @@ export function BookCodeHighlightFix() {
       applyDarkModeHighlighting()
     }
 
+    // Coalesce mutation bursts into at most one scan per 100ms window; the
+    // previous per-mutation setTimeout scheduled one full code re-scan for
+    // every DOM mutation.
+    let scanTimeoutId: ReturnType<typeof setTimeout> | undefined
+    const scheduleApply = () => {
+      if (scanTimeoutId !== undefined) return
+      scanTimeoutId = setTimeout(() => {
+        scanTimeoutId = undefined
+        applyDarkModeHighlighting()
+      }, 100)
+    }
+
     // Watch for DOM changes (dynamic content, theme changes)
-    const observer = new MutationObserver(() => {
-      // Debounce to avoid excessive calls
-      setTimeout(applyDarkModeHighlighting, 100)
-    })
+    const observer = new MutationObserver(scheduleApply)
 
     observer.observe(document.body, {
       childList: true,
@@ -111,9 +120,7 @@ export function BookCodeHighlightFix() {
     })
 
     // Also listen for theme changes on html element
-    const htmlObserver = new MutationObserver(() => {
-      setTimeout(applyDarkModeHighlighting, 100)
-    })
+    const htmlObserver = new MutationObserver(scheduleApply)
 
     htmlObserver.observe(document.documentElement, {
       attributes: true,
@@ -122,6 +129,7 @@ export function BookCodeHighlightFix() {
 
     return () => {
       clearTimeout(timeoutId)
+      if (scanTimeoutId !== undefined) clearTimeout(scanTimeoutId)
       observer.disconnect()
       htmlObserver.disconnect()
     }

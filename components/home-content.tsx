@@ -20,7 +20,9 @@ const features = [
       <>
         Embedded <a href="https://pi.dev/">Pi</a> agent harness for knowledge work, running Google’s{" "}
         <span className="minimal-model-label">
-          <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={15} height={15} />
+          {/* lazy: keeps React from preloading this third-party image in the
+              document head, which forced an early connection to ai.google.dev */}
+          <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={15} height={15} loading="lazy" />
           <span>gemma-4-12b</span>
         </span>{" "}
         on <a href="https://llama.app/">llama.cpp</a>, with plugin support for reusable, skill-based workflows.
