@@ -79,7 +79,8 @@ export function MissionSection({ title, compact = false, className }: MissionSec
         </h2>
         <div className={`space-y-4 sm:space-y-6 text-sm leading-relaxed ${textColorBody} sm:text-base md:space-y-6 lg:space-y-8 lg:text-lg lg:leading-relaxed`}>
           <p className={`text-base font-medium ${textColor} lg:text-xl`}>
-            Our mission is to bring privacy technology to everyone.
+            Our mission is to build software that gives people greater
+            agency, control, and choice in their digital lives.
           </p>
 
           <p>

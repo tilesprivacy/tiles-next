@@ -112,11 +112,11 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
 
           <section className="minimal-section minimal-sponsor-copy">
             <p>
-              Our mission is to empower people by designing and building
-              software that provides agency, control, and choice in our digital
-              lives. We believe that privacy adoption at scale must work
-              backwards from preserving utility. This means negligible impact on
-              user experience, model intelligence, throughput, latency, tool use
+              Our mission is to build software that gives people greater
+              agency, control, and choice in their digital lives. We believe
+              that privacy adoption at scale must work backwards from
+              preserving utility. This means negligible impact on user
+              experience, model intelligence, throughput, latency, tool use
               &amp; agentic capabilities, and web access.
             </p>
             <p>
