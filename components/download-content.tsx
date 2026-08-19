@@ -58,37 +58,60 @@ export function DownloadContent({
               macOS
             </h2>
             <p>Apple Silicon (M1+) · macOS 14+ · 16 GB unified memory recommended</p>
+            {/*
+              One stanza per installer: the action (with its Recommended tag),
+              then a one-line caption underneath naming the route and its size.
+              The longer offline explanation lives in the detail paragraph
+              below the pair, scoped by the same flag as the offline action.
+            */}
             <div className="minimal-download-actions">
-              {initialDownload?.downloadUrl ? (
-                <a
-                  className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
-                  href={initialDownload.downloadUrl}
-                >
-                  <span>Download network installer</span>
-                  <Download
-                    className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
-                    aria-hidden
-                  />
-                </a>
-              ) : (
-                <span className="minimal-disabled-button">Network installer unavailable</span>
-              )}
+              <div className="minimal-download-option">
+                {initialDownload?.downloadUrl ? (
+                  <a
+                    className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+                    href={initialDownload.downloadUrl}
+                  >
+                    <span>Download network installer</span>
+                    <Download
+                      className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+                      aria-hidden
+                    />
+                  </a>
+                ) : (
+                  <span className="minimal-disabled-button">Network installer unavailable</span>
+                )}
+                {initialDownload?.downloadUrl ? (
+                  <span className="minimal-download-size">
+                    {initialDownload.binarySizeLabel
+                      ? `${initialDownload.binarySizeLabel} · Recommended for most users`
+                      : "Recommended for most users"}
+                  </span>
+                ) : null}
+              </div>
               {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
-                <a
-                  className={`group minimal-secondary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
-                  href={OFFLINE_INSTALLER.downloadUrl}
-                >
-                  <span>Download offline installer</span>
-                  <Download
-                    className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
-                    aria-hidden
-                  />
-                </a>
+                <div className="minimal-download-option">
+                  <a
+                    className={`group minimal-secondary-button minimal-download-action minimal-download-action--secondary ${downloadButtonMotionClasses}`}
+                    href={OFFLINE_INSTALLER.downloadUrl}
+                  >
+                    <span>Download offline installer</span>
+                    <Download
+                      className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+                      aria-hidden
+                    />
+                  </a>
+                  <span className="minimal-download-size">
+                    {OFFLINE_INSTALLER.binarySizeLabel} · For air-gapped systems
+                  </span>
+                </div>
               ) : null}
             </div>
             {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
               <p className="minimal-download-detail">
-                The offline installer includes the default{" "}
+                The offline installer is ideal for computers that cannot connect
+                to the internet or operate in air-gapped environments. It is
+                also useful for installing Tiles across a large number of
+                computers at once. It includes the default{" "}
                 <span className="minimal-model-label">
                   <img
                     src="https://ai.google.dev/gemma/images/gemma_sq.png"
@@ -105,7 +128,7 @@ export function DownloadContent({
                     gemma-4-12b-it-GGUF
                   </a>
                 </span>{" "}
-                model for air-gapped installation and use.
+                model for fully offline use.
               </p>
             ) : null}
           </section>

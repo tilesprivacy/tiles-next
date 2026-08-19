@@ -1524,12 +1524,29 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-secondary-button:hover {
   background: color-mix(in srgb, var(--foreground) 90%, var(--background));
 }
+/*
+ * Installer choices. One stanza per route: the button (with its Recommended
+ * tag beside it), then a one-line caption underneath. Equal button widths
+ * keep the two captions on a shared left edge.
+ */
 .minimal-download-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  align-items: center;
-  margin-top: 1.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+.minimal-download-option {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+  min-width: 0;
+}
+.minimal-download-option .minimal-download-action,
+.minimal-download-option .minimal-disabled-button {
+  width: 17rem;
+  flex: none;
 }
 .minimal-download-action {
   min-width: 15.5rem;
@@ -1540,16 +1557,58 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-weight: 500;
   line-height: 1;
 }
+/*
+ * One-line caption under each button naming the route and its size. Muted
+ * and small so the buttons keep the weight; tabular figures align the sizes.
+ */
+.minimal-download-size {
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.5;
+}
+/* Constrained measure so the offline explanation reads as a paragraph. */
+.minimal-download-platform > p.minimal-download-detail {
+  display: block;
+  max-width: 38rem;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+/*
+ * The offline route is the 7 GB specialist one, so it reads as the alternative
+ * to the default rather than its twin. Declared after the base fill, and after
+ * the `html.cyberpunk` pair below, so it wins at equal specificity.
+ */
+.minimal-download-action--secondary {
+  border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent) !important;
+  background: transparent !important;
+  color: var(--foreground) !important;
+  box-shadow: none !important;
+}
+.minimal-download-action--secondary:hover {
+  background: color-mix(in srgb, var(--foreground) 6%, transparent) !important;
+  color: var(--foreground) !important;
+}
+html.cyberpunk .minimal-download-action--secondary {
+  border: 1px solid
+    color-mix(in srgb, var(--sponsor-yellow, #f7ff61) 45%, transparent) !important;
+  background: transparent !important;
+  color: var(--sponsor-yellow, #f7ff61) !important;
+}
+html.cyberpunk .minimal-download-action--secondary:hover {
+  background: color-mix(
+    in srgb,
+    var(--sponsor-yellow, #f7ff61) 12%,
+    transparent
+  ) !important;
+  color: var(--sponsor-yellow, #f7ff61) !important;
+}
 .minimal-download-action-icon {
   width: 0.95rem;
   height: 0.95rem;
   flex: none;
-}
-.minimal-download-platform > p.minimal-download-detail {
-  display: block;
-  margin-top: 1rem;
-  font-size: 0.8125rem;
-  line-height: 1.5;
 }
 .minimal-model-label {
   display: inline-flex;
@@ -2718,9 +2777,14 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   .minimal-page-intro {
     margin-bottom: 5rem;
   }
+  /* Stretch the stanzas, or the buttons' 100% resolves against a
+     shrink-wrapped parent and stays at min-width. */
   .minimal-download-actions {
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
+  }
+  .minimal-download-option .minimal-download-action,
+  .minimal-download-option .minimal-disabled-button {
+    width: 100%;
   }
   .minimal-download-email {
     display: block;
