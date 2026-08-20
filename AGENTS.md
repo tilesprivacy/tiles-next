@@ -256,7 +256,6 @@ Always gate these behind the matching `isPolar*Configured()` check, and never im
 3. Set **each** Checkout Link's success URL in the Polar dashboard, including the plan so the page can name it: `https://www.tiles.run/pricing/success?plan=plus` and `…?plan=pro`. The committed `successUrl` in the API routes only applies to the session and redirect flows, not to a dashboard-created Checkout Link.
 4. Verify against `POLAR_SERVER=sandbox` before pointing at production.
 5. Only if server-side authorization is needed: set `POLAR_WEBHOOK_SECRET`, register the webhook endpoint, and fill in the handler stubs. License keys cover entitlement without this.
-6. When pricing stops being provisional, drop `PRICING_PAGE_STATUS_BADGE` and `PRICING_PAGE_STATUS_NOTE` from `lib/pricing-plans.ts` (and the badge's render, plus `statusBadgeClass`, in `components/pricing-content.tsx`), refresh the "Is this pricing final?" FAQ, and update the Availability section in `content/licenses.mdx`.
 
 ## Learned User Preferences
 

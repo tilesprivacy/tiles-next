@@ -208,11 +208,6 @@ export interface PricingFaq {
 
 export const PRICING_FAQS: PricingFaq[] = [
   {
-    question: "Is this pricing final?",
-    answer:
-      "No. $3 and $15/month are introductory Early Member prices. Join the waitlist to lock them in before standard pricing takes effect.",
-  },
-  {
     question: "Do I need an account?",
     answer: "No. Every local feature works without one.",
   },
