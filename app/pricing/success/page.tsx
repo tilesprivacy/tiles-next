@@ -19,9 +19,11 @@ function first(value: string | string[] | undefined): string | undefined {
 }
 
 async function getPlan(
-  searchParams: SuccessSearchParams,
+  searchParams: SuccessSearchParams | undefined,
 ): Promise<PricingSuccessPlanId> {
-  const params = await searchParams
+  // Some render paths (e.g. metadata generation) invoke this without search
+  // params, so tolerate both a missing prop and a promise of undefined.
+  const params = (await searchParams) ?? {}
   const plan = await resolveCheckoutPlan(
     first(params.plan),
     first(params.checkoutId) ?? first(params.checkout_id),
@@ -32,7 +34,7 @@ async function getPlan(
 export async function generateMetadata({
   searchParams,
 }: {
-  searchParams: SuccessSearchParams
+  searchParams?: SuccessSearchParams
 }): Promise<Metadata> {
   const copy = PRICING_SUCCESS[await getPlan(searchParams)]
 
@@ -47,7 +49,7 @@ export async function generateMetadata({
 export default async function PricingSuccessPage({
   searchParams,
 }: {
-  searchParams: SuccessSearchParams
+  searchParams?: SuccessSearchParams
 }) {
   return <PricingSuccessContent plan={await getPlan(searchParams)} />
 }
