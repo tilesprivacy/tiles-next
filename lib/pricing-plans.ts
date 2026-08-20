@@ -24,24 +24,7 @@ export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 
 export const PRICING_PAGE_TITLE = "Pricing"
 
-/**
- * Badge under the title, so the temporary price is caught at a glance. Says
- * what the pricing is; `PRICING_PAGE_STATUS_NOTE` under it says why to act.
- */
-export const PRICING_PAGE_STATUS_BADGE = "Introductory Early Member pricing"
-
-/**
- * The urgency behind the badge, on the line below it. True of both paid plans,
- * so it belongs to the page: repeated per card it read as detached fine print
- * and cost a block of height inside every card. Never name the prices here, or
- * it drifts from the cards.
- */
-export const PRICING_PAGE_STATUS_NOTE = "Lock in your price during the waitlist."
-
-/**
- * Why the paid plans exist. Sits under the cards, not in the header, so the
- * title stack stays title -> badge -> status.
- */
+/** Why the paid plans exist. Sits in the header, directly under the title. */
 export const PRICING_PAGE_FUNDING_NOTE =
   "Every paid plan helps keep Tiles free and funds its independent development."
 

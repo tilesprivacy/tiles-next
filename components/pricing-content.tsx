@@ -10,8 +10,6 @@ import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
 import {
   PRICING_FAQS,
   PRICING_PAGE_FUNDING_NOTE,
-  PRICING_PAGE_STATUS_BADGE,
-  PRICING_PAGE_STATUS_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
   type PricingFaq,
@@ -41,13 +39,6 @@ const outlinedCtaClass =
 
 const filledCtaClass =
   `${ctaBaseClass} bg-foreground text-background hover:opacity-90`
-
-/**
- * Warm tint so the badge reads as time limited against an otherwise neutral
- * page. Tuned for contrast in both themes rather than picked from the palette.
- */
-const statusBadgeClass =
-  "inline-flex items-center gap-2 rounded-full border border-[#C98A0A]/25 bg-[#FBF0D9] px-3 py-1 text-xs font-medium text-[#8A5A00] dark:border-[#E9B949]/25 dark:bg-[#3A2E17] dark:text-[#EDC77C]"
 
 const faqLinkClass =
   "mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
@@ -277,17 +268,8 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
         <div className="mx-auto w-full max-w-5xl">
           <header className="mx-auto max-w-xl text-center">
             <h1 className={marketingPageTitleClass}>{PRICING_PAGE_TITLE}</h1>
-            <div className="mt-5 flex justify-center">
-              <span className={statusBadgeClass}>
-                <span
-                  className="size-1.5 rounded-full bg-[#C98A0A] dark:bg-[#E9B949]"
-                  aria-hidden="true"
-                />
-                {PRICING_PAGE_STATUS_BADGE}
-              </span>
-            </div>
-            <p className={`mt-3 text-balance text-sm leading-6 ${secondaryTextClass}`}>
-              {PRICING_PAGE_STATUS_NOTE}
+            <p className={`mt-5 text-balance text-sm leading-6 ${secondaryTextClass}`}>
+              {PRICING_PAGE_FUNDING_NOTE}
             </p>
           </header>
 
@@ -300,12 +282,6 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
               />
             ))}
           </div>
-
-          <p
-            className={`mx-auto mt-12 max-w-xl text-pretty text-center text-sm leading-6 ${secondaryTextClass}`}
-          >
-            {PRICING_PAGE_FUNDING_NOTE}
-          </p>
 
           <section className="mt-14 lg:mt-16">
             <div
