@@ -116,7 +116,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     // Card heading is the short "Pro"; the license is called Tiles Pro in
     // prose, metadata, and content/licenses.mdx.
     name: "Pro",
-    price: "$10",
+    price: "$15",
     cadence: "/mo",
     tagline: "Confidential compute based cloud services we host for you",
     featuresIntro: "Everything in Plus, and:",
@@ -227,7 +227,7 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Is this pricing final?",
     answer:
-      "No. $3 and $10/month are introductory Early Member prices. Join the waitlist to lock them in before standard pricing takes effect.",
+      "No. $3 and $15/month are introductory Early Member prices. Join the waitlist to lock them in before standard pricing takes effect.",
   },
   {
     question: "Do I need an account?",

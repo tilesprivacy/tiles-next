@@ -9,7 +9,7 @@ partly built already (see [Website handoff](#website-handoff)).
 
 ## Background
 
-Tiles Pro is $10 USD per user, per month, sold through Polar. Entitlement is
+Tiles Pro is $15 USD per user, per month, sold through Polar. Entitlement is
 carried by a **license key** issued by a Polar License Key benefit, not by an
 account system. Polar issues a key at checkout and revokes it when the
 subscription ends.
