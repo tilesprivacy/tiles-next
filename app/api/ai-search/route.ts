@@ -6,6 +6,7 @@ import {
   splitCorpusIntoSections,
   type CorpusSection,
 } from '@/lib/ai-search-retrieval'
+import { AI_SEARCH_ANSWERS_ENABLED } from '@/lib/feature-flags'
 
 export const maxDuration = 60
 
@@ -55,6 +56,12 @@ function buildSystemPrompt(sections: CorpusSection[]): string {
 }
 
 export async function POST(request: Request) {
+  if (!AI_SEARCH_ANSWERS_ENABLED) {
+    return NextResponse.json(
+      { error: 'AI search is disabled.' },
+      { status: 503 },
+    )
+  }
   if (!process.env.AI_GATEWAY_API_KEY) {
     return NextResponse.json(
       { error: 'AI search is not configured.' },

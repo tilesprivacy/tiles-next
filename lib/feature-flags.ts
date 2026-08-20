@@ -5,6 +5,14 @@ export const SHOW_REMOTE_LINK = false
 export const SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE = true
 
 /**
+ * Master switch for AI answers in the site search. Off hides the sparkle on
+ * the magnifier icon and the whole ask-AI flow (submit arrow, Enter hint,
+ * answer panel), and makes `/api/ai-search` return 503. Full-text page
+ * search keeps working. Set to true to bring AI answers back.
+ */
+export const AI_SEARCH_ANSWERS_ENABLED: boolean = false
+
+/**
  * Master switch for Polar billing. On, so `/pricing` offers a real checkout.
  *
  * This alone does not make checkout work: `POLAR_ACCESS_TOKEN` must also be set

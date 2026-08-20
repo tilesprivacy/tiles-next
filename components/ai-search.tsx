@@ -5,6 +5,8 @@ import Link from "next/link"
 import dynamic from "next/dynamic"
 import { usePathname, useRouter } from "next/navigation"
 
+import { AI_SEARCH_ANSWERS_ENABLED } from "@/lib/feature-flags"
+
 // react-markdown (plus its micromark/unified dependency tree) is only needed
 // once an AI answer streams in, so it loads on demand instead of shipping
 // with every page via the site header. While the chunk is in flight the
@@ -101,6 +103,27 @@ function pickAnchoredSubResult(
 }
 
 function AiSearchGlyph({ className }: { className?: string }) {
+  // Without AI answers the glyph is a plain magnifier: the arc variant below
+  // leaves a gap in the ring for the sparkle, so it needs the full circle.
+  if (!AI_SEARCH_ANSWERS_ENABLED) {
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={className}
+        aria-hidden
+      >
+        <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="1.8" />
+        <path
+          d="M16.1 16.1 L20.7 20.7"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+      </svg>
+    )
+  }
   return (
     <svg
       viewBox="0 0 24 24"
@@ -171,7 +194,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
     setIsOpen(true)
     // Warm the markdown renderer while the visitor types, so it is ready
     // well before the first AI answer arrives.
-    preloadMarkdown()
+    if (AI_SEARCH_ANSWERS_ENABLED) preloadMarkdown()
     onOpenChange?.(true)
   }, [onOpenChange])
 
@@ -266,6 +289,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
 
   const askAi = useCallback(
     async () => {
+      if (!AI_SEARCH_ANSWERS_ENABLED) return
       const trimmed = query.trim()
       if (!trimmed) return
       // Never interrupt an in-flight answer for the same query; retrying
@@ -327,8 +351,10 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
       const hit = activeIndex >= 0 ? hits[activeIndex] : null
       if (hit) {
         router.push(hit.url)
-      } else {
+      } else if (AI_SEARCH_ANSWERS_ENABLED) {
         askAi()
+      } else if (hits[0]) {
+        router.push(hits[0].url)
       }
     }
   }
@@ -375,7 +401,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
       <button
         type="button"
         className="ai-search-trigger"
-        aria-label="Search with AI"
+        aria-label={AI_SEARCH_ANSWERS_ENABLED ? "Search with AI" : "Search"}
         aria-expanded={isOpen}
         aria-keyshortcuts="Meta+K Control+K"
         title="Search (⌘K)"
@@ -401,14 +427,22 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
               resetAnswer()
             }}
             onKeyDown={onInputKeyDown}
-            placeholder="Search or ask anything about Tiles"
-            aria-label="Search or ask anything about Tiles"
+            placeholder={
+              AI_SEARCH_ANSWERS_ENABLED
+                ? "Search or ask anything about Tiles"
+                : "Search Tiles"
+            }
+            aria-label={
+              AI_SEARCH_ANSWERS_ENABLED
+                ? "Search or ask anything about Tiles"
+                : "Search Tiles"
+            }
             autoComplete="off"
             autoCorrect="off"
             spellCheck={false}
             className="ai-search-input"
           />
-          {query.trim() ? (
+          {AI_SEARCH_ANSWERS_ENABLED && query.trim() ? (
             <button
               type="button"
               className="ai-search-submit"
@@ -449,7 +483,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
       {showPanel ? (
         <div className="ai-search-panel">
           <div className="ai-search-panel-inner">
-          {answerStatus === "idle" && query.trim() ? (
+          {AI_SEARCH_ANSWERS_ENABLED && answerStatus === "idle" && query.trim() ? (
             <button type="button" className="ai-search-ask-hint" onClick={() => askAi()}>
               <span className="ai-search-hint-desktop">
                 Press{" "}
@@ -483,7 +517,7 @@ export function AiSearch({ onOpenChange }: { onOpenChange?: (open: boolean) => v
               </span>
             </button>
           ) : null}
-          {answerStatus !== "idle" ? (
+          {AI_SEARCH_ANSWERS_ENABLED && answerStatus !== "idle" ? (
           <div className="ai-search-answer">
             <div className="ai-search-answer-label">
               <span>AI answer</span>
