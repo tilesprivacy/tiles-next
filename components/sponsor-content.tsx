@@ -120,7 +120,22 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               &amp; agentic capabilities, and web access.
             </p>
             <p>
-              Tiles Privacy is also a signatory to the{" "}
+              Tiles was born from the discussions in{" "}
+              <a
+                href="https://www.userandagents.org"
+                className="whitespace-nowrap"
+              >
+                <Image
+                  src="/user-and-agents.png"
+                  alt="User & Agents logo"
+                  width={16}
+                  height={16}
+                  className="mr-1 inline-block h-4 w-4 rounded-[3px] align-text-bottom"
+                />
+                User &amp; Agents
+              </a>
+              , a community focused on shaping the future of user-agent
+              systems. We are also a signatory to the{" "}
               <a href="https://european.social/#signatories">
                 European Social Stack initiative
               </a>

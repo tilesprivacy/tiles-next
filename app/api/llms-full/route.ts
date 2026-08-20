@@ -177,7 +177,7 @@ export async function GET(request: Request) {
   pushSection(lines, `Sponsor (${baseUrl}/sponsor)`, [
     'Help keep Tiles Privacy independent.',
     'Our mission is to build software that gives people greater agency, control, and choice in their digital lives. We believe that privacy adoption at scale must work backwards from preserving utility. This means negligible impact on user experience, model intelligence, throughput, latency, tool use & agentic capabilities, and web access.',
-    'Tiles Privacy is also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.',
+    'Tiles was born from the discussions in User & Agents (https://www.userandagents.org), a community focused on shaping the future of user-agent systems. We are also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.',
     'Tiles Privacy is built by a small independent team of three: Ankesh Bharti, Anandu Pavanan, and Prashant Mishra.',
     'We are grateful to the organizations supporting our work financially through our Partner Program, and to everyone who has supported our projects through GitHub Sponsors and cryptocurrency donations.',
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
