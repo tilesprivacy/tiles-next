@@ -95,6 +95,30 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
+  "0.4.18": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "Vulkan backend for llama.cpp, so Tiles can leverage GPUs from any vendor",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "MTP speculative decoding being disabled by a hardcoded symlink",
+        },
+        {
+          text: "Tool calls on Linux returning 422 errors after the openresponses-types version bump",
+        },
+        {
+          text: "OAuth callback occasionally failing during ATproto login while waiting on the browser child process",
+        },
+      ],
+    },
+  ],
   "0.4.17": [
     {
       title: "Added",
@@ -416,6 +440,7 @@ const additionalSections: Record<string, ChangeSection[]> = {}
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
+  "0.4.18": "Alpha 22",
   "0.4.17": "Alpha 21",
   "0.4.1": "Alpha 5",
 }

@@ -3,7 +3,9 @@ import { ChangelogContent } from "@/components/changelog-content"
 import {
   LATEST_RELEASE_SECTIONS,
   LATEST_RELEASE_TITLE,
+  LATEST_RELEASE_VERSION,
 } from "@/lib/latest-release-copy"
+import { normalizeReleaseVersion } from "@/lib/release-visibility"
 import type { Metadata } from "next"
 import { getSocialImage } from "@/lib/social-image"
 
@@ -36,8 +38,10 @@ export default async function ReleasesPage() {
   let error: string | null = null
 
   try {
-    releases = (await fetchReleases()).map((release, index) =>
-      index === 0
+    // Only apply the hand-written latest-release copy to the release it was
+    // written for; a newer release keeps its own fetched notes.
+    releases = (await fetchReleases()).map((release) =>
+      normalizeReleaseVersion(release.version) === LATEST_RELEASE_VERSION
         ? {
             ...release,
             title: LATEST_RELEASE_TITLE,

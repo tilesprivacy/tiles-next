@@ -1,34 +1,16 @@
 import type { ChangeSection } from "@/lib/releases"
 
-export const LATEST_RELEASE_VERSION = "0.4.17"
-export const LATEST_RELEASE_TITLE = "Alpha 21"
+export const LATEST_RELEASE_VERSION = "0.4.18"
+export const LATEST_RELEASE_TITLE = "Alpha 22"
+export const LATEST_RELEASE_DATE_ISO = "2026-08-23"
+export const LATEST_RELEASE_DATE_LABEL = "Aug 23, 2026"
 
 export const LATEST_RELEASE_SECTIONS: ChangeSection[] = [
   {
     title: "Added",
     changes: [
       {
-        text: "Quantization selection in Modelfiles with Ollama-style tags, defaulting to Q4_K_M when no quantization is specified",
-      },
-      {
-        text: "MTP speculative decoding now enables automatically when a model includes an MTP head",
-      },
-      {
-        text: "Linux release builds now attach x86_64 tarballs and SHA256 checksums to tagged GitHub releases",
-      },
-      {
-        text: "Scripted offline-installer builds that bundle the default Gemma GGUF and MTP head",
-      },
-    ],
-  },
-  {
-    title: "Changed",
-    changes: [
-      {
-        text: "Default model switched to Unsloth’s Gemma 4 12B GGUF at Q4_K_M",
-      },
-      {
-        text: "Pi upgraded to v0.84.2 from the upstream badlogic/pi-mono project",
+        text: "Vulkan backend for llama.cpp, so Tiles can leverage GPUs from any vendor",
       },
     ],
   },
@@ -36,10 +18,13 @@ export const LATEST_RELEASE_SECTIONS: ChangeSection[] = [
     title: "Fixed",
     changes: [
       {
-        text: "macOS notarization for Pi’s bundled native modules",
+        text: "MTP speculative decoding being disabled by a hardcoded symlink",
       },
       {
-        text: "Incomplete cached model snapshots now re-download a missing GGUF instead of failing",
+        text: "Tool calls on Linux returning 422 errors after the openresponses-types version bump",
+      },
+      {
+        text: "OAuth callback occasionally failing during ATproto login while waiting on the browser child process",
       },
     ],
   },
