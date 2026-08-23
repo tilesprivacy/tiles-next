@@ -2,12 +2,14 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Check, Copy, Download, Globe } from "lucide-react"
-import { FaApple, FaChrome, FaFirefox, FaLinux, FaSafari } from "react-icons/fa6"
+import { Check, Copy, Download } from "lucide-react"
+import { FaApple, FaLinux } from "react-icons/fa6"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
 import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import {
+  LATEST_RELEASE_DATE_ISO,
+  LATEST_RELEASE_DATE_LABEL,
   LATEST_RELEASE_SECTIONS,
   LATEST_RELEASE_TITLE,
   LATEST_RELEASE_VERSION,
@@ -44,6 +46,12 @@ export function DownloadContent({
   }
   const latestReleaseVersion =
     initialLatestReleaseVersion?.replace(/^v/i, "") || LATEST_RELEASE_VERSION
+  const networkInstallerReleaseLabel =
+    initialDownload?.version === LATEST_RELEASE_VERSION
+      ? LATEST_RELEASE_TITLE
+      : initialDownload?.version
+        ? `Version ${initialDownload.version}`
+        : null
 
   return (
     <div className="minimal-product-page">
@@ -85,9 +93,13 @@ export function DownloadContent({
                 )}
                 {initialDownload?.downloadUrl ? (
                   <span className="minimal-download-size">
-                    {initialDownload.binarySizeLabel
-                      ? `${initialDownload.binarySizeLabel} · Recommended for most users`
-                      : "Recommended for most users"}
+                    {[
+                      initialDownload.binarySizeLabel,
+                      networkInstallerReleaseLabel,
+                      "Recommended for most users",
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </span>
                 ) : null}
               </div>
@@ -104,7 +116,7 @@ export function DownloadContent({
                     />
                   </a>
                   <span className="minimal-download-size">
-                    {OFFLINE_INSTALLER.binarySizeLabel} · For air-gapped systems
+                    {OFFLINE_INSTALLER.binarySizeLabel} · {OFFLINE_INSTALLER.releaseTitle} · For air-gapped systems
                   </span>
                 </div>
               ) : null}
@@ -132,6 +144,16 @@ export function DownloadContent({
                   </a>
                 </span>{" "}
                 model for fully offline use.
+                {initialDownload?.version &&
+                initialDownload.version !== OFFLINE_INSTALLER.version ? (
+                  <>
+                    {" "}
+                    Offline installer builds aren&apos;t published for every
+                    release; the current offline build is{" "}
+                    {OFFLINE_INSTALLER.releaseTitle}, while the network
+                    installer is at {networkInstallerReleaseLabel}.
+                  </>
+                ) : null}
               </p>
             ) : null}
           </section>
@@ -141,7 +163,7 @@ export function DownloadContent({
               <FaLinux className="minimal-download-platform-icon" aria-hidden />
               Linux
             </h2>
-            <p>NVIDIA GPU · CUDA 12.8+ · 16 GB VRAM recommended</p>
+            <p>16 GB VRAM recommended</p>
             <button className="minimal-command" type="button" onClick={copyLinuxCommand}>
               <code>{LINUX_INSTALL_COMMAND}</code>
               {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
@@ -149,50 +171,22 @@ export function DownloadContent({
             <p className="minimal-note">Paste this command in your terminal.</p>
           </section>
 
-          <section className="minimal-download-platform" aria-labelledby="browser-heading">
-            <h2 id="browser-heading">
-              <span className="minimal-download-browser-logos" aria-hidden>
-                <FaChrome className="minimal-download-platform-icon" />
-                <FaFirefox className="minimal-download-platform-icon" />
-                <FaSafari className="minimal-download-platform-icon" />
-              </span>
-              <span>Web Browser</span>
-            </h2>
-            <p>Coming soon on all modern browsers across platforms · Runs local models with remote inference.</p>
-            <div
-              className={`minimal-download-browser-badge minimal-download-browser-badge--coming-soon ${themeAwareHeaderPrimaryCtaClasses}`}
-              role="status"
-              aria-label="Web Browser coming soon"
-            >
-              <Globe className="minimal-download-browser-badge-globe" aria-hidden />
-              <span className="minimal-download-browser-badge-copy">
-                <span className="minimal-download-browser-badge-eyebrow">Use it on your</span>
-                <span className="minimal-download-browser-badge-title">Web Browser</span>
-              </span>
-            </div>
-          </section>
-
           <p className="minimal-legal">
             By downloading and using Tiles, you agree to the <Link href="/terms">terms</Link> and <Link href="/privacy">privacy statement</Link>.
           </p>
 
           <section className="minimal-download-platform" aria-labelledby="latest-release-heading">
-            <h2
-              id="latest-release-heading"
-              className="!text-[1.0625rem] !font-semibold !leading-[1.35] !tracking-[-0.01em]"
-            >
-              Latest release
-            </h2>
-            <p className="minimal-note">
+            <h2 id="latest-release-heading">Latest release</h2>
+            <p>
               {LATEST_RELEASE_TITLE} · Version {latestReleaseVersion}
               <br />
-              Released <time dateTime="2026-08-18">Aug 18, 2026</time>
+              Released <time dateTime={LATEST_RELEASE_DATE_ISO}>{LATEST_RELEASE_DATE_LABEL}</time>
             </p>
-            <div className="mt-6 space-y-4">
+            <div className="minimal-download-release-notes">
               {LATEST_RELEASE_SECTIONS.map((section) => (
                 <div key={section.title}>
-                  <h3 className="mb-2 text-sm font-semibold">{section.title}</h3>
-                  <ul className="list-disc space-y-1 pl-5 text-sm text-black/65 dark:text-white/65">
+                  <h3>{section.title}</h3>
+                  <ul>
                     {section.changes.map((change) => (
                       <li key={change.text}>{change.text}</li>
                     ))}

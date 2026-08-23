@@ -10,6 +10,7 @@ export const LINUX_MODEL_URL = "https://huggingface.co/unsloth/gpt-oss-20b-GGUF"
 
 export const OFFLINE_INSTALLER = {
   version: "0.4.17",
+  releaseTitle: "Alpha 21",
   downloadUrl: "https://download.tiles.run/tiles-0.4.17-full-signed.pkg",
   fileName: "tiles-0.4.17-full-signed.pkg",
   binarySizeBytes: 7_536_225_216,

@@ -2002,6 +2002,32 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   font-size: 0.875rem;
   line-height: 1.55;
 }
+/* Latest release notes reuse the platform sections' type scale and tokens. */
+.minimal-download-release-notes {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 38rem;
+}
+.minimal-download-release-notes h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.minimal-download-release-notes ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  list-style: disc;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.minimal-download-release-notes li + li {
+  margin-top: 0.25rem;
+}
 .minimal-download-platform .minimal-command {
   max-width: 36rem;
 }
