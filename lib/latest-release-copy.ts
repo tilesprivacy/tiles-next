@@ -1,6 +1,6 @@
 import type { ChangeSection } from "@/lib/releases"
 
-export const LATEST_RELEASE_VERSION = "0.14.7"
+export const LATEST_RELEASE_VERSION = "0.4.17"
 export const LATEST_RELEASE_TITLE = "Alpha 21"
 
 export const LATEST_RELEASE_SECTIONS: ChangeSection[] = [

@@ -30,6 +30,7 @@ interface DownloadMetadata {
 
 export function DownloadContent({
   initialDownload,
+  initialLatestReleaseVersion,
 }: {
   initialDownload?: DownloadMetadata
   initialLatestReleaseVersion?: string | null
@@ -41,6 +42,8 @@ export function DownloadContent({
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1400)
   }
+  const latestReleaseVersion =
+    initialLatestReleaseVersion?.replace(/^v/i, "") || LATEST_RELEASE_VERSION
 
   return (
     <div className="minimal-product-page">
@@ -181,7 +184,7 @@ export function DownloadContent({
               Latest release
             </h2>
             <p className="minimal-note">
-              {LATEST_RELEASE_TITLE} · Version {LATEST_RELEASE_VERSION}
+              {LATEST_RELEASE_TITLE} · Version {latestReleaseVersion}
               <br />
               Released <time dateTime="2026-08-18">Aug 18, 2026</time>
             </p>
@@ -198,7 +201,7 @@ export function DownloadContent({
               ))}
             </div>
             <p className="minimal-note">
-              <Link href={`/releases#${LATEST_RELEASE_VERSION}`}>View full release details</Link>.
+              <Link href={`/releases#${latestReleaseVersion}`}>View full release details</Link>.
             </p>
           </section>
         </article>

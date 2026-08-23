@@ -1,5 +1,6 @@
 import { fetchGithubJson } from "@/lib/github-json"
 import { FALLBACK_DOWNLOAD_VERSION } from "@/lib/download-artifact"
+import { OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import { normalizeReleaseVersion } from "@/lib/release-visibility"
 
 export interface ChangeItem {
@@ -84,11 +85,17 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
     sizeBytes: 11070278205,
     sha256: "25d27f6284c67a0818746ef118d57951bded5cb98819754b608eea56ecb",
   },
+  [OFFLINE_INSTALLER.version]: {
+    name: OFFLINE_INSTALLER.fileName,
+    url: OFFLINE_INSTALLER.downloadUrl,
+    sizeBytes: OFFLINE_INSTALLER.binarySizeBytes,
+    sha256: OFFLINE_INSTALLER.sha256,
+  },
 }
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
-  "0.14.7": [
+  "0.4.17": [
     {
       title: "Added",
       changes: [
@@ -409,7 +416,7 @@ const additionalSections: Record<string, ChangeSection[]> = {}
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
-  "0.14.7": "Alpha 21",
+  "0.4.17": "Alpha 21",
   "0.4.1": "Alpha 5",
 }
 
