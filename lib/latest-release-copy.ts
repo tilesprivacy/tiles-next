@@ -10,7 +10,7 @@ export const LATEST_RELEASE_SECTIONS: ChangeSection[] = [
     title: "Added",
     changes: [
       {
-        text: "Vulkan backend for llama.cpp, so Tiles can leverage GPUs from any vendor",
+        text: "Vulkan support for llama.cpp, enabling GPU acceleration beyond NVIDIA across vendors on Linux",
       },
     ],
   },
