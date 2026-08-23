@@ -83,7 +83,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     // Card heading is the short "Plus"; the license is called Tiles Plus in
     // prose, metadata, and content/licenses.mdx.
     name: "Plus",
-    price: "$3",
+    price: "$4",
     cadence: "/mo",
     tagline: "Sync and collaborate across devices from anywhere.",
     featuresIntro: "Everything in Free, and:",
@@ -225,7 +225,7 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "How do I get access after paying?",
     answer:
-      "Tiles Pro is a license key, issued at checkout and sent by email. There is no account to create.",
+      "Tiles Plus ($4/month) and Tiles Pro ($15/month) are delivered as license keys, issued at checkout and sent by email. There is no account to create.",
   },
   {
     question: "How do I manage my subscription?",
