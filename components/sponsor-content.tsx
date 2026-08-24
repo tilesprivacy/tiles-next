@@ -142,7 +142,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               , supporting an open, interoperable, and publicly accountable
               digital ecosystem for Europe.
             </p>
-            <p>We’re a small independent team based out of Bangalore, India.</p>
+            <p>We’re a small independent team based out of Bengaluru, India.</p>
             <div className="minimal-team">
               {people.contributorsCore.map((person) => {
                 const { nameWithoutHandle } = splitPersonDisplayName(
