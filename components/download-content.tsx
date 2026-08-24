@@ -149,9 +149,8 @@ export function DownloadContent({
                   <>
                     {" "}
                     Offline installer builds aren&apos;t published for every
-                    release; the current offline build is{" "}
-                    {OFFLINE_INSTALLER.releaseTitle}, while the network
-                    installer is at {networkInstallerReleaseLabel}.
+                    release, whereas network installers always fetch the latest
+                    version available.
                   </>
                 ) : null}
               </p>
