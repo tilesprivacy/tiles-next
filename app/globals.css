@@ -832,7 +832,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero-title {
   position: absolute;
-  top: calc(50% - 135px);
+  top: calc(50% - 127px);
   left: 50%;
   transform: translateX(-50%);
   margin: 0;
@@ -844,7 +844,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-hero > p {
   position: absolute;
-  top: calc(50% + 15px);
+  top: calc(50% - 7px);
   left: 50%;
   transform: translateX(-50%);
   width: max-content;
@@ -859,7 +859,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-hero > .minimal-download-cta {
   position: absolute;
-  top: calc(50% + 93px);
+  top: calc(50% + 85px);
   left: 50%;
   transform: translateX(-50%);
 }
@@ -895,7 +895,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.125rem;
+  gap: 1.625rem;
 }
 .minimal-download-cta [aria-label*="Apple Silicon"] {
   line-height: 1.5;

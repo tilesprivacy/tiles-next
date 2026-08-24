@@ -19,7 +19,7 @@ export function MinimalDownload({
   return (
     <div className="minimal-download-cta">
       <DownloadTilesCta size={platformSize} label="Download for free" />
-      <div className="minimal-download-details flex flex-col items-center gap-2.5">
+      <div className="minimal-download-details flex flex-col items-center gap-3">
         <DownloadPlatformSubtext size={platformSize} />
         <p
           className={`font-medium leading-none text-black/48 dark:text-[#9A9A9A] ${pricingNoteClasses[platformSize]}`}
@@ -32,6 +32,16 @@ export function MinimalDownload({
             {DOWNLOAD_PRICING_LINK_LABEL}
           </Link>
         </p>
+        {platformSize === "hero" ? (
+          <p className="mt-9 font-medium leading-none text-black/40 dark:text-[#8A8A8A] text-[0.74rem] sm:text-[0.79rem]">
+            <Link
+              href="/book/overview#what-makes-tiles-different"
+              className="underline underline-offset-2 hover:text-black/60 dark:hover:text-white/70"
+            >
+              See how Tiles compares to Ollama and others →
+            </Link>
+          </p>
+        ) : null}
       </div>
     </div>
   )
