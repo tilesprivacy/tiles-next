@@ -140,7 +140,7 @@ function DonatePanel({ open }: { open: boolean }) {
   const [customAmount, setCustomAmount] = useState("")
   const [flow, setFlow] = useState<FlowState>({ step: "idle" })
   const [copied, setCopied] = useState(false)
-  const [qrOpen, setQrOpen] = useState(false)
+  const [qrOpen, setQrOpen] = useState(true)
 
   const account = useAccount()
   const { connectors, connectAsync } = useConnect()
