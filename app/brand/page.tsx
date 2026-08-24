@@ -164,7 +164,7 @@ export default function BrandPage() {
               <div className="mx-auto mt-4 flex w-full max-w-3xl justify-center">
                 <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
                   <Image
-                    src="/wallpaper.webp"
+                    src="/wallpaper.png"
                     alt="Tiles wallpaper preview"
                     width={1362}
                     height={1082}
