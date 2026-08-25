@@ -1,8 +1,8 @@
 export const TILES_PRODUCT_DESCRIPTION_CORE =
-  "A private, collaborative AI assistant that works for you." as const
+  "A local-first, collaborative AI assistant that works for you." as const
 
 export const TILES_PRODUCT_TECHNOLOGY_LINE =
-  "Built with local models and AT Protocol." as const
+  "Built with open models and decentralized protocols." as const
 
 export const TILES_PRODUCT_DESCRIPTION =
   `${TILES_PRODUCT_DESCRIPTION_CORE} ${TILES_PRODUCT_TECHNOLOGY_LINE}` as const
