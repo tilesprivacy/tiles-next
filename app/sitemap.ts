@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     "",
     "/mission",
+    "/book/finances",
     "/blog",
     "/plugins",
     "/book/research",

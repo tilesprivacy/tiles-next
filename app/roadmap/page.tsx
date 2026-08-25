@@ -1,38 +1,8 @@
-import type { Metadata } from "next"
-import { getSocialImage } from "@/lib/social-image"
-import { Suspense } from "react"
-import { RoadmapContent } from "@/components/roadmap-content"
-import { getRoadmapNotesMap } from "@/lib/roadmap-notes-server"
+import { notFound } from "next/navigation"
 
-const socialImage = getSocialImage("Roadmap")
-
-export const metadata: Metadata = {
-  title: "Roadmap | Tiles",
-  description: "Tiles roadmap and implementation priorities.",
-  openGraph: {
-    title: "Roadmap | Tiles",
-    description: "Tiles roadmap and implementation priorities.",
-    url: "https://www.tiles.run/roadmap",
-    type: "website",
-    images: [
-      socialImage,
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Roadmap | Tiles",
-    description: "Tiles roadmap and implementation priorities.",
-    images: [socialImage.url],
-  },
-}
-
+// The roadmap is hidden from the public site. Restore this page from git
+// history to bring it back (components/roadmap-content.tsx and the
+// roadmap-notes data are still in the repo).
 export default function RoadmapPage() {
-  const notesBySlug = getRoadmapNotesMap()
-  return (
-    <Suspense
-      fallback={<div className="min-h-[100dvh] bg-background" aria-hidden="true" />}
-    >
-      <RoadmapContent notesBySlug={notesBySlug} />
-    </Suspense>
-  )
+  notFound()
 }

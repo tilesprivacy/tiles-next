@@ -23,6 +23,7 @@ export const BOOK_PAGES: NavigationPage[] = [
   // { route: '/book/resources', title: 'Resources' }, // Hidden from book nav.
   { route: '/book/opensource', title: 'Open source' },
   { route: '/book/licenses', title: 'Licenses' },
+  { route: '/book/finances', title: 'Finances' },
 ]
 
 export function getAdjacentBookPages(pathname: string): {

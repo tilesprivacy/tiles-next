@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { PersonAvatar } from "@/components/person-avatar"
 import { SiteFooter } from "@/components/site-footer"
@@ -104,8 +105,8 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                 <SponsorUsdtDonateButton />
               </div>
               <p className="minimal-note">
-                You can also support us by spreading the word and keeping in touch
-                with us
+                Our <Link href="/book/finances">finances are open</Link>: we
+                publish what we earn and what we spend every month.
               </p>
             </div>
           </section>

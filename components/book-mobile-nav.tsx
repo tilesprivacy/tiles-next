@@ -73,6 +73,12 @@ const bookPages: BookPage[] = [
     description: 'The Tiles Plus and Tiles Pro licenses, payment terms, and purchasing options.',
     href: '/book/licenses',
   },
+  {
+    number: '09',
+    title: 'Finances',
+    description: 'Our finances, published in the open every month.',
+    href: '/book/finances',
+  },
 ]
 
 export function BookMobileNav() {

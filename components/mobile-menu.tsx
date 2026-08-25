@@ -196,13 +196,6 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               Book
             </Link>
             <Link
-              href="/roadmap"
-              onClick={onClose}
-              className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}
-            >
-              Roadmap
-            </Link>
-            <Link
               href="/releases"
               onClick={onClose}
               className={`text-[1.25rem] font-medium tracking-[-0.02em] ${textColor} py-3 pl-[max(1rem,env(safe-area-inset-left,0px))] pr-[max(1rem,env(safe-area-inset-right,0px))] transition-colors ${textColorHover}`}

@@ -69,6 +69,13 @@
       "timestamp": true
     }
   },
+  "finances": {
+    "title": "Finances",
+    "theme": {
+      "copyPage": true,
+      "timestamp": true
+    }
+  },
   "blog": {
     "title": "Blog",
     "type": "page",
