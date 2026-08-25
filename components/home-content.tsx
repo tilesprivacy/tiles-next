@@ -126,7 +126,7 @@ export function HomeContent() {
           Own your AI
         </h1>
         <p>
-          A <strong>private, collaborative AI assistant</strong> that works for you.{" "}
+          A <strong>local-first, collaborative AI assistant</strong> that works for you.{" "}
           <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
         </p>
         <MinimalDownload />
