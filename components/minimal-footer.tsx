@@ -39,7 +39,6 @@ export function MinimalFooter() {
         <Link href="/refund-policy">Refunds</Link>
         <Link href="/privacy">Privacy</Link>
         <Link href="/brand">Brand</Link>
-        <Link href="/book/finances">Finances</Link>
         <a className="minimal-footer-status" href="https://status.tiles.run" target="_blank" rel="noopener noreferrer">
           Status
           <ArrowUpRight aria-hidden />
