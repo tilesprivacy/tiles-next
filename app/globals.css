@@ -1782,8 +1782,10 @@ html.cyberpunk .minimal-download-action--secondary:hover {
   position: static;
   width: auto;
   max-width: none;
-  margin: 0;
-  padding: 0;
+  /* Match the cyberpunk band's vertical metrics so switching themes does
+     not shift the content below the band. */
+  margin: 1.5rem 0 2.5rem;
+  padding: 3rem 0;
   transform: none;
   background: transparent;
   color: inherit;
@@ -1822,7 +1824,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-note a:hover {
   text-decoration-color: #000 !important;
 }
 html.cyberpunk .minimal-sponsor-page .minimal-progress {
-  height: 0.375rem;
+  /* Same height as the base bar so theme switches do not shift layout. */
   background: rgba(0, 0, 0, 0.15);
 }
 html.cyberpunk .minimal-sponsor-page .minimal-progress span {
@@ -1830,7 +1832,9 @@ html.cyberpunk .minimal-sponsor-page .minimal-progress span {
 }
 html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-primary-button,
 html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary-button {
-  border: 2px solid #000 !important;
+  /* 1px border like the base button: a wider border grows the button and
+     shifts layout on theme switch (it is invisible on the black fill anyway). */
+  border: 1px solid #000 !important;
   background: #000 !important;
   color: var(--sponsor-yellow) !important;
   box-shadow: none !important;
@@ -2076,8 +2080,11 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   flex: none;
 }
 .minimal-funding {
-  margin: 0 0 2.5rem;
-  padding: 3rem 0 1.5rem;
+  /* Vertical spacing lives on .minimal-sponsor-funding-band (same in every
+     theme); keep this box identical across themes to avoid layout shift. */
+  width: min(100%, 46rem);
+  margin: 0 auto;
+  padding: 0;
   border-top: 0;
 }
 .minimal-funding > div:first-child {
