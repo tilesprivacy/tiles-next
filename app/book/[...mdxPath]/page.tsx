@@ -28,7 +28,11 @@ export async function generateMetadata(props: {
 
   // Match blog post title structure: "<heading> | Tiles Book"
   const ogTitle = pageTitle ? `${pageTitle} | Tiles Book` : 'Tiles Book'
-  const socialImage = getSocialImage(pageTitle || 'Tiles Book')
+  const defaultSocialImage = getSocialImage(pageTitle || 'Tiles Book')
+  const socialImage =
+    params.mdxPath.length === 1 && params.mdxPath[0] === 'finances'
+      ? { ...defaultSocialImage, url: '/api/og/finances' }
+      : defaultSocialImage
 
   // Return the cleaned title so the layout template appends " | Tiles Book".
   // Use absolute title when empty to avoid an empty heading title.
@@ -65,4 +69,3 @@ export default async function Page(props: {
     </Wrapper>
   )
 }
-
