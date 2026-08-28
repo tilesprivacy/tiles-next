@@ -3433,6 +3433,11 @@ html.cyberpunk [data-book-section] {
 }
 
 /* Right “On this page” TOC (Nextra 4: nav.nextra-toc sibling of article; not aside) */
+[data-book-section] nav[aria-label="table of contents"] p,
+[data-book-section] nav.nextra-toc p {
+  color: var(--foreground) !important;
+}
+
 [data-book-section] nav[aria-label="table of contents"] a,
 [data-book-section] nav.nextra-toc a,
 [data-book-section] article > aside a,
