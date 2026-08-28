@@ -85,6 +85,7 @@
     "tailwind-merge": "^3.3.1",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^1.1.2",
+    "vgpu": "^0.3.1",
     "viem": "^2.55.10",
     "wagmi": "^3.7.5",
     "zod": "3.25.76"
@@ -103,6 +104,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@webgpu/types": "^0.1.72",
     "baseline-browser-mapping": "^2.9.19",
     "pagefind": "^1.4.0",
     "postcss": "^8.5",

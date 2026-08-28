@@ -2,6 +2,7 @@ import type { ReactNode } from "react"
 import Image from "next/image"
 import { ArrowUpRight, Bot, Box, Briefcase, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, Share2, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
+import { HeroBannerShader } from "@/components/hero-banner-shader"
 import { MinimalDownload } from "@/components/minimal-download"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
@@ -141,20 +142,7 @@ export function HomeContent() {
           priority
         />
         <div className="minimal-hero-device-banner" aria-hidden="true">
-          <Image
-            src="/tiles_banner_outline_blk.svg"
-            alt=""
-            width={1200}
-            height={220}
-            className="dark:hidden"
-          />
-          <Image
-            src="/tiles_banner_outline_wht.svg"
-            alt=""
-            width={1200}
-            height={220}
-            className="hidden bg-background dark:block"
-          />
+          <HeroBannerShader />
         </div>
       </div>
 
