@@ -885,10 +885,37 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   padding-inline: 9%;
   pointer-events: none;
 }
-.minimal-hero-device-banner img {
+.minimal-hero-banner-stage {
+  position: relative;
   width: min(68%, 28rem);
-  height: auto;
+  aspect-ratio: 150 / 82;
   transform: translateY(0.55rem);
+}
+/* Absolutely positioned (and no display override) so the Tailwind
+   hidden/dark:block theme toggle on each image keeps working. */
+.minimal-hero-banner-stage img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 700ms ease;
+}
+/* WebGPU banner canvas. The overscan must match HERO_BANNER_BLEED_X/Y in
+   lib/hero-banner-shader-gpu.ts: 16% per side horizontally, 32% vertically. */
+.minimal-hero-banner-canvas {
+  position: absolute;
+  left: -16%;
+  top: -32%;
+  width: 132%;
+  height: 164%;
+  opacity: 0;
+  transition: opacity 700ms ease;
+}
+.minimal-hero-banner-stage--shader img {
+  opacity: 0;
+}
+.minimal-hero-banner-stage--shader .minimal-hero-banner-canvas {
+  opacity: 1;
 }
 
 .minimal-download-cta {
@@ -2794,7 +2821,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     width: calc(100% - 4rem);
     margin-top: -5rem;
   }
-  .minimal-hero-device-banner img {
+  .minimal-hero-banner-stage {
     width: 66%;
   }
   .minimal-copy {

@@ -68,3 +68,6 @@ public/_pagefind/wasm.*.pagefind
 
 .sequoia-state.json
 .env*
+
+# Hero banner shader preview renders (scripts/render-hero-banner-shader.mjs)
+.hero-banner-preview/

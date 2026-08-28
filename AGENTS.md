@@ -67,6 +67,25 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 - If you change `public/wireframe.svg`, run: `npm run generate:wireframe`
 - This overwrites `public/wireframe.webp`.
 
+## Hero Banner WebGPU Shader
+
+The banner logo inside the MacBook screen is rendered as a **WebGPU 3D shader** built on [vgpu](https://vgpu.sh/): the outline logo becomes a thin extruded slab that tilts in perspective, drifts while idle, follows the pointer, and carries a moving specular sheen. Files:
+
+| File | Role |
+| --- | --- |
+| `lib/hero-banner-shader-gpu.ts` | WGSL source plus shared placement/ink constants (framework-free) |
+| `components/hero-banner-shader.tsx` | Client component: canvas, vgpu renderer lifecycle, theme/pointer/reduced-motion handling |
+| `scripts/render-hero-banner-shader.mjs` | Headless preview via `vgpu/node` — renders PNGs of the exact shipped WGSL |
+| `types/webgpu.d.ts` | Pulls in `@webgpu/types` for `navigator.gpu` / `GPUTextureUsage` |
+
+Behavior notes:
+
+- The static `tiles_banner_outline_{blk,wht}.svg` images stay in the DOM as the first paint and the permanent fallback; the canvas cross-fades in only after the shader draws its first frame, and cross-fades back out if the GPU device errors or is lost. No WebGPU → images stay, nothing else changes.
+- The shader starts at flat tilt so the cross-fade from the static image is seamless, then eases into its idle 3D pose.
+- The canvas overscans the logo box (16% per side horizontally, 32% vertically) so tilted edges never clip; those percentages live in both `lib/hero-banner-shader-gpu.ts` (`HERO_BANNER_BLEED_X/Y`) and `.minimal-hero-banner-canvas` in `app/globals.css` and must stay in sync.
+- Theme ink follows `resolvedTheme` via `isDarkResolvedTheme`; `prefers-reduced-motion` renders a single still frame instead of the loop.
+- When touching the WGSL, validate by pixels, not by eye: run `node --experimental-strip-types scripts/render-hero-banner-shader.mjs` (first run on a GPU-less machine may need `npx vgpu install-software-renderer`) and inspect the PNGs it writes.
+
 ## Archived Use Cases Page (`/use-case`)
 
 The public **Use Cases** page is intentionally **offline**. Source is preserved in `components/archived/use-cases-page.tsx` (exports `UseCasesPage` and `useCasesPageMetadata`). Do not delete that file when cleaning routes.
@@ -286,3 +305,13 @@ Always gate these behind the matching `isPolar*Configured()` check, and never im
 - The macOS uninstaller skill at `public/tiles-uninstaller-skill/SKILL.md` (legacy copy `public/tiles-uninstaller-skill.md`, linked from `content/manual.mdx`) should preserve user config and data by default; remove config or wipe user data only when explicitly requested.
 - Blog bylines use `BlogAuthorDisplayName` and `splitPersonDisplayName` from `lib/people.ts`; person `name` strings may end with a trailing  `@handle`, which the UI shows as a distinct handle segment instead of stripping it silently. Some posts duplicate byline markup in their own `app/blog/*/page.tsx`; keep those copies aligned when changing `components/blog-post-content.tsx`.
 - Banner wordmark SVGs exported on oversized artboards can add large transparent margins; cropping the SVG `viewBox` (or similar) is often needed when tightening whitespace around homepage, about-page, or `/brand` banner sections. `public/_pagefind/` build artifacts belong in `.gitignore`. The `/brand` page credits visual identity work to Darkshapes (https://darkshapes.org) with the Darkshapes logo mark. Favicon SVGs should use a square viewport for common audits. In static `public/index.html`, use root-relative asset URLs; Next.js does not substitute `%PUBLIC_URL%` (unlike CRA). Files named `icon-dark-*` / `icon-mark-dark.svg` are dark glyphs for light browser chrome; `icon-light-*` / `icon-mark-light.svg` are light glyphs for dark chrome, so pair `prefers-color-scheme: light` with dark-named assets and vice versa when wiring tab favicons or metadata. The offline site service worker in `public/site-sw.js` has historically applied cache-first handling to broad image classes, which can leave logos and favicons stale after deploys until cache versioning or per-path fetch rules are updated; pair any worker changes with sensible `Cache-Control` on key public branding files in `next.config.mjs` when refreshed assets must reach returning visitors.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
