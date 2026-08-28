@@ -69,7 +69,7 @@ Whenever you update any of the following, the `/llms.txt` endpoint will automati
 
 ## Hero Banner WebGPU Shader
 
-The banner logo inside the MacBook screen is rendered as a **WebGPU 3D shader** built on [vgpu](https://vgpu.sh/): the outline logo becomes a thin extruded slab that tilts in perspective, drifts while idle, follows the pointer, and carries a moving specular sheen. Files:
+The banner logo inside the MacBook screen is rendered as a **WebGPU 3D shader** built on [vgpu](https://vgpu.sh/), in a "black glass" style: the outline SVG's closed paths are force-filled into solid slabs, extruded and tilted in perspective, with dark faces, bright glossy gradient highlights riding rounded bevels (normals come from a blurred companion mask), a soft bloom outside the edges (a ground shadow in light mode), idle drift, and pointer-follow tilt. Files:
 
 | File | Role |
 | --- | --- |
@@ -80,8 +80,8 @@ The banner logo inside the MacBook screen is rendered as a **WebGPU 3D shader** 
 
 Behavior notes:
 
-- The static `tiles_banner_outline_{blk,wht}.svg` images stay in the DOM as the first paint and the permanent fallback; the canvas cross-fades in only after the shader draws its first frame, and cross-fades back out if the GPU device errors or is lost. No WebGPU → images stay, nothing else changes.
-- The shader starts at flat tilt so the cross-fade from the static image is seamless, then eases into its idle 3D pose.
+- The static `tiles_banner_outline_{blk,wht}.svg` images stay in the DOM as the first paint and the permanent fallback; the canvas cross-fades in only after the shader draws its first frame (outline dissolving into the glass version), and cross-fades back out if the GPU device errors or is lost. No WebGPU → images stay, nothing else changes.
+- The shader starts at flat tilt and eases into its idle 3D pose after the cross-fade.
 - The canvas overscans the logo box (16% per side horizontally, 32% vertically) so tilted edges never clip; those percentages live in both `lib/hero-banner-shader-gpu.ts` (`HERO_BANNER_BLEED_X/Y`) and `.minimal-hero-banner-canvas` in `app/globals.css` and must stay in sync.
 - Theme ink follows `resolvedTheme` via `isDarkResolvedTheme`; `prefers-reduced-motion` renders a single still frame instead of the loop.
 - When touching the WGSL, validate by pixels, not by eye: run `node --experimental-strip-types scripts/render-hero-banner-shader.mjs` (first run on a GPU-less machine may need `npx vgpu install-software-renderer`) and inspect the PNGs it writes.

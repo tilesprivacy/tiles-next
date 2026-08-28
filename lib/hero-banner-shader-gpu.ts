@@ -1,9 +1,10 @@
 /**
  * WGSL source and placement constants for the hero MacBook banner shader
- * (components/hero-banner-shader.tsx). The logo is treated as a thin extruded
- * slab in 3D: each fragment casts a perspective ray against a tilting plane,
- * marches the slab for parallax side walls, and shades the front face with a
- * gradient-derived normal, a drifting key light, and a specular sheen.
+ * (components/hero-banner-shader.tsx). "Black glass" treatment: the filled
+ * logo becomes a set of dark extruded slabs viewed in perspective on a
+ * tilting plane. A blurred companion mask supplies rounded bevel normals, so
+ * a drifting studio light draws bright glossy gradients along the edges,
+ * with a soft bloom just outside them — dark faces, bright rims.
  *
  * Framework-free so the headless preview script
  * (scripts/render-hero-banner-shader.mjs) can render the exact same shader
@@ -12,7 +13,7 @@
 
 /** Logo canvas overscan on each side, as a fraction of the logo box. The
  * canvas bleeds past the static banner footprint so tilted edges and the
- * extrusion never clip. CSS in app/globals.css must match
+ * bloom never clip. CSS in app/globals.css must match
  * (`.minimal-hero-banner-canvas`). */
 export const HERO_BANNER_BLEED_X = 0.16
 export const HERO_BANNER_BLEED_Y = 0.32
@@ -24,40 +25,75 @@ const SCALE_Y = 1 / (1 + 2 * HERO_BANNER_BLEED_Y)
 /** Intrinsic aspect of public/tiles_banner_outline_*.svg (viewBox 150 x 82). */
 export const HERO_BANNER_LOGO_ASPECT = 150 / 82
 
-/** Offscreen raster size for the logo mask texture. */
+/** Offscreen raster size for the logo mask textures. */
 export const HERO_BANNER_RASTER_WIDTH = 1536
 export const HERO_BANNER_RASTER_HEIGHT = Math.round(
   HERO_BANNER_RASTER_WIDTH / HERO_BANNER_LOGO_ASPECT,
 )
 /** Transparent border around the raster so clamp-to-edge sampling stays clear. */
-export const HERO_BANNER_RASTER_PAD = 4
+export const HERO_BANNER_RASTER_PAD = 24
 
-/** Theme ink for the strokes; matches the black/white outline SVG pair. */
-export const HERO_BANNER_INK_LIGHT = [0.06, 0.06, 0.07] as const
-export const HERO_BANNER_INK_DARK = [0.93, 0.94, 0.95] as const
-export const HERO_BANNER_SPEC_LIGHT = 0.4
-export const HERO_BANNER_SPEC_DARK = 0.65
+/** Gaussian standard deviation (raster pixels) for the soft bevel mask. */
+export const HERO_BANNER_BEVEL_SIGMA = 7
 
-export interface HeroBannerParams {
-  ink: readonly [number, number, number]
+/**
+ * The outline SVG draws closed polygons with `fill:none`; the slab look
+ * needs them solid. Only stroked paths are filled — the document also holds
+ * a `fill:none;...;stroke:none` helper element that must stay invisible.
+ */
+export function fillBannerSvg(svg: string): string {
+  return svg.replaceAll(
+    "fill:none;fill-opacity:1;stroke:#000000",
+    "fill:#000000;fill-opacity:1;stroke:#000000",
+  )
+}
+
+export interface HeroBannerThemeParams {
+  /** Slab face albedo — near-black glass in both themes. */
+  faceInk: readonly [number, number, number]
+  /** Bloom color outside the edges (light: acts as a soft ground shadow). */
+  glowInk: readonly [number, number, number]
+  rimGain: number
+  glowGain: number
+  specGain: number
+}
+
+export const HERO_BANNER_THEME_LIGHT: HeroBannerThemeParams = {
+  faceInk: [0.08, 0.08, 0.09],
+  glowInk: [0, 0, 0],
+  rimGain: 0.85,
+  glowGain: 0.3,
+  specGain: 0.95,
+}
+
+export const HERO_BANNER_THEME_DARK: HeroBannerThemeParams = {
+  faceInk: [0.05, 0.052, 0.058],
+  glowInk: [0.62, 0.64, 0.68],
+  rimGain: 1.1,
+  glowGain: 0.55,
+  specGain: 1.15,
+}
+
+export interface HeroBannerParams extends HeroBannerThemeParams {
   time: number
   tilt: readonly [number, number]
-  reveal: number
-  specGain: number
 }
 
 export const HERO_BANNER_WGSL = /* wgsl */ `
 struct Params {
-  ink: vec3f,
+  faceInk: vec3f,
   time: f32,
+  glowInk: vec3f,
+  rimGain: f32,
   tilt: vec2f,
-  reveal: f32,
+  glowGain: f32,
   specGain: f32,
 }
 
-@group(0) @binding(0) var logoTex: texture_2d<f32>;
-@group(0) @binding(1) var logoSamp: sampler;
-@group(0) @binding(2) var<uniform> params: Params;
+@group(0) @binding(0) var maskTex: texture_2d<f32>;
+@group(0) @binding(1) var softTex: texture_2d<f32>;
+@group(0) @binding(2) var logoSamp: sampler;
+@group(0) @binding(3) var<uniform> params: Params;
 
 // Plane half extents in world units; the logo aspect (150 x 82) lives here.
 const HALF_W = 1.0;
@@ -66,12 +102,19 @@ const HALF_H = ${(82 / 150).toFixed(6)};
 const SCALE = vec2f(${SCALE_X.toFixed(6)}, ${SCALE_Y.toFixed(6)});
 const CAM_Z = 3.2;
 // Extrusion slab thickness in world units and parallax march layers.
-const DEPTH = 0.075;
+const DEPTH = 0.09;
 const LAYERS = 12u;
+// How strongly the soft-mask gradient tips the bevel normals.
+const BEVEL_GAIN = 6.0;
 
 fn mask(uv: vec2f) -> f32 {
   let inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
-  return textureSampleLevel(logoTex, logoSamp, uv, 0.0).a * inside;
+  return textureSampleLevel(maskTex, logoSamp, uv, 0.0).a * inside;
+}
+
+fn soft(uv: vec2f) -> f32 {
+  let inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
+  return textureSampleLevel(softTex, logoSamp, uv, 0.0).a * inside;
 }
 
 @fragment fn fs_main(@location(0) uv: vec2f) -> @location(0) vec4f {
@@ -115,39 +158,62 @@ fn mask(uv: vec2f) -> f32 {
   for (var k = 1u; k <= LAYERS; k++) {
     let f = f32(k) / f32(LAYERS);
     let m = mask(uv0 + duv * (f * DEPTH));
-    wall = max(wall, m * (1.0 - f * 0.72));
+    wall = max(wall, m * (1.0 - f * 0.55));
   }
 
-  // Front-face normal from the mask gradient, lifted into world space.
-  let ts = 1.5 / vec2f(textureDimensions(logoTex));
-  let gx = mask(uv0 + vec2f(ts.x, 0.0)) - mask(uv0 - vec2f(ts.x, 0.0));
-  let gy = mask(uv0 + vec2f(0.0, ts.y)) - mask(uv0 - vec2f(0.0, ts.y));
-  let nLocal = normalize(vec3f(-gx * 1.7, gy * 1.7, 1.0));
+  // Rounded bevel normal from the blurred mask gradient, lifted into world.
+  let ts = 1.5 / vec2f(textureDimensions(softTex));
+  let sHere = soft(uv0);
+  let gx = soft(uv0 + vec2f(ts.x, 0.0)) - soft(uv0 - vec2f(ts.x, 0.0));
+  let gy = soft(uv0 + vec2f(0.0, ts.y)) - soft(uv0 - vec2f(0.0, ts.y));
+  let nLocal = normalize(vec3f(-gx * BEVEL_GAIN, gy * BEVEL_GAIN, 1.0));
   let normal = normalize(bu * nLocal.x + bv * nLocal.y + nrm * nLocal.z);
 
-  // Drifting key light plus a half-vector specular sheen.
+  // Drifting studio key light, plus the view/half vectors.
   let light = normalize(vec3f(
-    cos(params.time * 0.4) * 0.55,
-    0.55 + sin(params.time * 0.31) * 0.25,
-    0.85,
+    cos(params.time * 0.33) * 0.7,
+    0.6 + sin(params.time * 0.24) * 0.35,
+    0.72,
   ));
   let view = -dir;
   let halfVec = normalize(light + view);
+  let nh = clamp(dot(normal, halfVec), 0.0, 1.0);
+  let nv = clamp(dot(normal, view), 0.0, 1.0);
   let diff = clamp(dot(normal, light), 0.0, 1.0);
-  let spec = pow(clamp(dot(normal, halfVec), 0.0, 1.0), 42.0);
 
-  // Side walls read as brushed metal between the theme ink and mid gray.
-  let sideCol = mix(params.ink, vec3f(0.5), 0.5);
-  let faceCol = params.ink * (0.82 + 0.2 * diff) + vec3f(spec * params.specGain);
-  let frontness = clamp(front * 2.0, 0.0, 1.0);
-  var rgb = mix(sideCol, faceCol, frontness);
-  var alpha = max(front, wall);
+  // Fixed fill light opposite the key, so edges catch light from two sides.
+  let fill = normalize(vec3f(-0.55, -0.2, 0.6));
+  let nh2 = clamp(dot(normal, normalize(fill + view)), 0.0, 1.0);
 
-  // Left-to-right reveal wipe in logo space.
-  let edge = params.reveal * 1.3 - 0.15;
-  alpha *= 1.0 - smoothstep(edge, edge + 0.12, uv0.x);
+  // Glossy black glass: tight glints and mid highlights riding the bevels
+  // (gated to the bevel band so flat faces stay dark), plus a faint sheen.
+  let specTight = pow(nh, 90.0) * 1.1 + pow(nh2, 90.0) * 0.5;
+  let specMid = pow(nh, 14.0) * 0.55 + pow(nh2, 14.0) * 0.22;
+  let sheen = pow(nh, 4.0) * 0.09;
+  // Bevel band: soft-mask mid-values trace the rounded edges.
+  let band = clamp(sHere * (1.0 - sHere) * 4.0, 0.0, 1.0);
+  // Curvature keeps gloss on the bevels and their rolloff into the face,
+  // while truly flat interiors stay dark glass at any tilt.
+  let curve = clamp((1.0 - nLocal.z) * 4.5, 0.0, 1.0);
+  // Fresnel rim plus a constant softbox accent keep the edges softly lit.
+  let rim = (pow(1.0 - nv, 2.4) + 0.16) * band * params.rimGain;
+  let gloss = (specTight + specMid) * (0.15 + 0.85 * curve) + sheen;
+
+  let faceCol = params.faceInk * (0.6 + 0.5 * diff)
+    + vec3f(gloss * params.specGain + rim);
+  // Extrusion walls: darker glass, fading with depth.
+  let wallCol = params.faceInk * (0.35 + 0.45 * wall);
+
+  let frontness = clamp(front * 1.6, 0.0, 1.0);
+  let solidAlpha = max(front, min(wall * 1.4, 1.0));
+  let solidCol = mix(wallCol, faceCol, frontness);
+
+  // Soft bloom just outside the shapes (a shadow in light mode).
+  let halo = clamp(sHere * 1.1 - solidAlpha, 0.0, 1.0) * params.glowGain;
 
   // Premultiplied output over a transparent canvas.
-  return vec4f(rgb * alpha, alpha);
+  let rgb = solidCol * solidAlpha + params.glowInk * halo;
+  let alpha = clamp(solidAlpha + halo, 0.0, 1.0);
+  return vec4f(rgb, alpha);
 }
 `

@@ -5,22 +5,24 @@ import { useEffect, useRef, useState } from "react"
 import { useTheme } from "next-themes"
 
 import {
-  HERO_BANNER_INK_DARK,
-  HERO_BANNER_INK_LIGHT,
+  HERO_BANNER_BEVEL_SIGMA,
   HERO_BANNER_RASTER_HEIGHT,
   HERO_BANNER_RASTER_PAD,
   HERO_BANNER_RASTER_WIDTH,
-  HERO_BANNER_SPEC_DARK,
-  HERO_BANNER_SPEC_LIGHT,
+  HERO_BANNER_THEME_DARK,
+  HERO_BANNER_THEME_LIGHT,
   HERO_BANNER_WGSL,
+  fillBannerSvg,
 } from "@/lib/hero-banner-shader-gpu"
 import { isDarkResolvedTheme } from "@/lib/site-theme"
 
 /**
  * The banner logo inside the hero MacBook, rendered as a WebGPU 3D shader
- * (vgpu). The static light/dark SVG pair stays in the DOM as the initial
- * paint and the fallback for browsers without WebGPU; once the shader draws
- * its first frame the canvas cross-fades in over the images.
+ * (vgpu): black-glass slabs with glossy gradient edge highlights and a soft
+ * bloom, tilting in perspective. The static light/dark SVG pair stays in the
+ * DOM as the initial paint and the fallback for browsers without WebGPU;
+ * once the shader draws its first frame the canvas cross-fades in over the
+ * images.
  *
  * Preview the shader headlessly with
  * `node --experimental-strip-types scripts/render-hero-banner-shader.mjs`.
@@ -111,7 +113,7 @@ function createHeroBannerRenderer(
   let lastTime = 0
   let lastRender = -Infinity
   let animationFrame = 0
-  let drawFrame: ((timeSeconds: number, reveal: number) => void) | undefined
+  let drawFrame: ((timeSeconds: number) => void) | undefined
   let disposeGpu: (() => void) | undefined
   const cleanups: Array<() => void> = []
 
@@ -139,8 +141,8 @@ function createHeroBannerRenderer(
   }
 
   const renderStill = () => {
-    // Single frame for reduced motion: settled pose, fully revealed.
-    drawFrame?.(2, 1)
+    // Single frame for reduced motion: a settled pose and light.
+    drawFrame?.(2)
   }
 
   const loop = (now: number) => {
@@ -165,7 +167,7 @@ function createHeroBannerRenderer(
     const alpha = 1 - Math.exp(-dt / TILT_SMOOTHING_SECONDS)
     tilt = [tilt[0] + (target[0] - tilt[0]) * alpha, tilt[1] + (target[1] - tilt[1]) * alpha]
 
-    drawFrame(time, 1)
+    drawFrame(time)
   }
 
   const handlePointerMove = (event: PointerEvent) => {
@@ -194,7 +196,7 @@ function createHeroBannerRenderer(
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)")
     reduceMotion = motionQuery.matches
 
-    const [{ init, surface, effect, frame, sampler }, logoCanvas] = await Promise.all([
+    const [{ init, surface, effect, frame, sampler }, masks] = await Promise.all([
       import("vgpu"),
       rasterizeBannerLogo(),
     ])
@@ -218,20 +220,25 @@ function createHeroBannerRenderer(
       if (!disposed && info.reason !== "destroyed") fail()
     })
 
-    const texture = gpu.gpu.createTexture({
-      label: "hero-banner-logo",
-      size: [logoCanvas.width, logoCanvas.height],
-      format: "rgba8unorm",
-      usage:
-        GPUTextureUsage.COPY_DST |
-        GPUTextureUsage.TEXTURE_BINDING |
-        GPUTextureUsage.RENDER_ATTACHMENT,
-    })
-    cleanups.push(() => texture.destroy())
-    gpu.gpu.queue.copyExternalImageToTexture({ source: logoCanvas }, { texture }, [
-      logoCanvas.width,
-      logoCanvas.height,
-    ])
+    const uploadMask = (label: string, source: HTMLCanvasElement) => {
+      const texture = gpu.gpu.createTexture({
+        label,
+        size: [source.width, source.height],
+        format: "rgba8unorm",
+        usage:
+          GPUTextureUsage.COPY_DST |
+          GPUTextureUsage.TEXTURE_BINDING |
+          GPUTextureUsage.RENDER_ATTACHMENT,
+      })
+      cleanups.push(() => texture.destroy())
+      gpu.gpu.queue.copyExternalImageToTexture({ source }, { texture }, [
+        source.width,
+        source.height,
+      ])
+      return texture
+    }
+    const maskTex = uploadMask("hero-banner-mask", masks.sharpMask)
+    const softTex = uploadMask("hero-banner-soft", masks.softMask)
 
     const canvasSurface = surface(gpu, canvas, {
       label: "hero-banner-surface",
@@ -241,20 +248,15 @@ function createHeroBannerRenderer(
     const banner = effect(gpu, HERO_BANNER_WGSL, {
       label: "hero-banner",
       set: {
-        logoTex: texture,
+        maskTex,
+        softTex,
         logoSamp: sampler(gpu, {
           minFilter: "linear",
           magFilter: "linear",
           addressModeU: "clamp-to-edge",
           addressModeV: "clamp-to-edge",
         }),
-        params: {
-          ink: HERO_BANNER_INK_LIGHT,
-          time: 0,
-          tilt: IDLE_TILT,
-          reveal: 0,
-          specGain: HERO_BANNER_SPEC_LIGHT,
-        },
+        params: { ...HERO_BANNER_THEME_LIGHT, time: 0, tilt: [0, 0] },
       },
     })
     // Surfaces are only usable inside frame(); pre-warm via their signature.
@@ -264,14 +266,12 @@ function createHeroBannerRenderer(
     })
     if (disposed) return
 
-    drawFrame = (timeSeconds, reveal) => {
+    drawFrame = (timeSeconds) => {
       banner.set({
         params: {
-          ink: dark ? HERO_BANNER_INK_DARK : HERO_BANNER_INK_LIGHT,
+          ...(dark ? HERO_BANNER_THEME_DARK : HERO_BANNER_THEME_LIGHT),
           time: timeSeconds,
           tilt,
-          reveal,
-          specGain: dark ? HERO_BANNER_SPEC_DARK : HERO_BANNER_SPEC_LIGHT,
         },
       })
       frame(gpu, (currentFrame) => currentFrame.pass(canvasSurface, banner))
@@ -322,7 +322,7 @@ function createHeroBannerRenderer(
         window.removeEventListener("pointercancel", handlePointerLeave)
         window.removeEventListener("blur", handlePointerLeave)
       })
-      drawFrame(lastTime, 1)
+      drawFrame(lastTime)
       animationFrame = requestAnimationFrame(loop)
     }
     callbacks.onFirstFrame()
@@ -350,20 +350,57 @@ function createHeroBannerRenderer(
   }
 }
 
-/** Rasterize the black outline SVG; the shader only reads its alpha mask. */
-async function rasterizeBannerLogo(): Promise<HTMLCanvasElement> {
-  const image = document.createElement("img")
-  image.decoding = "async"
-  image.src = "/tiles_banner_outline_blk.svg"
-  await image.decode()
-  const raster = document.createElement("canvas")
-  raster.width = HERO_BANNER_RASTER_WIDTH
-  raster.height = HERO_BANNER_RASTER_HEIGHT
-  const context = raster.getContext("2d")
-  if (!context) throw new Error("Could not create the banner raster canvas.")
-  context.imageSmoothingEnabled = true
-  context.imageSmoothingQuality = "high"
-  const pad = HERO_BANNER_RASTER_PAD
-  context.drawImage(image, pad, pad, raster.width - pad * 2, raster.height - pad * 2)
-  return raster
+interface BannerMasks {
+  sharpMask: HTMLCanvasElement
+  softMask: HTMLCanvasElement
+}
+
+/**
+ * Rasterize the outline SVG with its closed paths force-filled; the shader
+ * reads only alpha. The soft copy is gaussian-blurred — its gradient becomes
+ * the rounded bevel normals that carry the glossy edge highlights.
+ */
+async function rasterizeBannerLogo(): Promise<BannerMasks> {
+  const response = await fetch("/tiles_banner_outline_blk.svg")
+  if (!response.ok) throw new Error("Could not fetch the banner SVG.")
+  const svg = fillBannerSvg(await response.text())
+  const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }))
+  try {
+    const image = document.createElement("img")
+    image.decoding = "async"
+    image.src = url
+    await image.decode()
+
+    const pad = HERO_BANNER_RASTER_PAD
+    const draw = (blurSigma?: number) => {
+      const raster = document.createElement("canvas")
+      raster.width = HERO_BANNER_RASTER_WIDTH
+      raster.height = HERO_BANNER_RASTER_HEIGHT
+      const context = raster.getContext("2d")
+      if (!context) throw new Error("Could not create the banner raster canvas.")
+      context.imageSmoothingEnabled = true
+      context.imageSmoothingQuality = "high"
+      if (blurSigma) context.filter = `blur(${blurSigma}px)`
+      context.drawImage(image, pad, pad, raster.width - pad * 2, raster.height - pad * 2)
+      return raster
+    }
+
+    const sharpMask = draw()
+    let softMask = draw(HERO_BANNER_BEVEL_SIGMA)
+    if (typeof softMask.getContext("2d")?.filter !== "string") {
+      // No canvas filter support: approximate the blur with a bilinear
+      // downscale/upscale round trip of the sharp mask.
+      const shrink = document.createElement("canvas")
+      shrink.width = Math.max(1, Math.round(HERO_BANNER_RASTER_WIDTH / (HERO_BANNER_BEVEL_SIGMA * 2)))
+      shrink.height = Math.max(1, Math.round(HERO_BANNER_RASTER_HEIGHT / (HERO_BANNER_BEVEL_SIGMA * 2)))
+      shrink.getContext("2d")?.drawImage(sharpMask, 0, 0, shrink.width, shrink.height)
+      softMask = document.createElement("canvas")
+      softMask.width = HERO_BANNER_RASTER_WIDTH
+      softMask.height = HERO_BANNER_RASTER_HEIGHT
+      softMask.getContext("2d")?.drawImage(shrink, 0, 0, softMask.width, softMask.height)
+    }
+    return { sharpMask, softMask }
+  } finally {
+    URL.revokeObjectURL(url)
+  }
 }
