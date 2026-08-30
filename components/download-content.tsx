@@ -39,8 +39,26 @@ export function DownloadContent({
   sponsorsGoal?: SponsorsGoalData
 }) {
   const [copied, setCopied] = useState(false)
-  const copyLinuxCommand = async () => {
-    await navigator.clipboard.writeText(LINUX_INSTALL_COMMAND)
+  const copyLinuxCommand = () => {
+    // navigator.clipboard is missing or rejects in some browsers/webviews;
+    // fall back to a hidden textarea so the copy still lands.
+    const copyWithTextArea = () => {
+      const textArea = document.createElement("textarea")
+      textArea.value = LINUX_INSTALL_COMMAND
+      textArea.style.position = "fixed"
+      textArea.style.opacity = "0"
+      document.body.appendChild(textArea)
+      textArea.select()
+      document.execCommand("copy")
+      document.body.removeChild(textArea)
+    }
+
+    if (!navigator.clipboard?.writeText) {
+      copyWithTextArea()
+    } else {
+      void navigator.clipboard.writeText(LINUX_INSTALL_COMMAND).catch(copyWithTextArea)
+    }
+
     setCopied(true)
     window.setTimeout(() => setCopied(false), 1400)
   }
