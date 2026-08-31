@@ -14,15 +14,15 @@ export interface DownloadArtifact {
 const GITHUB_RELEASES_LATEST_URL =
   "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
-export const FALLBACK_DOWNLOAD_VERSION = "0.4.15" as const
+export const FALLBACK_DOWNLOAD_VERSION = "0.4.19" as const
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: FALLBACK_DOWNLOAD_VERSION,
-  fileName: "tiles-0.4.15-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.15-signed.pkg",
-  binarySizeBytes: 97895105,
-  binarySizeLabel: "93.36 MB",
-  sha256: "5fc87c38c94f4b5bf3474d7a1dcb216646d9e47b353f0564b5043f093f9109af",
+  fileName: "tiles-0.4.19-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.4.19-signed.pkg",
+  binarySizeBytes: 101271740,
+  binarySizeLabel: "96.58 MB",
+  sha256: "f270d0c5cfb0b1f93179fbb1978b2d3c2b398bf0eb508ec8cd86fc6766f84a34",
 }
 
 function extractSha256Digest(asset: any): string {

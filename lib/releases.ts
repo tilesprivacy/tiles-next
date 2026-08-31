@@ -95,6 +95,35 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
+  "0.4.19": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "`--mtp` flag for `tiles run` to enable or disable MTP speculative decoding, persisted to `config.toml` like the other llama flags",
+        },
+        {
+          text: "Model-load warnings from the inference server, such as MTP requested but no MTP head GGUF found, now surface in the CLI as yellow `WARNING:` lines before the input prompt",
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "MTP speculative decoding is now opt-in: it no longer auto-enables when an MTP head GGUF is detected next to the model. Enable it with `mtp = true` under `[llama]` in `config.toml` or per-run with `tiles run --mtp`",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "Chances of installing multiple versions of Tiles during `tiles update`",
+        },
+      ],
+    },
+  ],
   "0.4.18": [
     {
       title: "Added",
@@ -440,6 +469,7 @@ const additionalSections: Record<string, ChangeSection[]> = {}
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
+  "0.4.19": "Alpha 23",
   "0.4.18": "Alpha 22",
   "0.4.17": "Alpha 21",
   "0.4.1": "Alpha 5",
