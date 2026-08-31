@@ -818,23 +818,27 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 
 .minimal-hero {
-  min-height: 100dvh;
-  height: 100dvh;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   gap: 0;
-  padding: 0 2rem;
+  /* Anchor the whole composition with one padding, then let the title, copy,
+   * CTA, and the MacBook that follows flow normally, so the CTA links can
+   * never end up underneath the device. `50dvh - 127px` keeps the title where
+   * it has always sat; `100dvh - 526px` (stack height + a ~120px device peek)
+   * takes over on short viewports so the MacBook still peeks above the fold;
+   * the outer max() keeps the title clear of the fixed topbar. */
+  padding: max(
+      calc(var(--site-announcement-offset, 0px) + 7.5rem),
+      min(calc(50dvh - 127px), calc(100dvh - 526px))
+    )
+    2rem 0;
   text-align: center;
 }
 
 .minimal-hero-title {
-  position: absolute;
-  top: calc(50% - 127px);
-  left: 50%;
-  transform: translateX(-50%);
   margin: 0;
   font-size: 72px;
   line-height: 1;
@@ -843,13 +847,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   white-space: nowrap;
 }
 .minimal-hero > p {
-  position: absolute;
-  top: calc(50% - 7px);
-  left: 50%;
-  transform: translateX(-50%);
   width: max-content;
   max-width: calc(100% - 2rem);
-  margin: 0;
+  margin: 48px 0 0;
   font-size: 20px;
   line-height: normal;
   font-weight: 400;
@@ -858,17 +858,24 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-weight: 600;
 }
 .minimal-hero > .minimal-download-cta {
-  position: absolute;
-  top: calc(50% + 85px);
-  left: 50%;
-  transform: translateX(-50%);
+  margin-top: 40px;
 }
 .minimal-hero-device {
+  --device-width: min(82vw, 40rem);
+  /* wireframe.webp carries 245px of transparent padding above the lid across
+   * its 2564px height, and `object-fit: contain` fills the box vertically, so
+   * that padding renders as (245 / 2564) x box height = ~0.0598 x box width of
+   * empty space over the visible MacBook. Subtract it so the 1.375rem below is
+   * the gap you actually see rather than the gap to an invisible edge. */
+  --device-void: calc(var(--device-width) * 0.0598);
   position: relative;
-  width: min(82vw, 40rem);
+  width: var(--device-width);
   height: auto;
   aspect-ratio: 1188 / 743.25;
-  margin: -12rem auto 0;
+  margin: calc(1.375rem - var(--device-void)) auto 0;
+  /* Purely decorative, and its transparent margins reach up over the CTA
+   * links, so it must never take a click. */
+  pointer-events: none;
 }
 .minimal-hero-device > img {
   display: block;
@@ -2709,8 +2716,10 @@ html.cyberpunk .minimal-wallet-panel {
    * and the MacBook that follows the hero; `svh` remains fixed.
    */
   .minimal-hero {
-    min-height: 100svh;
-    height: 100svh;
+    padding-top: max(
+      calc(var(--site-announcement-offset, 0px) + 7.5rem),
+      min(calc(50svh - 127px), calc(100svh - 526px))
+    );
   }
   .minimal-topbar {
     width: calc(100% - 2rem);
@@ -2775,24 +2784,26 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 @media (max-width: 520px) {
   .minimal-hero {
     padding-inline: 1rem;
+    /* Same anchor as the base rule, at this breakpoint's smaller metrics. */
+    padding-top: max(
+      calc(var(--site-announcement-offset, 0px) + 7.5rem),
+      min(calc(50svh - 105px), calc(100svh - 475px))
+    );
   }
   .minimal-hero-title {
-    top: calc(50% - 105px);
     font-size: 52px;
   }
   .minimal-hero > p {
-    top: calc(50% - 14px);
     width: calc(100% - 2rem);
+    margin-top: 39px;
     font-size: 18px;
     line-height: 26px;
   }
   .minimal-hero > .minimal-download-cta {
-    top: calc(50% + 78px);
     width: calc(100% - 2rem);
   }
   .minimal-hero-device {
-    width: calc(100% - 4rem);
-    margin-top: -5rem;
+    --device-width: calc(100% - 4rem);
   }
   .minimal-hero-device-banner img {
     width: 66%;
@@ -2832,29 +2843,12 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
 }
 
-/* Short viewports (phones rotated to landscape, squat desktop windows):
- * the viewport-height hero with copy pinned around its vertical center and
- * the MacBook pulled up under it has no room and everything overlaps, so
- * the title, copy, CTA, and device flow in normal document order instead.
- * Placed after the width-based hero rules so it wins over them. */
+/* Short viewports (phones rotated to landscape, squat desktop windows): the
+ * hero already flows and its padding bottoms out at the topbar clearance, so
+ * only the title needs to shed some size here. */
 @media (max-height: 560px) {
-  .minimal-hero {
-    min-height: 0;
-    height: auto;
-    gap: 1.5rem;
-    padding-top: calc(var(--site-announcement-offset, 0px) + 7.5rem);
-  }
-  .minimal-hero-title,
-  .minimal-hero > p,
-  .minimal-hero > .minimal-download-cta {
-    position: static;
-    transform: none;
-  }
   .minimal-hero-title {
     font-size: 48px;
-  }
-  .minimal-hero-device {
-    margin: 2.5rem auto 0;
   }
 }
 
