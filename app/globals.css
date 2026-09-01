@@ -305,6 +305,12 @@ html[data-site-announcement-ready="true"] .site-announcement {
 html[data-site-announcement-ready="true"] .minimal-topbar {
   transition: top 140ms cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* The blog reading-progress bar hangs off the topbar's bottom edge, so it
+   must slide with the same timing when the announcement collapses. */
+html[data-site-announcement-ready="true"] .blog-reading-progress-bar {
+  transition: top 140ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 .minimal-topbar::before {
   content: "";
   position: absolute;
@@ -2776,7 +2782,8 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 @media (prefers-reduced-motion: reduce) {
   html[data-site-announcement-ready="true"] .site-announcement,
   html[data-site-announcement-ready="true"] .minimal-topbar,
-  html[data-site-announcement-ready="true"] .minimal-topbar-menu {
+  html[data-site-announcement-ready="true"] .minimal-topbar-menu,
+  html[data-site-announcement-ready="true"] .blog-reading-progress-bar {
     transition: none;
   }
 }
