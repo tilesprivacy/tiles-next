@@ -11,8 +11,4 @@ Starting with **Release 21**, Tiles uses Google’s <span className="inline-flex
 
 Release 21 also moves Tiles’ local inference backend from [MLX-LM](https://github.com/ml-explore/mlx-lm) to [llama.cpp](https://github.com/ggml-org/llama.cpp), giving supported platforms a common inference stack built around GGUF models.
 
-## Previous default: gpt-oss-20b
-
-Before Release 21, Tiles used the OpenAI <span className="inline-flex items-center gap-1 align-baseline"><img src="/openai-logo.svg" alt="OpenAI logo" className="h-3.5 w-3.5" />[`gpt-oss-20b`](https://openai.com/index/introducing-gpt-oss/)</span> model as the primary model for everyday tasks, alongside the [Harmony renderer](https://developers.openai.com/cookbook/articles/openai-harmony/) and support for the [Open Responses API](https://www.openresponses.org/) to improve inference quality. Its Mixture of Experts architecture activates roughly 4B parameters during inference out of 21B total parameters, offering a strong balance between quality and efficiency.
-
 That narrow focus gives us room to validate more deeply over time. We aim to compare against official outputs, run long-context evaluations, and integrate models directly into the agent harness to see how they actually hold up in real workflows. The exact model may change as the landscape evolves, but the constraint remains the same: local inference should be practical and credible on everyday personal machines, starting at 16 GB of system memory for real productivity tasks.
