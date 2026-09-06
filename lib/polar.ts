@@ -60,6 +60,12 @@ export const POLAR_PLUS_CHECKOUT_LINK =
 export const POLAR_PRO_CHECKOUT_LINK =
   "https://buy.polar.sh/polar_cl_3LyXhxgqyNTiHERg0sdzEzKM7Z7jRxsFFH24d3asCns"
 
+/** Environment variable names for per-environment Polar configuration. */
+const POLAR_PLUS_PRODUCT_ID_ENV = "POLAR_PLUS_PRODUCT_ID"
+const POLAR_PRO_PRODUCT_ID_ENV = "POLAR_PRO_PRODUCT_ID"
+const POLAR_PLUS_CHECKOUT_LINK_ENV = "POLAR_PLUS_CHECKOUT_LINK"
+const POLAR_PRO_CHECKOUT_LINK_ENV = "POLAR_PRO_CHECKOUT_LINK"
+
 /**
  * Per-plan Polar wiring. Adding a paid plan means adding a row here plus a
  * matching entry in `PRICING_PLANS` (`lib/pricing-plans.ts`).
@@ -75,15 +81,15 @@ const PAID_PLANS: Record<
 > = {
   plus: {
     productId: POLAR_PLUS_PRODUCT_ID,
-    productIdEnv: "POLAR_PLUS_PRODUCT_ID",
+    productIdEnv: POLAR_PLUS_PRODUCT_ID_ENV,
     checkoutLink: POLAR_PLUS_CHECKOUT_LINK,
-    checkoutLinkEnv: "POLAR_PLUS_CHECKOUT_LINK",
+    checkoutLinkEnv: POLAR_PLUS_CHECKOUT_LINK_ENV,
   },
   pro: {
     productId: POLAR_PRO_PRODUCT_ID,
-    productIdEnv: "POLAR_PRO_PRODUCT_ID",
+    productIdEnv: POLAR_PRO_PRODUCT_ID_ENV,
     checkoutLink: POLAR_PRO_CHECKOUT_LINK,
-    checkoutLinkEnv: "POLAR_PRO_CHECKOUT_LINK",
+    checkoutLinkEnv: POLAR_PRO_CHECKOUT_LINK_ENV,
   },
 }
 
@@ -176,8 +182,11 @@ export function getPolarPlanForProductId(
  */
 export function getPolarCheckoutLink(plan: PolarPaidPlanId): string | null {
   const config = PAID_PLANS[plan]
-  const value =
-    process.env[config.checkoutLinkEnv]?.trim() || config.checkoutLink.trim()
+  // Sandbox always uses session mode so the SDK targets sandbox-api.polar.sh.
+  // Checkout links are retained only for the production link-based flow.
+  if (getPolarServer() === "sandbox") return null
+
+  const value = process.env[config.checkoutLinkEnv]?.trim() || config.checkoutLink.trim()
   return value ? value : null
 }
 

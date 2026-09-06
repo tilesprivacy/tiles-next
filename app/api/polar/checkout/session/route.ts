@@ -48,6 +48,9 @@ export async function POST(request: NextRequest) {
     const checkout = await polar.checkouts.create({
       products: [getPolarProductId(requestedPlan)],
       successUrl: decodeURI(successUrl.toString()),
+      // Polar requires the embedding origin for checkout sessions opened in
+      // the client-side iframe.
+      embedOrigin: siteUrl,
     })
 
     return Response.json(
