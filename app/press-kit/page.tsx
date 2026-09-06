@@ -226,20 +226,28 @@ export default function PressKitPage() {
 
           <div className="mt-10 space-y-10">
             <div>
-              <div className="mx-auto flex w-full max-w-xl justify-center">
+              <div className="mx-auto flex w-full max-w-sm justify-center">
                 <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
                   <Image
-                    src="/onboardingdemo.png"
-                    alt="Tiles first-run onboarding creating a local account with its DID and downloading the default local model"
-                    width={1726}
-                    height={2196}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), 576px"
-                    className="mx-auto h-auto w-full object-contain [content-visibility:visible]"
+                    src="/clilight.png"
+                    alt="Tiles CLI onboarding screen in the terminal, light theme"
+                    width={875}
+                    height={1798}
+                    sizes="(max-width: 767px) calc(100vw - 3rem), 384px"
+                    className="mx-auto h-auto w-full object-contain [content-visibility:visible] dark:hidden"
+                  />
+                  <Image
+                    src="/clidark.png"
+                    alt="Tiles CLI onboarding screen in the terminal, dark theme"
+                    width={780}
+                    height={1864}
+                    sizes="(max-width: 767px) calc(100vw - 3rem), 384px"
+                    className="mx-auto hidden h-auto w-full object-contain [content-visibility:visible] dark:block"
                   />
                 </div>
               </div>
               <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
-                First run: Tiles creates a local account with its own DID, then downloads the default local model.
+                Onboarding flow for the Tiles CLI.
               </p>
             </div>
 
