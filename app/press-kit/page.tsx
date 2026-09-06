@@ -226,24 +226,6 @@ export default function PressKitPage() {
 
           <div className="mt-10 space-y-10">
             <div>
-              <div className="mx-auto flex w-full max-w-3xl justify-center">
-                <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
-                  <Image
-                    src="/newtilescli.png"
-                    alt="Tiles CLI running a local model in interactive mode with the REPL help open"
-                    width={1597}
-                    height={1073}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
-                    className="mx-auto h-auto w-full object-contain [content-visibility:visible]"
-                  />
-                </div>
-              </div>
-              <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
-                The Tiles CLI running a local model in interactive mode.
-              </p>
-            </div>
-
-            <div>
               <div className="mx-auto flex w-full max-w-xl justify-center">
                 <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
                   <Image
