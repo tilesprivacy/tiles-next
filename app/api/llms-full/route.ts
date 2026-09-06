@@ -234,6 +234,7 @@ export async function GET(request: Request) {
     `- Research: ${baseUrl}/book/research`,
     `- Sponsor: ${baseUrl}/sponsor`,
     `- Help: ${baseUrl}/help`,
+    `- Press Kit: ${baseUrl}/press-kit`,
     `- Brand: ${baseUrl}/brand`,
     `- Releases: ${baseUrl}/releases`,
     `- Sub-processors: ${baseUrl}/sub-processors`,
