@@ -125,6 +125,7 @@ export async function GET(request: Request) {
     `- Terms: ${baseUrl}/terms`,
     `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 7-day money-back guarantee on the initial subscription payment.`,
     `- Subprocessors: ${baseUrl}/sub-processors`,
+    `- Press Kit: ${baseUrl}/press-kit`,
     `- Brand: ${baseUrl}/brand`,
     `- AI-readable website index: ${baseUrl}/llms.txt`,
   ])

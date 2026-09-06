@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/help",
     "/book",
     "/brand",
+    "/press-kit",
     "/privacy",
     "/terms",
     "/refund-policy",
