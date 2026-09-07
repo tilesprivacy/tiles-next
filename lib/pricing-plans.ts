@@ -107,6 +107,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     featuresIntroIcon: "gem",
     features: [
       "Run cloud models with confidential compute",
+      "Detect PII, block exposed keys, and apply additional guardrails",
       "Unlimited private web searches",
       "Backup and key recovery",
     ],
