@@ -11,11 +11,11 @@ const viewport = { width: 1440, height: 1000 }
 const selector = 'video[aria-label="Tiles desktop app demo"]'
 
 async function playing(page, extension = 'mp4') {
-  await page.waitForFunction(({ selector, extension }) => {
+  await page.waitForFunction(({ selector, extensions }) => {
     const video = document.querySelector(selector)
     return video && !video.paused && video.currentTime > 0.1 &&
-      video.readyState >= 2 && video.currentSrc.endsWith(`.${extension}`)
-  }, { selector, extension }, { timeout: 20000 })
+      video.readyState >= 2 && extensions.some(ext => video.currentSrc.endsWith(`.${ext}`))
+  }, { selector, extensions: [extension].flat() }, { timeout: 20000 })
   const state = await page.locator(selector).evaluate(video => ({
     error: video.error?.message,
     loop: video.loop,
@@ -147,7 +147,8 @@ async function check(engine) {
     await retryPage.getByRole('button', { name: 'Retry demo', exact: true }).waitFor()
     await unavailable.unroute('**/tiles-demo.*')
     await retryPage.getByRole('button', { name: 'Retry demo', exact: true }).click()
-    await playing(retryPage)
+    // A runtime media error can already have selected the WebM-only fallback.
+    await playing(retryPage, ['mp4', 'webm'])
     await unavailable.close()
     console.log(engine.name(), 'PASS: delivery, playback, loop, responsive layout, format fallback, autoplay fallback, retry')
   } finally {
