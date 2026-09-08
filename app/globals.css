@@ -891,6 +891,31 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   aspect-ratio: 3024 / 1964;
 }
 
+.minimal-hero-video-play {
+  position: absolute;
+  inset: auto 1rem 1rem auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 1rem;
+  border: 1px solid #ffffff40;
+  border-radius: 0.5rem;
+  background: #171717;
+  color: #fff;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.minimal-hero-video-play:hover {
+  background: #303030;
+}
+
+.minimal-hero-video-play:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+
 .minimal-download-cta {
   display: flex;
   flex-direction: column;
