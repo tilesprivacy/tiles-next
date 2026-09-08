@@ -819,83 +819,76 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  width: min(calc(100% - 3rem), 77rem);
+  min-height: min(51rem, 100svh);
+  margin: 0 auto;
+  padding: calc(var(--site-announcement-offset, 0px) + 10.5rem) 0 5.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  align-content: start;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0;
-  /* Anchor the whole composition with one padding, then let the title, copy,
-   * CTA, and the MacBook that follows flow normally, so the CTA links can
-   * never end up underneath the device. `50dvh - 127px` keeps the title where
-   * it has always sat; `100dvh - 526px` (stack height + a ~120px device peek)
-   * takes over on short viewports so the MacBook still peeks above the fold;
-   * the outer max() keeps the title clear of the fixed topbar. */
-  padding: max(
-      calc(var(--site-announcement-offset, 0px) + 7.5rem),
-      min(calc(50dvh - 127px), calc(100dvh - 526px))
-    )
-    2rem 0;
-  text-align: center;
+  gap: clamp(3.5rem, 5vw, 4.75rem);
+  text-align: left;
+}
+
+.minimal-hero-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .minimal-hero-title {
   margin: 0;
-  font-size: 72px;
-  line-height: 1;
+  font-size: clamp(3.5rem, 4.25vw, 4rem);
+  line-height: 1.03;
   letter-spacing: -0.045em;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
 }
-.minimal-hero > p {
-  width: max-content;
-  max-width: calc(100% - 2rem);
-  margin: 48px 0 0;
-  font-size: 20px;
-  line-height: normal;
+
+.minimal-hero-copy > p {
+  max-width: 29rem;
+  margin: 1.75rem 0 0;
+  color: color-mix(in srgb, var(--foreground) 60%, transparent);
+  font-size: 1.125rem;
+  line-height: 1.55;
   font-weight: 400;
 }
-.minimal-hero > p strong {
-  font-weight: 600;
+
+.minimal-hero-copy > p strong {
+  color: var(--foreground);
+  font-weight: 500;
 }
-.minimal-hero > .minimal-download-cta {
-  margin-top: 40px;
+
+.minimal-hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
 }
-.minimal-hero-device {
-  --device-width: min(82vw, 40rem);
-  /* wireframe.webp carries 245px of transparent padding above the lid across
-   * its 2564px height, and `object-fit: contain` fills the box vertically, so
-   * that padding renders as (245 / 2564) x box height = ~0.0598 x box width of
-   * empty space over the visible MacBook. Subtract it so the 1.375rem below is
-   * the gap you actually see rather than the gap to an invisible edge. */
-  --device-void: calc(var(--device-width) * 0.0598);
+
+.minimal-hero-actions > div {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.minimal-hero-video-frame {
   position: relative;
-  width: var(--device-width);
-  height: auto;
-  aspect-ratio: 1188 / 743.25;
-  margin: calc(1.375rem - var(--device-void)) auto 0;
-  /* Purely decorative, and its transparent margins reach up over the CTA
-   * links, so it must never take a click. */
-  pointer-events: none;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
+  border-radius: 1rem;
+  background: #0d0f0e;
+  box-shadow: 0 1.5rem 3.75rem color-mix(in srgb, var(--foreground) 14%, transparent);
 }
-.minimal-hero-device > img {
+
+.minimal-hero-video {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.minimal-hero-device-banner {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-inline: 9%;
-  pointer-events: none;
-}
-.minimal-hero-device-banner img {
-  width: min(68%, 28rem);
   height: auto;
-  transform: translateY(0.55rem);
+  aspect-ratio: 3024 / 1964;
 }
 
 .minimal-download-cta {
@@ -910,30 +903,33 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 /* Homepage content: shared type scale
    h1 hero title (elsewhere) → section heading → section lede → item title → item body */
 .minimal-copy {
-  width: min(100% - 2rem, 720px);
-  margin: 7.5rem auto 0;
-  padding: 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  width: min(calc(100% - 2rem), 45rem);
+  margin: clamp(7.5rem, 9vw, 9rem) auto 0;
+  padding: 0 0.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  row-gap: 2rem;
 }
-.minimal-copy.minimal-copy--after-device {
-  margin-top: 5rem;
+.minimal-copy.minimal-copy--after-hero {
+  margin-top: 6rem;
 }
 .minimal-copy-heading {
   margin: 0;
-  font-size: 1.625rem;
-  line-height: 1.2;
+  font-size: 1.875rem;
+  line-height: 1.15;
   letter-spacing: -0.025em;
-  font-weight: 600;
+  font-weight: 500;
 }
 .minimal-copy-content {
+  width: min(100%, 46rem);
   min-width: 0;
 }
 .minimal-copy-lede {
+  max-width: 46rem;
   margin: 0;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
   letter-spacing: 0;
   font-weight: 400;
 }
@@ -965,7 +961,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-disclosure summary {
   display: flex;
-  min-height: 3.25rem;
+  min-height: 4rem;
   align-items: center;
   cursor: pointer;
   list-style: none;
@@ -982,7 +978,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   gap: 0.55rem;
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: 700;
+  font-weight: 600;
 }
 .minimal-disclosure-title {
   min-width: 0;
@@ -1011,7 +1007,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   transform: rotate(180deg);
 }
 .minimal-disclosure > p {
-  margin: -0.15rem 0 1rem;
+  margin: -0.25rem 0 1.25rem;
   padding-left: 1.55rem;
   font-size: 1rem;
   line-height: 1.6;
@@ -1378,6 +1374,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   background: var(--background);
   color: var(--foreground);
   padding: 7rem 1.25rem 0;
+}
+.minimal-home-page .refined-site-footer {
+  padding: clamp(7rem, 9vw, 8rem) 0 0;
+}
+.minimal-home-page .refined-site-footer .minimal-footer {
+  width: min(calc(100% - 3rem), 77rem);
+  margin-inline: auto;
 }
 .refined-site-footer-newsletter,
 .refined-site-footer-download {
@@ -2710,17 +2713,6 @@ html.cyberpunk .minimal-wallet-panel {
 }
 
 @media (max-width: 767px) {
-  /*
-   * Keep the homepage hero stable while mobile browser chrome expands or
-   * collapses. `dvh` changes during scroll and moves both the centered copy
-   * and the MacBook that follows the hero; `svh` remains fixed.
-   */
-  .minimal-hero {
-    padding-top: max(
-      calc(var(--site-announcement-offset, 0px) + 7.5rem),
-      min(calc(50svh - 127px), calc(100svh - 526px))
-    );
-  }
   .minimal-topbar {
     width: calc(100% - 2rem);
     height: 4rem;
@@ -2783,36 +2775,33 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 @media (max-width: 520px) {
   .minimal-hero {
-    padding-inline: 1rem;
-    /* Same anchor as the base rule, at this breakpoint's smaller metrics. */
-    padding-top: max(
-      calc(var(--site-announcement-offset, 0px) + 7.5rem),
-      min(calc(50svh - 105px), calc(100svh - 475px))
-    );
+    width: calc(100% - 3rem);
+    min-height: min(42rem, 100svh);
+    padding: calc(var(--site-announcement-offset, 0px) + 7rem) 0 4rem;
+    display: block;
+    text-align: left;
   }
   .minimal-hero-title {
-    font-size: 52px;
+    font-size: clamp(2.75rem, 13vw, 3.25rem);
   }
-  .minimal-hero > p {
-    width: calc(100% - 2rem);
-    margin-top: 39px;
-    font-size: 18px;
-    line-height: 26px;
+  .minimal-hero-copy > p {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.55;
   }
-  .minimal-hero > .minimal-download-cta {
-    width: calc(100% - 2rem);
+  .minimal-hero-actions {
+    margin-top: 1.75rem;
   }
-  .minimal-hero-device {
-    --device-width: calc(100% - 4rem);
-  }
-  .minimal-hero-device-banner img {
-    width: 66%;
+  .minimal-hero-video-frame {
+    display: none;
   }
   .minimal-copy {
     margin-top: 5rem;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.75rem;
   }
-  .minimal-copy.minimal-copy--after-device {
-    margin-top: 3rem;
+  .minimal-copy.minimal-copy--after-hero {
+    margin-top: 3.5rem;
   }
   .minimal-actions {
     margin-top: 96px;
@@ -2849,6 +2838,25 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 @media (max-height: 560px) {
   .minimal-hero-title {
     font-size: 48px;
+  }
+}
+
+@media (min-width: 521px) and (max-width: 1024px) {
+  .minimal-hero {
+    width: min(calc(100% - 4rem), 45rem);
+    min-height: auto;
+    padding: calc(var(--site-announcement-offset, 0px) + 8rem) 0 5rem;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .minimal-hero-copy > p {
+    max-width: 36rem;
+  }
+
+  .minimal-copy {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
   }
 }
 
