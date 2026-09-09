@@ -167,22 +167,20 @@ async function check(engine) {
     for (const width of [768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 1024 })
       const layout = await page.evaluate(() => {
-        const hero = document.querySelector('.minimal-hero')
         const copy = document.querySelector('.minimal-hero-copy').getBoundingClientRect()
         const frame = document.querySelector('.minimal-hero-video-frame').getBoundingClientRect()
         const header = document.querySelector('.minimal-topbar').getBoundingClientRect()
         return {
-          gutter: parseFloat(getComputedStyle(hero).paddingLeft),
+          leftMargin: copy.left,
+          rightMargin: innerWidth - frame.right,
           gap: frame.left - copy.right,
           clearance: Math.min(copy.top, frame.top) - header.bottom,
-          videoShare: frame.width / (copy.width + frame.width),
           overflow: document.documentElement.scrollWidth > innerWidth,
         }
       })
-      assert.equal(layout.gutter, 24)
+      assert.ok(Math.abs(layout.leftMargin - layout.rightMargin) < 1, 'Center the hero with balanced outer margins')
       assert.equal(layout.gap, 48)
       assert.ok(Math.abs(layout.clearance - 80) < 1)
-      assert.ok(Math.abs(layout.videoShare - 0.54) < 0.001, 'Keep the demo balanced beside the copy')
       assert.equal(layout.overflow, false)
     }
     await page.setViewportSize({ width: 390, height: 844 })

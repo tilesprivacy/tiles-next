@@ -2,7 +2,7 @@
 
 The hero uses the complete replacement recording from September 9, 2026, without audio. Its playback duration is 107.767 seconds.
 
-The layout follows Ollama's 24 px side gutters and 48 px desktop column gap, with 80 px of clearance below the site header. The side-by-side columns use a 46:54 split, making the video about 12% smaller than the reference proportions for a more balanced pairing with the copy. Below 768 px, the video sits beneath the copy with a 40 px gap and 48 px header clearance. The next content section starts 64 px below the mobile hero and 80 px below the desktop hero. Short phones scale the full recording to the remaining viewport height without cropping it. The download button and centered body-content stack are unchanged.
+The desktop hero is centered within a 72 rem container, with responsive side padding, a 48 px column gap, and 80 px of clearance below the site header. A 40:60 column split and a 24 rem paragraph width keep the copy close to the video. The frame has no surrounding glow or shadow. Below 768 px, the video sits beneath the copy with 24 px side gutters, a 40 px gap, and 48 px header clearance. The next content section starts 96 px below the mobile hero and 128 px below the desktop hero. Short phones scale the full recording to the remaining viewport height without cropping it. The download button and centered body-content stack are unchanged.
 
 | Asset | Encoding | Bytes |
 | --- | --- | ---: |

@@ -819,12 +819,12 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero {
   position: relative;
-  width: min(100%, 80rem);
+  width: min(100%, 72rem);
   min-height: 0;
   margin: 0 auto;
   padding: calc(var(--site-announcement-offset, 0px) + 10.5rem) 1.5rem 0;
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   align-content: start;
   align-items: center;
   gap: 3rem;
@@ -861,6 +861,16 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-weight: 500;
 }
 
+@media (min-width: 768px) {
+  .minimal-hero {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .minimal-hero-copy > p {
+    max-width: 24rem;
+  }
+}
+
 .minimal-hero-actions {
   display: flex;
   flex-direction: column;
@@ -881,7 +891,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
   border-radius: 1rem;
   background: #0d0f0e;
-  box-shadow: 0 1.5rem 3.75rem color-mix(in srgb, var(--foreground) 14%, transparent);
 }
 
 .minimal-hero-video {
@@ -937,7 +946,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   row-gap: 2rem;
 }
 .minimal-copy.minimal-copy--after-hero {
-  margin-top: 5rem;
+  margin-top: 8rem;
 }
 .minimal-copy-heading {
   margin: 0;
@@ -2802,7 +2811,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   .minimal-hero {
     height: auto;
     max-height: 100dvh;
-    /* The frame clips the recording; its shadow can use the section gap. */
     padding: calc(var(--site-announcement-offset, 0px) + 7rem) 1.5rem 0;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: max-content minmax(0, 1fr);
@@ -2840,7 +2848,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     row-gap: 1.75rem;
   }
   .minimal-copy.minimal-copy--after-hero {
-    margin-top: 4rem;
+    margin-top: 6rem;
   }
   .minimal-actions {
     margin-top: 96px;
@@ -2896,7 +2904,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     row-gap: 2rem;
   }
   .minimal-copy.minimal-copy--after-hero {
-    margin-top: 4rem;
+    margin-top: 6rem;
   }
 }
 
