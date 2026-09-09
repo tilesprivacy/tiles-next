@@ -26,6 +26,7 @@ async function phoneLayout(page) {
     const rect = selector => document.querySelector(selector).getBoundingClientRect().toJSON()
     const layout = {
       frame: rect('.minimal-hero-video-frame'),
+      demo: rect('.minimal-hero-demo'),
       video: rect(selector),
       copy: rect('.minimal-hero-copy'),
       hero: rect('.minimal-hero'),
@@ -51,6 +52,10 @@ async function phoneLayout(page) {
   assert.equal(layout.gutter, 24, 'Use consistent side gutters')
   assert.ok(Math.abs(layout.copy.top - layout.header.bottom - 48) < 1, 'Keep mobile header clearance')
   assert.ok(Math.abs(layout.frame.top - layout.copy.bottom - 40) < 1, 'Keep space above the demo')
+  assert.ok(Math.abs(layout.demo.width - layout.frame.width) < 1,
+    'Caption wrapper must not change the demo width')
+  assert.ok(Math.abs(layout.demo.height - layout.frame.height) < 1,
+    'Caption wrapper must not shrink the demo height')
   assert.ok(layout.frame.width >= 120 && layout.frame.height >= 75, 'Demo must not collapse')
   assert.ok(layout.frame.left >= 0 && layout.frame.right <= layout.viewport.width)
   assert.ok(layout.frame.bottom <= layout.viewport.height, 'Entire demo fits the phone viewport')
@@ -164,6 +169,15 @@ async function check(engine) {
     await page.setViewportSize({ width: 768, height: 1024 })
     assert.equal(await page.locator(selector).isVisible(), true)
     await playing(page)
+    for (const width of [600, 768, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 1024 })
+      const { demoWidth, frameWidth } = await page.evaluate(() => ({
+        demoWidth: document.querySelector('.minimal-hero-demo').getBoundingClientRect().width,
+        frameWidth: document.querySelector('.minimal-hero-video-frame').getBoundingClientRect().width,
+      }))
+      assert.ok(Math.abs(demoWidth - frameWidth) < 1,
+        `Caption wrapper must preserve the demo width at ${width}px`)
+    }
     for (const width of [768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 1024 })
       const layout = await page.evaluate(() => {

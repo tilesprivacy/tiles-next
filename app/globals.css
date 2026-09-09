@@ -886,6 +886,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero-demo {
   display: grid;
+  width: 100%;
   min-width: 0;
   margin: 0;
   gap: 0.5rem;
@@ -900,6 +901,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero-video-frame {
   position: relative;
+  width: 100%;
   min-width: 0;
   overflow: hidden;
   border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
@@ -2845,20 +2847,26 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   .minimal-hero-actions {
     margin-top: 1.75rem;
   }
-  .minimal-hero-video-frame {
+  .minimal-hero-demo {
+    position: relative;
     align-self: start;
     justify-self: center;
     width: auto;
     height: 100%;
+    min-height: 0;
     max-width: 100%;
     max-height: calc((100vw - 3rem) * 0.65);
     aspect-ratio: 1280 / 832;
+    display: block;
+  }
+  .minimal-hero-video-frame {
+    height: 100%;
     border-radius: 0.75rem;
   }
-  .minimal-hero-demo {
-    min-height: 0;
-    height: 100%;
-    grid-template-rows: minmax(0, 1fr) auto;
+  .minimal-hero-video-caption {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    inset-inline: 0;
   }
   .minimal-hero-video {
     height: 100%;
