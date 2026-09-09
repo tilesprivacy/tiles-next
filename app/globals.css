@@ -819,15 +819,15 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero {
   position: relative;
-  width: min(calc(100% - 3rem), 77rem);
-  min-height: min(51rem, 100svh);
+  width: min(100%, 80rem);
+  min-height: 0;
   margin: 0 auto;
-  padding: calc(var(--site-announcement-offset, 0px) + 10.5rem) 0 5.5rem;
+  padding: calc(var(--site-announcement-offset, 0px) + 10.5rem) 1.5rem 0;
   display: grid;
-  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
   align-content: start;
   align-items: center;
-  gap: clamp(3.5rem, 5vw, 4.75rem);
+  gap: 3rem;
   text-align: left;
 }
 
@@ -840,7 +840,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero-title {
   margin: 0;
-  font-size: clamp(3.5rem, 4.25vw, 4rem);
+  font-size: clamp(2.75rem, 4.25vw, 4rem);
   line-height: 1.03;
   letter-spacing: -0.045em;
   font-weight: 500;
@@ -888,7 +888,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 3024 / 1964;
+  aspect-ratio: 1280 / 832;
 }
 
 .minimal-hero-video-play {
@@ -937,7 +937,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   row-gap: 2rem;
 }
 .minimal-copy.minimal-copy--after-hero {
-  margin-top: 6rem;
+  margin-top: 5rem;
 }
 .minimal-copy-heading {
   margin: 0;
@@ -2800,14 +2800,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 @media (max-width: 520px) {
   .minimal-hero {
-    width: calc(100% - 3rem);
-    height: 100dvh;
-    min-height: 0;
-    overflow: hidden;
-    padding: calc(var(--site-announcement-offset, 0px) + 6rem) 0 2rem;
+    height: auto;
+    max-height: 100dvh;
+    /* The frame clips the recording; its shadow can use the section gap. */
+    padding: calc(var(--site-announcement-offset, 0px) + 7rem) 1.5rem 0;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: max-content minmax(0, 1fr);
-    gap: clamp(1.5rem, 4dvh, 2.5rem);
+    gap: 2.5rem;
     text-align: left;
   }
   .minimal-hero-title {
@@ -2841,7 +2840,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     row-gap: 1.75rem;
   }
   .minimal-copy.minimal-copy--after-hero {
-    margin-top: 3.5rem;
+    margin-top: 4rem;
   }
   .minimal-actions {
     margin-top: 96px;
@@ -2881,13 +2880,11 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
 }
 
-@media (min-width: 521px) and (max-width: 1024px) {
+@media (min-width: 521px) and (max-width: 767px) {
   .minimal-hero {
-    width: min(calc(100% - 4rem), 45rem);
-    min-height: auto;
-    padding: calc(var(--site-announcement-offset, 0px) + 8rem) 0 5rem;
+    padding-top: calc(var(--site-announcement-offset, 0px) + 7rem);
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .minimal-hero-copy > p {
@@ -2897,6 +2894,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   .minimal-copy {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 2rem;
+  }
+  .minimal-copy.minimal-copy--after-hero {
+    margin-top: 4rem;
   }
 }
 

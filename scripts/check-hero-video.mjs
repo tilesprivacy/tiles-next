@@ -11,6 +11,7 @@ const viewport = { width: 1440, height: 1000 }
 const selector = 'video[aria-label="Tiles desktop app demo"]'
 const phoneViewports = [
   { width: 320, height: 568 },
+  { width: 375, height: 547 },
   { width: 375, height: 667 },
   { width: 390, height: 844 },
   { width: 430, height: 932 },
@@ -18,6 +19,14 @@ const phoneViewports = [
 
 async function phoneLayout(page) {
   assert.equal(await page.locator(selector).isVisible(), true, 'Phone demo must be visible')
+  // Returning from landscape scrolls back to the top and animates the
+  // announcement/header into place. Measure the settled layout, not a frame
+  // partway through that existing 140ms transition.
+  await page.waitForFunction(() => {
+    const copy = document.querySelector('.minimal-hero-copy').getBoundingClientRect()
+    const header = document.querySelector('.minimal-topbar').getBoundingClientRect()
+    return Math.abs(copy.top - header.bottom - 48) < 1
+  }, null, { timeout: 5000 })
   const layout = await page.evaluate(selector => {
     const rect = selector => document.querySelector(selector).getBoundingClientRect().toJSON()
     return {
@@ -26,13 +35,18 @@ async function phoneLayout(page) {
       copy: rect('.minimal-hero-copy'),
       hero: rect('.minimal-hero'),
       header: rect('.minimal-topbar'),
+      gap: parseFloat(getComputedStyle(document.querySelector('.minimal-hero')).gap),
+      gutter: parseFloat(getComputedStyle(document.querySelector('.minimal-hero')).paddingLeft),
       overflow: document.documentElement.scrollWidth > innerWidth,
       viewport: { width: innerWidth, height: innerHeight },
     }
   }, selector)
   assert.equal(layout.overflow, false, 'No horizontal overflow on phones')
   assert.ok(layout.copy.top >= layout.header.bottom, 'Hero clears the mobile header')
-  assert.ok(layout.frame.top >= layout.copy.bottom + 20, 'Keep space above the demo')
+  assert.equal(layout.gap, 40, 'Use the reference mobile gap')
+  assert.equal(layout.gutter, 24, 'Use consistent side gutters')
+  assert.ok(Math.abs(layout.copy.top - layout.header.bottom - 48) < 1, 'Keep mobile header clearance')
+  assert.ok(Math.abs(layout.frame.top - layout.copy.bottom - 40) < 1, 'Keep space above the demo')
   assert.ok(layout.frame.width >= 120 && layout.frame.height >= 75, 'Demo must not collapse')
   assert.ok(layout.frame.left >= 0 && layout.frame.right <= layout.viewport.width)
   assert.ok(layout.frame.bottom <= layout.viewport.height, 'Entire demo fits the phone viewport')
@@ -63,7 +77,7 @@ async function playing(page, extension = 'mp4') {
   assert.equal(state.inline, true)
   assert.equal(state.width, 1280)
   assert.equal(state.height, 832)
-  assert.ok(Math.abs(state.duration - 40.033) < 0.1)
+  assert.ok(Math.abs(state.duration - 107.767) < 0.1, 'Load the replacement recording')
   // Check decoded frames, not just an advancing clock or the poster image.
   await page.locator(selector).evaluate(video => new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('No decoded video frames')), 5000)
@@ -110,7 +124,7 @@ async function check(engine) {
 
     // Allow a full, unaccelerated cycle to catch late decode or looping errors.
     const loop = await page.locator(selector).evaluate(video => new Promise((resolve, reject) => {
-      const timer = setTimeout(() => { cleanup(); reject(new Error('Video did not loop')) }, 47000)
+      const timer = setTimeout(() => { cleanup(); reject(new Error('Video did not loop')) }, (video.duration + 7) * 1000)
       let previous = video.currentTime
       const progress = () => {
         const current = video.currentTime
@@ -146,6 +160,25 @@ async function check(engine) {
     await page.setViewportSize({ width: 768, height: 1024 })
     assert.equal(await page.locator(selector).isVisible(), true)
     await playing(page)
+    for (const width of [768, 1024, 1440]) {
+      await page.setViewportSize({ width, height: 1024 })
+      const layout = await page.evaluate(() => {
+        const hero = document.querySelector('.minimal-hero')
+        const copy = document.querySelector('.minimal-hero-copy').getBoundingClientRect()
+        const frame = document.querySelector('.minimal-hero-video-frame').getBoundingClientRect()
+        const header = document.querySelector('.minimal-topbar').getBoundingClientRect()
+        return {
+          gutter: parseFloat(getComputedStyle(hero).paddingLeft),
+          gap: frame.left - copy.right,
+          clearance: Math.min(copy.top, frame.top) - header.bottom,
+          overflow: document.documentElement.scrollWidth > innerWidth,
+        }
+      })
+      assert.equal(layout.gutter, 24)
+      assert.equal(layout.gap, 48)
+      assert.ok(Math.abs(layout.clearance - 80) < 1)
+      assert.equal(layout.overflow, false)
+    }
     await page.setViewportSize({ width: 390, height: 844 })
     await phoneLayout(page)
     assert.deepEqual(errors, [])
@@ -188,7 +221,7 @@ async function check(engine) {
 
     // Simulate a browser requiring a trusted user gesture for autoplay.
     const blocked = await browser.newContext({
-      viewport: phoneViewports[2],
+      viewport: { width: 390, height: 844 },
       hasTouch: true,
       ...(engine === firefox ? {} : { isMobile: true }),
       serviceWorkers: 'block',
@@ -213,11 +246,24 @@ async function check(engine) {
     await blocked.close()
 
     const unavailable = await browser.newContext({ viewport, serviceWorkers: 'block' })
-    await unavailable.route('**/tiles-demo.*', route => route.abort())
+    // Keep both sources unavailable until a trusted retry click. Unrouting
+    // earlier lets a pending WebM remount recover and remove the button first.
+    await unavailable.addInitScript(() => {
+      window.__heroRetryAllowed = false
+      document.addEventListener('click', event => {
+        const button = event.target instanceof Element ? event.target.closest('button') : null
+        if (event.isTrusted && button?.textContent?.trim() === 'Retry demo') {
+          window.__heroRetryAllowed = true
+        }
+      }, true)
+    })
+    await unavailable.route('**/tiles-demo.*', async route => {
+      const allowed = await route.request().frame().evaluate(() => window.__heroRetryAllowed)
+      await (allowed ? route.continue() : route.abort())
+    })
     const retryPage = await unavailable.newPage()
     await retryPage.goto(origin, { waitUntil: 'domcontentloaded' })
     await retryPage.getByRole('button', { name: 'Retry demo', exact: true }).waitFor()
-    await unavailable.unroute('**/tiles-demo.*')
     await retryPage.getByRole('button', { name: 'Retry demo', exact: true }).click()
     // A runtime media error can already have selected the WebM-only fallback.
     await playing(retryPage, ['mp4', 'webm'])

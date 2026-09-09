@@ -47,7 +47,7 @@ export function HomeHeroVideo() {
         key={webmOnly ? "webm" : "auto"}
         ref={videoRef}
         className="minimal-hero-video"
-        poster="/tiles-demo-poster.webp"
+        poster="/tiles-demo-poster.c215d606.webp"
         autoPlay
         loop
         muted
@@ -70,10 +70,10 @@ export function HomeHeroVideo() {
         }}
       >
         {!webmOnly && (
-          <source src="/tiles-demo.00969530.mp4" type="video/mp4" />
+          <source src="/tiles-demo.db8739e8.mp4" type="video/mp4" />
         )}
         <source
-          src="/tiles-demo.ed5052d2.webm"
+          src="/tiles-demo.65c19254.webm"
           type="video/webm"
           onError={() => setFailed(true)}
         />
