@@ -128,7 +128,7 @@ export function HomeContent() {
             Own your AI
           </h1>
           <p>
-            A <strong>local-first, collaborative AI assistant</strong> that works for you.{" "}
+            A local-first, collaborative AI assistant that works for you.{" "}
             {TILES_PRODUCT_TECHNOLOGY_LINE}
           </p>
           <div className="minimal-hero-actions">

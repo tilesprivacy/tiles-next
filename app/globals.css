@@ -822,7 +822,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   width: min(100%, 72rem);
   min-height: 0;
   margin: 0 auto;
-  padding: calc(var(--site-announcement-offset, 0px) + 10.5rem) 1.5rem 0;
+  /* Keep document content independent from the fixed banner's scroll state.
+   * Only the banner and topbar move when the banner collapses. */
+  padding: calc(var(--site-announcement-height) + 10.5rem) 1.5rem 0;
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   align-content: start;
@@ -854,11 +856,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-size: 1.125rem;
   line-height: 1.55;
   font-weight: 400;
-}
-
-.minimal-hero-copy > p strong {
-  color: var(--foreground);
-  font-weight: 500;
 }
 
 @media (min-width: 768px) {
@@ -2830,7 +2827,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   .minimal-hero {
     height: auto;
     max-height: 100dvh;
-    padding: calc(var(--site-announcement-offset, 0px) + 7rem) 1.5rem 0;
+    padding: calc(var(--site-announcement-height) + 7rem) 1.5rem 0;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: max-content minmax(0, 1fr);
     gap: 2.5rem;
@@ -2920,7 +2917,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 @media (min-width: 521px) and (max-width: 767px) {
   .minimal-hero {
-    padding-top: calc(var(--site-announcement-offset, 0px) + 7rem);
+    padding-top: calc(var(--site-announcement-height) + 7rem);
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }

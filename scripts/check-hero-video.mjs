@@ -17,6 +17,28 @@ const phoneViewports = [
   { width: 430, height: 932 },
 ]
 
+async function bannerDoesNotResizeDemo(page) {
+  await page.evaluate(() => scrollTo(0, 0))
+  await page.waitForFunction(() =>
+    parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--site-announcement-offset')) > 0)
+  const before = await page.locator('.minimal-hero-video-frame').boundingBox()
+
+  await page.evaluate(() => scrollTo(0, 1))
+  await page.waitForFunction(() =>
+    parseFloat(getComputedStyle(document.documentElement)
+      .getPropertyValue('--site-announcement-offset')) === 0)
+  const after = await page.locator('.minimal-hero-video-frame').boundingBox()
+
+  assert.ok(before && after, 'Demo frame must remain measurable')
+  assert.ok(Math.abs(before.width - after.width) < 1,
+    'Collapsing the announcement must not change the demo width')
+  assert.ok(Math.abs(before.height - after.height) < 1,
+    'Collapsing the announcement must not change the demo height')
+
+  await page.evaluate(() => scrollTo(0, 0))
+}
+
 async function phoneLayout(page) {
   assert.equal(await page.locator(selector).isVisible(), true, 'Phone demo must be visible')
   // Returning from landscape scrolls back to the top and animates the
@@ -62,6 +84,7 @@ async function phoneLayout(page) {
   assert.ok(layout.hero.bottom <= layout.viewport.height + 1, 'Mobile hero fits one viewport')
   assert.ok(Math.abs(layout.video.width / layout.video.height - 1280 / 832) < 0.04,
     'Show the full recording without cropping')
+  await bannerDoesNotResizeDemo(page)
   await playing(page)
 }
 
@@ -177,6 +200,7 @@ async function check(engine) {
       }))
       assert.ok(Math.abs(demoWidth - frameWidth) < 1,
         `Caption wrapper must preserve the demo width at ${width}px`)
+      await bannerDoesNotResizeDemo(page)
     }
     for (const width of [768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 1024 })
