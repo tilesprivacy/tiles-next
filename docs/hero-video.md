@@ -1,6 +1,6 @@
 # Landing page demo
 
-The hero uses the supplied 40-second screen recording, without audio. The layout and mobile visibility rules are unchanged.
+The hero uses the supplied 40-second screen recording, without audio. On phones, the video appears below the download action in a single-column hero. It scales to the available viewport height without clipping the recording; the desktop layout is unchanged.
 
 | Asset | Encoding | Bytes |
 | --- | --- | ---: |
@@ -38,4 +38,4 @@ node scripts/check-hero-video.mjs http://localhost:3000
 node scripts/check-hero-video.mjs https://your-preview.example
 ```
 
-The check covers decoded frames, a complete unaccelerated loop, byte-range responses, cache headers, reload with the production service worker, tablet playback, preserved mobile layout, focus recovery, a failed MP4 request, simulated autoplay denial, and retry after both media requests fail. Also inspect the actual in-app browser: its lifecycle can pause media even when a standalone browser plays normally.
+The check covers decoded frames, a complete unaccelerated loop, byte-range responses, cache headers, reload with the production service worker, tablet playback, visible inline playback on phone-sized viewports, focus recovery, a failed MP4 request, simulated autoplay denial, and retry after both media requests fail. Phone checks include fresh mobile sessions, small and large portrait layouts, rotation, and returning to portrait. These are browser-emulated checks, not a substitute for testing a physical phone, where Low Power Mode or data-saving settings can block autoplay. Also inspect the actual in-app browser: its lifecycle can pause media even when a standalone browser plays normally.

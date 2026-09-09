@@ -9,6 +9,38 @@ const { chromium, firefox, webkit } = require(process.env.PLAYWRIGHT_MODULE || '
 const origin = process.argv[2] || 'http://localhost:3000'
 const viewport = { width: 1440, height: 1000 }
 const selector = 'video[aria-label="Tiles desktop app demo"]'
+const phoneViewports = [
+  { width: 320, height: 568 },
+  { width: 375, height: 667 },
+  { width: 390, height: 844 },
+  { width: 430, height: 932 },
+]
+
+async function phoneLayout(page) {
+  assert.equal(await page.locator(selector).isVisible(), true, 'Phone demo must be visible')
+  const layout = await page.evaluate(selector => {
+    const rect = selector => document.querySelector(selector).getBoundingClientRect().toJSON()
+    return {
+      frame: rect('.minimal-hero-video-frame'),
+      video: rect(selector),
+      copy: rect('.minimal-hero-copy'),
+      hero: rect('.minimal-hero'),
+      header: rect('.minimal-topbar'),
+      overflow: document.documentElement.scrollWidth > innerWidth,
+      viewport: { width: innerWidth, height: innerHeight },
+    }
+  }, selector)
+  assert.equal(layout.overflow, false, 'No horizontal overflow on phones')
+  assert.ok(layout.copy.top >= layout.header.bottom, 'Hero clears the mobile header')
+  assert.ok(layout.frame.top >= layout.copy.bottom + 20, 'Keep space above the demo')
+  assert.ok(layout.frame.width >= 120 && layout.frame.height >= 75, 'Demo must not collapse')
+  assert.ok(layout.frame.left >= 0 && layout.frame.right <= layout.viewport.width)
+  assert.ok(layout.frame.bottom <= layout.viewport.height, 'Entire demo fits the phone viewport')
+  assert.ok(layout.hero.bottom <= layout.viewport.height + 1, 'Mobile hero fits one viewport')
+  assert.ok(Math.abs(layout.video.width / layout.video.height - 1280 / 832) < 0.04,
+    'Show the full recording without cropping')
+  await playing(page)
+}
 
 async function playing(page, extension = 'mp4') {
   await page.waitForFunction(({ selector, extensions }) => {
@@ -59,12 +91,21 @@ async function check(engine) {
 
     const sources = await page.locator(`${selector} source`).evaluateAll(nodes => nodes.map(node => node.src))
     for (const src of sources) {
-      const response = await context.request.get(src, { headers: { Range: 'bytes=0-1023' } })
-      assert.equal(response.status(), 206, src)
-      assert.match(response.headers()['content-range'], /^bytes 0-1023\//)
-      assert.equal((await response.body()).length, 1024)
-      assert.match(response.headers()['content-type'], /video\/(mp4|webm)/)
-      assert.match(response.headers()['cache-control'], /immutable/)
+      // Use the same browser session as playback. Out-of-browser HTTP clients
+      // can hit deployment protection even when the actual video plays.
+      const response = await page.evaluate(async src => {
+        const result = await fetch(src, { headers: { Range: 'bytes=0-1023' } })
+        return {
+          status: result.status,
+          headers: Object.fromEntries(result.headers.entries()),
+          bytes: (await result.arrayBuffer()).byteLength,
+        }
+      }, src)
+      assert.equal(response.status, 206, src)
+      assert.match(response.headers['content-range'], /^bytes 0-1023\//)
+      assert.equal(response.bytes, 1024)
+      assert.match(response.headers['content-type'], /video\/(mp4|webm)/)
+      assert.match(response.headers['cache-control'], /immutable/)
     }
 
     // Allow a full, unaccelerated cycle to catch late decode or looping errors.
@@ -106,10 +147,36 @@ async function check(engine) {
     assert.equal(await page.locator(selector).isVisible(), true)
     await playing(page)
     await page.setViewportSize({ width: 390, height: 844 })
-    assert.equal(await page.locator(selector).isVisible(), false, 'Preserve the existing mobile layout')
-    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
+    await phoneLayout(page)
     assert.deepEqual(errors, [])
     await context.close()
+
+    // Fresh touch-enabled sessions catch mobile autoplay and layout failures
+    // that resizing an already-playing desktop video can miss.
+    for (const phoneViewport of phoneViewports) {
+      const mobile = await browser.newContext({
+        viewport: phoneViewport,
+        hasTouch: true,
+        ...(engine === firefox ? {} : { isMobile: true }),
+      })
+      const phone = await mobile.newPage()
+      await phone.goto(origin, { waitUntil: 'domcontentloaded' })
+      await phoneLayout(phone)
+      if (process.env.HERO_VIDEO_SCREENSHOTS) {
+        await phone.screenshot({
+          path: `${process.env.HERO_VIDEO_SCREENSHOTS}/${engine.name()}-${phoneViewport.width}.png`,
+        })
+      }
+      await phone.setViewportSize({ width: phoneViewport.height, height: phoneViewport.width })
+      await phone.locator(selector).scrollIntoViewIfNeeded()
+      await playing(phone)
+      assert.equal(await phone.evaluate(() => document.documentElement.scrollWidth > innerWidth), false)
+      await phone.setViewportSize(phoneViewport)
+      await phone.evaluate(() => scrollTo(0, 0))
+      await phoneLayout(phone)
+      console.log(engine.name(), 'phone playback and rotation', phoneViewport)
+      await mobile.close()
+    }
 
     // A failed MP4 request must select the real, decodable WebM alternative.
     const fallback = await browser.newContext({ viewport, serviceWorkers: 'block' })
@@ -120,7 +187,12 @@ async function check(engine) {
     await fallback.close()
 
     // Simulate a browser requiring a trusted user gesture for autoplay.
-    const blocked = await browser.newContext({ viewport, serviceWorkers: 'block' })
+    const blocked = await browser.newContext({
+      viewport: phoneViewports[2],
+      hasTouch: true,
+      ...(engine === firefox ? {} : { isMobile: true }),
+      serviceWorkers: 'block',
+    })
     await blocked.addInitScript(() => {
       const original = HTMLMediaElement.prototype.play
       let allowed = false

@@ -2801,9 +2801,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 @media (max-width: 520px) {
   .minimal-hero {
     width: calc(100% - 3rem);
-    min-height: min(42rem, 100svh);
-    padding: calc(var(--site-announcement-offset, 0px) + 7rem) 0 4rem;
-    display: block;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    padding: calc(var(--site-announcement-offset, 0px) + 6rem) 0 2rem;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: max-content minmax(0, 1fr);
+    gap: clamp(1.5rem, 4dvh, 2.5rem);
     text-align: left;
   }
   .minimal-hero-title {
@@ -2818,7 +2822,18 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     margin-top: 1.75rem;
   }
   .minimal-hero-video-frame {
-    display: none;
+    align-self: start;
+    justify-self: center;
+    width: auto;
+    height: 100%;
+    max-width: 100%;
+    max-height: calc((100vw - 3rem) * 0.65);
+    aspect-ratio: 1280 / 832;
+    border-radius: 0.75rem;
+  }
+  .minimal-hero-video {
+    height: 100%;
+    object-fit: contain;
   }
   .minimal-copy {
     margin-top: 5rem;
