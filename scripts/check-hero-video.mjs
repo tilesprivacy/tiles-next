@@ -22,14 +22,9 @@ async function phoneLayout(page) {
   // Returning from landscape scrolls back to the top and animates the
   // announcement/header into place. Measure the settled layout, not a frame
   // partway through that existing 140ms transition.
-  await page.waitForFunction(() => {
-    const copy = document.querySelector('.minimal-hero-copy').getBoundingClientRect()
-    const header = document.querySelector('.minimal-topbar').getBoundingClientRect()
-    return Math.abs(copy.top - header.bottom - 48) < 1
-  }, null, { timeout: 5000 })
-  const layout = await page.evaluate(selector => {
+  const snapshot = await page.waitForFunction(selector => {
     const rect = selector => document.querySelector(selector).getBoundingClientRect().toJSON()
-    return {
+    const layout = {
       frame: rect('.minimal-hero-video-frame'),
       video: rect(selector),
       copy: rect('.minimal-hero-copy'),
@@ -40,7 +35,16 @@ async function phoneLayout(page) {
       overflow: document.documentElement.scrollWidth > innerWidth,
       viewport: { width: innerWidth, height: innerHeight },
     }
-  }, selector)
+    const announcementHeight = rect('.site-announcement').height
+    return document.documentElement.dataset.siteAnnouncementReady === 'true' &&
+      Math.abs(scrollY) < 1 &&
+      Math.abs(layout.header.top - announcementHeight) < 1 &&
+      Math.abs(layout.copy.top - layout.header.bottom - 48) < 1 && layout
+  }, selector, { timeout: 5000 })
+  // Return the same settled snapshot rather than measuring again after another
+  // animation frame, which can race with WebKit's post-rotation scroll restore.
+  const layout = await snapshot.jsonValue()
+  await snapshot.dispose()
   assert.equal(layout.overflow, false, 'No horizontal overflow on phones')
   assert.ok(layout.copy.top >= layout.header.bottom, 'Hero clears the mobile header')
   assert.equal(layout.gap, 40, 'Use the reference mobile gap')
@@ -171,12 +175,14 @@ async function check(engine) {
           gutter: parseFloat(getComputedStyle(hero).paddingLeft),
           gap: frame.left - copy.right,
           clearance: Math.min(copy.top, frame.top) - header.bottom,
+          videoShare: frame.width / (copy.width + frame.width),
           overflow: document.documentElement.scrollWidth > innerWidth,
         }
       })
       assert.equal(layout.gutter, 24)
       assert.equal(layout.gap, 48)
       assert.ok(Math.abs(layout.clearance - 80) < 1)
+      assert.ok(Math.abs(layout.videoShare - 0.54) < 0.001, 'Keep the demo balanced beside the copy')
       assert.equal(layout.overflow, false)
     }
     await page.setViewportSize({ width: 390, height: 844 })

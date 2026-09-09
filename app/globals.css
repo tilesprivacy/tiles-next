@@ -824,7 +824,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   margin: 0 auto;
   padding: calc(var(--site-announcement-offset, 0px) + 10.5rem) 1.5rem 0;
   display: grid;
-  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   align-content: start;
   align-items: center;
   gap: 3rem;
