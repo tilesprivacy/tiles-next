@@ -1,5 +1,8 @@
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 
+export const CANARY_RELEASE_URL = "https://github.com/tilesprivacy/tiles/releases/tag/canary"
+export const CANARY_RELEASE_DESCRIPTION = "Nightly builds for developers who want the latest Tiles features. Available only for macOS. Canary can be unstable."
+
 export const OFFLINE_MODEL_NAME = "gpt-oss-20b-MXFP4-Q4"
 
 export const OFFLINE_MODEL_URL = "https://huggingface.co/mlx-community/gpt-oss-20b-MXFP4-Q4" as const

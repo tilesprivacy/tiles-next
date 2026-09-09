@@ -884,6 +884,20 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   text-align: left;
 }
 
+.minimal-hero-demo {
+  display: grid;
+  min-width: 0;
+  margin: 0;
+  gap: 0.5rem;
+}
+
+.minimal-hero-video-caption {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
 .minimal-hero-video-frame {
   position: relative;
   min-width: 0;
@@ -2085,6 +2099,9 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-download-release-notes li + li {
   margin-top: 0.25rem;
 }
+.minimal-download-release-notes--markdown h3:not(:first-child) {
+  margin-top: 1.25rem;
+}
 .minimal-download-platform .minimal-command {
   max-width: 36rem;
 }
@@ -2837,6 +2854,11 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     max-height: calc((100vw - 3rem) * 0.65);
     aspect-ratio: 1280 / 832;
     border-radius: 0.75rem;
+  }
+  .minimal-hero-demo {
+    min-height: 0;
+    height: 100%;
+    grid-template-rows: minmax(0, 1fr) auto;
   }
   .minimal-hero-video {
     height: 100%;
