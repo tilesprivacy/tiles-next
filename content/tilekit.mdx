@@ -13,13 +13,15 @@ Tilekit provides REST APIs for integrating Tiles into local clients and custom U
 
 # REST API [#rest-api]
 
+Tilekit’s current source is in the [Canary branch](https://github.com/tilesprivacy/tiles/tree/canary) and is available in the [Canary release](https://github.com/tilesprivacy/tiles/releases/tag/canary).
+
 Use the Tiles daemon’s local REST API to integrate sessions, inference, and accounts into your client. Expand an endpoint to see its request fields, curl example, and response details.
 
 <a
   href="https://fetch.usebruno.com?url=https%3A%2F%2Fgithub.com%2Ftilesprivacy%2Ftiles.git"
   target="_blank"
   rel="noopener noreferrer"
-  className="inline-flex [&>svg]:hidden"
+  className="my-6 inline-flex w-fit [&>svg]:hidden"
 >
   <NextImage
     src="https://fetch.usebruno.com/button.svg"
@@ -53,7 +55,7 @@ JSON success responses use `{"status":"success","data":...}`. Application errors
 
 ## Server
 
-Manage the local inference server. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/server.rs).
+Manage the local inference server. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/server.rs).
 
 <TilekitEndpoint method="GET" path="/server/start" title="Start server">
 <div className="tilekit-endpoint-body">
@@ -117,7 +119,7 @@ Returns the health-check message in `data.message`.
 
 ## Agent
 
-Work directly with the Pi agent. Create a session before sending prompts. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/agent.rs).
+Work directly with the Pi agent. Create a session before sending prompts. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/agent.rs).
 
 <TilekitEndpoint method="GET" path="/agent/start" title="Start agent">
 <div className="tilekit-endpoint-body">
@@ -231,7 +233,7 @@ Returns a confirmation in `data.message`.
 
 ## Session
 
-Create sessions and work with locally stored chats. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/session.rs).
+Create sessions and work with locally stored chats. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/session.rs).
 
 <TilekitEndpoint method="POST" path="/session/new" title="Create session">
 <div className="tilekit-endpoint-body">
@@ -336,7 +338,7 @@ Returns the saved chat in `data`. A user message can create a stored session whe
 
 ## Account
 
-Create and inspect the local Tiles account. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/account.rs).
+Create and inspect the local Tiles account. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/account.rs).
 
 <TilekitEndpoint method="POST" path="/account/create" title="Create account">
 <div className="tilekit-endpoint-body">
@@ -388,7 +390,7 @@ Returns the local account in `data`. Returns `404` when no local account exists.
 
 ## ATproto
 
-Connect an ATproto account and publish session snapshots. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/atproto.rs).
+Connect an ATproto account and publish session snapshots. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/atproto.rs).
 
 <TilekitEndpoint method="POST" path="/atproto/login" title="Log in">
 <div className="tilekit-endpoint-body">
@@ -494,9 +496,9 @@ Returns `data.url` and `data.is_private`. Requires an ATproto login and an exist
 
 Open `docs/apis` in **Bruno**, select the Tilekit collection, and use its `dev` environment. It sets `tilekit_base_url` to the local base URL above.
 
-- [Bruno collection and runnable requests](https://github.com/tilesprivacy/tiles/tree/main/docs/apis/tilekit%20apis)
-- [Daemon route definitions and handlers](https://github.com/tilesprivacy/tiles/tree/main/tiles/src/daemon)
-- [API design overview](https://github.com/tilesprivacy/tiles/blob/main/docs/adr/tilekit.md)
+- [Bruno collection and runnable requests](https://github.com/tilesprivacy/tiles/tree/canary/docs/apis/tilekit%20apis)
+- [Daemon route definitions and handlers](https://github.com/tilesprivacy/tiles/tree/canary/tiles/src/daemon)
+- [API design overview](https://github.com/tilesprivacy/tiles/blob/canary/docs/adr/tilekit.md)
 
 The daemon route definitions are authoritative. The design overview includes planned endpoints and older names, including `/server/load-model`, `/agent/stop`, `/session/resume`, `/session/search`, and `/account/set-nickname`, which are not registered in the current daemon. HTTP endpoints live in the daemon.
 
