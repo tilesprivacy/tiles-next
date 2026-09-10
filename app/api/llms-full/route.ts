@@ -1,7 +1,10 @@
 import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
+import { getCanaryRelease } from '@/lib/canary-release'
 import {
+  CANARY_RELEASE_URL,
+  CANARY_RELEASE_DESCRIPTION,
   OFFLINE_INSTALLER,
   OFFLINE_MODEL_NAME,
 } from '@/lib/download-page-data'
@@ -108,6 +111,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const baseUrl = `${url.protocol}//${url.host}`
   const networkArtifact = await getLatestDownloadArtifact()
+  const canaryRelease = await getCanaryRelease()
   const offlineChecksumUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
   const bookPages = readBookPages()
 
@@ -128,6 +132,7 @@ export async function GET(request: Request) {
   pushSection(lines, `Homepage (${baseUrl}/)`, [
     'Tiles',
     TILES_PRODUCT_DESCRIPTION,
+    'Homepage video caption: Featuring Tiles Canary release on macOS.',
     'Hero subtext: For sensitive knowledge work or personal tasks, your AI shouldn’t require trusting a third party with your conversations and intellectual property. Run models locally, sync chats P2P, and use social features built on AT Protocol. Tiles gives you user-owned keys for your digital life with DIDs and UCANs, so your data and identity truly remain yours.',
     'Current status: CLI alpha.',
     'Feature: Use local models on remote devices with `tiles remote share`; start the remote inference server with `tiles server start`, generate a share ticket, then run `tiles --remote <ticket>` on the device intending to use remote inference.',
@@ -149,6 +154,13 @@ export async function GET(request: Request) {
     `Size: ${OFFLINE_INSTALLER.binarySizeLabel}`,
     `SHA256: ${OFFLINE_INSTALLER.sha256}`,
     `SHA256 file: ${offlineChecksumUrl}`,
+    '',
+    `Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
+    CANARY_RELEASE_DESCRIPTION,
+    ...(canaryRelease ? [
+      ...canaryRelease.assets.map(asset => `${asset.name}: ${asset.browser_download_url}`),
+      canaryRelease.body || '',
+    ] : []),
   ])
 
   pushSection(lines, `Plugins (${baseUrl}/plugins)`, [

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, type ReactNode } from "react"
 import Link from "next/link"
 import { Check, Copy, Download } from "lucide-react"
 import { FaApple, FaLinux } from "react-icons/fa6"
@@ -33,9 +33,11 @@ interface DownloadMetadata {
 export function DownloadContent({
   initialDownload,
   initialLatestReleaseVersion,
+  canaryRelease,
 }: {
   initialDownload?: DownloadMetadata
   initialLatestReleaseVersion?: string | null
+  canaryRelease?: ReactNode
   sponsorsGoal?: SponsorsGoalData
 }) {
   const [copied, setCopied] = useState(false)
@@ -215,6 +217,7 @@ export function DownloadContent({
               <Link href={`/releases#${latestReleaseVersion}`}>View full release details</Link>.
             </p>
           </section>
+          {canaryRelease}
         </article>
       </main>
       <SiteFooter showDownloadCta={false} />

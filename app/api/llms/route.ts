@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getTilesPlugins } from '@/lib/plugins'
+import { CANARY_RELEASE_DESCRIPTION, CANARY_RELEASE_URL } from '@/lib/download-page-data'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
 import fs from 'fs'
 import path from 'path'
@@ -67,6 +68,7 @@ export async function GET(request: Request) {
   lines.push('## Overview')
   lines.push('')
   lines.push(TILES_PRODUCT_DESCRIPTION)
+  lines.push('Homepage video caption: Featuring Tiles Canary release on macOS.')
   lines.push('')
   lines.push(
     'Tiles is built by Tiles Privacy, an independent team devoted to user agency. The website focuses on the public alpha, product documentation, plugins, release notes, support, sponsorship, and legal information.',
@@ -85,6 +87,8 @@ export async function GET(request: Request) {
   addSection(lines, 'Primary Pages', [
     `- Homepage: ${baseUrl}/`,
     `- Download: ${baseUrl}/download`,
+    `- Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
+    `  ${CANARY_RELEASE_DESCRIPTION}`,
     `- Book: ${baseUrl}/book`,
     `- Plugins: ${baseUrl}/plugins`,
     `- Pricing: ${baseUrl}/pricing`,

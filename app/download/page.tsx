@@ -1,4 +1,5 @@
 import { DownloadContent } from "@/components/download-content"
+import { CanaryRelease } from "@/components/canary-release"
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 import { getLatestReleaseVersion } from "@/lib/releases"
 import { getGithubSponsorsGoalData } from "@/lib/sponsors-goal"
@@ -20,6 +21,7 @@ export default async function DownloadPage() {
         fileName: initialDownloadArtifact.fileName,
       }}
       initialLatestReleaseVersion={initialLatestReleaseVersion}
+      canaryRelease={<CanaryRelease />}
       sponsorsGoal={sponsorsGoal}
     />
   )

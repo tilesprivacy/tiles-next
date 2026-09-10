@@ -1,8 +1,9 @@
 import type { ReactNode } from "react"
-import Image from "next/image"
 import { ArrowUpRight, Bot, Box, Briefcase, Building2, Check, ChevronDown, Fingerprint, FlaskConical, RefreshCw, Share2, User } from "lucide-react"
 import { RiOpenSourceLine } from "react-icons/ri"
-import { MinimalDownload } from "@/components/minimal-download"
+import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
+import { DownloadTilesCta } from "@/components/download-tiles-cta"
+import { HomeHeroVideo } from "@/components/home-hero-video"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { RemoteInferenceIcon } from "@/components/product-feature-widgets"
 import { SiteFooter } from "@/components/site-footer"
@@ -122,44 +123,27 @@ export function HomeContent() {
     <main className="minimal-product-page minimal-home-page">
       <MinimalTopbar />
       <section className="minimal-hero" aria-labelledby="tiles-title">
-        <h1 id="tiles-title" className="minimal-hero-title">
-          Own your AI
-        </h1>
-        <p>
-          A <strong>local-first, collaborative AI assistant</strong> that works for you.{" "}
-          <span className="sm:block">{TILES_PRODUCT_TECHNOLOGY_LINE}</span>
-        </p>
-        <MinimalDownload />
+        <div className="minimal-hero-copy">
+          <h1 id="tiles-title" className="minimal-hero-title">
+            Own your AI
+          </h1>
+          <p>
+            A local-first, collaborative AI assistant that works for you.{" "}
+            {TILES_PRODUCT_TECHNOLOGY_LINE}
+          </p>
+          <div className="minimal-hero-actions">
+            <DownloadTilesCta
+              size="hero"
+              label="Download for free"
+            />
+            <DownloadPlatformSubtext size="hero" />
+          </div>
+        </div>
+        <HomeHeroVideo />
       </section>
 
-      <div className="minimal-hero-device">
-        <Image
-          src="/wireframe.webp"
-          alt="Tiles running on a MacBook"
-          width={800}
-          height={600}
-          priority
-        />
-        <div className="minimal-hero-device-banner" aria-hidden="true">
-          <Image
-            src="/tiles_banner_outline_blk.svg"
-            alt=""
-            width={1200}
-            height={220}
-            className="dark:hidden"
-          />
-          <Image
-            src="/tiles_banner_outline_wht.svg"
-            alt=""
-            width={1200}
-            height={220}
-            className="hidden bg-background dark:block"
-          />
-        </div>
-      </div>
-
       <section
-        className="minimal-copy minimal-copy--after-device"
+        className="minimal-copy minimal-copy--after-hero"
         aria-labelledby="why-tiles-heading"
       >
         <h2 id="why-tiles-heading" className="minimal-copy-heading">
