@@ -43,7 +43,7 @@ export const roadmapTracks: RoadmapTrack[] = [
       { label: "Linux backend with llama.cpp", status: "active" },
       { label: "Apple Foundation Model", status: "planned" },
       { label: "TEE-based cloud models", status: "planned" },
-      { label: "MIR integration", status: "planned" },
+      // { label: "MIR integration", status: "planned" },
       { label: "Modelfile deduplication and caching", status: "planned" },
     ],
   },

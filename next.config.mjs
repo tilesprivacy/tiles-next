@@ -107,11 +107,11 @@ const nextConfig = {
         destination: '/releases',
         permanent: true,
       },
-      {
-        source: '/book/mir',
-        destination: '/book/tilekit#mir-extension',
-        permanent: true,
-      },
+      // {
+      //   source: '/book/mir',
+      //   destination: '/book/tilekit#mir-extension',
+      //   permanent: true,
+      // },
       {
         source: '/book/acknowledgements',
         destination: '/book/opensource',

@@ -29,6 +29,8 @@ function stripHtml(html: string): string {
 
 function sanitizeMdxText(mdx: string): string {
   return mdx
+    // Exclude temporarily hidden MDX sections from the public text export.
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
     .replace(/^---[\s\S]*?---\n?/, '')
     // Keep code block contents (CLI commands the AI search answers rely on);
     // strip only the fences and their info string.

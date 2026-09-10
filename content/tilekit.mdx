@@ -1,25 +1,514 @@
 ---
 title: "Tilekit"
-description: "Complete reference for the Modelfile parser, grammar, instructions, parameters, and Tilekit API usage"
+description: "Tilekit REST API endpoints, Bruno request examples, source locations, and Modelfile reference"
 ---
 
 import NextImage from "next/image"
 
+import { TilekitEndpoint } from "@/components/tilekit-api-endpoint"
+
 # Tilekit
 
-Tilekit aims to be the app-server interface behind Tiles and future rich client experiences. **It is a work in progress, and its API and source code have not yet been released.** When available, developers will be able to embed it into their local clients by bundling or fetching a platform-specific App Server binary, running it as a long-lived child process, and communicating with it through REST endpoints.
+Tilekit provides REST APIs for integrating Tiles into local clients and custom UIs. The endpoints run in the Tiles daemon under `/v1/tilekit/` and cover inference server controls, the Pi agent, sessions, accounts, and ATproto.
 
-Use it when you want a deep integration inside your own product: identity, memory, sync, and agent templates. It is built with privacy-first engineering and uses open standards like Modelfile, DIDs, and UCANs, so user data, identity, and control stay on their device.
+# REST API [#rest-api]
 
-### Modelfile Reference
+Use the Tiles daemon’s local REST API to integrate sessions, inference, and accounts into your client. Expand an endpoint to see its request fields, curl example, and response details.
 
-Tiles supports a Modelfile format inspired by Ollama-style instructions, with runtime behavior tuned for the current local MLX pipeline.
+<a
+  href="https://fetch.usebruno.com?url=https%3A%2F%2Fgithub.com%2Ftilesprivacy%2Ftiles.git"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-flex [&>svg]:hidden"
+>
+  <NextImage
+    src="https://fetch.usebruno.com/button.svg"
+    alt="Fetch in Bruno"
+    width={128}
+    height={32}
+    style={{ width: 130, height: 30 }}
+    unoptimized
+  />
+</a>
 
-The Modelfile parser is implemented in [`tilekit/src/modelfile.rs`](https://github.com/tilesprivacy/tiles/blob/main/tilekit/src/modelfile.rs) using the `nom` parser combinator library. It parses a text-based configuration format for defining model configurations, parameters, templates, and system prompts.
+**Base URL**
+
+```text
+http://127.0.0.1:1729/v1/tilekit
+```
+
+Run the Tiles daemon first. For chat, start the inference server, create a session, then send a prompt with the returned session ID. The endpoints below follow the current daemon source; availability depends on your installed Tiles version.
+
+<nav className="tilekit-api-groups" aria-label="API groups">
+  <a href="#server">Server</a>
+  <a href="#agent">Agent</a>
+  <a href="#session">Session</a>
+  <a href="#account">Account</a>
+  <a href="#atproto">ATproto</a>
+</nav>
+
+**Responses**
+
+JSON success responses use `{"status":"success","data":...}`. Application errors use `{"status":"failed","reason":"..."}` with an HTTP error status. Malformed requests may be rejected before reaching a handler. The prompt endpoint returns an SSE stream.
+
+## Server
+
+Manage the local inference server. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/server.rs).
+
+<TilekitEndpoint method="GET" path="/server/start" title="Start server">
+<div className="tilekit-endpoint-body">
+
+Start the inference server in the background.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/server/start"
+```
+
+**Response**
+
+Returns a status message in `data.message`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/server/stop" title="Stop server">
+<div className="tilekit-endpoint-body">
+
+Stop the inference server.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/server/stop"
+```
+
+**Response**
+
+Returns a status message in `data.message`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/server/ping" title="Check server health">
+<div className="tilekit-endpoint-body">
+
+Check whether the inference server is responding.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/server/ping"
+```
+
+**Response**
+
+Returns the health-check message in `data.message`.
+
+</div>
+</TilekitEndpoint>
+
+## Agent
+
+Work directly with the Pi agent. Create a session before sending prompts. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/agent.rs).
+
+<TilekitEndpoint method="GET" path="/agent/start" title="Start agent">
+<div className="tilekit-endpoint-body">
+
+Start the Pi agent if it is not already running.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/start"
+```
+
+**Response**
+
+Returns `data.message` indicating whether the agent started or was already running.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/agent/state" title="Get agent state">
+<div className="tilekit-endpoint-body">
+
+Read the running agent’s current state.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/state"
+```
+
+**Response**
+
+Returns the Pi agent state in `data`. An agent must already be running.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/agent/prompt" title="Send a prompt">
+<div className="tilekit-endpoint-body">
+
+Send a message to the running agent. The response streams Server-Sent Events (SSE).
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `message` | string | Required | Prompt to send to the agent. |
+| `session_id` | string | Optional | Session ID used to record the turn for sharing. |
+
+**Example request**
+
+```sh
+curl -N -X POST "http://127.0.0.1:1729/v1/tilekit/agent/prompt" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "message": "Hello!",
+  "session_id": "YOUR_SESSION_ID"
+}'
+```
+
+**Response**
+
+Returns `text/event-stream`, rather than the JSON success envelope. `curl -N` displays events without buffering. Omitting `session_id` runs the turn without recording a session snapshot.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/agent/end_session" title="End session">
+<div className="tilekit-endpoint-body">
+
+End the current agent session gracefully.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/end_session"
+```
+
+**Response**
+
+Returns a confirmation in `data.message`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/agent/reload" title="Reload agent">
+<div className="tilekit-endpoint-body">
+
+Restart the agent using its current configuration.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/reload"
+```
+
+**Response**
+
+Returns a confirmation in `data.message`.
+
+</div>
+</TilekitEndpoint>
+
+## Session
+
+Create sessions and work with locally stored chats. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/session.rs).
+
+<TilekitEndpoint method="POST" path="/session/new" title="Create session">
+<div className="tilekit-endpoint-body">
+
+Create a new session, starting the Pi agent if needed. Start the inference server before sending prompts.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/session/new"
+```
+
+**Response**
+
+Returns the session ID in `data.id`. Pass this value as `session_id` when sending a prompt.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/session/list" title="List sessions">
+<div className="tilekit-endpoint-body">
+
+List sessions stored in the local chat database.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/session/list"
+```
+
+**Response**
+
+Returns the stored sessions in `data`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/session/{session_id}/chats" title="Get session chats">
+<div className="tilekit-endpoint-body">
+
+Fetch the stored chats for a session.
+
+**Path parameter**
+
+`session_id` · string · required. Replace `YOUR_SESSION_ID` in the example with the session ID.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/session/YOUR_SESSION_ID/chats"
+```
+
+**Response**
+
+Returns the session chat data in `data`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/session/chat" title="Save a chat">
+<div className="tilekit-endpoint-body">
+
+Save a message to the local chat database. The user ID must identify an existing local user.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `text` | string | Required | Message content. |
+| `session_id` | string | Required | Session to save the message in. |
+| `role` | string | Required | One of `system`, `user`, `assistant`, `developer`, or `toolResult`. |
+| `user_id` | string | Required | Existing local user ID. |
+| `model_used` | string | Required | Model associated with the message. |
+| `parent_chat_id` | string | Optional | Parent message ID. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/session/chat" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "text": "Hello!",
+  "session_id": "YOUR_SESSION_ID",
+  "role": "user",
+  "user_id": "YOUR_USER_ID",
+  "model_used": "YOUR_MODEL"
+}'
+```
+
+**Response**
+
+Returns the saved chat in `data`. A user message can create a stored session when that session does not yet exist.
+
+</div>
+</TilekitEndpoint>
+
+## Account
+
+Create and inspect the local Tiles account. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/account.rs).
+
+<TilekitEndpoint method="POST" path="/account/create" title="Create account">
+<div className="tilekit-endpoint-body">
+
+Create a local account for onboarding.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `nickname` | string | Required | Display nickname for the account. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/account/create" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "nickname": "alice"
+}'
+```
+
+**Response**
+
+Returns the account result in `data`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/account/status" title="Get account status">
+<div className="tilekit-endpoint-body">
+
+Read the current local account details.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/account/status"
+```
+
+**Response**
+
+Returns the local account in `data`. Returns `404` when no local account exists.
+
+</div>
+</TilekitEndpoint>
+
+## ATproto
+
+Connect an ATproto account and publish session snapshots. [Source](https://github.com/tilesprivacy/tiles/blob/main/tiles/src/daemon/atproto.rs).
+
+<TilekitEndpoint method="POST" path="/atproto/login" title="Log in">
+<div className="tilekit-endpoint-body">
+
+Begin ATproto login for the supplied handle.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `user_handle` | string | Required | ATproto account handle. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/atproto/login" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "user_handle": "alice.bsky.social"
+}'
+```
+
+**Response**
+
+Returns the login result in `data` after the login flow completes.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/atproto/logout" title="Log out">
+<div className="tilekit-endpoint-body">
+
+Log out of the connected ATproto account.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/atproto/logout"
+```
+
+**Response**
+
+Returns the logout result in `data`.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/atproto/status" title="Get login status">
+<div className="tilekit-endpoint-body">
+
+Read the connected ATproto account.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/atproto/status"
+```
+
+**Response**
+
+Returns `data.handle` and `data.did`. Returns `404` when not logged in.
+
+</div>
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/atproto/share-session/{session_id}" title="Share session">
+<div className="tilekit-endpoint-body">
+
+Publish a stored session to the connected account’s PDS and return a share link. This writes a record each time it is called.
+
+**Path parameter**
+
+`session_id` · string · required. Replace `YOUR_SESSION_ID` in the example with the session ID.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `is_private` | boolean | Optional | Defaults to `false`. Use `true` to encrypt the shared session. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/atproto/share-session/YOUR_SESSION_ID" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "is_private": true
+}'
+```
+
+**Response**
+
+Returns `data.url` and `data.is_private`. Requires an ATproto login and an existing stored session.
+
+</div>
+</TilekitEndpoint>
+
+## Source and tooling
+
+Open `docs/apis` in **Bruno**, select the Tilekit collection, and use its `dev` environment. It sets `tilekit_base_url` to the local base URL above.
+
+- [Bruno collection and runnable requests](https://github.com/tilesprivacy/tiles/tree/main/docs/apis/tilekit%20apis)
+- [Daemon route definitions and handlers](https://github.com/tilesprivacy/tiles/tree/main/tiles/src/daemon)
+- [API design overview](https://github.com/tilesprivacy/tiles/blob/main/docs/adr/tilekit.md)
+
+The daemon route definitions are authoritative. The design overview includes planned endpoints and older names, including `/server/load-model`, `/agent/stop`, `/session/resume`, `/session/search`, and `/account/set-nickname`, which are not registered in the current daemon. HTTP endpoints live in the daemon.
+
+# Modelfile Reference [#modelfile-reference]
+
+A Modelfile is a text-based blueprint for a model’s configuration, parameters, templates, and system prompt. Tiles supports a format inspired by Ollama-style instructions.
+
+The separate `tilekit` Rust crate exports the Modelfile parser, implemented in [`tilekit/src/modelfile.rs`](https://github.com/tilesprivacy/tiles/blob/main/tilekit/src/modelfile.rs) using the `nom` parser combinator library. It parses a text-based configuration format for defining model configurations, parameters, templates, and system prompts.
 
 This page describes **what is parsed**, **what is validated**, and **what is actually used at runtime today**.
 
-#### Quick Start
+## Quick Start
 
 Minimal working Modelfile:
 
@@ -30,7 +519,7 @@ SYSTEM You are a concise assistant.
 
 `FROM` is required. Most other fields are optional.
 
-#### Supported Instructions
+## Supported Instructions
 
 Tiles currently parses these top-level instructions (case-insensitive):
 
@@ -45,24 +534,24 @@ Tiles currently parses these top-level instructions (case-insensitive):
 
 If `FROM` is missing, parsing fails.
 
-#### FROM
+## FROM
 
 `FROM` is parsed as a string, but runtime behavior is intentionally narrower right now.
 
-##### What works today
+### What works today
 
 - Hugging Face-style **model repo identifiers**, for example:
   - `mlx-community/gpt-oss-20b-MXFP4-Q4`
   - `mlx-community/Qwen3.5-4B-MLX-4bit`
 
-##### Important nuance
+### Important nuance
 
 - Any GGUF file hosted on Hugging Face is supported through `FROM`.
 - Local file paths are not supported yet.
 
 In short: `FROM` supports Hugging Face model repositories, including any GGUF file hosted on Hugging Face. Local paths are not yet supported.
 
-#### SYSTEM
+## SYSTEM
 
 `SYSTEM` sets the system/developer instruction prompt used in chat requests.
 
@@ -71,7 +560,7 @@ In short: `FROM` supports Hugging Face model repositories, including any GGUF fi
 
 This is one of the two Modelfile fields that materially affects runtime behavior today (`FROM` and `SYSTEM`).
 
-#### PARAMETER
+## PARAMETER
 
 `PARAMETER` is parsed and validated against an allowlist.
 
@@ -94,7 +583,7 @@ Notes:
 - Type mismatches fail validation.
 - Parameters are currently parsed/stored but not fully applied in the runtime request payload yet.
 
-#### MESSAGE
+## MESSAGE
 
 `MESSAGE` supports role + content pairs.
 
@@ -109,7 +598,7 @@ Notes:
 - Messages are validated and stored.
 - Current runtime conversation assembly does not directly consume `modelfile.messages` yet.
 
-#### TEMPLATE, ADAPTER, LICENSE
+## TEMPLATE, ADAPTER, LICENSE
 
 These instructions are parsed and validated with single-value semantics:
 
@@ -122,11 +611,11 @@ Current status:
 - They are represented in the parsed Modelfile structure.
 - They are not currently wired into the main model execution path.
 
-#### Comments
+## Comments
 
 Lines beginning with `#` are accepted and preserved in serialized Modelfile output.
 
-#### Current Runtime Behavior
+## Current Runtime Behavior
 
 In the current implementation, the Modelfile fields that directly influence execution are:
 
@@ -135,7 +624,7 @@ In the current implementation, the Modelfile fields that directly influence exec
 
 Other parsed fields are available at parse/validation level and can be considered forward-compatible surface for future runtime expansion.
 
-#### Example
+## Example
 
 ```text
 FROM mlx-community/gpt-oss-20b-MXFP4-Q4
@@ -148,6 +637,8 @@ PARAMETER num_ctx 4096
 ```
 
 The example above is valid. Today, `FROM` and `SYSTEM` drive behavior directly; parameter validation still applies.
+
+{/* Temporarily hidden; retain for future restoration.
 
 ### MIR Extension
 
@@ -338,3 +829,5 @@ MIR is inspired by:
 - [AIR-URN](https://github.com/civitai/civitai/wiki/AIR-%E2%80%90-Uniform-Resource-Names-for-AI) project by [CivitAI](https://civitai.com/)
 - [Spandrel](https://github.com/chaiNNer-org/spandrel/blob/main/libs/spandrel/spandrel/__helpers/registry.py) super-resolution registry by [chaiNNer](https://github.com/chaiNNer-org/chaiNNer)
 - [SDWebUI Model Toolkit](https://github.com/silveroxides/stable-diffusion-webui-model-toolkit-revisited) by [silveroxides](https://github.com/silveroxides)
+
+*/}

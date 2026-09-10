@@ -62,8 +62,27 @@ export default async function Page(props: {
     params.mdxPath
   )
 
+  // Nextra excludes H1s and treats depth 2 as a root TOC entry. Tilekit
+  // has two H1 sections below its page title, so include those roots and
+  // indent the generated H2/H3 entries beneath them. Keep other books as-is.
+  const isTilekit = params.mdxPath.length === 1 && params.mdxPath[0] === 'tilekit'
+  const sectionStarts = {
+    server: { id: 'rest-api', value: 'REST API', depth: 2 },
+    'quick-start': { id: 'modelfile-reference', value: 'Modelfile Reference', depth: 2 },
+  } satisfies Record<string, (typeof toc)[number]>
+  const pageToc = isTilekit
+    ? toc.flatMap((entry) => {
+        const section = sectionStarts[entry.id as keyof typeof sectionStarts]
+        const nestedEntry: (typeof toc)[number] = {
+          ...entry,
+          depth: entry.depth === 2 ? 3 : entry.depth === 3 ? 4 : entry.depth === 4 ? 5 : 6,
+        }
+        return section ? [section, nestedEntry] : [nestedEntry]
+      })
+    : toc
+
   return (
-    <Wrapper toc={toc} metadata={metadata} sourceCode={sourceCode}>
+    <Wrapper toc={pageToc} metadata={metadata} sourceCode={sourceCode}>
       <MDXContent {...props} params={params} />
       <BookPageNavigation />
     </Wrapper>
