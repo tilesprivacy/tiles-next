@@ -47,7 +47,7 @@ const factSheet: Array<{ label: string; value: string }> = [
   { label: "Company", value: "Tiles Privacy Technologies Pvt. Ltd." },
   { label: "Headquarters", value: "Bengaluru, India" },
   { label: "Status", value: "Public alpha" },
-  { label: "Platforms", value: "macOS 14+ on Apple Silicon (M1+) and Linux" },
+  { label: "Platforms", value: "macOS 14+ on Apple Silicon and Linux" },
   { label: "Website", value: "https://www.tiles.run" },
 ]
 

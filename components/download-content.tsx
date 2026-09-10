@@ -88,7 +88,7 @@ export function DownloadContent({
               <FaApple className="minimal-download-platform-icon" aria-hidden />
               macOS
             </h2>
-            <p>Apple Silicon (M1+) · macOS 14+ · 16 GB unified memory recommended</p>
+            <p>Apple Silicon · macOS 14+ · 16 GB unified memory recommended</p>
             {/*
               One stanza per installer: the action (with its Recommended tag),
               then a one-line caption underneath naming the route and its size.
