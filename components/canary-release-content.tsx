@@ -4,7 +4,11 @@ import { useEffect, useState } from "react"
 import { ArrowUpRight, Download } from "lucide-react"
 import ReactMarkdown from "react-markdown"
 import type { CanaryReleaseData } from "@/lib/canary-release"
-import { CANARY_RELEASE_DESCRIPTION, CANARY_RELEASE_URL } from "@/lib/download-page-data"
+import {
+  CANARY_FALLBACK_DOWNLOAD,
+  CANARY_RELEASE_DESCRIPTION,
+  CANARY_RELEASE_URL,
+} from "@/lib/download-page-data"
 
 export function CanaryReleaseContent({ initialRelease }: { initialRelease: CanaryReleaseData | null }) {
   const [release, setRelease] = useState(initialRelease)
@@ -42,7 +46,10 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
     }
   }, [])
 
-  const assets = release?.assets || []
+  // The pinned installer link keeps a direct Canary download on the page
+  // whenever the GitHub release data is unavailable.
+  const assets: Array<{ name: string; browser_download_url: string; size?: number }> =
+    release?.assets?.length ? release.assets : [CANARY_FALLBACK_DOWNLOAD]
   const notes = (release?.body || "")
     .replace(/\r\n/g, "\n")
     .replace(/^Tiles canary\s*\n/i, "")
@@ -62,17 +69,17 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
           </time>
         </p>
       )}
-      {release && (
-        <ul className="mt-6 grid list-none gap-4 p-0" aria-label="Canary downloads">
-          {assets.map((asset) => (
-            <li key={asset.name} className="min-w-0">
-              <a
-                href={asset.browser_download_url}
-                className="inline-flex max-w-full items-start gap-2 underline underline-offset-4"
-              >
-                <Download size={16} className="mt-1 shrink-0" aria-hidden />
-                <span className="min-w-0 break-all">{asset.name}</span>
-              </a>
+      <ul className="mt-6 grid list-none gap-4 p-0" aria-label="Canary downloads">
+        {assets.map((asset) => (
+          <li key={asset.name} className="min-w-0">
+            <a
+              href={asset.browser_download_url}
+              className="inline-flex max-w-full items-start gap-2 underline underline-offset-4"
+            >
+              <Download size={16} className="mt-1 shrink-0" aria-hidden />
+              <span className="min-w-0 break-all">{asset.name}</span>
+            </a>
+            {typeof asset.size === "number" && (
               <span className="mt-1 block pl-6 text-xs text-muted-foreground">
                 {asset.size < 1024
                   ? `${asset.size} bytes`
@@ -80,10 +87,10 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
                   ? `${Math.round(asset.size / 1024)} KB`
                   : `${(asset.size / (1024 * 1024)).toFixed(1)} MB`}
               </span>
-            </li>
-          ))}
-        </ul>
-      )}
+            )}
+          </li>
+        ))}
+      </ul>
       {notes && (
         <div className="minimal-download-release-notes minimal-download-release-notes--markdown">
           <div>
