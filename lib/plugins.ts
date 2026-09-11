@@ -5,6 +5,8 @@ export interface TilesPlugin {
   fileName: string
   downloadUrl: string
   installCommand: string
+  builtIn?: boolean
+  documentationUrl?: string
   sizeLabel?: string
   updatedAt?: string
 }
@@ -15,20 +17,73 @@ export interface TilesPluginSkill {
   sourceUrl: string
 }
 
+export interface TilesPluginMetadataField {
+  key: string
+  value: string
+  href?: string
+}
+
+export interface TilesPluginMetadata {
+  fields: TilesPluginMetadataField[]
+  sourceUrl: string
+}
+
+export interface TilesPluginMcpServer {
+  name: string
+  type: string
+  endpoint?: string
+  sourceUrl: string
+}
+
 const PLUGIN_BASE_URL = "https://download.tiles.run/plugins"
 const PLUGIN_PREFIX = "plugins/"
 const PLUGIN_SOURCE_BASE_URL = "https://github.com/tilesprivacy/plugins/tree/main"
 const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blob/main"
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
-const FALLBACK_PLUGIN_FILES = ["caldir.zip", "youtube-transcript.zip"]
+const FALLBACK_PLUGIN_FILES = ["caldir.zip"]
+const EXA_PLUGIN: TilesPlugin = {
+  slug: "exa",
+  name: "Exa",
+  description: "Web search and content extraction powered by Exa AI",
+  fileName: "exa.zip",
+  downloadUrl: `${PLUGIN_BASE_URL}/exa.zip`,
+  installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/exa.zip`,
+  documentationUrl: "https://exa.ai/docs/reference/exa-mcp",
+}
+const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
+  caldir: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "caldir",
+    version: "1.0.0",
+    description: "Read, create, edit, and sync calendar events as plaintext .ics files",
+    homepage: "https://caldir.org",
+    keywords: ["calendar", "ics", "caldav"],
+  },
+  exa: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "exa",
+    version: "1.0.0",
+    description: "Web search and page fetch",
+    homepage: "https://exa.ai",
+    license: "MIT",
+  },
+}
+const FALLBACK_MCP_SERVERS: Record<string, Record<string, Record<string, unknown>>> = {
+  exa: {
+    search: {
+      type: "streamable-http",
+      url: "https://mcp.exa.ai/mcp",
+    },
+  },
+}
 
 function titleFromFileName(fileName: string) {
   if (fileName === "caldir.zip") {
     return "Caldir"
   }
 
-  if (fileName === "youtube-transcript.zip") {
-    return "YouTube Transcript"
+  if (fileName === "exa.zip") {
+    return "Exa"
   }
 
   return fileName
@@ -44,8 +99,8 @@ function descriptionFromFileName(fileName: string) {
     return "Caldir is a tool for storing your calendar as a directory of ICS files."
   }
 
-  if (fileName === "youtube-transcript.zip") {
-    return "Fetch transcripts from YouTube videos for summarization and analysis."
+  if (fileName === "exa.zip") {
+    return EXA_PLUGIN.description
   }
 
   return "Install this plugin into Tiles from the public plugin archive."
@@ -200,6 +255,15 @@ async function withFallbackMetadata(plugin: TilesPlugin) {
   }
 }
 
+function curatePlugins(plugins: TilesPlugin[]) {
+  return [
+    EXA_PLUGIN,
+    ...plugins
+      .filter((plugin) => plugin.slug !== "youtube-transcript" && plugin.slug !== EXA_PLUGIN.slug)
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  ]
+}
+
 export async function getTilesPlugins(): Promise<TilesPlugin[]> {
   const sources = [listFromJsonIndex, listFromCloudflareApi, listFromPublicPrefix]
 
@@ -207,14 +271,17 @@ export async function getTilesPlugins(): Promise<TilesPlugin[]> {
     try {
       const plugins = await listSource()
       if (plugins.length > 0) {
-        return Promise.all(plugins.map(withFallbackMetadata))
+        return curatePlugins(await Promise.all(plugins.map(withFallbackMetadata)))
       }
     } catch {
       // Continue to the next source so a missing optional integration never breaks the page.
     }
   }
 
-  return Promise.all(FALLBACK_PLUGIN_FILES.map((fileName) => normalizePlugin(fileName)).map(withFallbackMetadata))
+  const plugins = await Promise.all(
+    FALLBACK_PLUGIN_FILES.map((fileName) => normalizePlugin(fileName)).map(withFallbackMetadata),
+  )
+  return curatePlugins(plugins)
 }
 
 export async function getTilesPlugin(slug: string): Promise<TilesPlugin | null> {
@@ -228,7 +295,103 @@ function parseFrontmatterValue(markdown: string, key: string) {
   return match?.[1]?.trim().replace(/^["']|["']$/g, "")
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value)
+}
+
+function metadataValue(value: unknown) {
+  if (Array.isArray(value)) {
+    return value.map(String).join(", ")
+  }
+
+  if (isRecord(value)) {
+    return JSON.stringify(value)
+  }
+
+  return String(value)
+}
+
+function metadataFromJson(slug: string, metadata: Record<string, unknown>): TilesPluginMetadata {
+  return {
+    fields: Object.entries(metadata).map(([key, value]) => ({
+      key,
+      value: metadataValue(value),
+      href: typeof value === "string" && /^https?:\/\//i.test(value) ? value : undefined,
+    })),
+    sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/plugin.json`,
+  }
+}
+
+export async function getTilesPluginMetadata(slug: string): Promise<TilesPluginMetadata | null> {
+  const fallback = FALLBACK_PLUGIN_METADATA[slug]
+
+  try {
+    const response = await fetch(`${PLUGIN_RAW_BASE_URL}/${slug}/plugin.json`, {
+      next: { revalidate: 3600 },
+    })
+
+    if (!response.ok) {
+      return fallback ? metadataFromJson(slug, fallback) : null
+    }
+
+    const metadata: unknown = await response.json()
+    return isRecord(metadata) ? metadataFromJson(slug, metadata) : fallback ? metadataFromJson(slug, fallback) : null
+  } catch {
+    return fallback ? metadataFromJson(slug, fallback) : null
+  }
+}
+
+function mcpServersFromJson(slug: string, servers: Record<string, unknown>): TilesPluginMcpServer[] {
+  return Object.entries(servers).flatMap(([name, value]) => {
+    if (!isRecord(value)) {
+      return []
+    }
+
+    const type = typeof value.type === "string" ? value.type : "MCP server"
+    const url = typeof value.url === "string" ? value.url : undefined
+    const command = typeof value.command === "string" ? value.command : undefined
+    const args = Array.isArray(value.args) ? value.args.map(String).join(" ") : undefined
+
+    return [{
+      name,
+      type,
+      endpoint: url ?? ([command, args].filter(Boolean).join(" ") || undefined),
+      sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/mcp.json`,
+    }]
+  })
+}
+
+export async function getTilesPluginMcpServers(slug: string): Promise<TilesPluginMcpServer[]> {
+  const fallback = FALLBACK_MCP_SERVERS[slug] ?? {}
+
+  try {
+    const response = await fetch(`${PLUGIN_RAW_BASE_URL}/${slug}/mcp.json`, {
+      next: { revalidate: 3600 },
+    })
+
+    if (!response.ok) {
+      return mcpServersFromJson(slug, fallback)
+    }
+
+    const manifest: unknown = await response.json()
+    const servers = isRecord(manifest) && isRecord(manifest.mcpServers) ? manifest.mcpServers : fallback
+    return mcpServersFromJson(slug, servers)
+  } catch {
+    return mcpServersFromJson(slug, fallback)
+  }
+}
+
 function fallbackSkills(slug: string): TilesPluginSkill[] {
+  if (slug === "exa") {
+    return [
+      {
+        name: "web-research",
+        description: "Research a topic on the web across several sources, verify a claim, or dig past search snippets into full pages.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/exa/skills/web-research/SKILL.md`,
+      },
+    ]
+  }
+
   if (slug === "caldir") {
     return [
       {
@@ -239,15 +402,7 @@ function fallbackSkills(slug: string): TilesPluginSkill[] {
     ]
   }
 
-  if (slug !== "youtube-transcript") return []
-
-  return [
-    {
-      name: "youtube-transcript",
-      description: "",
-      sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/skills/youtube-transcript/SKILL.md`,
-    },
-  ]
+  return []
 }
 
 async function readSkill(slug: string, skillName: string): Promise<TilesPluginSkill> {
@@ -270,10 +425,7 @@ async function readSkill(slug: string, skillName: string): Promise<TilesPluginSk
 
   return {
     name: parseFrontmatterValue(markdown, "name") ?? skillName,
-    description:
-      slug === "youtube-transcript" && skillName === "youtube-transcript"
-        ? ""
-        : parseFrontmatterValue(markdown, "description") ?? "Skill details are available in the plugin source.",
+    description: parseFrontmatterValue(markdown, "description") ?? "Skill details are available in the plugin source.",
     sourceUrl,
   }
 }

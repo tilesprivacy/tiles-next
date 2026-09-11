@@ -1698,15 +1698,25 @@ html.cyberpunk .minimal-download-action--secondary:hover {
   cursor: pointer;
   text-align: left;
 }
-.minimal-command code {
+.minimal-command code,
+.minimal-command-code {
   overflow-x: auto;
   white-space: nowrap;
+  font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
 }
 .minimal-command svg {
   width: 16px;
   height: 16px;
   flex: none;
+}
+.plugin-command {
+  margin-top: 0;
 }
 .minimal-resources > div {
   display: grid;

@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Package, Youtube } from "lucide-react"
+import { Package } from "lucide-react"
 
 interface PluginIconProps {
   slug: string
@@ -16,8 +16,8 @@ export function PluginIcon({ slug, className = "h-5 w-5" }: PluginIconProps) {
     )
   }
 
-  if (slug === "youtube-transcript") {
-    return <Youtube className={className} aria-hidden />
+  if (slug === "exa") {
+    return <Image src="/exa-icon.svg" alt="" width={64} height={64} className={`${className} rounded-[3px]`} aria-hidden />
   }
 
   return <Package className={className} aria-hidden />

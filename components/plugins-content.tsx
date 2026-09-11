@@ -31,7 +31,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
 
   const showMakeYourOwnPluginCard =
     !normalizedQuery ||
-    "make your own plugin build a portable plugin using the agent plugins standard package layout".includes(
+    "make your own plugin bundle mcp servers and skills in the portable agent plugins format package layout".includes(
       normalizedQuery,
     )
 
@@ -72,7 +72,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
             <div id="all-plugins" className="grid gap-3 sm:max-w-[48rem] sm:grid-cols-2">
               {filteredPlugins.map((plugin) => (
                 <Link
-                  key={plugin.downloadUrl}
+                  key={plugin.slug}
                   href={`/plugins/${plugin.slug}`}
                   className="group flex h-[75px] items-center gap-3 overflow-hidden rounded-[8px] bg-secondary/65 px-4 py-4 text-card-foreground transition-colors hover:bg-secondary"
                 >
@@ -99,7 +99,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                       Make your own plugin
                     </span>
                     <span className="mt-0.5 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-5 text-muted-foreground">
-                      Build a portable plugin using the Agent Plugins standard.
+                      Bundle MCP servers and skills in the portable Agent Plugins format.
                     </span>
                   </span>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden />

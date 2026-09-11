@@ -2,7 +2,13 @@ import type { Metadata } from "next"
 import { getSocialImage } from "@/lib/social-image"
 import { notFound } from "next/navigation"
 import { PluginDetailContent } from "@/components/plugin-detail-content"
-import { getTilesPlugin, getTilesPluginSkills, getTilesPlugins } from "@/lib/plugins"
+import {
+  getTilesPlugin,
+  getTilesPluginMcpServers,
+  getTilesPluginMetadata,
+  getTilesPluginSkills,
+  getTilesPlugins,
+} from "@/lib/plugins"
 
 interface PluginPageProps {
   params: Promise<{
@@ -58,7 +64,11 @@ export default async function PluginPage({ params }: PluginPageProps) {
     notFound()
   }
 
-  const skills = await getTilesPluginSkills(slug)
+  const [metadata, mcpServers, skills] = await Promise.all([
+    getTilesPluginMetadata(slug),
+    getTilesPluginMcpServers(slug),
+    getTilesPluginSkills(slug),
+  ])
 
-  return <PluginDetailContent plugin={plugin} skills={skills} />
+  return <PluginDetailContent plugin={plugin} metadata={metadata} mcpServers={mcpServers} skills={skills} />
 }

@@ -32,8 +32,8 @@ function json(data: unknown, status = 200): Response {
 
 function pluginNameFromKey(key: string): string {
   const fileName = key.split("/").pop() ?? key;
-  if (fileName === "youtube-transcript.zip") {
-    return "YouTube Transcript";
+  if (fileName === "exa.zip") {
+    return "Exa";
   }
 
   return fileName
@@ -45,8 +45,8 @@ function pluginNameFromKey(key: string): string {
 }
 
 function pluginDescriptionFromKey(key: string): string {
-  if (key.endsWith("/youtube-transcript.zip")) {
-    return "Fetch transcripts from YouTube videos for summarization and analysis.";
+  if (key.endsWith("/exa.zip")) {
+    return "Web search and content extraction powered by Exa AI";
   }
 
   return "Install this plugin into Tiles from the public plugin archive.";
@@ -67,7 +67,7 @@ async function listPluginObjects(env: Env): Promise<Response> {
   do {
     const listed = await env.TILESPRIVACY.list({ prefix, cursor, limit: 1000 });
     for (const object of listed.objects) {
-      if (!object.key.toLowerCase().endsWith(".zip")) {
+      if (!object.key.toLowerCase().endsWith(".zip") || object.key.endsWith("/youtube-transcript.zip")) {
         continue;
       }
 

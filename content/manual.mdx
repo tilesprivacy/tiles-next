@@ -140,6 +140,17 @@ tiles plugin list                   # List installed plugins
 
 Tiles installs plugins from `.zip` or `.tar.gz` archives, either downloaded from a URL or available on the local filesystem. The Agent Plugins standard defines the package contents; Tiles manages installation and distribution.
 
+### Using plugins
+
+In the Tiles CLI chat, type `@` followed by a plugin name and your request:
+
+```text word-wrap=false
+@exa Find the latest research on local-first software
+@caldir What is on my calendar tomorrow?
+```
+
+Run `tiles plugin list` to see installed plugin names. Restart Tiles after installing or enabling a plugin so it becomes available in chat. Tiles can also use an enabled plugin automatically when it matches your request.
+
 ### Plugin package layout
 
 ```text word-wrap=false
@@ -166,7 +177,7 @@ A minimal manifest identifies the standard version and plugin name:
 }
 ```
 
-See the [Agent Plugins authoring guide](https://agent-plugins.org/plugin-authors/build-an-agent-plugin) for the complete portable format. Learn how to use [Skills slash commands](#using-skills) in chat.
+See the [Agent Plugins authoring guide](https://agent-plugins.org/plugin-authors/build-an-agent-plugin) for the complete portable format. Learn how to [use plugins](#using-plugins) in chat.
 
 ## Sync
 
@@ -305,9 +316,9 @@ Agent Plugins can include skills under `skills/`. Tiles can also use available s
 
 List available skills from installed plugins.
 
-#### `$<skill-name>`
+#### `@<skill-name>`
 
-Run a skill directly (for example, `$my-skill`).
+Run a skill directly with `@<skill-name>` followed by your request (for example, `@my-skill Deploy the site`).
 
 ## Uninstall Tiles
 
