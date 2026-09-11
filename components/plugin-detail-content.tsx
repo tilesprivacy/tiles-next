@@ -83,7 +83,7 @@ export function PluginDetailContent({ plugin, skills }: PluginDetailContentProps
 
               <div className="w-full min-w-0">
                 <div className="relative h-10 overflow-hidden rounded-[8px] border border-border bg-secondary/45 lg:flex lg:items-stretch">
-                  <code className="flex h-full items-center overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-sm leading-5 text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4">
+                  <code className="flex h-full items-center overflow-x-auto whitespace-nowrap px-4 pr-12 font-mono text-[0.8125rem] font-normal leading-5 text-foreground [-webkit-overflow-scrolling:touch] lg:min-w-0 lg:flex-1 lg:pr-4">
                     {plugin.installCommand}
                   </code>
                   <button

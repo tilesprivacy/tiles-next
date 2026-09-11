@@ -116,6 +116,7 @@ export async function GET(request: Request) {
 
   addSection(lines, 'Plugins', [
     `- Plugin index: ${baseUrl}/plugins`,
+    '- Standard: https://agent-plugins.org/ - Tiles follows the open Agent Plugins standard for portable skills and MCP servers.',
     ...plugins.map((plugin) => `- ${plugin.name}: ${baseUrl}/plugins/${plugin.slug} - ${plugin.description}`),
   ])
 

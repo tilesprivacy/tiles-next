@@ -124,7 +124,7 @@ tiles data set-path ~/.tiles/data
 
 ### Plugins (`tiles plugin`)
 
-Install, list, and remove Tiles plugins. Plugins extend Tiles with extensions and bundled skills.
+Tiles plugins follow the open [Agent Plugins standard](https://agent-plugins.org/), a portable package format for reusable components that extend AI agents.
 
 ```bash word-wrap=false
 tiles plugin install <url-or-path>   # Install from a URL or local archive
@@ -138,23 +138,35 @@ tiles plugin list                   # List installed plugins
 
 **`tiles plugin list`**: List installed plugins.
 
-Plugin archives must be `.zip` or `.tar.gz` files, either downloaded from a URL or available on the local filesystem.
+Tiles installs plugins from `.zip` or `.tar.gz` archives, either downloaded from a URL or available on the local filesystem. The Agent Plugins standard defines the package contents; Tiles manages installation and distribution.
 
 ### Plugin package layout
 
 ```text word-wrap=false
-plugin_name
-  - extensions
-    - extension_1
-      - ...
-    - extension_2
-      - ...
-  - skills
-    - skill_1
-      - SKILLS.md
+plugin-name/
+├── plugin.json
+├── skills/
+│   └── skill-name/
+│       ├── SKILL.md
+│       ├── scripts/
+│       └── references/
+├── mcp.json
+└── com.example.client/
+    └── ...
 ```
 
-Plugins can bundle skills under `skills/`. Learn how to use [Skills slash commands](#using-skills) in chat.
+Every Agent Plugin has a root `plugin.json` manifest. The `skills/` directory contains [Agent Skills](https://agentskills.io/specification), `mcp.json` describes MCP servers, and reverse-domain directories hold client-specific extensions. All components except `plugin.json` are optional.
+
+A minimal manifest identifies the standard version and plugin name:
+
+```json word-wrap=false
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "plugin-name"
+}
+```
+
+See the [Agent Plugins authoring guide](https://agent-plugins.org/plugin-authors/build-an-agent-plugin) for the complete portable format. Learn how to use [Skills slash commands](#using-skills) in chat.
 
 ## Sync
 
@@ -287,7 +299,7 @@ Example shared session link: [chat.tiles.run/YXQ6Ly9k...ZTJr](https://chat.tiles
 
 ### Using Skills
 
-Plugins can ship skills alongside extensions. Tiles can also use available skills automatically during a conversation when appropriate.
+Agent Plugins can include skills under `skills/`. Tiles can also use available skills automatically during a conversation when appropriate.
 
 #### `/skills`
 

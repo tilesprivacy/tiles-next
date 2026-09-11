@@ -26,7 +26,8 @@ const features = [
           <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={15} height={15} loading="lazy" />
           <span>gemma-4-12b</span>
         </span>{" "}
-        on <a href="https://llama.app/">llama.cpp</a>, with plugin support for reusable, skill-based workflows.
+        on <a href="https://llama.app/">llama.cpp</a>, with{" "}
+        <a href="https://agent-plugins.org/">Agent Plugins</a> support for reusable, skill-based workflows.
       </>
     ),
   },

@@ -31,7 +31,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
 
   const showMakeYourOwnPluginCard =
     !normalizedQuery ||
-    "make your own plugin build your own plugin using the package layout".includes(
+    "make your own plugin build a portable plugin using the agent plugins standard package layout".includes(
       normalizedQuery,
     )
 
@@ -40,12 +40,24 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
         <div className="mx-auto w-full max-w-[768px]">
           <section className="min-w-0">
-            <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-              <div className="max-w-2xl">
+            <div className="mb-12 flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-10">
+              <div className="min-w-0 flex-1">
                 <h1 className={marketingPageTitleClass}>Extend the Agent</h1>
+                <p className="mt-4 max-w-[30rem] text-base leading-7 text-muted-foreground">
+                  Tiles plugins follow the open{" "}
+                  <a
+                    href="https://agent-plugins.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-foreground underline decoration-current/35 underline-offset-4 transition-opacity hover:opacity-75"
+                  >
+                    Agent Plugins standard
+                  </a>
+                  , a portable package format for reusable components that extend AI agents.
+                </p>
               </div>
 
-              <label className="relative block w-full md:mt-1.5 md:w-[18.75rem]">
+              <label className="relative block w-full md:mt-2 md:w-[18.75rem] md:shrink-0">
                 <span className="sr-only">Search plugins</span>
                 <input
                   type="search"
@@ -87,7 +99,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                       Make your own plugin
                     </span>
                     <span className="mt-0.5 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-5 text-muted-foreground">
-                      Build your own plugin using the package layout.
+                      Build a portable plugin using the Agent Plugins standard.
                     </span>
                   </span>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden />

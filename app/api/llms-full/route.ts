@@ -166,7 +166,8 @@ export async function GET(request: Request) {
   ])
 
   pushSection(lines, `Plugins (${baseUrl}/plugins)`, [
-    'Workflow plugins from the public Tiles plugin archive.',
+    'Tiles supports the open Agent Plugins standard for portable workflow plugins: https://agent-plugins.org/.',
+    'Agent Plugins use a root plugin.json manifest and can include Agent Skills under skills/, MCP servers in mcp.json, and client-specific extensions in reverse-domain directories.',
     'Current install pattern:',
     'tiles plugin install https://download.tiles.run/plugins/caldir.zip',
     'Plugins are distributed as zip files under https://download.tiles.run/plugins/.',

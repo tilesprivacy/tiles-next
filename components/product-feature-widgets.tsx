@@ -103,7 +103,11 @@ export function ProductFeatureWidgets({
           <img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width={14} height={14} loading="lazy" className="h-3.5 w-3.5 shrink-0" />
           <span className="font-mono text-[0.95em]">gemma4-12b</span>
         </span>
-        {', with Plugins support.'}
+        , with{" "}
+        <a href="https://agent-plugins.org/" target="_blank" rel="noopener noreferrer" className={featureLinkClass}>
+          Agent Plugins
+        </a>{" "}
+        support.
       </FeatureWidget>
 
       <FeatureWidget variant={variant} icon={<Cpu strokeWidth={1.75} />} title="On-device Models">
