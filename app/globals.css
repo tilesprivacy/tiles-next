@@ -946,20 +946,42 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   gap: 0.75rem;
   padding: 0.5rem 1rem 0.625rem;
   background: linear-gradient(transparent, #0d0f0ed9);
-  transition: opacity 160ms ease;
+  transition: opacity 240ms ease;
 }
 
-/* Touch devices keep the controls visible; pointers reveal them on demand. */
-@media (hover: hover) and (pointer: fine) {
-  .minimal-hero-video-controls {
-    opacity: 0;
-  }
+/* The idle timer hides the controls during playback so the full recording
+ * stays in view. Any pointer activity on the frame brings them back. */
+.minimal-hero-video-controls[data-hidden] {
+  opacity: 0;
+  pointer-events: none;
+}
 
-  .minimal-hero-video-frame:hover .minimal-hero-video-controls,
-  .minimal-hero-video-controls:focus-within,
-  .minimal-hero-video-controls[data-paused] {
-    opacity: 1;
-  }
+/* Keyboard focus keeps the controls available regardless of the idle timer. */
+.minimal-hero-video-controls:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.minimal-hero-video-frame:fullscreen {
+  border: 0;
+  border-radius: 0;
+}
+
+.minimal-hero-video-frame:fullscreen .minimal-hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.minimal-hero-video-frame:-webkit-full-screen {
+  border: 0;
+  border-radius: 0;
+}
+
+.minimal-hero-video-frame:-webkit-full-screen .minimal-hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .minimal-hero-video-toggle {
@@ -2936,7 +2958,10 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 @media (max-width: 520px) {
   .minimal-hero {
     height: auto;
-    max-height: 100dvh;
+    /* Small viewport units: 100dvh grows when the mobile browser UI collapses
+     * on the first scroll — the same moment the banner fades — resizing the
+     * demo row mid-scroll. svh is constant, so the player never shifts. */
+    max-height: 100svh;
     padding: calc(var(--site-announcement-height) + 7rem) 1.5rem 0;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: max-content minmax(0, 1fr);

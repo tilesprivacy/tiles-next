@@ -1,18 +1,46 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type CSSProperties } from "react"
-import { Pause, Play, RotateCcw } from "lucide-react"
+import { Maximize, Minimize, Pause, Play, RotateCcw } from "lucide-react"
+
+const CONTROLS_HIDE_DELAY = 3000
+
+// iPhone Safari has no element fullscreen API, only the native video presentation.
+interface WebKitVideoElement extends HTMLVideoElement {
+  webkitEnterFullscreen?: () => void
+}
+
+interface WebKitDocument extends Document {
+  webkitFullscreenElement?: Element | null
+}
 
 export function HomeHeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const frameRef = useRef<HTMLDivElement>(null)
   // A pause from the on-video control must survive the automatic resume paths.
   const userPausedRef = useRef(false)
+  const hideTimerRef = useRef(0)
   const [needsPlay, setNeedsPlay] = useState(false)
   const [failed, setFailed] = useState(false)
   const [webmOnly, setWebmOnly] = useState(false)
   const [paused, setPaused] = useState(true)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
+  const [controlsVisible, setControlsVisible] = useState(true)
+  const [fullscreen, setFullscreen] = useState(false)
+
+  const scheduleControlsHide = useCallback(() => {
+    window.clearTimeout(hideTimerRef.current)
+    hideTimerRef.current = window.setTimeout(() => {
+      // A paused demo keeps its resume affordance in view.
+      if (videoRef.current && !videoRef.current.paused) setControlsVisible(false)
+    }, CONTROLS_HIDE_DELAY)
+  }, [])
+
+  const showControls = useCallback(() => {
+    setControlsVisible(true)
+    scheduleControlsHide()
+  }, [scheduleControlsHide])
 
   const play = useCallback(() => {
     const video = videoRef.current
@@ -40,6 +68,7 @@ export function HomeHeroVideo() {
       setPaused(videoRef.current.paused)
       setDuration(videoRef.current.duration || 0)
     }
+    scheduleControlsHide()
     play()
     document.addEventListener("visibilitychange", play)
     window.addEventListener("pageshow", play)
@@ -48,8 +77,23 @@ export function HomeHeroVideo() {
       document.removeEventListener("visibilitychange", play)
       window.removeEventListener("pageshow", play)
       window.removeEventListener("focus", play)
+      window.clearTimeout(hideTimerRef.current)
     }
-  }, [play, webmOnly])
+  }, [play, scheduleControlsHide, webmOnly])
+
+  useEffect(() => {
+    const syncFullscreen = () => {
+      const fullscreenElement =
+        document.fullscreenElement ?? (document as WebKitDocument).webkitFullscreenElement
+      setFullscreen(!!fullscreenElement && fullscreenElement === frameRef.current)
+    }
+    document.addEventListener("fullscreenchange", syncFullscreen)
+    document.addEventListener("webkitfullscreenchange", syncFullscreen)
+    return () => {
+      document.removeEventListener("fullscreenchange", syncFullscreen)
+      document.removeEventListener("webkitfullscreenchange", syncFullscreen)
+    }
+  }, [])
 
   const togglePlayback = () => {
     const video = videoRef.current
@@ -60,6 +104,21 @@ export function HomeHeroVideo() {
     } else {
       userPausedRef.current = true
       video.pause()
+    }
+  }
+
+  const toggleFullscreen = () => {
+    const frame = frameRef.current
+    const video = videoRef.current as WebKitVideoElement | null
+    if (!frame || !video) return
+    const fullscreenElement =
+      document.fullscreenElement ?? (document as WebKitDocument).webkitFullscreenElement
+    if (fullscreenElement) {
+      void document.exitFullscreen().catch(() => {})
+    } else if (frame.requestFullscreen) {
+      void frame.requestFullscreen().catch(() => {})
+    } else {
+      video.webkitEnterFullscreen?.()
     }
   }
 
@@ -75,7 +134,12 @@ export function HomeHeroVideo() {
 
   return (
     <figure className="minimal-hero-demo">
-      <div className="minimal-hero-video-frame">
+      <div
+        ref={frameRef}
+        className="minimal-hero-video-frame"
+        onPointerMove={showControls}
+        onPointerDown={showControls}
+      >
         <video
           key={webmOnly ? "webm" : "auto"}
           ref={videoRef}
@@ -99,13 +163,17 @@ export function HomeHeroVideo() {
             // Re-sync playback state missed around hydration or suspensions.
             setPaused(video.paused)
           }}
-          onPlay={() => setPaused(false)}
+          onPlay={() => {
+            setPaused(false)
+            showControls()
+          }}
           onPlaying={() => {
             setNeedsPlay(false)
             setFailed(false)
           }}
           onPause={() => {
             setPaused(true)
+            setControlsVisible(true)
             if (!userPausedRef.current) setNeedsPlay(true)
           }}
           onError={() => {
@@ -125,7 +193,10 @@ export function HomeHeroVideo() {
           />
         </video>
         {!needsPlay && !failed && (
-          <div className="minimal-hero-video-controls" data-paused={paused || undefined}>
+          <div
+            className="minimal-hero-video-controls"
+            data-hidden={controlsVisible || paused ? undefined : ""}
+          >
             <button
               type="button"
               className="minimal-hero-video-toggle"
@@ -145,6 +216,14 @@ export function HomeHeroVideo() {
               onChange={seek}
               style={{ "--progress": `${progress}%` } as CSSProperties}
             />
+            <button
+              type="button"
+              className="minimal-hero-video-toggle"
+              aria-label={fullscreen ? "Exit full screen" : "Enter full screen"}
+              onClick={toggleFullscreen}
+            >
+              {fullscreen ? <Minimize size={16} aria-hidden="true" /> : <Maximize size={16} aria-hidden="true" />}
+            </button>
           </div>
         )}
         {(needsPlay || failed) && (
