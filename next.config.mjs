@@ -79,7 +79,7 @@ const nextConfig = {
         headers: brandingCacheControlHeaders,
       })),
       // Content hashes in these URLs make long-lived browser/CDN caching safe.
-      ...['tiles-demo.db8739e8.mp4', 'tiles-demo.65c19254.webm', 'tiles-demo-poster.c215d606.webp'].map((file) => ({
+      ...['tiles-demo.e8387081.mp4', 'tiles-demo.b8dce1a4.webm', 'tiles-demo-poster.d7c3964b.webp'].map((file) => ({
         source: `/${file}`,
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       })),

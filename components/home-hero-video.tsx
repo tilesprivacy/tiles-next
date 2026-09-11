@@ -48,14 +48,14 @@ export function HomeHeroVideo() {
           key={webmOnly ? "webm" : "auto"}
           ref={videoRef}
           className="minimal-hero-video"
-          poster="/tiles-demo-poster.c215d606.webp"
+          poster="/tiles-demo-poster.d7c3964b.webp"
           autoPlay
           loop
           muted
           playsInline
           preload="metadata"
           width={1280}
-          height={832}
+          height={896}
           aria-label="Tiles desktop app demo"
           onCanPlay={play}
           onPlaying={() => {
@@ -71,10 +71,10 @@ export function HomeHeroVideo() {
           }}
         >
           {!webmOnly && (
-            <source src="/tiles-demo.db8739e8.mp4" type="video/mp4" />
+            <source src="/tiles-demo.e8387081.mp4" type="video/mp4" />
           )}
           <source
-            src="/tiles-demo.65c19254.webm"
+            src="/tiles-demo.b8dce1a4.webm"
             type="video/webm"
             onError={() => setFailed(true)}
           />

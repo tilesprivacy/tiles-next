@@ -910,7 +910,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1280 / 832;
+  aspect-ratio: 1280 / 896;
 }
 
 .minimal-hero-video-play {
@@ -2862,8 +2862,8 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
     height: 100%;
     min-height: 0;
     max-width: 100%;
-    max-height: calc((100vw - 3rem) * 0.65);
-    aspect-ratio: 1280 / 832;
+    max-height: calc((100vw - 3rem) * 0.7);
+    aspect-ratio: 1280 / 896;
     display: block;
   }
   .minimal-hero-video-frame {

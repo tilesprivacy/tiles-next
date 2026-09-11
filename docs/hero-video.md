@@ -1,16 +1,16 @@
 # Landing page demo
 
-The hero uses the complete replacement recording from September 9, 2026, without audio. Its playback duration is 107.767 seconds.
+The hero uses the complete replacement recording from September 11, 2026, without audio. Its playback duration is 76.767 seconds.
 
 The desktop hero is centered within a 72 rem container, with responsive side padding, a 48 px column gap, and 80 px of clearance below the site header. A 40:60 column split and a 24 rem paragraph width keep the copy close to the video. The frame has no surrounding glow or shadow. Below 768 px, the video sits beneath the copy with 24 px side gutters, a 40 px gap, and 48 px header clearance. The next content section starts 96 px below the mobile hero and 128 px below the desktop hero. Short phones scale the full recording to the remaining viewport height without cropping it. The download button and centered body-content stack are unchanged.
 
 | Asset | Encoding | Bytes |
 | --- | --- | ---: |
-| `tiles-demo.db8739e8.mp4` | H.264 Main, level 4.0, 8-bit YUV 4:2:0 | 2,925,926 |
-| `tiles-demo.65c19254.webm` | VP9, 8-bit YUV 4:2:0 | 3,323,177 |
-| `tiles-demo-poster.c215d606.webp` | WebP still from 12 seconds into the recording | 68,970 |
+| `tiles-demo.e8387081.mp4` | H.264 Main, level 4.0, 8-bit YUV 4:2:0 | 4,456,667 |
+| `tiles-demo.b8dce1a4.webm` | VP9, 8-bit YUV 4:2:0 | 4,384,087 |
+| `tiles-demo-poster.d7c3964b.webp` | WebP still from 12 seconds into the recording | 15,374 |
 
-Both video versions are 1280 × 832 at a constant 30 fps. The MP4 is selected first because it is smaller. Its metadata precedes the media data (`faststart`), so playback does not need to wait for the complete download. The original recording was 82,699,827 bytes. The MP4 is 96.5% smaller, with no cuts or speed changes.
+Both video versions are 1280 × 896 at a constant 30 fps. The MP4 is selected first for broad browser compatibility. Its metadata precedes the media data (`faststart`), so playback does not need to wait for the complete download. The original recording was 36,858,542 bytes. The MP4 is 87.9% smaller, with no cuts or speed changes.
 
 Autoplay is muted and inline, and native looping remains enabled. Browsers may still suspend playback or require a user gesture. The player resumes on focus, visibility, and page restoration, and exposes a Play demo button if paused. Failed requests can be retried. Unsupported MP4 and runtime decoding failures can fall back to WebM.
 

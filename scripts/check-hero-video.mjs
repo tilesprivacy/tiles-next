@@ -82,7 +82,7 @@ async function phoneLayout(page) {
   assert.ok(layout.frame.left >= 0 && layout.frame.right <= layout.viewport.width)
   assert.ok(layout.frame.bottom <= layout.viewport.height, 'Entire demo fits the phone viewport')
   assert.ok(layout.hero.bottom <= layout.viewport.height + 1, 'Mobile hero fits one viewport')
-  assert.ok(Math.abs(layout.video.width / layout.video.height - 1280 / 832) < 0.04,
+  assert.ok(Math.abs(layout.video.width / layout.video.height - 1280 / 896) < 0.04,
     'Show the full recording without cropping')
   await bannerDoesNotResizeDemo(page)
   await playing(page)
@@ -108,8 +108,8 @@ async function playing(page, extension = 'mp4') {
   assert.equal(state.muted, true)
   assert.equal(state.inline, true)
   assert.equal(state.width, 1280)
-  assert.equal(state.height, 832)
-  assert.ok(Math.abs(state.duration - 107.767) < 0.1, 'Load the replacement recording')
+  assert.equal(state.height, 896)
+  assert.ok(Math.abs(state.duration - 76.767) < 0.1, 'Load the replacement recording')
   // Check decoded frames, not just an advancing clock or the poster image.
   await page.locator(selector).evaluate(video => new Promise((resolve, reject) => {
     const timer = setTimeout(() => reject(new Error('No decoded video frames')), 5000)
