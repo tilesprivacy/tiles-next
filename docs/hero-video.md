@@ -1,16 +1,16 @@
 # Landing page demo
 
-The hero uses the complete replacement recording from September 11, 2026, without audio. Its playback duration is 76.767 seconds.
+The hero uses the updated replacement recording supplied on September 12, 2026, without audio. Its playback duration is 76.767 seconds.
 
 The desktop hero is centered within a 72 rem container, with responsive side padding, a 48 px column gap, and 80 px of clearance below the site header. A 40:60 column split and a 24 rem paragraph width keep the copy close to the video. The frame has no surrounding glow or shadow. Below 768 px, the video sits beneath the copy with 24 px side gutters, a 40 px gap, and 48 px header clearance. The next content section starts 96 px below the mobile hero and 128 px below the desktop hero. Short phones scale the full recording to the remaining viewport height without cropping it. The download button and centered body-content stack are unchanged.
 
 | Asset | Encoding | Bytes |
 | --- | --- | ---: |
-| `tiles-demo.e8387081.mp4` | H.264 Main, level 4.0, 8-bit YUV 4:2:0 | 4,456,667 |
-| `tiles-demo.b8dce1a4.webm` | VP9, 8-bit YUV 4:2:0 | 4,384,087 |
-| `tiles-demo-poster.d7c3964b.webp` | WebP still from 12 seconds into the recording | 15,374 |
+| `tiles-demo.48de4a8b.mp4` | H.264 Main, level 4.0, 8-bit YUV 4:2:0 | 4,417,448 |
+| `tiles-demo.8492c6fd.webm` | VP9, 8-bit YUV 4:2:0 | 3,913,056 |
+| `tiles-demo-poster.2a1af717.webp` | WebP still from 12 seconds into the recording | 17,182 |
 
-Both video versions are 1280 × 896 at a constant 30 fps. The MP4 is selected first for broad browser compatibility. Its metadata precedes the media data (`faststart`), so playback does not need to wait for the complete download. The original recording was 36,858,542 bytes. The MP4 is 87.9% smaller, with no cuts or speed changes.
+Both video versions are 1280 × 896 at a constant 30 fps. The MP4 is selected first for broad browser compatibility. Its metadata precedes the media data (`faststart`), so playback does not need to wait for the complete download. The supplied recording was 83,039,596 bytes. The MP4 is 94.7% smaller, with no cuts or speed changes.
 
 Autoplay is muted and inline, and native looping remains enabled. The frame overlays simple controls: a play/pause toggle, a seek bar, and a full-screen toggle. The controls fade out after three idle seconds during playback so the full recording stays in view; pointer activity on the frame, keyboard focus, or pausing brings them back. Pausing through the toggle is respected until the visitor plays again. Full screen uses the frame element where the API exists and falls back to the native video presentation on iPhone. The mobile hero is capped with `svh` rather than `dvh` units, so collapsing browser UI on the first scroll cannot resize the player. Browsers may still suspend playback or require a user gesture. The player resumes on focus, visibility, and page restoration, and exposes a Play demo button if paused outside the toggle. Failed requests can be retried. Unsupported MP4 and runtime decoding failures can fall back to WebM.
 
@@ -20,17 +20,17 @@ Use the original recording, not an already compressed web copy. These commands r
 
 ```sh
 ffmpeg -i source.mov -map 0:v:0 -an \
-  -vf 'fps=30,scale=1280:-2:flags=lanczos,setsar=1' \
+  -vf 'fps=30,scale=1280:896:flags=lanczos,setsar=1' \
   -c:v libx264 -preset slow -crf 23 -profile:v main -level 4.0 \
   -pix_fmt yuv420p -movflags +faststart -map_metadata -1 tiles-demo.mp4
 
 ffmpeg -i source.mov -map 0:v:0 -an \
-  -vf 'fps=30,scale=1280:-2:flags=lanczos,setsar=1' \
+  -vf 'fps=30,scale=1280:896:flags=lanczos,setsar=1' \
   -c:v libvpx-vp9 -b:v 0 -crf 32 -row-mt 1 -cpu-used 3 \
   -pix_fmt yuv420p -map_metadata -1 tiles-demo.webm
 
 ffmpeg -ss 12 -i source.mov -frames:v 1 \
-  -vf 'scale=1280:-2:flags=lanczos,setsar=1' \
+  -vf 'scale=1280:896:flags=lanczos,setsar=1' \
   -c:v libwebp -quality 82 -map_metadata -1 tiles-demo-poster.webp
 ```
 

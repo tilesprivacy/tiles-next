@@ -133,7 +133,15 @@ async function check(engine) {
     page.on('pageerror', error => errors.push(error.message))
     await page.goto(origin, { waitUntil: 'domcontentloaded' })
     await playing(page)
-    assert.equal(await page.getByRole('button', { name: 'Play demo', exact: true }).count(), 0)
+    assert.equal(await page.getByRole('button', { name: 'Pause', exact: true }).count(), 1)
+    assert.equal(await page.getByRole('button', { name: 'Play', exact: true }).count(), 0)
+
+    // The persistent control pauses and resumes playback without a reload.
+    await page.getByRole('button', { name: 'Pause', exact: true }).click()
+    assert.equal(await page.locator(selector).evaluate(video => video.paused), true)
+    await page.getByRole('button', { name: 'Play', exact: true }).click()
+    await playing(page)
+    await page.getByRole('button', { name: 'Pause', exact: true }).waitFor()
 
     const sources = await page.locator(`${selector} source`).evaluateAll(nodes => nodes.map(node => node.src))
     for (const src of sources) {
