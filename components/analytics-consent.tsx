@@ -58,10 +58,10 @@ export function AnalyticsConsent() {
           onKeyDown={(event) => {
             if (event.key === 'Escape') closeExistingChoice()
           }}
-          className="fixed inset-x-4 bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] z-[110] max-h-[calc(100dvh-2rem-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto rounded-xl border border-border bg-popover p-5 text-popover-foreground shadow-[0_24px_80px_rgba(0,0,0,0.24)] outline-none animate-in fade-in slide-in-from-bottom-3 duration-300 motion-reduce:animate-none sm:inset-x-auto sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:w-[min(36rem,calc(100vw-3rem))] sm:p-7 dark:shadow-[0_24px_80px_rgba(0,0,0,0.58)]"
+          className="fixed inset-x-4 bottom-[calc(1rem+env(safe-area-inset-bottom,0px))] z-[110] max-h-[calc(100dvh-2rem-env(safe-area-inset-top,0px)-env(safe-area-inset-bottom,0px))] overflow-y-auto rounded-lg border border-border bg-popover p-4 text-popover-foreground shadow-[0_24px_80px_rgba(0,0,0,0.24)] outline-none animate-in fade-in slide-in-from-bottom-3 duration-300 motion-reduce:animate-none sm:inset-x-auto sm:right-[calc(1.5rem+env(safe-area-inset-right,0px))] sm:bottom-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:w-[min(28rem,calc(100vw-3rem))] sm:p-5 dark:shadow-[0_24px_80px_rgba(0,0,0,0.58)]"
           data-pagefind-ignore="all"
         >
-          <div className="space-y-4 text-[0.95rem] leading-7 sm:text-base">
+          <div className="space-y-2 text-sm leading-5">
             <p id="analytics-consent-title" className="m-0">
               <strong className="font-semibold">Hi, it&apos;s us, Tiles.</strong>{' '}
               We hate these things as much as anyone, but the marketing gods demand conversion metrics.
@@ -79,18 +79,18 @@ export function AnalyticsConsent() {
               .
             </p>
           </div>
-          <div className="mt-6 flex flex-wrap justify-end gap-3">
+          <div className="mt-4 flex flex-nowrap justify-end gap-2">
             <button
               type="button"
               onClick={() => finishChoice('rejected')}
-              className="inline-flex min-h-11 min-w-28 items-center justify-center rounded-md border border-border bg-muted px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover"
+              className="inline-flex min-h-10 min-w-20 items-center justify-center rounded-md border border-border bg-muted px-4 py-2 text-xs font-medium leading-none text-foreground transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover"
             >
               Reject
             </button>
             <button
               type="button"
               onClick={() => finishChoice('accepted')}
-              className="inline-flex min-h-11 min-w-28 items-center justify-center rounded-md border border-foreground bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover"
+              className="inline-flex min-h-10 min-w-20 items-center justify-center rounded-md border border-foreground bg-foreground px-4 py-2 text-xs font-medium leading-none text-background transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-popover"
             >
               Accept
             </button>
