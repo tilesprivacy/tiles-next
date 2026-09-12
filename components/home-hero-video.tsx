@@ -144,6 +144,7 @@ export function HomeHeroVideo() {
           key={webmOnly ? "webm" : "auto"}
           ref={videoRef}
           className="minimal-hero-video"
+          poster="/tiles-demo-poster.d0ad9089.webp"
           autoPlay={false}
           loop
           muted
