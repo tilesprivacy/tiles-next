@@ -7,6 +7,7 @@ import { SocialIcon } from "@/components/social-links"
 import { SponsorUsdtDonateButton } from "@/components/sponsor-usdt-donate-button"
 import { people, splitPersonDisplayName } from "@/lib/people"
 import { solPbcPartner } from "@/lib/sponsor-partners"
+import { SPONSORS_PROGRESS_PERCENT_FALLBACK } from "@/lib/sponsors-goal"
 
 interface SponsorContentProps {
   sponsorsGoal: {
@@ -66,7 +67,7 @@ function SponsorList({
 export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
   const progress = sponsorsGoal.progressPercent
     ? `${sponsorsGoal.progressPercent.replace(/%$/, "")}%`
-    : "95%"
+    : SPONSORS_PROGRESS_PERCENT_FALLBACK
   return (
     <div className="minimal-product-page">
       <MinimalTopbar />
