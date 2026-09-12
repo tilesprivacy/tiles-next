@@ -889,13 +889,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   gap: 0.5rem;
 }
 
-.minimal-hero-video-caption {
-  color: var(--muted-foreground);
-  font-size: 0.75rem;
-  line-height: 1.5;
-  text-align: center;
-}
-
 .minimal-hero-video-frame {
   position: relative;
   width: 100%;
@@ -2075,6 +2068,80 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   color: var(--muted-foreground);
   font-weight: 600;
 }
+.minimal-sponsor-page .minimal-partner-profile {
+  display: grid;
+  grid-template-columns: minmax(10rem, 12rem) minmax(0, 1fr);
+  align-items: start;
+  gap: 2rem;
+}
+.minimal-sponsor-page .minimal-partner-company {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-sponsor-page .minimal-partner-founder-profile {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-sponsor-page .minimal-partner-founder-avatar {
+  display: inline-flex;
+  flex: none;
+}
+.minimal-sponsor-page .minimal-partner-founder-copy {
+  flex: 1;
+  min-width: 0;
+  gap: 0.25rem;
+}
+.minimal-sponsor-page .minimal-partner-founder-identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.45rem;
+}
+.minimal-sponsor-page .minimal-partner-founder-identity strong {
+  color: var(--foreground);
+  font-size: 0.875rem;
+}
+.minimal-sponsor-page .minimal-partner-founder-role {
+  color: #a1a1aa;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+@media (max-width: 639px) {
+  .minimal-sponsor-page .minimal-partner-profile {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-block: 1.25rem;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-profile {
+    width: 100%;
+    margin-top: 0.875rem;
+    align-items: center;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-avatar > img,
+  .minimal-sponsor-page .minimal-partner-founder-avatar > span {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-identity {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.1rem;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-role {
+    padding-right: 0.25rem;
+  }
+}
 .minimal-sponsor-page .minimal-team a {
   color: var(--foreground);
 }
@@ -2998,11 +3065,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   .minimal-hero-video-frame {
     height: 100%;
     border-radius: 0.75rem;
-  }
-  .minimal-hero-video-caption {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    inset-inline: 0;
   }
   .minimal-hero-video {
     height: 100%;

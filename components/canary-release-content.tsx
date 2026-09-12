@@ -9,6 +9,11 @@ import {
   CANARY_RELEASE_DESCRIPTION,
   CANARY_RELEASE_URL,
 } from "@/lib/download-page-data"
+import {
+  downloadButtonIconMotionClasses,
+  downloadButtonMotionClasses,
+  themeAwareHeaderPrimaryCtaClasses,
+} from "@/lib/header-primary-cta-classes"
 
 export function CanaryReleaseContent({ initialRelease }: { initialRelease: CanaryReleaseData | null }) {
   const [release, setRelease] = useState(initialRelease)
@@ -69,18 +74,21 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
           </time>
         </p>
       )}
-      <ul className="mt-6 grid list-none gap-4 p-0" aria-label="Canary downloads">
+      <ul className="minimal-download-actions list-none p-0" aria-label="Canary downloads">
         {assets.map((asset) => (
-          <li key={asset.name} className="min-w-0">
+          <li key={asset.name} className="minimal-download-option">
             <a
               href={asset.browser_download_url}
-              className="inline-flex max-w-full items-start gap-2 underline underline-offset-4"
+              className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
             >
-              <Download size={16} className="mt-1 shrink-0" aria-hidden />
-              <span className="min-w-0 break-all">{asset.name}</span>
+              <span>Download canary installer</span>
+              <Download
+                className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+                aria-hidden
+              />
             </a>
             {typeof asset.size === "number" && (
-              <span className="mt-1 block pl-6 text-xs text-muted-foreground">
+              <span className="minimal-download-size">
                 {asset.size < 1024
                   ? `${asset.size} bytes`
                   : asset.size < 1024 * 1024

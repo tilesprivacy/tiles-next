@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import { AnalyticsConsent } from "@/components/analytics-consent"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeFavicon } from "@/components/theme-favicon"
@@ -10,7 +11,10 @@ import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-regis
 import { ScrollAtTopMarker } from "@/components/scroll-at-top-marker"
 import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
 import { getSocialImage } from "@/lib/social-image"
-import { DEFAULT_SITE_THEME } from "@/lib/site-theme"
+import { HOME_PAGE_THEME, HOME_PATH } from "@/lib/home-page-theme"
+import { OWN_YOUR_AI_PAGE_THEME, OWN_YOUR_AI_PATH } from "@/lib/own-your-ai-theme"
+import { SPONSOR_PAGE_THEME, SPONSOR_PATH } from "@/lib/sponsor-page-theme"
+import { CYBERPUNK_THEME, DEFAULT_SITE_THEME } from "@/lib/site-theme"
 import "./globals.css"
 
 const geist = Geist({
@@ -25,6 +29,8 @@ const geistMono = Geist_Mono({
 })
 
 const socialImage = getSocialImage()
+
+const initialThemeScript = `(function(){try{var d=document.documentElement,p=location.pathname,t=null;if(p===${JSON.stringify(HOME_PATH)})t=${JSON.stringify(HOME_PAGE_THEME)};else if(p===${JSON.stringify(SPONSOR_PATH)}||p.indexOf(${JSON.stringify(`${SPONSOR_PATH}/`)})===0)t=${JSON.stringify(SPONSOR_PAGE_THEME)};else if(p===${JSON.stringify(OWN_YOUR_AI_PATH)}||p.indexOf(${JSON.stringify(`${OWN_YOUR_AI_PATH}/`)})===0)t=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};if(t)d.dataset.pageTheme=t;else delete d.dataset.pageTheme;var k="tiles-theme",c=${JSON.stringify(CYBERPUNK_THEME)},v=null;try{v=localStorage.getItem(k);if(v===c){v="dark";localStorage.setItem(k,v);}}catch(e){}var dark=v==="dark"||(v!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);d.classList.toggle("dark",dark);}catch(e){}})();`
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -99,6 +105,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Tiles Privacy" />
       </head>
       <body className={`${geist.className} antialiased`}>
+        <Script id="tiles-initial-theme" strategy="beforeInteractive">
+          {initialThemeScript}
+        </Script>
         <ThemeProvider
           attribute="class"
           defaultTheme={DEFAULT_SITE_THEME}

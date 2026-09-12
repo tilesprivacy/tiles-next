@@ -144,7 +144,7 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
               <div className="mb-12">
                 <div className="mb-4 flex items-center justify-between gap-4">
                   <h2 className={marketingPageSubsectionTitleClass}>
-                    MCP <span className="text-muted-foreground/55">{mcpServers.length}</span>
+                    MCP <span className="ml-2 text-muted-foreground/55">{mcpServers.length}</span>
                   </h2>
                   <a
                     href={mcpServers[0].sourceUrl}
@@ -177,7 +177,7 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
             {skills.length > 0 ? (
               <div className={metadata ? "mb-12" : undefined}>
                 <h2 className={`mb-4 ${marketingPageSubsectionTitleClass}`}>
-                  Skills <span className="text-muted-foreground/55">{skills.length}</span>
+                  Skills <span className="ml-2 text-muted-foreground/55">{skills.length}</span>
                 </h2>
                 <div className="overflow-hidden rounded-[8px] bg-secondary/65">
                   {skills.map((skill, index) => (

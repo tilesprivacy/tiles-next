@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { SocialIcon } from "@/components/social-links"
 import { SponsorUsdtDonateButton } from "@/components/sponsor-usdt-donate-button"
 import { people, splitPersonDisplayName } from "@/lib/people"
+import { solPbcPartner } from "@/lib/sponsor-partners"
 
 interface SponsorContentProps {
   sponsorsGoal: {
@@ -195,13 +196,41 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               <h2>Partners</h2>
               <span>1</span>
             </div>
-            <a className="minimal-partner" href="https://solpbc.org/">
-              <Image src="/sol-pbc.svg" alt="Sol PBC" width={44} height={44} />
-              <span>
-                <strong className="font-normal">Sol PBC</strong>
-                <small>solpbc.org</small>
-              </span>
-            </a>
+            <div className="minimal-partner minimal-partner-profile">
+              <a
+                className="minimal-partner-company"
+                href={solPbcPartner.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image src="/sol-pbc.svg" alt="" width={44} height={44} />
+                <span>
+                  <strong className="font-normal">{solPbcPartner.name}</strong>
+                  <small>solpbc.org</small>
+                </span>
+              </a>
+              <a
+                className="minimal-partner-founder-profile"
+                href={solPbcPartner.founderUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PersonAvatar
+                  name={solPbcPartner.founderName}
+                  links={[solPbcPartner.founderUrl]}
+                  className="minimal-partner-founder-avatar"
+                />
+                <span className="minimal-partner-founder-copy">
+                  <span className="minimal-partner-founder-identity">
+                    <strong>{solPbcPartner.founderName}</strong>
+                    <small>{solPbcPartner.founderHandle}</small>
+                  </span>
+                  <small className="minimal-partner-founder-role">
+                    {solPbcPartner.founderRole}
+                  </small>
+                </span>
+              </a>
+            </div>
           </section>
 
           <div className="minimal-sponsor-grid">

@@ -27,9 +27,6 @@ export function MinimalFooter() {
       </div>
       <div className="space-y-1">
         <p className="lg:whitespace-nowrap">
-          Read the <Link href="/book/manual">User Manual</Link>.
-        </p>
-        <p className="lg:whitespace-nowrap">
           Embed Tiles into your product with <Link href="/book/tilekit">Tilekit</Link>.
         </p>
       </div>

@@ -16,7 +16,6 @@ import {
   isOwnYourAiPath,
 } from '@/lib/own-your-ai-theme'
 import {
-  CYBERPUNK_THEME,
   SITE_THEMES,
   SITE_THEME_CLASS_VALUES,
 } from '@/lib/site-theme'
@@ -55,7 +54,6 @@ function DarkClassSync() {
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   const pathname = usePathname()
   const pageTheme = getPageTheme(pathname)
-  const storageKey = props.storageKey ?? 'theme'
 
   React.useLayoutEffect(() => {
     const root = document.documentElement
@@ -78,13 +76,6 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
       themes={[...SITE_THEMES]}
       value={SITE_THEME_CLASS_VALUES}
     >
-      {/* Runs immediately after next-themes’ blocking script so first paint has `.dark`.
-          Also migrates the retired stored "cyberpunk" selection to "dark". */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `(function(){try{var d=document.documentElement,k=${JSON.stringify(storageKey)},c=${JSON.stringify(CYBERPUNK_THEME)};try{if(localStorage.getItem(k)===c){localStorage.setItem(k,"dark");d.classList.remove("light");d.classList.add(c);d.style.colorScheme="dark";}}catch(e){}if(d.classList.contains(c))d.classList.add("dark");else d.classList.remove("dark");}catch(e){}})();`,
-        }}
-      />
       <DarkClassSync />
       {children}
     </NextThemesProvider>

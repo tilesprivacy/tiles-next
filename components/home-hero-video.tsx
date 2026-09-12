@@ -239,9 +239,6 @@ export function HomeHeroVideo() {
           </div>
         )}
       </div>
-      <figcaption className="minimal-hero-video-caption">
-        Featuring Tiles Canary release on macOS.
-      </figcaption>
     </figure>
   )
 }

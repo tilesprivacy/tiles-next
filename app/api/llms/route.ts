@@ -4,6 +4,7 @@ import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getTilesPlugins } from '@/lib/plugins'
 import { CANARY_RELEASE_DESCRIPTION, CANARY_RELEASE_URL } from '@/lib/download-page-data'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
+import { solPbcPartner } from '@/lib/sponsor-partners'
 import fs from 'fs'
 import path from 'path'
 
@@ -68,7 +69,6 @@ export async function GET(request: Request) {
   lines.push('## Overview')
   lines.push('')
   lines.push(TILES_PRODUCT_DESCRIPTION)
-  lines.push('Homepage video caption: Featuring Tiles Canary release on macOS.')
   lines.push('')
   lines.push(
     'Tiles is built by Tiles Privacy, an independent team devoted to user agency. The website focuses on the public alpha, product documentation, plugins, release notes, support, sponsorship, and legal information.',
@@ -102,6 +102,7 @@ export async function GET(request: Request) {
     `- Sponsor page: ${baseUrl}/sponsor`,
     '- Support Tiles Privacy and help fund private, local-first AI.',
     `- ${sponsorPageTeamSentence}`,
+    `- Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
     '- GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
   ])
 
@@ -130,7 +131,7 @@ export async function GET(request: Request) {
     `- Terms: ${baseUrl}/terms`,
     `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 7-day money-back guarantee on the initial subscription payment.`,
     `- Subprocessors: ${baseUrl}/sub-processors`,
-    `- Press Kit: ${baseUrl}/press-kit`,
+    `- Press Kit: ${baseUrl}/press-kit - Product background, company details, press contact, brand files, and current product screenshots.`,
     `- Brand: ${baseUrl}/brand`,
     `- AI-readable website index: ${baseUrl}/llms.txt`,
   ])

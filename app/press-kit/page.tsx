@@ -20,7 +20,7 @@ import { ownYourAiTalkRecording } from "@/lib/own-your-ai-talk"
 const socialImage = getSocialImage("Press Kit")
 
 const pageDescription =
-  "Editorial summary, brand files, screenshots, and contact details for writing about Tiles."
+  "Editorial summary, brand files, screenshots, company details, and contact details for writing about Tiles."
 
 export const metadata: Metadata = {
   title: "Press Kit | Tiles",
@@ -66,8 +66,10 @@ const siteLinks: Array<{ label: string; href: string; external?: boolean }> = [
 
 const companyDetails: Array<{ label: string; value: string }> = [
   { label: "Legal name", value: "Tiles Privacy Technologies Pvt. Ltd." },
-  { label: "CIN", value: "U58200KA2026PTC226312" },
   { label: "GSTIN", value: "29AANCT5152A1ZB" },
+  { label: "PAN", value: "AANCT5152A" },
+  { label: "CIN", value: "U58200KA2026PTC226312" },
+  { label: "TAN", value: "BLRT28790G" },
 ]
 
 export default function PressKitPage() {
@@ -79,9 +81,39 @@ export default function PressKitPage() {
             Tiles press kit
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
-            Everything you need to write about Tiles: product background, brand files, screenshots, and contact
-            details.
+            Everything you need to write about Tiles: product background, brand files, screenshots, company details,
+            and contact details.
           </p>
+
+          <h2 id="company-details" className={`mt-16 ${marketingPageSectionTitleClass}`}>Company details</h2>
+          <dl className="mt-4 max-w-2xl divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
+            {companyDetails.map((detail) => (
+              <div key={detail.label} className="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
+                <dt className="w-36 shrink-0 text-sm font-medium leading-[1.7] text-foreground">{detail.label}</dt>
+                <dd className="text-sm leading-[1.7] text-black/65 dark:text-[#B3B3B3]">{detail.value}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <h3 className={`mt-10 ${marketingPageSubsectionTitleClass}`}>Contact</h3>
+          <div className="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
+            <p>
+              <span className="font-medium text-foreground">Press and general inquiries:</span>{" "}
+              <a href="mailto:hello@tiles.run" className={externalLinkClasses}>
+                hello@tiles.run
+              </a>
+            </p>
+            <p>
+              <span className="font-medium text-foreground">Phone:</span>{" "}
+              <a href="tel:+917338014129" className={externalLinkClasses}>
+                +91 7338014129
+              </a>
+            </p>
+            <address className="not-italic">
+              <span className="font-medium text-foreground">Address:</span> WeWork Prestige Atlanta, 80 Feet Rd,
+              Koramangala, Bengaluru, IN 560034
+            </address>
+          </div>
 
           <h2 id="product" className={`mt-16 ${marketingPageSectionTitleClass}`}>Product</h2>
           <div className="mt-4 max-w-2xl space-y-4 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
@@ -124,6 +156,101 @@ export default function PressKitPage() {
             </Link>
             .
           </p>
+
+          <h2 id="screenshots" className={`mt-16 ${marketingPageSectionTitleClass}`}>Screenshots</h2>
+          <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
+            Current product screenshots for use in articles and coverage of Tiles.
+          </p>
+
+          <div className="mt-10 grid gap-x-6 gap-y-8 sm:grid-cols-2">
+            <div>
+              <div className="flex w-full">
+                <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-sm border border-black/10 bg-black/[0.025] p-2 dark:border-white/10 dark:bg-white/[0.03]">
+                  <Image
+                    src="/tiles-app.png"
+                    alt="Tiles desktop app ready to start a conversation"
+                    width={2654}
+                    height={1908}
+                    sizes="(max-width: 639px) calc(100vw - 3rem), 372px"
+                    className="h-full w-full object-contain [content-visibility:visible]"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-sm leading-snug text-black/55 dark:text-[#929292]">
+                Tiles App.
+              </p>
+            </div>
+
+            <div>
+              <div className="flex w-full">
+                <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-sm border border-black/10 bg-black/[0.025] p-2 dark:border-white/10 dark:bg-white/[0.03]">
+                  <Image
+                    src="/tiles-menubar-app-v2.png"
+                    alt="Tiles menu bar app showing accounts, model, chats, and remote inference settings"
+                    width={1103}
+                    height={1426}
+                    sizes="(max-width: 639px) calc(100vw - 3rem), 372px"
+                    className="h-full w-full object-contain [content-visibility:visible]"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-sm leading-snug text-black/55 dark:text-[#929292]">
+                Menu bar app.
+              </p>
+            </div>
+
+            <div>
+              <div className="flex w-full">
+                <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-sm border border-black/10 bg-black/[0.025] p-2 dark:border-white/10 dark:bg-white/[0.03]">
+                  <Image
+                    src="/lightshare.png"
+                    alt="A conversation shared from Tiles as a public link on tiles.run, light theme"
+                    width={3126}
+                    height={2172}
+                    sizes="(max-width: 639px) calc(100vw - 3rem), 372px"
+                    className="h-full w-full object-contain [content-visibility:visible] dark:hidden"
+                  />
+                  <Image
+                    src="/darkshare.png"
+                    alt="A conversation shared from Tiles as a public link on tiles.run, dark theme"
+                    width={3118}
+                    height={2162}
+                    sizes="(max-width: 639px) calc(100vw - 3rem), 372px"
+                    className="hidden h-full w-full object-contain [content-visibility:visible] dark:block"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-sm leading-snug text-black/55 dark:text-[#929292]">
+                A conversation shared from Tiles as a public link on tiles.run.
+              </p>
+            </div>
+
+            <div>
+              <div className="flex w-full">
+                <div className="flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-sm border border-black/10 bg-black/[0.025] p-2 dark:border-white/10 dark:bg-white/[0.03]">
+                  <Image
+                    src="/clilight.png"
+                    alt="Tiles CLI onboarding screen in the terminal, light theme"
+                    width={875}
+                    height={1798}
+                    sizes="(max-width: 639px) calc(100vw - 3rem), 372px"
+                    className="h-full w-full object-contain [content-visibility:visible] dark:hidden"
+                  />
+                  <Image
+                    src="/clidark.png"
+                    alt="Tiles CLI onboarding screen in the terminal, dark theme"
+                    width={780}
+                    height={1864}
+                    sizes="(max-width: 639px) calc(100vw - 3rem), 372px"
+                    className="hidden h-full w-full object-contain [content-visibility:visible] dark:block"
+                  />
+                </div>
+              </div>
+              <p className="mt-3 text-sm leading-snug text-black/55 dark:text-[#929292]">
+                Onboarding flow for the Tiles CLI.
+              </p>
+            </div>
+          </div>
 
           <h2 id="brand-files" className={`mt-16 ${marketingPageSectionTitleClass}`}>Brand files</h2>
           <a
@@ -219,68 +346,7 @@ export default function PressKitPage() {
             , an umbrella organization rethinking machine-learning tools that work for people, not corporations.
           </p>
 
-          <h2 id="screenshots" className={`mt-16 ${marketingPageSectionTitleClass}`}>Screenshots</h2>
-          <p className="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
-            Current product screenshots for use in articles and coverage of Tiles.
-          </p>
-
-          <div className="mt-10 space-y-10">
-            <div>
-              <div className="mx-auto flex w-full max-w-sm justify-center">
-                <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
-                  <Image
-                    src="/clilight.png"
-                    alt="Tiles CLI onboarding screen in the terminal, light theme"
-                    width={875}
-                    height={1798}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), 384px"
-                    className="mx-auto h-auto w-full object-contain [content-visibility:visible] dark:hidden"
-                  />
-                  <Image
-                    src="/clidark.png"
-                    alt="Tiles CLI onboarding screen in the terminal, dark theme"
-                    width={780}
-                    height={1864}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), 384px"
-                    className="mx-auto hidden h-auto w-full object-contain [content-visibility:visible] dark:block"
-                  />
-                </div>
-              </div>
-              <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
-                Onboarding flow for the Tiles CLI.
-              </p>
-            </div>
-
-            <div>
-              <div className="mx-auto flex w-full max-w-3xl justify-center">
-                <div className="w-full overflow-hidden rounded-sm border border-black/10 dark:border-white/10">
-                  <Image
-                    src="/lightshare.png"
-                    alt="A conversation shared from Tiles as a public link on tiles.run, light theme"
-                    width={3126}
-                    height={2172}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
-                    className="mx-auto h-auto w-full object-contain [content-visibility:visible] dark:hidden"
-                  />
-                  <Image
-                    src="/darkshare.png"
-                    alt="A conversation shared from Tiles as a public link on tiles.run, dark theme"
-                    width={3118}
-                    height={2162}
-                    sizes="(max-width: 767px) calc(100vw - 3rem), 768px"
-                    className="mx-auto hidden h-auto w-full object-contain [content-visibility:visible] dark:block"
-                  />
-                </div>
-              </div>
-              <p className="mt-3 text-center text-xs leading-relaxed text-black/50 dark:text-[#8A8A8A]">
-                A conversation shared from Tiles as a public link on tiles.run.
-              </p>
-            </div>
-          </div>
-
-          <h2 id="links-and-contact" className={`mt-16 ${marketingPageSectionTitleClass}`}>Links and contact</h2>
-
-          <h3 className={`mt-8 ${marketingPageSubsectionTitleClass}`}>Links</h3>
+          <h2 id="links-and-contact" className={`mt-16 ${marketingPageSectionTitleClass}`}>Links</h2>
           <ul className="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
             {siteLinks.map((link) => (
               <li key={link.label}>
@@ -297,36 +363,6 @@ export default function PressKitPage() {
               </li>
             ))}
           </ul>
-
-          <h3 className={`mt-10 ${marketingPageSubsectionTitleClass}`}>Contact</h3>
-          <div className="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
-            <p>
-              <span className="font-medium text-foreground">Press and general inquiries:</span>{" "}
-              <a href="mailto:hello@tiles.run" className={externalLinkClasses}>
-                hello@tiles.run
-              </a>
-            </p>
-            <p>
-              <span className="font-medium text-foreground">Phone:</span>{" "}
-              <a href="tel:+917338014129" className={externalLinkClasses}>
-                +91 7338014129
-              </a>
-            </p>
-            <address className="not-italic">
-              <span className="font-medium text-foreground">Address:</span> WeWork Prestige Atlanta, 80 Feet Rd,
-              Koramangala, Bengaluru, IN 560034
-            </address>
-          </div>
-
-          <h3 className={`mt-10 ${marketingPageSubsectionTitleClass}`}>Company details</h3>
-          <dl className="mt-4 max-w-2xl divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
-            {companyDetails.map((detail) => (
-              <div key={detail.label} className="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
-                <dt className="w-36 shrink-0 text-sm font-medium leading-[1.7] text-foreground">{detail.label}</dt>
-                <dd className="text-sm leading-[1.7] text-black/65 dark:text-[#B3B3B3]">{detail.value}</dd>
-              </div>
-            ))}
-          </dl>
         </section>
       </main>
 
