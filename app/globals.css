@@ -913,29 +913,33 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   aspect-ratio: 1280 / 896;
 }
 
-.minimal-hero-video-play {
+.minimal-hero-video-start {
   position: absolute;
-  inset: auto 1rem 1rem auto;
+  inset: 50% auto auto 50%;
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  padding: 0.625rem 1rem;
-  border: 1px solid #ffffff40;
-  border-radius: 0.5rem;
-  background: #171717;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0 0 0 0.2rem;
+  border: 1px solid #ffffff80;
+  border-radius: 999px;
+  background: #111111cc;
   color: #fff;
-  font-size: 0.875rem;
+  box-shadow: 0 0.5rem 1.5rem #00000059;
   cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: background-color 160ms ease, transform 160ms ease;
 }
 
-.minimal-hero-video-play:hover {
-  background: #303030;
+.minimal-hero-video-start:hover {
+  background: #292929e6;
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
-.minimal-hero-video-play:focus-visible {
+.minimal-hero-video-start:focus-visible {
   outline: 2px solid #fff;
-  outline-offset: -4px;
+  outline-offset: 3px;
 }
 
 .minimal-hero-video-controls {

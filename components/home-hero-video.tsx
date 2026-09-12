@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type CSSProperties } from "react"
-import { Maximize, Minimize, Pause, Play, RotateCcw } from "lucide-react"
+import { Maximize, Minimize, Pause, Play } from "lucide-react"
 
 const CONTROLS_HIDE_DELAY = 3000
 
@@ -17,10 +17,9 @@ interface WebKitDocument extends Document {
 export function HomeHeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const frameRef = useRef<HTMLDivElement>(null)
-  // A pause from the on-video control must survive the automatic resume paths.
-  const userPausedRef = useRef(false)
+  const hasStartedRef = useRef(false)
   const hideTimerRef = useRef(0)
-  const [needsPlay, setNeedsPlay] = useState(false)
+  const [hasStarted, setHasStarted] = useState(false)
   const [failed, setFailed] = useState(false)
   const [webmOnly, setWebmOnly] = useState(false)
   const [paused, setPaused] = useState(true)
@@ -44,16 +43,12 @@ export function HomeHeroVideo() {
 
   const play = useCallback(() => {
     const video = videoRef.current
-    if (!video || userPausedRef.current || document.visibilityState !== "visible") return
+    if (!video) return
 
-    // Set the DOM properties before play(), including after client navigation.
     video.muted = true
     video.defaultMuted = true
     void video.play().catch((error: DOMException) => {
-      if (error.name === "NotAllowedError") setNeedsPlay(true)
-      // Source errors can fire before hydration attaches React's listeners.
       if (error.name === "NotSupportedError") setFailed(true)
-      // load() and browser suspension can abort a pending play request.
     })
   }, [])
 
@@ -63,23 +58,16 @@ export function HomeHeroVideo() {
     if (videoRef.current?.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
       setFailed(true)
     }
-    // Autoplay can begin before hydration attaches React's play listener.
     if (videoRef.current) {
-      setPaused(videoRef.current.paused)
+      videoRef.current.autoplay = false
+      videoRef.current.pause()
+      setPaused(true)
       setDuration(videoRef.current.duration || 0)
     }
-    scheduleControlsHide()
-    play()
-    document.addEventListener("visibilitychange", play)
-    window.addEventListener("pageshow", play)
-    window.addEventListener("focus", play)
     return () => {
-      document.removeEventListener("visibilitychange", play)
-      window.removeEventListener("pageshow", play)
-      window.removeEventListener("focus", play)
       window.clearTimeout(hideTimerRef.current)
     }
-  }, [play, scheduleControlsHide, webmOnly])
+  }, [webmOnly])
 
   useEffect(() => {
     const syncFullscreen = () => {
@@ -99,12 +87,24 @@ export function HomeHeroVideo() {
     const video = videoRef.current
     if (!video) return
     if (video.paused) {
-      userPausedRef.current = false
+      hasStartedRef.current = true
+      setHasStarted(true)
       play()
     } else {
-      userPausedRef.current = true
       video.pause()
     }
+  }
+
+  const startPlayback = () => {
+    const video = videoRef.current
+    if (!video) return
+    if (failed) {
+      setFailed(false)
+      video.load()
+    }
+    hasStartedRef.current = true
+    setHasStarted(true)
+    play()
   }
 
   const toggleFullscreen = () => {
@@ -144,8 +144,7 @@ export function HomeHeroVideo() {
           key={webmOnly ? "webm" : "auto"}
           ref={videoRef}
           className="minimal-hero-video"
-          poster="/tiles-demo-poster.2a1af717.webp"
-          autoPlay
+          autoPlay={false}
           loop
           muted
           playsInline
@@ -153,7 +152,6 @@ export function HomeHeroVideo() {
           width={1280}
           height={896}
           aria-label="Tiles desktop app demo"
-          onCanPlay={play}
           onLoadedMetadata={() => setDuration(videoRef.current?.duration || 0)}
           onDurationChange={() => setDuration(videoRef.current?.duration || 0)}
           onTimeUpdate={() => {
@@ -164,17 +162,20 @@ export function HomeHeroVideo() {
             setPaused(video.paused)
           }}
           onPlay={() => {
+            if (!hasStartedRef.current) {
+              videoRef.current?.pause()
+              if (videoRef.current) videoRef.current.currentTime = 0
+              return
+            }
             setPaused(false)
             showControls()
           }}
           onPlaying={() => {
-            setNeedsPlay(false)
             setFailed(false)
           }}
           onPause={() => {
             setPaused(true)
             setControlsVisible(true)
-            if (!userPausedRef.current) setNeedsPlay(true)
           }}
           onError={() => {
             // Source selection handles unsupported formats. A decode failure
@@ -192,7 +193,17 @@ export function HomeHeroVideo() {
             onError={() => setFailed(true)}
           />
         </video>
-        {!needsPlay && !failed && (
+        {(!hasStarted || failed) && (
+          <button
+            type="button"
+            className="minimal-hero-video-start"
+            aria-label={failed ? "Retry Tiles demo video" : "Play Tiles demo video"}
+            onClick={startPlayback}
+          >
+            <Play size={28} fill="currentColor" aria-hidden="true" />
+          </button>
+        )}
+        {hasStarted && !failed && (
           <div
             className="minimal-hero-video-controls"
             data-hidden={controlsVisible || paused ? undefined : ""}
@@ -225,23 +236,6 @@ export function HomeHeroVideo() {
               {fullscreen ? <Minimize size={16} aria-hidden="true" /> : <Maximize size={16} aria-hidden="true" />}
             </button>
           </div>
-        )}
-        {(needsPlay || failed) && (
-          <button
-            type="button"
-            className="minimal-hero-video-play"
-            onClick={() => {
-              if (failed) {
-                setFailed(false)
-                videoRef.current?.load()
-              }
-              userPausedRef.current = false
-              play()
-            }}
-          >
-            {failed ? <RotateCcw size={18} aria-hidden="true" /> : <Play size={18} aria-hidden="true" />}
-            {failed ? "Retry demo" : "Play demo"}
-          </button>
         )}
       </div>
       <figcaption className="minimal-hero-video-caption">
