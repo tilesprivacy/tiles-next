@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import { TilesOgLogo } from "@/components/tiles-og-logo"
 import { TILES_PRODUCT_DESCRIPTION_CORE } from "@/lib/product-description"
 
@@ -13,24 +15,23 @@ export const size = {
 
 export const contentType = "image/png"
 
+const tilesWordmarkFont = readFile(
+  join(process.cwd(), "public/fonts/geist-tiles-bold.ttf"),
+).then((font) => Uint8Array.from(font).buffer)
+
 /*
- * On fonts: this card deliberately ships none, and renders in the face bundled
- * with Satori.
+ * Only the Tiles wordmark uses the bundled Geist Bold subset so it matches the
+ * website header exactly. The description stays on ImageResponse's default
+ * face because loading Geist for the full sentence produced uneven spacing in
+ * Satori.
  *
- * It used to pull Geist from Google Fonts, which laid the tagline out with
- * visibly uneven word gaps: roughly every other space came back double width.
- * That was chased down and is Geist itself under Satori, not the loader. It
- * reproduces with the full face as well as Google's `&text=` subset, at weight
- * 400 and 600 alike, and survives both `display: block` and `white-space:
- * nowrap`. The bundled face spaces the same string evenly.
- *
- * `app/api/og/pricing` already renders without a custom font for the same
- * reason, so the two cards now match. Re-adding a webfont here means checking
- * a full line of body copy in the output, not just a short title.
+ * Keep the subset limited to "Tiles": extending it to body copy requires
+ * visually checking a complete line of text, not only the wordmark.
  */
 
 export async function GET() {
   const tagline = TILES_PRODUCT_DESCRIPTION_CORE
+  const wordmarkFontData = await tilesWordmarkFont
 
   return new ImageResponse(
     (
@@ -69,10 +70,11 @@ export async function GET() {
           >
             <div
               style={{
+                fontFamily: "Tiles Wordmark",
                 fontSize: 60,
-                fontWeight: 600,
+                fontWeight: 700,
                 lineHeight: 1.1,
-                letterSpacing: "-0.02em",
+                letterSpacing: 0,
                 color: "#FAFAFA",
                 maxWidth: 960,
               }}
@@ -98,6 +100,14 @@ export async function GET() {
     {
       width: size.width,
       height: size.height,
+      fonts: [
+        {
+          name: "Tiles Wordmark",
+          data: wordmarkFontData,
+          style: "normal",
+          weight: 700,
+        },
+      ],
     },
   )
 }
