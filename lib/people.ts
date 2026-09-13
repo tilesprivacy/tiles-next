@@ -114,6 +114,11 @@ export const people = {
       name: "incognitothief @whereditgo.diamonds",
       links: ["https://whereditgo.diamonds", "https://bsky.app/profile/whereditgo.diamonds"],
     },
+    {
+      id: "himanshu-dube",
+      name: "Himanshu Dube @himanshudube97",
+      links: ["https://github.com/himanshudube97"],
+    },
     { id: "anonymous-sponsor-1", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor-2", name: "Anonymous sponsor", links: [], anonymous: true },
     { id: "anonymous-sponsor-3", name: "Anonymous sponsor", links: [], anonymous: true },
