@@ -9,7 +9,11 @@ import SiteHeader from "@/components/site-header"
 import { AnnouncementBanner } from "@/components/announcement-banner"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import { ScrollAtTopMarker } from "@/components/scroll-at-top-marker"
-import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
+import {
+  TILES_PRODUCT_DESCRIPTION,
+  TILES_SITE_TITLE,
+  TILES_SOCIAL_TITLE,
+} from "@/lib/product-description"
 import { getSocialImage } from "@/lib/social-image"
 import { HOME_PAGE_THEME, HOME_PATH } from "@/lib/home-page-theme"
 import { OWN_YOUR_AI_PAGE_THEME, OWN_YOUR_AI_PATH } from "@/lib/own-your-ai-theme"
@@ -76,18 +80,18 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: TILES_SITE_TITLE,
+    title: TILES_SOCIAL_TITLE,
     description: TILES_PRODUCT_DESCRIPTION,
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
     images: [
-      { ...socialImage, alt: TILES_SITE_TITLE },
+      { ...socialImage, alt: TILES_SOCIAL_TITLE },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: TILES_SITE_TITLE,
+    title: TILES_SOCIAL_TITLE,
     description: TILES_PRODUCT_DESCRIPTION,
     images: [socialImage.url],
   },
