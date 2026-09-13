@@ -1,30 +1,27 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { ArrowUp } from 'lucide-react'
-
-const RING_RADIUS = 17
-const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS
-const SHOW_AFTER_SCROLL_PX = 240
+import { useEffect, useRef } from 'react'
 
 /**
- * Circular reading-progress indicator fixed to the bottom-right of blog
- * posts. The ring fills as the reader scrolls and the button returns the
- * page to the top, matching the pattern on blog.cloudflare.com.
+ * Thin reading-progress bar fixed to the bottom edge of the site topbar on
+ * blog posts. The bar fills left-to-right as the reader scrolls, matching
+ * the pattern on the Perplexity blog (perplexity.ai/hub/blog).
  */
 export function BlogReadingProgress() {
-  const [progress, setProgress] = useState(0)
-  const [visible, setVisible] = useState(false)
+  const barRef = useRef<HTMLDivElement>(null)
+  const fillRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef<number | null>(null)
 
   useEffect(() => {
     const update = () => {
       const doc = document.documentElement
       const maxScroll = doc.scrollHeight - window.innerHeight
-      const next = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0
+      const progress = maxScroll > 0 ? Math.min(1, Math.max(0, window.scrollY / maxScroll)) : 0
 
-      setProgress(next)
-      setVisible(window.scrollY > SHOW_AFTER_SCROLL_PX)
+      // Style the fill directly instead of via state so scrolling never
+      // re-renders the React tree.
+      if (fillRef.current) fillRef.current.style.transform = `scaleX(${progress})`
+      barRef.current?.setAttribute('aria-valuenow', String(Math.round(progress * 100)))
     }
 
     const requestUpdate = () => {
@@ -46,49 +43,22 @@ export function BlogReadingProgress() {
     }
   }, [])
 
-  const scrollToTop = () => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' })
-  }
-
-  const percent = Math.round(progress * 100)
-
   return (
-    <button
-      type="button"
-      onClick={scrollToTop}
-      aria-label={`${percent}% read — scroll back to top`}
-      aria-hidden={visible ? undefined : true}
-      tabIndex={visible ? 0 : -1}
-      className={`blog-print-screen-only fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] right-[calc(1.25rem+env(safe-area-inset-right,0px))] z-40 flex h-11 w-11 touch-manipulation items-center justify-center rounded-full border-0 bg-transparent text-black transition-all duration-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black/70 dark:text-[var(--sponsor-yellow,#f7ff61)] dark:focus-visible:outline-[var(--sponsor-yellow,#f7ff61)] print:hidden ${
-        visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
-      }`}
+    <div
+      ref={barRef}
+      role="progressbar"
+      aria-label="Reading progress"
+      aria-valuemin={0}
+      aria-valuemax={100}
+      aria-valuenow={0}
+      className="blog-reading-progress-bar blog-print-screen-only fixed inset-x-0 top-[calc(var(--site-announcement-offset,0px)+4rem)] z-40 h-[3px] md:top-[calc(var(--site-announcement-offset,0px)+5.5rem)] print:hidden"
     >
-      <svg
-        viewBox="0 0 40 40"
-        className="absolute inset-0 h-full w-full -rotate-90"
+      <div
+        ref={fillRef}
         aria-hidden="true"
-      >
-        <circle
-          cx="20"
-          cy="20"
-          r={RING_RADIUS}
-          strokeWidth="2.5"
-          className="fill-white/90 stroke-black/25 dark:fill-neutral-800/90 dark:stroke-white/25"
-        />
-        <circle
-          cx="20"
-          cy="20"
-          r={RING_RADIUS}
-          fill="none"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeDasharray={RING_CIRCUMFERENCE}
-          strokeDashoffset={RING_CIRCUMFERENCE * (1 - progress)}
-          className="stroke-black transition-[stroke-dashoffset] duration-150 ease-out dark:stroke-[var(--sponsor-yellow,#f7ff61)]"
-        />
-      </svg>
-      <ArrowUp className="relative h-4 w-4" aria-hidden="true" />
-    </button>
+        style={{ transform: 'scaleX(0)' }}
+        className="h-full w-full origin-left bg-black dark:bg-[var(--sponsor-yellow,#f7ff61)]"
+      />
+    </div>
   )
 }
