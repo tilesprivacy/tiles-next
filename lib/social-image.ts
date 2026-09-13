@@ -52,3 +52,26 @@ export function getSocialImage(title?: string): SocialImage {
 export function getSocialImageUrl(title?: string): string {
   return getSocialImage(title).url
 }
+
+interface PluginSocialImageInput {
+  slug: string
+  name: string
+  description: string
+}
+
+/** Card for a plugin detail page, using the plugin's own identity and copy. */
+export function getPluginSocialImage({
+  slug,
+  name,
+  description,
+}: PluginSocialImageInput): SocialImage {
+  const searchParams = new URLSearchParams({ slug, name, description })
+
+  return {
+    url: `/api/og/plugin?${searchParams.toString()}`,
+    width: SOCIAL_IMAGE_WIDTH,
+    height: SOCIAL_IMAGE_HEIGHT,
+    type: "image/png",
+    alt: `${name} plugin for Tiles: ${description}`,
+  }
+}

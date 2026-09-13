@@ -66,6 +66,15 @@ const nextConfig = {
         ],
       },
       {
+        source: '/api/og/plugin',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
         source: '/install.sh',
         headers: [
           {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { getSocialImage } from "@/lib/social-image"
+import { getPluginSocialImage } from "@/lib/social-image"
 import { notFound } from "next/navigation"
 import { PluginDetailContent } from "@/components/plugin-detail-content"
 import {
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
     }
   }
 
-  const socialImage = getSocialImage(plugin.name)
+  const socialImage = getPluginSocialImage(plugin)
 
   return {
     title: `${plugin.name} | Tiles Plugins`,
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
       description: plugin.description,
       type: "website",
       images: [
-        { ...socialImage, alt: `${plugin.name} | Tiles Plugins` },
+        socialImage,
       ],
     },
     twitter: {
