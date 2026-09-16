@@ -64,16 +64,19 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
     <section className="minimal-download-platform" aria-labelledby="canary-heading">
       <h2 id="canary-heading">Canary release</h2>
       <p>{CANARY_RELEASE_DESCRIPTION}</p>
-      {release?.updated_at && (
-        <p>
-          Pre-release · Updated{" "}
-          <time dateTime={release.updated_at}>
-            {new Date(release.updated_at).toLocaleDateString("en-US", {
-              month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
-            })}
-          </time>
-        </p>
-      )}
+      <p>
+        Version 0.4.20-canary · Pre-release
+        {release?.updated_at && (
+          <>
+            {" · Updated "}
+            <time dateTime={release.updated_at}>
+              {new Date(release.updated_at).toLocaleDateString("en-US", {
+                month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
+              })}
+            </time>
+          </>
+        )}
+      </p>
       <ul className="minimal-download-actions list-none p-0" aria-label="Canary downloads">
         {assets.map((asset) => (
           <li key={asset.name} className="minimal-download-option">
