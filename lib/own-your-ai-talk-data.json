@@ -204,7 +204,7 @@
     "number": 19,
     "title": "Run local models",
     "transcript": [
-      "At the base of Tiles is local inference.",
+      "Tiles is built around local inference. We bundle Gemma 12B by default because Tiles is designed around a 16 GB memory baseline, and the model offers best-in-class tool calling and multimodal capabilities. We take a vertically integrated approach to the inference stack, creating a polished experience from model to product.",
       "You can run a model directly on your machine. But over time, that local model becomes more than just another place to run inference, it becomes the orchestrator.",
       "Inference can happen locally, on another device, across the peer-to-peer network, or through a remote provider, but it’s routed from the local model, keeping the user at the center of that decision."
     ],
@@ -384,7 +384,7 @@
       "All of that infrastructure underneath is complicated, but from the user’s perspective it should still just feel like using an AI assistant.",
       "That’s the product challenge."
     ],
-    "media": "image"
+    "media": "video"
   },
   {
     "number": 35,

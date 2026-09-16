@@ -4,7 +4,7 @@ export interface OwnYourAiSlide {
   number: number
   title: string
   transcript: string[]
-  media: "image"
+  media: "image" | "video"
 }
 
 export const ownYourAiTalkIntroParagraphs = [
@@ -26,8 +26,14 @@ function escapeHtml(value: string): string {
 }
 
 export function ownYourAiSlideSrc(number: number): string {
-  return `/own-your-ai-talk/foss-india-2026-r2/slide-${String(number).padStart(2, "0")}.png`
+  return `/own-your-ai-talk/foss-india-2026-r3/slide-${String(number).padStart(2, "0")}.png`
 }
+
+export const ownYourAiDemoVideo = {
+  mp4: "/tiles-demo.48de4a8b.mp4",
+  webm: "/tiles-demo.8492c6fd.webm",
+  poster: "/tiles-demo-poster.d0ad9089.webp",
+} as const
 
 /** Recording of the Local-First Conf 2026 version of this talk. */
 export const ownYourAiTalkRecording = {
@@ -45,7 +51,9 @@ ${ownYourAiSlides
   .map((slide) => {
     const transcript = slide.transcript.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n")
 
-    const media = `<img src="${ownYourAiSlideSrc(slide.number)}" alt="Slide ${slide.number}: ${escapeHtml(slide.title)}" />`
+    const media = slide.media === "video"
+      ? `<video controls loop muted playsinline preload="metadata" poster="${ownYourAiDemoVideo.poster}" aria-label="Tiles desktop app demo"><source src="${ownYourAiDemoVideo.mp4}" type="video/mp4"><source src="${ownYourAiDemoVideo.webm}" type="video/webm"></video>`
+      : `<img src="${ownYourAiSlideSrc(slide.number)}" alt="Slide ${slide.number}: ${escapeHtml(slide.title)}" />`
 
     return `<figure>${media}</figure>${transcript}`
   })

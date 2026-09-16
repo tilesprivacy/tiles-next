@@ -5,12 +5,44 @@ import Image from "next/image"
 import { getBlogPostBySlug } from "@/lib/blog-posts"
 import { BlogPostContent } from "@/components/blog-post-content"
 import {
+  ownYourAiDemoVideo,
   ownYourAiSlideSrc,
   ownYourAiSlides,
   ownYourAiTalkIntro,
   ownYourAiTalkRecording,
   type OwnYourAiSlide,
 } from "@/lib/own-your-ai-draft-talk"
+
+function TalkDemoVideo({
+  active,
+  className,
+}: {
+  active?: boolean
+  className: string
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (active === false) videoRef.current?.pause()
+  }, [active])
+
+  return (
+    <video
+      ref={videoRef}
+      className={className}
+      controls
+      loop
+      muted
+      playsInline
+      preload="metadata"
+      poster={ownYourAiDemoVideo.poster}
+      aria-label="Tiles desktop app demo"
+    >
+      <source src={ownYourAiDemoVideo.mp4} type="video/mp4" />
+      <source src={ownYourAiDemoVideo.webm} type="video/webm" />
+    </video>
+  )
+}
 
 function TalkSlideMedia({
   slide,
@@ -22,6 +54,15 @@ function TalkSlideMedia({
   const className = `absolute inset-0 h-full w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] transition duration-500 dark:border-white/10 ${
     active ? "opacity-100 scale-100" : "opacity-0 scale-[0.985]"
   }`
+
+  if (slide.media === "video") {
+    return (
+      <TalkDemoVideo
+        active={active}
+        className={`${className} bg-black ${active ? "pointer-events-auto" : "pointer-events-none"}`}
+      />
+    )
+  }
 
   return (
     // next/image keeps the geometry identical (fill matches the existing
@@ -110,15 +151,21 @@ function TilesScrollyTalk() {
                 slide.transcript.length === 0 ? "xl:min-h-[55vh]" : ""
               } ${slide.number === scrollySlides[scrollySlides.length - 1]?.number ? "xl:pb-[50vh]" : ""}`}
             >
-              <Image
-                src={ownYourAiSlideSrc(slide.number)}
-                alt={`Slide ${slide.number}: ${slide.title}`}
-                width={1920}
-                height={1080}
-                sizes="(min-width: 1280px) 56vw, calc(100vw - 3rem)"
-                loading={slide.number === 1 ? "eager" : "lazy"}
-                className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
-              />
+              {slide.media === "video" ? (
+                <TalkDemoVideo
+                  className="mb-4 block aspect-video w-full rounded-lg border border-black/8 bg-black object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
+                />
+              ) : (
+                <Image
+                  src={ownYourAiSlideSrc(slide.number)}
+                  alt={`Slide ${slide.number}: ${slide.title}`}
+                  width={1920}
+                  height={1080}
+                  sizes="(min-width: 1280px) 56vw, calc(100vw - 3rem)"
+                  loading={slide.number === 1 ? "eager" : "lazy"}
+                  className="mb-4 block aspect-video h-auto w-full rounded-lg border border-black/8 object-contain shadow-[0_18px_48px_rgba(0,0,0,0.12)] dark:border-white/10 xl:hidden"
+                />
+              )}
 
               {slide.transcript.length > 0 ? (
                 <div
