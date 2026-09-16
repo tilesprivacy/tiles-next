@@ -6,6 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: ["/", "/api/og", "/api/og/", "/llms.txt", "/api/llms", "/api/llms/"],
+        disallow: ["/blog/drafts/"],
       },
     ],
     sitemap: "https://www.tiles.run/sitemap.xml",

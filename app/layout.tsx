@@ -16,7 +16,11 @@ import {
 } from "@/lib/product-description"
 import { getSocialImage } from "@/lib/social-image"
 import { HOME_PAGE_THEME, HOME_PATH } from "@/lib/home-page-theme"
-import { OWN_YOUR_AI_PAGE_THEME, OWN_YOUR_AI_PATH } from "@/lib/own-your-ai-theme"
+import {
+  OWN_YOUR_AI_DRAFT_PATH,
+  OWN_YOUR_AI_PAGE_THEME,
+  OWN_YOUR_AI_PATH,
+} from "@/lib/own-your-ai-theme"
 import { SPONSOR_PAGE_THEME, SPONSOR_PATH } from "@/lib/sponsor-page-theme"
 import { CYBERPUNK_THEME, DEFAULT_SITE_THEME } from "@/lib/site-theme"
 import "./globals.css"
@@ -34,7 +38,7 @@ const geistMono = Geist_Mono({
 
 const socialImage = getSocialImage()
 
-const initialThemeScript = `(function(){try{var d=document.documentElement,p=location.pathname,t=null;if(p===${JSON.stringify(HOME_PATH)})t=${JSON.stringify(HOME_PAGE_THEME)};else if(p===${JSON.stringify(SPONSOR_PATH)}||p.indexOf(${JSON.stringify(`${SPONSOR_PATH}/`)})===0)t=${JSON.stringify(SPONSOR_PAGE_THEME)};else if(p===${JSON.stringify(OWN_YOUR_AI_PATH)}||p.indexOf(${JSON.stringify(`${OWN_YOUR_AI_PATH}/`)})===0)t=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};if(t)d.dataset.pageTheme=t;else delete d.dataset.pageTheme;var k="tiles-theme",c=${JSON.stringify(CYBERPUNK_THEME)},v=null;try{v=localStorage.getItem(k);if(v===c){v="dark";localStorage.setItem(k,v);}}catch(e){}var dark=v==="dark"||(v!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);d.classList.toggle("dark",dark);}catch(e){}})();`
+const initialThemeScript = `(function(){try{var d=document.documentElement,p=location.pathname,t=null;if(p===${JSON.stringify(HOME_PATH)})t=${JSON.stringify(HOME_PAGE_THEME)};else if(p===${JSON.stringify(SPONSOR_PATH)}||p.indexOf(${JSON.stringify(`${SPONSOR_PATH}/`)})===0)t=${JSON.stringify(SPONSOR_PAGE_THEME)};else if(p===${JSON.stringify(OWN_YOUR_AI_PATH)}||p.indexOf(${JSON.stringify(`${OWN_YOUR_AI_PATH}/`)})===0||p===${JSON.stringify(OWN_YOUR_AI_DRAFT_PATH)}||p.indexOf(${JSON.stringify(`${OWN_YOUR_AI_DRAFT_PATH}/`)})===0)t=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};if(t)d.dataset.pageTheme=t;else delete d.dataset.pageTheme;var k="tiles-theme",c=${JSON.stringify(CYBERPUNK_THEME)},v=null;try{v=localStorage.getItem(k);if(v===c){v="dark";localStorage.setItem(k,v);}}catch(e){}var dark=v==="dark"||(v!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);d.classList.toggle("dark",dark);}catch(e){}})();`
 
 export const viewport: Viewport = {
   width: "device-width",

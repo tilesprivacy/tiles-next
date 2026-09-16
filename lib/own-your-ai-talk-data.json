@@ -1,0 +1,443 @@
+[
+  {
+    "number": 1,
+    "title": "Tiles: Own your AI with open models and decentralized protocols",
+    "transcript": [
+      "Hi everyone, I’m Ankesh, founder of Tiles Privacy.",
+      "Today I want to talk about what it means to actually own your AI.",
+      "Not just the model, but the data, identity, and infrastructure around it.",
+      "And I think two things make that possible now: recent developments in open models and adoption of decentralized protocols."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 2,
+    "title": "This talk is about reclaiming ownership in the age of AI through local models, and decentralized protocols",
+    "transcript": [
+      "The thesis of this talk is pretty simple.",
+      "AI is becoming part of how we think, work, research and communicate.",
+      "And as that happens, whoever controls the AI layer starts controlling a surprisingly large part of our digital lives.",
+      "I think we now have the technology to build that relationship differently: run more intelligence locally, and use open protocols where we need a network."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 3,
+    "title": "We all use AI agents now",
+    "transcript": [
+      "Most of us in this room probably use several of these already.",
+      "And they’re becoming much more than chatbots.",
+      "They read our code, browse the web, operate tools, work with our files, handle everyday tasks, and increasingly act on our behalf.",
+      "So naturally, we’re giving them more and more context about ourselves."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 4,
+    "title": "I like ChatGPT",
+    "transcript": [
+      "And I actually like ChatGPT.",
+      "What keeps me using it isn’t just the model.",
+      "It’s the product around the model, the consistency, the memory, and being able to pick up the same context across different surfaces.",
+      "It starts to feel less like using a chatbot and more like using software that actually knows you."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 5,
+    "title": "But it’s a toxic relationship",
+    "transcript": [
+      "But the better that gets, the more one-sided the relationship becomes.",
+      "The system knows more and more about me, but all of that context ultimately lives inside an account and infrastructure I don’t control.",
+      "If I leave the platform, a growing part of that accumulated digital memory stays behind.",
+      "I like the relationship.",
+      "I just don’t like the dependency."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 6,
+    "title": "The Trojan horse By Henri-Paul Motte, 1874",
+    "transcript": [
+      "There was the recent Millennium Prize controversy where a researcher questioned whether work shared with an AI coding tool could have informed a competing result. OpenAI disputes that.",
+      "Whatever happened there, the metaphor fits: the tool is useful enough that we willingly bring it inside the walls."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 7,
+    "title": "I needed boundaries",
+    "transcript": [
+      "My conclusion wasn’t that I should stop using AI.",
+      "I needed healthier boundaries.",
+      "I want to keep the same convenience without depending on blind trust.",
+      "I want my identity and context to stay with me across every app I use, with trust that I can verify computationally.",
+      "I still want the relationship. I just want it to be on my terms."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 8,
+    "title": "My type? Private and local",
+    "transcript": [
+      "So this became my preference: private and local.",
+      "And the good news is, today’s local AI tools are already technically excellent. They’re naturally great at private, personal use."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 9,
+    "title": "Frontier is open-source today",
+    "transcript": [
+      "Frontier AI is no longer locked behind proprietary APIs.",
+      "For many practical workloads, frontier-level capabilities are already available in open-weight models such as GLM 5.2, as shown in this chart by Artificial Analysis."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 10,
+    "title": "And there is compute to run them locally",
+    "transcript": [
+      "The amount of compute we now have in consumer devices makes it possible to run even frontier models locally.",
+      "Technologies like UltraFusion combine two Apple Silicon Max chips into a single Ultra chip, enabling medium-class local models to run on device."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 11,
+    "title": "And it keeps getting more efficient",
+    "transcript": [
+      "It’s not just about running frontier models on expensive on-device setups.",
+      "As frontier open-weight models improve, techniques like distillation rapidly transfer those gains to smaller local models.",
+      "Small models are delivering significantly more intelligence per watt."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 12,
+    "title": "20B models are now pocket-sized",
+    "transcript": [
+      "We’re also finding smarter ways to run larger models at the edge.",
+      "Apple’s upcoming Siri in iOS 27 is powered by Foundation Model 3, a distilled version of Gemini, and runs a 20B Mixture-of-Experts model directly on the iPhone.",
+      "It loads expert weights from fast flash storage instead of keeping the entire model in memory, and by loading them once per prompt rather than once per token, it largely compensates for the higher latency of flash storage."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 13,
+    "title": "We still recreate the same old silos",
+    "transcript": [
+      "But local inference alone does not give us a complete product.",
+      "As soon as we want identity, multiple devices, sync, or collaboration, we often recreate exactly the architecture we were trying to escape.",
+      "Centralized accounts.",
+      "No portable sync.",
+      "Limited collaboration.",
+      "So the model may be local while the product relationship becomes centralized again."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 14,
+    "title": "What would AI look like if it was user owned?",
+    "transcript": [
+      "That became the design question behind Tiles.",
+      "What if we put the user, and their keys, at the center, and built outward?",
+      "The keys belong to the user on their own devices, not the provider. They establish their identity and what they control.",
+      "Then come their devices, models, and everything else.",
+      "The point is that user ownership shouldn’t stop at the model layer."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 15,
+    "title": "Tiles",
+    "transcript": [
+      "That’s what we’re building with Tiles.",
+      "Tiles is a local-first, collaborative AI assistant.",
+      "And local-first means something very specific: the product should keep working, even if we stop working on it. Your data, identity, and core experience don’t depend on Tiles continuing to exist as a company or service.",
+      "The goal is to give people a familiar AI experience, while changing the architecture underneath so the user remains at the center of control.",
+      "It’s software built to outlive us."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 16,
+    "title": "What Tiles includes",
+    "transcript": [
+      "This slide brings together some of the features Tiles already has.",
+      "An agent harness.",
+      "Polished on-device models.",
+      "User-owned identity.",
+      "Peer-to-peer sync.",
+      "Remote inference.",
+      "Shared links.",
+      "Developer SDK.",
+      "And the whole experience is optimized for offline-first use.",
+      "One example is our offline installer. You can install the complete Tiles setup, including the default model, on an air-gapped system without internet access and start using it locally.",
+      "These aren’t separate “privacy features.”",
+      "They’re the features you’d expect from a capable everyday AI assistant, designed so that local and offline remain first-class ways to use the product."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 17,
+    "title": "Tiles Desktop App",
+    "transcript": [
+      "This is the desktop and menu bar application packaged with Tauri.",
+      "The interface is intentionally familiar.",
+      "You should not need to understand decentralized systems, cryptography, or peer-to-peer networking just to use your AI assistant.",
+      "Most of that complexity should disappear behind a normal product experience."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 18,
+    "title": "Tiles CLI",
+    "transcript": [
+      "And we expose the same system through the CLI.",
+      "That gives us a developer-friendly surface that’s also easier for agents to understand and work with.",
+      "The desktop application and CLI are different surfaces over the same basic system."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 19,
+    "title": "Run local models",
+    "transcript": [
+      "At the base of Tiles is local inference.",
+      "You can run a model directly on your machine. But over time, that local model becomes more than just another place to run inference, it becomes the orchestrator.",
+      "Inference can happen locally, on another device, across the peer-to-peer network, or through a remote provider, but it’s routed from the local model, keeping the user at the center of that decision."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 20,
+    "title": "Modelfile",
+    "transcript": [
+      "Then we have the Modelfile, inspired by how Ollama handles model configuration.",
+      "Like Ollama’s Modelfile, it gives us a simple, declarative way to define the model, system prompt, templates, parameters, and runtime behavior in one place.",
+      "We have our own parser and Modelfile implementation, so we’re borrowing the idea and the familiar experience.",
+      "Instead of fiddling with command-line flags and configurations that don’t travel well between machines, you get one portable, reproducible definition of how the model should run."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 21,
+    "title": "Extend with plugins",
+    "transcript": [
+      "You can extend Tiles through plugins. Tiles Plugin Marketplace offers a curated selection to discover and install, but you can also install any compatible plugin simply by specifying its path.",
+      "These plugins conform to the Agent Plugins standard, so the same plugins that work in clients like Cursor or ChatGPT can also work in Tiles."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 22,
+    "title": "Use local models on remote machines",
+    "transcript": [
+      "And local doesn’t necessarily mean the computer physically in front of you.",
+      "Maybe my laptop is lightweight, but there’s a powerful machine at home.",
+      "Maybe my office has a GPU workstation.",
+      "Maybe a co-working space has shared compute.",
+      "Tiles makes local compute available remotely, with networking handled peer-to-peer and end-to-end encrypted.",
+      "Devices on the same local network communicate directly. Otherwise, they connect over the internet through public relays that we host.",
+      "So the compute can stay on infrastructure I trust, even when it isn’t sitting next to me."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 23,
+    "title": "Sync your chats peer-to-peer",
+    "transcript": [
+      "The same peer-to-peer foundation also supports sync.",
+      "You link another device, authorize it, and sessions can sync directly between them.",
+      "And this is where identity and capabilities become important. They work device to device, so there doesn’t need to be a central Tiles server deciding which devices belong to you, what they’re allowed to do, or how your identity and data flow between them.",
+      "And importantly, none of this requires the internet. Devices can work and sync entirely over your local network, or communicate over the internet through public relays when you need them to.",
+      "The relationship stays the same either way: identity and permissions are established cryptographically between your devices, not dictated by a central server."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 24,
+    "title": "An AI that starts with you",
+    "transcript": [
+      "That brings us to identity.",
+      "For Tiles, the root of trust should begin with the user.",
+      "DID, Decentralized Identifiers, gives us the identity primitive.",
+      "UCAN, User Controlled Authorization Network, gives us the authorization primitive.",
+      "Together, these make your Tiles Account, generated and secured locally on your device keychain, rather than being an account created and controlled on a centralized Tiles server."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 25,
+    "title": "DID is who you are",
+    "transcript": [
+      "The easiest way to understand a DID is:",
+      "DID is who you are.",
+      "It’s a portable identifier controlled by your keys.",
+      "Services can verify you, but the service itself doesn’t have to be the source of your identity."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 26,
+    "title": "UCAN is what you can do",
+    "transcript": [
+      "And if DID answers:",
+      "Who are you?",
+      "UCAN answers: What are you allowed to do?",
+      "It gives us a signed, scoped, potentially time-bound permission.",
+      "So instead of giving another device a permanent password, I can grant exactly the authority it needs.",
+      "That’s a much cleaner model for local-first and peer-to-peer systems."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 27,
+    "title": "Share chats publicly or privately",
+    "transcript": [
+      "But private shouldn’t mean isolated.",
+      "Sometimes I actually want to share something.",
+      "Tiles can turn a chat into something I share privately or publish publicly. Since data on the AT Protocol network is all public today, private shared chats are encrypted before they leave your device.",
+      "The encrypted chat transcript is stored as a blob on your Personal Data Server (PDS), while the decryption key stays in the URL. So having that link is what gives someone access to the conversation, and you need to keep the link private if you want the chat to remain private.",
+      "The important part is that sharing is always deliberate. A chat can remain entirely local until I decide to share it."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 28,
+    "title": "Social features with AT Protocol",
+    "transcript": [
+      "For the social layer, we’re building on the Authenticated Transfer Protocol, or AT Protocol.",
+      "What makes AT Protocol useful for Tiles is that your identity and data aren’t tied to a single application.",
+      "They can live independently on an open network, and different clients can build on top of them.",
+      "That gives Tiles a social layer without requiring us to own or operate the entire network."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 29,
+    "title": "Basic overview of AT Protocol",
+    "transcript": [
+      "The analogy here is the open web.",
+      "Your website works across different browsers because the browser doesn’t own the underlying web.",
+      "AT Protocol brings a similar idea to the social layer. Your data lives in your own repository, which you can think of a bit like a GitHub repository for your digital life. Different applications can read from and write to that same repository, rather than each app keeping your identity and data trapped in its own database.",
+      "So your identity and content can work across multiple applications, and changing applications doesn’t mean starting your digital life all over again."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 30,
+    "title": "How Tiles works",
+    "transcript": [
+      "So if we zoom out, this is how the pieces fit together.",
+      "You have the devices you actually use, your phone, laptop, and what I’d call ambient AI compute. That could be an always-on machine at home, a workstation in the office, or any computer you control that can sit in the background and provide AI inference when you need it.",
+      "These devices can talk directly over your local network, so this can work without the internet at all.",
+      "When you want to connect across networks, Tiles can use end-to-end encrypted peer-to-peer networking through public relays.",
+      "And for the open social layer, we use AT Protocol and the user’s own Personal Data Server.",
+      "So you get local devices, ambient compute, private peer-to-peer networking, and an open social layer, without requiring a central Tiles server to sit in the middle.",
+      "The basic rule is simple: keep ownership close to the user, and introduce the network only where the network adds value."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 31,
+    "title": "Tiles architecture",
+    "transcript": [
+      "This is the deeper technical view of Tiles, broken into a few separate modules.",
+      "The core is written in Rust. It includes local storage, the Modelfile parser, the plugin system, Iroh for peer-to-peer networking, AT Protocol for the social layer, and our PKI and identity system built around DIDs and UCANs.",
+      "Inference is a separate Python module, with llama.cpp serving local models behind an Open Responses API translation layer.",
+      "Then there’s the agent runtime. Its control plane is written in Rust, with the agentic loop running in TypeScript.",
+      "And finally, different interfaces, like the macOS menubar app and desktop app, can sit on top.",
+      "I’m not going to walk through every box here. The main idea is that Tiles is modular by design, so identity, networking, inference, agents, and interfaces can evolve independently without everything being tied into one monolithic application."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 32,
+    "title": "Embed Tiles into your product with Tilekit APIs",
+    "transcript": [
+      "And this leads naturally to Tilekit.",
+      "Not everyone wants to use the Tiles interface.",
+      "Some developers just want the underlying runtime and capabilities inside their own applications.",
+      "Tilekit is our way of making Tiles embeddable, so developers can build their own interfaces and products on top of the same underlying infrastructure.",
+      "Tiles can be the application, or it can simply provide the building blocks."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 33,
+    "title": "Demo",
+    "transcript": [
+      "So rather than explain more architecture, let me show you what this feels like.",
+      "For the demo, I’d focus on three things:",
+      "One: where the model is running.",
+      "Two: something useful the agent or plugin actually does.",
+      "Three: one networked capability such as remote inference, sync, or sharing."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 34,
+    "title": "It should still feel like using an AI assistant",
+    "transcript": [
+      "All of that infrastructure underneath is complicated, but from the user’s perspective it should still just feel like using an AI assistant.",
+      "That’s the product challenge."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 35,
+    "title": "Introducing Tiles Plus and Pro",
+    "transcript": [
+      "There’s also an economic layer to independence.",
+      "The philosophy is simple: everything that runs on your hardware or local network stays free. That includes local models, syncing and remote inference over your local network, and sharing chats across it.",
+      "It also includes web search through the bundled Exa MCP, with 3,000 free requests per month and no account required.",
+      "You pay only when we provide infrastructure.",
+      "Plus at $4 per month covers hosted Iroh relays for connecting your devices across networks. The relay is just encrypted plumbing and doesn’t see your data.",
+      "Pro, at $15 per month, will add private cloud inference, unlimited web search, and prompt redaction before anything leaves your device. Pro is currently available through a waitlist and will roll out gradually over the coming months.",
+      "So the rule is: local is free. Hosted infrastructure is what you pay for."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 36,
+    "title": "What’s next",
+    "transcript": [
+      "The longer-term direction is Tiles Network.",
+      "So far, I’ve mostly talked about personal infrastructure: your laptop,",
+      "your desktop,",
+      "your identity,",
+      "your own devices.",
+      "But communities collectively own enormous amounts of compute.",
+      "Universities.",
+      "Companies.",
+      "Co-working spaces.",
+      "Research groups.",
+      "Groups of individuals.",
+      "The next question is whether that hardware can become community-owned AI infrastructure, where people provide inference and, eventually, other AI workloads on their own terms."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 37,
+    "title": "Own your AI",
+    "transcript": [
+      "So I’ll end where I started.",
+      "I like AI.",
+      "I want it to become more capable, more useful, and more deeply integrated into how I work.",
+      "I just want that relationship to happen on better terms.",
+      "We now have increasingly capable open models.",
+      "We have local compute.",
+      "We have peer-to-peer networking.",
+      "We have open protocols for identity and data.",
+      "So I think we finally have the ingredients for a different kind of AI stack.",
+      "Own your models.",
+      "Own your data.",
+      "Own your identity.",
+      "Own your AI.",
+      "Thank you."
+    ],
+    "media": "image"
+  }
+]
