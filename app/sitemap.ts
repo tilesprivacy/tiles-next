@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/help",
     "/book",
     "/brand",
+    "/about",
     "/press-kit",
     "/indiafoss-2026-giveaway",
     "/privacy",

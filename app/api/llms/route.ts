@@ -95,12 +95,12 @@ export async function GET(request: Request) {
     `- Blog: ${baseUrl}/blog`,
     `- Releases: ${baseUrl}/releases`,
     `- Help: ${baseUrl}/help`,
-    `- Sponsor: ${baseUrl}/sponsor`,
+    `- About: ${baseUrl}/about`,
   ])
 
-  addSection(lines, 'Sponsor', [
-    `- Sponsor page: ${baseUrl}/sponsor`,
-    '- Support Tiles Privacy and help fund private, local-first AI.',
+  addSection(lines, 'About', [
+    `- About page: ${baseUrl}/about`,
+    '- Learn about Tiles Privacy, the team and advisors behind it, and how to support the project.',
     `- ${sponsorPageTeamSentence}`,
     `- Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
     '- GitHub Sponsors: https://github.com/sponsors/tilesprivacy',

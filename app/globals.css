@@ -1931,9 +1931,25 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 .minimal-sponsor-page .minimal-partner-intro {
   color: var(--muted-foreground);
 }
-.minimal-sponsor-page .minimal-sponsor-copy {
+.minimal-sponsor-page .minimal-about-copy {
   border-bottom-color: var(--border);
   color: var(--muted-foreground);
+}
+.minimal-sponsor-page .minimal-sponsor-cta-intro {
+  margin: 1rem 0 0;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+.minimal-sponsor-page .minimal-sponsor-cta-intro h2 {
+  margin: 0;
+  color: var(--foreground);
+  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.minimal-sponsor-page .minimal-sponsor-cta-intro p {
+  margin-top: 1.25rem;
 }
 .minimal-sponsor-funding-band {
   position: static;
@@ -2119,9 +2135,83 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-sponsor-page .minimal-team a small {
   color: var(--muted-foreground);
 }
+.minimal-sponsor-page .minimal-advisors-section {
+  padding-top: 0;
+  padding-bottom: 3rem;
+  border-top: 0;
+}
+.minimal-sponsor-page .minimal-advisors-section h2 {
+  margin: 0;
+}
+.minimal-advisors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+.minimal-advisor-card {
+  min-width: 0;
+}
+.minimal-advisor-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-advisor-profile > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.minimal-advisor-profile strong {
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+.minimal-advisor-profile small {
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.minimal-advisor-avatar {
+  display: inline-flex;
+  flex: none;
+}
+.minimal-advisor-avatar > img,
+.minimal-advisor-avatar > span {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+.minimal-advisor-card ul {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+.minimal-advisor-card li + li {
+  margin-top: 0.625rem;
+}
+.dark .minimal-sponsor-page .minimal-advisor-profile strong {
+  color: #e4e4e7;
+}
+.dark .minimal-sponsor-page .minimal-advisor-profile small,
+.dark .minimal-sponsor-page .minimal-advisor-card ul {
+  color: #a1a1aa;
+}
+@media (max-width: 767px) {
+  .minimal-advisors-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+}
 .dark .minimal-sponsor-page .minimal-page-intro p,
 .dark .minimal-sponsor-page .minimal-partner-intro,
-.dark .minimal-sponsor-page .minimal-sponsor-copy {
+.dark .minimal-sponsor-page .minimal-about-copy {
   color: #d4d4d8;
 }
 .dark .minimal-sponsor-page .minimal-section h2,
@@ -2138,7 +2228,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .dark .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a):hover {
   text-decoration-color: #fff;
 }
-.dark .minimal-sponsor-page .minimal-sponsor-copy {
+.dark .minimal-sponsor-page .minimal-about-copy {
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 .dark .minimal-sponsor-page .minimal-sponsor-row {
@@ -2302,7 +2392,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-download-platform .minimal-command {
   max-width: 36rem;
 }
-.minimal-sponsor-copy {
+.minimal-about-copy {
   margin-bottom: 3rem;
   padding: 0 0 3rem;
   border-top: 0;

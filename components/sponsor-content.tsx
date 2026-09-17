@@ -7,6 +7,7 @@ import { SocialIcon } from "@/components/social-links"
 import { SponsorUsdtDonateButton } from "@/components/sponsor-usdt-donate-button"
 import { people, splitPersonDisplayName } from "@/lib/people"
 import { solPbcPartner } from "@/lib/sponsor-partners"
+import { sponsorPageAdvisors } from "@/lib/sponsor-page-people"
 import { SPONSORS_PROGRESS_PERCENT_FALLBACK } from "@/lib/sponsors-goal"
 
 interface SponsorContentProps {
@@ -74,46 +75,7 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
       <main className="minimal-inner-page minimal-sponsor-page">
         <article className="minimal-inner-content">
           <header className="minimal-page-intro !mb-8">
-            <h1>Help keep Tiles Privacy independent.</h1>
-            <p>
-              Support a small team building private, local-first AI that
-              preserves user agency.
-            </p>
-          </header>
-
-          <section className="minimal-sponsor-funding-band">
-            <div className="minimal-funding">
-              <div>
-                <strong>{progress}</strong>
-                <span>
-                  {sponsorsGoal.goalAmountMonthly || "$1,500 per month"}
-                </span>
-              </div>
-              <p>Baseline funding to support three full time contributors.</p>
-              <div className="minimal-progress">
-                <span style={{ width: progress }} />
-              </div>
-              <div className="minimal-sponsor-actions">
-                <a
-                  className="minimal-primary-button"
-                  href="https://github.com/sponsors/tilesprivacy"
-                >
-                  <SocialIcon
-                    type="github"
-                    className="minimal-sponsor-button-icon"
-                  />
-                  Sponsor on GitHub
-                </a>
-                <SponsorUsdtDonateButton />
-              </div>
-              <p className="minimal-note">
-                Our <Link href="/book/finances">finances are open</Link>: we
-                publish what we earn and what we spend every month.
-              </p>
-            </div>
-          </section>
-
-          <section className="minimal-section minimal-sponsor-copy">
+            <h1>About Tiles Privacy</h1>
             <p>
               Our mission is to build software that gives people greater
               agency, control, and choice in their digital lives. We believe
@@ -122,6 +84,9 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               experience, model intelligence, throughput, latency, tool use
               &amp; agentic capabilities, and web access.
             </p>
+          </header>
+
+          <section className="minimal-section minimal-about-copy">
             <p>
               Tiles was born from the discussions in{" "}
               <a
@@ -179,6 +144,91 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   </a>
                 )
               })}
+            </div>
+          </section>
+
+          <section
+            id="advisors"
+            className="minimal-section minimal-advisors-section scroll-mt-28"
+          >
+            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
+              <h2>Advisors</h2>
+              <span>{sponsorPageAdvisors.length}</span>
+            </div>
+            <div className="minimal-advisors-grid">
+              {sponsorPageAdvisors.map((advisor) => {
+                const { nameWithoutHandle, handle } = splitPersonDisplayName(
+                  advisor.name,
+                )
+                return (
+                  <article key={advisor.id} className="minimal-advisor-card">
+                    <a
+                      className="minimal-advisor-profile"
+                      href={advisor.links[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <PersonAvatar
+                        name={advisor.name}
+                        links={advisor.links}
+                        className="minimal-advisor-avatar"
+                      />
+                      <span>
+                        <strong>{nameWithoutHandle}</strong>
+                        {handle ? <small>{handle}</small> : null}
+                      </span>
+                    </a>
+                    <ul>
+                      {advisor.roles.map((role) => (
+                        <li key={role}>{role}</li>
+                      ))}
+                    </ul>
+                  </article>
+                )
+              })}
+            </div>
+          </section>
+
+          <section
+            id="sponsor"
+            className="minimal-page-intro minimal-sponsor-cta-intro scroll-mt-28"
+          >
+            <h2>Sponsor Tiles Privacy</h2>
+            <p>
+              Support a small team building private, local-first AI that
+              preserves user agency.
+            </p>
+          </section>
+
+          <section className="minimal-sponsor-funding-band">
+            <div className="minimal-funding">
+              <div>
+                <strong>{progress}</strong>
+                <span>
+                  {sponsorsGoal.goalAmountMonthly || "$1,500 per month"}
+                </span>
+              </div>
+              <p>Baseline funding to support three full time contributors.</p>
+              <div className="minimal-progress">
+                <span style={{ width: progress }} />
+              </div>
+              <div className="minimal-sponsor-actions">
+                <a
+                  className="minimal-primary-button"
+                  href="https://github.com/sponsors/tilesprivacy"
+                >
+                  <SocialIcon
+                    type="github"
+                    className="minimal-sponsor-button-icon"
+                  />
+                  Sponsor on GitHub
+                </a>
+                <SponsorUsdtDonateButton />
+              </div>
+              <p className="minimal-note">
+                Our <Link href="/book/finances">finances are open</Link>: we
+                publish what we earn and what we spend every month.
+              </p>
             </div>
           </section>
 

@@ -247,6 +247,6 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Can I support the project another way?",
     answer: "Yes, sponsorships and donations go directly to the work.",
-    link: { label: "Sponsor Tiles", href: "/sponsor" },
+    link: { label: "Sponsor Tiles", href: "/about#sponsor" },
   },
 ]

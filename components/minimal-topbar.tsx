@@ -33,7 +33,7 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
     ["/blog", "Blog"],
     ["/releases", "Releases"],
     ["/help", "Help"],
-    ["/sponsor", "Sponsor"],
+    ["/about", "About"],
   ] as const
 
   return (
