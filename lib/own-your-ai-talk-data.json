@@ -347,7 +347,7 @@
       "This is the deeper technical view of Tiles, broken into a few separate modules.",
       "The core is written in Rust. It includes local storage, the Modelfile parser, the plugin system, Iroh for peer-to-peer networking, AT Protocol for the social layer, and our PKI and identity system built around DIDs and UCANs.",
       "Inference is a separate Python module, with llama.cpp serving local models behind an Open Responses API translation layer.",
-      "Then there’s the agent runtime. Its control plane is written in Rust, with the agentic loop running in TypeScript.",
+      "Then there’s the agent runtime. Its control plane is written in Rust, with the TypeScript agentic loop powered by Pi, embedded as a Bun binary.",
       "And finally, different interfaces, like the macOS menubar app and desktop app, can sit on top.",
       "I’m not going to walk through every box here. The main idea is that Tiles is modular by design, so identity, networking, inference, agents, and interfaces can evolve independently without everything being tied into one monolithic application."
     ],
