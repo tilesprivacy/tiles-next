@@ -125,7 +125,7 @@
   },
   {
     "number": 13,
-    "title": "We still recreate the same old silos",
+    "title": "Local AI isn’t enough",
     "transcript": [
       "But local inference alone does not give us a complete product.",
       "As soon as we want identity, multiple devices, sync, or collaboration, we often recreate exactly the architecture we were trying to escape.",
@@ -421,6 +421,29 @@
   },
   {
     "number": 37,
+    "title": "One more thing",
+    "transcript": [
+      "The thesis of this talk is pretty simple.",
+      "AI is becoming part of how we think, work, research and communicate.",
+      "And as that happens, whoever controls the AI layer starts controlling a surprisingly large part of our digital lives.",
+      "I think we now have the technology to build that relationship differently: run more intelligence locally, and use open protocols where we need a network."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 38,
+    "title": "Tiles Privacy receives a $150K grant from the Mozilla Foundation to advance human-scale AI systems",
+    "transcript": [
+      "And this leads naturally to Tilekit.",
+      "Not everyone wants to use the Tiles interface.",
+      "Some developers just want the underlying runtime and capabilities inside their own applications.",
+      "Tilekit is our way of making Tiles embeddable, so developers can build their own interfaces and products on top of the same underlying infrastructure.",
+      "Tiles can be the application, or it can simply provide the building blocks."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 39,
     "title": "Own your AI",
     "transcript": [
       "So I’ll end where I started.",
@@ -430,7 +453,7 @@
       "We now have increasingly capable open models.",
       "We have local compute.",
       "We have peer-to-peer networking.",
-      "We have open protocols for identity and data.",
+      "We have open decentralized protocols for identity and data.",
       "So I think we finally have the ingredients for a different kind of AI stack.",
       "Own your models.",
       "Own your data.",

@@ -26,7 +26,7 @@ function escapeHtml(value: string): string {
 }
 
 export function ownYourAiSlideSrc(number: number): string {
-  return `/own-your-ai-talk/foss-india-2026-r3/slide-${String(number).padStart(2, "0")}.png`
+  return `/own-your-ai-talk/foss-india-2026-r4/slide-${String(number).padStart(2, "0")}.png`
 }
 
 export const ownYourAiDemoVideo = {
