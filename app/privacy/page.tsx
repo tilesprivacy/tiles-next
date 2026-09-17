@@ -59,6 +59,16 @@ export default function PrivacyPage() {
       </div>
 
       <div className="space-y-4">
+        <h2>Giveaway Applications</h2>
+        <p>
+          If you submit a giveaway application, we collect the information you provide in the form, such as your name, email address, GitHub profile, OSDC affiliation and relationship, hardware specifications, devices and operating systems, and application track. Travel-grant applications also collect your age, phone number, gender as shown on your travel ID, preferred flight details, and a UPI ID or UPI-linked phone number. We use this information only to review your application, verify eligibility, administer the giveaway and travel grant, and contact you about the result.
+        </p>
+        <p>
+          Giveaway applications are delivered through Resend to Tiles Privacy and may be reviewed with the named giveaway partner. Submitting a giveaway application does not subscribe you to marketing emails.
+        </p>
+      </div>
+
+      <div className="space-y-4">
         <h2>Your Control</h2>
         <p>
           You have complete control over your data. You can delete it at any time, export it, or stop using Tiles entirely. Your data belongs to you.

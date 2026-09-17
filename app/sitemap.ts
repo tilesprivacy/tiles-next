@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/book",
     "/brand",
     "/press-kit",
+    "/indiafoss-2026-giveaway",
     "/privacy",
     "/terms",
     "/refund-policy",
