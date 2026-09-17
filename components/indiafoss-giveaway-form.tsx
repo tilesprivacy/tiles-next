@@ -10,9 +10,9 @@ import {
 } from "@/lib/indiafoss-giveaway"
 
 const fieldClasses =
-  "mt-2 w-full rounded-lg border border-black/15 bg-white px-3.5 py-3 text-[0.95rem] text-black outline-none transition placeholder:text-black/35 focus:border-black focus:ring-2 focus:ring-black/10 dark:border-white/15 dark:bg-[#161616] dark:text-white dark:placeholder:text-white/35 dark:focus:border-white dark:focus:ring-white/10"
+  "mt-2 min-w-0 max-w-full w-full rounded-lg border border-black/15 bg-white px-3.5 py-3 text-[0.95rem] text-black outline-none transition placeholder:text-black/35 focus:border-black focus:ring-2 focus:ring-black/10 dark:border-white/15 dark:bg-[#161616] dark:text-white dark:placeholder:text-white/35 dark:focus:border-white dark:focus:ring-white/10"
 
-const labelClasses = "block text-sm font-medium text-foreground"
+const labelClasses = "block min-w-0 text-sm font-medium text-foreground"
 
 type FormStatus = "idle" | "submitting" | "success" | "error"
 
@@ -90,8 +90,8 @@ export function IndiaFossGiveawayForm() {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} className="space-y-8">
-      <fieldset>
+    <form ref={formRef} onSubmit={onSubmit} className="min-w-0 max-w-full space-y-8">
+      <fieldset className="min-w-0">
         <legend className={labelClasses}>Are you affiliated with OSDC?</legend>
         <div className="mt-3 flex flex-wrap gap-3">
           {[
@@ -120,9 +120,9 @@ export function IndiaFossGiveawayForm() {
         </p>
       ) : null}
 
-      <fieldset disabled={isIneligible} className="space-y-8 disabled:cursor-not-allowed disabled:opacity-45">
+      <fieldset disabled={isIneligible} className="min-w-0 space-y-8 disabled:cursor-not-allowed disabled:opacity-45">
         <legend className="sr-only">IndiaFOSS giveaway application</legend>
-        <fieldset className="space-y-5">
+        <fieldset className="min-w-0 space-y-5">
           <legend className="text-xl font-semibold tracking-[-0.025em]">Your details</legend>
           <div className="grid gap-5 sm:grid-cols-2">
             <label className={labelClasses}>
@@ -160,7 +160,7 @@ export function IndiaFossGiveawayForm() {
           </label>
         </fieldset>
 
-      <fieldset className="space-y-5">
+      <fieldset className="min-w-0 space-y-5">
         <legend className="text-xl font-semibold tracking-[-0.025em]">Hardware profile</legend>
         <p className="text-sm leading-6 text-muted-foreground">
           This helps us understand the devices represented in the private testing group.
@@ -179,7 +179,7 @@ export function IndiaFossGiveawayForm() {
             <input className={fieldClasses} name="memory" required maxLength={100} placeholder="16 GB" />
           </label>
         </div>
-        <fieldset>
+        <fieldset className="min-w-0">
           <legend className={labelClasses}>Devices and operating systems you use</legend>
           <div className="mt-3 grid gap-2 sm:grid-cols-2">
             {INDIAFOSS_DEVICE_OPTIONS.map((device) => (
@@ -192,7 +192,7 @@ export function IndiaFossGiveawayForm() {
         </fieldset>
       </fieldset>
 
-      <fieldset className="space-y-4">
+      <fieldset className="min-w-0 space-y-4">
         <legend className="text-xl font-semibold tracking-[-0.025em]">Choose an application track</legend>
         <div className="grid gap-3 sm:grid-cols-2">
           {(Object.entries(INDIAFOSS_GIVEAWAY_TRACKS) as Array<
@@ -224,7 +224,7 @@ export function IndiaFossGiveawayForm() {
       </fieldset>
 
       {track === "travel" ? (
-        <fieldset className="space-y-5">
+        <fieldset className="min-w-0 space-y-5">
           <legend className="text-xl font-semibold tracking-[-0.025em]">Travel details</legend>
           <div className="space-y-5 rounded-xl border border-black/15 bg-black/[0.025] p-4 dark:border-[#f7ff61]/25 dark:bg-[#f7ff61]/[0.045] sm:p-5">
             <p className="text-sm leading-6 text-muted-foreground">
