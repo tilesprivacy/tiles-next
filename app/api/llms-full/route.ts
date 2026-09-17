@@ -13,6 +13,10 @@ import { ownYourAiTalkRecording } from '@/lib/own-your-ai-talk'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getResourceLinks, type ResourceLink } from '@/lib/resource-links'
 import { solPbcPartner } from '@/lib/sponsor-partners'
+import {
+  INDIAFOSS_GIVEAWAY_ARCHIVE,
+  getIndiaFossGiveawayArchiveLines,
+} from '@/lib/indiafoss-giveaway-archive'
 import fs from 'fs'
 import path from 'path'
 
@@ -34,11 +38,13 @@ function sanitizeMdxText(mdx: string): string {
     // Exclude temporarily hidden MDX sections from the public text export.
     .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
     .replace(/^---[\s\S]*?---\n?/, '')
+    .replace(/^import\s+.*$/gm, '')
+    .replace(/<Image[\s\S]*?\/>/g, '')
     // Keep code block contents (CLI commands the AI search answers rely on);
     // strip only the fences and their info string.
     .replace(/```[^\n]*\n([\s\S]*?)```/g, '$1')
     .replace(/`([^`]+)`/g, '$1')
-    .replace(/\[(.*?)\]\((.*?)\)/g, '$1')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '$1 ($2)')
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean)
@@ -262,6 +268,11 @@ export async function GET(request: Request) {
     const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
     pushSection(lines, `Book: ${page.title} (${pageUrl})`, [page.content])
   }
+
+  pushSection(lines, `${INDIAFOSS_GIVEAWAY_ARCHIVE.sectionTitle} archive`, [
+    ...getIndiaFossGiveawayArchiveLines(baseUrl),
+    `Source page: ${baseUrl}/book/opensource#community-building`,
+  ])
 
   const resourceLinks = getResourceLinks()
   if (resourceLinks.length > 0) {

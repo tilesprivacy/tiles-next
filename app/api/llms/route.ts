@@ -5,6 +5,10 @@ import { getTilesPlugins } from '@/lib/plugins'
 import { CANARY_RELEASE_DESCRIPTION, CANARY_RELEASE_URL } from '@/lib/download-page-data'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
 import { solPbcPartner } from '@/lib/sponsor-partners'
+import {
+  INDIAFOSS_GIVEAWAY_ARCHIVE,
+  getIndiaFossGiveawayArchiveLines,
+} from '@/lib/indiafoss-giveaway-archive'
 import fs from 'fs'
 import path from 'path'
 
@@ -109,10 +113,14 @@ export async function GET(request: Request) {
   addSection(
     lines,
     'Documentation',
-    bookPages.map((page) => {
-      const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
-      return `- ${page.title}: ${pageUrl} - ${page.description}`
-    }),
+    [
+      ...bookPages.map((page) => {
+        const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
+        return `- ${page.title}: ${pageUrl} - ${page.description}`
+      }),
+      `- ${INDIAFOSS_GIVEAWAY_ARCHIVE.sectionTitle} archive:`,
+      ...getIndiaFossGiveawayArchiveLines(baseUrl).map((line) => `  - ${line}`),
+    ],
   )
 
   addSection(lines, 'Plugins', [
