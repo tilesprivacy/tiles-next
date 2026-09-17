@@ -1747,35 +1747,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.6;
   text-wrap: pretty;
 }
-/*
- * The offline route is the 7 GB specialist one, so it reads as the alternative
- * to the default rather than its twin. Declared after the base fill, and after
- * the `html.cyberpunk` pair below, so it wins at equal specificity.
- */
-.minimal-download-action--secondary {
-  border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent) !important;
-  background: transparent !important;
-  color: var(--foreground) !important;
-  box-shadow: none !important;
-}
-.minimal-download-action--secondary:hover {
-  background: color-mix(in srgb, var(--foreground) 6%, transparent) !important;
-  color: var(--foreground) !important;
-}
-html.cyberpunk .minimal-download-action--secondary {
-  border: 1px solid
-    color-mix(in srgb, var(--sponsor-yellow, #f7ff61) 45%, transparent) !important;
-  background: transparent !important;
-  color: var(--sponsor-yellow, #f7ff61) !important;
-}
-html.cyberpunk .minimal-download-action--secondary:hover {
-  background: color-mix(
-    in srgb,
-    var(--sponsor-yellow, #f7ff61) 12%,
-    transparent
-  ) !important;
-  color: var(--sponsor-yellow, #f7ff61) !important;
-}
 .minimal-download-action-icon {
   width: 0.95rem;
   height: 0.95rem;
@@ -2275,7 +2246,31 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   font-size: 0.875rem;
   line-height: 1.55;
 }
-/* Latest release notes reuse the platform sections' type scale and tokens. */
+/* Stable and Canary releases share one changelog hierarchy. */
+.minimal-download-changelogs {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 38rem;
+  margin-top: 1.75rem;
+}
+.minimal-download-changelog + .minimal-download-changelog {
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+.minimal-download-changelog > h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.minimal-download-changelog > p:not(.minimal-note) {
+  margin: 0.65rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
 .minimal-download-release-notes {
   margin-top: 1.5rem;
   display: flex;
@@ -2283,7 +2278,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   gap: 1.25rem;
   max-width: 38rem;
 }
-.minimal-download-release-notes h3 {
+.minimal-download-release-notes h4 {
   margin: 0 0 0.5rem;
   font-size: 0.875rem;
   line-height: 1.4;
@@ -2301,7 +2296,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-download-release-notes li + li {
   margin-top: 0.25rem;
 }
-.minimal-download-release-notes--markdown h3:not(:first-child) {
+.minimal-download-release-notes--markdown h4:not(:first-child) {
   margin-top: 1.25rem;
 }
 .minimal-download-platform .minimal-command {

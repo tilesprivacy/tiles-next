@@ -15,7 +15,7 @@ import {
   themeAwareHeaderPrimaryCtaClasses,
 } from "@/lib/header-primary-cta-classes"
 
-export function CanaryReleaseContent({ initialRelease }: { initialRelease: CanaryReleaseData | null }) {
+export function useCanaryRelease(initialRelease: CanaryReleaseData | null) {
   const [release, setRelease] = useState(initialRelease)
 
   useEffect(() => {
@@ -51,18 +51,63 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
     }
   }, [])
 
-  // The pinned installer link keeps a direct Canary download on the page
-  // whenever the GitHub release data is unavailable.
-  const assets: Array<{ name: string; browser_download_url: string; size?: number }> =
-    release?.assets?.length ? release.assets : [CANARY_FALLBACK_DOWNLOAD]
+  return release
+}
+
+type CanaryAsset = {
+  name: string
+  browser_download_url: string
+  size?: number
+}
+
+function getCanaryAssets(release: CanaryReleaseData | null): CanaryAsset[] {
+  return release?.assets?.length ? release.assets : [CANARY_FALLBACK_DOWNLOAD]
+}
+
+export function CanaryDownloadAction({ release }: { release: CanaryReleaseData | null }) {
+  const assets = getCanaryAssets(release)
+
+  return (
+    <>
+      {assets.map((asset) => (
+        <div key={asset.name} className="minimal-download-option">
+          <a
+            href={asset.browser_download_url}
+            className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
+          >
+            <span>Download canary installer</span>
+            <Download
+              className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
+              aria-hidden
+            />
+          </a>
+          <span className="minimal-download-size">
+            {typeof asset.size === "number"
+              ? `${
+                  asset.size < 1024
+                    ? `${asset.size} bytes`
+                    : asset.size < 1024 * 1024
+                      ? `${Math.round(asset.size / 1024)} KB`
+                      : `${(asset.size / (1024 * 1024)).toFixed(1)} MB`
+                } · `
+              : null}
+            For early testers
+          </span>
+        </div>
+      ))}
+    </>
+  )
+}
+
+export function CanaryReleaseContent({ release }: { release: CanaryReleaseData | null }) {
   const notes = (release?.body || "")
     .replace(/\r\n/g, "\n")
     .replace(/^Tiles canary\s*\n/i, "")
-    .replace(/^(New|Added|Changed|Fixed|Build)\s*$/gm, "### $1")
+    .replace(/^(New|Added|Changed|Fixed|Build)\s*$/gm, "#### $1")
 
   return (
-    <section className="minimal-download-platform" aria-labelledby="canary-heading">
-      <h2 id="canary-heading">Canary release</h2>
+    <div className="minimal-download-changelog" aria-labelledby="canary-heading">
+      <h3 id="canary-heading">Canary release</h3>
       <p>{CANARY_RELEASE_DESCRIPTION}</p>
       <p>
         Version 0.4.20-canary · Pre-release
@@ -77,31 +122,6 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
           </>
         )}
       </p>
-      <ul className="minimal-download-actions list-none p-0" aria-label="Canary downloads">
-        {assets.map((asset) => (
-          <li key={asset.name} className="minimal-download-option">
-            <a
-              href={asset.browser_download_url}
-              className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
-            >
-              <span>Download canary installer</span>
-              <Download
-                className={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`}
-                aria-hidden
-              />
-            </a>
-            {typeof asset.size === "number" && (
-              <span className="minimal-download-size">
-                {asset.size < 1024
-                  ? `${asset.size} bytes`
-                  : asset.size < 1024 * 1024
-                  ? `${Math.round(asset.size / 1024)} KB`
-                  : `${(asset.size / (1024 * 1024)).toFixed(1)} MB`}
-              </span>
-            )}
-          </li>
-        ))}
-      </ul>
       {notes && (
         <div className="minimal-download-release-notes minimal-download-release-notes--markdown">
           <div>
@@ -115,6 +135,6 @@ export function CanaryReleaseContent({ initialRelease }: { initialRelease: Canar
           <ArrowUpRight size={16} aria-hidden />
         </a>
       </p>
-    </section>
+    </div>
   )
 }

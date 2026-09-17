@@ -1,14 +1,15 @@
 import { DownloadContent } from "@/components/download-content"
-import { CanaryRelease } from "@/components/canary-release"
+import { getCanaryRelease } from "@/lib/canary-release"
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 import { getLatestReleaseVersion } from "@/lib/releases"
 import { getGithubSponsorsGoalData } from "@/lib/sponsors-goal"
 
 export default async function DownloadPage() {
-  const [initialDownloadArtifact, initialLatestReleaseVersion, sponsorsGoal] = await Promise.all([
+  const [initialDownloadArtifact, initialLatestReleaseVersion, sponsorsGoal, initialCanaryRelease] = await Promise.all([
     getLatestDownloadArtifact(),
     getLatestReleaseVersion(),
     getGithubSponsorsGoalData(),
+    getCanaryRelease(),
   ])
 
   return (
@@ -21,7 +22,7 @@ export default async function DownloadPage() {
         fileName: initialDownloadArtifact.fileName,
       }}
       initialLatestReleaseVersion={initialLatestReleaseVersion}
-      canaryRelease={<CanaryRelease />}
+      initialCanaryRelease={initialCanaryRelease}
       sponsorsGoal={sponsorsGoal}
     />
   )
