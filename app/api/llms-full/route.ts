@@ -271,7 +271,7 @@ export async function GET(request: Request) {
 
   pushSection(lines, `${INDIAFOSS_GIVEAWAY_ARCHIVE.sectionTitle} archive`, [
     ...getIndiaFossGiveawayArchiveLines(baseUrl),
-    `Source page: ${baseUrl}/book/community#community-building`,
+    `Source page: ${baseUrl}/book/community#community-initiatives`,
   ])
 
   const resourceLinks = getResourceLinks()
