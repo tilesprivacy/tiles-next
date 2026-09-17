@@ -19,9 +19,9 @@ export const metadata: Metadata = {
     url: INDIAFOSS_GIVEAWAY_PATH,
     images: [
       {
-        url: "/indiafoss-2026-giveaway.png",
-        width: 1080,
-        height: 1350,
+        url: "/indiafoss-2026-giveaway-og.png",
+        width: 1200,
+        height: 630,
         alt: "Tiles, Solstone, IndiaFOSS 2026, and OSDC giveaway",
       },
     ],
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: ["/indiafoss-2026-giveaway.png"],
+    images: ["/indiafoss-2026-giveaway-og.png"],
   },
 }
 
