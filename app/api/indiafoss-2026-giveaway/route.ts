@@ -5,6 +5,7 @@ import { Resend } from "resend"
 import { IndiaFossGiveawayConfirmationEmail } from "@/emails/indiafoss-giveaway-confirmation"
 import {
   INDIAFOSS_DEVICE_OPTIONS,
+  INDIAFOSS_GIVEAWAY_CLOSED,
   INDIAFOSS_GIVEAWAY_TRACKS,
   isIndiaFossGiveawayTrack,
   type IndiaFossGiveawayTrack,
@@ -94,6 +95,13 @@ const formatEntry = (entry: GiveawayEntry, submittedAt: string) => [
 ].join("\n")
 
 export async function POST(request: NextRequest) {
+  if (INDIAFOSS_GIVEAWAY_CLOSED) {
+    return NextResponse.json(
+      { error: "All giveaway slots have been booked, so applications are closed." },
+      { status: 410 },
+    )
+  }
+
   const requestOrigin = new URL(request.url).origin
   const origin = request.headers.get("origin")
   if (origin && origin !== requestOrigin) {

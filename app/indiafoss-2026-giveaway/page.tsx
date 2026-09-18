@@ -2,12 +2,11 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { Check } from "lucide-react"
-import { IndiaFossGiveawayForm } from "@/components/indiafoss-giveaway-form"
 import { SiteFooter } from "@/components/site-footer"
 import { INDIAFOSS_GIVEAWAY_PATH } from "@/lib/indiafoss-giveaway"
 
 const title = "IndiaFOSS 2026 ticket and travel grant giveaway"
-const description = "Apply for one of 10 IndiaFOSS 2026 tickets for OSDC members. Five entries include a $100 travel grant."
+const description = "Applications are closed because all 10 IndiaFOSS 2026 giveaway slots have been booked."
 
 export const metadata: Metadata = {
   title: `${title} | Tiles`,
@@ -67,10 +66,10 @@ export default function IndiaFossGiveawayPage() {
           <article>
             <p className="text-sm font-medium text-black dark:text-[#f7ff61]">Tiles × Solstone × IndiaFOSS 2026</p>
             <h1 className="mt-4 max-w-2xl text-4xl font-semibold leading-[1.06] tracking-[-0.045em] sm:text-5xl">
-              Apply for the IndiaFOSS 2026 ticket and travel grant giveaway
+              IndiaFOSS 2026 ticket and travel grant giveaway
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              We have 10 spots for OSDC members. Five include an IndiaFOSS ticket and a $100 travel grant, while the other five include a conference ticket. All 10 also include swag.
+              The giveaway offered 10 spots for OSDC members. Five included an IndiaFOSS ticket and a $100 travel grant, while the other five included a conference ticket. All 10 also included swag.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
               <a href="https://osdc.dev" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">OSDC</a> is a student-run open-source club based at JIIT in Noida.
@@ -80,7 +79,7 @@ export default function IndiaFossGiveawayPage() {
             </p>
 
             <section className="mt-10 rounded-2xl border border-black/10 bg-black/[0.025] p-5 dark:border-white/10 dark:bg-white/[0.025] sm:p-6" aria-labelledby="requirements-heading">
-              <h2 id="requirements-heading" className="text-lg font-semibold tracking-[-0.02em]">Before you apply</h2>
+              <h2 id="requirements-heading" className="text-lg font-semibold tracking-[-0.02em]">Giveaway requirements</h2>
               <ul className="mt-4 space-y-3">
                 {requirements.map((requirement) => (
                   <li key={requirement.key} className="flex gap-3 text-sm leading-6 text-muted-foreground">
@@ -92,11 +91,22 @@ export default function IndiaFossGiveawayPage() {
             </section>
 
             <div className="mt-12 border-t border-black/10 pt-10 dark:border-white/10">
-              <IndiaFossGiveawayForm />
+              <section
+                className="rounded-2xl border border-black/10 bg-black/[0.025] p-6 dark:border-white/10 dark:bg-white/[0.035] sm:p-8"
+                aria-labelledby="applications-closed-heading"
+                role="status"
+              >
+                <h2 id="applications-closed-heading" className="text-2xl font-semibold tracking-[-0.03em]">
+                  Applications are closed
+                </h2>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
+                  All giveaway slots have been booked, so the application form is no longer accepting entries.
+                </p>
+              </section>
             </div>
 
             <p className="mt-8 text-xs leading-5 text-muted-foreground">
-              One entry per person. Entries are reviewed by the organizers, and submitting does not guarantee selection. Selected applicants may be asked to verify eligibility.
+              Entries were limited to one per person and reviewed by the organizers. Selected applicants may be asked to verify eligibility.
             </p>
           </article>
         </div>

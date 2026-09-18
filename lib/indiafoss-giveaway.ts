@@ -1,4 +1,5 @@
 export const INDIAFOSS_GIVEAWAY_PATH = "/indiafoss-2026-giveaway"
+export const INDIAFOSS_GIVEAWAY_CLOSED = true
 
 export const INDIAFOSS_GIVEAWAY_TRACKS = {
   travel: {
