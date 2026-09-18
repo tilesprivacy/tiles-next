@@ -37,6 +37,9 @@ const ctaBaseClass =
 const outlinedCtaClass =
   `${ctaBaseClass} border border-black/15 bg-transparent text-foreground hover:bg-black/[0.04] dark:border-white/20 dark:hover:bg-white/[0.06]`
 
+const filledCtaClass =
+  `${ctaBaseClass} bg-foreground text-background hover:opacity-90`
+
 const faqLinkClass =
   "mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline decoration-current/25 underline-offset-4 transition-colors hover:decoration-current"
 
@@ -226,7 +229,7 @@ function PlanCard({
 
       <div>
         {plan.id === "free" ? (
-          <Link href="/download" className={outlinedCtaClass}>
+          <Link href="/download" className={filledCtaClass}>
             {plan.ctaLabel}
             <CtaChevron />
           </Link>
