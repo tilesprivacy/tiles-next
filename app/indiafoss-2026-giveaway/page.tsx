@@ -7,7 +7,7 @@ import { SiteFooter } from "@/components/site-footer"
 import { INDIAFOSS_GIVEAWAY_PATH } from "@/lib/indiafoss-giveaway"
 
 const title = "IndiaFOSS 2026 ticket and travel grant giveaway"
-const description = "Apply for one of 10 IndiaFOSS 2026 tickets for OSDC members. Five entries include a US$100 travel grant."
+const description = "Apply for one of 10 IndiaFOSS 2026 tickets for OSDC members. Five entries include a $100 travel grant."
 
 export const metadata: Metadata = {
   title: `${title} | Tiles`,
@@ -70,7 +70,7 @@ export default function IndiaFossGiveawayPage() {
               Apply for the IndiaFOSS 2026 ticket and travel grant giveaway
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              We have 10 spots for OSDC members. Five include an IndiaFOSS ticket and a US$100 travel grant, while the other five include a conference ticket. All 10 also include swag.
+              We have 10 spots for OSDC members. Five include an IndiaFOSS ticket and a $100 travel grant, while the other five include a conference ticket. All 10 also include swag.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
               <a href="https://osdc.dev" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">OSDC</a> is a student-run open-source club based at JIIT in Noida.

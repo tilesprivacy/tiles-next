@@ -2,7 +2,7 @@ export const INDIAFOSS_GIVEAWAY_ARCHIVE = {
   sectionTitle: 'Community initiatives',
   eventTitle: 'IndiaFOSS 2026 giveaway',
   summary:
-    'Tiles Privacy and Sol PBC (https://solpbc.org/) ran an IndiaFOSS 2026 giveaway for OSDC members. Ten selected applicants received conference tickets and swag, and five also received a US$100 travel grant.',
+    'Tiles Privacy and Sol PBC (https://solpbc.org/) ran an IndiaFOSS 2026 giveaway for OSDC members. Ten selected applicants received conference tickets and swag, and five also received a $100 travel grant.',
   posterPath: '/indiafoss-2026-giveaway.png',
   formPath: '/indiafoss-2026-giveaway',
 } as const

@@ -228,7 +228,7 @@ export function IndiaFossGiveawayForm() {
           <legend className="text-xl font-semibold tracking-[-0.025em]">Travel details</legend>
           <div className="space-y-5 rounded-xl border border-black/15 bg-black/[0.025] p-4 dark:border-[#f7ff61]/25 dark:bg-[#f7ff61]/[0.045] sm:p-5">
             <p className="text-sm leading-6 text-muted-foreground">
-              To prevent misuse, we will book the selected one-way flight directly. Any amount remaining from the US$100 grant after the booking will be sent to your personal account through UPI.
+              To prevent misuse, we will book the selected one-way flight directly. Any amount remaining from the $100 grant after the booking will be sent to your personal account through UPI.
             </p>
             <div className="space-y-5">
               <div>

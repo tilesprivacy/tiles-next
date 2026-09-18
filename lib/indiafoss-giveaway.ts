@@ -2,8 +2,8 @@ export const INDIAFOSS_GIVEAWAY_PATH = "/indiafoss-2026-giveaway"
 
 export const INDIAFOSS_GIVEAWAY_TRACKS = {
   travel: {
-    label: "Ticket + US$100 travel grant",
-    description: "Five selected applicants receive an IndiaFOSS ticket and US$100 toward travel or attendance expenses.",
+    label: "Ticket + $100 travel grant",
+    description: "Five selected applicants receive an IndiaFOSS ticket and $100 toward travel or attendance expenses.",
   },
   ticket: {
     label: "Conference ticket",
