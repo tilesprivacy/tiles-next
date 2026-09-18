@@ -10,14 +10,14 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const html = await render(createElement(IndiaFossGiveawayConfirmationEmail, {
     fullName: "Ankesh",
-    trackLabel: "Ticket + US$100 travel grant",
+    trackLabel: "Ticket + $100 travel grant",
     responseItems: [
       { label: "Full name", value: "Ankesh" },
       { label: "Email", value: "ankesh@example.com" },
       { label: "GitHub profile", value: "https://github.com/ankesh" },
       { label: "Affiliated with OSDC", value: "Yes" },
       { label: "Relationship with OSDC", value: "Community member and contributor" },
-      { label: "Application track", value: "Ticket + US$100 travel grant" },
+      { label: "Application track", value: "Ticket + $100 travel grant" },
       { label: "CPU", value: "Apple M2" },
       { label: "GPU", value: "Integrated" },
       { label: "Memory", value: "16 GB" },
