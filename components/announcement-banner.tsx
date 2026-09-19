@@ -59,16 +59,16 @@ export function AnnouncementBanner() {
       className="site-announcement"
       aria-label="Announcement"
     >
-      <Link href="/blog/own-your-ai">
+      <Link href="/indiafoss-2026-giveaway">
         <Image
-          src="/localfirst-conf-mark.png"
+          src="/indiafoss-2026-mark.png"
           alt=""
-          width={24}
+          width={60}
           height={24}
           className="site-announcement-logo"
         />
         <span className="site-announcement-message">
-          <span>Watch our talk at Local-First Conf 2026, Berlin</span>
+          <span>Tiles × Solstone × IndiaFOSS 2026 giveaway for OSDC members</span>
           <span className="site-announcement-cta" aria-hidden>
             →
           </span>
