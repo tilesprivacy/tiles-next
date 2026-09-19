@@ -2400,8 +2400,8 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   border-bottom: 1px solid var(--border);
 }
 .minimal-team {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   margin-top: 1.75rem;
 }
@@ -2411,6 +2411,20 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   gap: 0.55rem;
   font-size: 0.875rem;
   text-decoration: none;
+}
+.minimal-team-identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.minimal-team-name {
+  min-width: 0;
+}
+.minimal-team-role {
+  margin-top: 0.15rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
 }
 .minimal-team a small {
   color: var(--muted-foreground);
@@ -2424,6 +2438,11 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-sponsor-avatar {
   display: inline-flex;
   flex: none;
+}
+@media (max-width: 640px) {
+  .minimal-team {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .minimal-sponsor-avatar > span {
   flex: none;

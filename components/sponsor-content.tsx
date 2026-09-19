@@ -17,6 +17,47 @@ interface SponsorContentProps {
   }
 }
 
+const aboutTeam = [
+  {
+    name: "Ankesh Bharti",
+    username: "@feynon",
+    role: "CEO & Founder",
+    href: "https://ankeshbharti.com",
+    links: [
+      "https://ankeshbharti.com",
+      "https://github.com/feynon",
+    ],
+  },
+  {
+    name: "Prashant Mishra",
+    username: "@primalpimmy",
+    role: "CTO and Member of Technical Staff",
+    href: "https://pimtron.dev",
+    links: ["https://pimtron.dev"],
+  },
+  {
+    name: "Anandu Pavanan",
+    username: "@madclaws",
+    role: "Member of Technical Staff",
+    href: "https://github.com/madclaws",
+    links: ["https://github.com/madclaws"],
+  },
+  {
+    name: "Lakshita Arora",
+    username: "@lexoskeletal",
+    role: "Head of Design",
+    href: "https://github.com/lexoskeletal",
+    links: ["https://github.com/lexoskeletal"],
+  },
+  {
+    name: "Harsh Sharma",
+    username: "@codelif",
+    role: "Long-term paid contributor for 18 months",
+    href: "https://github.com/codelif",
+    links: ["https://github.com/codelif"],
+  },
+]
+
 function SponsorList({
   title,
   entries,
@@ -112,38 +153,22 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
             </p>
             <p>We’re a small independent team based out of Bengaluru, India.</p>
             <div className="minimal-team">
-              {people.contributorsCore.map((person) => {
-                const { nameWithoutHandle } = splitPersonDisplayName(
-                  person.name,
-                )
-                const teamProfile = {
-                  "ankesh-bharti": {
-                    username: "@feynon",
-                    href: "https://ankeshbharti.com",
-                  },
-                  "anandu-pavanan": {
-                    username: "@madclaws",
-                    href: "https://github.com/madclaws",
-                  },
-                  "prashant-mishra": {
-                    username: "@primalpimmy",
-                    href: "https://pimtron.dev",
-                  },
-                }[person.id]
-                return (
-                  <a
-                    key={person.id}
-                    href={teamProfile?.href ?? person.links[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <PersonAvatar name={person.name} links={person.links} />
-                    <span>
-                      {nameWithoutHandle} <small>{teamProfile?.username}</small>
+              {aboutTeam.map((person) => (
+                <a
+                  key={person.username}
+                  href={person.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <PersonAvatar name={person.name} links={person.links} />
+                  <span className="minimal-team-identity">
+                    <span className="minimal-team-name">
+                      {person.name} <small>{person.username}</small>
                     </span>
-                  </a>
-                )
-              })}
+                    <span className="minimal-team-role">{person.role}</span>
+                  </span>
+                </a>
+              ))}
             </div>
           </section>
 
