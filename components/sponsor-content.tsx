@@ -152,7 +152,11 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               digital ecosystem for Europe.
             </p>
             <p>We’re a small independent team based out of Bengaluru, India.</p>
-            <div className="minimal-team">
+            <div className="minimal-sponsor-list-heading !mb-6 !mt-8 flex min-h-7 items-center justify-between">
+              <h2>Team</h2>
+              <span>{aboutTeam.length}</span>
+            </div>
+            <div className="minimal-team !mt-0">
               {aboutTeam.map((person) => (
                 <a
                   key={person.username}
