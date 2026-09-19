@@ -36,7 +36,7 @@ export const sponsorPageAdvisors = [
     name: "Gordon Brander @gordon",
     links: ["https://gordonbrander.com", "https://bsky.app/profile/gordon.bsky.social"],
     roles: [
-      "Research Fellow, FLF",
+      "Research Fellow, Future of Life Foundation",
       "Research Fellow, Cosmos Institute",
       "Founder and CEO, Subconscious",
       "Web Platform Designer, Google",
