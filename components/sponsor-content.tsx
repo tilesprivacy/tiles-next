@@ -31,7 +31,7 @@ const aboutTeam = [
   {
     name: "Prashant Mishra",
     username: "@primalpimmy",
-    role: "CTO and Member of Technical Staff",
+    role: "CTO",
     href: "https://pimtron.dev",
     links: ["https://pimtron.dev"],
   },
