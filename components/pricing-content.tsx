@@ -9,7 +9,7 @@ import {
 import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
 import {
   PRICING_FAQS,
-  PRICING_PAGE_FUNDING_NOTE,
+  PRICING_PAGE_EARLY_MEMBER_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
   type PricingFaq,
@@ -269,7 +269,7 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
           <header className="mx-auto max-w-xl text-center">
             <h1 className={marketingPageTitleClass}>{PRICING_PAGE_TITLE}</h1>
             <p className={`mt-5 text-balance text-sm leading-6 ${secondaryTextClass}`}>
-              {PRICING_PAGE_FUNDING_NOTE}
+              {PRICING_PAGE_EARLY_MEMBER_NOTE}
             </p>
           </header>
 
