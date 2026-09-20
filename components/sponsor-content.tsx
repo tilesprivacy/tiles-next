@@ -52,7 +52,7 @@ const aboutTeam = [
   {
     name: "Harsh Sharma",
     username: "@codelif",
-    role: "Paid contributor for 18 months",
+    role: "Long-term paid contributor",
     href: "https://github.com/codelif",
     links: ["https://github.com/codelif"],
   },
