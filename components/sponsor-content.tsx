@@ -117,6 +117,9 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
         <article className="minimal-inner-content">
           <header className="minimal-page-intro !mb-8">
             <h1>About Tiles Privacy</h1>
+          </header>
+
+          <section className="minimal-section minimal-about-copy">
             <p>
               Our mission is to build software that gives people greater
               agency, control, and choice in their digital lives. We believe
@@ -125,9 +128,6 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               experience, model intelligence, throughput, latency, tool use
               &amp; agentic capabilities, and web access.
             </p>
-          </header>
-
-          <section className="minimal-section minimal-about-copy">
             <p>
               Tiles was born from the discussions in{" "}
               <a
@@ -152,7 +152,13 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               digital ecosystem for Europe.
             </p>
             <p>We’re a small independent team based out of Bengaluru, India.</p>
-            <div className="minimal-sponsor-list-heading !mb-6 !mt-8 flex min-h-7 items-center justify-between">
+          </section>
+
+          <section
+            id="team"
+            className="minimal-section minimal-team-section scroll-mt-28"
+          >
+            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
               <h2>Team</h2>
               <span>{aboutTeam.length}</span>
             </div>
