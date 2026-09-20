@@ -69,7 +69,7 @@ export default function IndiaFossGiveawayPage() {
               IndiaFOSS 2026 ticket and travel grant giveaway
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
-              The giveaway offered 10 spots for OSDC members. Five included an IndiaFOSS ticket and a $100 travel grant, while the other five included a conference ticket. All 10 also included swag.
+              The giveaway offers 10 spots for OSDC members. Five include an <a href="https://fossunited.org/indiafoss/2026" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">IndiaFOSS</a> ticket and a $100 travel grant, while the other five include a conference ticket. All 10 also include swag.
             </p>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground">
               <a href="https://osdc.dev" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4">OSDC</a> is a student-run open-source club based at JIIT in Noida.
