@@ -2039,6 +2039,17 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   color: var(--foreground);
   font-weight: 500;
 }
+.minimal-sponsor-page .minimal-sponsor-name-link,
+.minimal-sponsor-page .minimal-team-name-link {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 3px;
+}
+.minimal-sponsor-page .minimal-sponsor-name-link:hover,
+.minimal-sponsor-page .minimal-team a:hover .minimal-team-name-link {
+  text-decoration-color: currentColor;
+}
 .minimal-sponsor-page .minimal-sponsor-name small,
 .minimal-sponsor-page .minimal-sponsor-handle {
   color: var(--muted-foreground);

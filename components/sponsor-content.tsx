@@ -73,6 +73,7 @@ function SponsorList({
       </div>
       {entries.map((person) => {
         const isAnonymous = "anonymous" in person && person.anonymous
+        const profileUrl = isAnonymous ? null : person.links[0]
         const { nameWithoutHandle, handle } = splitPersonDisplayName(
           isAnonymous ? "Anonymous sponsor" : person.name,
         )
@@ -85,7 +86,18 @@ function SponsorList({
                 className="minimal-sponsor-avatar"
               />
               <span className="minimal-sponsor-name inline-flex min-w-0 flex-1 items-baseline !gap-1 overflow-hidden text-ellipsis whitespace-nowrap leading-tight">
-                <strong className="truncate">{nameWithoutHandle}</strong>
+                {profileUrl ? (
+                  <a
+                    className="minimal-sponsor-name-link min-w-0 truncate"
+                    href={profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <strong>{nameWithoutHandle}</strong>
+                  </a>
+                ) : (
+                  <strong className="truncate">{nameWithoutHandle}</strong>
+                )}
               </span>
               {handle ? (
                 <small className="minimal-sponsor-handle max-w-[44%] shrink-0 truncate text-right">
@@ -173,7 +185,10 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
                   <PersonAvatar name={person.name} links={person.links} />
                   <span className="minimal-team-identity">
                     <span className="minimal-team-name">
-                      {person.name} <small>{person.username}</small>
+                      <span className="minimal-team-name-link">
+                        {person.name}
+                      </span>{" "}
+                      <small>{person.username}</small>
                     </span>
                     <span className="minimal-team-role">{person.role}</span>
                   </span>
