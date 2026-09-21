@@ -19,19 +19,23 @@ const tilesWordmarkFont = readFile(
   join(process.cwd(), "public/fonts/geist-tiles-bold.ttf"),
 ).then((font) => Uint8Array.from(font).buffer)
 
+const tilesBodyFont = readFile(
+  join(process.cwd(), "public/fonts/geist-og-regular.ttf"),
+).then((font) => Uint8Array.from(font).buffer)
+
 /*
- * Only the Tiles wordmark uses the bundled Geist Bold subset so it matches the
- * website header exactly. The description stays on ImageResponse's default
- * face because loading Geist for the full sentence produced uneven spacing in
- * Satori.
- *
- * Keep the subset limited to "Tiles": extending it to body copy requires
- * visually checking a complete line of text, not only the wordmark.
+ * Use explicit bundled faces for both lines. Satori's fallback font can select
+ * glyphs with visibly different stroke weights within the same sentence. The
+ * small bold subset keeps the Tiles wordmark aligned with the website header,
+ * while the full regular face gives the tagline one consistent glyph source.
  */
 
 export async function GET() {
   const tagline = TILES_PRODUCT_DESCRIPTION_CORE
-  const wordmarkFontData = await tilesWordmarkFont
+  const [wordmarkFontData, bodyFontData] = await Promise.all([
+    tilesWordmarkFont,
+    tilesBodyFont,
+  ])
 
   return new ImageResponse(
     (
@@ -45,7 +49,7 @@ export async function GET() {
           justifyContent: "center",
           backgroundColor: "#000000",
           color: "#f2f2f4",
-          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+          fontFamily: "Tiles Body",
         }}
       >
         <div
@@ -106,6 +110,12 @@ export async function GET() {
           data: wordmarkFontData,
           style: "normal",
           weight: 700,
+        },
+        {
+          name: "Tiles Body",
+          data: bodyFontData,
+          style: "normal",
+          weight: 400,
         },
       ],
     },
