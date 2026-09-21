@@ -2023,7 +2023,8 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   font-size: 0.875rem;
   font-weight: 600;
 }
-.minimal-sponsor-page .minimal-sponsor-list h2 {
+.minimal-sponsor-page .minimal-sponsor-list h2,
+.minimal-sponsor-page .minimal-partners-section h2 {
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--foreground);
@@ -2242,9 +2243,12 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .dark .minimal-sponsor-page .minimal-sponsor-list-heading > span,
 .dark .minimal-sponsor-page .minimal-sponsor-name small,
 .dark .minimal-sponsor-page .minimal-sponsor-handle,
-.dark .minimal-sponsor-page .minimal-partner small,
-.dark .minimal-sponsor-page .minimal-team a small {
+.dark .minimal-sponsor-page .minimal-partner small {
   color: #71717a;
+}
+.dark .minimal-sponsor-page .minimal-team a small,
+.dark .minimal-sponsor-page .minimal-team-role {
+  color: #a1a1aa;
 }
 .dark .minimal-sponsor-page .minimal-sponsor-list-heading > span {
   color: #52525b;
@@ -2940,6 +2944,11 @@ html.cyberpunk .minimal-wallet-panel {
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+.minimal-partners-section .minimal-sponsor-list-heading h2 {
+  margin: 0;
   line-height: 1.4;
   letter-spacing: -0.01em;
 }
