@@ -324,7 +324,7 @@ export const downloadLinkEmailTemplateHtml = `<!doctype html>
               <td style="padding:0 0 40px 0;">
                 <p style="margin:0 0 4px 0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">
                   Paste this in terminal.<br />
-                  The install script will support a <code>--canary</code> flag to install the canary version.<br />
+                  The install script has a <code>--canary</code> flag to install the canary version.<br />
                   The offline installer for Linux is a work in progress.
                 </p>
                 <p style="margin:0; color:#a3a3a3; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:12px; line-height:1.6; font-weight:400;">

@@ -197,7 +197,7 @@ export function DownloadContent({
             </button>
             <p className="minimal-note">Paste this command in your terminal.</p>
             <p className="minimal-note">
-              The install script will support a <code>--canary</code> flag to install the canary version.
+              The install script has a <code>--canary</code> flag to install the canary version.
             </p>
             <p className="minimal-note">The offline installer for Linux is a work in progress.</p>
           </section>
