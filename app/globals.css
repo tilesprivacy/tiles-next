@@ -895,7 +895,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   width: 100%;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--foreground) 10%, transparent);
   border-radius: 1rem;
   background: #0d0f0e;
 }
