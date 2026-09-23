@@ -29,7 +29,7 @@ REPO="tilesprivacy/tiles"
 VERSION="0.4.19"
 DEV="false"
 NIGHTLY="false"
-BACKEND="auto"
+CANARY="false"
 INSTALL_DIR_OVERRIDE=""
 LIB_DIR_OVERRIDE=""
 
@@ -45,10 +45,35 @@ usage() {
   echo ""
   echo "  --dev                Install from a local dist/*.tar.gz instead of GitHub"
   echo "  --nightly            Install the latest nightly GitHub release"
-  echo "                       (e.g. tiles-v0.4.17-x86_64-linux-cuda.tar.gz)"
-  echo "  --backend BACKEND    Linux inference backend: auto (default), cuda, or vulkan"
+  echo "  --canary             Install the latest canary build (the canary branch, unreleased)"
+  echo "                       (e.g. tiles-v0.4.20-x86_64-linux.tar.gz)"
   echo "  --install-dir PATH   Override the binary installation directory"
   echo "  --lib-dir PATH       Override the runtime installation directory"
+}
+
+# Resolve the tarball the rolling `canary` release carries for this platform.
+# Its version is the canary branch's, e.g. tiles-v0.4.20-canary.1-x86_64-linux.tar.gz,
+# so the name is read off the release rather than built from VERSION.
+# Sets RELEASE_TAG, VERSION (for logs), and RELEASE_ASSET (exact filename).
+resolve_canary_version() {
+  local release_json asset
+  local platform="${ARCH}-${OS}"
+
+  release_json="$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/tags/canary")" \
+    || err "Failed to query the canary release for ${REPO}."
+
+  asset="$(
+    printf '%s' "${release_json}" \
+      | grep -oE "\"name\"[[:space:]]*:[[:space:]]*\"tiles-v[^\"]*-${platform}\\.tar\\.gz\"" \
+      | sed -E 's/.*"([^"]+)".*/\1/' \
+      | head -n 1 \
+      || true
+  )"
+  [ -n "${asset}" ] || err "The canary release has no build for ${platform} yet."
+
+  RELEASE_TAG="canary"
+  RELEASE_ASSET="${asset}"
+  VERSION="$(printf '%s' "${asset}" | sed -E "s/^tiles-v(.*)-${platform}\.tar\.gz$/\1/")"
 }
 
 # Resolve the newest GitHub nightly release that has a tarball for this platform.
@@ -58,7 +83,7 @@ usage() {
 resolve_nightly_version() {
   local api_url="https://api.github.com/repos/${REPO}/releases?per_page=30"
   local releases_json tag tags release_json asset
-  local platform="${ARCH}-${OS}${ASSET_SUFFIX}"
+  local platform="${ARCH}-${OS}"
 
   releases_json="$(curl -fsSL "${api_url}")" || err "Failed to query GitHub releases for ${REPO}."
 
@@ -106,9 +131,13 @@ while [[ $# -gt 0 ]]; do
     --nightly|-nightly)
       NIGHTLY="true"
       ;;
+    --canary|-canary)
+      CANARY="true"
+      ;;
     --backend)
+      # accepted for older instructions, the backend is picked at runtime now
       [[ $# -ge 2 ]] || err "--backend requires a value."
-      BACKEND="$2"
+      warn "⚠️  --backend is no longer needed; the inference backend is selected at runtime."
       shift
       ;;
     --install-dir)
@@ -139,60 +168,27 @@ done
 if [[ "${DEV}" == "true" && "${NIGHTLY}" == "true" ]]; then
   err "--dev and --nightly cannot be used together."
 fi
+if [[ "${CANARY}" == "true" && ( "${DEV}" == "true" || "${NIGHTLY}" == "true" ) ]]; then
+  err "--canary cannot be combined with --dev or --nightly."
+fi
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
 
 if [[ "${OS}" == "linux" ]]; then
-  [[ "${BACKEND}" == "auto" || "${BACKEND}" == "cuda" || "${BACKEND}" == "vulkan" ]] \
-    || err "Unsupported Linux backend: ${BACKEND}."
-
-  # checks for NVIDIA userspace drivers and enumerates GPU availability
-  # then checks if CUDA runtime is availabile
-  if [[ "${BACKEND}" == "auto" ]]; then
-    CUDA_RUNTIME="false"
-    if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi -L >/dev/null 2>&1; then
-      if command -v ldconfig >/dev/null 2>&1 \
-        && ldconfig -p 2>/dev/null | grep -E 'libcudart\.so\.12([[:space:]]|$)' >/dev/null; then
-        CUDA_RUNTIME="true"
-      # ldconfig covers only the system cache, not pip/conda/tarball installs.
-      # manually check paths
-      elif [[ -n "${LD_LIBRARY_PATH:-}" ]]; then
-        IFS=':' read -r -a LIBRARY_PATHS <<< "${LD_LIBRARY_PATH}"
-        for LIBRARY_PATH in "${LIBRARY_PATHS[@]}"; do
-          [[ -n "${LIBRARY_PATH}" ]] || LIBRARY_PATH="."
-          if [[ -e "${LIBRARY_PATH}/libcudart.so.12" ]]; then
-            CUDA_RUNTIME="true"
-            break
-          fi
-        done
-      fi
-    fi
-
-    if [[ "${CUDA_RUNTIME}" == "true" ]]; then
-      BACKEND="cuda"
-    else
-      BACKEND="vulkan"
-    fi
-    log "Auto-selected ${BACKEND} inference backend."
+  # cuda and vulkan runtimes ship in the tarball, only the gpu driver is needed
+  HAS_NVIDIA="false"
+  if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi -L >/dev/null 2>&1; then
+    HAS_NVIDIA="true"
   fi
-elif [[ "${OS}" == "darwin" ]]; then
-  [[ "${BACKEND}" == "auto" ]] || err "Backend ${BACKEND} is not supported on ${OS}."
-  BACKEND="metal"
-else
+  if [[ "${HAS_NVIDIA}" == "false" ]] \
+    && ! ldconfig -p 2>/dev/null | grep 'libvulkan\.so\.1' >/dev/null; then
+    warn "⚠️  No NVIDIA driver or Vulkan loader (libvulkan.so.1) found; inference will run on CPU."
+    warn "    Install your GPU driver, or your distro's vulkan-loader package."
+  fi
+elif [[ "${OS}" != "darwin" ]]; then
   err "Unsupported OS: ${OS}."
 fi
-
-if [[ "${BACKEND}" == "vulkan" ]] \
-  && ! ldconfig -p 2>/dev/null | grep 'libvulkan\.so\.1' >/dev/null; then
-  warn "⚠️  No Vulkan loader found (libvulkan.so.1)."
-  warn "    Install your distro's vulkan-loader package."
-fi
-
-# Linux assets carry the backend in their name; macOS assets do not (metal is
-# the only backend there). BACKEND is already resolved from "auto" by here.
-ASSET_SUFFIX=""
-[[ "${OS}" == "linux" ]] && ASSET_SUFFIX="-${BACKEND}"
 
 if [[ "${OS}" == "linux" && "$(id -u)" != "0" ]]; then
   INSTALL_DIR="${HOME}/.local/bin"
@@ -208,12 +204,18 @@ fi
 SERVER_DIR="${LIB_DIR}/server"         # Python server folder
 MODELFILE_DIR="${LIB_DIR}/modelfiles"  # Modelfile server folder
 PI_DIR="${LIB_DIR}/pi"
+VENDOR_DIR="${LIB_DIR}/vendor"        # Vendored node packages for Pi extensions
+PLUGINS_DIR="${LIB_DIR}/plugins"      # First-party plugins shipped with Tiles
+UI_DIR="${LIB_DIR}/ui"                # Chat UI, served by the daemon to a browser
 
 TMPDIR="$(mktemp -d)"
 RELEASE_TAG="${VERSION}"
-RELEASE_ASSET="tiles-v${VERSION}-${ARCH}-${OS}${ASSET_SUFFIX}.tar.gz"
+RELEASE_ASSET="tiles-v${VERSION}-${ARCH}-${OS}.tar.gz"
 
-if [[ "${NIGHTLY}" == "true" ]]; then
+if [[ "${CANARY}" == "true" ]]; then
+  resolve_canary_version
+  log "⬇️  Downloading Tiles canary (${VERSION}) [${RELEASE_ASSET}] for ${ARCH}-${OS}..."
+elif [[ "${NIGHTLY}" == "true" ]]; then
   resolve_nightly_version
   log "⬇️  Downloading Tiles nightly (${VERSION}) [${RELEASE_ASSET}] for ${ARCH}-${OS}..."
 elif [[ "${DEV}" == "true" ]]; then
@@ -223,7 +225,7 @@ else
 fi
 
 if [[ "${DEV}" == "false" ]]; then
-  # Stable (default) and --nightly both download from GitHub.
+  # Stable (default), --nightly and --canary all download from GitHub.
   # Unflagged install always uses the hardcoded VERSION above (never nightly).
   # Nightly uses RELEASE_ASSET from resolve_nightly_version (may differ from tag).
   TAR_URL="https://github.com/${REPO}/releases/download/${RELEASE_TAG}/${RELEASE_ASSET}"
@@ -234,7 +236,7 @@ else
   else
     LOCAL_TARBALL=""
     shopt -s nullglob
-    LOCAL_TARBALLS=(dist/tiles-v*-"${ARCH}"-"${OS}${ASSET_SUFFIX}".tar.gz)
+    LOCAL_TARBALLS=(dist/tiles-v*-"${ARCH}"-"${OS}".tar.gz)
     shopt -u nullglob
     for candidate in "${LOCAL_TARBALLS[@]}"; do
       if [[ -z "${LOCAL_TARBALL}" || "${candidate}" -nt "${LOCAL_TARBALL}" ]]; then
@@ -276,6 +278,47 @@ mkdir -p "${PI_DIR}"
 cp -r "${TMPDIR}/pi"/* "${PI_DIR}/"
 
 
+log "Installing vendored Pi extensions ..."
+
+rm -rf "${VENDOR_DIR}"
+
+mkdir -p "${VENDOR_DIR}"
+
+cp -r "${TMPDIR}/vendor"/* "${VENDOR_DIR}/"
+
+
+log "Installing bundled plugins ..."
+
+rm -rf "${PLUGINS_DIR}"
+
+mkdir -p "${PLUGINS_DIR}"
+
+# guarded: an empty plugins dir leaves the glob unexpanded and cp would abort
+if [ -d "${TMPDIR}/plugins" ] && [ -n "$(ls -A "${TMPDIR}/plugins" 2>/dev/null)" ]; then
+  cp -r "${TMPDIR}/plugins"/* "${PLUGINS_DIR}/"
+fi
+
+
+if [[ "${OS}" == "linux" ]]; then
+  # linux has no desktop app for now, the chat opens in the browser. an earlier
+  # install may have left one behind, with its launcher entry
+  if [[ "$(id -u)" != "0" ]]; then
+    SHARE_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}"
+  else
+    SHARE_DIR="/usr/local/share"
+  fi
+  rm -f "${LIB_DIR}/tiles-menubar" \
+    "${SHARE_DIR}/applications/tiles.desktop" \
+    "${SHARE_DIR}/icons/hicolor/128x128/apps/tiles.png"
+
+  if [ -d "${TMPDIR}/ui" ]; then
+    log "Installing the chat UI ..."
+    rm -rf "${UI_DIR}"
+    mkdir -p "${UI_DIR}"
+    cp -r "${TMPDIR}/ui"/* "${UI_DIR}/"
+  fi
+fi
+
 log "📦 Installing Python server to ${SERVER_DIR}..."
 rm -rf "${SERVER_DIR}"
 
@@ -302,9 +345,12 @@ rm -rf "${TMPDIR}"
 log "✅ Tiles installed successfully!"
 log ""
 
+CHAT_HINT=""
+[[ "${OS}" == "linux" ]] && CHAT_HINT=", then open http://127.0.0.1:1729 in your browser (or run \"tiles ui\")"
+
 case ":$PATH:" in
   *":$INSTALL_DIR:"*)
-    echo "🚀 Start Tiles by running \"tiles\""
+    echo "🚀 Start Tiles by running \"tiles\"${CHAT_HINT}"
     ;;
   *)
     echo ""
@@ -314,6 +360,6 @@ case ":$PATH:" in
     echo ""
     echo "  export PATH=$INSTALL_DIR:\$PATH"
     echo ""
-    echo "🚀 Then restart your terminal..."
+    echo "🚀 Then restart your terminal and run \"tiles\"${CHAT_HINT}"
     ;;
 esac
