@@ -239,6 +239,9 @@ export function HomeHeroVideo() {
           </div>
         )}
       </div>
+      <figcaption className="mt-2 text-center text-xs text-muted-foreground">
+        Preview of the canary version.
+      </figcaption>
     </figure>
   )
 }
