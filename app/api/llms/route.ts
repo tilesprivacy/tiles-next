@@ -93,6 +93,7 @@ export async function GET(request: Request) {
     `- Download: ${baseUrl}/download`,
     `- Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
     `  ${CANARY_RELEASE_DESCRIPTION}`,
+    'Linux: The install script will support a --canary flag to install the canary version. The offline installer for Linux is a work in progress.',
     `- Book: ${baseUrl}/book`,
     `- Plugins: ${baseUrl}/plugins`,
     `- Pricing: ${baseUrl}/pricing`,

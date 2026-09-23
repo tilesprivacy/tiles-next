@@ -196,6 +196,10 @@ export function DownloadContent({
               {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
             </button>
             <p className="minimal-note">Paste this command in your terminal.</p>
+            <p className="minimal-note">
+              The install script will support a <code>--canary</code> flag to install the canary version.
+            </p>
+            <p className="minimal-note">The offline installer for Linux is a work in progress.</p>
           </section>
 
           <p className="minimal-legal">
