@@ -166,7 +166,7 @@ export async function GET(request: Request) {
     '',
     `Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
     CANARY_RELEASE_DESCRIPTION,
-    'Linux: The install script has a --canary flag to install the canary version. The offline installer for Linux is a work in progress.',
+    'Linux: Install the canary version with curl -LsSf https://www.tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress.',
     ...(canaryRelease ? [
       ...canaryRelease.assets.map(asset => `${asset.name}: ${asset.browser_download_url}`),
       canaryRelease.body || '',

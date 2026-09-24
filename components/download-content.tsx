@@ -12,7 +12,7 @@ import {
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
 import type { CanaryReleaseData } from "@/lib/canary-release"
-import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
+import { LINUX_CANARY_INSTALL_COMMAND, LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import {
   LATEST_RELEASE_DATE_ISO,
   LATEST_RELEASE_DATE_LABEL,
@@ -46,14 +46,14 @@ export function DownloadContent({
   initialCanaryRelease: CanaryReleaseData | null
   sponsorsGoal?: SponsorsGoalData
 }) {
-  const [copied, setCopied] = useState(false)
+  const [copied, setCopied] = useState<string | null>(null)
   const canaryRelease = useCanaryRelease(initialCanaryRelease)
-  const copyLinuxCommand = () => {
+  const copyLinuxCommand = (command: string) => {
     // navigator.clipboard is missing or rejects in some browsers/webviews;
     // fall back to a hidden textarea so the copy still lands.
     const copyWithTextArea = () => {
       const textArea = document.createElement("textarea")
-      textArea.value = LINUX_INSTALL_COMMAND
+      textArea.value = command
       textArea.style.position = "fixed"
       textArea.style.opacity = "0"
       document.body.appendChild(textArea)
@@ -65,11 +65,11 @@ export function DownloadContent({
     if (!navigator.clipboard?.writeText) {
       copyWithTextArea()
     } else {
-      void navigator.clipboard.writeText(LINUX_INSTALL_COMMAND).catch(copyWithTextArea)
+      void navigator.clipboard.writeText(command).catch(copyWithTextArea)
     }
 
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 1400)
+    setCopied(command)
+    window.setTimeout(() => setCopied(null), 1400)
   }
   const latestReleaseVersion =
     initialLatestReleaseVersion?.replace(/^v/i, "") || LATEST_RELEASE_VERSION
@@ -191,14 +191,19 @@ export function DownloadContent({
               Linux
             </h2>
             <p>16 GB VRAM recommended</p>
-            <button className="minimal-command" type="button" onClick={copyLinuxCommand}>
+            <button className="minimal-command" type="button" onClick={() => copyLinuxCommand(LINUX_INSTALL_COMMAND)}>
               <code>{LINUX_INSTALL_COMMAND}</code>
-              {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
+              {copied === LINUX_INSTALL_COMMAND ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
             </button>
             <p className="minimal-note">Paste this command in your terminal.</p>
             <p className="minimal-note">
-              The install script has a <code>--canary</code> flag to install the canary version.
+              Canary, for early testers: the latest build of the canary branch, which can be unstable.
+              The chat opens in your browser at <code>http://127.0.0.1:1729</code>.
             </p>
+            <button className="minimal-command" type="button" onClick={() => copyLinuxCommand(LINUX_CANARY_INSTALL_COMMAND)}>
+              <code>{LINUX_CANARY_INSTALL_COMMAND}</code>
+              {copied === LINUX_CANARY_INSTALL_COMMAND ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
+            </button>
             <p className="minimal-note">The offline installer for Linux is a work in progress.</p>
           </section>
 
