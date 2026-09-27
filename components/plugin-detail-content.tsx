@@ -53,27 +53,25 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
               Back
             </Link>
 
-            <div className="mb-7 flex flex-col gap-6">
-              <div className="flex shrink-0 items-center gap-4">
+            <div className="mb-7 flex items-center justify-between gap-4">
+              <div className="flex min-w-0 items-center gap-4">
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[8px] bg-secondary text-foreground ring-1 ring-border/60">
                   <PluginIcon slug={plugin.slug} />
                 </span>
-                <h1 className={`truncate lg:overflow-visible lg:whitespace-nowrap ${marketingPageTitleClass}`}>
+                <h1 className={`min-w-0 truncate lg:overflow-visible lg:whitespace-nowrap ${marketingPageTitleClass}`}>
                   {plugin.name}
                 </h1>
               </div>
 
               {!plugin.builtIn ? (
-                <div className="pt-1">
-                  <a
-                    href={`tiles://plugins/${plugin.slug}`}
-                    onClick={() => triggerHaptic()}
-                    aria-label={`Install ${plugin.name} in Tiles`}
-                    className="inline-flex h-11 items-center justify-center rounded-[8px] bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
-                  >
-                    Install
-                  </a>
-                </div>
+                <a
+                  href={`tiles://plugins/${plugin.slug}`}
+                  onClick={() => triggerHaptic()}
+                  aria-label={`Install ${plugin.name} in Tiles`}
+                  className="inline-flex h-11 shrink-0 items-center justify-center rounded-[8px] bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
+                >
+                  Install
+                </a>
               ) : null}
             </div>
 
