@@ -1,8 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
-import { ArrowLeft, ArrowUpRight, BookOpen, Check, Copy, Server } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, BookOpen, Server } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
 import { PluginIcon } from "@/components/plugin-icon"
 import { triggerHaptic } from "@/lib/haptics"
@@ -41,44 +40,6 @@ function mcpTypeLabel(type: string) {
 }
 
 export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: PluginDetailContentProps) {
-  const [copiedCommand, setCopiedCommand] = useState(false)
-  const [copiedUsageCommand, setCopiedUsageCommand] = useState(false)
-  const usageCommand = `@${plugin.slug}`
-
-  function copyText(text: string) {
-    const copyWithTextArea = () => {
-      const textArea = document.createElement("textarea")
-      textArea.value = text
-      textArea.style.position = "fixed"
-      textArea.style.opacity = "0"
-      document.body.appendChild(textArea)
-      textArea.select()
-      document.execCommand("copy")
-      document.body.removeChild(textArea)
-    }
-
-    if (!navigator.clipboard?.writeText) {
-      copyWithTextArea()
-      return
-    }
-
-    void navigator.clipboard.writeText(text).catch(copyWithTextArea)
-  }
-
-  function copyCommand() {
-    triggerHaptic()
-    setCopiedCommand(true)
-    window.setTimeout(() => setCopiedCommand(false), 1400)
-    copyText(plugin.installCommand)
-  }
-
-  function copyUsageCommand() {
-    triggerHaptic()
-    setCopiedUsageCommand(true)
-    window.setTimeout(() => setCopiedUsageCommand(false), 1400)
-    copyText(usageCommand)
-  }
-
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
@@ -104,18 +65,14 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
 
               {!plugin.builtIn ? (
                 <div className="w-full min-w-0">
-                  <button
-                    type="button"
-                    onClick={copyCommand}
-                    aria-label={copiedCommand ? "Install command copied" : `Copy install command for ${plugin.name}`}
-                    className="minimal-command plugin-command"
+                  <a
+                    href={`tiles://plugin/${plugin.slug}`}
+                    onClick={() => triggerHaptic()}
+                    aria-label={`Install ${plugin.name} in Tiles`}
+                    className="inline-flex h-11 items-center justify-center rounded-[8px] bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-85"
                   >
-                    <code className="min-w-0">
-                      <span className="mr-2 select-none text-muted-foreground" aria-hidden>$</span>
-                      {plugin.installCommand}
-                    </code>
-                    {copiedCommand ? <Check aria-hidden /> : <Copy aria-hidden />}
-                  </button>
+                    Install
+                  </a>
                 </div>
               ) : null}
             </div>
@@ -123,22 +80,6 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
             <p className="mb-10 max-w-3xl text-base leading-7 text-muted-foreground sm:text-[1.05rem]">
               {plugin.description}
             </p>
-
-            <div className="mb-12">
-              <h2 className={`mb-3 ${marketingPageSubsectionTitleClass}`}>Usage</h2>
-              <button
-                type="button"
-                onClick={copyUsageCommand}
-                aria-label={copiedUsageCommand ? "Usage command copied" : `Copy usage command for ${plugin.name}`}
-                className="minimal-command plugin-command"
-              >
-                <code className="min-w-0">
-                  <span className="mr-2 select-none text-muted-foreground" aria-hidden>&gt;</span>
-                  {usageCommand}
-                </code>
-                {copiedUsageCommand ? <Check aria-hidden /> : <Copy aria-hidden />}
-              </button>
-            </div>
 
             {mcpServers.length > 0 ? (
               <div className="mb-12">
