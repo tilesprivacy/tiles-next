@@ -1728,6 +1728,24 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-weight: 500;
   line-height: 1;
 }
+/* Match compact navigation actions on phones across download and sponsor pages. */
+@media (max-width: 639px) {
+  .minimal-primary-button,
+  .minimal-secondary-button,
+  .minimal-disabled-button {
+    min-height: 36px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .minimal-download-action {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
 /*
  * One-line caption under each button naming the route and its size. Muted
  * and small so the buttons keep the weight; tabular figures align the sizes.

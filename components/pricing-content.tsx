@@ -32,7 +32,7 @@ const tertiaryTextClass = "text-black/55 dark:text-white/55"
 const mutedIconClass = "text-black/45 dark:text-white/45"
 
 const ctaBaseClass =
-  "inline-flex h-11 w-full items-center justify-center gap-1 whitespace-nowrap rounded-full px-5 text-sm font-medium leading-none !no-underline transition-colors"
+  "inline-flex h-9 w-full items-center justify-center gap-1 whitespace-nowrap rounded-full px-3 text-xs font-medium sm:h-11 sm:px-5 sm:text-sm leading-none !no-underline transition-colors"
 
 const outlinedCtaClass =
   `${ctaBaseClass} border border-black/15 bg-transparent text-foreground hover:bg-black/[0.04] dark:border-white/20 dark:hover:bg-white/[0.06]`
