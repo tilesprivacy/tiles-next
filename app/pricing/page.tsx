@@ -1,3 +1,5 @@
+import { SHOW_PRICING } from "@/lib/feature-flags"
+import { redirect } from "next/navigation"
 import type { Metadata } from "next"
 import { PricingContent } from "@/components/pricing-content"
 import { getPolarCheckoutModes } from "@/lib/polar"
@@ -10,6 +12,7 @@ const socialImageUrl = "/api/og/pricing"
 const socialImageAlt = "Tiles pricing: Free, Plus, and Pro"
 
 export const metadata: Metadata = {
+  robots: SHOW_PRICING ? undefined : { index: false, follow: false },
   title,
   description: PRICING_PAGE_DESCRIPTION,
   alternates: {
@@ -48,6 +51,8 @@ export const metadata: Metadata = {
 }
 
 export default function PricingPage() {
+  if (!SHOW_PRICING) redirect("/download")
+
   // Resolved here so the client-facing component never reads process.env.
   return <PricingContent checkoutModes={getPolarCheckoutModes()} />
 }

@@ -1,3 +1,4 @@
+import { SHOW_PRICING } from "@/lib/feature-flags"
 import type { MetadataRoute } from "next"
 import { getPublishedBlogPosts } from "@/lib/blog-posts"
 import { RESEARCH_LOG_ENTRIES } from "@/lib/research-log"
@@ -13,7 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/plugins",
     "/book/research",
     "/releases",
-    "/pricing",
+    ...(SHOW_PRICING ? ["/pricing"] : []),
     "/help",
     "/book",
     "/brand",

@@ -1,3 +1,4 @@
+import { SHOW_PRICING } from '@/lib/feature-flags'
 import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
@@ -96,7 +97,7 @@ export async function GET(request: Request) {
     'Linux: Install the canary version with curl -LsSf https://www.tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress.',
     `- Book: ${baseUrl}/book`,
     `- Plugins: ${baseUrl}/plugins`,
-    `- Pricing: ${baseUrl}/pricing`,
+    ...(SHOW_PRICING ? [`- Pricing: ${baseUrl}/pricing`] : []),
     `- Blog: ${baseUrl}/blog`,
     `- Releases: ${baseUrl}/releases`,
     `- Help: ${baseUrl}/help`,
