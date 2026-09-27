@@ -69,7 +69,7 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
                     href={`tiles://plugins/${plugin.slug}`}
                     onClick={() => triggerHaptic()}
                     aria-label={`Install ${plugin.name} in Tiles`}
-                    className="inline-flex h-11 items-center justify-center rounded-[8px] bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-85 dark:bg-yellow-400 dark:text-black"
+                    className="inline-flex h-11 items-center justify-center rounded-[8px] bg-foreground px-5 text-sm font-medium text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
                   >
                     Install
                   </a>
