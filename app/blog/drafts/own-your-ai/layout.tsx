@@ -1,27 +1,6 @@
-import type { Metadata } from "next"
+import { redirect } from "next/navigation"
+import { INDIA_FOSS_2026_PATH } from "@/lib/own-your-ai-theme"
 
-const title = "Own your AI with local models and open protocols | Tiles Blog"
-const description = "A talk about local models, decentralized protocols, and user-owned AI"
-
-export const metadata: Metadata = {
-  title,
-  description,
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-    googleBot: {
-      index: false,
-      follow: false,
-      noimageindex: true,
-    },
-  },
-}
-
-export default function OwnYourAiDraftLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return children
+export default function OwnYourAiDraftLayout() {
+  redirect(INDIA_FOSS_2026_PATH)
 }

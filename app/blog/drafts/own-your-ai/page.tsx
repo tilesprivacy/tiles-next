@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
-import { getBlogPostBySlug } from "@/lib/blog-posts"
 import { BlogPostContent } from "@/components/blog-post-content"
 import {
+  ownYourAiBlogContent,
   ownYourAiDemoVideo,
   ownYourAiSlideSrc,
   ownYourAiSlides,
@@ -191,32 +191,14 @@ function TilesScrollyTalk() {
 }
 
 export default function OwnYourAiDraftPage() {
-  const post = getBlogPostBySlug("own-your-ai")
-  const draftDescription = "A talk about local models, decentralized protocols, and user-owned AI"
-
-  const formattedDate = useMemo(() => {
-    if (!post) return ""
-    return post.date.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    })
-  }, [post])
-
-  if (!post) {
-    return null
-  }
-
   return (
     <BlogPostContent
-      title={post.title}
-      description={draftDescription}
-      date={formattedDate}
-      authorId={post.author}
-      printCoverImage={post.coverImage}
-      standardSiteDocumentUri={post.standardSiteDocumentUri}
-      blueskyPostUri={post.blueskyPostUri}
-      content={post.content}
+      title="Own your AI with open models and decentralized protocols"
+      description="An IndiaFOSS 2026 talk about open models, decentralized protocols, and user-owned AI"
+      date="September 2026"
+      authorId="ankesh-bharti"
+      printCoverImage="/own-your-ai-og.png"
+      content={ownYourAiBlogContent}
       showTableOfContents={false}
     >
       <div className="space-y-4" dangerouslySetInnerHTML={{ __html: ownYourAiTalkIntro }} />

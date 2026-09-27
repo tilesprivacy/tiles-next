@@ -102,6 +102,7 @@ export async function GET(request: Request) {
     `- Releases: ${baseUrl}/releases`,
     `- Help: ${baseUrl}/help`,
     `- About: ${baseUrl}/about`,
+    `- IndiaFOSS 2026 talk and transcript: ${baseUrl}/india-foss-2026`,
   ])
 
   addSection(lines, 'About', [

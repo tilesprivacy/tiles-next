@@ -10,6 +10,7 @@ import {
 } from '@/lib/download-page-data'
 import { getPersonById } from '@/lib/people'
 import { ownYourAiTalkRecording } from '@/lib/own-your-ai-talk'
+import { ownYourAiBlogContent as indiaFoss2026TalkContent } from '@/lib/own-your-ai-draft-talk'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getResourceLinks, type ResourceLink } from '@/lib/resource-links'
 import { solPbcPartner } from '@/lib/sponsor-partners'
@@ -232,6 +233,14 @@ export async function GET(request: Request) {
     'We are grateful to the organizations supporting our work financially through our Partner Program, and to everyone who has supported our projects through GitHub Sponsors and cryptocurrency donations.',
     `Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
+  ])
+
+  pushSection(lines, `IndiaFOSS 2026 Talk (${baseUrl}/india-foss-2026)`, [
+    'Own your AI with open models and decentralized protocols',
+    'Speaker: Ankesh Bharti',
+    'Presented at IndiaFOSS 2026 in Bengaluru.',
+    'Slides and speaker-note transcript:',
+    stripHtml(indiaFoss2026TalkContent),
   ])
 
   const publishedPosts = getPublishedBlogPosts()

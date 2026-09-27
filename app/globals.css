@@ -87,7 +87,7 @@
   filter: grayscale(1) invert(1);
 }
 
-/* /blog/own-your-ai: near-black canvas in dark themes. */
+/* Own Your AI articles: near-black canvas in dark themes. */
 html[data-page-theme="own-your-ai"].dark {
   --background: #020202;
 }

@@ -8,7 +8,7 @@ export interface OwnYourAiSlide {
 }
 
 export const ownYourAiTalkIntroParagraphs = [
-  'This post is adapted from a talk whose different versions were presented at <a href="https://www.localfirstconf.com/" target="_blank" rel="noopener noreferrer">Local-First Conf</a> in Berlin and IndiaFOSS 2026 in Bengaluru. It is written for anyone thinking about how AI should fit into our digital lives.',
+  'This post is adapted from Ankesh Bharti’s IndiaFOSS 2026 talk in Bengaluru. It is written for anyone thinking about how AI should fit into our digital lives.',
   'As AI becomes central to how we work and communicate, I believe we are seeing a new form of technological feudalism, where a handful of platforms control the models, identities, data, and distribution channels people depend on. Local-first AI offers an alternative, but many tools still lack the identity, sync, and collaboration features people expect.',
 ]
 
@@ -26,7 +26,7 @@ function escapeHtml(value: string): string {
 }
 
 export function ownYourAiSlideSrc(number: number): string {
-  return `/own-your-ai-talk/foss-india-2026-r4/slide-${String(number).padStart(2, "0")}.png`
+  return `/own-your-ai-talk/foss-india-2026-r5/slide-${String(number).padStart(2, "0")}.png`
 }
 
 export const ownYourAiDemoVideo = {
