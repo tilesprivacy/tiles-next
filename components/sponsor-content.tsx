@@ -174,6 +174,16 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               <h2>Team</h2>
               <span>{aboutTeam.length}</span>
             </div>
+            <figure className="mb-8 overflow-hidden rounded-xl sm:mb-10">
+              <Image
+                src="/team.webp"
+                alt="The five members of the Tiles Privacy team standing together outdoors."
+                width={1600}
+                height={1200}
+                sizes="(max-width: 775px) calc(100vw - 40px), 736px"
+                className="h-auto w-full"
+              />
+            </figure>
             <div className="minimal-team !mt-0">
               {aboutTeam.map((person) => (
                 <a
