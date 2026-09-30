@@ -6,7 +6,6 @@ import { AnalyticsConsent } from "@/components/analytics-consent"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeFavicon } from "@/components/theme-favicon"
 import SiteHeader from "@/components/site-header"
-import { AnnouncementBanner } from "@/components/announcement-banner"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import { ScrollAtTopMarker } from "@/components/scroll-at-top-marker"
 import {
@@ -126,7 +125,6 @@ export default function RootLayout({
           <ThemeFavicon />
           <SiteOfflineCacheRegistrar />
           <ScrollAtTopMarker />
-          <AnnouncementBanner />
           <SiteHeader themeAware />
           {/* Marks page content for the Pagefind full-text index used by the
               top-nav AI search; chrome inside pages opts out with
