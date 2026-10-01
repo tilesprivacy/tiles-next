@@ -153,6 +153,7 @@ export async function GET(request: Request) {
   ])
 
   pushSection(lines, `Download (${baseUrl}/download)`, [
+    'macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app.',
     'Network installer for macOS:',
     networkArtifact.downloadUrl,
     `Version: ${networkArtifact.version}`,

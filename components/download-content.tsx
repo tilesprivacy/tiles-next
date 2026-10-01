@@ -149,6 +149,10 @@ export function DownloadContent({
               ) : null}
               <CanaryDownloadAction release={canaryRelease} />
             </div>
+            <p className="minimal-download-detail">
+              The network and offline installers include only the CLI. The Canary
+              version includes a desktop app and a menu bar app.
+            </p>
             {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
               <p className="minimal-download-detail">
                 The offline installer is ideal for computers that cannot connect

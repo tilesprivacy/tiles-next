@@ -92,6 +92,7 @@ export async function GET(request: Request) {
   addSection(lines, 'Primary Pages', [
     `- Homepage: ${baseUrl}/`,
     `- Download: ${baseUrl}/download`,
+    '  macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app.',
     `- Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
     `  ${CANARY_RELEASE_DESCRIPTION}`,
     'Linux: Install the canary version with curl -LsSf https://www.tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress.',
