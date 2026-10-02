@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { getSocialImage } from "@/lib/social-image"
 import { SponsorContent } from "@/components/sponsor-content"
-import { getGithubSponsorsGoalData } from "@/lib/sponsors-goal"
 
 const socialImage = getSocialImage("About")
 
@@ -27,7 +26,6 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function AboutPage() {
-  const sponsorsGoal = await getGithubSponsorsGoalData()
-  return <SponsorContent sponsorsGoal={sponsorsGoal} />
+export default function AboutPage() {
+  return <SponsorContent />
 }

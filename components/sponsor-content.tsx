@@ -8,14 +8,6 @@ import { SponsorUsdtDonateButton } from "@/components/sponsor-usdt-donate-button
 import { people, splitPersonDisplayName } from "@/lib/people"
 import { solPbcPartner } from "@/lib/sponsor-partners"
 import { sponsorPageAdvisors } from "@/lib/sponsor-page-people"
-import { SPONSORS_PROGRESS_PERCENT_FALLBACK } from "@/lib/sponsors-goal"
-
-interface SponsorContentProps {
-  sponsorsGoal: {
-    goalAmountMonthly: string | null
-    progressPercent: string | null
-  }
-}
 
 const aboutTeam = [
   {
@@ -118,10 +110,7 @@ function SponsorList({
   )
 }
 
-export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
-  const progress = sponsorsGoal.progressPercent
-    ? `${sponsorsGoal.progressPercent.replace(/%$/, "")}%`
-    : SPONSORS_PROGRESS_PERCENT_FALLBACK
+export function SponsorContent() {
   return (
     <div className="minimal-product-page">
       <MinimalTopbar />
@@ -262,16 +251,6 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
 
           <section className="minimal-sponsor-funding-band">
             <div className="minimal-funding">
-              <div>
-                <strong>{progress}</strong>
-                <span>
-                  {sponsorsGoal.goalAmountMonthly || "$1,500 per month"}
-                </span>
-              </div>
-              <p>Baseline funding to support three full time contributors.</p>
-              <div className="minimal-progress">
-                <span style={{ width: progress }} />
-              </div>
               <div className="minimal-sponsor-actions">
                 <a
                   className="minimal-primary-button"
