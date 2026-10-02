@@ -234,6 +234,7 @@ export async function GET(request: Request) {
     'We are grateful to the organizations supporting our work financially through our Partner Program, and to everyone who has supported our projects through GitHub Sponsors and cryptocurrency donations.',
     `Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
+    'Current recurring sponsorship: $1,350/month.',
   ])
 
   pushSection(lines, `IndiaFOSS 2026 Talk (${baseUrl}/india-foss-2026)`, [

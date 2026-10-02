@@ -112,6 +112,7 @@ export async function GET(request: Request) {
     `- ${sponsorPageTeamSentence}`,
     `- Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
     '- GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
+    '- Current recurring sponsorship: $1,350/month.',
   ])
 
   addSection(

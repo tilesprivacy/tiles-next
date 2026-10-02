@@ -251,6 +251,10 @@ export function SponsorContent() {
 
           <section className="minimal-sponsor-funding-band">
             <div className="minimal-funding">
+              <div className="flex-wrap">
+                <strong>$1,350/month</strong>
+                <span>in recurring sponsorship</span>
+              </div>
               <div className="minimal-sponsor-actions">
                 <a
                   className="minimal-primary-button"
