@@ -20,6 +20,10 @@ export function PluginIcon({ slug, className = "h-5 w-5" }: PluginIconProps) {
     return <Image src="/exa-icon.svg" alt="" width={64} height={64} className={`${className} rounded-[3px]`} aria-hidden />
   }
 
+  if (slug === "cloudflare") {
+    return <Image src="/cloudflare-icon.svg" alt="" width={66} height={30} className={`${className} object-contain`} aria-hidden />
+  }
+
   if (slug === "obsidian") {
     return <Image src="/obsidian-icon.svg" alt="" width={64} height={64} className={`${className} object-contain`} aria-hidden />
   }

@@ -31,7 +31,9 @@ function PluginIcon({ slug, requestUrl }: { slug: string; requestUrl: string }) 
       ? "/exa-icon.svg"
       : slug === "obsidian"
         ? "/obsidian-icon.svg"
-        : null
+        : slug === "cloudflare"
+          ? "/cloudflare-icon.svg"
+          : null
 
   if (!iconPath) {
     return <PackageIcon />
@@ -45,7 +47,7 @@ function PluginIcon({ slug, requestUrl }: { slug: string; requestUrl: string }) 
       alt=""
       width={112}
       height={112}
-      style={{ borderRadius: slug === "exa" ? 18 : 0 }}
+      style={{ borderRadius: slug === "exa" ? 18 : 0, objectFit: "contain" }}
     />
   )
 }

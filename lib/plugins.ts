@@ -42,6 +42,7 @@ const PLUGIN_PREFIX = "plugins/"
 const PLUGIN_SOURCE_BASE_URL = "https://github.com/tilesprivacy/plugins/tree/main"
 const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blob/main"
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
+const CLOUDFLARE_DOWNLOAD_URL = "https://github.com/tilesprivacy/plugins/raw/refs/heads/main/cloudflare.zip"
 const OBSIDIAN_DOWNLOAD_URL = "https://github.com/tilesprivacy/plugins/raw/refs/heads/main/obsidian.zip"
 const FALLBACK_PLUGIN_FILES = ["caldir.zip"]
 const EXA_PLUGIN: TilesPlugin = {
@@ -52,6 +53,17 @@ const EXA_PLUGIN: TilesPlugin = {
   downloadUrl: `${PLUGIN_BASE_URL}/exa.zip`,
   installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/exa.zip`,
   documentationUrl: "https://exa.ai/docs/reference/exa-mcp",
+}
+const CLOUDFLARE_PLUGIN: TilesPlugin = {
+  slug: "cloudflare",
+  name: "Cloudflare",
+  description: "Manage Cloudflare resources and Workers projects with the Cloudflare CLI.",
+  fileName: "cloudflare.zip",
+  downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
+  installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
+  installMode: "download",
+  documentationUrl: "https://developers.cloudflare.com/cf/",
+  requirements: "Requires the Cloudflare CLI (cf) installed and authenticated with access to the Cloudflare account you want to manage. The CLI is currently in beta.",
 }
 const OBSIDIAN_PLUGIN: TilesPlugin = {
   slug: "obsidian",
@@ -72,6 +84,17 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
     description: "Read, create, edit, and sync calendar events as plaintext .ics files",
     homepage: "https://caldir.org",
     keywords: ["calendar", "ics", "caldav"],
+  },
+  cloudflare: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "cloudflare",
+    version: "1.0.0",
+    description: CLOUDFLARE_PLUGIN.description,
+    homepage: "https://developers.cloudflare.com/cf/",
+    author: { name: "Tiles Privacy", url: "https://tiles.run" },
+    repository: "https://github.com/tilesprivacy/plugins",
+    license: "MIT",
+    keywords: ["cloudflare", "workers", "dns", "storage", "cli"],
   },
   exa: {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
@@ -126,6 +149,10 @@ function descriptionFromFileName(fileName: string) {
 
   if (fileName === "exa.zip") {
     return EXA_PLUGIN.description
+  }
+
+  if (fileName === "cloudflare.zip") {
+    return CLOUDFLARE_PLUGIN.description
   }
 
   if (fileName === "obsidian.zip") {
@@ -285,14 +312,19 @@ async function withFallbackMetadata(plugin: TilesPlugin) {
 }
 
 function curatePlugins(plugins: TilesPlugin[]) {
-  const pluginsWithObsidian = [
-    ...plugins.filter((plugin) => plugin.slug !== OBSIDIAN_PLUGIN.slug),
-    { ...plugins.find((plugin) => plugin.slug === OBSIDIAN_PLUGIN.slug), ...OBSIDIAN_PLUGIN },
+  const downloadPlugins = [CLOUDFLARE_PLUGIN, OBSIDIAN_PLUGIN]
+  const downloadSlugs = new Set(downloadPlugins.map((plugin) => plugin.slug))
+  const pluginsWithDownloads = [
+    ...plugins.filter((plugin) => !downloadSlugs.has(plugin.slug)),
+    ...downloadPlugins.map((plugin) => ({
+      ...plugins.find((listedPlugin) => listedPlugin.slug === plugin.slug),
+      ...plugin,
+    })),
   ]
 
   return [
     EXA_PLUGIN,
-    ...pluginsWithObsidian
+    ...pluginsWithDownloads
       .filter((plugin) => plugin.slug !== "youtube-transcript" && plugin.slug !== EXA_PLUGIN.slug)
       .sort((a, b) => a.name.localeCompare(b.name)),
   ]
@@ -416,6 +448,16 @@ export async function getTilesPluginMcpServers(slug: string): Promise<TilesPlugi
 }
 
 function fallbackSkills(slug: string): TilesPluginSkill[] {
+  if (slug === "cloudflare") {
+    return [
+      {
+        name: "cloudflare",
+        description: "Manage Cloudflare resources and Workers projects with the cf CLI. Use for Cloudflare account, zone, DNS, storage, security, or Worker development and deployment tasks; discover current commands and schemas before acting.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/cloudflare/SKILL.md`,
+      },
+    ]
+  }
+
   if (slug === "obsidian") {
     return [
       {
