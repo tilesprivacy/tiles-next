@@ -22,6 +22,7 @@ interface BookPageMeta {
 const visibleBookSlugs = [
   '',
   'overview',
+  'handbook',
   'manual',
   'models',
   'tilekit',

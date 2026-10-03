@@ -16,65 +16,71 @@ const bookPages: BookPage[] = [
   },
   {
     number: '02',
+    title: 'Handbook',
+    description: 'The product direction, principles, and roadmap behind Tiles.',
+    href: '/book/handbook',
+  },
+  {
+    number: '03',
     title: 'Manual',
     description: 'Command-line interface reference for Tiles, with usage examples',
     href: '/book/manual',
   },
   {
-    number: '03',
+    number: '04',
     title: 'Models',
     description: 'Our approach to model selection and optimization for different tasks and hardware constraints.',
     href: '/book/models',
   },
   {
-    number: '04',
+    number: '05',
     title: 'Tilekit',
     description: 'Embed Tiles into your product with Modelfile and REST APIs.',
     href: '/book/tilekit',
   },
   {
-    number: '05',
+    number: '06',
     title: 'Security',
     description: 'How Tiles approaches privacy, local data protection, identity, sync, and operational security boundaries.',
     href: '/book/security',
   },
-  // Hidden from book nav for now; restore by re-adding this entry (number '06') and bumping the
-  // following cards back to 07/08/09, plus restoring it in book-page-navigation and book/layout.
+  // Hidden from book nav for now; restore this entry and renumber the following cards,
+  // plus restoring it in book-page-navigation and book/layout.
   // {
-  //   number: '06',
+  //   number: '07',
   //   title: 'Research',
   //   description: 'Progressive experiments exploring decentralized software technologies for privacy adoption at scale.',
   //   href: '/book/research',
   // },
   {
-    number: '06',
+    number: '07',
     title: 'Community',
     description: 'See how you can make Tiles better.',
     href: '/book/community',
   },
-  // Hidden from book nav; restore by re-adding this entry (number '07'), bumping the
-  // following cards back to 08/09, and restoring it in book-page-navigation,
+  // Hidden from book nav; restore this entry and renumber the following cards,
+  // plus restoring it in book-page-navigation,
   // book/layout, and content/_meta.json.
   // {
-  //   number: '07',
+  //   number: '08',
   //   title: 'Resources',
   //   description: 'A living index of resources that inform and inspire our work.',
   //   href: '/book/resources',
   // },
   {
-    number: '07',
+    number: '08',
     title: 'Open source',
     description: 'Open-source software that Tiles builds on.',
     href: '/book/opensource',
   },
   {
-    number: '08',
+    number: '09',
     title: 'Licenses',
     description: 'The Tiles Plus and Tiles Pro licenses, payment terms, and purchasing options.',
     href: '/book/licenses',
   },
   {
-    number: '09',
+    number: '10',
     title: 'Finances',
     description: 'Our finances, published in the open every month.',
     href: '/book/finances',
