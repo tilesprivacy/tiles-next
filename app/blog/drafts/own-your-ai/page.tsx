@@ -193,7 +193,7 @@ function TilesScrollyTalk() {
 export default function OwnYourAiDraftPage() {
   return (
     <BlogPostContent
-      title="Own your AI with open models and decentralized protocols"
+      title="Tiles at India FOSS"
       description="An IndiaFOSS 2026 talk about open models, decentralized protocols, and user-owned AI"
       date="September 2026"
       authorId="ankesh-bharti"

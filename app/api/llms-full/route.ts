@@ -237,8 +237,8 @@ export async function GET(request: Request) {
     'Current recurring sponsorship: $1,350/month.',
   ])
 
-  pushSection(lines, `IndiaFOSS 2026 Talk (${baseUrl}/india-foss-2026)`, [
-    'Own your AI with open models and decentralized protocols',
+  pushSection(lines, `Tiles at India FOSS (${baseUrl}/tiles-at-india-foss)`, [
+    'Tiles at India FOSS',
     'Speaker: Ankesh Bharti',
     'Presented at IndiaFOSS 2026 in Bengaluru.',
     'Slides and speaker-note transcript:',

@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/press-kit",
     "/indiafoss-2026-giveaway",
-    "/india-foss-2026",
+    "/tiles-at-india-foss",
     "/privacy",
     "/terms",
     "/refund-policy",
