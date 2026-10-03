@@ -65,12 +65,12 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
 
               {!plugin.builtIn ? (
                 <a
-                  href={`tiles://plugins/${plugin.slug}`}
+                  href={plugin.installMode === "download" ? plugin.downloadUrl : `tiles://plugins/${plugin.slug}`}
                   onClick={() => triggerHaptic()}
-                  aria-label={`Install ${plugin.name} in Tiles`}
+                  aria-label={plugin.installMode === "download" ? `Download ZIP for ${plugin.name}` : `Install ${plugin.name} in Tiles`}
                   className="inline-flex h-9 shrink-0 items-center justify-center rounded-[8px] bg-foreground px-3 text-xs font-medium sm:h-11 sm:px-5 sm:text-sm text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
                 >
-                  Install
+                  {plugin.installMode === "download" ? "Download ZIP" : "Install"}
                 </a>
               ) : null}
             </div>
@@ -94,6 +94,21 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
                     </a>
                   ) : null}
                 </p>
+              ) : null}
+              {plugin.installMode === "download" ? (
+                <div className="mt-6">
+                  <p className="text-sm text-muted-foreground">Or install from the CLI:</p>
+                  <pre
+                    tabIndex={0}
+                    aria-label={`Install ${plugin.name} command`}
+                    className="mt-2 overflow-x-auto rounded-[8px] bg-secondary/65 p-4 text-xs leading-6 sm:text-sm"
+                  >
+                    <code>{plugin.installCommand}</code>
+                  </pre>
+                  <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                    Restart Tiles, then use <code>@{plugin.slug}</code> in chat.
+                  </p>
+                </div>
               ) : null}
             </div>
 
