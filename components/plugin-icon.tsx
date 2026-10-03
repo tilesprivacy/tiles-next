@@ -20,5 +20,9 @@ export function PluginIcon({ slug, className = "h-5 w-5" }: PluginIconProps) {
     return <Image src="/exa-icon.svg" alt="" width={64} height={64} className={`${className} rounded-[3px]`} aria-hidden />
   }
 
+  if (slug === "obsidian") {
+    return <Image src="/obsidian-icon.svg" alt="" width={64} height={64} className={`${className} object-contain`} aria-hidden />
+  }
+
   return <Package className={className} aria-hidden />
 }

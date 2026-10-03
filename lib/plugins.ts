@@ -7,6 +7,7 @@ export interface TilesPlugin {
   installCommand: string
   builtIn?: boolean
   documentationUrl?: string
+  requirements?: string
   sizeLabel?: string
   updatedAt?: string
 }
@@ -50,6 +51,16 @@ const EXA_PLUGIN: TilesPlugin = {
   installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/exa.zip`,
   documentationUrl: "https://exa.ai/docs/reference/exa-mcp",
 }
+const OBSIDIAN_PLUGIN: TilesPlugin = {
+  slug: "obsidian",
+  name: "Obsidian",
+  description: "Search, read, and organize your Obsidian vault with the Obsidian CLI.",
+  fileName: "obsidian.zip",
+  downloadUrl: `${PLUGIN_BASE_URL}/obsidian.zip`,
+  installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/obsidian.zip`,
+  documentationUrl: "https://obsidian.md/cli",
+  requirements: "Requires the Obsidian desktop app to be running, with the command line interface enabled and registered in your PATH.",
+}
 const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
   caldir: {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
@@ -66,6 +77,17 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
     description: "Web search and page fetch",
     homepage: "https://exa.ai",
     license: "MIT",
+  },
+  obsidian: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "obsidian",
+    version: "1.0.0",
+    description: OBSIDIAN_PLUGIN.description,
+    homepage: "https://obsidian.md/cli",
+    author: { name: "Tiles Privacy", url: "https://tiles.run" },
+    repository: "https://github.com/tilesprivacy/plugins",
+    license: "MIT",
+    keywords: ["obsidian", "notes", "knowledge-management", "cli"],
   },
 }
 const FALLBACK_MCP_SERVERS: Record<string, Record<string, Record<string, unknown>>> = {
@@ -101,6 +123,10 @@ function descriptionFromFileName(fileName: string) {
 
   if (fileName === "exa.zip") {
     return EXA_PLUGIN.description
+  }
+
+  if (fileName === "obsidian.zip") {
+    return OBSIDIAN_PLUGIN.description
   }
 
   return "Install this plugin into Tiles from the public plugin archive."
@@ -256,9 +282,14 @@ async function withFallbackMetadata(plugin: TilesPlugin) {
 }
 
 function curatePlugins(plugins: TilesPlugin[]) {
+  const pluginsWithObsidian = [
+    ...plugins.filter((plugin) => plugin.slug !== OBSIDIAN_PLUGIN.slug),
+    { ...plugins.find((plugin) => plugin.slug === OBSIDIAN_PLUGIN.slug), ...OBSIDIAN_PLUGIN },
+  ]
+
   return [
     EXA_PLUGIN,
-    ...plugins
+    ...pluginsWithObsidian
       .filter((plugin) => plugin.slug !== "youtube-transcript" && plugin.slug !== EXA_PLUGIN.slug)
       .sort((a, b) => a.name.localeCompare(b.name)),
   ]
@@ -382,6 +413,16 @@ export async function getTilesPluginMcpServers(slug: string): Promise<TilesPlugi
 }
 
 function fallbackSkills(slug: string): TilesPluginSkill[] {
+  if (slug === "obsidian") {
+    return [
+      {
+        name: "obsidian",
+        description: "Work with Obsidian notes, daily notes, tasks, properties, and links through the Obsidian CLI. Use when the user asks to search, read, create, or organize content in an Obsidian vault.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/obsidian/skills/obsidian/SKILL.md`,
+      },
+    ]
+  }
+
   if (slug === "exa") {
     return [
       {

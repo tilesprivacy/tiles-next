@@ -49,6 +49,10 @@ function pluginDescriptionFromKey(key: string): string {
     return "Web search and content extraction powered by Exa AI";
   }
 
+  if (key.endsWith("/obsidian.zip")) {
+    return "Search, read, and organize your Obsidian vault with the Obsidian CLI.";
+  }
+
   return "Install this plugin into Tiles from the public plugin archive.";
 }
 

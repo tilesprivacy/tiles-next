@@ -75,9 +75,27 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
               ) : null}
             </div>
 
-            <p className="mb-10 max-w-3xl text-base leading-7 text-muted-foreground sm:text-[1.05rem]">
-              {plugin.description}
-            </p>
+            <div className="mb-10 max-w-3xl">
+              <p className="text-base leading-7 text-muted-foreground sm:text-[1.05rem]">
+                {plugin.description}
+              </p>
+              {plugin.requirements ? (
+                <p className="mt-4 text-sm leading-6 text-muted-foreground">
+                  {plugin.requirements}{" "}
+                  {plugin.documentationUrl ? (
+                    <a
+                      href={plugin.documentationUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1 text-foreground underline decoration-current/35 underline-offset-4 transition-opacity hover:opacity-75"
+                    >
+                      Setup guide
+                      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                    </a>
+                  ) : null}
+                </p>
+              ) : null}
+            </div>
 
             {mcpServers.length > 0 ? (
               <div className="mb-12">

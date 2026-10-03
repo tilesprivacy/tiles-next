@@ -29,7 +29,9 @@ function PluginIcon({ slug, requestUrl }: { slug: string; requestUrl: string }) 
     ? "/caldir-icon-white.png"
     : slug === "exa"
       ? "/exa-icon.svg"
-      : null
+      : slug === "obsidian"
+        ? "/obsidian-icon.svg"
+        : null
 
   if (!iconPath) {
     return <PackageIcon />
