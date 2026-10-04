@@ -1,5 +1,4 @@
 import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content";
-import { mozillaFoundationFundingBlogContent } from "@/lib/blog-post-mozilla-foundation-funding-content";
 import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content";
 import { ownYourAiBlogContent } from "@/lib/own-your-ai-talk";
 import { atmosphericSessionsBlogContent } from "@/lib/blog-post-atmospheric-sessions-content";
@@ -51,17 +50,6 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
 }
 
 export const blogPosts: BlogPost[] = [
-  {
-    slug: "mozilla-foundation-funding",
-    title: "Tiles Privacy receives a $300K grant from the Mozilla Foundation to advance human-scale AI systems",
-    description:
-      "Mozilla Foundation is supporting Tiles with a $300,000 non-dilutive anchor grant through its human-scale AI program.",
-    date: new Date("2026-10-19"),
-    author: "ankesh-bharti",
-    coverImage: "/mozilla-tiles-banner.png",
-    coverAlt: "Mozilla Foundation and Tiles logos",
-    content: mozillaFoundationFundingBlogContent,
-  },
   {
     slug: "atmospheric-sessions",
     title: "Atmopsheric sessions",
