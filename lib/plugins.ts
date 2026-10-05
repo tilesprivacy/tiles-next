@@ -5,7 +5,7 @@ export interface TilesPlugin {
   fileName: string
   downloadUrl: string
   installCommand: string
-  installMode?: "download"
+  showCliInstall?: boolean
   builtIn?: boolean
   documentationUrl?: string
   requirements?: string
@@ -42,8 +42,8 @@ const PLUGIN_PREFIX = "plugins/"
 const PLUGIN_SOURCE_BASE_URL = "https://github.com/tilesprivacy/plugins/tree/main"
 const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blob/main"
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
-const CLOUDFLARE_DOWNLOAD_URL = "https://github.com/tilesprivacy/plugins/raw/refs/heads/main/cloudflare.zip"
-const OBSIDIAN_DOWNLOAD_URL = "https://github.com/tilesprivacy/plugins/raw/refs/heads/main/obsidian.zip"
+const CLOUDFLARE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/cloudflare.zip`
+const OBSIDIAN_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/obsidian.zip`
 const FALLBACK_PLUGIN_FILES = ["caldir.zip"]
 const EXA_PLUGIN: TilesPlugin = {
   slug: "exa",
@@ -61,7 +61,7 @@ const CLOUDFLARE_PLUGIN: TilesPlugin = {
   fileName: "cloudflare.zip",
   downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
-  installMode: "download",
+  showCliInstall: true,
   documentationUrl: "https://developers.cloudflare.com/cf/",
   requirements: "Requires the Cloudflare CLI (cf) installed and authenticated with access to the Cloudflare account you want to manage. The CLI is currently in beta.",
 }
@@ -72,7 +72,7 @@ const OBSIDIAN_PLUGIN: TilesPlugin = {
   fileName: "obsidian.zip",
   downloadUrl: OBSIDIAN_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${OBSIDIAN_DOWNLOAD_URL}`,
-  installMode: "download",
+  showCliInstall: true,
   documentationUrl: "https://obsidian.md/cli",
   requirements: "Requires the Obsidian desktop app to be running, with the command line interface enabled and registered in your PATH.",
 }

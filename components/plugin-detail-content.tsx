@@ -65,12 +65,12 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
 
               {!plugin.builtIn ? (
                 <a
-                  href={plugin.installMode === "download" ? plugin.downloadUrl : `tiles://plugins/${plugin.slug}`}
+                  href={`tiles://plugins/${plugin.slug}`}
                   onClick={() => triggerHaptic()}
-                  aria-label={plugin.installMode === "download" ? `Download ZIP for ${plugin.name}` : `Install ${plugin.name} in Tiles`}
+                  aria-label={`Install ${plugin.name} in Tiles`}
                   className="inline-flex h-9 shrink-0 items-center justify-center rounded-[8px] bg-foreground px-3 text-xs font-medium sm:h-11 sm:px-5 sm:text-sm text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
                 >
-                  {plugin.installMode === "download" ? "Download ZIP" : "Install"}
+                  Install
                 </a>
               ) : null}
             </div>
@@ -95,7 +95,7 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
                   ) : null}
                 </p>
               ) : null}
-              {plugin.installMode === "download" ? (
+              {plugin.showCliInstall ? (
                 <div className="mt-6">
                   <p className="text-sm text-muted-foreground">Or install from the CLI:</p>
                   <pre
