@@ -52,6 +52,7 @@ const EXA_PLUGIN: TilesPlugin = {
   fileName: "exa.zip",
   downloadUrl: `${PLUGIN_BASE_URL}/exa.zip`,
   installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/exa.zip`,
+  showCliInstall: true,
   documentationUrl: "https://exa.ai/docs/reference/exa-mcp",
 }
 const CLOUDFLARE_PLUGIN: TilesPlugin = {
@@ -190,6 +191,7 @@ function normalizePlugin(fileName: string, metadata: Partial<TilesPlugin> = {}):
     fileName: cleanFileName,
     downloadUrl,
     installCommand: `tiles plugin install ${downloadUrl}`,
+    showCliInstall: cleanFileName === "caldir.zip",
     sizeLabel: metadata.sizeLabel,
     updatedAt: metadata.updatedAt,
   }
