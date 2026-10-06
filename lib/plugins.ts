@@ -81,7 +81,7 @@ const OBSIDIAN_PLUGIN: TilesPlugin = {
 const SOLSTONE_PLUGIN: TilesPlugin = {
   slug: "solstone",
   name: "Solstone",
-  description: "Search and read your journal from Tiles, on the computer where your journal lives.",
+  description: "Search and read your journal",
   fileName: "solstone.zip",
   downloadUrl: SOLSTONE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${SOLSTONE_DOWNLOAD_URL}`,
@@ -132,7 +132,7 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     name: "solstone",
     version: "0.1.1",
-    description: SOLSTONE_PLUGIN.description,
+    description: "Search and read your journal from Tiles, on the computer where your journal lives.",
     homepage: "https://solstone.app",
     repository: "https://github.com/solpbc/solstone-tiles",
     license: "AGPL-3.0-only",
