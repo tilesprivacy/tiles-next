@@ -414,11 +414,32 @@ function metadataValue(value: unknown) {
 
 function metadataFromJson(slug: string, metadata: Record<string, unknown>): TilesPluginMetadata {
   return {
-    fields: Object.entries(metadata).map(([key, value]) => ({
-      key,
-      value: metadataValue(value),
-      href: typeof value === "string" && /^https?:\/\//i.test(value) ? value : undefined,
-    })),
+    fields: Object.entries(metadata).map(([key, value]) => {
+      if (key === "author" && isRecord(value)) {
+        const name = typeof value.name === "string" ? value.name.trim() : ""
+        const email = typeof value.email === "string" ? value.email.trim() : ""
+        let href: string | undefined
+
+        if (typeof value.url === "string") {
+          try {
+            const url = new URL(value.url)
+            if (url.protocol === "https:" || url.protocol === "http:") {
+              href = url.href
+            }
+          } catch {
+            // Keep the author readable when their website URL is invalid.
+          }
+        }
+
+        return { key, value: name || email || href || "Unknown author", href }
+      }
+
+      return {
+        key,
+        value: metadataValue(value),
+        href: typeof value === "string" && /^https?:\/\//i.test(value) ? value : undefined,
+      }
+    }),
     sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/plugin.json`,
   }
 }
