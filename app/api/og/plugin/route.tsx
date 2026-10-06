@@ -33,7 +33,10 @@ function PluginIcon({ slug, requestUrl }: { slug: string; requestUrl: string }) 
         ? "/obsidian-icon.svg"
         : slug === "cloudflare"
           ? "/cloudflare-icon.svg"
-          : null
+          : slug === "solstone"
+            // The upstream SVG contains Unicode comments that the OG image loader cannot decode.
+            ? "/solstone-icon-og.png"
+            : null
 
   if (!iconPath) {
     return <PackageIcon />
