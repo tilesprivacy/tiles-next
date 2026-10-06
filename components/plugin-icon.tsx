@@ -28,5 +28,9 @@ export function PluginIcon({ slug, className = "h-5 w-5" }: PluginIconProps) {
     return <Image src="/obsidian-icon.svg" alt="" width={64} height={64} className={`${className} object-contain`} aria-hidden />
   }
 
+  if (slug === "solstone") {
+    return <Image src="/solstone-icon.svg" alt="" width={64} height={64} className={`${className} object-contain`} aria-hidden />
+  }
+
   return <Package className={className} aria-hidden />
 }
