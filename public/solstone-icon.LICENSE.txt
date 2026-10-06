@@ -1,5 +1,6 @@
 Source: https://github.com/solpbc/solstone.app/blob/10b0a5a86095816c35367f0579d42e84e271c96f/public/static/mark.svg
 Used unchanged as solstone-icon.svg. Solstone is a trademark of sol pbc.
+Rendered from that SVG at 112 x 112 pixels as solstone-icon-og.png for Open Graph images.
 
 MIT License
 
