@@ -53,6 +53,10 @@ function pluginDescriptionFromKey(key: string): string {
     return "Search, read, and organize your Obsidian vault with the Obsidian CLI.";
   }
 
+  if (key.endsWith("/solstone.zip")) {
+    return "Search and read your journal from Tiles, on the computer where your journal lives.";
+  }
+
   return "Install this plugin into Tiles from the public plugin archive.";
 }
 

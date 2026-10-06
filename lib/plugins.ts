@@ -44,6 +44,7 @@ const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blo
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
 const CLOUDFLARE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/cloudflare.zip`
 const OBSIDIAN_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/obsidian.zip`
+const SOLSTONE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/solstone.zip`
 const FALLBACK_PLUGIN_FILES = ["caldir.zip"]
 const EXA_PLUGIN: TilesPlugin = {
   slug: "exa",
@@ -76,6 +77,17 @@ const OBSIDIAN_PLUGIN: TilesPlugin = {
   showCliInstall: true,
   documentationUrl: "https://obsidian.md/cli",
   requirements: "Requires the Obsidian desktop app to be running, with the command line interface enabled and registered in your PATH.",
+}
+const SOLSTONE_PLUGIN: TilesPlugin = {
+  slug: "solstone",
+  name: "Solstone",
+  description: "Search and read your journal from Tiles, on the computer where your journal lives.",
+  fileName: "solstone.zip",
+  downloadUrl: SOLSTONE_DOWNLOAD_URL,
+  installCommand: `tiles plugin install ${SOLSTONE_DOWNLOAD_URL}`,
+  showCliInstall: true,
+  documentationUrl: "https://github.com/solpbc/solstone-tiles#connect-tiles-to-your-journal",
+  requirements: "Requires Solstone journal 2.0.24 or later and a Tiles build with plugin support, such as the canary channel, on the same computer. In your journal, open agents > connect an agent and create a pairing code, choosing on this computer if asked. Within 10 minutes, enter /mcp-auth solstone__journal in Tiles chat, then choose what to share and enter the code on the journal page that opens.",
 }
 const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
   caldir: {
@@ -116,12 +128,29 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
     license: "MIT",
     keywords: ["obsidian", "notes", "knowledge-management", "cli"],
   },
+  solstone: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "solstone",
+    version: "0.1.1",
+    description: SOLSTONE_PLUGIN.description,
+    homepage: "https://solstone.app",
+    repository: "https://github.com/solpbc/solstone-tiles",
+    license: "AGPL-3.0-only",
+    author: { name: "sol pbc", url: "https://solpbc.org" },
+    keywords: ["solstone", "journal", "memory", "mcp"],
+  },
 }
 const FALLBACK_MCP_SERVERS: Record<string, Record<string, Record<string, unknown>>> = {
   exa: {
     search: {
       type: "streamable-http",
       url: "https://mcp.exa.ai/mcp",
+    },
+  },
+  solstone: {
+    journal: {
+      type: "streamable-http",
+      url: "http://127.0.0.1:7659/mcp",
     },
   },
 }
@@ -158,6 +187,10 @@ function descriptionFromFileName(fileName: string) {
 
   if (fileName === "obsidian.zip") {
     return OBSIDIAN_PLUGIN.description
+  }
+
+  if (fileName === "solstone.zip") {
+    return SOLSTONE_PLUGIN.description
   }
 
   return "Install this plugin into Tiles from the public plugin archive."
@@ -314,7 +347,7 @@ async function withFallbackMetadata(plugin: TilesPlugin) {
 }
 
 function curatePlugins(plugins: TilesPlugin[]) {
-  const downloadPlugins = [CLOUDFLARE_PLUGIN, OBSIDIAN_PLUGIN]
+  const downloadPlugins = [CLOUDFLARE_PLUGIN, OBSIDIAN_PLUGIN, SOLSTONE_PLUGIN]
   const downloadSlugs = new Set(downloadPlugins.map((plugin) => plugin.slug))
   const pluginsWithDownloads = [
     ...plugins.filter((plugin) => !downloadSlugs.has(plugin.slug)),
@@ -450,6 +483,16 @@ export async function getTilesPluginMcpServers(slug: string): Promise<TilesPlugi
 }
 
 function fallbackSkills(slug: string): TilesPluginSkill[] {
+  if (slug === "solstone") {
+    return [
+      {
+        name: "solstone-memory",
+        description: "Answer questions about the owner's own past (what they said, heard or planned, and who someone is) from their journal. Use whenever a question is about the owner's life, conversations, people or plans.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/solstone/skills/solstone-memory/SKILL.md`,
+      },
+    ]
+  }
+
   if (slug === "cloudflare") {
     return [
       {
