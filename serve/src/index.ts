@@ -50,14 +50,14 @@ function pluginDescriptionFromKey(key: string): string {
   }
 
   if (key.endsWith("/obsidian.zip")) {
-    return "Search, read, and organize your Obsidian vault with the Obsidian CLI.";
+    return "Search, read, and organize your Obsidian vault with the Obsidian CLI";
   }
 
   if (key.endsWith("/solstone.zip")) {
     return "Search and read your journal";
   }
 
-  return "Install this plugin into Tiles from the public plugin archive.";
+  return "Install this plugin into Tiles from the public plugin archive";
 }
 
 async function listPluginObjects(env: Env): Promise<Response> {

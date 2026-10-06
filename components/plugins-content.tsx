@@ -99,7 +99,7 @@ export function PluginsContent({ plugins }: PluginsContentProps) {
                       Make your own plugin
                     </span>
                     <span className="mt-0.5 block max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-sm leading-5 text-muted-foreground">
-                      Bundle MCP servers and skills in the portable Agent Plugins format.
+                      Bundle MCP servers and skills in the portable Agent Plugins format
                     </span>
                   </span>
                   <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-foreground" aria-hidden />

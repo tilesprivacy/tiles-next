@@ -59,7 +59,7 @@ const EXA_PLUGIN: TilesPlugin = {
 const CLOUDFLARE_PLUGIN: TilesPlugin = {
   slug: "cloudflare",
   name: "Cloudflare",
-  description: "Manage Cloudflare resources and Workers projects with the Cloudflare CLI.",
+  description: "Manage Cloudflare resources and Workers projects with the Cloudflare CLI",
   fileName: "cloudflare.zip",
   downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
@@ -70,7 +70,7 @@ const CLOUDFLARE_PLUGIN: TilesPlugin = {
 const OBSIDIAN_PLUGIN: TilesPlugin = {
   slug: "obsidian",
   name: "Obsidian",
-  description: "Search, read, and organize your Obsidian vault with the Obsidian CLI.",
+  description: "Search, read, and organize your Obsidian vault with the Obsidian CLI",
   fileName: "obsidian.zip",
   downloadUrl: OBSIDIAN_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${OBSIDIAN_DOWNLOAD_URL}`,
@@ -174,7 +174,7 @@ function titleFromFileName(fileName: string) {
 
 function descriptionFromFileName(fileName: string) {
   if (fileName === "caldir.zip") {
-    return "Caldir is a tool for storing your calendar as a directory of ICS files."
+    return "Caldir is a tool for storing your calendar as a directory of ICS files"
   }
 
   if (fileName === "exa.zip") {
@@ -193,7 +193,7 @@ function descriptionFromFileName(fileName: string) {
     return SOLSTONE_PLUGIN.description
   }
 
-  return "Install this plugin into Tiles from the public plugin archive."
+  return "Install this plugin into Tiles from the public plugin archive"
 }
 
 function formatBytes(bytes: number | undefined) {
@@ -220,7 +220,7 @@ function normalizePlugin(fileName: string, metadata: Partial<TilesPlugin> = {}):
   return {
     slug: cleanFileName.replace(/\.zip$/i, ""),
     name: metadata.name ?? titleFromFileName(cleanFileName),
-    description: metadata.description ?? descriptionFromFileName(cleanFileName),
+    description: (metadata.description ?? descriptionFromFileName(cleanFileName)).trim().replace(/\.+$/, ""),
     fileName: cleanFileName,
     downloadUrl,
     installCommand: `tiles plugin install ${downloadUrl}`,
