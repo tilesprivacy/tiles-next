@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, ArrowUpRight, BookOpen, Server } from "lucide-react"
 import { SiteFooter } from "@/components/site-footer"
@@ -39,7 +40,78 @@ function mcpTypeLabel(type: string) {
     .join(" ")
 }
 
+function copyText(text: string) {
+  const copyWithTextArea = () => {
+    const textArea = document.createElement("textarea")
+    textArea.value = text
+    textArea.style.position = "fixed"
+    textArea.style.opacity = "0"
+    document.body.appendChild(textArea)
+    textArea.select()
+    document.execCommand("copy")
+    document.body.removeChild(textArea)
+  }
+
+  if (!navigator.clipboard?.writeText) {
+    copyWithTextArea()
+    return
+  }
+
+  void navigator.clipboard.writeText(text).catch(copyWithTextArea)
+}
+
 export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: PluginDetailContentProps) {
+  const [deepLinkFailed, setDeepLinkFailed] = useState(false)
+  const [copiedInstallCommand, setCopiedInstallCommand] = useState(false)
+  const installHref = `tiles://plugins/${plugin.slug}`
+
+  function copyInstallCommand() {
+    copyText(plugin.installCommand)
+    setCopiedInstallCommand(true)
+    window.setTimeout(() => setCopiedInstallCommand(false), 1400)
+  }
+
+  function handleInstallClick() {
+    triggerHaptic()
+
+    if (deepLinkFailed) {
+      copyInstallCommand()
+    }
+
+    let timer = 0
+    let settled = false
+
+    function settle(fallback: boolean) {
+      if (settled) {
+        return
+      }
+
+      settled = true
+      window.clearTimeout(timer)
+      window.removeEventListener("blur", onBlur)
+      document.removeEventListener("visibilitychange", onVisibilityChange)
+
+      if (fallback) {
+        setDeepLinkFailed(true)
+        copyInstallCommand()
+      }
+    }
+
+    function onBlur() {
+      settle(false)
+    }
+
+    function onVisibilityChange() {
+      if (document.visibilityState === "hidden") {
+        settle(false)
+      }
+    }
+
+    timer = window.setTimeout(() => settle(true), 1500)
+    window.addEventListener("blur", onBlur)
+    document.addEventListener("visibilitychange", onVisibilityChange)
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-background text-foreground">
       <main className="flex-1 px-5 pb-20 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pt-[calc(11.5rem+env(safe-area-inset-top,0px))]">
@@ -65,12 +137,16 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
 
               {!plugin.builtIn ? (
                 <a
-                  href={`tiles://plugins/${plugin.slug}`}
-                  onClick={() => triggerHaptic()}
-                  aria-label={`Install ${plugin.name} in Tiles`}
+                  href={installHref}
+                  onClick={handleInstallClick}
+                  aria-label={
+                    deepLinkFailed
+                      ? `Install ${plugin.name} in Tiles or copy the install command`
+                      : `Install ${plugin.name} in Tiles`
+                  }
                   className="inline-flex h-9 shrink-0 items-center justify-center rounded-[8px] bg-foreground px-3 text-xs font-medium sm:h-11 sm:px-5 sm:text-sm text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
                 >
-                  Install
+                  {copiedInstallCommand ? "Copied" : "Install"}
                 </a>
               ) : null}
             </div>
@@ -95,9 +171,11 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
                   ) : null}
                 </p>
               ) : null}
-              {plugin.showCliInstall ? (
+              {plugin.showCliInstall || deepLinkFailed ? (
                 <div className="mt-6">
-                  <p className="text-sm text-muted-foreground">Or install from the CLI:</p>
+                  <p className="text-sm text-muted-foreground">
+                    {deepLinkFailed ? "Tiles didn't open? Install from your terminal instead:" : "Or install from the CLI:"}
+                  </p>
                   <pre
                     tabIndex={0}
                     aria-label={`Install ${plugin.name} command`}
