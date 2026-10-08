@@ -92,10 +92,8 @@ export function DownloadContent({
 
           <section className="minimal-download-platform" aria-labelledby="macos-heading">
             <p className="minimal-download-detail mb-6">
-              <mark className="box-decoration-clone rounded-sm bg-[#f7ff61]/30 px-1 py-0.5 text-foreground">
-                The network and offline installers include only the CLI. The Canary
-                version includes a desktop app and a menu bar app.
-              </mark>
+              The network and offline installers include only the CLI. The Canary
+              version includes a desktop app and a menu bar app.
             </p>
             <h2 id="macos-heading">
               <FaApple className="minimal-download-platform-icon" aria-hidden />
