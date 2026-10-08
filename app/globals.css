@@ -1765,6 +1765,10 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.6;
   text-wrap: pretty;
 }
+/* Give the installer note its own space above the platform heading. */
+.minimal-download-platform > p.minimal-download-detail:first-child {
+  margin: 0 0 2rem;
+}
 .minimal-download-action-icon {
   width: 0.95rem;
   height: 0.95rem;
