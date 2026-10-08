@@ -1,4 +1,5 @@
 import { getPersonById, people, splitPersonDisplayName, type PersonIdentity } from "@/lib/people"
+import { solPbcPartner } from "@/lib/sponsor-partners"
 
 export interface SponsorPageAdvisor extends PersonIdentity {
   roles: string[]
@@ -42,6 +43,12 @@ export const sponsorPageAdvisors = [
       "Web Platform Designer, Google",
       "Design Engineer, Mozilla",
     ],
+  },
+  {
+    id: "jeremie-miller",
+    name: `${solPbcPartner.founderName} ${solPbcPartner.founderHandle}`,
+    links: [solPbcPartner.founderUrl],
+    roles: solPbcPartner.founderRole.split(" · "),
   },
 ] satisfies SponsorPageAdvisor[]
 
