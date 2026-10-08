@@ -2152,9 +2152,9 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   color: var(--muted-foreground);
 }
 .minimal-sponsor-page .minimal-advisors-section {
-  padding-top: 0;
+  padding-top: 3rem;
   padding-bottom: 3rem;
-  border-top: 0;
+  border-top: 1px solid var(--border);
 }
 .minimal-sponsor-page .minimal-team-section h2,
 .minimal-sponsor-page .minimal-advisors-section h2 {
