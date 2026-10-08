@@ -150,7 +150,7 @@ export function DownloadContent({
               <CanaryDownloadAction release={canaryRelease} />
             </div>
             <p className="minimal-download-detail">
-              <mark className="box-decoration-clone rounded-sm bg-[#f7ff61] px-1 py-0.5 text-[#111111]">
+              <mark className="box-decoration-clone rounded-sm bg-[#f7ff61]/30 px-1 py-0.5 text-foreground">
                 The network and offline installers include only the CLI. The Canary
                 version includes a desktop app and a menu bar app.
               </mark>
