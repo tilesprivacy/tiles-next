@@ -12,6 +12,12 @@ export const sponsorPageMaintainers = people.contributorsCore
 
 export const sponsorPageAdvisors = [
   {
+    id: "jeremie-miller",
+    name: `${solPbcPartner.founderName} ${solPbcPartner.founderHandle}`,
+    links: [solPbcPartner.founderUrl],
+    roles: solPbcPartner.founderRole.split(" · "),
+  },
+  {
     id: "boris-mann",
     name: borisMann?.name ?? "Boris Mann @bmann.ca",
     links: borisMann?.links ?? ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"],
@@ -43,12 +49,6 @@ export const sponsorPageAdvisors = [
       "Web Platform Designer, Google",
       "Design Engineer, Mozilla",
     ],
-  },
-  {
-    id: "jeremie-miller",
-    name: `${solPbcPartner.founderName} ${solPbcPartner.founderHandle}`,
-    links: [solPbcPartner.founderUrl],
-    roles: solPbcPartner.founderRole.split(" · "),
   },
 ] satisfies SponsorPageAdvisor[]
 
