@@ -37,7 +37,7 @@ const aboutTeam = [
   {
     name: "Lakshita Arora",
     username: "@lexoskeletal",
-    role: "Head of Design",
+    role: "Product & Brand Designer",
     href: "https://github.com/lexoskeletal",
     links: ["https://github.com/lexoskeletal"],
   },
