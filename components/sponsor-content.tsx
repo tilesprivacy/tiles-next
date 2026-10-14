@@ -38,15 +38,15 @@ const aboutTeam = [
     name: "Lakshita Arora",
     username: "@lexoskeletal",
     role: "Product & Brand Designer",
-    href: "https://github.com/lexoskeletal",
-    links: ["https://github.com/lexoskeletal"],
+    href: "https://www.behance.net/lexoskeletal",
+    links: ["https://www.behance.net/lexoskeletal"],
   },
   {
     name: "Harsh Sharma",
     username: "@codelif",
     role: "Paid Open Source Contributor",
-    href: "https://github.com/codelif",
-    links: ["https://github.com/codelif"],
+    href: "https://codelif.in/",
+    links: ["https://codelif.in/"],
   },
 ]
 
