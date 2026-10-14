@@ -39,14 +39,14 @@ const aboutTeam = [
     username: "@lexoskeletal",
     role: "Product & Brand Designer",
     href: "https://www.behance.net/lexoskeletal",
-    links: ["https://www.behance.net/lexoskeletal"],
+    links: ["https://github.com/lexoskeletal"],
   },
   {
     name: "Harsh Sharma",
     username: "@codelif",
     role: "Paid Open Source Contributor",
     href: "https://codelif.in/",
-    links: ["https://codelif.in/"],
+    links: ["https://github.com/codelif"],
   },
 ]
 
