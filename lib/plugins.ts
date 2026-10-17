@@ -48,7 +48,7 @@ const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blo
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins"
 // Pin published releases so cached metadata and skill lists advance with the ZIP.
 const PLUGIN_SOURCE_REFS: Record<string, string> = {
-  cloudflare: "34061b83da2b482f1fedbad94c15efa762434a96", // 1.1.0
+  cloudflare: "3396695e0d51a44cb8cffdabd260c8dda81a3185", // 1.2.0
 }
 
 function pluginSourceRef(slug: string) {
@@ -75,13 +75,13 @@ const EXA_PLUGIN: TilesPlugin = {
 const CLOUDFLARE_PLUGIN: TilesPlugin = {
   slug: "cloudflare",
   name: "Cloudflare",
-  description: "Manage Cloudflare resources, Workers projects, and protected tunnels for Tiles inference",
+  description: "Manage Cloudflare resources and Workers projects, and share Tiles inference with account-free Quick Tunnels",
   fileName: "cloudflare.zip",
   downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
   showCliInstall: true,
   documentationUrl: "https://developers.cloudflare.com/cf/",
-  requirements: "Requires the Cloudflare CLI (cf) for resource management. Sharing Tiles inference also requires cloudflared, a Cloudflare-managed hostname, and Cloudflare Access. The receiving client must support the Responses API and custom headers; native Tiles-to-Tiles sharing uses an Iroh ticket.",
+  requirements: "Requires cloudflared and Python 3 for account-free Quick Tunnels. The bundled bridge supports non-streaming Responses API clients. Anyone with the temporary URL can use inference; native Tiles-to-Tiles sharing uses an Iroh ticket. The Cloudflare CLI (cf) is used separately for resource management.",
 }
 const OBSIDIAN_PLUGIN: TilesPlugin = {
   slug: "obsidian",
@@ -129,7 +129,7 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
   cloudflare: {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     name: "cloudflare",
-    version: "1.1.0",
+    version: "1.2.0",
     description: CLOUDFLARE_PLUGIN.description,
     homepage: "https://developers.cloudflare.com/cf/",
     author: { name: "Tiles Privacy", url: "https://tiles.run" },
@@ -564,12 +564,12 @@ function fallbackSkills(slug: string): TilesPluginSkill[] {
     return [
       {
         name: "cloudflare",
-        description: "Manage Cloudflare resources and Workers projects with the cf CLI, or share a Tiles inference server through a protected Cloudflare Tunnel. Use for Cloudflare resource, deployment, and Tiles remote inference sharing tasks.",
+        description: "Manage Cloudflare resources and Workers projects with the cf CLI, or share Tiles inference through account-free Cloudflare Quick Tunnels. Use for Cloudflare resource, deployment, and Tiles remote inference sharing tasks.",
         sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/cloudflare/SKILL.md`,
       },
       {
         name: "tiles-remote-inference",
-        description: "Share a local Tiles inference server with another device through a named Cloudflare Tunnel and authenticated Access policy. Use when the user wants a protected HTTPS endpoint for Tiles model inference, remote client setup, or tunnel troubleshooting and teardown.",
+        description: "Share a local Tiles inference server with another device using account-free Cloudflare Quick Tunnels and a bundled non-streaming Responses API bridge. Use for temporary remote inference, client setup, troubleshooting, and teardown; named tunnels remain an option for streaming or authenticated hosting.",
         sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/tiles-remote-inference/SKILL.md`,
       },
     ]
