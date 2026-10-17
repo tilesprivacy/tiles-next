@@ -48,7 +48,7 @@ const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blo
 const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins"
 // Pin published releases so cached metadata and skill lists advance with the ZIP.
 const PLUGIN_SOURCE_REFS: Record<string, string> = {
-  cloudflare: "3396695e0d51a44cb8cffdabd260c8dda81a3185", // 1.2.0
+  cloudflare: "93835d1d8867e22545ac1244ce8c8ee61d56bcec", // 1.2.1
 }
 
 function pluginSourceRef(slug: string) {
@@ -129,7 +129,7 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
   cloudflare: {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     name: "cloudflare",
-    version: "1.2.0",
+    version: "1.2.1",
     description: CLOUDFLARE_PLUGIN.description,
     homepage: "https://developers.cloudflare.com/cf/",
     author: { name: "Tiles Privacy", url: "https://tiles.run" },
@@ -563,9 +563,9 @@ function fallbackSkills(slug: string): TilesPluginSkill[] {
   if (slug === "cloudflare") {
     return [
       {
-        name: "cloudflare",
+        name: "cloudflare-cli",
         description: "Manage Cloudflare resources and Workers projects with the cf CLI, or share Tiles inference through account-free Cloudflare Quick Tunnels. Use for Cloudflare resource, deployment, and Tiles remote inference sharing tasks.",
-        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/cloudflare/SKILL.md`,
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/cloudflare-cli/SKILL.md`,
       },
       {
         name: "tiles-remote-inference",

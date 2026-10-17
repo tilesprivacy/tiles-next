@@ -193,7 +193,11 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
                     <code>{plugin.installCommand}</code>
                   </pre>
                   <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                    Restart Tiles, then use <code>@{plugin.slug}</code> in chat.
+                    {plugin.slug === "cloudflare" ? (
+                      <>Restart Tiles, then use <code>@cloudflare-cli</code> for developer tools or <code>@tiles-remote-inference</code> to share inference.</>
+                    ) : (
+                      <>Restart Tiles, then use <code>@{plugin.slug}</code> in chat.</>
+                    )}
                   </p>
                 </div>
               ) : null}
