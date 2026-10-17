@@ -45,6 +45,10 @@ function pluginNameFromKey(key: string): string {
 }
 
 function pluginDescriptionFromKey(key: string): string {
+  if (key.endsWith("/cloudflare.zip")) {
+    return "Manage Cloudflare resources, Workers projects, and protected tunnels for Tiles inference";
+  }
+
   if (key.endsWith("/fold.zip")) {
     return "Connects with your AI tools to bring your personal finance data to them, for Indian users.";
   }

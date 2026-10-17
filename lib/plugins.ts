@@ -45,7 +45,19 @@ const PLUGIN_BASE_URL = "https://download.tiles.run/plugins"
 const PLUGIN_PREFIX = "plugins/"
 const PLUGIN_SOURCE_BASE_URL = "https://github.com/tilesprivacy/plugins/tree/main"
 const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blob/main"
-const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
+const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins"
+// Pin published releases so cached metadata and skill lists advance with the ZIP.
+const PLUGIN_SOURCE_REFS: Record<string, string> = {
+  cloudflare: "34061b83da2b482f1fedbad94c15efa762434a96", // 1.1.0
+}
+
+function pluginSourceRef(slug: string) {
+  return PLUGIN_SOURCE_REFS[slug] ?? "main"
+}
+
+function pluginRawUrl(slug: string, path: string) {
+  return `${PLUGIN_RAW_BASE_URL}/${pluginSourceRef(slug)}/${slug}/${path}`
+}
 const CLOUDFLARE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/cloudflare.zip`
 const OBSIDIAN_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/obsidian.zip`
 const SOLSTONE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/solstone.zip`
@@ -63,13 +75,13 @@ const EXA_PLUGIN: TilesPlugin = {
 const CLOUDFLARE_PLUGIN: TilesPlugin = {
   slug: "cloudflare",
   name: "Cloudflare",
-  description: "Manage Cloudflare resources and Workers projects with the Cloudflare CLI",
+  description: "Manage Cloudflare resources, Workers projects, and protected tunnels for Tiles inference",
   fileName: "cloudflare.zip",
   downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
   showCliInstall: true,
   documentationUrl: "https://developers.cloudflare.com/cf/",
-  requirements: "Requires the Cloudflare CLI (cf) installed and authenticated with access to the Cloudflare account you want to manage. The CLI is currently in beta.",
+  requirements: "Requires the Cloudflare CLI (cf) for resource management. Sharing Tiles inference also requires cloudflared, a Cloudflare-managed hostname, and Cloudflare Access. The receiving client must support the Responses API and custom headers; native Tiles-to-Tiles sharing uses an Iroh ticket.",
 }
 const OBSIDIAN_PLUGIN: TilesPlugin = {
   slug: "obsidian",
@@ -117,13 +129,13 @@ const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
   cloudflare: {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
     name: "cloudflare",
-    version: "1.0.0",
+    version: "1.1.0",
     description: CLOUDFLARE_PLUGIN.description,
     homepage: "https://developers.cloudflare.com/cf/",
     author: { name: "Tiles Privacy", url: "https://tiles.run" },
     repository: "https://github.com/tilesprivacy/plugins",
     license: "MIT",
-    keywords: ["cloudflare", "workers", "dns", "storage", "cli"],
+    keywords: ["cloudflare", "workers", "dns", "storage", "cli", "tunnel", "tiles", "inference"],
   },
   exa: {
     $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
@@ -475,7 +487,7 @@ export async function getTilesPluginMetadata(slug: string): Promise<TilesPluginM
   const fallback = FALLBACK_PLUGIN_METADATA[slug]
 
   try {
-    const response = await fetch(`${PLUGIN_RAW_BASE_URL}/${slug}/plugin.json`, {
+    const response = await fetch(pluginRawUrl(slug, "plugin.json"), {
       next: { revalidate: 3600 },
     })
 
@@ -521,7 +533,7 @@ export async function getTilesPluginMcpServers(slug: string): Promise<TilesPlugi
   const fallback = FALLBACK_MCP_SERVERS[slug] ?? {}
 
   try {
-    const response = await fetch(`${PLUGIN_RAW_BASE_URL}/${slug}/mcp.json`, {
+    const response = await fetch(pluginRawUrl(slug, "mcp.json"), {
       next: { revalidate: 3600 },
     })
 
@@ -552,8 +564,13 @@ function fallbackSkills(slug: string): TilesPluginSkill[] {
     return [
       {
         name: "cloudflare",
-        description: "Manage Cloudflare resources and Workers projects with the cf CLI. Use for Cloudflare account, zone, DNS, storage, security, or Worker development and deployment tasks; discover current commands and schemas before acting.",
+        description: "Manage Cloudflare resources and Workers projects with the cf CLI, or share a Tiles inference server through a protected Cloudflare Tunnel. Use for Cloudflare resource, deployment, and Tiles remote inference sharing tasks.",
         sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/cloudflare/SKILL.md`,
+      },
+      {
+        name: "tiles-remote-inference",
+        description: "Share a local Tiles inference server with another device through a named Cloudflare Tunnel and authenticated Access policy. Use when the user wants a protected HTTPS endpoint for Tiles model inference, remote client setup, or tunnel troubleshooting and teardown.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/tiles-remote-inference/SKILL.md`,
       },
     ]
   }
@@ -593,7 +610,7 @@ function fallbackSkills(slug: string): TilesPluginSkill[] {
 
 async function readSkill(slug: string, skillName: string): Promise<TilesPluginSkill> {
   const sourceUrl = `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/skills/${skillName}/SKILL.md`
-  const markdownUrl = `${PLUGIN_RAW_BASE_URL}/${slug}/skills/${skillName}/SKILL.md`
+  const markdownUrl = pluginRawUrl(slug, `skills/${skillName}/SKILL.md`)
 
   const response = await fetch(markdownUrl, {
     next: { revalidate: 3600 },
@@ -625,7 +642,7 @@ export async function getTilesPluginSkills(slug: string): Promise<TilesPluginSki
     }]
   }
 
-  const skillsUrl = `https://api.github.com/repos/tilesprivacy/plugins/contents/${slug}/skills?ref=main`
+  const skillsUrl = `https://api.github.com/repos/tilesprivacy/plugins/contents/${slug}/skills?ref=${pluginSourceRef(slug)}`
 
   try {
     const response = await fetch(skillsUrl, {
