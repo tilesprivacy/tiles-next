@@ -1,0 +1,111 @@
+---
+title: "Tiles handbook"
+description: "The product direction, principles, and roadmap behind Tiles as of October 2026."
+---
+
+# Tiles handbook
+
+A local-first, collaborative AI assistant that works for you. Built with open models and decentralized protocols.
+
+Our mission is to give everyone a personal agent on their own terms. That means building toward an assistant that can work with your files, use the computers available to you, and collaborate with people and their agents while you retain control of your digital life.
+
+This handbook explains that direction and the principles behind it. It also describes the main areas of work in the [roadmap](/roadmap) as of October 2026. Tiles is still evolving: the roadmap describes what we are building toward, and availability will depend on the release, platform, and component. For current capabilities and usage, see the [overview](/book/overview), [manual](/book/manual), and [releases](/releases).
+
+## Your digital life belongs to you
+
+Ownership is the starting point for Tiles. The intended relationship is simple: your agent works for you, using data and tools that you control. Your files should remain useful outside any particular assistant. Your identity and social connections should be able to participate in open networks. Choosing a model or an interface should leave room to change that choice later.
+
+This shapes decisions throughout the product. We want local files to live in ordinary folders and work with applications built around the filesystem. We are looking to decentralized protocols, including AT Protocol for social data, as part of a digital life that users can own. Control of keys and data belongs at the foundation of that design.
+
+These are product principles, with implementation work still ahead. Each feature needs to make ownership practical: where data lives, what an agent can access, how devices connect, and how a person can recover their work. A useful assistant has to make those decisions understandable as well as technically possible.
+
+## Local first across your devices
+
+Local-first thinking begins with your own data and computers. We want Tiles to work with the devices you already have, including a desktop, a laptop, or machines in a home lab. The longer-term vision is a network of your devices that makes useful compute available wherever you are working.
+
+Different machines have different strengths. A portable device might be the place you talk to your agent, while another computer provides the capacity for a more demanding task. The product should be hardware agnostic, able to make use of that variety without requiring one specific device.
+
+An early assumption behind this direction is that a user may have at least one computer available to stay online. That is a hypothesis to test as the product develops. Device availability, performance, and the experience of connecting computers will all matter to whether this works well in practice.
+
+The next phase of network design focuses on linking devices. From there, the direction includes linked-device sync and remote inference, followed by on-demand sessions and compute. The sequence matters: a useful network needs a clear way to establish which devices belong together before it can reliably coordinate work across them.
+
+## Inference with room to choose
+
+Inference is the part of the system that runs a model to produce a response or carry out a task. The roadmap includes several places where that work could happen: locally, on another device or peer in the network, or through a remote private-cloud service.
+
+Local-first is compatible with using remote compute. The important design questions are what you control, which data needs to move, and which machine or provider handles it. The initial mobile plan uses remote inference, while desktop agentic work comes first.
+
+We expect model choices to change over time. Open models are central to the vision, and the system should have room to evolve as models, hardware, and services improve. A choice made to get an early version working should not have to determine every future version of the product.
+
+Private-cloud inference is part of the roadmap. Ideas such as a model that filters private information before a remote request are also being explored. Those ideas need their own design and validation; they are not guarantees about the privacy properties of every inference path.
+
+## A personal agent in everyday work
+
+Tiles is being developed around an agent that can help with work on a computer. The assistant experience needs to connect conversation to useful action, with access to the tools and context a person chooses to make available.
+
+The near-term emphasis is desktop-first. The roadmap spans several ways to use Tiles, including the CLI, app, menu bar, desktop, and Tilekit. These surfaces should serve different ways of working while contributing to the same broader product. A command-line workflow and a desktop interaction do not need to look identical to be useful together.
+
+Personal assistants and desktop companions are also part of this direction, including the work being explored through Tiles Pets. We want the experience to have personality and a sense of play. The visual direction draws on cyberpunk and the idea that work can feel playful, with an initial game loop among the ideas being developed.
+
+The desktop experience comes first so that we can learn from real use. Mobile apps and browser surfaces are part of the later roadmap, discussed for 2027. Their shape and timing will depend on what we learn from the core product.
+
+## Plugins that fit an owned workspace
+
+An assistant becomes more useful when it can work with the applications and information that matter to you. Our plugin direction follows the same ownership principles as the rest of Tiles, with officially vetted plugins planned to be predominantly local-first.
+
+Applications that use plain files are a natural fit. A notes folder, for example, can remain an ordinary folder while an agent learns how to work with it. This keeps the underlying material useful to both the person and their existing tools.
+
+Obsidian illustrates the direction: its local folders, together with a CLI and a skill file, could provide a way for an agent to work with notes. That is a possible integration approach, with later questions around syncing folders and merging changes still to be worked out. It should not be read as a claim that a complete integration or sync system is already available.
+
+Plugin design also raises practical permission questions. People need understandable choices about the files and capabilities they make available. The technical packaging can remain mostly behind the scenes, while the decisions that affect the user's workspace need to be clear at the point of use.
+
+## Collaboration with people and agents
+
+The collaborative vision extends beyond a conversation between one person and one assistant. We are planning toward spaces where your personal agent, other people's agents, plugins, and people can work together.
+
+Groups and channels are one proposed shape for that experience, drawing on familiar chat patterns. They could give shared work a place to happen while allowing each person to bring their own assistant. Group chat also appears in the roadmap alongside a Tiles registry.
+
+There is a longer-term direction here for shared knowledge and team work, including possibilities for students and companies. A team or wiki product could grow from the same foundations: data people can own, agents that can use it, and a way to collaborate around it. The scope of that product remains open.
+
+## Tilekit and building by prompt
+
+Tilekit is part of the plan for making Tiles useful to builders. The guiding ambition is that Tilekit APIs and Tiles functions should be usable and configurable through prompts.
+
+“Configurable” matters here. The goal includes being able to change how a capability works, rather than only asking it to run. One example discussed in the product vision is setting a model's context size through a Modelfile or a prompt.
+
+This is a design target for the developer experience. It gives us a way to evaluate new capabilities: can a person or an agent discover them, use them, and configure them through the intended interfaces? Reaching that target across the product will take iteration as Tilekit and the rest of Tiles develop.
+
+## Security as continuing engineering work
+
+Security is a substantial part of the roadmap. Early priorities include sandboxes, handling of personally identifiable information, and the security of sync chains. Later work looks outward to network security and approaches such as enclaves.
+
+Those priorities describe engineering work, not a blanket assurance that every planned protection exists today. Local execution, remote inference, plugins, device linking, and collaboration each introduce different questions about access and trust. Each needs a design appropriate to the data and actions involved.
+
+Some of that work will be mostly invisible in everyday use. Some will be directly visible, such as permission pickers. Both matter: the underlying system needs sound boundaries, and people need a usable way to understand and choose the access they grant.
+
+Sync, backup, and recovery also belong in this conversation. Sync is intended to help linked devices work together. Backup and recovery are separate roadmap areas that need to address how a person gets their data and workspace back. Their detailed behavior is still to be defined. See the [security chapter](/book/security) for current security boundaries.
+
+## How we are building toward the vision
+
+The immediate emphasis is using Tiles ourselves. We want the team, and the agent we use in our own work, to rely increasingly on Tiles inference and the Tiles Network. Tiles Pets is part of that push to use the product in practice.
+
+Daily use gives the roadmap a practical test. Onboarding, usability, and polish determine whether people can reach the useful parts. Sandboxing and permission design determine the boundaries in which agents operate. Remote links and device connections determine how easily the product can reach beyond a single machine.
+
+The roadmap is flexible. We expect to work through milestones, learn from use, and steer or change direction when needed. The following areas describe the current scope, rather than a single release in which everything arrives at once:
+
+- **Inference:** develop options for local models, network peers, and remote private-cloud compute.
+- **Network:** connect devices and build toward linked-device work, sessions, and shared compute.
+- **Assistants and companions:** develop the computer and assistant experiences, including Tiles Pets.
+- **Plugins:** connect useful tools, with a strong local-first direction for vetted integrations.
+- **Sync:** work toward continuity across linked devices.
+- **Backup and recovery:** define how people can protect and restore their data and workspace.
+- **Import:** explore bringing material from other AI assistants into Tiles.
+- **Tilekit:** develop the interfaces builders and agents use to extend and configure Tiles.
+
+The October 2026 roadmap sets a direction of reaching a beta in each of these areas and expanding them over the following twelve months. Earlier milestone discussions prioritize a sandbox, polish, usability, onboarding, and remote links, followed by group chats and a Tiles registry. These are planning priorities, and their order and scope can change as implementation and feedback make the tradeoffs clearer.
+
+## The longer horizon
+
+Some ideas sit beyond the core roadmap. These include new mobile experiences, more varied ways to interact with agents, and a chat-oriented mobile operating-system concept inspired by projects such as GrapheneOS. They are exploratory directions, with work discussed beyond the first twelve months.
+
+The practical focus remains on making the foundations useful: an agent that works for you, a workspace you control, and ways for your computers and collaborators to participate. Each step should make that relationship more real. That is the direction this handbook will follow as Tiles develops.

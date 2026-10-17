@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...(SHOW_PRICING ? ["/pricing"] : []),
     "/help",
     "/book",
+    "/book/handbook",
     "/brand",
     "/about",
     "/press-kit",
