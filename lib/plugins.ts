@@ -75,7 +75,7 @@ const EXA_PLUGIN: TilesPlugin = {
 const CLOUDFLARE_PLUGIN: TilesPlugin = {
   slug: "cloudflare",
   name: "Cloudflare",
-  description: "Use Cloudflare Quick Tunnels for remote inference with Tiles",
+  description: "Build with Cloudflare’s developer platform and share local inference remotely through Quick Tunnels",
   fileName: "cloudflare.zip",
   downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
