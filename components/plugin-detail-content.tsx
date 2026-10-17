@@ -135,7 +135,16 @@ export function PluginDetailContent({ plugin, metadata, mcpServers, skills }: Pl
                 </h1>
               </div>
 
-              {!plugin.builtIn ? (
+              {!plugin.builtIn && plugin.installMethod === "cli" ? (
+                <button
+                  type="button"
+                  onClick={copyInstallCommand}
+                  aria-label={`Copy ${plugin.name} install command`}
+                  className="inline-flex h-9 shrink-0 items-center justify-center rounded-[8px] bg-foreground px-3 text-xs font-medium sm:h-11 sm:px-5 sm:text-sm text-background transition-opacity hover:opacity-85 cyberpunk:bg-[var(--sponsor-yellow)] cyberpunk:text-black"
+                >
+                  {copiedInstallCommand ? "Copied" : "Copy install command"}
+                </button>
+              ) : !plugin.builtIn ? (
                 <a
                   href={installHref}
                   onClick={handleInstallClick}
