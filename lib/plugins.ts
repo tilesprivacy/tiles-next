@@ -75,13 +75,13 @@ const EXA_PLUGIN: TilesPlugin = {
 const CLOUDFLARE_PLUGIN: TilesPlugin = {
   slug: "cloudflare",
   name: "Cloudflare",
-  description: "Manage Cloudflare resources and Workers projects, and share Tiles inference with account-free Quick Tunnels",
+  description: "Use Cloudflare Quick Tunnels for remote inference with Tiles",
   fileName: "cloudflare.zip",
   downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
   installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
   showCliInstall: true,
-  documentationUrl: "https://developers.cloudflare.com/cf/",
-  requirements: "Requires cloudflared and Python 3 for account-free Quick Tunnels. The bundled bridge supports non-streaming Responses API clients. Anyone with the temporary URL can use inference; native Tiles-to-Tiles sharing uses an Iroh ticket. The Cloudflare CLI (cf) is used separately for resource management.",
+  documentationUrl: "https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/",
+  requirements: "Requires cloudflared.",
 }
 const OBSIDIAN_PLUGIN: TilesPlugin = {
   slug: "obsidian",

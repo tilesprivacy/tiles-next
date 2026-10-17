@@ -46,7 +46,7 @@ function pluginNameFromKey(key: string): string {
 
 function pluginDescriptionFromKey(key: string): string {
   if (key.endsWith("/cloudflare.zip")) {
-    return "Manage Cloudflare resources and Workers projects, and share Tiles inference with account-free Quick Tunnels";
+    return "Use Cloudflare Quick Tunnels for remote inference with Tiles";
   }
 
   if (key.endsWith("/fold.zip")) {
