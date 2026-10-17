@@ -45,6 +45,10 @@ function pluginNameFromKey(key: string): string {
 }
 
 function pluginDescriptionFromKey(key: string): string {
+  if (key.endsWith("/fold.zip")) {
+    return "Connects with your AI tools to bring your personal finance data to them, for Indian users.";
+  }
+
   if (key.endsWith("/exa.zip")) {
     return "Web search and content extraction powered by Exa AI";
   }

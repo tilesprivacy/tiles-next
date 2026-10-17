@@ -1,3 +1,6 @@
+import foldManifest from "@/public/plugins/fold/plugin.json"
+import foldMcpManifest from "@/public/plugins/fold/mcp.json"
+
 export interface TilesPlugin {
   slug: string
   name: string
@@ -77,6 +80,17 @@ const OBSIDIAN_PLUGIN: TilesPlugin = {
   showCliInstall: true,
   documentationUrl: "https://obsidian.md/cli",
   requirements: "Requires the Obsidian desktop app to be running, with the command line interface enabled and registered in your PATH.",
+}
+const FOLD_PLUGIN: TilesPlugin = {
+  slug: "fold",
+  name: "Fold",
+  description: foldManifest.description,
+  fileName: "fold.zip",
+  downloadUrl: `${PLUGIN_BASE_URL}/fold.zip`,
+  installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/fold.zip`,
+  showCliInstall: true,
+  documentationUrl: "https://fold.money/mcp",
+  requirements: "Requires a Fold Plus annual or Believer plan. Enable MCP in Fold under Profile > Settings > Beta Playground, then connect your Fold account in Tiles.",
 }
 const SOLSTONE_PLUGIN: TilesPlugin = {
   slug: "solstone",
@@ -187,6 +201,10 @@ function descriptionFromFileName(fileName: string) {
 
   if (fileName === "obsidian.zip") {
     return OBSIDIAN_PLUGIN.description
+  }
+
+  if (fileName === "fold.zip") {
+    return FOLD_PLUGIN.description
   }
 
   if (fileName === "solstone.zip") {
@@ -347,7 +365,7 @@ async function withFallbackMetadata(plugin: TilesPlugin) {
 }
 
 function curatePlugins(plugins: TilesPlugin[]) {
-  const downloadPlugins = [CLOUDFLARE_PLUGIN, OBSIDIAN_PLUGIN, SOLSTONE_PLUGIN]
+  const downloadPlugins = [CLOUDFLARE_PLUGIN, FOLD_PLUGIN, OBSIDIAN_PLUGIN, SOLSTONE_PLUGIN]
   const downloadSlugs = new Set(downloadPlugins.map((plugin) => plugin.slug))
   const pluginsWithDownloads = [
     ...plugins.filter((plugin) => !downloadSlugs.has(plugin.slug)),
@@ -445,6 +463,13 @@ function metadataFromJson(slug: string, metadata: Record<string, unknown>): Tile
 }
 
 export async function getTilesPluginMetadata(slug: string): Promise<TilesPluginMetadata | null> {
+  if (slug === "fold") {
+    return {
+      ...metadataFromJson(slug, foldManifest),
+      sourceUrl: "/plugins/fold/plugin.json",
+    }
+  }
+
   const fallback = FALLBACK_PLUGIN_METADATA[slug]
 
   try {
@@ -484,6 +509,13 @@ function mcpServersFromJson(slug: string, servers: Record<string, unknown>): Til
 }
 
 export async function getTilesPluginMcpServers(slug: string): Promise<TilesPluginMcpServer[]> {
+  if (slug === "fold") {
+    return mcpServersFromJson(slug, foldMcpManifest.mcpServers).map((server) => ({
+      ...server,
+      sourceUrl: "/plugins/fold/mcp.json",
+    }))
+  }
+
   const fallback = FALLBACK_MCP_SERVERS[slug] ?? {}
 
   try {
@@ -583,6 +615,14 @@ async function readSkill(slug: string, skillName: string): Promise<TilesPluginSk
 }
 
 export async function getTilesPluginSkills(slug: string): Promise<TilesPluginSkill[]> {
+  if (slug === "fold") {
+    return [{
+      name: "fold",
+      description: "Answer questions about the user's accounts, spending, recurring expenses, investments, credit, and net worth using their connected Fold MCP account. Use when the user asks to inspect or summarize their own financial data in Fold.",
+      sourceUrl: "/plugins/fold/skills/fold/SKILL.md",
+    }]
+  }
+
   const skillsUrl = `https://api.github.com/repos/tilesprivacy/plugins/contents/${slug}/skills?ref=main`
 
   try {

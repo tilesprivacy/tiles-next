@@ -1,0 +1,14 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "fold",
+  "version": "1.0.0",
+  "description": "Connects with your AI tools to bring your personal finance data to them, for Indian users.",
+  "homepage": "https://fold.money/mcp",
+  "keywords": [
+    "fold",
+    "personal-finance",
+    "banking",
+    "investments",
+    "mcp"
+  ]
+}
