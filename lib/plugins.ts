@@ -101,7 +101,6 @@ const FOLD_PLUGIN: TilesPlugin = {
   fileName: "fold.zip",
   downloadUrl: `${PLUGIN_BASE_URL}/fold.zip`,
   installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/fold.zip`,
-  installMethod: "cli",
   showCliInstall: true,
   documentationUrl: "https://fold.money/mcp",
   requirements: "Requires a Fold Plus annual or Believer plan. Enable MCP in Fold under Profile > Settings > Beta Playground, then connect your Fold account in Tiles.",
