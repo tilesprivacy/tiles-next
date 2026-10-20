@@ -6,7 +6,6 @@ import { Check, Copy, Download } from "lucide-react"
 import { FaApple, FaLinux } from "react-icons/fa6"
 import {
   CanaryDownloadAction,
-  CanaryReleaseContent,
   useCanaryRelease,
 } from "@/components/canary-release-content"
 import { MinimalTopbar } from "@/components/minimal-topbar"
@@ -14,9 +13,6 @@ import { SiteFooter } from "@/components/site-footer"
 import type { CanaryReleaseData } from "@/lib/canary-release"
 import { LINUX_CANARY_INSTALL_COMMAND, LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import {
-  LATEST_RELEASE_DATE_ISO,
-  LATEST_RELEASE_DATE_LABEL,
-  LATEST_RELEASE_SECTIONS,
   LATEST_RELEASE_TITLE,
   LATEST_RELEASE_VERSION,
 } from "@/lib/latest-release-copy"
@@ -38,11 +34,9 @@ interface DownloadMetadata {
 
 export function DownloadContent({
   initialDownload,
-  initialLatestReleaseVersion,
   initialCanaryRelease,
 }: {
   initialDownload?: DownloadMetadata
-  initialLatestReleaseVersion?: string | null
   initialCanaryRelease: CanaryReleaseData | null
   sponsorsGoal?: SponsorsGoalData
 }) {
@@ -71,8 +65,6 @@ export function DownloadContent({
     setCopied(command)
     window.setTimeout(() => setCopied(null), 1400)
   }
-  const latestReleaseVersion =
-    initialLatestReleaseVersion?.replace(/^v/i, "") || LATEST_RELEASE_VERSION
   const networkInstallerReleaseLabel =
     initialDownload?.version === LATEST_RELEASE_VERSION
       ? LATEST_RELEASE_TITLE
@@ -215,35 +207,6 @@ export function DownloadContent({
             By downloading and using Tiles, you agree to the <Link href="/terms">terms</Link> and <Link href="/privacy">privacy statement</Link>.
           </p>
 
-          <section className="minimal-download-platform" aria-labelledby="changelog-heading">
-            <h2 id="changelog-heading">Release changelogs</h2>
-            <div className="minimal-download-changelogs">
-              <div className="minimal-download-changelog" aria-labelledby="latest-release-heading">
-                <h3 id="latest-release-heading">Latest release</h3>
-                <p>
-                  {LATEST_RELEASE_TITLE} · Version {latestReleaseVersion}
-                  <br />
-                  Released <time dateTime={LATEST_RELEASE_DATE_ISO}>{LATEST_RELEASE_DATE_LABEL}</time>
-                </p>
-                <div className="minimal-download-release-notes">
-                  {LATEST_RELEASE_SECTIONS.map((section) => (
-                    <div key={section.title}>
-                      <h4>{section.title}</h4>
-                      <ul>
-                        {section.changes.map((change) => (
-                          <li key={change.text}>{change.text}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-                <p className="minimal-note">
-                  <Link href={`/releases#${latestReleaseVersion}`}>View full release details</Link>.
-                </p>
-              </div>
-              <CanaryReleaseContent release={canaryRelease} />
-            </div>
-          </section>
         </article>
       </main>
       <SiteFooter showDownloadCta={false} />

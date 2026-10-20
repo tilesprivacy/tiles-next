@@ -1,14 +1,9 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ArrowUpRight, Download } from "lucide-react"
-import ReactMarkdown from "react-markdown"
+import { Download } from "lucide-react"
 import type { CanaryReleaseData } from "@/lib/canary-release"
-import {
-  CANARY_FALLBACK_DOWNLOAD,
-  CANARY_RELEASE_DESCRIPTION,
-  CANARY_RELEASE_URL,
-} from "@/lib/download-page-data"
+import { CANARY_FALLBACK_DOWNLOAD } from "@/lib/download-page-data"
 import {
   downloadButtonIconMotionClasses,
   downloadButtonMotionClasses,
@@ -96,45 +91,5 @@ export function CanaryDownloadAction({ release }: { release: CanaryReleaseData |
         </div>
       ))}
     </>
-  )
-}
-
-export function CanaryReleaseContent({ release }: { release: CanaryReleaseData | null }) {
-  const notes = (release?.body || "")
-    .replace(/\r\n/g, "\n")
-    .replace(/^Tiles canary\s*\n/i, "")
-    .replace(/^(New|Added|Changed|Fixed|Build)\s*$/gm, "#### $1")
-
-  return (
-    <div className="minimal-download-changelog" aria-labelledby="canary-heading">
-      <h3 id="canary-heading">Canary release</h3>
-      <p>{CANARY_RELEASE_DESCRIPTION}</p>
-      <p>
-        Version 0.4.20-canary · Pre-release
-        {release?.updated_at && (
-          <>
-            {" · Updated "}
-            <time dateTime={release.updated_at}>
-              {new Date(release.updated_at).toLocaleDateString("en-US", {
-                month: "short", day: "numeric", year: "numeric", timeZone: "UTC",
-              })}
-            </time>
-          </>
-        )}
-      </p>
-      {notes && (
-        <div className="minimal-download-release-notes minimal-download-release-notes--markdown">
-          <div>
-            <ReactMarkdown>{notes}</ReactMarkdown>
-          </div>
-        </div>
-      )}
-      <p className="minimal-note">
-        <a href={CANARY_RELEASE_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
-          {release ? "View Canary on GitHub" : "Downloads and release notes on GitHub"}
-          <ArrowUpRight size={16} aria-hidden />
-        </a>
-      </p>
-    </div>
   )
 }
