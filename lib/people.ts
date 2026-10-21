@@ -1,3 +1,5 @@
+import { solPbcPartner } from "@/lib/sponsor-partners"
+
 export interface PersonIdentity {
   /** Stable ID used for cross-page references (e.g. blog author field). */
   id: string
@@ -44,6 +46,11 @@ export const people = {
     },
   ],
   sponsorsActive: [
+    {
+      id: "jeremie-miller",
+      name: `${solPbcPartner.founderName} ${solPbcPartner.founderHandle}`,
+      links: [solPbcPartner.founderUrl],
+    },
     { id: "boris-mann", name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
     { id: "luke-hubbard", name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
     {

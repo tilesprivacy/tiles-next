@@ -5,7 +5,7 @@ import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getTilesPlugins } from '@/lib/plugins'
 import { CANARY_RELEASE_DESCRIPTION, CANARY_RELEASE_URL } from '@/lib/download-page-data'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
-import { solPbcPartner } from '@/lib/sponsor-partners'
+import { people } from '@/lib/people'
 import {
   INDIAFOSS_GIVEAWAY_ARCHIVE,
   getIndiaFossGiveawayArchiveLines,
@@ -110,8 +110,12 @@ export async function GET(request: Request) {
   addSection(lines, 'About', [
     `- About page: ${baseUrl}/about`,
     '- Learn about Tiles Privacy, the team and advisors behind it, and how to support the project.',
+    'We’re proud to be one of three anchor projects in the Mozilla Foundation’s new Human-Scale AI incubator cohort, backed by $300,000 in non-dilutive funding to help advance our mission.',
+    'Human-Scale AI incubator cohort: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/',
     `- ${sponsorPageTeamSentence}`,
-    `- Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
+    ...people.sponsorsActive.map((person) =>
+      `- Current sponsor: ${person.name}${person.links[0] ? ` (${person.links[0]})` : ''}.`,
+    ),
     '- GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
     '- Current recurring sponsorship: $1,350/month.',
   ])

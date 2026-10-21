@@ -6,7 +6,6 @@ import { SiteFooter } from "@/components/site-footer"
 import { SocialIcon } from "@/components/social-links"
 import { SponsorUsdtDonateButton } from "@/components/sponsor-usdt-donate-button"
 import { people, splitPersonDisplayName } from "@/lib/people"
-import { solPbcPartner } from "@/lib/sponsor-partners"
 import { sponsorPageAdvisors } from "@/lib/sponsor-page-people"
 
 const aboutTeam = [
@@ -128,6 +127,35 @@ export function SponsorContent() {
               preserving utility. This means negligible impact on user
               experience, model intelligence, throughput, latency, tool use
               &amp; agentic capabilities, and web access.
+            </p>
+            <p>
+              We’re proud to be one of three anchor projects in the{" "}
+              <span className="whitespace-nowrap">
+                <Image
+                  src="/mozilla-foundation-logo.svg"
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="relative -top-0.5 mr-1 inline-block h-3.5 w-3.5 object-cover object-left align-text-bottom dark:hidden"
+                />
+                <Image
+                  src="/mozilla-foundation-logo-dark.svg"
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="relative -top-0.5 mr-1 hidden h-3.5 w-3.5 object-cover object-left align-text-bottom dark:inline-block"
+                />
+                Mozilla Foundation’s
+              </span>{" "}
+              new{" "}
+              <a
+                href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/"
+                className="!inline"
+              >
+                Human-Scale AI incubator cohort
+              </a>
+              , backed by $300,000 in non-dilutive funding to help advance our
+              mission.
             </p>
             <p>
               Tiles was born from the discussions in{" "}
@@ -276,56 +304,13 @@ export function SponsorContent() {
           </section>
 
           <p className="minimal-partner-intro">
-            We are grateful to the organizations supporting our work financially
-            through our Partner Program, and to everyone who has supported our
-            project through{" "}
+            We are grateful to the individuals and organizations who support
+            our work financially, including through{" "}
             <a href="https://github.com/sponsors/tilesprivacy">
               GitHub Sponsors
             </a>{" "}
             and cryptocurrency donations.
           </p>
-
-          <section className="minimal-section minimal-partners-section">
-            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
-              <h2>Partners</h2>
-              <span>1</span>
-            </div>
-            <div className="minimal-partner minimal-partner-profile">
-              <a
-                className="minimal-partner-company"
-                href={solPbcPartner.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image src="/sol-pbc.svg" alt="" width={44} height={44} />
-                <span>
-                  <strong className="font-normal">{solPbcPartner.name}</strong>
-                  <small>solpbc.org</small>
-                </span>
-              </a>
-              <a
-                className="minimal-partner-founder-profile"
-                href={solPbcPartner.founderUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <PersonAvatar
-                  name={solPbcPartner.founderName}
-                  links={[solPbcPartner.founderUrl]}
-                  className="minimal-partner-founder-avatar"
-                />
-                <span className="minimal-partner-founder-copy">
-                  <span className="minimal-partner-founder-identity">
-                    <strong>{solPbcPartner.founderName}</strong>
-                    <small>{solPbcPartner.founderHandle}</small>
-                  </span>
-                  <small className="minimal-partner-founder-role">
-                    {solPbcPartner.founderRole}
-                  </small>
-                </span>
-              </a>
-            </div>
-          </section>
 
           <div className="minimal-sponsor-grid">
             <SponsorList

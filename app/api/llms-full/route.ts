@@ -8,12 +8,11 @@ import {
   OFFLINE_INSTALLER,
   OFFLINE_MODEL_NAME,
 } from '@/lib/download-page-data'
-import { getPersonById } from '@/lib/people'
+import { getPersonById, people } from '@/lib/people'
 import { ownYourAiTalkRecording } from '@/lib/own-your-ai-talk'
 import { ownYourAiBlogContent as indiaFoss2026TalkContent } from '@/lib/own-your-ai-draft-talk'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getResourceLinks, type ResourceLink } from '@/lib/resource-links'
-import { solPbcPartner } from '@/lib/sponsor-partners'
 import {
   INDIAFOSS_GIVEAWAY_ARCHIVE,
   getIndiaFossGiveawayArchiveLines,
@@ -228,12 +227,16 @@ export async function GET(request: Request) {
   pushSection(lines, `About (${baseUrl}/about)`, [
     'About Tiles Privacy.',
     'Our mission is to build software that gives people greater agency, control, and choice in their digital lives. We believe that privacy adoption at scale must work backwards from preserving utility. This means negligible impact on user experience, model intelligence, throughput, latency, tool use & agentic capabilities, and web access.',
+    'We’re proud to be one of three anchor projects in the Mozilla Foundation’s new Human-Scale AI incubator cohort, backed by $300,000 in non-dilutive funding to help advance our mission.',
+    'Human-Scale AI incubator cohort: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/',
     'Tiles was born from the discussions in User & Agents (https://www.userandagents.org), a community focused on shaping the future of user-agent systems. We are also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.',
     'Tiles Privacy is built by a small independent team of three: Ankesh Bharti, Anandu Pavanan, and Prashant Mishra.',
     'The project is advised by Boris Mann, Dietrich Ayala, and Gordon Brander.',
     'Sponsor Tiles Privacy. Support a small team building private, local-first AI that preserves user agency.',
-    'We are grateful to the organizations supporting our work financially through our Partner Program, and to everyone who has supported our projects through GitHub Sponsors and cryptocurrency donations.',
-    `Partner: ${solPbcPartner.name} (${solPbcPartner.url}). ${solPbcPartner.founderName} (${solPbcPartner.founderHandle}; ${solPbcPartner.founderUrl}): ${solPbcPartner.founderRole}.`,
+    'We are grateful to the individuals and organizations who support our work financially, including through GitHub Sponsors and cryptocurrency donations.',
+    ...people.sponsorsActive.map((person) =>
+      `Current sponsor: ${person.name}${person.links[0] ? ` (${person.links[0]})` : ''}.`,
+    ),
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
     'Current recurring sponsorship: $1,350/month.',
   ])
