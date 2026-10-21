@@ -143,6 +143,7 @@ export async function GET(request: Request) {
   pushSection(lines, `Homepage (${baseUrl}/)`, [
     'Tiles',
     TILES_PRODUCT_DESCRIPTION,
+    'Backed by Mozilla Foundation: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/cohort/',
     'Hero subtext: For sensitive knowledge work or personal tasks, your AI shouldn’t require trusting a third party with your conversations and intellectual property. Run models locally, sync chats P2P, and use social features built on AT Protocol. Tiles gives you user-owned keys for your digital life with DIDs and UCANs, so your data and identity truly remain yours.',
     'Current status: Public alpha for macOS and Linux.',
     'Feature: Use local models on remote devices with `tiles remote share`; start the remote inference server with `tiles server start`, generate a share ticket, then run `tiles --remote <ticket>` on the device intending to use remote inference.',

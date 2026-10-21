@@ -7,6 +7,7 @@
 :root {
   --site-announcement-height: 0px;
   --site-announcement-offset: var(--site-announcement-height);
+  --site-topbar-height: 5.5rem;
 }
 
 /*
@@ -291,7 +292,7 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
   inset: var(--site-announcement-offset) 0 auto;
   z-index: 50;
   width: calc(100% - 2.5rem);
-  height: 5.5rem;
+  height: var(--site-topbar-height);
   margin-inline: auto;
   display: flex;
   align-items: center;
@@ -372,8 +373,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-topbar-center-nav {
   position: absolute;
+  top: calc(var(--site-topbar-height) / 2);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -620,7 +622,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 /* Results take over the viewport below the top nav, centered. */
 .ai-search-panel {
   position: fixed;
-  inset: calc(4rem + var(--site-announcement-offset, 0px)) 0 0;
+  inset: calc(var(--site-topbar-height) + var(--site-announcement-offset, 0px)) 0 0;
   z-index: 60;
   width: 100%;
   overflow-y: auto;
@@ -633,7 +635,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 @media (min-width: 768px) {
   .ai-search-panel {
-    inset: calc(5.5rem + var(--site-announcement-offset, 0px)) 0 0;
     padding: 2.25rem 2rem 4rem;
   }
   .ai-search-panel .ai-search-answer-body {
@@ -1347,16 +1348,50 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-style: normal;
   line-height: 1.5;
 }
+.minimal-footer-identity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.minimal-footer-backer {
+  display: inline-flex;
+  min-height: 44px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.375rem;
+  border-left: 1px solid var(--border);
+  padding-left: 1.5rem;
+  color: var(--muted-foreground) !important;
+  font-size: 0.75rem;
+  line-height: 1;
+  text-align: left;
+  text-decoration: none !important;
+  transition: opacity 160ms ease;
+}
+.minimal-footer-backer img {
+  width: 7rem;
+  height: auto;
+}
+.minimal-footer-backer:hover {
+  opacity: 0.7;
+}
+.minimal-footer-backer:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 6px;
+}
 .minimal-footer-brand {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 16px;
+  gap: 0.5rem;
+  font-size: 24px;
   font-weight: 700;
+  line-height: 1;
 }
 .minimal-footer-brand img {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 .minimal-footer-links {
   display: flex;
@@ -3030,7 +3065,7 @@ html.cyberpunk .minimal-wallet-panel {
   }
   .minimal-topbar-menu {
     position: fixed;
-    inset: calc(5.5rem + var(--site-announcement-offset)) 0 0;
+    inset: calc(var(--site-topbar-height) + var(--site-announcement-offset)) 0 0;
     z-index: 40;
     display: block;
     overflow-y: auto;
@@ -3059,9 +3094,11 @@ html.cyberpunk .minimal-wallet-panel {
 }
 
 @media (max-width: 767px) {
+  :root {
+    --site-topbar-height: 4rem;
+  }
   .minimal-topbar {
     width: calc(100% - 2rem);
-    height: 4rem;
     gap: 0.25rem;
   }
   .minimal-topbar-left {
@@ -3101,9 +3138,6 @@ html.cyberpunk .minimal-wallet-panel {
   .minimal-topbar-menu-button {
     width: 32px;
     height: 32px;
-  }
-  .minimal-topbar-menu {
-    inset: calc(4rem + var(--site-announcement-offset)) 0 0;
   }
 }
 
@@ -3231,6 +3265,15 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 @media (max-width: 360px) {
   .minimal-topbar-alpha {
+    display: none;
+  }
+  .minimal-topbar nav.minimal-topbar-actions {
+    gap: 0.25rem;
+  }
+  .minimal-topbar-download {
+    padding-inline: 0.625rem;
+  }
+  .minimal-topbar-download .download-cta-icon {
     display: none;
   }
 }
@@ -5117,16 +5160,7 @@ html.cyberpunk
     var(--book-mobile-header-height) + var(--book-mobile-breadcrumb-height)
   );
   --book-sidebar-list-offset: 1.25rem;
-  /* Matches mobile site-header row: pt + min-h + pb (see site-header.tsx). */
-  --book-mobile-header-height: calc(4rem + var(--site-announcement-offset));
-}
-
-@media (min-width: 640px) and (max-width: 1023px) {
-  [data-book-section] {
-    --book-mobile-header-height: calc(
-      4rem + var(--site-announcement-offset)
-    );
-  }
+  --book-mobile-header-height: calc(var(--site-topbar-height) + var(--site-announcement-offset));
 }
 
 @media (max-width: 1023px) {

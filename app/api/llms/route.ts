@@ -74,6 +74,7 @@ export async function GET(request: Request) {
   lines.push('## Overview')
   lines.push('')
   lines.push(TILES_PRODUCT_DESCRIPTION)
+  lines.push('Backed by Mozilla Foundation: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/cohort/')
   lines.push('')
   lines.push(
     'Tiles is built by Tiles Privacy, an independent team devoted to user agency. The website focuses on the public alpha, product documentation, plugins, release notes, support, sponsorship, and legal information.',

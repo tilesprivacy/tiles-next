@@ -8,13 +8,37 @@ import { TangledIcon } from "@/components/tangled-icon"
 export function MinimalFooter() {
   return (
     <footer className="minimal-footer">
-      <Link href="/" className="minimal-footer-brand" aria-label="Tiles home">
-        <span className="minimal-theme-logo">
-          <Image src="/lighticon.png" alt="" width={32} height={32} className="dark:hidden" />
-          <Image src="/grey.png" alt="" width={32} height={32} className="hidden dark:block" />
-        </span>
-        <span>Tiles</span>
-      </Link>
+      <div className="minimal-footer-identity">
+        <Link href="/" className="minimal-footer-brand" aria-label="Tiles home">
+          <span className="minimal-theme-logo">
+            <Image src="/lighticon.png" alt="" width={36} height={36} className="dark:hidden" />
+            <Image src="/grey.png" alt="" width={36} height={36} className="hidden dark:block" />
+          </span>
+          <span>Tiles</span>
+        </Link>
+        <a
+          href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/cohort/"
+          className="minimal-footer-backer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Backed by</span>
+          <Image
+            src="/mozilla-foundation-logo.svg"
+            alt="Mozilla Foundation"
+            width={229}
+            height={48}
+            className="dark:hidden"
+          />
+          <Image
+            src="/mozilla-foundation-logo-dark.svg"
+            alt="Mozilla Foundation"
+            width={440}
+            height={92}
+            className="hidden dark:block"
+          />
+        </a>
+      </div>
       <div className="minimal-footer-legal">
         <p>© 2026 Tiles Privacy Technologies Pvt. Ltd.</p>
         <address className="minimal-footer-address">

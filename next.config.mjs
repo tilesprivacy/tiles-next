@@ -39,6 +39,8 @@ const brandingCacheControlHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow browser assets and hot reload through the local Tailscale Funnel.
+  allowedDevOrigins: ['ankeshs-macbook-pro-m5.tail16aae.ts.net'],
   typescript: {
     ignoreBuildErrors: true,
   },
