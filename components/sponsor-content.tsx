@@ -11,6 +11,7 @@ import { sponsorPageAdvisors } from "@/lib/sponsor-page-people"
 const aboutTeam = [
   {
     name: "Ankesh Bharti",
+    employmentType: "FTE",
     username: "@feynon",
     role: "CEO & Founder",
     href: "https://ankeshbharti.com",
@@ -21,6 +22,7 @@ const aboutTeam = [
   },
   {
     name: "Prashant Mishra",
+    employmentType: "FTE",
     username: "@primalpimmy",
     role: "CTO",
     href: "https://pimtron.dev",
@@ -28,6 +30,7 @@ const aboutTeam = [
   },
   {
     name: "Anandu Pavanan",
+    employmentType: "FTE",
     username: "@madclaws",
     role: "Member of Technical Staff",
     href: "https://github.com/madclaws",
@@ -35,6 +38,7 @@ const aboutTeam = [
   },
   {
     name: "Lakshita Arora",
+    employmentType: "FTE",
     username: "@lexoskeletal",
     role: "Product & Brand Designer",
     href: "https://www.behance.net/lexoskeletal",
@@ -42,6 +46,7 @@ const aboutTeam = [
   },
   {
     name: "Harsh Sharma",
+    employmentType: "Part Time",
     username: "@codelif",
     role: "Paid Open Source Contributor",
     href: "https://codelif.in/",
@@ -49,6 +54,7 @@ const aboutTeam = [
   },
   {
     name: "Rishvik Pandra",
+    employmentType: "Part Time",
     username: "@rishvikpandra",
     role: "Governance, Risk and Compliance Consultant",
     href: "https://www.linkedin.com/in/rishvikpandra",
@@ -208,25 +214,34 @@ export function SponsorContent() {
                 className="h-auto w-full"
               />
             </figure>
-            <div className="minimal-team !mt-0">
-              {aboutTeam.map((person) => (
-                <a
-                  key={person.username}
-                  href={person.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <PersonAvatar name={person.name} links={person.links} />
-                  <span className="minimal-team-identity">
-                    <span className="minimal-team-name">
-                      <span className="minimal-team-name-link">
-                        {person.name}
-                      </span>{" "}
-                      <small>{person.username}</small>
-                    </span>
-                    <span className="minimal-team-role">{person.role}</span>
-                  </span>
-                </a>
+            <div className="space-y-8">
+              {["FTE", "Part Time"].map((employmentType) => (
+                <section key={employmentType} aria-label={employmentType}>
+                  <h3 className="mb-4 text-sm font-medium">{employmentType}</h3>
+                  <div className="minimal-team !mt-0">
+                    {aboutTeam
+                      .filter((person) => person.employmentType === employmentType)
+                      .map((person) => (
+                        <a
+                          key={person.username}
+                          href={person.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <PersonAvatar name={person.name} links={person.links} />
+                          <span className="minimal-team-identity">
+                            <span className="minimal-team-name">
+                              <span className="minimal-team-name-link">
+                                {person.name}
+                              </span>{" "}
+                              <small>{person.username}</small>
+                            </span>
+                            <span className="minimal-team-role">{person.role}</span>
+                          </span>
+                        </a>
+                      ))}
+                  </div>
+                </section>
               ))}
             </div>
           </section>
