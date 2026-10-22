@@ -47,6 +47,13 @@ const aboutTeam = [
     href: "https://codelif.in/",
     links: ["https://github.com/codelif"],
   },
+  {
+    name: "Rishvik Pandra",
+    username: "@rishvikpandra",
+    role: "Governance, Risk and Compliance Consultant",
+    href: "https://www.linkedin.com/in/rishvikpandra",
+    links: ["https://www.linkedin.com/in/rishvikpandra"],
+  },
 ]
 
 function SponsorList({
