@@ -14,6 +14,7 @@ export type NavigationPage = {
 export const BOOK_PAGES: NavigationPage[] = [
   { route: '/book', title: 'Tiles Book' },
   { route: '/book/overview', title: 'Overview' },
+  { route: '/book/handbook', title: 'Handbook' },
   { route: '/book/manual', title: 'Manual' },
   { route: '/book/models', title: 'Models' },
   { route: '/book/tilekit', title: 'Tilekit' },
