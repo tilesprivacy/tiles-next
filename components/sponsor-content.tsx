@@ -138,8 +138,8 @@ export function SponsorContent() {
               agency, control, and choice in their digital lives. We believe
               that privacy adoption at scale must work backwards from
               preserving utility. This means negligible impact on user
-              experience, model intelligence, throughput, latency, tool use
-              &amp; agentic capabilities, and web access.
+              experience, model intelligence, agentic capabilities, and web
+              access.
             </p>
             <p>
               We’re proud to be one of three anchor projects in the{" "}
