@@ -14,9 +14,11 @@ const FONT =
 const BODY_STYLE = `color:#333333; font-family:${FONT}; font-size:16px; line-height:26px; font-weight:400;`;
 const HEADING_STYLE = `margin:0; color:#111111; font-family:${FONT}; font-size:22px; line-height:28px; font-weight:600; letter-spacing:0;`;
 const LINK_STYLE = "color:#111111; text-decoration:underline;";
-const FUNDING_CTA_STYLES = `
+const FUNDING_STYLES = `
 <style>
   @media (prefers-color-scheme: dark) {
+    .funding-logo-light { display: none !important; }
+    .funding-logo-dark { display: inline-block !important; max-height: none !important; overflow: visible !important; }
     .funding-apply-cta {
       background-color: #ffffff !important;
       background: #ffffff !important;
@@ -28,6 +30,8 @@ const FUNDING_CTA_STYLES = `
     background: #ffffff !important;
     border-color: #ffffff !important;
   }
+  [data-ogsc] .funding-logo-light, [data-ogsb] .funding-logo-light { display: none !important; }
+  [data-ogsc] .funding-logo-dark, [data-ogsb] .funding-logo-dark { display: inline-block !important; max-height: none !important; overflow: visible !important; }
 </style>`;
 
 /**
@@ -103,6 +107,9 @@ export function buildFundingNewsletter(welcomeHtml: string): string {
 </tr>
 <tr>
   <td class="email-divider" style="padding:28px 0 0 0; border-top:1px solid #e5e5e5;">
+    <p style="margin:0 0 20px 0; text-align:center;">
+      <a href="https://www.tiles.run" style="display:inline-block; color:#111111; font-family:${FONT}; font-size:20px; line-height:32px; font-weight:600; letter-spacing:-0.5px; text-decoration:none; white-space:nowrap;"><img class="funding-logo-light" src="https://www.tiles.run/lighticon.png" width="32" height="32" alt="" style="display:inline-block; width:32px; height:32px; margin-right:8px; vertical-align:middle; border:0;" /><!--[if !mso]><!--><span class="funding-logo-dark" style="display:none; max-height:0; overflow:hidden; mso-hide:all; vertical-align:middle;"><img src="https://www.tiles.run/grey.png" width="32" height="32" alt="" style="display:block; width:32px; height:32px; margin-right:8px; border:0;" /></span><!--<![endif]--><span style="vertical-align:middle;">Tiles Privacy</span></a>
+    </p>
 `;
 
   return (
@@ -110,7 +117,7 @@ export function buildFundingNewsletter(welcomeHtml: string): string {
     content +
     welcomeHtml.slice(end + endMarker.length)
   )
-    .replace("</head>", `${FUNDING_CTA_STYLES}\n</head>`)
+    .replace("</head>", `${FUNDING_STYLES}\n</head>`)
     .replace(
       /<title>[^<]*<\/title>/,
       `<title>${FUNDING_NEWSLETTER_SUBJECT}</title>`,
