@@ -70,7 +70,7 @@ export function buildFundingNewsletter(welcomeHtml: string): string {
     <p class="body-copy" style="margin:0 0 16px 0; ${BODY_STYLE}">I started Tiles with a simple belief: as AI assistants access more of our lives, the risk of data leaks will make privacy mainstream, and people will demand control of their data and identity.</p>
     <p class="body-copy" style="margin:0 0 16px 0; ${BODY_STYLE}">Mozilla’s support gives us 18 months of runway to build that future without giving up equity or control. We’re focusing on private, user-owned AI and humane software, without ads or addictive mechanics.</p>
     <p class="body-copy" style="margin:0 0 16px 0; ${BODY_STYLE}">We’ll work with nonprofits and educational institutions on pilots serving charitable and public-interest goals, and open-source a governance and safeguarding framework that other organizations can adapt.</p>
-    <p class="body-copy" style="margin:0; ${BODY_STYLE}">Thank you to Mozilla Foundation, our sponsors, advisors, and everyone in the User &amp; Agents community who helped us reach this milestone.</p>
+    <p class="body-copy" style="margin:0; ${BODY_STYLE}">Thank you to Mozilla Foundation, our sponsors, advisors, and everyone in the <a href="https://www.userandagents.org/" style="${LINK_STYLE}">User &amp; Agents</a> community who helped us reach this milestone.</p>
   </td>
 </tr>
 <tr>
