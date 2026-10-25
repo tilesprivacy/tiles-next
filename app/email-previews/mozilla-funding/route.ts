@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { toPlainText } from "@react-email/render";
 import { buildFundingNewsletter } from "@/emails/mozilla-funding-newsletter";
 
@@ -8,11 +6,7 @@ export async function GET(request: Request) {
     return new Response("Not found", { status: 404 });
   }
 
-  const welcomeHtml = fs.readFileSync(
-    path.join(process.cwd(), "email-preview.html"),
-    "utf8",
-  );
-  const emailHtml = buildFundingNewsletter(welcomeHtml);
+  const emailHtml = buildFundingNewsletter();
   const options = new URL(request.url).searchParams;
   const headers = {
     "Cache-Control": "no-store",
@@ -25,10 +19,10 @@ export async function GET(request: Request) {
     });
   }
 
-  // Resolve unpublished assets locally; email links still use public URLs.
+  // Preview the repository's image assets; email links still use public URLs.
   let html = emailHtml.replaceAll(
-    'src="https://www.tiles.run/email-',
-    'src="/email-',
+    'src="https://www.tiles.run/',
+    'src="/',
   );
   // Deterministic local preview only; received mail can still be transformed
   // by the email client. This does not change the sendable HTML.

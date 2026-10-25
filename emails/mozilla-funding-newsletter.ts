@@ -1,3 +1,11 @@
+import {
+  renderEmailTemplate,
+  EMAIL_FONT as FONT,
+  EMAIL_BODY_STYLE as BODY_STYLE,
+  EMAIL_HEADING_STYLE as HEADING_STYLE,
+  EMAIL_LINK_STYLE as LINK_STYLE,
+} from "./template";
+
 export const FUNDING_NEWSLETTER_SUBJECT =
   "Tiles Privacy joins Mozilla Foundation’s Human-Scale AI Incubator";
 
@@ -9,50 +17,10 @@ export const FUNDING_BLOG_URL =
 
 const INCUBATOR_URL =
   "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/";
-const FONT =
-  "'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
-const BODY_STYLE = `color:#333333; font-family:${FONT}; font-size:16px; line-height:26px; font-weight:400;`;
-const HEADING_STYLE = `margin:0; color:#111111; font-family:${FONT}; font-size:22px; line-height:28px; font-weight:600; letter-spacing:0;`;
-const LINK_STYLE = "color:#111111; text-decoration:underline;";
-const FUNDING_STYLES = `
-<style>
-  @media (prefers-color-scheme: dark) {
-    .funding-logo-light { display: none !important; }
-    .funding-logo-dark { display: inline-block !important; max-height: none !important; overflow: visible !important; }
-    .funding-apply-cta {
-      background-color: #ffffff !important;
-      background: #ffffff !important;
-      border-color: #ffffff !important;
-    }
-  }
-  [data-ogsc] .funding-apply-cta, [data-ogsb] .funding-apply-cta {
-    background-color: #ffffff !important;
-    background: #ffffff !important;
-    border-color: #ffffff !important;
-  }
-  [data-ogsc] .funding-logo-light, [data-ogsb] .funding-logo-light { display: none !important; }
-  [data-ogsc] .funding-logo-dark, [data-ogsb] .funding-logo-dark { display: inline-block !important; max-height: none !important; overflow: visible !important; }
-</style>`;
-
-/**
- * Reuse the welcome email's masthead, layout, and footer, with scoped CTA styles.
- * This is a draft renderer only; it does not create or send a broadcast.
- */
-export function buildFundingNewsletter(welcomeHtml: string): string {
-  const startMarker = "<!-- newsletter-content:start -->";
-  const endMarker = "<!-- newsletter-content:end -->";
-  const start = welcomeHtml.indexOf(startMarker);
-  const end = welcomeHtml.indexOf(endMarker);
-
-  if (start === -1 || end <= start) {
-    throw new Error(
-      "Welcome email content markers missing. Run npm run sync:email-preview.",
-    );
-  }
-
-  // Markers sit inside the first content cell and the footer cell respectively.
-  // Keep the same table structure and spacing as the welcome email.
-  const content = `
+/** Build the funding campaign with the sole shared Tiles email design. */
+export function buildFundingNewsletter(): string {
+  const content = `<tr>
+  <td style="padding:0 0 12px 0;">
     <h2 class="section-title" style="${HEADING_STYLE}">We’re joining Mozilla Foundation’s Human-Scale AI Incubator</h2>
   </td>
 </tr>
@@ -104,26 +72,11 @@ export function buildFundingNewsletter(welcomeHtml: string): string {
       </tr>
     </table>
   </td>
-</tr>
-<tr>
-  <td class="email-divider" style="padding:28px 0 0 0; border-top:1px solid #e5e5e5;">
-    <p style="margin:0 0 20px 0; text-align:center;">
-      <a href="https://www.tiles.run" style="display:inline-block; color:#111111; font-family:${FONT}; font-size:20px; line-height:32px; font-weight:600; letter-spacing:-0.5px; text-decoration:none; white-space:nowrap;"><img class="funding-logo-light" src="https://www.tiles.run/lighticon.png" width="32" height="32" alt="" style="display:inline-block; width:32px; height:32px; margin-right:8px; vertical-align:middle; border:0;" /><!--[if !mso]><!--><span class="funding-logo-dark" style="display:none; max-height:0; overflow:hidden; mso-hide:all; vertical-align:middle;"><img src="https://www.tiles.run/grey.png" width="32" height="32" alt="" style="display:block; width:32px; height:32px; margin-right:8px; border:0;" /></span><!--<![endif]--><span style="vertical-align:middle;">Tiles Privacy</span></a>
-    </p>
-`;
+</tr>`;
 
-  return (
-    welcomeHtml.slice(0, start) +
-    content +
-    welcomeHtml.slice(end + endMarker.length)
-  )
-    .replace("</head>", `${FUNDING_STYLES}\n</head>`)
-    .replace(
-      /<title>[^<]*<\/title>/,
-      `<title>${FUNDING_NEWSLETTER_SUBJECT}</title>`,
-    )
-    .replace(
-      /(<div\b[^>]*class="preheader"[^>]*>)[\s\S]*?(<\/div>)/,
-      `$1${FUNDING_NEWSLETTER_PREHEADER}$2`,
-    );
+  return renderEmailTemplate({
+    subject: FUNDING_NEWSLETTER_SUBJECT,
+    preheader: FUNDING_NEWSLETTER_PREHEADER,
+    content,
+  });
 }

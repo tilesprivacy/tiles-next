@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
-import { createElement } from "react"
-import { render } from "@react-email/render"
+import { toPlainText } from "@react-email/render"
 import { Resend } from "resend"
-import { IndiaFossGiveawayConfirmationEmail } from "@/emails/indiafoss-giveaway-confirmation"
+import { buildGiveawayConfirmationEmail } from "@/lib/email-messages"
 import {
   INDIAFOSS_DEVICE_OPTIONS,
   INDIAFOSS_GIVEAWAY_CLOSED,
@@ -262,45 +261,18 @@ export async function POST(request: NextRequest) {
 
   // Confirmation is best-effort. The entry is already collected if this send
   // fails, so applicants should not be prompted to create duplicates.
+  const confirmationMessage = buildGiveawayConfirmationEmail({
+    fullName: entry.fullName,
+    trackLabel: INDIAFOSS_GIVEAWAY_TRACKS[entry.track].label,
+    responseItems: entryItems,
+  })
   const confirmation = await resend.emails.send({
     from,
     to: entry.email,
     replyTo: entriesEmail,
-    subject: "We received your IndiaFOSS 2026 giveaway entry",
-    html: await render(createElement(IndiaFossGiveawayConfirmationEmail, {
-      fullName: entry.fullName,
-      trackLabel: INDIAFOSS_GIVEAWAY_TRACKS[entry.track].label,
-      responseItems: entryItems,
-    })),
-    text: [
-      `Hi ${entry.fullName},`,
-      "",
-      "Your IndiaFOSS 2026 giveaway entry has been received.",
-      `You applied for: ${INDIAFOSS_GIVEAWAY_TRACKS[entry.track].label}.`,
-      "",
-      "Submitting an entry does not guarantee selection. We will contact selected applicants at this email address.",
-      "If selected, your conference ticket code and, for travel-grant recipients, flight ticket will follow by email shortly, within a couple of days.",
-      "",
-      "Your submitted response",
-      ...entryItems.map(({ label, value }) => `${label}: ${value}`),
-      "",
-      "If you have any questions, you can reach us anytime using the contact details below.",
-      "",
-      "Ankesh Bharti",
-      "Founder and CEO, Tiles Privacy",
-      "",
-      "Tiles Privacy Technologies Pvt. Ltd.",
-      "WeWork Prestige Atlanta, 80 Feet Rd, Koramangala",
-      "Bengaluru, IN 560034",
-      "hello@tiles.run · +91 7338014129 · https://www.tiles.run",
-      "X: https://x.com/tilesprivacy",
-      "Bluesky: https://bsky.app/profile/tiles.run",
-      "LinkedIn: https://www.linkedin.com/company/tilesprivacy/",
-      "Discord: https://discord.gg/PPSjcpZzvt",
-      "GitHub: https://github.com/tilesprivacy",
-      "Tangled: https://tangled.org/tiles.run",
-      "Hugging Face: https://huggingface.co/tilesprivacy",
-    ].join("\n"),
+    subject: confirmationMessage.subject,
+    html: confirmationMessage.html,
+    text: toPlainText(confirmationMessage.html),
   })
 
   if (confirmation.error) {

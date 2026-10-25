@@ -11,29 +11,14 @@ export const metadata: Metadata = {
 
 const previews = [
   {
-    title: "Mozilla Foundation announcement",
-    description: "Draft newsletter for the funding blog post. Not sent.",
-    src: "/email-previews/mozilla-funding",
+    title: "Funding newsletter · Light mode",
+    description: "The shared Tiles email design on a light background.",
+    src: "/email-previews/mozilla-funding?theme=light",
   },
   {
-    title: "Newsletter welcome",
-    description: "Sent after someone subscribes to Tiles updates.",
-    src: "/email-previews/newsletter-welcome",
-  },
-  {
-    title: "Download links",
-    description: "Sent when someone asks for the current Tiles installers.",
-    src: "/email-previews/download-links",
-  },
-  {
-    title: "Linux waitlist",
-    description: "Sent after someone joins the Tiles for Linux waitlist.",
-    src: "/email-previews/linux-waitlist",
-  },
-  {
-    title: "IndiaFOSS confirmation",
-    description: "Sent after an IndiaFOSS 2026 giveaway application.",
-    src: "/indiafoss-2026-giveaway/email-preview",
+    title: "Funding newsletter · Dark mode",
+    description: "The same design with the light Tiles logo on a dark background.",
+    src: "/email-previews/mozilla-funding?theme=dark",
   },
 ] as const;
 
@@ -46,11 +31,11 @@ export default function EmailPreviewsPage() {
     <main className="mx-auto w-full max-w-[1600px] px-4 pb-16 pt-28 sm:px-6 lg:px-8">
       <div className="mb-10 max-w-3xl">
         <h1 className="text-4xl font-medium tracking-[-0.04em] sm:text-5xl">
-          Tiles email previews
+          Tiles email template
         </h1>
         <p className="mt-4 text-base leading-7 text-muted-foreground">
-          Development-only previews of Tiles email templates and drafts. Each
-          frame scrolls independently and uses representative sample data.
+          The funding newsletter is the design used for all Tiles emails.
+          These development-only previews show its light and dark appearance.
         </p>
       </div>
 
