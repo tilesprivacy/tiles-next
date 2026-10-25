@@ -187,7 +187,7 @@ export default function SubProcessorsPage() {
           </a>
           {" "}or{" "}
           <a
-            href="https://go.tiles.run/discord"
+            href="https://discord.gg/PPSjcpZzvt"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"

@@ -99,6 +99,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: '/blog/tiles-privacy-mozilla-foundation-funding',
+        destination: '/blog/tiles-joins-mozilla-ai-incubator',
+        permanent: true,
+      },
+      {
         source: '/book/modelfile',
         destination: '/book/tilekit#modelfile',
         permanent: true,

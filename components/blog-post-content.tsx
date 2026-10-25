@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { ArticleShareAndNewsletter } from "@/components/article-share-and-newsletter"
 import { BlogDiscussion } from "@/components/blog-discussion"
@@ -167,7 +168,7 @@ export function BlogPostContent({
   return (
     <div data-blog-page data-blog-article className="relative flex min-h-screen flex-col bg-background">
       {/* Main Content */}
-      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-20 pt-[calc(7rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
+      <main className="flex flex-1 flex-col items-center gap-6 overflow-x-clip px-6 pb-0 pt-[calc(7rem+env(safe-area-inset-top,0px))] sm:px-8 lg:gap-12 lg:px-10 lg:pt-[calc(6.5rem+env(safe-area-inset-top,0px))] xl:overflow-visible xl:px-12">
         {/* Bottom Card - Blog Post Content */}
         <div className="blog-article-column relative w-full max-w-[90rem] py-8 lg:py-14 xl:grid xl:grid-cols-[minmax(14rem,1fr)_minmax(0,44rem)_minmax(14rem,1fr)] xl:gap-x-10">
           <div className="mx-auto w-full max-w-[44rem] overflow-x-clip xl:col-start-2 xl:row-start-1 xl:mx-0 xl:max-w-none xl:overflow-visible">
@@ -188,6 +189,18 @@ export function BlogPostContent({
               Tiles
             </span>
           </div>
+
+          <Link
+            href="/blog"
+            className="blog-print-screen-only group mb-6 inline-flex items-center gap-1.5 text-sm font-medium text-black/52 transition-colors hover:text-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-black/60 lg:mb-8 lg:text-[0.95rem] dark:text-white/52 dark:hover:text-white dark:focus-visible:outline-white/60"
+          >
+            <ArrowLeft
+              className="h-4 w-4 transition-transform group-hover:-translate-x-0.5"
+              strokeWidth={1.75}
+              aria-hidden="true"
+            />
+            Back to blog
+          </Link>
 
           {/* Blog Title */}
           <div data-blog-print-header className="mb-8 lg:mb-12">

@@ -69,7 +69,7 @@ export function MinimalFooter() {
         <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><FaXTwitter aria-hidden /></a>
         <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><FaBluesky aria-hidden /></a>
         <a href="https://www.linkedin.com/company/tilesprivacy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn aria-hidden /></a>
-        <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden /></a>
+        <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden /></a>
         <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub aria-hidden /></a>
         <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Tangled"><TangledIcon aria-hidden /></a>
         <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face"><SiHuggingface aria-hidden /></a>

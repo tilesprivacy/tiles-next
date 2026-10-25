@@ -1,4 +1,5 @@
 import { shipItUpBlogContent } from "@/lib/blog-post-ship-it-up-content";
+import { tilesPrivacyMozillaFoundationFundingBlogContent } from "@/lib/blog-post-tiles-privacy-mozilla-foundation-funding-content";
 import { controllingCtrlCBlogContent } from "@/lib/blog-post-controlling-ctrl-c-content";
 import { ownYourAiBlogContent } from "@/lib/own-your-ai-talk";
 import { atmosphericSessionsBlogContent } from "@/lib/blog-post-atmospheric-sessions-content";
@@ -14,6 +15,7 @@ export interface BlogPost {
   coverImageDark?: string;
   listingImage?: string;
   listingImageDark?: string;
+  listingImagePosition?: "left" | "center" | "right";
   coverAlt?: string;
   standardSiteDocumentUri?: string;
   /**
@@ -50,6 +52,20 @@ export function getBlogPostBySlug(slug: string): BlogPost | undefined {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "tiles-joins-mozilla-ai-incubator",
+    title:
+      "Tiles Privacy joins Mozilla Foundation’s Human-Scale AI Incubator as an anchor project",
+    description:
+      "With support from Mozilla Foundation’s Human-Scale AI Incubator, we will spend the next 18 months building private, user-owned AI for the public interest.",
+    date: new Date("2026-10-21"),
+    author: "ankesh-bharti",
+    coverImage: "/mozilla-tiles-open-graph.webp",
+    listingImagePosition: "right",
+    coverAlt:
+      "Tiles and Mozilla Foundation logos beside a hand holding a glowing data center",
+    content: tilesPrivacyMozillaFoundationFundingBlogContent,
+  },
   {
     slug: "atmospheric-sessions",
     title: "Atmopsheric sessions",

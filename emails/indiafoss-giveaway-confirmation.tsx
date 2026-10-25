@@ -14,7 +14,7 @@ const socialLinks = [
   { label: "X", href: "https://x.com/tilesprivacy", icon: "x" },
   { label: "Bluesky", href: "https://bsky.app/profile/tiles.run", icon: "bluesky" },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/tilesprivacy/", icon: "linkedin" },
-  { label: "Discord", href: "https://go.tiles.run/discord", icon: "discord" },
+  { label: "Discord", href: "https://discord.gg/PPSjcpZzvt", icon: "discord" },
   { label: "GitHub", href: "https://github.com/tilesprivacy", icon: "github" },
   { label: "Tangled", href: "https://tangled.org/tiles.run", icon: "tangled" },
   { label: "Hugging Face", href: "https://huggingface.co/tilesprivacy", icon: "huggingface" },

@@ -251,7 +251,7 @@ export function MobileMenu({ isOpen, onClose, themeAware = false, hasBanner = fa
               <FaInstagram className={`h-5 w-5 ${iconBaseColor} transition-colors ${iconHoverColors.instagram}`} />
             </a>
             <a
-              href="https://go.tiles.run/discord"
+              href="https://discord.gg/PPSjcpZzvt"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center"

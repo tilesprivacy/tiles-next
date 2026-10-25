@@ -156,7 +156,7 @@ export async function GET(request: Request) {
 
   addSection(lines, 'External Links', [
     'These links are visible from the website footer or support page.',
-    '- Discord: https://go.tiles.run/discord',
+    '- Discord: https://discord.gg/PPSjcpZzvt',
     '- GitHub organization: https://github.com/tilesprivacy',
     '- X / Twitter: https://x.com/tilesprivacy',
     '- Bluesky: https://bsky.app/profile/tiles.run',

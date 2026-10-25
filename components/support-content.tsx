@@ -29,7 +29,7 @@ const supportRoutes = [
   {
     title: "Discord",
     description: "Fast async help from users and maintainers when you need a quick route forward.",
-    href: "https://go.tiles.run/discord",
+    href: "https://discord.gg/PPSjcpZzvt",
     label: "Join Discord",
     icon: MessageCircle,
     external: true,

@@ -60,7 +60,7 @@ const siteLinks: Array<{ label: string; href: string; external?: boolean }> = [
   { label: "X (Twitter)", href: "https://x.com/tilesprivacy", external: true },
   { label: "Bluesky", href: "https://bsky.app/profile/tiles.run", external: true },
   { label: "LinkedIn", href: "https://www.linkedin.com/company/tilesprivacy/", external: true },
-  { label: "Discord", href: "https://go.tiles.run/discord", external: true },
+  { label: "Discord", href: "https://discord.gg/PPSjcpZzvt", external: true },
   { label: "Hugging Face", href: "https://huggingface.co/tilesprivacy", external: true },
 ]
 

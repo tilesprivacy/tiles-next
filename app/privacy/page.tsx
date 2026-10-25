@@ -88,7 +88,7 @@ export default function PrivacyPage() {
           </a>
           {" "}or{" "}
           <a
-            href="https://go.tiles.run/discord"
+            href="https://discord.gg/PPSjcpZzvt"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"

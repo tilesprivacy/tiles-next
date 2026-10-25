@@ -24,6 +24,7 @@ interface BlogPost {
   coverImageDark?: string
   listingImage?: string
   listingImageDark?: string
+  listingImagePosition?: "left" | "center" | "right"
   coverAlt?: string
 }
 
@@ -59,6 +60,12 @@ function getPostImage(post: BlogPost): { src: string; srcDark: string; alt: stri
 
 function BlogPostEntry({ post }: { post: BlogPost }) {
   const image = getPostImage(post)
+  const imagePositionClass =
+    post.listingImagePosition === "left"
+      ? "object-left"
+      : post.listingImagePosition === "right"
+        ? "object-right"
+        : "object-center"
   const [imageSrc, setImageSrc] = useState(image.src)
   const [imageSrcDark, setImageSrcDark] = useState(image.srcDark)
   const author = post.author ? getPersonById(post.author) : null
@@ -107,7 +114,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               width={900}
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
-              className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03] dark:hidden"
+              className={`h-full w-full object-cover ${imagePositionClass} transition-transform duration-500 group-hover:scale-[1.03] dark:hidden`}
               onError={() => setImageSrc("/og-image.jpg")}
             />
             <Image
@@ -116,7 +123,7 @@ function BlogPostEntry({ post }: { post: BlogPost }) {
               width={900}
               height={900}
               sizes="(max-width: 640px) 6.5rem, (max-width: 1024px) 9.5rem, 11rem"
-              className="hidden h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.03] dark:block"
+              className={`hidden h-full w-full object-cover ${imagePositionClass} transition-transform duration-500 group-hover:scale-[1.03] dark:block`}
               onError={() => setImageSrcDark("/og-image.jpg")}
             />
           </div>

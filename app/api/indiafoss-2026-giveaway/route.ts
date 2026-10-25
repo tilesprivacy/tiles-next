@@ -296,7 +296,7 @@ export async function POST(request: NextRequest) {
       "X: https://x.com/tilesprivacy",
       "Bluesky: https://bsky.app/profile/tiles.run",
       "LinkedIn: https://www.linkedin.com/company/tilesprivacy/",
-      "Discord: https://go.tiles.run/discord",
+      "Discord: https://discord.gg/PPSjcpZzvt",
       "GitHub: https://github.com/tilesprivacy",
       "Tangled: https://tangled.org/tiles.run",
       "Hugging Face: https://huggingface.co/tilesprivacy",

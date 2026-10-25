@@ -1576,6 +1576,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--foreground);
   padding: 7rem 1.25rem 0;
 }
+[data-blog-article] > .refined-site-footer {
+  padding-top: clamp(3.5rem, 5vw, 4.5rem);
+}
 .minimal-home-page .refined-site-footer {
   padding: clamp(7rem, 9vw, 8rem) 0 0;
 }

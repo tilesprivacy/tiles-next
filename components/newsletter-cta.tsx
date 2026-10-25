@@ -49,7 +49,7 @@ export function NewsletterCta({ surface = "auto", className, formClassName }: Ne
         </div>
         <p className={cn("text-[0.84rem] leading-6", textClass)}>
           Follow development in{" "}
-          <a href="https://go.tiles.run/discord" className={cn("underline transition-colors", linkClass)}>
+          <a href="https://discord.gg/PPSjcpZzvt" className={cn("underline transition-colors", linkClass)}>
             Discord
           </a>{" "}
           or via email.
