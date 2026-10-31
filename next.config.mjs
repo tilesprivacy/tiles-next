@@ -1,4 +1,5 @@
 import nextra from 'nextra'
+import { withBotId } from 'botid/next/config'
 
 const withNextra = nextra({
   // Mount the book content at `/book` in the URL space
@@ -150,4 +151,6 @@ const nextConfig = {
   },
 }
 
-export default withNextra(nextConfig)
+// withBotId adds the rewrites that serve Vercel BotID's challenge from this
+// origin (see instrumentation-client.ts and lib/email-request-guard.ts).
+export default withBotId(withNextra(nextConfig))

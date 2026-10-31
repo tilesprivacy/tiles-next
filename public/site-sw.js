@@ -44,6 +44,8 @@ const isNextImageBrandingRequest = (requestUrl) => {
   }
 }
 
+const BOTID_PATH_PREFIX = '/149e9513-01fa-4fb0-aad4-566afd725d1b/'
+
 const isSameOrigin = (url) => url.origin === self.location.origin
 
 const isDocumentRequest = (request) =>
@@ -71,6 +73,13 @@ const shouldHandleRequest = (requestUrl) => {
   }
 
   if (requestUrl.pathname.startsWith('/api/')) {
+    return false
+  }
+
+  // Vercel BotID challenge and proxy (rewritten by withBotId in next.config).
+  // The challenge changes on every page load, so a cached copy would make
+  // real visitors fail bot checks.
+  if (requestUrl.pathname.startsWith(BOTID_PATH_PREFIX)) {
     return false
   }
 

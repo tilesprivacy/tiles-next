@@ -67,7 +67,16 @@ export async function GET() {
 }
 
 // POST handler for newsletter subscription
+// Same shape as a real success, without senderEmail, so a dropped request
+// (honeypot hit, address already emailed recently) is indistinguishable.
+const silentSuccess = () =>
+  NextResponse.json(
+    { success: true, message: "Successfully subscribed!" },
+    { status: 200 },
+  );
+
 export async function POST(request: NextRequest) {
+  let releaseRecipient: (() => Promise<void>) | undefined;
   try {
     // Validate Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
@@ -80,9 +89,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const guarded = await guardEmailRequest(request);
+    const guarded = await guardEmailRequest(request, silentSuccess);
     if (!guarded.ok) return guarded.response;
     const trimmedEmail = guarded.email;
+    releaseRecipient = guarded.release;
 
     const resend = getResendClient();
     const fromEmail = getFromEmail();
@@ -99,6 +109,7 @@ export async function POST(request: NextRequest) {
 
     // Handle Resend API errors
     if (result.error) {
+      await releaseRecipient();
       console.error(
         "[Subscribe] Resend API error:",
         JSON.stringify(result.error, null, 2),
@@ -159,6 +170,7 @@ export async function POST(request: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
+    await releaseRecipient?.();
     // Handle unexpected errors
     console.error("[Subscribe] Unexpected error:", error);
 
