@@ -9,7 +9,7 @@ import {
 import type { PolarCheckoutMode, PolarPaidPlanId } from "@/lib/polar"
 import {
   PRICING_FAQS,
-  PRICING_PAGE_FUNDING_NOTE,
+  PRICING_PAGE_EARLY_MEMBER_NOTE,
   PRICING_PAGE_TITLE,
   PRICING_PLANS,
   type PricingFaq,
@@ -32,7 +32,7 @@ const tertiaryTextClass = "text-black/55 dark:text-white/55"
 const mutedIconClass = "text-black/45 dark:text-white/45"
 
 const ctaBaseClass =
-  "inline-flex h-11 w-full items-center justify-center gap-1 whitespace-nowrap rounded-full px-5 text-sm font-medium leading-none !no-underline transition-colors"
+  "inline-flex h-9 w-full items-center justify-center gap-1 whitespace-nowrap rounded-full px-3 text-xs font-medium sm:h-11 sm:px-5 sm:text-sm leading-none !no-underline transition-colors"
 
 const outlinedCtaClass =
   `${ctaBaseClass} border border-black/15 bg-transparent text-foreground hover:bg-black/[0.04] dark:border-white/20 dark:hover:bg-white/[0.06]`
@@ -110,7 +110,7 @@ function PaidPlanCta({
       mode={checkoutMode}
       label={ctaLabel}
       trailingIcon={<CtaChevron />}
-      className={planId === "pro" ? filledCtaClass : outlinedCtaClass}
+      className={outlinedCtaClass}
     />
   )
 }
@@ -229,7 +229,7 @@ function PlanCard({
 
       <div>
         {plan.id === "free" ? (
-          <Link href="/download" className={outlinedCtaClass}>
+          <Link href="/download" className={filledCtaClass}>
             {plan.ctaLabel}
             <CtaChevron />
           </Link>
@@ -269,7 +269,7 @@ export function PricingContent({ checkoutModes }: PricingContentProps) {
           <header className="mx-auto max-w-xl text-center">
             <h1 className={marketingPageTitleClass}>{PRICING_PAGE_TITLE}</h1>
             <p className={`mt-5 text-balance text-sm leading-6 ${secondaryTextClass}`}>
-              {PRICING_PAGE_FUNDING_NOTE}
+              {PRICING_PAGE_EARLY_MEMBER_NOTE}
             </p>
           </header>
 

@@ -1,11 +1,13 @@
 import { ImageResponse } from "next/og"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
 import { TilesOgLogo } from "@/components/tiles-og-logo"
 import { TILES_PRODUCT_DESCRIPTION_CORE } from "@/lib/product-description"
 
 // Helpful hints for Next / Vercel:
 // - `size` / `contentType` exports let tooling know image dimensions and mime type.
-// - Pages point at this route through `lib/social-image.ts`, which is also where
-//   the `title` below comes from. Called bare, it renders the site-wide card.
+// - General site pages point at this route through `lib/social-image.ts` so
+//   their social previews share one visually consistent Tiles card.
 export const size = {
   width: 1200,
   height: 630,
@@ -13,30 +15,27 @@ export const size = {
 
 export const contentType = "image/png"
 
-/** Longer titles start wrapping past the card, so they are cut here. */
-const MAX_TITLE_LENGTH = 90
+const tilesWordmarkFont = readFile(
+  join(process.cwd(), "public/fonts/geist-tiles-bold.ttf"),
+).then((font) => Uint8Array.from(font).buffer)
+
+const tilesBodyFont = readFile(
+  join(process.cwd(), "public/fonts/geist-og-regular.ttf"),
+).then((font) => Uint8Array.from(font).buffer)
 
 /*
- * On fonts: this card deliberately ships none, and renders in the face bundled
- * with Satori.
- *
- * It used to pull Geist from Google Fonts, which laid the tagline out with
- * visibly uneven word gaps: roughly every other space came back double width.
- * That was chased down and is Geist itself under Satori, not the loader. It
- * reproduces with the full face as well as Google's `&text=` subset, at weight
- * 400 and 600 alike, and survives both `display: block` and `white-space:
- * nowrap`. The bundled face spaces the same string evenly.
- *
- * `app/api/og/pricing` already renders without a custom font for the same
- * reason, so the two cards now match. Re-adding a webfont here means checking
- * a full line of body copy in the output, not just a short title.
+ * Use explicit bundled faces for both lines. Satori's fallback font can select
+ * glyphs with visibly different stroke weights within the same sentence. The
+ * small bold subset keeps the Tiles wordmark aligned with the website header,
+ * while the full regular face gives the tagline one consistent glyph source.
  */
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url)
-  const rawTitle = searchParams.get("title")?.trim()
-  const title = rawTitle ? rawTitle.slice(0, MAX_TITLE_LENGTH) : null
+export async function GET() {
   const tagline = TILES_PRODUCT_DESCRIPTION_CORE
+  const [wordmarkFontData, bodyFontData] = await Promise.all([
+    tilesWordmarkFont,
+    tilesBodyFont,
+  ])
 
   return new ImageResponse(
     (
@@ -50,7 +49,7 @@ export async function GET(request: Request) {
           justifyContent: "center",
           backgroundColor: "#000000",
           color: "#f2f2f4",
-          fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+          fontFamily: "Tiles Body",
         }}
       >
         <div
@@ -62,7 +61,7 @@ export async function GET(request: Request) {
             padding: "0 90px",
           }}
         >
-          <TilesOgLogo size={title ? 132 : 200} />
+          <TilesOgLogo size={132} />
           <div
             style={{
               display: "flex",
@@ -73,26 +72,25 @@ export async function GET(request: Request) {
               textAlign: "center",
             }}
           >
-            {title ? (
-              <div
-                style={{
-                  fontSize: 60,
-                  fontWeight: 600,
-                  lineHeight: 1.1,
-                  letterSpacing: "-0.02em",
-                  color: "#FAFAFA",
-                  maxWidth: 960,
-                }}
-              >
-                {title}
-              </div>
-            ) : null}
             <div
               style={{
-                fontSize: title ? 28 : 32,
+                fontFamily: "Tiles Wordmark",
+                fontSize: 60,
+                fontWeight: 700,
+                lineHeight: 1.1,
+                letterSpacing: 0,
+                color: "#FAFAFA",
+                maxWidth: 960,
+              }}
+            >
+              Tiles
+            </div>
+            <div
+              style={{
+                fontSize: 28,
                 fontWeight: 400,
                 lineHeight: 1.25,
-                marginTop: title ? 20 : 0,
+                marginTop: 20,
                 color: "rgba(231,231,237,0.9)",
                 maxWidth: 900,
               }}
@@ -106,6 +104,20 @@ export async function GET(request: Request) {
     {
       width: size.width,
       height: size.height,
+      fonts: [
+        {
+          name: "Tiles Wordmark",
+          data: wordmarkFontData,
+          style: "normal",
+          weight: 700,
+        },
+        {
+          name: "Tiles Body",
+          data: bodyFontData,
+          style: "normal",
+          weight: 400,
+        },
+      ],
     },
   )
 }

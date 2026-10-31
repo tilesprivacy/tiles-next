@@ -15,15 +15,18 @@ export const TILES_HOMEPAGE_DESCRIPTION =
 export const TILES_PRODUCT_DESCRIPTION_SHORT =
   TILES_PRODUCT_DESCRIPTION
 
-/** Browser tab and Open Graph titles (hero headline). */
+/** Browser tab title (hero headline). */
 export const TILES_SITE_TITLE =
   `Tiles: ${TILES_PRODUCT_DESCRIPTION_CORE}` as const
+
+/** Short brand title for social previews, where the description is shown separately. */
+export const TILES_SOCIAL_TITLE = "Tiles" as const
 
 /** Primary Download Tiles CTA label on homepage hero and footer. */
 export const DOWNLOAD_TILES_CTA_LABEL = "Download Tiles" as const
 
 /** Compact platform line under primary Download Tiles CTAs (plain text for indexes). */
-export const DOWNLOAD_PLATFORM_MACOS_LABEL = "Apple Silicon (M1+)" as const
+export const DOWNLOAD_PLATFORM_MACOS_LABEL = "Apple Silicon" as const
 
 export const DOWNLOAD_PLATFORM_LINUX_LABEL = "Linux" as const
 

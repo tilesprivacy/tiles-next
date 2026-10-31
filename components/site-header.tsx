@@ -9,7 +9,7 @@ interface SiteHeaderProps {
 
 export function SiteHeader(_: SiteHeaderProps) {
   const pathname = usePathname()
-  const hasPageTopbar = pathname === "/" || pathname === "/download" || pathname === "/sponsor"
+  const hasPageTopbar = pathname === "/" || pathname === "/download" || pathname === "/about"
 
   if (hasPageTopbar) return null
 

@@ -1,3 +1,5 @@
+import { solPbcPartner } from "@/lib/sponsor-partners"
+
 export interface PersonIdentity {
   /** Stable ID used for cross-page references (e.g. blog author field). */
   id: string
@@ -44,6 +46,11 @@ export const people = {
     },
   ],
   sponsorsActive: [
+    {
+      id: "jeremie-miller",
+      name: `${solPbcPartner.founderName} ${solPbcPartner.founderHandle}`,
+      links: [solPbcPartner.founderUrl],
+    },
     { id: "boris-mann", name: "Boris Mann @bmann.ca", links: ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"] },
     { id: "luke-hubbard", name: "Luke Hubbard @lukeinth", links: ["https://bsky.app/profile/lukeinth.bsky.social"] },
     {
@@ -51,13 +58,13 @@ export const people = {
       name: "Dietrich Ayala @autonome",
       links: ["https://metafluff.com/", "https://bsky.app/profile/burrito.space", "https://github.com/autonome"],
     },
-    { id: "xi-zhang", name: "Xi Zhang @aefhm", links: ["https://www.xizhang.page", "https://x.com/aefhm", "https://github.com/aefhm"] },
     { id: "ethan-frey", name: "Ethan Frey @ethanfrey", links: ["https://github.com/ethanfrey"] },
     { id: "hugo-duprez", name: "Hugo Duprez @HugoDuprez", links: ["https://www.hugoduprez.com/", "https://x.com/HugoDuprez"] },
     { id: "utkarsh-saxena", name: "Utkarsh Saxena @saxenauts", links: ["https://saxenauts.io/", "https://x.com/saxenauts", "https://github.com/saxenauts"] },
     { id: "devdoshi", name: "Dev Doshi @devdoshi", links: ["https://github.com/devdoshi", "https://x.com/thedevisadev"] },
   ],
   sponsorsPast: [
+    { id: "xi-zhang", name: "Xi Zhang @aefhm", links: ["https://www.xizhang.page", "https://x.com/aefhm", "https://github.com/aefhm"] },
     {
       id: "josiah-witt",
       name: "Josiah Witt @josiahwitt.com",

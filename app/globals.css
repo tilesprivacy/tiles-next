@@ -5,8 +5,9 @@
 @custom-variant cyberpunk (&:is(.cyberpunk *));
 
 :root {
-  --site-announcement-height: 2.25rem;
+  --site-announcement-height: 0px;
   --site-announcement-offset: var(--site-announcement-height);
+  --site-topbar-height: 5.5rem;
 }
 
 /*
@@ -71,10 +72,10 @@
 }
 
 .site-announcement-logo {
-  width: 1.5rem;
+  width: auto;
   height: 1.5rem;
   flex: none;
-  filter: grayscale(1) invert(1);
+  filter: none;
 }
 
 .dark .site-announcement {
@@ -84,10 +85,10 @@
 }
 
 .dark .site-announcement-logo {
-  filter: grayscale(1);
+  filter: grayscale(1) invert(1);
 }
 
-/* /blog/own-your-ai: near-black canvas in dark themes. */
+/* Own Your AI articles: near-black canvas in dark themes. */
 html[data-page-theme="own-your-ai"].dark {
   --background: #020202;
 }
@@ -154,7 +155,7 @@ html.cyberpunk .site-announcement {
 }
 
 html.cyberpunk .site-announcement-logo {
-  filter: none;
+  filter: grayscale(1) invert(1);
   mix-blend-mode: multiply;
 }
 
@@ -200,7 +201,7 @@ html[data-page-theme="home"].dark:not(.cyberpunk) .site-announcement {
 }
 
 html[data-page-theme="home"].dark:not(.cyberpunk) .site-announcement-logo {
-  filter: grayscale(1);
+  filter: grayscale(1) invert(1);
 }
 
 html[data-page-theme="home"].dark .minimal-feature-icon {
@@ -249,13 +250,14 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
 
 @media (max-width: 520px) {
   .site-announcement a {
-    padding-inline: 0.75rem;
-    font-size: clamp(0.625rem, 2.7vw, 0.75rem);
+    gap: 0.35rem;
+    padding-inline: 0.5rem;
+    font-size: clamp(0.5rem, 2.6vw, 0.7rem);
   }
 
   .site-announcement-logo {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: auto;
+    height: 1rem;
   }
 }
 
@@ -290,7 +292,7 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
   inset: var(--site-announcement-offset) 0 auto;
   z-index: 50;
   width: calc(100% - 2.5rem);
-  height: 5.5rem;
+  height: var(--site-topbar-height);
   margin-inline: auto;
   display: flex;
   align-items: center;
@@ -371,8 +373,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-topbar-center-nav {
   position: absolute;
+  top: calc(var(--site-topbar-height) / 2);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   gap: 1.5rem;
@@ -619,7 +622,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 /* Results take over the viewport below the top nav, centered. */
 .ai-search-panel {
   position: fixed;
-  inset: calc(4rem + var(--site-announcement-offset, 0px)) 0 0;
+  inset: calc(var(--site-topbar-height) + var(--site-announcement-offset, 0px)) 0 0;
   z-index: 60;
   width: 100%;
   overflow-y: auto;
@@ -632,7 +635,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 @media (min-width: 768px) {
   .ai-search-panel {
-    inset: calc(5.5rem + var(--site-announcement-offset, 0px)) 0 0;
     padding: 2.25rem 2rem 4rem;
   }
   .ai-search-panel .ai-search-answer-body {
@@ -819,83 +821,241 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 
 .minimal-hero {
   position: relative;
-  display: flex;
-  flex-direction: column;
+  width: min(100%, 72rem);
+  min-height: 0;
+  margin: 0 auto;
+  /* Keep document content independent from the fixed banner's scroll state.
+   * Only the banner and topbar move when the banner collapses. */
+  padding: calc(var(--site-announcement-height) + 10.5rem) 1.5rem 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-content: start;
   align-items: center;
-  justify-content: flex-start;
-  gap: 0;
-  /* Anchor the whole composition with one padding, then let the title, copy,
-   * CTA, and the MacBook that follows flow normally, so the CTA links can
-   * never end up underneath the device. `50dvh - 127px` keeps the title where
-   * it has always sat; `100dvh - 526px` (stack height + a ~120px device peek)
-   * takes over on short viewports so the MacBook still peeks above the fold;
-   * the outer max() keeps the title clear of the fixed topbar. */
-  padding: max(
-      calc(var(--site-announcement-offset, 0px) + 7.5rem),
-      min(calc(50dvh - 127px), calc(100dvh - 526px))
-    )
-    2rem 0;
-  text-align: center;
+  gap: 3rem;
+  text-align: left;
+}
+
+.minimal-hero-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .minimal-hero-title {
   margin: 0;
-  font-size: 72px;
-  line-height: 1;
+  font-size: clamp(2.75rem, 4.25vw, 4rem);
+  line-height: 1.03;
   letter-spacing: -0.045em;
-  font-weight: 400;
+  font-weight: 500;
   white-space: nowrap;
 }
-.minimal-hero > p {
-  width: max-content;
-  max-width: calc(100% - 2rem);
-  margin: 48px 0 0;
-  font-size: 20px;
-  line-height: normal;
+
+.minimal-hero-copy > p {
+  max-width: 29rem;
+  margin: 1.75rem 0 0;
+  color: color-mix(in srgb, var(--foreground) 60%, transparent);
+  font-size: 1.125rem;
+  line-height: 1.55;
   font-weight: 400;
 }
-.minimal-hero > p strong {
-  font-weight: 600;
+
+@media (min-width: 768px) {
+  .minimal-hero {
+    padding-inline: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  .minimal-hero-copy > p {
+    max-width: 24rem;
+  }
 }
-.minimal-hero > .minimal-download-cta {
-  margin-top: 40px;
+
+.minimal-hero-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-top: 2rem;
 }
-.minimal-hero-device {
-  --device-width: min(82vw, 40rem);
-  /* wireframe.webp carries 245px of transparent padding above the lid across
-   * its 2564px height, and `object-fit: contain` fills the box vertically, so
-   * that padding renders as (245 / 2564) x box height = ~0.0598 x box width of
-   * empty space over the visible MacBook. Subtract it so the 1.375rem below is
-   * the gap you actually see rather than the gap to an invisible edge. */
-  --device-void: calc(var(--device-width) * 0.0598);
+
+.minimal-hero-actions > div {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.minimal-hero-demo {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  gap: 0.5rem;
+}
+
+.minimal-hero-video-frame {
   position: relative;
-  width: var(--device-width);
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #0d0f0e;
+}
+
+.minimal-hero-video {
+  display: block;
+  width: 100%;
   height: auto;
-  aspect-ratio: 1188 / 743.25;
-  margin: calc(1.375rem - var(--device-void)) auto 0;
-  /* Purely decorative, and its transparent margins reach up over the CTA
-   * links, so it must never take a click. */
+  aspect-ratio: 1280 / 896;
+}
+
+.minimal-hero-video-start {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  padding: 0 0 0 0.2rem;
+  border: 1px solid #ffffff80;
+  border-radius: 999px;
+  background: #111111cc;
+  color: #fff;
+  box-shadow: 0 0.5rem 1.5rem #00000059;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.minimal-hero-video-start:hover {
+  background: #292929e6;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.minimal-hero-video-start:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.minimal-hero-video-controls {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem 0.625rem;
+  background: linear-gradient(transparent, #0d0f0ed9);
+  transition: opacity 240ms ease;
+}
+
+/* The idle timer hides the controls during playback so the full recording
+ * stays in view. Any pointer activity on the frame brings them back. */
+.minimal-hero-video-controls[data-hidden] {
+  opacity: 0;
   pointer-events: none;
 }
-.minimal-hero-device > img {
-  display: block;
+
+/* Keyboard focus keeps the controls available regardless of the idle timer. */
+.minimal-hero-video-controls:focus-within {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.minimal-hero-video-frame:fullscreen {
+  border: 0;
+  border-radius: 0;
+}
+
+.minimal-hero-video-frame:fullscreen .minimal-hero-video {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
-.minimal-hero-device-banner {
-  position: absolute;
-  inset: 0;
-  display: flex;
+
+.minimal-hero-video-frame:-webkit-full-screen {
+  border: 0;
+  border-radius: 0;
+}
+
+.minimal-hero-video-frame:-webkit-full-screen .minimal-hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.minimal-hero-video-toggle {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 9%;
-  pointer-events: none;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
 }
-.minimal-hero-device-banner img {
-  width: min(68%, 28rem);
-  height: auto;
-  transform: translateY(0.55rem);
+
+.minimal-hero-video-toggle:hover {
+  background: #ffffff26;
+}
+
+.minimal-hero-video-toggle:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -2px;
+}
+
+.minimal-hero-video-scrubber {
+  flex: 1;
+  min-width: 0;
+  height: 1.25rem;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.minimal-hero-video-scrubber:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.minimal-hero-video-scrubber::-webkit-slider-runnable-track {
+  height: 0.25rem;
+  border-radius: 999px;
+  background: linear-gradient(#fff, #fff) 0 / var(--progress, 0%) 100% no-repeat #ffffff40;
+}
+
+.minimal-hero-video-scrubber::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-top: -0.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.minimal-hero-video-scrubber::-moz-range-track {
+  height: 0.25rem;
+  border-radius: 999px;
+  background: #ffffff40;
+}
+
+.minimal-hero-video-scrubber::-moz-range-progress {
+  height: 0.25rem;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.minimal-hero-video-scrubber::-moz-range-thumb {
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
 }
 
 .minimal-download-cta {
@@ -910,30 +1070,33 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 /* Homepage content: shared type scale
    h1 hero title (elsewhere) → section heading → section lede → item title → item body */
 .minimal-copy {
-  width: min(100% - 2rem, 720px);
-  margin: 7.5rem auto 0;
-  padding: 0 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  width: min(calc(100% - 2rem), 45rem);
+  margin: clamp(7.5rem, 9vw, 9rem) auto 0;
+  padding: 0 0.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  row-gap: 2rem;
 }
-.minimal-copy.minimal-copy--after-device {
-  margin-top: 5rem;
+.minimal-copy.minimal-copy--after-hero {
+  margin-top: 8rem;
 }
 .minimal-copy-heading {
   margin: 0;
-  font-size: 1.625rem;
-  line-height: 1.2;
+  font-size: 1.875rem;
+  line-height: 1.15;
   letter-spacing: -0.025em;
-  font-weight: 600;
+  font-weight: 500;
 }
 .minimal-copy-content {
+  width: min(100%, 46rem);
   min-width: 0;
 }
 .minimal-copy-lede {
+  max-width: 46rem;
   margin: 0;
   font-size: 1rem;
-  line-height: 1.6;
+  line-height: 1.65;
   letter-spacing: 0;
   font-weight: 400;
 }
@@ -965,7 +1128,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
 }
 .minimal-disclosure summary {
   display: flex;
-  min-height: 3.25rem;
+  min-height: 4rem;
   align-items: center;
   cursor: pointer;
   list-style: none;
@@ -982,7 +1145,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   gap: 0.55rem;
   font-size: 1rem;
   line-height: 1.5;
-  font-weight: 700;
+  font-weight: 600;
 }
 .minimal-disclosure-title {
   min-width: 0;
@@ -1011,7 +1174,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   transform: rotate(180deg);
 }
 .minimal-disclosure > p {
-  margin: -0.15rem 0 1rem;
+  margin: -0.25rem 0 1.25rem;
   padding-left: 1.55rem;
   font-size: 1rem;
   line-height: 1.6;
@@ -1185,16 +1348,50 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-style: normal;
   line-height: 1.5;
 }
+.minimal-footer-identity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.minimal-footer-backer {
+  display: inline-flex;
+  min-height: 44px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.375rem;
+  border-left: 1px solid var(--border);
+  padding-left: 1.5rem;
+  color: var(--muted-foreground) !important;
+  font-size: 0.75rem;
+  line-height: 1;
+  text-align: left;
+  text-decoration: none !important;
+  transition: opacity 160ms ease;
+}
+.minimal-footer-backer img {
+  width: 7rem;
+  height: auto;
+}
+.minimal-footer-backer:hover {
+  opacity: 0.7;
+}
+.minimal-footer-backer:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 6px;
+}
 .minimal-footer-brand {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  font-size: 16px;
+  gap: 0.5rem;
+  font-size: 24px;
   font-weight: 700;
+  line-height: 1;
 }
 .minimal-footer-brand img {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
 }
 .minimal-footer-links {
   display: flex;
@@ -1379,6 +1576,16 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--foreground);
   padding: 7rem 1.25rem 0;
 }
+[data-blog-article] > .refined-site-footer {
+  padding-top: clamp(3.5rem, 5vw, 4.5rem);
+}
+.minimal-home-page .refined-site-footer {
+  padding: clamp(7rem, 9vw, 8rem) 0 0;
+}
+.minimal-home-page .refined-site-footer .minimal-footer {
+  width: min(calc(100% - 3rem), 77rem);
+  margin-inline: auto;
+}
 .refined-site-footer-newsletter,
 .refined-site-footer-download {
   width: min(100%, 46rem);
@@ -1559,6 +1766,24 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-weight: 500;
   line-height: 1;
 }
+/* Match compact navigation actions on phones across download and sponsor pages. */
+@media (max-width: 639px) {
+  .minimal-primary-button,
+  .minimal-secondary-button,
+  .minimal-disabled-button {
+    min-height: 36px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .minimal-download-action {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
 /*
  * One-line caption under each button naming the route and its size. Muted
  * and small so the buttons keep the weight; tabular figures align the sizes.
@@ -1578,34 +1803,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.6;
   text-wrap: pretty;
 }
-/*
- * The offline route is the 7 GB specialist one, so it reads as the alternative
- * to the default rather than its twin. Declared after the base fill, and after
- * the `html.cyberpunk` pair below, so it wins at equal specificity.
- */
-.minimal-download-action--secondary {
-  border: 1px solid color-mix(in srgb, var(--foreground) 22%, transparent) !important;
-  background: transparent !important;
-  color: var(--foreground) !important;
-  box-shadow: none !important;
-}
-.minimal-download-action--secondary:hover {
-  background: color-mix(in srgb, var(--foreground) 6%, transparent) !important;
-  color: var(--foreground) !important;
-}
-html.cyberpunk .minimal-download-action--secondary {
-  border: 1px solid
-    color-mix(in srgb, var(--sponsor-yellow, #f7ff61) 45%, transparent) !important;
-  background: transparent !important;
-  color: var(--sponsor-yellow, #f7ff61) !important;
-}
-html.cyberpunk .minimal-download-action--secondary:hover {
-  background: color-mix(
-    in srgb,
-    var(--sponsor-yellow, #f7ff61) 12%,
-    transparent
-  ) !important;
-  color: var(--sponsor-yellow, #f7ff61) !important;
+/* Give the installer note its own space above the platform heading. */
+.minimal-download-platform > p.minimal-download-detail:first-child {
+  margin: 0 0 2rem;
 }
 .minimal-download-action-icon {
   width: 0.95rem;
@@ -1648,15 +1848,25 @@ html.cyberpunk .minimal-download-action--secondary:hover {
   cursor: pointer;
   text-align: left;
 }
-.minimal-command code {
+.minimal-command code,
+.minimal-command-code {
   overflow-x: auto;
   white-space: nowrap;
+  font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: normal;
+  font-feature-settings: normal;
+  font-variation-settings: normal;
 }
 .minimal-command svg {
   width: 16px;
   height: 16px;
   flex: none;
+}
+.plugin-command {
+  margin-top: 0;
 }
 .minimal-resources > div {
   display: grid;
@@ -1756,19 +1966,12 @@ html.cyberpunk .minimal-download-action--secondary:hover {
   display: none;
 }
 .minimal-sponsor-page .minimal-page-intro h1 {
-  font-size: clamp(2.25rem, 4vw, 2.5rem);
+  font-size: clamp(2.5rem, 4vw, 3rem);
   line-height: 1.1;
   letter-spacing: -0.035em;
 }
 .minimal-sponsor-page .minimal-page-intro p {
   color: var(--muted-foreground);
-}
-.minimal-sponsor-page .minimal-section h2 {
-  font-size: 1.25rem;
-  line-height: 1.4;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--foreground);
 }
 .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a) {
   color: inherit;
@@ -1781,9 +1984,20 @@ html.cyberpunk .minimal-download-action--secondary:hover {
 .minimal-sponsor-page .minimal-partner-intro {
   color: var(--muted-foreground);
 }
-.minimal-sponsor-page .minimal-sponsor-copy {
+.minimal-sponsor-page .minimal-about-copy {
   border-bottom-color: var(--border);
   color: var(--muted-foreground);
+}
+.minimal-sponsor-page .minimal-sponsor-cta-intro {
+  margin: 1rem 0 0;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+.minimal-sponsor-page .minimal-sponsor-cta-intro h2 {
+  margin: 0;
+}
+.minimal-sponsor-page .minimal-sponsor-cta-intro p {
+  margin-top: 1.25rem;
 }
 .minimal-sponsor-funding-band {
   position: static;
@@ -1856,11 +2070,6 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   font-size: 0.875rem;
   font-weight: 600;
 }
-.minimal-sponsor-page .minimal-sponsor-list h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--foreground);
-}
 .minimal-sponsor-page .minimal-sponsor-row {
   border-top: 1px solid var(--border);
 }
@@ -1870,6 +2079,23 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-sponsor-page .minimal-sponsor-name strong {
   color: var(--foreground);
   font-weight: 500;
+}
+.minimal-sponsor-page .minimal-sponsor-name-link,
+.minimal-sponsor-page .minimal-team-name-link {
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-sponsor-page .minimal-sponsor-handle,
+.minimal-sponsor-page .minimal-team a small,
+.minimal-advisor-profile small {
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 3px;
+}
+.minimal-sponsor-page .minimal-sponsor-row:hover .minimal-sponsor-handle,
+.minimal-sponsor-page .minimal-team a:hover small,
+.minimal-sponsor-page .minimal-advisor-profile:hover small {
+  text-decoration-color: currentColor;
 }
 .minimal-sponsor-page .minimal-sponsor-name small,
 .minimal-sponsor-page .minimal-sponsor-handle {
@@ -1889,15 +2115,168 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   color: var(--muted-foreground);
   font-weight: 600;
 }
+.minimal-sponsor-page .minimal-partner-profile {
+  display: grid;
+  grid-template-columns: minmax(10rem, 12rem) minmax(0, 1fr);
+  align-items: start;
+  gap: 2rem;
+}
+.minimal-sponsor-page .minimal-partner-company {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-sponsor-page .minimal-partner-founder-profile {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-sponsor-page .minimal-partner-founder-avatar {
+  display: inline-flex;
+  flex: none;
+}
+.minimal-sponsor-page .minimal-partner-founder-copy {
+  flex: 1;
+  min-width: 0;
+  gap: 0.25rem;
+}
+.minimal-sponsor-page .minimal-partner-founder-identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
+  gap: 0.45rem;
+}
+.minimal-sponsor-page .minimal-partner-founder-identity strong {
+  color: var(--foreground);
+  font-size: 0.875rem;
+}
+.minimal-sponsor-page .minimal-partner-founder-role {
+  color: #a1a1aa;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+@media (max-width: 639px) {
+  .minimal-sponsor-page .minimal-partner-profile {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    padding-block: 1.25rem;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-profile {
+    width: 100%;
+    margin-top: 0.875rem;
+    align-items: center;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-avatar > img,
+  .minimal-sponsor-page .minimal-partner-founder-avatar > span {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-identity {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.1rem;
+  }
+  .minimal-sponsor-page .minimal-partner-founder-role {
+    padding-right: 0.25rem;
+  }
+}
 .minimal-sponsor-page .minimal-team a {
   color: var(--foreground);
 }
 .minimal-sponsor-page .minimal-team a small {
   color: var(--muted-foreground);
 }
+.minimal-sponsor-page .minimal-advisors-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  border-top: 1px solid var(--border);
+}
+.minimal-sponsor-page .minimal-team-section h2,
+.minimal-sponsor-page .minimal-advisors-section h2 {
+  margin: 0;
+}
+.minimal-advisors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.5rem;
+}
+.minimal-advisor-card {
+  min-width: 0;
+}
+.minimal-advisor-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  color: inherit;
+  text-decoration: none;
+}
+.minimal-advisor-profile > span:last-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.minimal-sponsor-page a.minimal-advisor-profile {
+  text-decoration: none;
+}
+.minimal-advisor-profile strong {
+  color: var(--foreground);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  text-decoration: none;
+}
+.minimal-advisor-profile small {
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+.minimal-advisor-avatar {
+  display: inline-flex;
+  flex: none;
+}
+.minimal-advisor-avatar > img,
+.minimal-advisor-avatar > span {
+  width: 3.25rem;
+  height: 3.25rem;
+}
+.minimal-advisor-card ul {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+.minimal-advisor-card li + li {
+  margin-top: 0.625rem;
+}
+.dark .minimal-sponsor-page .minimal-advisor-profile strong {
+  color: #e4e4e7;
+}
+.dark .minimal-sponsor-page .minimal-advisor-profile small,
+.dark .minimal-sponsor-page .minimal-advisor-card ul {
+  color: #a1a1aa;
+}
+@media (max-width: 767px) {
+  .minimal-advisors-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+  }
+}
 .dark .minimal-sponsor-page .minimal-page-intro p,
 .dark .minimal-sponsor-page .minimal-partner-intro,
-.dark .minimal-sponsor-page .minimal-sponsor-copy {
+.dark .minimal-sponsor-page .minimal-about-copy {
   color: #d4d4d8;
 }
 .dark .minimal-sponsor-page .minimal-section h2,
@@ -1914,7 +2293,7 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .dark .minimal-sponsor-page a:not(.minimal-primary-button):not(.minimal-secondary-button):not(.minimal-partner):not(.minimal-team a):hover {
   text-decoration-color: #fff;
 }
-.dark .minimal-sponsor-page .minimal-sponsor-copy {
+.dark .minimal-sponsor-page .minimal-about-copy {
   border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 .dark .minimal-sponsor-page .minimal-sponsor-row {
@@ -1926,9 +2305,12 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .dark .minimal-sponsor-page .minimal-sponsor-list-heading > span,
 .dark .minimal-sponsor-page .minimal-sponsor-name small,
 .dark .minimal-sponsor-page .minimal-sponsor-handle,
-.dark .minimal-sponsor-page .minimal-partner small,
-.dark .minimal-sponsor-page .minimal-team a small {
+.dark .minimal-sponsor-page .minimal-partner small {
   color: #71717a;
+}
+.dark .minimal-sponsor-page .minimal-team a small,
+.dark .minimal-sponsor-page .minimal-team-role {
+  color: #a1a1aa;
 }
 .dark .minimal-sponsor-page .minimal-sponsor-list-heading > span {
   color: #52525b;
@@ -2022,44 +2404,22 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   font-size: 0.875rem;
   line-height: 1.55;
 }
-/* Latest release notes reuse the platform sections' type scale and tokens. */
-.minimal-download-release-notes {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  max-width: 38rem;
-}
-.minimal-download-release-notes h3 {
-  margin: 0 0 0.5rem;
-  font-size: 0.875rem;
-  line-height: 1.4;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-.minimal-download-release-notes ul {
-  margin: 0;
-  padding-left: 1.25rem;
-  list-style: disc;
-  color: var(--muted-foreground);
-  font-size: 0.875rem;
-  line-height: 1.55;
-}
-.minimal-download-release-notes li + li {
-  margin-top: 0.25rem;
-}
 .minimal-download-platform .minimal-command {
   max-width: 36rem;
 }
-.minimal-sponsor-copy {
+.minimal-about-copy {
   margin-bottom: 3rem;
   padding: 0 0 3rem;
   border-top: 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 0;
+}
+.minimal-sponsor-page .minimal-team-section {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 .minimal-team {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   margin-top: 1.75rem;
 }
@@ -2069,6 +2429,20 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   gap: 0.55rem;
   font-size: 0.875rem;
   text-decoration: none;
+}
+.minimal-team-identity {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.minimal-team-name {
+  min-width: 0;
+}
+.minimal-team-role {
+  margin-top: 0.15rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
 }
 .minimal-team a small {
   color: var(--muted-foreground);
@@ -2082,6 +2456,11 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
 .minimal-sponsor-avatar {
   display: inline-flex;
   flex: none;
+}
+@media (max-width: 640px) {
+  .minimal-team {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 .minimal-sponsor-avatar > span {
   flex: none;
@@ -2577,6 +2956,18 @@ html.cyberpunk .minimal-wallet-panel {
   line-height: 1.4;
   letter-spacing: -0.01em;
 }
+.minimal-partners-section .minimal-sponsor-list-heading h2 {
+  margin: 0;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+.minimal-sponsor-page .minimal-inner-content h2 {
+  font-size: clamp(1.75rem, 2.5vw, 2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--foreground);
+}
 .minimal-sponsor-list-heading > span {
   color: var(--muted-foreground);
   font-size: 1rem;
@@ -2681,7 +3072,7 @@ html.cyberpunk .minimal-wallet-panel {
   }
   .minimal-topbar-menu {
     position: fixed;
-    inset: calc(5.5rem + var(--site-announcement-offset)) 0 0;
+    inset: calc(var(--site-topbar-height) + var(--site-announcement-offset)) 0 0;
     z-index: 40;
     display: block;
     overflow-y: auto;
@@ -2710,20 +3101,11 @@ html.cyberpunk .minimal-wallet-panel {
 }
 
 @media (max-width: 767px) {
-  /*
-   * Keep the homepage hero stable while mobile browser chrome expands or
-   * collapses. `dvh` changes during scroll and moves both the centered copy
-   * and the MacBook that follows the hero; `svh` remains fixed.
-   */
-  .minimal-hero {
-    padding-top: max(
-      calc(var(--site-announcement-offset, 0px) + 7.5rem),
-      min(calc(50svh - 127px), calc(100svh - 526px))
-    );
+  :root {
+    --site-topbar-height: 4rem;
   }
   .minimal-topbar {
     width: calc(100% - 2rem);
-    height: 4rem;
     gap: 0.25rem;
   }
   .minimal-topbar-left {
@@ -2764,9 +3146,6 @@ html.cyberpunk .minimal-wallet-panel {
     width: 32px;
     height: 32px;
   }
-  .minimal-topbar-menu {
-    inset: calc(4rem + var(--site-announcement-offset)) 0 0;
-  }
 }
 
 html[data-site-announcement-ready="true"] .minimal-topbar-menu {
@@ -2783,36 +3162,55 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 @media (max-width: 520px) {
   .minimal-hero {
-    padding-inline: 1rem;
-    /* Same anchor as the base rule, at this breakpoint's smaller metrics. */
-    padding-top: max(
-      calc(var(--site-announcement-offset, 0px) + 7.5rem),
-      min(calc(50svh - 105px), calc(100svh - 475px))
-    );
+    height: auto;
+    /* Small viewport units: 100dvh grows when the mobile browser UI collapses
+     * on the first scroll — the same moment the banner fades — resizing the
+     * demo row mid-scroll. svh is constant, so the player never shifts. */
+    max-height: 100svh;
+    padding: calc(var(--site-announcement-height) + 7rem) 1.5rem 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: max-content minmax(0, 1fr);
+    gap: 2.5rem;
+    text-align: left;
   }
   .minimal-hero-title {
-    font-size: 52px;
+    font-size: clamp(2.75rem, 13vw, 3.25rem);
   }
-  .minimal-hero > p {
-    width: calc(100% - 2rem);
-    margin-top: 39px;
-    font-size: 18px;
-    line-height: 26px;
+  .minimal-hero-copy > p {
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.55;
   }
-  .minimal-hero > .minimal-download-cta {
-    width: calc(100% - 2rem);
+  .minimal-hero-actions {
+    margin-top: 1.75rem;
   }
-  .minimal-hero-device {
-    --device-width: calc(100% - 4rem);
+  .minimal-hero-demo {
+    position: relative;
+    align-self: start;
+    justify-self: center;
+    width: auto;
+    height: 100%;
+    min-height: 0;
+    max-width: 100%;
+    max-height: calc((100vw - 3rem) * 0.7);
+    aspect-ratio: 1280 / 896;
+    display: block;
   }
-  .minimal-hero-device-banner img {
-    width: 66%;
+  .minimal-hero-video-frame {
+    height: 100%;
+    border-radius: 0.75rem;
+  }
+  .minimal-hero-video {
+    height: 100%;
+    object-fit: contain;
   }
   .minimal-copy {
     margin-top: 5rem;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.75rem;
   }
-  .minimal-copy.minimal-copy--after-device {
-    margin-top: 3rem;
+  .minimal-copy.minimal-copy--after-hero {
+    margin-top: 6rem;
   }
   .minimal-actions {
     margin-top: 96px;
@@ -2852,8 +3250,37 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
 }
 
+@media (min-width: 521px) and (max-width: 767px) {
+  .minimal-hero {
+    padding-top: calc(var(--site-announcement-height) + 7rem);
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .minimal-hero-copy > p {
+    max-width: 36rem;
+  }
+
+  .minimal-copy {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 2rem;
+  }
+  .minimal-copy.minimal-copy--after-hero {
+    margin-top: 6rem;
+  }
+}
+
 @media (max-width: 360px) {
   .minimal-topbar-alpha {
+    display: none;
+  }
+  .minimal-topbar nav.minimal-topbar-actions {
+    gap: 0.25rem;
+  }
+  .minimal-topbar-download {
+    padding-inline: 0.625rem;
+  }
+  .minimal-topbar-download .download-cta-icon {
     display: none;
   }
 }
@@ -2946,27 +3373,36 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   color: var(--foreground) !important;
 }
 
+/* Explicit prose scale keeps deeper headings below their parent level.
+   Direct children leave embedded feature cards and other widgets independent. */
+[data-book-section] article main > :is(h1, h2, h3, h4, h5, h6) {
+  font-weight: 600 !important;
+  text-transform: none !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.015em !important;
+}
+
 [data-book-section] article main > h1 {
   max-width: 100%;
   width: 100%;
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: 0;
-  margin-right: 0;
+  padding-inline: 0;
+  margin-inline: 0;
   margin-top: 0 !important;
   box-sizing: border-box;
   font-size: clamp(2.25rem, 4vw, 2.5rem) !important;
-  font-weight: 400 !important;
-  line-height: 1.1 !important;
+  line-height: 1.15 !important;
   letter-spacing: -0.035em !important;
   margin-bottom: 1rem !important;
 }
 
+/* Only the page title starts flush; later H1s introduce major sections. */
+[data-book-section] article main > h1:not(:first-of-type) {
+  margin-top: 3.5rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
 [data-book-section] article main > h2 {
-  font-size: 1.375rem !important;
-  font-weight: 600 !important;
-  line-height: 1.25 !important;
-  letter-spacing: -0.02em !important;
+  font-size: clamp(1.625rem, 2.5vw, 1.875rem) !important;
   margin-top: 2.75rem !important;
   margin-bottom: 1rem !important;
 }
@@ -2976,27 +3412,139 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 }
 
 [data-book-section] article main > h3 {
-  font-size: 1.0625rem !important;
-  font-weight: 600 !important;
-  line-height: 1.35 !important;
-  letter-spacing: -0.01em !important;
+  font-size: clamp(1.375rem, 2vw, 1.5rem) !important;
+  margin-top: 2.25rem !important;
+  margin-bottom: 0.875rem !important;
+}
+
+[data-book-section] article main > h4 {
+  font-size: 1.25rem !important;
   margin-top: 2rem !important;
   margin-bottom: 0.75rem !important;
 }
 
-@media (min-width: 1024px) {
-  [data-book-section] article main > h2 {
-    font-size: 1.5rem !important;
-  }
+[data-book-section] article main > h5 {
+  font-size: 1.125rem !important;
+  margin-top: 1.75rem !important;
+  margin-bottom: 0.625rem !important;
 }
 
-[data-book-section] article :where(h4, h5, h6) {
-  line-height: 1.3 !important;
-  letter-spacing: -0.005em !important;
+[data-book-section] article main > h6 {
+  font-size: 1rem !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.5rem !important;
 }
 
-/* Keep table column headings a step below section headings (h3 = 1.0625rem)
-   in the type hierarchy. */
+[data-book-section] article main > :is(h1, h2, h3, h4, h5, h6) :is(strong, code) {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* Tilekit's endpoint reference stays separate from the surrounding book prose. */
+[data-book-section] .tilekit-api-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-block: 1.5rem;
+}
+[data-book-section] .tilekit-api-groups a {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+[data-book-section] .tilekit-api-groups a:hover {
+  background: var(--muted);
+}
+[data-book-section] .tilekit-endpoint {
+  min-width: 0;
+  margin-block: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+[data-book-section] .tilekit-endpoint > summary {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) 1rem;
+  align-items: center;
+  gap: 0.5rem 0.875rem;
+  padding: 1rem;
+  cursor: pointer;
+  list-style: none;
+}
+[data-book-section] .tilekit-endpoint > summary::-webkit-details-marker {
+  display: none;
+}
+[data-book-section] .tilekit-endpoint > summary:hover,
+[data-book-section] .tilekit-endpoint[open] > summary {
+  background: var(--muted);
+}
+[data-book-section] .tilekit-endpoint > summary:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: -3px;
+}
+[data-book-section] .tilekit-endpoint > summary > code {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+[data-book-section] .tilekit-method {
+  display: inline-flex;
+  justify-content: center;
+  border-radius: 4px;
+  padding: 0.25rem 0.375rem;
+  font: 600 0.75rem/1.4 var(--font-geist-mono, monospace);
+  background: color-mix(in srgb, #16803c 12%, var(--background));
+  color: light-dark(#166534, #86efac);
+}
+[data-book-section] .tilekit-method[data-method="POST"] {
+  background: color-mix(in srgb, #2563eb 12%, var(--background));
+  color: light-dark(#1d4ed8, #93c5fd);
+}
+[data-book-section] .tilekit-method[data-method="PUT"] {
+  background: color-mix(in srgb, #b45309 12%, var(--background));
+  color: light-dark(#92400e, #fcd34d);
+}
+[data-book-section] .tilekit-endpoint-title {
+  grid-column: 2;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+[data-book-section] .tilekit-endpoint-toggle {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  text-align: center;
+  font-size: 1.25rem;
+  transition: transform 150ms ease;
+}
+[data-book-section] .tilekit-endpoint[open] .tilekit-endpoint-toggle {
+  transform: rotate(45deg);
+}
+[data-book-section] .tilekit-endpoint-body {
+  padding: 0 1rem 1rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+[data-book-section] .tilekit-endpoint-body > p {
+  margin-block: 1rem;
+}
+[data-book-section] .tilekit-endpoint-body > p > strong:only-child {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Keep table column headings below prose headings in the type hierarchy. */
 [data-book-section] article table th {
   font-size: 0.875rem !important;
 }
@@ -4619,16 +5167,7 @@ html.cyberpunk
     var(--book-mobile-header-height) + var(--book-mobile-breadcrumb-height)
   );
   --book-sidebar-list-offset: 1.25rem;
-  /* Matches mobile site-header row: pt + min-h + pb (see site-header.tsx). */
-  --book-mobile-header-height: calc(4rem + var(--site-announcement-offset));
-}
-
-@media (min-width: 640px) and (max-width: 1023px) {
-  [data-book-section] {
-    --book-mobile-header-height: calc(
-      4rem + var(--site-announcement-offset)
-    );
-  }
+  --book-mobile-header-height: calc(var(--site-topbar-height) + var(--site-announcement-offset));
 }
 
 @media (max-width: 1023px) {

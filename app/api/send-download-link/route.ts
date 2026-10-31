@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { Resend } from "resend"
-import { type DownloadLinkEmailVariables } from "@/lib/download-link-email"
+import { toPlainText } from "@react-email/render"
+import { buildDownloadLinkEmail, type DownloadLinkEmailVariables } from "@/lib/email-messages"
 import {
   getDownloadPageNetworkArtifact,
   OFFLINE_INSTALLER,
@@ -9,7 +10,6 @@ import { getLatestReleaseVersion } from "@/lib/releases"
 
 const SENDER_NAME = "Tiles Privacy"
 const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
-const DEFAULT_DOWNLOAD_LINK_TEMPLATE_ID = "04ef0847-0028-47cf-b0f2-595f7418c2a1"
 
 function getResendClient() {
   const apiKey = process.env.RESEND_API_KEY
@@ -29,13 +29,6 @@ function getFromEmailAddress(): string {
 
 function getFromEmail(): string {
   return `${SENDER_NAME} <${getFromEmailAddress()}>`
-}
-
-function getDownloadLinkTemplateId(): string {
-  return (
-    process.env.RESEND_DOWNLOAD_LINK_TEMPLATE_ID?.trim() ||
-    DEFAULT_DOWNLOAD_LINK_TEMPLATE_ID
-  )
 }
 
 function isValidEmail(email: string): boolean {
@@ -182,15 +175,14 @@ export async function POST(request: NextRequest) {
     ])
     const variables = buildDownloadLinkVariables(artifact, latestReleaseVersion)
     const resend = getResendClient()
-    const templateId = getDownloadLinkTemplateId()
+    const message = buildDownloadLinkEmail(variables)
 
     const result = await resend.emails.send({
       from: getFromEmail(),
       to: email,
-      template: {
-        id: templateId,
-        variables,
-      },
+      subject: message.subject,
+      html: message.html,
+      text: toPlainText(message.html),
     })
 
     if (result.error) {

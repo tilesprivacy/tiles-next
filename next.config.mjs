@@ -39,6 +39,8 @@ const brandingCacheControlHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Allow browser assets and hot reload through the local Tailscale Funnel.
+  allowedDevOrigins: ['ankeshs-macbook-pro-m5.tail16aae.ts.net'],
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -66,6 +68,15 @@ const nextConfig = {
         ],
       },
       {
+        source: '/api/og/plugin',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=0, s-maxage=86400, stale-while-revalidate=86400',
+          },
+        ],
+      },
+      {
         source: '/install.sh',
         headers: [
           {
@@ -78,10 +89,20 @@ const nextConfig = {
         source: `/${file}`,
         headers: brandingCacheControlHeaders,
       })),
+      // Content hashes in these URLs make long-lived browser/CDN caching safe.
+      ...['tiles-demo.48de4a8b.mp4', 'tiles-demo.8492c6fd.webm', 'tiles-demo-poster.2a1af717.webp'].map((file) => ({
+        source: `/${file}`,
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      })),
     ]
   },
   async redirects() {
     return [
+      {
+        source: '/blog/tiles-privacy-mozilla-foundation-funding',
+        destination: '/blog/tiles-joins-mozilla-ai-incubator',
+        permanent: true,
+      },
       {
         source: '/book/modelfile',
         destination: '/book/tilekit#modelfile',
@@ -102,11 +123,11 @@ const nextConfig = {
         destination: '/releases',
         permanent: true,
       },
-      {
-        source: '/book/mir',
-        destination: '/book/tilekit#mir-extension',
-        permanent: true,
-      },
+      // {
+      //   source: '/book/mir',
+      //   destination: '/book/tilekit#mir-extension',
+      //   permanent: true,
+      // },
       {
         source: '/book/acknowledgements',
         destination: '/book/opensource',

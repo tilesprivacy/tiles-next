@@ -1,13 +1,22 @@
 import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { getLatestDownloadArtifact } from '@/lib/download-artifact'
+import { getCanaryRelease } from '@/lib/canary-release'
 import {
+  CANARY_RELEASE_URL,
+  CANARY_RELEASE_DESCRIPTION,
   OFFLINE_INSTALLER,
   OFFLINE_MODEL_NAME,
 } from '@/lib/download-page-data'
-import { getPersonById } from '@/lib/people'
+import { getPersonById, people } from '@/lib/people'
+import { ownYourAiTalkRecording } from '@/lib/own-your-ai-talk'
+import { ownYourAiBlogContent as indiaFoss2026TalkContent } from '@/lib/own-your-ai-draft-talk'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getResourceLinks, type ResourceLink } from '@/lib/resource-links'
+import {
+  INDIAFOSS_GIVEAWAY_ARCHIVE,
+  getIndiaFossGiveawayArchiveLines,
+} from '@/lib/indiafoss-giveaway-archive'
 import fs from 'fs'
 import path from 'path'
 
@@ -26,12 +35,16 @@ function stripHtml(html: string): string {
 
 function sanitizeMdxText(mdx: string): string {
   return mdx
+    // Exclude temporarily hidden MDX sections from the public text export.
+    .replace(/\{\/\*[\s\S]*?\*\/\}/g, '')
     .replace(/^---[\s\S]*?---\n?/, '')
+    .replace(/^import\s+.*$/gm, '')
+    .replace(/<Image[\s\S]*?\/>/g, '')
     // Keep code block contents (CLI commands the AI search answers rely on);
     // strip only the fences and their info string.
     .replace(/```[^\n]*\n([\s\S]*?)```/g, '$1')
     .replace(/`([^`]+)`/g, '$1')
-    .replace(/\[(.*?)\]\((.*?)\)/g, '$1')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '$1 ($2)')
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean)
@@ -108,6 +121,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url)
   const baseUrl = `${url.protocol}//${url.host}`
   const networkArtifact = await getLatestDownloadArtifact()
+  const canaryRelease = await getCanaryRelease()
   const offlineChecksumUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
   const bookPages = readBookPages()
 
@@ -128,16 +142,18 @@ export async function GET(request: Request) {
   pushSection(lines, `Homepage (${baseUrl}/)`, [
     'Tiles',
     TILES_PRODUCT_DESCRIPTION,
+    'Backed by Mozilla Foundation: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/cohort/',
     'Hero subtext: For sensitive knowledge work or personal tasks, your AI shouldn’t require trusting a third party with your conversations and intellectual property. Run models locally, sync chats P2P, and use social features built on AT Protocol. Tiles gives you user-owned keys for your digital life with DIDs and UCANs, so your data and identity truly remain yours.',
-    'Current status: CLI alpha.',
+    'Current status: Public alpha for macOS and Linux.',
     'Feature: Use local models on remote devices with `tiles remote share`; start the remote inference server with `tiles server start`, generate a share ticket, then run `tiles --remote <ticket>` on the device intending to use remote inference.',
     'Feature (coming soon): Every chat is a sandbox — resume or share chats as sandboxed environments with friends or agents across devices.',
     'Why Tiles: sensitive knowledge work stays private on your machines, with secure collaboration built in; out-of-the-box on first open without API keys, model or harness selection, sync sessions and work across devices without leaking data to a cloud vendor, share chats publicly or privately without copy-pasting threads elsewhere, sovereignty over your online identity and data with DID and UCAN for local control and ATproto for social features, use models on remote machines as if they were local, Offline Installer bundles the model for air-gapped use.',
     'Use cases: Individuals plan finances, track health notes, and journal privately, run models locally, sync across devices, and share only when they choose. Coworking spaces turn shared compute into private AI infrastructure so members can use local models from their own devices while keeping identity and data private. Researchers review literature, analyze datasets, and run agents in preconfigured, resumable research sandboxes. Enterprises deploy private agentic systems powered by open frontier models, secure users and agents with zero-trust authentication and authorization, simplify team management, and reduce infrastructure and model costs.',
-    'Platform support: Apple Silicon (M1+), Linux.',
+    'Platform support: Apple Silicon, Linux.',
   ])
 
   pushSection(lines, `Download (${baseUrl}/download)`, [
+    'macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app.',
     'Network installer for macOS:',
     networkArtifact.downloadUrl,
     `Version: ${networkArtifact.version}`,
@@ -149,10 +165,19 @@ export async function GET(request: Request) {
     `Size: ${OFFLINE_INSTALLER.binarySizeLabel}`,
     `SHA256: ${OFFLINE_INSTALLER.sha256}`,
     `SHA256 file: ${offlineChecksumUrl}`,
+    '',
+    `Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
+    CANARY_RELEASE_DESCRIPTION,
+    'Linux: Install the canary version with curl -LsSf https://www.tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress.',
+    ...(canaryRelease ? [
+      ...canaryRelease.assets.map(asset => `${asset.name}: ${asset.browser_download_url}`),
+      canaryRelease.body || '',
+    ] : []),
   ])
 
   pushSection(lines, `Plugins (${baseUrl}/plugins)`, [
-    'Workflow plugins from the public Tiles plugin archive.',
+    'Tiles supports the open Agent Plugins standard for portable workflow plugins: https://agent-plugins.org/.',
+    'Agent Plugins use a root plugin.json manifest and can include Agent Skills under skills/, MCP servers in mcp.json, and client-specific extensions in reverse-domain directories.',
     'Current install pattern:',
     'tiles plugin install https://download.tiles.run/plugins/caldir.zip',
     'Plugins are distributed as zip files under https://download.tiles.run/plugins/.',
@@ -173,13 +198,55 @@ export async function GET(request: Request) {
     'Support FAQ: include Tiles version, operating system version, exact output, screenshots if useful, and the shortest reproduction steps for bug reports. Feature requests should include workflow context, current workaround, and the outcome you want. Discord is used because the team is doing what it can with what it has, meeting people on their level while building something better. Releases has all versions and download links. Download has the latest version. Status has service availability.',
   ])
 
-  pushSection(lines, `Sponsor (${baseUrl}/sponsor)`, [
-    'Help keep Tiles Privacy independent.',
+  pushSection(lines, `Press Kit (${baseUrl}/press-kit)`, [
+    'Tiles press kit',
+    'Editorial summary, brand files, screenshots, company details, and contact details for writing about Tiles.',
+    TILES_PRODUCT_DESCRIPTION,
+    'Tiles runs open models on your own device, so your conversations and data stay with you. Peer-to-peer encrypted sync connects your devices without a central server, and social features are built on the AT Protocol. Identity is user-owned through locally generated DIDs and UCANs, so your data and identity remain yours.',
+    'Tiles is in public alpha for macOS and Linux. It is built by Tiles Privacy Technologies Pvt. Ltd., an independent team based in Bengaluru, India.',
+    '',
+    'Company details:',
+    'Legal name: Tiles Privacy Technologies Pvt. Ltd.',
+    'GSTIN: 29AANCT5152A1ZB',
+    'PAN: AANCT5152A',
+    'CIN: U58200KA2026PTC226312',
+    'TAN: BLRT28790G',
+    '',
+    'Contact:',
+    'Press and general inquiries: hello@tiles.run',
+    'Phone: +91 7338014129',
+    'Address: WeWork Prestige Atlanta, 80 Feet Rd, Koramangala, Bengaluru, IN 560034',
+    '',
+    `Brand assets: ${baseUrl}/tiles-brand-assets.zip`,
+    `Brand guidelines: ${baseUrl}/brand`,
+    `Background talk: ${ownYourAiTalkRecording.watchUrl}`,
+    `Adapted blog post: ${baseUrl}/blog/own-your-ai`,
+    'Product screenshots: Tiles App, Menu bar app, shared conversation, and Tiles CLI.',
+  ])
+
+  pushSection(lines, `About (${baseUrl}/about)`, [
+    'About Tiles Privacy.',
     'Our mission is to build software that gives people greater agency, control, and choice in their digital lives. We believe that privacy adoption at scale must work backwards from preserving utility. This means negligible impact on user experience, model intelligence, throughput, latency, tool use & agentic capabilities, and web access.',
+    'We’re proud to be one of three anchor projects in the Mozilla Foundation’s new Human-Scale AI incubator cohort, backed by $300,000 in non-dilutive funding to help advance our mission.',
+    'Human-Scale AI incubator cohort: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/',
     'Tiles was born from the discussions in User & Agents (https://www.userandagents.org), a community focused on shaping the future of user-agent systems. We are also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.',
     'Tiles Privacy is built by a small independent team of three: Ankesh Bharti, Anandu Pavanan, and Prashant Mishra.',
-    'We are grateful to the organizations supporting our work financially through our Partner Program, and to everyone who has supported our projects through GitHub Sponsors and cryptocurrency donations.',
+    'The project is advised by Boris Mann, Dietrich Ayala, and Gordon Brander.',
+    'Sponsor Tiles Privacy. Support a small team building private, local-first AI that preserves user agency.',
+    'We are grateful to the individuals and organizations who support our work financially, including through GitHub Sponsors and cryptocurrency donations.',
+    ...people.sponsorsActive.map((person) =>
+      `Current sponsor: ${person.name}${person.links[0] ? ` (${person.links[0]})` : ''}.`,
+    ),
     'GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
+    'Current recurring sponsorship: $1,350/month.',
+  ])
+
+  pushSection(lines, `Tiles at India FOSS (${baseUrl}/tiles-at-india-foss)`, [
+    'Tiles at India FOSS',
+    'Speaker: Ankesh Bharti',
+    'Presented at IndiaFOSS 2026 in Bengaluru.',
+    'Slides and speaker-note transcript:',
+    stripHtml(indiaFoss2026TalkContent),
   ])
 
   const publishedPosts = getPublishedBlogPosts()
@@ -218,6 +285,11 @@ export async function GET(request: Request) {
     pushSection(lines, `Book: ${page.title} (${pageUrl})`, [page.content])
   }
 
+  pushSection(lines, `${INDIAFOSS_GIVEAWAY_ARCHIVE.sectionTitle} archive`, [
+    ...getIndiaFossGiveawayArchiveLines(baseUrl),
+    `Source page: ${baseUrl}/book/community#community-initiatives`,
+  ])
+
   const resourceLinks = getResourceLinks()
   if (resourceLinks.length > 0) {
     pushSection(
@@ -232,8 +304,9 @@ export async function GET(request: Request) {
     `- Terms: ${baseUrl}/terms`,
     `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 7-day money-back guarantee on the initial subscription payment.`,
     `- Research: ${baseUrl}/book/research`,
-    `- Sponsor: ${baseUrl}/sponsor`,
+    `- About and sponsorship: ${baseUrl}/about`,
     `- Help: ${baseUrl}/help`,
+    `- Press Kit: ${baseUrl}/press-kit`,
     `- Brand: ${baseUrl}/brand`,
     `- Releases: ${baseUrl}/releases`,
     `- Sub-processors: ${baseUrl}/sub-processors`,

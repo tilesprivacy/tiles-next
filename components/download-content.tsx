@@ -4,13 +4,15 @@ import { useState } from "react"
 import Link from "next/link"
 import { Check, Copy, Download } from "lucide-react"
 import { FaApple, FaLinux } from "react-icons/fa6"
+import {
+  CanaryDownloadAction,
+  useCanaryRelease,
+} from "@/components/canary-release-content"
 import { MinimalTopbar } from "@/components/minimal-topbar"
 import { SiteFooter } from "@/components/site-footer"
-import { LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
+import type { CanaryReleaseData } from "@/lib/canary-release"
+import { LINUX_CANARY_INSTALL_COMMAND, LINUX_INSTALL_COMMAND, OFFLINE_INSTALLER } from "@/lib/download-page-data"
 import {
-  LATEST_RELEASE_DATE_ISO,
-  LATEST_RELEASE_DATE_LABEL,
-  LATEST_RELEASE_SECTIONS,
   LATEST_RELEASE_TITLE,
   LATEST_RELEASE_VERSION,
 } from "@/lib/latest-release-copy"
@@ -32,19 +34,20 @@ interface DownloadMetadata {
 
 export function DownloadContent({
   initialDownload,
-  initialLatestReleaseVersion,
+  initialCanaryRelease,
 }: {
   initialDownload?: DownloadMetadata
-  initialLatestReleaseVersion?: string | null
+  initialCanaryRelease: CanaryReleaseData | null
   sponsorsGoal?: SponsorsGoalData
 }) {
-  const [copied, setCopied] = useState(false)
-  const copyLinuxCommand = () => {
+  const [copied, setCopied] = useState<string | null>(null)
+  const canaryRelease = useCanaryRelease(initialCanaryRelease)
+  const copyLinuxCommand = (command: string) => {
     // navigator.clipboard is missing or rejects in some browsers/webviews;
     // fall back to a hidden textarea so the copy still lands.
     const copyWithTextArea = () => {
       const textArea = document.createElement("textarea")
-      textArea.value = LINUX_INSTALL_COMMAND
+      textArea.value = command
       textArea.style.position = "fixed"
       textArea.style.opacity = "0"
       document.body.appendChild(textArea)
@@ -56,14 +59,12 @@ export function DownloadContent({
     if (!navigator.clipboard?.writeText) {
       copyWithTextArea()
     } else {
-      void navigator.clipboard.writeText(LINUX_INSTALL_COMMAND).catch(copyWithTextArea)
+      void navigator.clipboard.writeText(command).catch(copyWithTextArea)
     }
 
-    setCopied(true)
-    window.setTimeout(() => setCopied(false), 1400)
+    setCopied(command)
+    window.setTimeout(() => setCopied(null), 1400)
   }
-  const latestReleaseVersion =
-    initialLatestReleaseVersion?.replace(/^v/i, "") || LATEST_RELEASE_VERSION
   const networkInstallerReleaseLabel =
     initialDownload?.version === LATEST_RELEASE_VERSION
       ? LATEST_RELEASE_TITLE
@@ -82,16 +83,20 @@ export function DownloadContent({
           </header>
 
           <section className="minimal-download-platform" aria-labelledby="macos-heading">
+            <p className="minimal-download-detail mb-6">
+              The network and offline installers include only the CLI. The Canary
+              version includes a desktop app and a menu bar app.
+            </p>
             <h2 id="macos-heading">
               <FaApple className="minimal-download-platform-icon" aria-hidden />
               macOS
             </h2>
-            <p>Apple Silicon (M1+) · macOS 14+ · 16 GB unified memory recommended</p>
+            <p>Apple Silicon · macOS 14+ · 16 GB unified memory recommended</p>
             {/*
               One stanza per installer: the action (with its Recommended tag),
               then a one-line caption underneath naming the route and its size.
               The longer offline explanation lives in the detail paragraph
-              below the pair, scoped by the same flag as the offline action.
+              below the actions, scoped by the same flag as the offline action.
             */}
             <div className="minimal-download-actions">
               <div className="minimal-download-option">
@@ -124,7 +129,7 @@ export function DownloadContent({
               {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
                 <div className="minimal-download-option">
                   <a
-                    className={`group minimal-secondary-button minimal-download-action minimal-download-action--secondary ${downloadButtonMotionClasses}`}
+                    className={`group minimal-primary-button minimal-download-action ${themeAwareHeaderPrimaryCtaClasses} ${downloadButtonMotionClasses}`}
                     href={OFFLINE_INSTALLER.downloadUrl}
                   >
                     <span>Download offline installer</span>
@@ -138,6 +143,7 @@ export function DownloadContent({
                   </span>
                 </div>
               ) : null}
+              <CanaryDownloadAction release={canaryRelease} />
             </div>
             {SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE ? (
               <p className="minimal-download-detail">
@@ -181,40 +187,26 @@ export function DownloadContent({
               Linux
             </h2>
             <p>16 GB VRAM recommended</p>
-            <button className="minimal-command" type="button" onClick={copyLinuxCommand}>
+            <button className="minimal-command" type="button" onClick={() => copyLinuxCommand(LINUX_INSTALL_COMMAND)}>
               <code>{LINUX_INSTALL_COMMAND}</code>
-              {copied ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
+              {copied === LINUX_INSTALL_COMMAND ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
             </button>
             <p className="minimal-note">Paste this command in your terminal.</p>
+            <p className="minimal-note">
+              Canary, for early testers: the latest build of the canary branch, which can be unstable.
+              The chat opens in your browser at <code>http://127.0.0.1:1729</code>.
+            </p>
+            <button className="minimal-command" type="button" onClick={() => copyLinuxCommand(LINUX_CANARY_INSTALL_COMMAND)}>
+              <code>{LINUX_CANARY_INSTALL_COMMAND}</code>
+              {copied === LINUX_CANARY_INSTALL_COMMAND ? <Check aria-label="Copied" /> : <Copy aria-label="Copy command" />}
+            </button>
+            <p className="minimal-note">The offline installer for Linux is a work in progress.</p>
           </section>
 
           <p className="minimal-legal">
             By downloading and using Tiles, you agree to the <Link href="/terms">terms</Link> and <Link href="/privacy">privacy statement</Link>.
           </p>
 
-          <section className="minimal-download-platform" aria-labelledby="latest-release-heading">
-            <h2 id="latest-release-heading">Latest release</h2>
-            <p>
-              {LATEST_RELEASE_TITLE} · Version {latestReleaseVersion}
-              <br />
-              Released <time dateTime={LATEST_RELEASE_DATE_ISO}>{LATEST_RELEASE_DATE_LABEL}</time>
-            </p>
-            <div className="minimal-download-release-notes">
-              {LATEST_RELEASE_SECTIONS.map((section) => (
-                <div key={section.title}>
-                  <h3>{section.title}</h3>
-                  <ul>
-                    {section.changes.map((change) => (
-                      <li key={change.text}>{change.text}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-            <p className="minimal-note">
-              <Link href={`/releases#${latestReleaseVersion}`}>View full release details</Link>.
-            </p>
-          </section>
         </article>
       </main>
       <SiteFooter showDownloadCta={false} />

@@ -1,8 +1,15 @@
+import { SHOW_PRICING } from '@/lib/feature-flags'
 import { NextResponse } from 'next/server'
 import { getPublishedBlogPosts } from '@/lib/blog-posts'
 import { TILES_PRODUCT_DESCRIPTION } from '@/lib/product-description'
 import { getTilesPlugins } from '@/lib/plugins'
+import { CANARY_RELEASE_DESCRIPTION, CANARY_RELEASE_URL } from '@/lib/download-page-data'
 import { sponsorPageTeamSentence } from '@/lib/sponsor-page-people'
+import { people } from '@/lib/people'
+import {
+  INDIAFOSS_GIVEAWAY_ARCHIVE,
+  getIndiaFossGiveawayArchiveLines,
+} from '@/lib/indiafoss-giveaway-archive'
 import fs from 'fs'
 import path from 'path'
 
@@ -67,6 +74,7 @@ export async function GET(request: Request) {
   lines.push('## Overview')
   lines.push('')
   lines.push(TILES_PRODUCT_DESCRIPTION)
+  lines.push('Backed by Mozilla Foundation: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/cohort/')
   lines.push('')
   lines.push(
     'Tiles is built by Tiles Privacy, an independent team devoted to user agency. The website focuses on the public alpha, product documentation, plugins, release notes, support, sponsorship, and legal information.',
@@ -85,33 +93,49 @@ export async function GET(request: Request) {
   addSection(lines, 'Primary Pages', [
     `- Homepage: ${baseUrl}/`,
     `- Download: ${baseUrl}/download`,
+    '  macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app.',
+    `- Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
+    `  ${CANARY_RELEASE_DESCRIPTION}`,
+    'Linux: Install the canary version with curl -LsSf https://www.tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress.',
     `- Book: ${baseUrl}/book`,
     `- Plugins: ${baseUrl}/plugins`,
-    `- Pricing: ${baseUrl}/pricing`,
+    ...(SHOW_PRICING ? [`- Pricing: ${baseUrl}/pricing`] : []),
     `- Blog: ${baseUrl}/blog`,
     `- Releases: ${baseUrl}/releases`,
     `- Help: ${baseUrl}/help`,
-    `- Sponsor: ${baseUrl}/sponsor`,
+    `- About: ${baseUrl}/about`,
+    `- Tiles at India FOSS: ${baseUrl}/tiles-at-india-foss`,
   ])
 
-  addSection(lines, 'Sponsor', [
-    `- Sponsor page: ${baseUrl}/sponsor`,
-    '- Support Tiles Privacy and help fund private, local-first AI.',
+  addSection(lines, 'About', [
+    `- About page: ${baseUrl}/about`,
+    '- Learn about Tiles Privacy, the team and advisors behind it, and how to support the project.',
+    'We’re proud to be one of three anchor projects in the Mozilla Foundation’s new Human-Scale AI incubator cohort, backed by $300,000 in non-dilutive funding to help advance our mission.',
+    'Human-Scale AI incubator cohort: https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/',
     `- ${sponsorPageTeamSentence}`,
+    ...people.sponsorsActive.map((person) =>
+      `- Current sponsor: ${person.name}${person.links[0] ? ` (${person.links[0]})` : ''}.`,
+    ),
     '- GitHub Sponsors: https://github.com/sponsors/tilesprivacy',
+    '- Current recurring sponsorship: $1,350/month.',
   ])
 
   addSection(
     lines,
     'Documentation',
-    bookPages.map((page) => {
-      const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
-      return `- ${page.title}: ${pageUrl} - ${page.description}`
-    }),
+    [
+      ...bookPages.map((page) => {
+        const pageUrl = page.slug ? `${baseUrl}/book/${page.slug}` : `${baseUrl}/book`
+        return `- ${page.title}: ${pageUrl} - ${page.description}`
+      }),
+      `- ${INDIAFOSS_GIVEAWAY_ARCHIVE.sectionTitle} archive:`,
+      ...getIndiaFossGiveawayArchiveLines(baseUrl).map((line) => `  - ${line}`),
+    ],
   )
 
   addSection(lines, 'Plugins', [
     `- Plugin index: ${baseUrl}/plugins`,
+    '- Standard: https://agent-plugins.org/ - Tiles follows the open Agent Plugins standard for portable skills and MCP servers.',
     ...plugins.map((plugin) => `- ${plugin.name}: ${baseUrl}/plugins/${plugin.slug} - ${plugin.description}`),
   ])
 
@@ -125,13 +149,14 @@ export async function GET(request: Request) {
     `- Terms: ${baseUrl}/terms`,
     `- Refund Policy: ${baseUrl}/refund-policy - Tiles Pro includes a 7-day money-back guarantee on the initial subscription payment.`,
     `- Subprocessors: ${baseUrl}/sub-processors`,
+    `- Press Kit: ${baseUrl}/press-kit - Product background, company details, press contact, brand files, and current product screenshots.`,
     `- Brand: ${baseUrl}/brand`,
     `- AI-readable website index: ${baseUrl}/llms.txt`,
   ])
 
   addSection(lines, 'External Links', [
     'These links are visible from the website footer or support page.',
-    '- Discord: https://go.tiles.run/discord',
+    '- Discord: https://discord.gg/PPSjcpZzvt',
     '- GitHub organization: https://github.com/tilesprivacy',
     '- X / Twitter: https://x.com/tilesprivacy',
     '- Bluesky: https://bsky.app/profile/tiles.run',

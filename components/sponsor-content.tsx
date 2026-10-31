@@ -6,13 +6,61 @@ import { SiteFooter } from "@/components/site-footer"
 import { SocialIcon } from "@/components/social-links"
 import { SponsorUsdtDonateButton } from "@/components/sponsor-usdt-donate-button"
 import { people, splitPersonDisplayName } from "@/lib/people"
+import { sponsorPageAdvisors } from "@/lib/sponsor-page-people"
 
-interface SponsorContentProps {
-  sponsorsGoal: {
-    goalAmountMonthly: string | null
-    progressPercent: string | null
-  }
-}
+const aboutTeam = [
+  {
+    name: "Ankesh Bharti",
+    employmentType: "FTE",
+    username: "@feynon",
+    role: "CEO & Founder",
+    href: "https://ankeshbharti.com",
+    links: [
+      "https://ankeshbharti.com",
+      "https://github.com/feynon",
+    ],
+  },
+  {
+    name: "Prashant Mishra",
+    employmentType: "FTE",
+    username: "@primalpimmy",
+    role: "CTO",
+    href: "https://pimtron.dev",
+    links: ["https://pimtron.dev"],
+  },
+  {
+    name: "Anandu Pavanan",
+    employmentType: "FTE",
+    username: "@madclaws",
+    role: "Member of Technical Staff",
+    href: "https://github.com/madclaws",
+    links: ["https://github.com/madclaws"],
+  },
+  {
+    name: "Lakshita Arora",
+    employmentType: "FTE",
+    username: "@lexoskeletal",
+    role: "Product & Brand Designer",
+    href: "https://www.behance.net/lexoskeletal",
+    links: ["https://github.com/lexoskeletal"],
+  },
+  {
+    name: "Harsh Sharma",
+    employmentType: "Part Time",
+    username: "@codelif",
+    role: "Paid Open Source Contributor",
+    href: "https://codelif.in/",
+    links: ["https://github.com/codelif"],
+  },
+  {
+    name: "Rishvik Pandra",
+    employmentType: "Part Time",
+    username: "@rishvikpandra",
+    role: "Governance, Risk and Compliance Consultant",
+    href: "https://www.linkedin.com/in/rishvikpandra",
+    links: ["https://www.linkedin.com/in/rishvikpandra"],
+  },
+]
 
 function SponsorList({
   title,
@@ -29,6 +77,7 @@ function SponsorList({
       </div>
       {entries.map((person) => {
         const isAnonymous = "anonymous" in person && person.anonymous
+        const profileUrl = isAnonymous ? null : person.links[0]
         const { nameWithoutHandle, handle } = splitPersonDisplayName(
           isAnonymous ? "Anonymous sponsor" : person.name,
         )
@@ -41,7 +90,18 @@ function SponsorList({
                 className="minimal-sponsor-avatar"
               />
               <span className="minimal-sponsor-name inline-flex min-w-0 flex-1 items-baseline !gap-1 overflow-hidden text-ellipsis whitespace-nowrap leading-tight">
-                <strong className="truncate">{nameWithoutHandle}</strong>
+                {profileUrl ? (
+                  <a
+                    className="minimal-sponsor-name-link min-w-0 truncate"
+                    href={profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <strong>{nameWithoutHandle}</strong>
+                  </a>
+                ) : (
+                  <strong className="truncate">{nameWithoutHandle}</strong>
+                )}
               </span>
               {handle ? (
                 <small className="minimal-sponsor-handle max-w-[44%] shrink-0 truncate text-right">
@@ -62,63 +122,53 @@ function SponsorList({
   )
 }
 
-export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
-  const progress = sponsorsGoal.progressPercent
-    ? `${sponsorsGoal.progressPercent.replace(/%$/, "")}%`
-    : "95%"
+export function SponsorContent() {
   return (
     <div className="minimal-product-page">
       <MinimalTopbar />
       <main className="minimal-inner-page minimal-sponsor-page">
         <article className="minimal-inner-content">
           <header className="minimal-page-intro !mb-8">
-            <h1>Help keep Tiles Privacy independent.</h1>
-            <p>
-              Support a small team building private, local-first AI that
-              preserves user agency.
-            </p>
+            <h1>About Tiles Privacy</h1>
           </header>
 
-          <section className="minimal-sponsor-funding-band">
-            <div className="minimal-funding">
-              <div>
-                <strong>{progress}</strong>
-                <span>
-                  {sponsorsGoal.goalAmountMonthly || "$1,500 per month"}
-                </span>
-              </div>
-              <p>Baseline funding to support three full time contributors.</p>
-              <div className="minimal-progress">
-                <span style={{ width: progress }} />
-              </div>
-              <div className="minimal-sponsor-actions">
-                <a
-                  className="minimal-primary-button"
-                  href="https://github.com/sponsors/tilesprivacy"
-                >
-                  <SocialIcon
-                    type="github"
-                    className="minimal-sponsor-button-icon"
-                  />
-                  Sponsor on GitHub
-                </a>
-                <SponsorUsdtDonateButton />
-              </div>
-              <p className="minimal-note">
-                Our <Link href="/book/finances">finances are open</Link>: we
-                publish what we earn and what we spend every month.
-              </p>
-            </div>
-          </section>
-
-          <section className="minimal-section minimal-sponsor-copy">
+          <section className="minimal-section minimal-about-copy">
             <p>
               Our mission is to build software that gives people greater
               agency, control, and choice in their digital lives. We believe
               that privacy adoption at scale must work backwards from
               preserving utility. This means negligible impact on user
-              experience, model intelligence, throughput, latency, tool use
-              &amp; agentic capabilities, and web access.
+              experience, model intelligence, agentic capabilities, and web
+              access.
+            </p>
+            <p>
+              We’re proud to be one of three anchor projects in the{" "}
+              <span className="whitespace-nowrap">
+                <Image
+                  src="/mozilla-foundation-logo.svg"
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="relative -top-0.5 mr-1 inline-block h-3.5 w-3.5 object-cover object-left align-text-bottom dark:hidden"
+                />
+                <Image
+                  src="/mozilla-foundation-logo-dark.svg"
+                  alt=""
+                  width={14}
+                  height={14}
+                  className="relative -top-0.5 mr-1 hidden h-3.5 w-3.5 object-cover object-left align-text-bottom dark:inline-block"
+                />
+                Mozilla Foundation’s
+              </span>{" "}
+              new{" "}
+              <a
+                href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/"
+                className="!inline"
+              >
+                Human-Scale AI incubator cohort
+              </a>
+              , backed by $300,000 in non-dilutive funding to help advance our
+              mission.
             </p>
             <p>
               Tiles was born from the discussions in{" "}
@@ -144,65 +194,145 @@ export function SponsorContent({ sponsorsGoal }: SponsorContentProps) {
               digital ecosystem for Europe.
             </p>
             <p>We’re a small independent team based out of Bengaluru, India.</p>
-            <div className="minimal-team">
-              {people.contributorsCore.map((person) => {
-                const { nameWithoutHandle } = splitPersonDisplayName(
-                  person.name,
+          </section>
+
+          <section
+            id="team"
+            className="minimal-section minimal-team-section scroll-mt-28"
+          >
+            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
+              <h2>Team</h2>
+              <span>{aboutTeam.length}</span>
+            </div>
+            <figure className="mb-8 overflow-hidden rounded-xl sm:mb-10">
+              <Image
+                src="/team.webp"
+                alt="The five members of the Tiles Privacy team standing together outdoors."
+                width={1600}
+                height={1200}
+                sizes="(max-width: 775px) calc(100vw - 40px), 736px"
+                className="h-auto w-full"
+              />
+            </figure>
+            <div className="space-y-8">
+              {["FTE", "Part Time"].map((employmentType) => (
+                <section key={employmentType} aria-label={employmentType}>
+                  <h3 className="mb-4 text-sm font-medium">{employmentType}</h3>
+                  <div className="minimal-team !mt-0">
+                    {aboutTeam
+                      .filter((person) => person.employmentType === employmentType)
+                      .map((person) => (
+                        <a
+                          key={person.username}
+                          href={person.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <PersonAvatar name={person.name} links={person.links} />
+                          <span className="minimal-team-identity">
+                            <span className="minimal-team-name">
+                              <span className="minimal-team-name-link">
+                                {person.name}
+                              </span>{" "}
+                              <small>{person.username}</small>
+                            </span>
+                            <span className="minimal-team-role">{person.role}</span>
+                          </span>
+                        </a>
+                      ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          </section>
+
+          <section
+            id="advisors"
+            className="minimal-section minimal-advisors-section scroll-mt-28"
+          >
+            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
+              <h2>Advisors</h2>
+              <span>{sponsorPageAdvisors.length}</span>
+            </div>
+            <div className="minimal-advisors-grid">
+              {sponsorPageAdvisors.map((advisor) => {
+                const { nameWithoutHandle, handle } = splitPersonDisplayName(
+                  advisor.name,
                 )
-                const teamProfile = {
-                  "ankesh-bharti": {
-                    username: "@feynon",
-                    href: "https://ankeshbharti.com",
-                  },
-                  "anandu-pavanan": {
-                    username: "@madclaws",
-                    href: "https://github.com/madclaws",
-                  },
-                  "prashant-mishra": {
-                    username: "@primalpimmy",
-                    href: "https://pimtron.dev",
-                  },
-                }[person.id]
                 return (
-                  <a
-                    key={person.id}
-                    href={teamProfile?.href ?? person.links[0]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <PersonAvatar name={person.name} links={person.links} />
-                    <span>
-                      {nameWithoutHandle} <small>{teamProfile?.username}</small>
-                    </span>
-                  </a>
+                  <article key={advisor.id} className="minimal-advisor-card">
+                    <a
+                      className="minimal-advisor-profile"
+                      href={advisor.links[0]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <PersonAvatar
+                        name={advisor.name}
+                        links={advisor.links}
+                        className="minimal-advisor-avatar"
+                      />
+                      <span>
+                        <strong>{nameWithoutHandle}</strong>
+                        {handle ? <small>{handle}</small> : null}
+                      </span>
+                    </a>
+                    <ul>
+                      {advisor.roles.map((role) => (
+                        <li key={role}>{role}</li>
+                      ))}
+                    </ul>
+                  </article>
                 )
               })}
             </div>
           </section>
 
+          <section
+            id="sponsor"
+            className="minimal-page-intro minimal-sponsor-cta-intro scroll-mt-28"
+          >
+            <h2>Sponsor Tiles Privacy</h2>
+            <p>
+              Support a small team building private, local-first AI that
+              preserves user agency.
+            </p>
+          </section>
+
+          <section className="minimal-sponsor-funding-band">
+            <div className="minimal-funding">
+              <div className="flex-wrap">
+                <strong>$1,350/month</strong>
+                <span>in recurring sponsorship</span>
+              </div>
+              <div className="minimal-sponsor-actions">
+                <a
+                  className="minimal-primary-button"
+                  href="https://github.com/sponsors/tilesprivacy"
+                >
+                  <SocialIcon
+                    type="github"
+                    className="minimal-sponsor-button-icon"
+                  />
+                  Sponsor on GitHub
+                </a>
+                <SponsorUsdtDonateButton />
+              </div>
+              <p className="minimal-note">
+                Our <Link href="/book/finances">finances are open</Link>: we
+                publish what we earn and what we spend every month.
+              </p>
+            </div>
+          </section>
+
           <p className="minimal-partner-intro">
-            We are grateful to the organizations supporting our work financially
-            through our Partner Program, and to everyone who has supported our
-            project through{" "}
+            We are grateful to the individuals and organizations who support
+            our work financially, including through{" "}
             <a href="https://github.com/sponsors/tilesprivacy">
               GitHub Sponsors
             </a>{" "}
             and cryptocurrency donations.
           </p>
-
-          <section className="minimal-section minimal-partners-section">
-            <div className="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
-              <h2>Partners</h2>
-              <span>1</span>
-            </div>
-            <a className="minimal-partner" href="https://solpbc.org/">
-              <Image src="/sol-pbc.svg" alt="Sol PBC" width={44} height={44} />
-              <span>
-                <strong className="font-normal">Sol PBC</strong>
-                <small>solpbc.org</small>
-              </span>
-            </a>
-          </section>
 
           <div className="minimal-sponsor-grid">
             <SponsorList

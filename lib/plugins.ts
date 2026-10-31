@@ -1,3 +1,6 @@
+import foldManifest from "@/public/plugins/fold/plugin.json"
+import foldMcpManifest from "@/public/plugins/fold/mcp.json"
+
 export interface TilesPlugin {
   slug: string
   name: string
@@ -5,6 +8,11 @@ export interface TilesPlugin {
   fileName: string
   downloadUrl: string
   installCommand: string
+  installMethod?: "cli"
+  showCliInstall?: boolean
+  builtIn?: boolean
+  documentationUrl?: string
+  requirements?: string
   sizeLabel?: string
   updatedAt?: string
 }
@@ -15,20 +23,172 @@ export interface TilesPluginSkill {
   sourceUrl: string
 }
 
+export interface TilesPluginMetadataField {
+  key: string
+  value: string
+  href?: string
+}
+
+export interface TilesPluginMetadata {
+  fields: TilesPluginMetadataField[]
+  sourceUrl: string
+}
+
+export interface TilesPluginMcpServer {
+  name: string
+  type: string
+  endpoint?: string
+  sourceUrl: string
+}
+
 const PLUGIN_BASE_URL = "https://download.tiles.run/plugins"
 const PLUGIN_PREFIX = "plugins/"
 const PLUGIN_SOURCE_BASE_URL = "https://github.com/tilesprivacy/plugins/tree/main"
 const PLUGIN_SOURCE_BLOB_BASE_URL = "https://github.com/tilesprivacy/plugins/blob/main"
-const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins/main"
-const FALLBACK_PLUGIN_FILES = ["caldir.zip", "youtube-transcript.zip"]
+const PLUGIN_RAW_BASE_URL = "https://raw.githubusercontent.com/tilesprivacy/plugins"
+// Pin published releases so cached metadata and skill lists advance with the ZIP.
+const PLUGIN_SOURCE_REFS: Record<string, string> = {
+  cloudflare: "93835d1d8867e22545ac1244ce8c8ee61d56bcec", // 1.2.1
+}
+
+function pluginSourceRef(slug: string) {
+  return PLUGIN_SOURCE_REFS[slug] ?? "main"
+}
+
+function pluginRawUrl(slug: string, path: string) {
+  return `${PLUGIN_RAW_BASE_URL}/${pluginSourceRef(slug)}/${slug}/${path}`
+}
+const CLOUDFLARE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/cloudflare.zip`
+const OBSIDIAN_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/obsidian.zip`
+const SOLSTONE_DOWNLOAD_URL = `${PLUGIN_BASE_URL}/solstone.zip`
+const FALLBACK_PLUGIN_FILES = ["caldir.zip"]
+const EXA_PLUGIN: TilesPlugin = {
+  slug: "exa",
+  name: "Exa",
+  description: "Web search and content extraction powered by Exa AI",
+  fileName: "exa.zip",
+  downloadUrl: `${PLUGIN_BASE_URL}/exa.zip`,
+  installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/exa.zip`,
+  showCliInstall: true,
+  documentationUrl: "https://exa.ai/docs/reference/exa-mcp",
+}
+const CLOUDFLARE_PLUGIN: TilesPlugin = {
+  slug: "cloudflare",
+  name: "Cloudflare",
+  description: "Build with Cloudflare’s developer platform and share local inference remotely through Quick Tunnels",
+  fileName: "cloudflare.zip",
+  downloadUrl: CLOUDFLARE_DOWNLOAD_URL,
+  installCommand: `tiles plugin install ${CLOUDFLARE_DOWNLOAD_URL}`,
+  showCliInstall: true,
+  documentationUrl: "https://developers.cloudflare.com/tunnel/get-started/quick-tunnels/",
+  requirements: "Requires cloudflared.",
+}
+const OBSIDIAN_PLUGIN: TilesPlugin = {
+  slug: "obsidian",
+  name: "Obsidian",
+  description: "Search, read, and organize your Obsidian vault with the Obsidian CLI",
+  fileName: "obsidian.zip",
+  downloadUrl: OBSIDIAN_DOWNLOAD_URL,
+  installCommand: `tiles plugin install ${OBSIDIAN_DOWNLOAD_URL}`,
+  showCliInstall: true,
+  documentationUrl: "https://obsidian.md/cli",
+  requirements: "Requires the Obsidian desktop app to be running, with the command line interface enabled and registered in your PATH.",
+}
+const FOLD_PLUGIN: TilesPlugin = {
+  slug: "fold",
+  name: "Fold",
+  description: foldManifest.description,
+  fileName: "fold.zip",
+  downloadUrl: `${PLUGIN_BASE_URL}/fold.zip`,
+  installCommand: `tiles plugin install ${PLUGIN_BASE_URL}/fold.zip`,
+  showCliInstall: true,
+  documentationUrl: "https://fold.money/mcp",
+  requirements: "Requires a Fold Plus annual or Believer plan. Enable MCP in Fold under Profile > Settings > Beta Playground, then connect your Fold account in Tiles.",
+}
+const SOLSTONE_PLUGIN: TilesPlugin = {
+  slug: "solstone",
+  name: "Solstone",
+  description: "Search and read your journal",
+  fileName: "solstone.zip",
+  downloadUrl: SOLSTONE_DOWNLOAD_URL,
+  installCommand: `tiles plugin install ${SOLSTONE_DOWNLOAD_URL}`,
+  showCliInstall: true,
+  documentationUrl: "https://github.com/solpbc/solstone-tiles#connect-tiles-to-your-journal",
+  requirements: "Requires Solstone journal 2.0.24 or later and a Tiles build with plugin support, such as the canary channel, on the same computer. In your journal, open agents > connect an agent and create a pairing code, choosing on this computer if asked. Within 10 minutes, enter /mcp-auth solstone__journal in Tiles chat, then choose what to share and enter the code on the journal page that opens.",
+}
+const FALLBACK_PLUGIN_METADATA: Record<string, Record<string, unknown>> = {
+  caldir: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "caldir",
+    version: "1.0.0",
+    description: "Read, create, edit, and sync calendar events as plaintext .ics files",
+    homepage: "https://caldir.org",
+    keywords: ["calendar", "ics", "caldav"],
+  },
+  cloudflare: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "cloudflare",
+    version: "1.2.1",
+    description: CLOUDFLARE_PLUGIN.description,
+    homepage: "https://developers.cloudflare.com/cf/",
+    author: { name: "Tiles Privacy", url: "https://tiles.run" },
+    repository: "https://github.com/tilesprivacy/plugins",
+    license: "MIT",
+    keywords: ["cloudflare", "workers", "dns", "storage", "cli", "tunnel", "tiles", "inference"],
+  },
+  exa: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "exa",
+    version: "1.0.0",
+    description: "Web search and page fetch",
+    homepage: "https://exa.ai",
+    license: "MIT",
+  },
+  obsidian: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "obsidian",
+    version: "1.0.0",
+    description: OBSIDIAN_PLUGIN.description,
+    homepage: "https://obsidian.md/cli",
+    author: { name: "Tiles Privacy", url: "https://tiles.run" },
+    repository: "https://github.com/tilesprivacy/plugins",
+    license: "MIT",
+    keywords: ["obsidian", "notes", "knowledge-management", "cli"],
+  },
+  solstone: {
+    $schema: "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+    name: "solstone",
+    version: "0.1.1",
+    description: "Search and read your journal from Tiles, on the computer where your journal lives.",
+    homepage: "https://solstone.app",
+    repository: "https://github.com/solpbc/solstone-tiles",
+    license: "AGPL-3.0-only",
+    author: { name: "sol pbc", url: "https://solpbc.org" },
+    keywords: ["solstone", "journal", "memory", "mcp"],
+  },
+}
+const FALLBACK_MCP_SERVERS: Record<string, Record<string, Record<string, unknown>>> = {
+  exa: {
+    search: {
+      type: "streamable-http",
+      url: "https://mcp.exa.ai/mcp",
+    },
+  },
+  solstone: {
+    journal: {
+      type: "streamable-http",
+      url: "http://127.0.0.1:7659/mcp",
+    },
+  },
+}
 
 function titleFromFileName(fileName: string) {
   if (fileName === "caldir.zip") {
     return "Caldir"
   }
 
-  if (fileName === "youtube-transcript.zip") {
-    return "YouTube Transcript"
+  if (fileName === "exa.zip") {
+    return "Exa"
   }
 
   return fileName
@@ -41,14 +201,30 @@ function titleFromFileName(fileName: string) {
 
 function descriptionFromFileName(fileName: string) {
   if (fileName === "caldir.zip") {
-    return "Caldir is a tool for storing your calendar as a directory of ICS files."
+    return "Caldir is a tool for storing your calendar as a directory of ICS files"
   }
 
-  if (fileName === "youtube-transcript.zip") {
-    return "Fetch transcripts from YouTube videos for summarization and analysis."
+  if (fileName === "exa.zip") {
+    return EXA_PLUGIN.description
   }
 
-  return "Install this plugin into Tiles from the public plugin archive."
+  if (fileName === "cloudflare.zip") {
+    return CLOUDFLARE_PLUGIN.description
+  }
+
+  if (fileName === "obsidian.zip") {
+    return OBSIDIAN_PLUGIN.description
+  }
+
+  if (fileName === "fold.zip") {
+    return FOLD_PLUGIN.description
+  }
+
+  if (fileName === "solstone.zip") {
+    return SOLSTONE_PLUGIN.description
+  }
+
+  return "Install this plugin into Tiles from the public plugin archive"
 }
 
 function formatBytes(bytes: number | undefined) {
@@ -75,10 +251,11 @@ function normalizePlugin(fileName: string, metadata: Partial<TilesPlugin> = {}):
   return {
     slug: cleanFileName.replace(/\.zip$/i, ""),
     name: metadata.name ?? titleFromFileName(cleanFileName),
-    description: metadata.description ?? descriptionFromFileName(cleanFileName),
+    description: (metadata.description ?? descriptionFromFileName(cleanFileName)).trim().replace(/\.+$/, ""),
     fileName: cleanFileName,
     downloadUrl,
     installCommand: `tiles plugin install ${downloadUrl}`,
+    showCliInstall: cleanFileName === "caldir.zip",
     sizeLabel: metadata.sizeLabel,
     updatedAt: metadata.updatedAt,
   }
@@ -200,6 +377,25 @@ async function withFallbackMetadata(plugin: TilesPlugin) {
   }
 }
 
+function curatePlugins(plugins: TilesPlugin[]) {
+  const downloadPlugins = [CLOUDFLARE_PLUGIN, FOLD_PLUGIN, OBSIDIAN_PLUGIN, SOLSTONE_PLUGIN]
+  const downloadSlugs = new Set(downloadPlugins.map((plugin) => plugin.slug))
+  const pluginsWithDownloads = [
+    ...plugins.filter((plugin) => !downloadSlugs.has(plugin.slug)),
+    ...downloadPlugins.map((plugin) => ({
+      ...plugins.find((listedPlugin) => listedPlugin.slug === plugin.slug),
+      ...plugin,
+    })),
+  ]
+
+  return [
+    EXA_PLUGIN,
+    ...pluginsWithDownloads
+      .filter((plugin) => plugin.slug !== "youtube-transcript" && plugin.slug !== EXA_PLUGIN.slug)
+      .sort((a, b) => a.name.localeCompare(b.name)),
+  ]
+}
+
 export async function getTilesPlugins(): Promise<TilesPlugin[]> {
   const sources = [listFromJsonIndex, listFromCloudflareApi, listFromPublicPrefix]
 
@@ -207,14 +403,17 @@ export async function getTilesPlugins(): Promise<TilesPlugin[]> {
     try {
       const plugins = await listSource()
       if (plugins.length > 0) {
-        return Promise.all(plugins.map(withFallbackMetadata))
+        return curatePlugins(await Promise.all(plugins.map(withFallbackMetadata)))
       }
     } catch {
       // Continue to the next source so a missing optional integration never breaks the page.
     }
   }
 
-  return Promise.all(FALLBACK_PLUGIN_FILES.map((fileName) => normalizePlugin(fileName)).map(withFallbackMetadata))
+  const plugins = await Promise.all(
+    FALLBACK_PLUGIN_FILES.map((fileName) => normalizePlugin(fileName)).map(withFallbackMetadata),
+  )
+  return curatePlugins(plugins)
 }
 
 export async function getTilesPlugin(slug: string): Promise<TilesPlugin | null> {
@@ -228,7 +427,173 @@ function parseFrontmatterValue(markdown: string, key: string) {
   return match?.[1]?.trim().replace(/^["']|["']$/g, "")
 }
 
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value)
+}
+
+function metadataValue(value: unknown) {
+  if (Array.isArray(value)) {
+    return value.map(String).join(", ")
+  }
+
+  if (isRecord(value)) {
+    return JSON.stringify(value)
+  }
+
+  return String(value)
+}
+
+function metadataFromJson(slug: string, metadata: Record<string, unknown>): TilesPluginMetadata {
+  return {
+    fields: Object.entries(metadata).map(([key, value]) => {
+      if (key === "author" && isRecord(value)) {
+        const name = typeof value.name === "string" ? value.name.trim() : ""
+        const email = typeof value.email === "string" ? value.email.trim() : ""
+        let href: string | undefined
+
+        if (typeof value.url === "string") {
+          try {
+            const url = new URL(value.url)
+            if (url.protocol === "https:" || url.protocol === "http:") {
+              href = url.href
+            }
+          } catch {
+            // Keep the author readable when their website URL is invalid.
+          }
+        }
+
+        return { key, value: name || email || href || "Unknown author", href }
+      }
+
+      return {
+        key,
+        value: metadataValue(value),
+        href: typeof value === "string" && /^https?:\/\//i.test(value) ? value : undefined,
+      }
+    }),
+    sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/plugin.json`,
+  }
+}
+
+export async function getTilesPluginMetadata(slug: string): Promise<TilesPluginMetadata | null> {
+  if (slug === "fold") {
+    return {
+      ...metadataFromJson(slug, foldManifest),
+      sourceUrl: "/plugins/fold/plugin.json",
+    }
+  }
+
+  const fallback = FALLBACK_PLUGIN_METADATA[slug]
+
+  try {
+    const response = await fetch(pluginRawUrl(slug, "plugin.json"), {
+      next: { revalidate: 3600 },
+    })
+
+    if (!response.ok) {
+      return fallback ? metadataFromJson(slug, fallback) : null
+    }
+
+    const metadata: unknown = await response.json()
+    return isRecord(metadata) ? metadataFromJson(slug, metadata) : fallback ? metadataFromJson(slug, fallback) : null
+  } catch {
+    return fallback ? metadataFromJson(slug, fallback) : null
+  }
+}
+
+function mcpServersFromJson(slug: string, servers: Record<string, unknown>): TilesPluginMcpServer[] {
+  return Object.entries(servers).flatMap(([name, value]) => {
+    if (!isRecord(value)) {
+      return []
+    }
+
+    const type = typeof value.type === "string" ? value.type : "MCP server"
+    const url = typeof value.url === "string" ? value.url : undefined
+    const command = typeof value.command === "string" ? value.command : undefined
+    const args = Array.isArray(value.args) ? value.args.map(String).join(" ") : undefined
+
+    return [{
+      name,
+      type,
+      endpoint: url ?? ([command, args].filter(Boolean).join(" ") || undefined),
+      sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/mcp.json`,
+    }]
+  })
+}
+
+export async function getTilesPluginMcpServers(slug: string): Promise<TilesPluginMcpServer[]> {
+  if (slug === "fold") {
+    return mcpServersFromJson(slug, foldMcpManifest.mcpServers).map((server) => ({
+      ...server,
+      sourceUrl: "/plugins/fold/mcp.json",
+    }))
+  }
+
+  const fallback = FALLBACK_MCP_SERVERS[slug] ?? {}
+
+  try {
+    const response = await fetch(pluginRawUrl(slug, "mcp.json"), {
+      next: { revalidate: 3600 },
+    })
+
+    if (!response.ok) {
+      return mcpServersFromJson(slug, fallback)
+    }
+
+    const manifest: unknown = await response.json()
+    const servers = isRecord(manifest) && isRecord(manifest.mcpServers) ? manifest.mcpServers : fallback
+    return mcpServersFromJson(slug, servers)
+  } catch {
+    return mcpServersFromJson(slug, fallback)
+  }
+}
+
 function fallbackSkills(slug: string): TilesPluginSkill[] {
+  if (slug === "solstone") {
+    return [
+      {
+        name: "solstone-memory",
+        description: "Answer questions about the owner's own past (what they said, heard or planned, and who someone is) from their journal. Use whenever a question is about the owner's life, conversations, people or plans.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/solstone/skills/solstone-memory/SKILL.md`,
+      },
+    ]
+  }
+
+  if (slug === "cloudflare") {
+    return [
+      {
+        name: "cloudflare-cli",
+        description: "Manage Cloudflare resources and Workers projects with the cf CLI, or share Tiles inference through account-free Cloudflare Quick Tunnels. Use for Cloudflare resource, deployment, and Tiles remote inference sharing tasks.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/cloudflare-cli/SKILL.md`,
+      },
+      {
+        name: "tiles-remote-inference",
+        description: "Share a local Tiles inference server with another device using account-free Cloudflare Quick Tunnels and a bundled non-streaming Responses API bridge. Use for temporary remote inference, client setup, troubleshooting, and teardown; named tunnels remain an option for streaming or authenticated hosting.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/cloudflare/skills/tiles-remote-inference/SKILL.md`,
+      },
+    ]
+  }
+
+  if (slug === "obsidian") {
+    return [
+      {
+        name: "obsidian",
+        description: "Work with Obsidian notes, daily notes, tasks, properties, and links through the Obsidian CLI. Use when the user asks to search, read, create, or organize content in an Obsidian vault.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/obsidian/skills/obsidian/SKILL.md`,
+      },
+    ]
+  }
+
+  if (slug === "exa") {
+    return [
+      {
+        name: "web-research",
+        description: "Research a topic on the web across several sources, verify a claim, or dig past search snippets into full pages.",
+        sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/exa/skills/web-research/SKILL.md`,
+      },
+    ]
+  }
+
   if (slug === "caldir") {
     return [
       {
@@ -239,20 +604,12 @@ function fallbackSkills(slug: string): TilesPluginSkill[] {
     ]
   }
 
-  if (slug !== "youtube-transcript") return []
-
-  return [
-    {
-      name: "youtube-transcript",
-      description: "",
-      sourceUrl: `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/skills/youtube-transcript/SKILL.md`,
-    },
-  ]
+  return []
 }
 
 async function readSkill(slug: string, skillName: string): Promise<TilesPluginSkill> {
   const sourceUrl = `${PLUGIN_SOURCE_BLOB_BASE_URL}/${slug}/skills/${skillName}/SKILL.md`
-  const markdownUrl = `${PLUGIN_RAW_BASE_URL}/${slug}/skills/${skillName}/SKILL.md`
+  const markdownUrl = pluginRawUrl(slug, `skills/${skillName}/SKILL.md`)
 
   const response = await fetch(markdownUrl, {
     next: { revalidate: 3600 },
@@ -270,16 +627,21 @@ async function readSkill(slug: string, skillName: string): Promise<TilesPluginSk
 
   return {
     name: parseFrontmatterValue(markdown, "name") ?? skillName,
-    description:
-      slug === "youtube-transcript" && skillName === "youtube-transcript"
-        ? ""
-        : parseFrontmatterValue(markdown, "description") ?? "Skill details are available in the plugin source.",
+    description: parseFrontmatterValue(markdown, "description") ?? "Skill details are available in the plugin source.",
     sourceUrl,
   }
 }
 
 export async function getTilesPluginSkills(slug: string): Promise<TilesPluginSkill[]> {
-  const skillsUrl = `https://api.github.com/repos/tilesprivacy/plugins/contents/${slug}/skills?ref=main`
+  if (slug === "fold") {
+    return [{
+      name: "fold",
+      description: "Answer questions about the user's accounts, spending, recurring expenses, investments, credit, and net worth using their connected Fold MCP account. Use when the user asks to inspect or summarize their own financial data in Fold.",
+      sourceUrl: "/plugins/fold/skills/fold/SKILL.md",
+    }]
+  }
+
+  const skillsUrl = `https://api.github.com/repos/tilesprivacy/plugins/contents/${slug}/skills?ref=${pluginSourceRef(slug)}`
 
   try {
     const response = await fetch(skillsUrl, {

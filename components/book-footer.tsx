@@ -210,7 +210,7 @@ export function BookFooter() {
               <FaLinkedinIn className={`h-4 w-4 sm:h-5 sm:w-5 ${footerIsDark ? 'text-white dark:text-white' : '!text-black dark:!text-black'} transition-colors ${iconHoverClasses.linkedin}`} />
             </a>
             <a
-              href="https://go.tiles.run/discord"
+              href="https://discord.gg/PPSjcpZzvt"
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center p-1.5 -m-1.5"

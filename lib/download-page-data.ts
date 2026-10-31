@@ -1,5 +1,15 @@
 import { getLatestDownloadArtifact } from "@/lib/download-artifact"
 
+export const CANARY_RELEASE_URL = "https://github.com/tilesprivacy/tiles/releases/tag/canary"
+export const CANARY_RELEASE_DESCRIPTION = "Nightly builds for developers who want the latest Tiles features. Available for macOS and Linux. Canary can be unstable."
+
+/** Direct Canary installer link, shown whenever live release data is unavailable. */
+export const CANARY_FALLBACK_DOWNLOAD = {
+  name: "tiles-canary-3.pkg",
+  browser_download_url:
+    "https://github.com/tilesprivacy/tiles/releases/download/canary/tiles-canary-3.pkg",
+} as const
+
 export const OFFLINE_MODEL_NAME = "gpt-oss-20b-MXFP4-Q4"
 
 export const OFFLINE_MODEL_URL = "https://huggingface.co/mlx-community/gpt-oss-20b-MXFP4-Q4" as const
@@ -25,6 +35,10 @@ export const LINUX_INSTALL_SCRIPT_URL = "https://www.tiles.run/install.sh" as co
 
 export const LINUX_INSTALL_COMMAND =
   `curl -LsSf ${LINUX_INSTALL_SCRIPT_URL} | sh` as const
+
+/** Arguments to a piped script go after `sh -s --`, not to `sh` itself. */
+export const LINUX_CANARY_INSTALL_COMMAND =
+  `curl -LsSf ${LINUX_INSTALL_SCRIPT_URL} | sh -s -- --canary` as const
 
 export async function getDownloadPageNetworkArtifact() {
   return getLatestDownloadArtifact()

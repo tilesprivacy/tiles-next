@@ -1,8 +1,14 @@
 import type { Metadata } from "next"
-import { getSocialImage } from "@/lib/social-image"
+import { getPluginSocialImage } from "@/lib/social-image"
 import { notFound } from "next/navigation"
 import { PluginDetailContent } from "@/components/plugin-detail-content"
-import { getTilesPlugin, getTilesPluginSkills, getTilesPlugins } from "@/lib/plugins"
+import {
+  getTilesPlugin,
+  getTilesPluginMcpServers,
+  getTilesPluginMetadata,
+  getTilesPluginSkills,
+  getTilesPlugins,
+} from "@/lib/plugins"
 
 interface PluginPageProps {
   params: Promise<{
@@ -28,7 +34,7 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
     }
   }
 
-  const socialImage = getSocialImage(plugin.name)
+  const socialImage = getPluginSocialImage(plugin)
 
   return {
     title: `${plugin.name} | Tiles Plugins`,
@@ -38,7 +44,7 @@ export async function generateMetadata({ params }: PluginPageProps): Promise<Met
       description: plugin.description,
       type: "website",
       images: [
-        { ...socialImage, alt: `${plugin.name} | Tiles Plugins` },
+        socialImage,
       ],
     },
     twitter: {
@@ -58,7 +64,11 @@ export default async function PluginPage({ params }: PluginPageProps) {
     notFound()
   }
 
-  const skills = await getTilesPluginSkills(slug)
+  const [metadata, mcpServers, skills] = await Promise.all([
+    getTilesPluginMetadata(slug),
+    getTilesPluginMcpServers(slug),
+    getTilesPluginSkills(slug),
+  ])
 
-  return <PluginDetailContent plugin={plugin} skills={skills} />
+  return <PluginDetailContent plugin={plugin} metadata={metadata} mcpServers={mcpServers} skills={skills} />
 }

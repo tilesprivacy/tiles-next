@@ -51,6 +51,7 @@ export default function BlogPage() {
       coverImageDark: post.coverImageDark ?? post.coverImage ?? "/og-image.jpg",
       listingImage: post.listingImage,
       listingImageDark: post.listingImageDark,
+      listingImagePosition: post.listingImagePosition,
       coverAlt: post.coverAlt ?? post.title,
     }))
 

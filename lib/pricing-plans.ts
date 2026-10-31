@@ -22,11 +22,11 @@ export const PRICING_BETA_RELEASE = "0.5.0 Private Beta"
 /** Scheduled window for that release. */
 export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
 
-export const PRICING_PAGE_TITLE = "Pricing"
+export const PRICING_PAGE_TITLE = "Early Supporter Pricing"
 
-/** Why the paid plans exist. Sits in the header, directly under the title. */
-export const PRICING_PAGE_FUNDING_NOTE =
-  "Every paid plan helps keep Tiles free and funds its independent development."
+/** Why members should join the waitlist early. */
+export const PRICING_PAGE_EARLY_MEMBER_NOTE =
+  "Join early to get special pricing and support Tiles’ independent development."
 
 export const PRICING_PAGE_DESCRIPTION =
   "Tiles is free. Tiles Pro funds independent development and cloud based services we host for you."
@@ -107,6 +107,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     featuresIntroIcon: "gem",
     features: [
       "Run cloud models with confidential compute",
+      "Detect PII, block exposed keys, and apply additional guardrails",
       "Unlimited private web searches",
       "Backup and key recovery",
     ],
@@ -246,6 +247,6 @@ export const PRICING_FAQS: PricingFaq[] = [
   {
     question: "Can I support the project another way?",
     answer: "Yes, sponsorships and donations go directly to the work.",
-    link: { label: "Sponsor Tiles", href: "/sponsor" },
+    link: { label: "Sponsor Tiles", href: "/about#sponsor" },
   },
 ]

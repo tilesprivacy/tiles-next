@@ -8,13 +8,37 @@ import { TangledIcon } from "@/components/tangled-icon"
 export function MinimalFooter() {
   return (
     <footer className="minimal-footer">
-      <Link href="/" className="minimal-footer-brand" aria-label="Tiles home">
-        <span className="minimal-theme-logo">
-          <Image src="/lighticon.png" alt="" width={32} height={32} className="dark:hidden" />
-          <Image src="/grey.png" alt="" width={32} height={32} className="hidden dark:block" />
-        </span>
-        <span>Tiles</span>
-      </Link>
+      <div className="minimal-footer-identity">
+        <Link href="/" className="minimal-footer-brand" aria-label="Tiles home">
+          <span className="minimal-theme-logo">
+            <Image src="/lighticon.png" alt="" width={36} height={36} className="dark:hidden" />
+            <Image src="/grey.png" alt="" width={36} height={36} className="hidden dark:block" />
+          </span>
+          <span>Tiles</span>
+        </Link>
+        <a
+          href="https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/cohort/"
+          className="minimal-footer-backer"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span>Backed by</span>
+          <Image
+            src="/mozilla-foundation-logo.svg"
+            alt="Mozilla Foundation"
+            width={229}
+            height={48}
+            className="dark:hidden"
+          />
+          <Image
+            src="/mozilla-foundation-logo-dark.svg"
+            alt="Mozilla Foundation"
+            width={440}
+            height={92}
+            className="hidden dark:block"
+          />
+        </a>
+      </div>
       <div className="minimal-footer-legal">
         <p>© 2026 Tiles Privacy Technologies Pvt. Ltd.</p>
         <address className="minimal-footer-address">
@@ -27,9 +51,6 @@ export function MinimalFooter() {
       </div>
       <div className="space-y-1">
         <p className="lg:whitespace-nowrap">
-          Read the <Link href="/book/manual">User Manual</Link>.
-        </p>
-        <p className="lg:whitespace-nowrap">
           Embed Tiles into your product with <Link href="/book/tilekit">Tilekit</Link>.
         </p>
       </div>
@@ -38,7 +59,7 @@ export function MinimalFooter() {
         <Link href="/terms">Terms</Link>
         <Link href="/refund-policy">Refunds</Link>
         <Link href="/privacy">Privacy</Link>
-        <Link href="/brand">Brand</Link>
+        <Link href="/press-kit">Press Kit</Link>
         <a className="minimal-footer-status" href="https://status.tiles.run" target="_blank" rel="noopener noreferrer">
           Status
           <ArrowUpRight aria-hidden />
@@ -48,7 +69,7 @@ export function MinimalFooter() {
         <a href="https://x.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)"><FaXTwitter aria-hidden /></a>
         <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><FaBluesky aria-hidden /></a>
         <a href="https://www.linkedin.com/company/tilesprivacy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn aria-hidden /></a>
-        <a href="https://go.tiles.run/discord" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden /></a>
+        <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden /></a>
         <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub aria-hidden /></a>
         <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Tangled"><TangledIcon aria-hidden /></a>
         <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face"><SiHuggingface aria-hidden /></a>

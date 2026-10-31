@@ -1,16 +1,28 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
+import Script from "next/script"
 import { AnalyticsConsent } from "@/components/analytics-consent"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeFavicon } from "@/components/theme-favicon"
 import SiteHeader from "@/components/site-header"
-import { AnnouncementBanner } from "@/components/announcement-banner"
 import { SiteOfflineCacheRegistrar } from "@/components/site-offline-cache-registrar"
 import { ScrollAtTopMarker } from "@/components/scroll-at-top-marker"
-import { TILES_PRODUCT_DESCRIPTION, TILES_SITE_TITLE } from "@/lib/product-description"
+import {
+  TILES_PRODUCT_DESCRIPTION,
+  TILES_SITE_TITLE,
+  TILES_SOCIAL_TITLE,
+} from "@/lib/product-description"
 import { getSocialImage } from "@/lib/social-image"
-import { DEFAULT_SITE_THEME } from "@/lib/site-theme"
+import { HOME_PAGE_THEME, HOME_PATH } from "@/lib/home-page-theme"
+import {
+  INDIA_FOSS_2026_PATH,
+  OWN_YOUR_AI_DRAFT_PATH,
+  OWN_YOUR_AI_PAGE_THEME,
+  OWN_YOUR_AI_PATH,
+} from "@/lib/own-your-ai-theme"
+import { SPONSOR_PAGE_THEME, SPONSOR_PATH } from "@/lib/sponsor-page-theme"
+import { CYBERPUNK_THEME, DEFAULT_SITE_THEME } from "@/lib/site-theme"
 import "./globals.css"
 
 const geist = Geist({
@@ -25,6 +37,8 @@ const geistMono = Geist_Mono({
 })
 
 const socialImage = getSocialImage()
+
+const initialThemeScript = `(function(){try{var d=document.documentElement,p=location.pathname,t=null;if(p===${JSON.stringify(HOME_PATH)})t=${JSON.stringify(HOME_PAGE_THEME)};else if(p===${JSON.stringify(SPONSOR_PATH)}||p.indexOf(${JSON.stringify(`${SPONSOR_PATH}/`)})===0)t=${JSON.stringify(SPONSOR_PAGE_THEME)};else if(p===${JSON.stringify(OWN_YOUR_AI_PATH)}||p.indexOf(${JSON.stringify(`${OWN_YOUR_AI_PATH}/`)})===0||p===${JSON.stringify(INDIA_FOSS_2026_PATH)}||p.indexOf(${JSON.stringify(`${INDIA_FOSS_2026_PATH}/`)})===0||p===${JSON.stringify(OWN_YOUR_AI_DRAFT_PATH)}||p.indexOf(${JSON.stringify(`${OWN_YOUR_AI_DRAFT_PATH}/`)})===0)t=${JSON.stringify(OWN_YOUR_AI_PAGE_THEME)};if(t)d.dataset.pageTheme=t;else delete d.dataset.pageTheme;var k="tiles-theme",c=${JSON.stringify(CYBERPUNK_THEME)},v=null;try{v=localStorage.getItem(k);if(v===c){v="dark";localStorage.setItem(k,v);}}catch(e){}var dark=v==="dark"||(v!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches);d.classList.toggle("dark",dark);}catch(e){}})();`
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -70,18 +84,18 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
   openGraph: {
-    title: TILES_SITE_TITLE,
+    title: TILES_SOCIAL_TITLE,
     description: TILES_PRODUCT_DESCRIPTION,
     url: "https://www.tiles.run",
     siteName: "Tiles Privacy",
     images: [
-      { ...socialImage, alt: TILES_SITE_TITLE },
+      { ...socialImage, alt: TILES_SOCIAL_TITLE },
     ],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: TILES_SITE_TITLE,
+    title: TILES_SOCIAL_TITLE,
     description: TILES_PRODUCT_DESCRIPTION,
     images: [socialImage.url],
   },
@@ -99,6 +113,9 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Tiles Privacy" />
       </head>
       <body className={`${geist.className} antialiased`}>
+        <Script id="tiles-initial-theme" strategy="beforeInteractive">
+          {initialThemeScript}
+        </Script>
         <ThemeProvider
           attribute="class"
           defaultTheme={DEFAULT_SITE_THEME}
@@ -108,7 +125,6 @@ export default function RootLayout({
           <ThemeFavicon />
           <SiteOfflineCacheRegistrar />
           <ScrollAtTopMarker />
-          <AnnouncementBanner />
           <SiteHeader themeAware />
           {/* Marks page content for the Pagefind full-text index used by the
               top-nav AI search; chrome inside pages opts out with

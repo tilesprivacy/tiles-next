@@ -1,0 +1,341 @@
+[
+  {
+    "number": 1,
+    "title": "Tiles: Own your AI with open models and decentralized protocols",
+    "transcript": [
+      "Thank you, Akshit, for the introduction, and thank you to the FOSS United team for organizing this event.",
+      "Hi everyone, I’m Ankesh, founder & CEO of Tiles Privacy.",
+      "Today I want to talk about what it means to actually own your AI.",
+      "Not just the model, but the data, identity, and infrastructure around it.",
+      "And I think two things make that possible now: recent developments in open models and adoption of decentralized protocols."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 2,
+    "title": "Ankesh Bharti / @feynon",
+    "transcript": [
+      "I’m also a co-founder and steward of User & Agents, a community shaping user-agent systems that give people more agency, control, and choice, and Tiles was born out of those discussions.",
+      "I like to call myself a technologist and am currently based in Pune.",
+      "My ambition is to build a decentralized stack that expands user agency in our digital spaces."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 3,
+    "title": "We need to reclaim ownership of our digital lives in the age of AI through open models, and decentralized protocols",
+    "transcript": [
+      "The thesis of this talk is pretty simple.",
+      "AI is becoming part of how we think, work, research and communicate.",
+      "And as that happens, whoever controls the AI layer starts controlling a surprisingly large part of our digital lives.",
+      "I think we now have the technology to build that relationship differently: run intelligence locally, and use open protocols where we need a network."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 4,
+    "title": "We all use AI agents now",
+    "transcript": [
+      "Most of us in this room probably use several of these AI agents already.",
+      "And they’re becoming much more than chatbots.",
+      "They read our code, browse the web, operate tools, work with our files, handle everyday tasks, and increasingly act on our behalf.",
+      "So naturally, we’re giving them more and more context about ourselves."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 5,
+    "title": "I like ChatGPT",
+    "transcript": [
+      "And I actually like ChatGPT.",
+      "What keeps me using it isn’t just the model.",
+      "It’s the product around the model, the consistency, the memory, and being able to pick up the same context across different surfaces.",
+      "It starts to feel less like using a chatbot and more like using software that actually knows you."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 6,
+    "title": "But it’s a toxic relationship",
+    "transcript": [
+      "But the better that gets, the more one-sided the relationship becomes.",
+      "The system knows more and more about me, but all of that context ultimately lives inside an account and infrastructure I don’t control.",
+      "If I leave the platform, a growing part of that accumulated digital memory stays behind.",
+      "I like the relationship.",
+      "I just don’t like the dependency."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 7,
+    "title": "I needed boundaries",
+    "transcript": [
+      "My conclusion wasn’t that I should stop using AI.",
+      "I needed healthier boundaries.",
+      "I want to keep the same convenience without depending on blind trust.",
+      "I want my identity and context to stay with me across every app I use, with trust that I can verify computationally.",
+      "I still want the relationship. I just want it to be on my terms."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 8,
+    "title": "Local AI apps are good now!",
+    "transcript": [
+      "So this became my preference: private and local.",
+      "And the good news is, today’s local AI tools are already technically excellent. They’re naturally great at private, personal use."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 9,
+    "title": "Frontier is open-source today",
+    "transcript": [
+      "Frontier AI is no longer locked behind proprietary APIs.",
+      "For many practical workloads, frontier-level capabilities are already available in open-weight models such as GLM series, as shown in this chart by Artificial Analysis."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 10,
+    "title": "And there is compute to run them locally",
+    "transcript": [
+      "The amount of compute we now have in consumer devices makes it possible to run even frontier models locally.",
+      "Technologies like UltraFusion combine two Apple Silicon Max chips into a single Ultra chip, enabling medium-class local models to run on device."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 11,
+    "title": "20B models are now pocket-sized",
+    "transcript": [
+      "We’re also finding smarter ways to run larger models at the edge.",
+      "Apple’s upcoming Siri in iOS 27 is powered by Foundation Model 3, a distilled version of Gemini, and runs a 20B Mixture-of-Experts model directly on the iPhone.",
+      "It loads expert weights from fast flash storage instead of keeping the entire model in memory, and by loading them once per prompt rather than once per token, it largely compensates for the higher latency of flash storage."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 12,
+    "title": "But collaboration breaks the private deal",
+    "transcript": [
+      "But local inference alone does not give us a complete product.",
+      "As soon as we want identity, multiple devices, sync, or collaboration, we often recreate exactly the architecture we were trying to escape.",
+      "So the model may be local while the product relationship becomes centralized again."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 13,
+    "title": "A vertically integrated user owned stack",
+    "transcript": [
+      "What if we put the user, and their keys, at the center, and built outward?",
+      "The keys belong to the user on their own devices, not the provider. They establish their identity and what they control.",
+      "Then come their devices, models, and everything else.",
+      "The point is that user ownership shouldn’t stop at the model layer."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 14,
+    "title": "AI disclosure",
+    "transcript": [
+      "As an AI disclosure, our main branch contains manually reviewed code, with core systems largely handwritten.",
+      "Our canary branch is where we experiment more aggressively with AI-generated code, primarily for client-side features and UI/UX work above the API layer. This helps us prototype quickly, test ideas with users and the team, and learn what actually works.",
+      "Features that prove useful are gradually brought into main through smaller, carefully reviewed small PRs rather than merging experimental code wholesale."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 15,
+    "title": "Tiles",
+    "transcript": [
+      "That’s what we’re building with Tiles.",
+      "Tiles is a local-first, collaborative AI assistant.",
+      "And local-first means something very specific: the product should keep working, even if we stop working on it. Your data, identity, and core experience don’t depend on Tiles continuing to exist as a company or service.",
+      "The goal is to give people a familiar AI experience, while changing the architecture underneath so the user remains at the center of control.",
+      "It’s software built to outlive us."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 16,
+    "title": "App and CLI",
+    "transcript": [
+      "Before we go any further, I’d like to give you a brief live demo of what’s available in our canary release today."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 17,
+    "title": "Tiles architecture",
+    "transcript": [
+      "This is the deeper technical view of Tiles, broken into a few separate modules.",
+      "The core is written in Rust. It includes local storage, the Modelfile parser, the plugin system, peer-to-peer networking, social layer with AT Protocol, and our PKI and identity system built for zero trust authentication and authorization.",
+      "Inference is a separate Python module, with llama.cpp serving local models behind an Open Responses API translation layer.",
+      "Then there’s the agent runtime. Its control plane is written in Rust, with the TypeScript agentic loop powered by Pi, embedded as a Bun binary.",
+      "And finally, different interfaces, like the macOS menubar app and desktop app, sit on top which uses Tilekit APIs.",
+      "I’m not going to walk through every box here. The main idea is that Tiles is modular by design, so identity, networking, inference, agents, and interfaces can evolve independently without everything being tied into one monolithic application."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 18,
+    "title": "User owned keys with Tiles Account",
+    "transcript": [
+      "Now that you have a brief overview of the product and its technical architecture, I’d like to walk you through the three novel ideas that set us apart.",
+      "First, user-owned keys with Tiles Account.",
+      "DID, Decentralized Identifiers, gives us the identity primitive.",
+      "UCAN, User Controlled Authorization Network, gives us the authorization primitive.",
+      "Together, these make your Tiles Account, generated and secured locally on your device keychain, rather than being an account created and controlled on a centralized Tiles server."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 19,
+    "title": "DID is who you are",
+    "transcript": [
+      "The easiest way to understand a DID is:",
+      "DID is who you are.",
+      "It’s a portable identifier controlled by your keys.",
+      "Services can verify you, but the service itself doesn’t have to be the source of your identity."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 20,
+    "title": "UCAN is what you can do",
+    "transcript": [
+      "And if DID answers: Who are you?",
+      "UCAN answers: What are you allowed to do?",
+      "In Tiles, UCAN provides scoped authorization for syncing chats across devices, among other uses.",
+      "UCAN uses capability-based authorization, rather than the access control lists, or ACLs, commonly used in centralized systems.",
+      "Instead of a central server checking a list of permissions, you present a signed capability granting specific authority, potentially with an expiry.",
+      "So instead of giving another device a permanent password, I can grant exactly the authority it needs.",
+      "That’s a much cleaner fit for local-first and peer-to-peer systems."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 21,
+    "title": "Local-first AI with Tiles Network",
+    "transcript": [
+      "Second is local-first AI with Tiles Network, which works across local, online, and discovery layers.",
+      "You get local devices, ambient compute, private peer-to-peer networking, and an open social layer, without requiring a central Tiles server to sit in the middle.",
+      "The basic rule is simple: keep ownership close to the user, and introduce the network only where the network adds value."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 22,
+    "title": "Iroh based P2P sync through public relays",
+    "transcript": [
+      "You have the devices you actually use, your phone, laptop, and what I’d call ambient AI compute. That could be a homelab, a workstation in the office, or any computer you control that can sit in the background and provide AI inference when you need it.",
+      "These devices can talk directly over your local network, so this can work without the internet at all.",
+      "To connect across networks, Tiles uses end-to-end encrypted peer-to-peer networking with public relays built with Iroh."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 23,
+    "title": "Collaborative features on AT Protocol",
+    "transcript": [
+      "And for collaborative features, we use AT Protocol and the user’s own Personal Data Server.",
+      "The analogy here is the open web.",
+      "Your website works across different browsers because the browser doesn’t own the underlying web.",
+      "AT Protocol brings a similar idea to the social layer. Your data lives in your own repository, which you can think of a bit like a GitHub repository for your digital life. Different applications can read from and write to that same repository, rather than each app keeping your identity and data trapped in its own database.",
+      "So your identity and content can work across multiple applications, and changing applications doesn’t mean starting your digital life all over again."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 24,
+    "title": "Opinionated AI stack",
+    "transcript": [
+      "Third is our opinionated AI stack, with Gemma 4 as the current default series.",
+      "We handle model-specific tuning across llama.cpp, the Pi harness, and quantization, so you don’t have to configure everything yourself.",
+      "For extensibility, we support the Agent Plugins standard, allowing compatible plugins from clients like Cursor or ChatGPT to work in Tiles. Install them through our curated marketplace or directly by specifying a path."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 25,
+    "title": "Embed Tiles into your own product with Tilekit",
+    "transcript": [],
+    "media": "image"
+  },
+  {
+    "number": 26,
+    "title": "Tilekit REST APIs",
+    "transcript": [
+      "With Tilekit REST API endpoints, developers just want the underlying runtime and capabilities inside their own applications.",
+      "Tilekit is our way of making Tiles embeddable, so developers can build their own interfaces and products on top of the same underlying infrastructure.",
+      "Tiles can be the application, or it can simply provide the building blocks."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 27,
+    "title": "One more thing",
+    "transcript": [
+      "Before I wrap up, there’s one more thing I’d like to share."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 28,
+    "title": "We’re announcing a major partnership with the Mozilla Foundation soon and are looking for organizations to help pilot and test what we’re building.",
+    "transcript": [
+      "We’re announcing a major partnership with the Mozilla Foundation soon and are looking for organizations to help pilot and test what we’re building."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 29,
+    "title": "Team",
+    "transcript": [
+      "Over the past year, we’ve grown into a team of five. Starting next month, when our partnership with Mozilla begins, we all will be working on Tiles full time."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 30,
+    "title": "Advisors",
+    "transcript": [
+      "I’m grateful to Boris Mann, Dietrich Ayala, and Gordon Brander for their advice and guidance, drawing on their experience in decentralized systems, browsers, and the open web."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 31,
+    "title": "Friends",
+    "transcript": [
+      "Tiles is really a product of the open source community, a student-run open-source club which i am also a part of",
+      "User & Agents has been an incredible community partner where many of these ideas took shape.",
+      "Darkshapes, our design partner, designed the Tiles logo and helped turn our ideas into the foundational visual identity of Tiles."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 32,
+    "title": "Thank you",
+    "transcript": [
+      "Special thanks to Solstone and its founder, Jeremie Miller, for being a close partner and sponsor of Tiles.",
+      "Thank you to Dietrich and Luke, my co-founders at User & Agents.",
+      "To Boris, Xi Zhang, Hugo, and everyone who sponsored Tiles, shared advice, or helped along the way: I wouldn’t be standing here today without you.",
+      "If you’re interested in sponsoring Tiles, providing funding, or exploring collaboration opportunities, please come talk to me afterwards."
+    ],
+    "media": "image"
+  },
+  {
+    "number": 33,
+    "title": "Own your AI",
+    "transcript": [
+      "To recap: I love ChatGPT, but I don’t want to compromise on convenience or control. Local AI and open protocols let us keep the convenience while making our data, identity, and memory portable and truly ours.",
+      "I’d love for you to try Tiles on Mac or Linux and tell me what you think.",
+      "If you’d like to contribute or chat about local-first AI, please join our new Discord server through this QR or mail me at this address.",
+      "Thank you."
+    ],
+    "media": "image"
+  }
+]

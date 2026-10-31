@@ -1,3 +1,4 @@
+import { SHOW_PRICING } from "@/lib/feature-flags"
 import Link from "next/link"
 import { DownloadTilesCta } from "@/components/download-tiles-cta"
 import { DownloadPlatformSubtext } from "@/components/download-platform-subtext"
@@ -21,17 +22,19 @@ export function MinimalDownload({
       <DownloadTilesCta size={platformSize} label="Download for free" />
       <div className="minimal-download-details flex flex-col items-center gap-3">
         <DownloadPlatformSubtext size={platformSize} />
-        <p
-          className={`font-medium leading-none text-black/48 dark:text-[#9A9A9A] ${pricingNoteClasses[platformSize]}`}
-        >
-          {DOWNLOAD_PRICING_NOTE_LABEL}{" "}
-          <Link
-            href="/pricing"
-            className="underline underline-offset-2 hover:text-black/70 dark:hover:text-white/80"
+        {SHOW_PRICING ? (
+          <p
+            className={`font-medium leading-none text-black/48 dark:text-[#9A9A9A] ${pricingNoteClasses[platformSize]}`}
           >
-            {DOWNLOAD_PRICING_LINK_LABEL}
-          </Link>
-        </p>
+            {DOWNLOAD_PRICING_NOTE_LABEL}{" "}
+            <Link
+              href="/pricing"
+              className="underline underline-offset-2 hover:text-black/70 dark:hover:text-white/80"
+            >
+              {DOWNLOAD_PRICING_LINK_LABEL}
+            </Link>
+          </p>
+        ) : null}
         {platformSize === "hero" ? (
           <p className="mt-9 font-medium leading-none text-black/40 dark:text-[#8A8A8A] text-[0.74rem] sm:text-[0.79rem]">
             <Link

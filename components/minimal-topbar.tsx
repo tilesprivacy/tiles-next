@@ -1,5 +1,6 @@
 "use client"
 
+import { SHOW_PRICING } from "@/lib/feature-flags"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
@@ -29,11 +30,11 @@ export function MinimalTopbar({ hideBrand = false }: { hideBrand?: boolean }) {
   const centerLinks = [
     ["/book", "Book"],
     ["/plugins", "Plugins"],
-    ["/pricing", "Pricing"],
+    ...(SHOW_PRICING ? [["/pricing", "Pricing"] as const] : []),
     ["/blog", "Blog"],
     ["/releases", "Releases"],
     ["/help", "Help"],
-    ["/sponsor", "Sponsor"],
+    ["/about", "About"],
   ] as const
 
   return (

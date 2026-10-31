@@ -7,10 +7,10 @@ const socialImage = getSocialImage("Plugins")
 
 export const metadata: Metadata = {
   title: "Plugins | Tiles",
-  description: "Use plugins in Tiles to add reusable workflows with skills.",
+  description: "Extend Tiles with portable skills and MCP servers using the open Agent Plugins standard.",
   openGraph: {
     title: "Plugins | Tiles",
-    description: "Use plugins in Tiles to add reusable workflows with skills.",
+    description: "Extend Tiles with portable skills and MCP servers using the open Agent Plugins standard.",
     type: "website",
     images: [
       socialImage,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Plugins | Tiles",
-    description: "Use plugins in Tiles to add reusable workflows with skills.",
+    description: "Extend Tiles with portable skills and MCP servers using the open Agent Plugins standard.",
     images: [socialImage.url],
   },
 }
