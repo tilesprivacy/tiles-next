@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useTheme } from 'next-themes'
@@ -25,6 +25,7 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
   const [senderEmail, setSenderEmail] = useState("")
   const { resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const startedAt = useRef(Date.now())
   const [isOnline, setIsOnline] = useState(() => (typeof navigator === "undefined" ? true : navigator.onLine))
 
   useEffect(() => {
@@ -61,7 +62,11 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
       const response = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({
+          email,
+          website: new FormData(e.currentTarget as HTMLFormElement).get("website"),
+          startedAt: startedAt.current,
+        }),
       })
 
       const data = await response.json()
@@ -131,6 +136,10 @@ export default function NewsletterForm({ surface = "auto", className }: Newslett
         data-theme={isDark ? "dark" : "light"}
       >
         <div className="space-y-2.5">
+          <label className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+            Website
+            <input name="website" tabIndex={-1} autoComplete="off" />
+          </label>
           <label htmlFor={emailInputId} className="sr-only">
             Email address
           </label>

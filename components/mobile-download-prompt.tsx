@@ -2,7 +2,7 @@
 
 import { Monitor } from "lucide-react"
 import type { FormEvent } from "react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
 import { triggerHaptic } from "@/lib/haptics"
 
@@ -43,6 +43,7 @@ function MobileDownloadPromptOverlay({
   >("idle")
   const [emailMessage, setEmailMessage] = useState("")
   const [isMounted, setIsMounted] = useState(false)
+  const startedAt = useRef(Date.now())
   const emailInputId = "mobile-download-email"
   const closePrompt = useCallback(() => {
     triggerHaptic()
@@ -93,7 +94,11 @@ function MobileDownloadPromptOverlay({
         const response = await fetch("/api/send-download-link", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: trimmedEmail }),
+          body: JSON.stringify({
+            email: trimmedEmail,
+            website: new FormData(event.currentTarget).get("website"),
+            startedAt: startedAt.current,
+          }),
         })
         const data = await response.json()
 
@@ -159,6 +164,10 @@ function MobileDownloadPromptOverlay({
           </p>
 
           <form onSubmit={onEmailSubmit} className="mt-5">
+            <label className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+              Website
+              <input name="website" tabIndex={-1} autoComplete="off" />
+            </label>
             <label
               htmlFor={emailInputId}
               className="sr-only"

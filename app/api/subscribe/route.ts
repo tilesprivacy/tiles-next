@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { toPlainText } from "@react-email/render";
 import { buildSubscriptionEmail } from "@/lib/email-messages";
+import { guardEmailRequest } from "@/lib/email-request-guard";
 
 // Initialize Resend client with API key from environment
 const getResendClient = () => {
@@ -43,131 +44,6 @@ const extractEmailFromFromEmail = (fromEmail: string): string => {
   return fromEmail.trim();
 };
 
-// Email validation helper
-const isValidEmail = (email: string): boolean => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-type LinuxWaitlistContactPayload = {
-  email: string;
-  firstName: string;
-  lastName: string;
-  linuxDistributions: string[];
-};
-
-const LINUX_WAITLIST_CONTACT_PROPERTIES = [
-  { key: "tiles_queue", fallbackValue: "linux" },
-  { key: "tiles_linux_waitlist", fallbackValue: "true" },
-  { key: "tiles_waitlist_source", fallbackValue: "form" },
-  { key: "tiles_linux_distributions", fallbackValue: "" },
-  { key: "tiles_form_first_name", fallbackValue: "" },
-  { key: "tiles_form_last_name", fallbackValue: "" },
-] as const;
-
-const getLinuxWaitlistContactData = (payload: LinuxWaitlistContactPayload) => ({
-  email: payload.email,
-  firstName: payload.firstName || undefined,
-  lastName: payload.lastName || undefined,
-  unsubscribed: false,
-  properties: {
-    tiles_queue: "linux",
-    tiles_linux_waitlist: "true",
-    tiles_waitlist_source: "form",
-    tiles_linux_distributions: payload.linuxDistributions.join(", "),
-    tiles_form_first_name: payload.firstName || "",
-    tiles_form_last_name: payload.lastName || "",
-  },
-});
-
-const isMissingPropertiesErrorMessage = (message: string) => {
-  const normalized = message.toLowerCase();
-  return (
-    normalized.includes("properties do not exist") ||
-    normalized.includes("one or more properties do not exist")
-  );
-};
-
-const ensureLinuxWaitlistContactProperties = async (resend: Resend) => {
-  for (const property of LINUX_WAITLIST_CONTACT_PROPERTIES) {
-    const result = await resend.contactProperties.create({
-      key: property.key,
-      type: "string",
-      fallbackValue: property.fallbackValue,
-    });
-
-    if (!result.error) continue;
-
-    const message = result.error.message?.toLowerCase() || "";
-    const isAlreadyExists =
-      message.includes("already exists") ||
-      message.includes("already a contact property with this key") ||
-      message.includes("already been taken") ||
-      message.includes("duplicate") ||
-      message.includes("409");
-
-    if (!isAlreadyExists) {
-      throw new Error(
-        result.error.message ||
-          `Could not create contact property: ${property.key}`,
-      );
-    }
-  }
-};
-
-const upsertLinuxWaitlistContact = async (
-  resend: Resend,
-  payload: LinuxWaitlistContactPayload,
-) => {
-  const contactData = getLinuxWaitlistContactData(payload);
-
-  const tryCreateOrUpdate = async () => {
-    const createResult = await resend.contacts.create(contactData);
-    if (!createResult.error) return;
-
-    const createErrorMessage = createResult.error.message?.toLowerCase() || "";
-    const isAlreadyExistsError =
-      createErrorMessage.includes("already") ||
-      createErrorMessage.includes("exists") ||
-      createErrorMessage.includes("duplicate") ||
-      createErrorMessage.includes("409");
-
-    if (!isAlreadyExistsError) {
-      throw new Error(
-        createResult.error.message || "Could not create waitlist contact.",
-      );
-    }
-
-    const updateResult = await resend.contacts.update({
-      email: payload.email,
-      firstName: payload.firstName || undefined,
-      lastName: payload.lastName || undefined,
-      unsubscribed: false,
-      properties: contactData.properties,
-    });
-
-    if (updateResult.error) {
-      throw new Error(
-        updateResult.error.message || "Could not update waitlist contact.",
-      );
-    }
-  };
-
-  try {
-    await tryCreateOrUpdate();
-    return;
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "";
-    if (!isMissingPropertiesErrorMessage(message)) {
-      throw error;
-    }
-  }
-
-  // Create missing contact properties once, then retry contact upsert.
-  await ensureLinuxWaitlistContactProperties(resend);
-  await tryCreateOrUpdate();
-};
-
 // GET handler for development debugging
 export async function GET() {
   // Only allow in development mode
@@ -204,76 +80,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Parse and validate request body
-    let body: {
-      firstName?: string;
-      lastName?: string;
-      email?: string;
-      linuxDistributions?: string[];
-      source?: string;
-    };
-    try {
-      body = await request.json();
-    } catch (error) {
-      return NextResponse.json(
-        { error: "Invalid request body. Expected JSON." },
-        { status: 400 },
-      );
-    }
+    const guarded = await guardEmailRequest(request);
+    if (!guarded.ok) return guarded.response;
+    const trimmedEmail = guarded.email;
 
-    const { firstName, lastName, email, linuxDistributions, source } = body;
-
-    // Validate email is provided
-    if (!email || typeof email !== "string") {
-      return NextResponse.json(
-        { error: "Email address is required" },
-        { status: 400 },
-      );
-    }
-
-    // Validate email format
-    const trimmedEmail = email.trim();
-    if (!isValidEmail(trimmedEmail)) {
-      return NextResponse.json(
-        { error: "Invalid email address format" },
-        { status: 400 },
-      );
-    }
-
-    // Initialize Resend client
     const resend = getResendClient();
     const fromEmail = getFromEmail();
-    const isLinuxWaitlist = source === "linux-notify-form";
-    const safeFirstName =
-      typeof firstName === "string" && firstName.trim().length > 0
-        ? firstName.trim()
-        : "there";
-
-    if (isLinuxWaitlist) {
-      if (
-        !Array.isArray(linuxDistributions) ||
-        linuxDistributions.length === 0
-      ) {
-        return NextResponse.json(
-          { error: "At least one Linux distribution is required." },
-          { status: 400 },
-        );
-      }
-
-      const linuxPayload = {
-        email: trimmedEmail,
-        firstName: typeof firstName === "string" ? firstName.trim() : "",
-        lastName: typeof lastName === "string" ? lastName.trim() : "",
-        linuxDistributions: linuxDistributions
-          .filter((item): item is string => typeof item === "string")
-          .map((item) => item.trim())
-          .filter(Boolean),
-      };
-
-      await upsertLinuxWaitlistContact(resend, linuxPayload);
-    }
-
-    const message = buildSubscriptionEmail(safeFirstName, isLinuxWaitlist);
+    const message = buildSubscriptionEmail();
 
     // All transactional messages use the same design as the funding newsletter.
     const result = await resend.emails.send({

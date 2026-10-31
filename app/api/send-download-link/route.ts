@@ -7,6 +7,7 @@ import {
   OFFLINE_INSTALLER,
 } from "@/lib/download-page-data"
 import { getLatestReleaseVersion } from "@/lib/releases"
+import { guardEmailRequest } from "@/lib/email-request-guard"
 
 const SENDER_NAME = "Tiles Privacy"
 const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
@@ -29,10 +30,6 @@ function getFromEmailAddress(): string {
 
 function getFromEmail(): string {
   return `${SENDER_NAME} <${getFromEmailAddress()}>`
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 }
 
 function extractVersionFromFileName(fileName: string | undefined): string {
@@ -150,23 +147,9 @@ export async function POST(request: NextRequest) {
     )
   }
 
-  let body: { email?: string }
-  try {
-    body = await request.json()
-  } catch {
-    return NextResponse.json(
-      { error: "Invalid request body. Expected JSON." },
-      { status: 400 },
-    )
-  }
-
-  const email = body.email?.trim()
-  if (!email || !isValidEmail(email)) {
-    return NextResponse.json(
-      { error: "Enter a valid email address." },
-      { status: 400 },
-    )
-  }
+  const guarded = await guardEmailRequest(request)
+  if (!guarded.ok) return guarded.response
+  const email = guarded.email
 
   try {
     const [artifact, latestReleaseVersion] = await Promise.all([

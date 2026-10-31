@@ -37,39 +37,29 @@ const button = (url: string, label: string) => row(`
     </td></tr>
   </table>`)
 
-export function buildSubscriptionEmail(firstName: string, isLinuxWaitlist: boolean) {
-  const subject = isLinuxWaitlist ? "Tiles for Linux waitlist" : "Welcome to Tiles Privacy"
-  const greeting = paragraph(`Hi <span dir="auto" style="overflow-wrap:anywhere; word-break:break-word;">${escapeEmailHtml(firstName)}</span>,`)
-  const content = isLinuxWaitlist
-    ? [
-        heading("You're on the Linux waitlist"),
-        row(greeting +
-          paragraph("Thanks for signing up for Tiles for Linux. You're on the waitlist.") +
-          paragraph("We're preparing the Linux build and will email you as soon as it is ready to install.") +
-          paragraph(`In the meantime, check out our ${link("https://tiles.run/blog", "Blog")} for product updates.`)),
-        row(paragraph(`If you’d like to get in touch with the team, either ahead of the release or after, you can always find us on the #tiles channel in ${link("https://discord.gg/PPSjcpZzvt", "User & Agents Discord")}.`) +
-          paragraph(`- ${link("https://www.tilesprivacy.org", "Tiles Privacy")}`)),
-      ].join("")
-    : [
-        heading("Welcome to Tiles"),
-        row(greeting + paragraph(`You're now subscribed to ${link("https://www.tiles.run", "Tiles")}. Expect product notes, privacy research, release updates, and engineering notes from the team.`)),
-        heading("Why Tiles?"),
-        row(paragraph(`For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on ${link("https://atproto.com", "AT Protocol")}. Tiles gives you user-owned keys for your digital life with ${link("https://www.w3.org/TR/did-1.1/", "DIDs")} and ${link("https://ucan.xyz", "UCANs")}, so your data and identity truly remain yours.`)),
-        heading("Get started"),
-        row(paragraph("Install Tiles for macOS or Linux, read the manual, or join the community shaping what comes next.")),
-        button("https://www.tiles.run/download", "Download Tiles"),
-        row(paragraph(`${link("https://www.tiles.run/book/manual", "Read the manual")} · ${link("https://discord.gg/PPSjcpZzvt", "Join Discord")}`)),
-        row(paragraph("Reply anytime with feedback. Your notes help shape what we build next.") +
-          paragraph(`- ${link("https://www.tilesprivacy.org", "Tiles Privacy")}`)),
-      ].join("")
+// The greeting is fixed: never interpolate request input into outbound mail,
+// or anyone can use the endpoint to send their own text from this domain.
+export function buildSubscriptionEmail() {
+  const subject = "Welcome to Tiles Privacy"
+  const greeting = paragraph("Hi there,")
+  const content = [
+    heading("Welcome to Tiles"),
+    row(greeting + paragraph(`You're now subscribed to ${link("https://www.tiles.run", "Tiles")}. Expect product notes, privacy research, release updates, and engineering notes from the team.`)),
+    heading("Why Tiles?"),
+    row(paragraph(`For sensitive knowledge work or personal tasks, your AI shouldn’t require you to trust a third party with your conversations and intellectual property. Run models locally, sync chats peer-to-peer with end-to-end encryption, and use social features, such as sharing chats, built on ${link("https://atproto.com", "AT Protocol")}. Tiles gives you user-owned keys for your digital life with ${link("https://www.w3.org/TR/did-1.1/", "DIDs")} and ${link("https://ucan.xyz", "UCANs")}, so your data and identity truly remain yours.`)),
+    heading("Get started"),
+    row(paragraph("Install Tiles for macOS or Linux, read the manual, or join the community shaping what comes next.")),
+    button("https://www.tiles.run/download", "Download Tiles"),
+    row(paragraph(`${link("https://www.tiles.run/book/manual", "Read the manual")} · ${link("https://discord.gg/PPSjcpZzvt", "Join Discord")}`)),
+    row(paragraph("Reply anytime with feedback. Your notes help shape what we build next.") +
+      paragraph(`- ${link("https://www.tilesprivacy.org", "Tiles Privacy")}`)),
+  ].join("")
 
   return {
     subject,
     html: renderEmailTemplate({
       subject,
-      preheader: isLinuxWaitlist
-        ? "You have been added to the Tiles for Linux waitlist."
-        : "Product notes, privacy research, release updates, and engineering notes from the Tiles team.",
+      preheader: "Product notes, privacy research, release updates, and engineering notes from the Tiles team.",
       content,
     }),
   }
