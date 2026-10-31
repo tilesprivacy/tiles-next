@@ -1,3 +1,6 @@
+import { createHash } from "node:crypto"
+import { Ratelimit } from "@upstash/ratelimit"
+import { Redis } from "@upstash/redis"
 import { NextRequest, NextResponse } from "next/server"
 
 // Shared abuse checks for public endpoints that send email. Without them any
@@ -14,12 +17,57 @@ const MAX_SENDS_PER_IP = 5
 const MAX_SENDS_PER_RECIPIENT = 2
 const MAX_TRACKED_KEYS = 10_000
 
-// Best effort only: counters live in one serverless instance's memory, so they
-// stop bursts that land on a warm instance but not traffic spread across
-// instances. Move this to shared storage (Upstash, Vercel KV) for a hard limit.
+// Upstash Redis enforces the limits across every serverless instance. The
+// Vercel Marketplace integration sets KV_REST_API_*; a direct Upstash database
+// uses UPSTASH_REDIS_REST_*.
+const redisUrl = process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL
+const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN
+const redis = redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null
+
+function createLimiter(kind: string, max: number): Ratelimit | null {
+  if (!redis) return null
+  return new Ratelimit({
+    redis,
+    prefix: `email-guard:${kind}`,
+    limiter: Ratelimit.slidingWindow(max, "1 h"),
+    timeout: 1_000,
+  })
+}
+
+const ipLimiter = createLimiter("ip", MAX_SENDS_PER_IP)
+const recipientLimiter = createLimiter("to", MAX_SENDS_PER_RECIPIENT)
+
+// Keys are hashed so Redis never stores raw IPs or email addresses.
+function hashKey(value: string): string {
+  return createHash("sha256").update(value).digest("hex")
+}
+
+async function isRateLimited(
+  limiter: Ratelimit | null,
+  kind: string,
+  value: string,
+  max: number,
+  now: number,
+): Promise<boolean> {
+  const key = hashKey(value)
+  if (limiter) {
+    try {
+      const { success, reason } = await limiter.limit(key)
+      // On timeout the library reports success; count locally instead of
+      // letting a slow Redis switch limiting off.
+      if (reason !== "timeout") return !success
+    } catch (error) {
+      console.error("[EmailGuard] Upstash rate limit failed, using in-memory fallback:", error)
+    }
+  }
+  return isRateLimitedInMemory(`${kind}:${key}`, max, now)
+}
+
+// Fallback when Redis is not configured (local dev) or unreachable. Counters
+// live in one instance's memory, so this only stops bursts on a warm instance.
 const sendLog = new Map<string, number[]>()
 
-function isRateLimited(key: string, max: number, now: number): boolean {
+function isRateLimitedInMemory(key: string, max: number, now: number): boolean {
   if (sendLog.size > MAX_TRACKED_KEYS) {
     for (const [k, times] of sendLog) {
       if (times[times.length - 1] <= now - RATE_WINDOW_MS) sendLog.delete(k)
@@ -115,8 +163,8 @@ export async function guardEmailRequest(request: NextRequest): Promise<GuardedEm
   }
 
   if (
-    isRateLimited(`ip:${getClientIp(request)}`, MAX_SENDS_PER_IP, now) ||
-    isRateLimited(`to:${email.toLowerCase()}`, MAX_SENDS_PER_RECIPIENT, now)
+    (await isRateLimited(ipLimiter, "ip", getClientIp(request), MAX_SENDS_PER_IP, now)) ||
+    (await isRateLimited(recipientLimiter, "to", email.toLowerCase(), MAX_SENDS_PER_RECIPIENT, now))
   ) {
     return { ok: false, response: reject("Too many requests. Please try again later.", 429) }
   }
