@@ -1,0 +1,82 @@
+# Deploys tiles.run on every push to main. Blog posts are published to the
+# Tiles PDS first, because the production build reads them from there.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  publish-blog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      # The write token stays out of .git/config while npm packages run; only
+      # the final push step gets it.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: Publish posts to the PDS
+        run: node scripts/publish-blog.ts
+        env:
+          ATP_IDENTIFIER: ${{ secrets.ATP_IDENTIFIER }}
+          ATP_APP_PASSWORD: ${{ secrets.ATP_APP_PASSWORD }}
+          PDS_URL: ${{ secrets.PDS_URL }}
+
+      # New posts get their record's atUri written into the file; keep it.
+      - name: Commit new atUris
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- content/blog; then
+            echo "No new posts."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/blog
+          git commit -m "Record ATproto URIs for new blog posts"
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git pull --rebase "$remote" "$GITHUB_REF_NAME"
+          git push "$remote" "HEAD:$GITHUB_REF_NAME"
+
+  deploy:
+    needs: publish-blog
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          PUBLIC_SITE_URL: https://www.tiles.run
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Deploy to Cloudflare
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

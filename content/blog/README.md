@@ -1,12 +1,20 @@
 # Writing a blog post
 
 A post is one markdown file here: `content/blog/<slug>.md` becomes `/blog/<slug>`.
-Commit it and you're done. The site lists and renders it at build time, and CI
-publishes it to ATproto (standard.site) with sequoia, then commits the record's
-`atUri` back into the frontmatter. Don't write `atUri` yourself.
 
-The body is published to ATproto as well, so write plain markdown that reads
-well anywhere. The site styles it; the few HTML conventions below cover the rest.
+1. **Preview:** `npm run dev` renders the files in this folder directly, so you
+   can check a post at `localhost:5173/blog/<slug>` before it goes anywhere.
+2. **Publish:** push to `main`. The Deploy workflow runs
+   `scripts/publish-blog.ts`, which stores each post on the Tiles PDS as a
+   `site.standard.document` record (the whole file, plus a plain-text copy for
+   other readers), then builds the site **from those records** and deploys it.
+   New posts get the record's `atUri` written back into their frontmatter;
+   don't write `atUri` yourself.
+
+So what tiles.run shows is what's on the PDS. Write plain markdown that reads
+well anywhere; the site styles it, and the few HTML conventions below cover the
+rest. Raw HTML outside those conventions (other tags, `style`, event handlers,
+non-https URLs) is shown as text rather than rendered.
 
 ## Frontmatter
 

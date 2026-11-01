@@ -1,5 +1,5 @@
 import { SITE_ORIGIN } from "#lib/absolute-url"
-import { getBlogPostMarkdown, getBlogPosts } from "#lib/blog"
+import { getBlogPostMarkdown, getBlogPosts } from "#lib/server/blog"
 import { allBookPages, getBookPageMarkdown } from "#lib/book"
 import { getCanaryRelease } from "#lib/canary-release"
 import { getLatestDownloadArtifact } from "#lib/download-artifact"
@@ -151,7 +151,7 @@ export async function buildLlmsIndex(): Promise<string> {
 
   addSection(lines, "Blog", [
     `- Blog index: ${BASE}/blog`,
-    ...getBlogPosts().map((post) => `- ${post.title}: ${BASE}/blog/${post.slug} - ${post.description}`),
+    ...(await getBlogPosts()).map((post) => `- ${post.title}: ${BASE}/blog/${post.slug} - ${post.description}`),
   ])
 
   addSection(lines, "Legal And Site Information", [
@@ -273,7 +273,7 @@ export async function buildLlmsFull(): Promise<string> {
     stripHtml(indiaFoss2026TalkContent),
   ])
 
-  const posts = getBlogPosts()
+  const posts = await getBlogPosts()
   pushSection(lines, `Blog Index (${BASE}/blog)`, [
     ...copy.BLOG_INDEX_INTRO,
     `Published posts: ${posts.length}`,
@@ -287,7 +287,7 @@ export async function buildLlmsFull(): Promise<string> {
       if (person.links[0]) postLines.push(`Author URL: ${person.links[0]}`)
     }
     postLines.push(`Description: ${post.description}`, "", "Content:")
-    postLines.push(blogPostText(getBlogPostMarkdown(post.slug)))
+    postLines.push(blogPostText(await getBlogPostMarkdown(post.slug)))
     pushSection(lines, `Blog Post: ${post.title} (${BASE}/blog/${post.slug})`, postLines)
   }
 

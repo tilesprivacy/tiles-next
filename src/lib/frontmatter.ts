@@ -1,7 +1,7 @@
 // A small reader for the YAML frontmatter our content files use: scalar
 // `key: value` pairs (quoted or bare, booleans, numbers) and `- item` lists.
-// Sequoia (which publishes the blog to ATproto) reads the same files with a
-// full YAML parser, so stay inside that subset when adding fields.
+// The site and scripts/publish-blog.ts both use it, so stay inside that subset
+// when adding fields. No imports: the publish script loads it under plain Node.
 
 export type FrontmatterValue = string | number | boolean | string[]
 export type Frontmatter = Record<string, FrontmatterValue>

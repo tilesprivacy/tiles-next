@@ -45,13 +45,16 @@ The tiles.run website: **SvelteKit 3 + Svelte 5 (runes) + Tailwind 4 + mdsvex**,
 - **Newsletter (`/api/subscribe`)**: Origin and JSON content-type checks, size cap, honeypot, form timing, Cloudflare Turnstile, then Upstash limits (5 per IP per hour; one email per address per 30 days via an atomic claim). Keys are SHA-256 hashes. Production fails closed (503) without Turnstile, Redis or the Resend audience. The email content is fixed; never interpolate request data into outbound mail. Existing Resend contacts are never flipped back to subscribed.
 - **Polar**: secrets only in `src/lib/server/polar.ts`; every route returns 503 before building a client when unconfigured. Checkout sends only our fixed product id and canonical URLs; nothing from the visitor's query string or Host reaches Polar. Webhooks are signature-checked by the SDK before anything else.
 - **CSP** is hash-based for prerendered pages. No inline scripts; new third-party origins go in `csp.config.ts` with a comment naming the feature.
-- Never use `{@html}` on untrusted data. Bluesky discussion content is narrowed in `src/lib/bluesky-discussion.ts` (text only, http(s) links, https avatars).
+- Never use `{@html}` on untrusted data. Blog markdown is rendered through an HTML allowlist since production reads it from the PDS. Bluesky discussion content is narrowed in `src/lib/bluesky-discussion.ts` (text only, http(s) links, https avatars).
 - Every outbound `fetch` has a timeout (`AbortSignal.timeout`).
 - The site has no analytics. The privacy policy (`/privacy`) and subprocessors list must match what the site actually loads; update them together with any new service.
 
 ### Blog publishing
 
-A post is one `content/blog/<slug>.md`. On push to `main`, `.github/workflows/publish-blog.yml` runs `sequoia-cli publish` (config in `sequoia.json`) to create or update its `site.standard.document` record on the Tiles PDS and commits the record's `atUri` back into the frontmatter. Secrets: `ATP_IDENTIFIER`, `ATP_APP_PASSWORD`, `PDS_URL`.
+- A post is one `content/blog/<slug>.md`. **Dev renders these local files; production builds render the records on the Tiles PDS** (`src/lib/server/blog.ts` picks the source, `src/lib/server/blog-pds.ts` reads `site.standard.document` records from `https://eurosky.social`, constants in `src/lib/blog-atproto.ts`). A production build fails if the PDS is unreachable or has no posts, rather than deploying an empty blog.
+- `scripts/publish-blog.ts` (run by `.github/workflows/deploy.yml` before every deploy) stores each post's whole file in the record's `content` (`$type: run.tiles.blog.markdown`) plus plain `textContent` for other readers, reuses or uploads the cover blob, only writes records that changed, and writes new records' `atUri` back into the file. It refuses to publish to any account other than the Tiles DID. Records for deleted files are reported, not deleted.
+- Post data is server-only (`#lib/server/blog`); client code may import only `#lib/blog` types and `#lib/blog-date`. Raw HTML in posts goes through the allowlist in `src/lib/markdown.server.ts`, because in production it comes from the PDS: extend the allowlist deliberately when a new convention needs a tag or attribute.
+- Do not connect Cloudflare Workers Builds; it would deploy before the publish step.
 
 ### Generated text indexes
 

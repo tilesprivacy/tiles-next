@@ -101,6 +101,55 @@ function parseAttrs(tag: string): Attrs {
   return attrs
 }
 
+/* Raw HTML allowlist */
+
+// Posts come from the PDS in production, so raw HTML in them is checked
+// rather than trusted: only the tags and attributes the writing conventions
+// use (content/blog/README.md) get through. Anything else is shown as text,
+// so a writer sees the problem instead of it silently disappearing.
+const ALLOWED_HTML: Record<string, Set<string>> = {
+  img: new Set(["src", "alt", "width", "height", "class", "loading", "decoding"]),
+  picture: new Set(["class"]),
+  source: new Set(["src", "srcset", "media", "type", "width", "height"]),
+  video: new Set(["src", "poster", "width", "height", "class", "aria-label", "autoplay", "loop", "muted", "playsinline", "controls", "preload"]),
+  figure: new Set(["class"]),
+  figcaption: new Set(["class"]),
+  a: new Set(["href", "title"]),
+  code: new Set(["class"]),
+  em: new Set([]),
+  strong: new Set([]),
+  br: new Set([]),
+  span: new Set(["class"]),
+}
+
+const TAG_PATTERN = /<\/?([a-zA-Z][a-zA-Z0-9-]*)((?:\s+[^\s"'>/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*)\s*\/?>/g
+
+/** Root-relative paths and https everywhere; links may also be http, mailto or in-page. */
+export function isSafeUrl(value: string, kind: "link" | "media"): boolean {
+  const url = value.trim()
+  if (/^\/(?!\/)/.test(url) || /^https:\/\//i.test(url)) return true
+  return kind === "link" && (/^#/.test(url) || /^http:\/\//i.test(url) || /^mailto:/i.test(url))
+}
+
+function isAllowedHtml(html: string): boolean {
+  const markup = html.replace(/<!--[\s\S]*?-->/g, "")
+  for (const match of markup.matchAll(TAG_PATTERN)) {
+    const allowed = ALLOWED_HTML[match[1].toLowerCase()]
+    if (!allowed) return false
+    if (match[0].startsWith("</")) continue
+    for (const [name, value] of Object.entries(parseAttrs(match[0]))) {
+      if (!allowed.has(name)) return false
+      if (name === "href" && !isSafeUrl(value, "link")) return false
+      if ((name === "src" || name === "poster") && !isSafeUrl(value, "media")) return false
+      if (name === "srcset" && !value.split(",").every((part) => isSafeUrl(part.trim().split(/\s+/)[0] ?? "", "media"))) {
+        return false
+      }
+    }
+  }
+  // Anything still shaped like markup is something the pattern couldn't read.
+  return !/[<>]/.test(markup.replace(TAG_PATTERN, ""))
+}
+
 function firstTag(html: string, name: string): Attrs | null {
   const match = html.match(new RegExp(`<${name}\\b[^>]*>`, "i"))
   return match ? parseAttrs(match[0]) : null
@@ -197,7 +246,10 @@ function transformMdast(parent: Parents) {
   parent.children = parent.children.map((child) => {
     const node = child as Nodes
     if (node.type === "code") return { type: "html", value: renderCode(node) } satisfies Html
-    if (node.type === "html") return { type: "html", value: transformHtmlBlock(node.value) } satisfies Html
+    if (node.type === "html") {
+      if (!isAllowedHtml(node.value)) return { type: "text", value: node.value }
+      return { type: "html", value: transformHtmlBlock(node.value) } satisfies Html
+    }
     if (node.type === "paragraph") {
       const meaningful = node.children.filter((c) => !(c.type === "text" && !c.value.trim()))
       if (meaningful.length === 1 && meaningful[0].type === "image") {
@@ -206,7 +258,7 @@ function transformMdast(parent: Parents) {
       }
       if (isHtmlOnlyParagraph(node)) {
         const value = node.children.map((c) => ("value" in c ? c.value : "")).join("")
-        return { type: "html", value: transformHtmlBlock(value) } satisfies Html
+        if (isAllowedHtml(value)) return { type: "html", value: transformHtmlBlock(value) } satisfies Html
       }
     }
     if ("children" in node) transformMdast(node as Parents)
@@ -233,8 +285,14 @@ function transformHast(parent: HastRoot | Element, ctx: { toc: TocItem[]; used: 
     if (child.type !== "element") continue
     const tag = child.tagName
 
+    // Markdown links and images: drop URLs with other schemes (javascript:, data:).
+    if (tag === "img" && !isSafeUrl(String(child.properties.src ?? ""), "media")) {
+      delete child.properties.src
+    }
+
     if (tag === "a") {
       const href = String(child.properties.href ?? "")
+      if (href && !isSafeUrl(href, "link")) delete child.properties.href
       if (/^https?:\/\//.test(href)) {
         child.properties.target = "_blank"
         child.properties.rel = ["noopener", "noreferrer"]

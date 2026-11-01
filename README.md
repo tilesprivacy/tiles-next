@@ -29,10 +29,24 @@ npm run deploy   # build, then wrangler deploy
 (gitignored) before the Vite build. Redirects live in `_redirects`, security
 headers in `_headers` and `src/hooks.server.ts`.
 
-To deploy from GitHub instead, connect the repository in Cloudflare Workers
-Builds (build command `npm run build`, deploy command `npx wrangler deploy`),
-or add a deploy job that runs `npm run deploy` with a `CLOUDFLARE_API_TOKEN`
-secret.
+Production builds read blog posts from the Tiles PDS (see below), so a build
+fails if the PDS can't be reached or has no posts yet.
+
+`.github/workflows/deploy.yml` deploys every push to `main`: it publishes blog
+posts to the PDS first, then builds and runs `wrangler deploy`. It needs these
+GitHub settings:
+
+| Name | Kind | Value |
+| --- | --- | --- |
+| `ATP_IDENTIFIER` | secret | `tiles.run` |
+| `ATP_APP_PASSWORD` | secret | an app password for that account |
+| `PDS_URL` | secret | `https://eurosky.social` |
+| `CLOUDFLARE_API_TOKEN` | secret | token with Workers edit access |
+| `CLOUDFLARE_ACCOUNT_ID` | secret | the Cloudflare account id |
+| `PUBLIC_TURNSTILE_SITE_KEY` | variable | Turnstile site key (public) |
+
+Don't also connect Cloudflare Workers Builds: it would deploy before new posts
+reach the PDS.
 
 ## Environment
 
@@ -57,12 +71,18 @@ sending unchecked email.
 
 1. Add `content/blog/<slug>.md` with frontmatter like the existing posts
    (`title`, `description`, `publishDate`, `author`, images). Put images in
-   `static/`.
-2. Set `draft: true` to keep it visible only in `npm run dev`.
-3. Merge to `main`. The `Publish blog` workflow publishes the post to the
-   Tiles PDS with [Sequoia](https://tangled.org/stevedylan.dev/sequoia)
-   (`sequoia.json`) and commits the record's `atUri` back into the
-   frontmatter. It needs the `ATP_IDENTIFIER`, `ATP_APP_PASSWORD` and `PDS_URL`
-   repository secrets. `npm run blog:dry-run` previews what it would publish.
+   `static/`. `content/blog/README.md` has the writing conventions.
+2. Check it with `npm run dev`: in dev the site renders the local files.
+   `draft: true` keeps a post local only.
+3. Push to `main`. The Deploy workflow publishes the post to the Tiles PDS
+   (`scripts/publish-blog.ts`), commits the record's `atUri` back into the
+   file, then builds tiles.run from the records on the PDS.
+
+To publish by hand, or to preview what would change:
+
+```sh
+ATP_IDENTIFIER=tiles.run ATP_APP_PASSWORD=... npm run blog:dry-run
+ATP_IDENTIFIER=tiles.run ATP_APP_PASSWORD=... npm run blog:publish
+```
 
 The post then appears on `/blog`, in the RSS feed, the sitemap and `/llms.txt`.

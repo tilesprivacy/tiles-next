@@ -1,9 +1,8 @@
-// standard.site (ATproto) identity for the blog. The publication URI must
-// match `publicationUri` in sequoia.json, which the publish CI uses.
+// standard.site (ATproto) identity for the blog.
 import { SITE_ORIGIN } from "#lib/absolute-url"
+import { STANDARD_SITE_PUBLICATION_URI } from "#lib/blog-atproto"
 
-export const STANDARD_SITE_PUBLICATION_URI =
-  "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.publication/3mnmiw6ypye2s"
+export { STANDARD_SITE_PUBLICATION_URI }
 
 const DEFAULT_BLOG_OG_IMAGE_PATH = "/og-image.jpg"
 

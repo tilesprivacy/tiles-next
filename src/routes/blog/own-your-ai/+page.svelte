@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { formatBlogPostDate } from "#lib/blog"
+  import { formatBlogPostDate } from "#lib/blog-date"
   import BlogPostContent from "#lib/components/BlogPostContent.svelte"
   import BlogPostHead from "#lib/components/BlogPostHead.svelte"
   import TalkArticle from "#lib/components/TalkArticle.svelte"

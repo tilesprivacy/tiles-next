@@ -1,7 +1,6 @@
-// Blog posts are the markdown files in content/blog. Everything the site
-// knows about a post (listing card, metadata, ATproto links) comes from the
-// frontmatter; the body is rendered by markdown.server.ts.
-import { dev } from "$app/env"
+// What a blog post is, parsed from its markdown file. The file is the same
+// whether it comes from content/blog (dev) or from the PDS (production):
+// see #lib/server/blog for where posts are loaded from.
 import { list, num, parseFrontmatter, str } from "#lib/frontmatter"
 import { getPersonById } from "#lib/people"
 
@@ -25,7 +24,7 @@ export interface BlogPostMeta {
   listingImage?: string
   listingImageDark?: string
   listingImagePosition?: "left" | "center" | "right"
-  /** Social card image, published to ATproto by sequoia as well. */
+  /** Social card image, also uploaded to the PDS record. */
   ogImage?: string
   ogImageWidth: number
   ogImageHeight: number
@@ -34,7 +33,7 @@ export interface BlogPostMeta {
   keywords: string[]
   section?: string
   twitterCreator?: string
-  /** at:// URI of the site.standard.document record, written by the publish CI. */
+  /** at:// URI of the site.standard.document record. */
   atUri?: string
   /** at:// URI of the Bluesky post whose replies form the discussion. */
   blueskyPostUri?: string
@@ -43,14 +42,13 @@ export interface BlogPostMeta {
   draft: boolean
 }
 
-const sources = import.meta.glob(["/content/blog/*.md", "!/content/blog/README.md"], {
-  eager: true,
-  query: "?raw",
-  import: "default",
-}) as Record<string, string>
+export interface BlogPost {
+  meta: BlogPostMeta
+  /** Markdown body without frontmatter. */
+  body: string
+}
 
-function toPost(path: string, source: string): { meta: BlogPostMeta; body: string } {
-  const slug = path.split("/").pop()!.replace(/\.md$/, "")
+export function parseBlogPost(slug: string, source: string): BlogPost {
   const { data, body } = parseFrontmatter(source)
   const publishDate = str(data.publishDate) ?? "1970-01-01"
   const author = str(data.author)
@@ -93,37 +91,4 @@ function toPost(path: string, source: string): { meta: BlogPostMeta; body: strin
   // A leading "# Title" is allowed (it reads well on GitHub) but the page
   // already renders the title, so drop it.
   return { meta, body: body.replace(/^\s*#\s[^\n]*\n/, "").replace(/^\s+/, "") }
-}
-
-const posts = Object.entries(sources)
-  .map(([path, source]) => toPost(path, source))
-  .sort((a, b) => b.meta.date.getTime() - a.meta.date.getTime() || a.meta.slug.localeCompare(b.meta.slug))
-
-/** Published posts, newest first. Used by listings, RSS, sitemap and LLM indexes. */
-export function getBlogPosts(): BlogPostMeta[] {
-  return posts.filter((post) => !post.meta.draft).map((post) => post.meta)
-}
-
-/** Posts that get a page in this environment: drafts only show in dev. */
-export function getVisibleBlogPosts(): BlogPostMeta[] {
-  return posts.filter((post) => !post.meta.draft || dev).map((post) => post.meta)
-}
-
-export function getBlogPost(slug: string): BlogPostMeta | undefined {
-  return getVisibleBlogPosts().find((post) => post.slug === slug)
-}
-
-/** Markdown body without frontmatter. */
-export function getBlogPostMarkdown(slug: string): string {
-  return posts.find((post) => post.meta.slug === slug)?.body ?? ""
-}
-
-/** "February 17, 2026", as shown under a post title. */
-export function formatBlogPostDate(date: Date): string {
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    timeZone: "UTC",
-  })
 }

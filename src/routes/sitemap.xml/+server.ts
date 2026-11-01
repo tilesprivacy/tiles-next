@@ -1,5 +1,5 @@
 import { SITE_ORIGIN } from "#lib/absolute-url"
-import { getBlogPosts } from "#lib/blog"
+import { getBlogPosts } from "#lib/server/blog"
 import { SHOW_PRICING } from "#lib/feature-flags"
 import { RESEARCH_LOG_ENTRIES } from "#lib/research-log"
 
@@ -34,14 +34,14 @@ const STATIC_ROUTES = [
   "/sub-processors",
 ]
 
-function entries(): SitemapEntry[] {
+async function entries(): Promise<SitemapEntry[]> {
   return [
     ...STATIC_ROUTES.map((path) => ({
       path: path || "/",
       changeFrequency: "weekly" as const,
       priority: path === "" ? 1 : 0.7,
     })),
-    ...getBlogPosts().map((post) => ({
+    ...(await getBlogPosts()).map((post) => ({
       path: `/blog/${post.slug}`,
       lastModified: post.date,
       changeFrequency: "monthly" as const,
@@ -67,11 +67,11 @@ function toXml(entry: SitemapEntry): string {
   ].join("\n")
 }
 
-export const GET = () =>
+export const GET = async () =>
   new Response(
     `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${entries().map(toXml).join("\n")}
+${(await entries()).map(toXml).join("\n")}
 </urlset>
 `,
     { headers: { "Content-Type": "application/xml" } },

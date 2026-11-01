@@ -1,10 +1,10 @@
-import { getVisibleBlogPosts } from "#lib/blog"
+import { getVisibleBlogPosts } from "#lib/server/blog"
 import type { BlogListingPost } from "#lib/components/BlogListingContent.svelte"
 import type { PageServerLoad } from "./$types"
 
 // Only the listing fields go to the page, not the markdown sources.
-export const load: PageServerLoad = () => ({
-  posts: getVisibleBlogPosts().map(
+export const load: PageServerLoad = async () => ({
+  posts: (await getVisibleBlogPosts()).map(
     (post): BlogListingPost => ({
       slug: post.slug,
       title: post.title,
