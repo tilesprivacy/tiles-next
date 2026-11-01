@@ -1,4 +1,5 @@
 ---
+atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mzbimugma62o"
 title: "Tiles Privacy joins Mozilla Foundation’s Human-Scale AI Incubator as an anchor project"
 description: "With support from Mozilla Foundation’s Human-Scale AI Incubator, we will spend the next 18 months building private, user-owned AI for the public interest."
 publishDate: "2026-10-21"
