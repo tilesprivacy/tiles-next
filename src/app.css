@@ -347,6 +347,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   align-items: center;
   gap: 0.4rem;
 }
+/* The smallest phones can't fit the wordmark beside every top-bar action;
+   the logo alone still links home ("Tiles home"). */
+@media (max-width: 340px) {
+  .minimal-topbar-wordmark {
+    display: none;
+  }
+}
 .minimal-topbar-alpha {
   display: inline-flex;
   align-items: center;
