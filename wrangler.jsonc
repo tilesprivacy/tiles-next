@@ -4,10 +4,12 @@
   "main": ".svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
+  // No not_found_handling: with "404-page", browser navigations that don't
+  // match a static file get the 404 page without the Worker ever running,
+  // which breaks every server-rendered route (/download, /releases, ...).
   "assets": {
     "binding": "ASSETS",
-    "directory": ".svelte-kit/cloudflare",
-    "not_found_handling": "404-page"
+    "directory": ".svelte-kit/cloudflare"
   },
   "observability": {
     "enabled": true

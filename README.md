@@ -20,7 +20,7 @@ push and pull request.
 ## Build and deploy
 
 ```sh
-npm run build    # OG images, then vite build, then the Pagefind search index
+npm run build    # OG images, then vite build
 npm run preview  # the built Worker under wrangler, with secrets from .dev.vars
 npm run deploy   # build, then wrangler deploy
 ```
