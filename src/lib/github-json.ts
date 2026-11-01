@@ -1,3 +1,5 @@
+import { GITHUB_TOKEN } from "$app/env/private"
+
 const DEFAULT_REVALIDATE_SECONDS = 300
 
 function getGithubHeaders(): Record<string, string> {
@@ -6,7 +8,7 @@ function getGithubHeaders(): Record<string, string> {
     "User-Agent": "tiles.run",
   }
 
-  const token = process.env.GITHUB_TOKEN?.trim()
+  const token = GITHUB_TOKEN?.trim()
   if (token) {
     headers.Authorization = `Bearer ${token}`
   }
@@ -19,12 +21,16 @@ export function fetchGithubJson<T, R = T>(
   transform?: (data: T) => R,
   options: { revalidate?: number } = {}
 ): Promise<R> {
-  return fetch(url, {
+  // On Cloudflare, `cf.cacheTtl` caches the subrequest at the edge, so GitHub's
+  // rate limit isn't hit on every page view. Elsewhere it is ignored.
+  // `revalidate: 0` means "always ask GitHub", so no edge cache at all.
+  const ttl = options.revalidate ?? DEFAULT_REVALIDATE_SECONDS
+  const init = {
     headers: getGithubHeaders(),
-    next: {
-      revalidate: options.revalidate ?? DEFAULT_REVALIDATE_SECONDS,
-    },
-  }).then(async (response) => {
+    signal: AbortSignal.timeout(10_000),
+    ...(ttl > 0 && { cf: { cacheTtl: ttl, cacheEverything: true } }),
+  }
+  return fetch(url, init as RequestInit).then(async (response) => {
     if (!response.ok) {
       throw new Error(`GitHub request failed: ${response.status}`)
     }

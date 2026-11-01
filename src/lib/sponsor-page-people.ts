@@ -8,7 +8,7 @@ export interface SponsorPageAdvisor extends PersonIdentity {
 const borisMann = getPersonById("boris-mann")
 const dietrichAyala = getPersonById("dietrich-ayala")
 
-export const sponsorPageMaintainers = people.contributorsCore
+const sponsorPageMaintainers = people.contributorsCore
 
 export const sponsorPageAdvisors = [
   {
@@ -56,7 +56,7 @@ function displayName(person: PersonIdentity): string {
   return splitPersonDisplayName(person.name).nameWithoutHandle
 }
 
-export function formatPersonList(peopleList: PersonIdentity[]): string {
+function formatPersonList(peopleList: PersonIdentity[]): string {
   const names = peopleList.map(displayName)
   if (names.length <= 2) return names.join(" and ")
 

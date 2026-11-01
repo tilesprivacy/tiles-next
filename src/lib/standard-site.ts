@@ -1,95 +1,31 @@
-import fs from "node:fs"
-import path from "node:path"
+// standard.site (ATproto) identity for the blog. The publication URI must
+// match `publicationUri` in sequoia.json, which the publish CI uses.
+import { SITE_ORIGIN } from "#lib/absolute-url"
 
-import sequoiaConfig from "../sequoia.json"
+export const STANDARD_SITE_PUBLICATION_URI =
+  "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.publication/3mnmiw6ypye2s"
 
-export const STANDARD_SITE_PUBLICATION_URI = sequoiaConfig.publicationUri
-export const STANDARD_SITE_PUBLICATION_URL = sequoiaConfig.siteUrl
-const publicationPath = new URL(sequoiaConfig.siteUrl).pathname.replace(/\/$/, "")
-export const STANDARD_SITE_PUBLICATION_WELL_KNOWN_PATH = publicationPath
-  ? `/.well-known/site.standard.publication${publicationPath}`
-  : "/.well-known/site.standard.publication"
-
-const SITE_ORIGIN = new URL(sequoiaConfig.siteUrl).origin
 const DEFAULT_BLOG_OG_IMAGE_PATH = "/og-image.jpg"
 
-const STANDARD_SITE_CONTENT_DIR = path.join(process.cwd(), "standard-site/blog")
-
-function parseFrontmatterValue(filePath: string, key: string): string | undefined {
-  const content = fs.readFileSync(filePath, "utf-8")
-  const match = content.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?`, "m"))
-  return match?.[1]
-}
-
-function parseAtUriFromMarkdown(filePath: string): string | undefined {
-  return parseFrontmatterValue(filePath, "atUri")
-}
-
-function toAbsoluteSiteUrl(assetPath: string): string {
-  return assetPath.startsWith("http") ? assetPath : `${SITE_ORIGIN}${assetPath.startsWith("/") ? assetPath : `/${assetPath}`}`
-}
-
+/** Absolute social card URL. Cards need a raster image (PNG/JPEG/WebP), never SVG. */
 export function toBlogSocialImageUrl(assetPath?: string): string {
-  const normalized = assetPath?.trim() || DEFAULT_BLOG_OG_IMAGE_PATH
-  return toAbsoluteSiteUrl(normalized)
+  const path = assetPath?.trim() || DEFAULT_BLOG_OG_IMAGE_PATH
+  if (path.startsWith("http")) return path
+  return `${SITE_ORIGIN}${path.startsWith("/") ? path : `/${path}`}`
 }
 
-function loadDocumentUrisBySlug(): Record<string, string> {
-  if (!fs.existsSync(STANDARD_SITE_CONTENT_DIR)) {
-    return {}
-  }
-
-  const uris: Record<string, string> = {}
-
-  for (const fileName of fs.readdirSync(STANDARD_SITE_CONTENT_DIR)) {
-    if (!fileName.endsWith(".md")) {
-      continue
-    }
-
-    const slug = fileName.replace(/\.md$/, "")
-    const atUri = parseAtUriFromMarkdown(path.join(STANDARD_SITE_CONTENT_DIR, fileName))
-
-    if (atUri) {
-      uris[slug] = atUri
-    }
-  }
-
-  return uris
-}
-
-const documentUrisBySlug = loadDocumentUrisBySlug()
-
-function loadOgImagePathsBySlug(): Record<string, string> {
-  if (!fs.existsSync(STANDARD_SITE_CONTENT_DIR)) {
-    return {}
-  }
-
-  const paths: Record<string, string> = {}
-
-  for (const fileName of fs.readdirSync(STANDARD_SITE_CONTENT_DIR)) {
-    if (!fileName.endsWith(".md")) {
-      continue
-    }
-
-    const slug = fileName.replace(/\.md$/, "")
-    const ogImage = parseFrontmatterValue(path.join(STANDARD_SITE_CONTENT_DIR, fileName), "ogImage")
-
-    if (ogImage) {
-      paths[slug] = ogImage
-    }
-  }
-
-  return paths
-}
-
-const ogImagePathsBySlug = loadOgImagePathsBySlug()
-
-export function getStandardSiteDocumentUri(slug: string): string | undefined {
-  return documentUrisBySlug[slug]
-}
-
-export function getBlogPostSocialImageUrl(slug: string, fallbackPath = DEFAULT_BLOG_OG_IMAGE_PATH): string {
-  return toBlogSocialImageUrl(ogImagePathsBySlug[slug] ?? fallbackPath)
+export function socialImageType(url: string): string {
+  const ext = url.split("?")[0].split(".").pop()?.toLowerCase()
+  if (ext === "png") return "image/png"
+  if (ext === "webp") return "image/webp"
+  return "image/jpeg"
 }
 
 export const BLOG_LISTING_SOCIAL_IMAGE_URL = toBlogSocialImageUrl(DEFAULT_BLOG_OG_IMAGE_PATH)
+
+/** Body of /.well-known/site.standard.publication, which proves we own the publication. */
+export function standardSitePublicationResponse(): Response {
+  return new Response(`${STANDARD_SITE_PUBLICATION_URI}\n`, {
+    headers: { "Content-Type": "text/plain; charset=utf-8" },
+  })
+}

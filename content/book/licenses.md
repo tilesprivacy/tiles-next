@@ -1,0 +1,65 @@
+---
+title: "Licenses"
+description: "Understand the Tiles Plus and Tiles Pro licenses, payment terms, and purchasing options."
+cardDescription: "The Tiles Plus and Tiles Pro licenses, payment terms, and purchasing options."
+lastUpdated: "2026-08-23T12:40:44.000Z"
+---
+
+Tiles Plus and Tiles Pro are the paid licenses, and they fund independent development.
+
+## Overview
+
+- **Free**: limited private web searches, every client side feature that runs locally, and shared chats on the web.
+- **Tiles Plus**: $4 USD per user, per month, covering sync and collaboration across devices from anywhere.
+- **Tiles Pro**: $15 USD per user, per month, covering everything in Tiles Plus along with the private services we host on your behalf.
+- **Commercial use**: covered on every tier, including Free.
+
+## Tiles Plus
+
+### Payment
+
+- Price: **$4 USD**
+- Cadence: **per user, per month**
+- Checkout: [Subscribe to Tiles Plus](https://buy.polar.sh/polar_cl_cIV2Vl0K60hJzHJqoOCrvd2xYuQtECY6PPlPy4gdoxp)
+
+### What it includes
+
+- Sync across networks using end-to-end encrypted relays
+- Remote inference for local models across devices
+
+## Tiles Pro
+
+### Payment
+
+- Price: **$15 USD**
+- Cadence: **per user, per month**
+- Checkout: [Subscribe to Tiles Pro](https://buy.polar.sh/polar_cl_3LyXhxgqyNTiHERg0sdzEzKM7Z7jRxsFFH24d3asCns)
+- Bulk purchases: [support@tiles.run](mailto:support@tiles.run)
+
+### What it includes
+
+- Unlimited private web searches
+- Run cloud models with confidential compute
+- Managed public relays
+- Data backup and key recovery
+
+### Your license key
+
+Tiles Pro is delivered as a **license key**, issued automatically by Polar at checkout and revoked when a subscription ends. There is no account to create.
+
+- Find your key in the receipt email or the [customer portal](https://polar.sh/tilesprivacy/portal/).
+
+## Polar checkout details
+
+Tiles purchases are processed through [Polar](https://polar.sh), which acts as merchant of record on behalf of Tiles Privacy Technologies Pvt. Ltd. Card details are handled by Polar and never reach us.
+
+### Customer portal
+
+After checkout, you can manage your license key, subscription renewals, billing, and related purchase details in Polar’s customer portal. Sign in and self-serve updates there:
+
+[https://polar.sh/tilesprivacy/portal/](https://polar.sh/tilesprivacy/portal/)
+
+## Notes
+
+- Tiles Plus and Tiles Pro can be cancelled at any time and run to the end of the paid period.
+- License purchases support the long-term independence of Tiles.

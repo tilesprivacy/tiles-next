@@ -21,6 +21,11 @@ export default defineConfig({
       prerender: {
         handleHttpError: "fail",
         handleMissingId: "warn",
+        // Blog pages carry at:// URIs in <link rel="site.standard.*"> tags for
+        // Bluesky previews. Those aren't pages to crawl; anything else still fails.
+        handleInvalidUrl: ({ href, message }) => {
+          if (!href.startsWith("at://")) throw new Error(message)
+        },
       },
     }),
   ],

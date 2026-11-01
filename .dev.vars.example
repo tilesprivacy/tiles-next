@@ -1,0 +1,30 @@
+# Copy to .dev.vars for `wrangler dev` / `npm run preview`. Never commit .dev.vars.
+# PUBLIC_* values are inlined at build time, so set those in .env instead.
+
+# Resend API key for the newsletter welcome email (re_...).
+RESEND_API_KEY=
+# Sender address, e.g. newsletter@tiles.run.
+RESEND_FROM_EMAIL=
+# Resend audience that newsletter signups are stored in. Required in production.
+RESEND_AUDIENCE_ID=
+# Cloudflare Turnstile secret key. Required in production. Cloudflare's test
+# secret 1x0000000000000000000000000000000AA always passes.
+TURNSTILE_SECRET_KEY=
+# Upstash Redis for the signup rate limits. Required in production.
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
+
+# Polar organization access token (polar_oat_...). Enables session-mode checkout.
+POLAR_ACCESS_TOKEN=
+# Polar webhook signing secret (polar_whs_...).
+POLAR_WEBHOOK_SECRET=
+# "production" (default) or "sandbox".
+POLAR_SERVER=
+# Override the committed Polar Checkout Links or product ids.
+POLAR_PRO_CHECKOUT_LINK=
+POLAR_PLUS_CHECKOUT_LINK=
+POLAR_PRO_PRODUCT_ID=
+POLAR_PLUS_PRODUCT_ID=
+
+# GitHub token for release and star lookups. Optional; raises the API rate limit.
+GITHUB_TOKEN=

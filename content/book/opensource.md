@@ -1,0 +1,37 @@
+---
+title: "Open source"
+description: "Open-source software that Tiles builds on, including upstream dependencies and forks we maintain."
+cardDescription: "Open-source software that Tiles builds on."
+lastUpdated: "2026-09-17T18:25:42.000Z"
+---
+
+Tiles is fully open source and built on open-source software. In some cases, we maintain forks to ship features the way we want or fix blocking bugs. We intend to upstream these changes whenever possible.
+
+## Forks we maintain
+
+| Fork | Upstream | Description | Link |
+| --- | --- | --- | --- |
+| `tilesprivacy/tiles-pi` | [`earendil-works/pi`](https://github.com/earendil-works/pi) | Pi fork for Tiles. | [tiles-pi](https://github.com/tilesprivacy/tiles-pi) |
+| `tilesprivacy/dialog-db` | [`dialog-db/dialog-db`](https://github.com/dialog-db/dialog-db) | Embeddable database for local-first software. | [dialog-db](https://github.com/tilesprivacy/dialog-db) |
+
+## Upstream dependencies
+
+Tiles utilizes the following open-source software.
+
+We are thankful to the developers and maintainers of these libraries!
+
+| Library/Resource | Description | License | Link |
+| --- | --- | --- | --- |
+| `ggml-org/llama.cpp` | Inference engine for running large language models locally on Linux. | MIT | [llama.cpp](https://github.com/ggml-org/llama.cpp) |
+| `earendil-works/pi` | AI agent toolkit with a unified LLM API, agent loop, TUI, and coding-agent CLI. | MIT | [pi](https://github.com/earendil-works/pi) |
+| `n0-computer/iroh` | Modular peer-to-peer networking stack in Rust for distributed apps. | Apache-2.0 | [iroh](https://github.com/n0-computer/iroh) |
+| `sqlcipher/sqlcipher` | Standalone SQLite fork with AES-256 encryption and other database security features. | BSD-3-Clause | [SQLCipher](https://github.com/sqlcipher/sqlcipher) |
+| `rusqlite/rusqlite` | Ergonomic bindings to SQLite for Rust. | MIT | [rusqlite](https://github.com/rusqlite/rusqlite) |
+| `ucan-wg/rs-ucan` | Rust implementation of UCAN. | Apache-2.0 | [rs-ucan](https://github.com/ucan-wg/rs-ucan) |
+| `huggingface/hf-hub` | Rust client for the Hugging Face Hub. | Apache-2.0 | [hf-hub](https://github.com/huggingface/hf-hub) |
+| `mozilla-ai/openresponses-python` | Python SDK for the OpenResponses specification. | Apache-2.0 | [openresponses-python](https://github.com/mozilla-ai/openresponses-python) |
+| `openresponses/openresponses` | Open specification for multi-provider, interoperable LLM interfaces. | Apache-2.0 | [OpenResponses](https://github.com/openresponses/openresponses) |
+| `unsloth/gemma-4` | Unsloth's builds of Google's Gemma 4 open model family for local inference. | Gemma | [gemma-4](https://huggingface.co/collections/unsloth/gemma-4) |
+| `lmstudio-ai/venvstacks` | Virtual environment stacks for Python. | MIT | [venvstacks](https://github.com/lmstudio-ai/venvstacks) |
+
+This list is still a work in progress and will be updated as we continue to add more features and dependencies to Tiles.

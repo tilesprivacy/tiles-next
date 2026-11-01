@@ -1,0 +1,790 @@
+---
+title: "Tilekit"
+description: "Tilekit REST API endpoints, Bruno request examples, source locations, and Modelfile reference"
+cardDescription: "Embed Tiles into your product with Modelfile and REST APIs."
+lastUpdated: "2026-09-12T21:07:18.000Z"
+---
+
+<script>
+  import TilekitEndpoint from "#lib/components/book/TilekitEndpoint.svelte"
+</script>
+
+Tilekit provides REST APIs for integrating Tiles into local clients and custom UIs. The endpoints run in the Tiles daemon under `/v1/tilekit/` and cover inference server controls, the Pi agent, sessions, accounts, and ATproto.
+
+<h1 id="rest-api">REST API<a href="#rest-api" class="subheading-anchor" aria-label="Permalink for this section"></a></h1>
+
+Use the Tiles daemon’s local REST API to integrate sessions, inference, and accounts into your client. Expand an endpoint to see its request fields, curl example, and response details.
+
+<a
+  href="https://fetch.usebruno.com?url=https%3A%2F%2Fgithub.com%2Ftilesprivacy%2Ftiles.git"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="my-6 inline-flex w-fit [&>svg]:hidden"
+>
+  <img src="https://fetch.usebruno.com/button.svg" alt="Fetch in Bruno" width="128" height="32" style="width:130px;height:30px" loading="lazy" decoding="async" />
+</a>
+
+**Base URL**
+
+```text
+http://127.0.0.1:1729/v1/tilekit
+```
+
+Run the Tiles daemon first. For chat, start the inference server, create a session, then send a prompt with the returned session ID. The endpoints below follow the current daemon source; availability depends on your installed Tiles version.
+
+<nav class="tilekit-api-groups" aria-label="API groups">
+  <a href="#server">Server</a>
+  <a href="#agent">Agent</a>
+  <a href="#session">Session</a>
+  <a href="#account">Account</a>
+  <a href="#atproto">ATproto</a>
+</nav>
+
+**Responses**
+
+JSON success responses use `{"status":"success","data":...}`. Application errors use `{"status":"failed","reason":"..."}` with an HTTP error status. Malformed requests may be rejected before reaching a handler. The prompt endpoint returns an SSE stream.
+
+## Server
+
+Manage the local inference server. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/server.rs).
+
+<TilekitEndpoint method="GET" path="/server/start" title="Start server">
+
+Start the inference server in the background.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/server/start"
+```
+
+**Response**
+
+Returns a status message in `data.message`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/server/stop" title="Stop server">
+
+Stop the inference server.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/server/stop"
+```
+
+**Response**
+
+Returns a status message in `data.message`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/server/ping" title="Check server health">
+
+Check whether the inference server is responding.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/server/ping"
+```
+
+**Response**
+
+Returns the health-check message in `data.message`.
+
+</TilekitEndpoint>
+
+## Agent
+
+Work directly with the Pi agent. Create a session before sending prompts. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/agent.rs).
+
+<TilekitEndpoint method="GET" path="/agent/start" title="Start agent">
+
+Start the Pi agent if it is not already running.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/start"
+```
+
+**Response**
+
+Returns `data.message` indicating whether the agent started or was already running.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/agent/state" title="Get agent state">
+
+Read the running agent’s current state.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/state"
+```
+
+**Response**
+
+Returns the Pi agent state in `data`. An agent must already be running.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/agent/prompt" title="Send a prompt">
+
+Send a message to the running agent. The response streams Server-Sent Events (SSE).
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `message` | string | Required | Prompt to send to the agent. |
+| `session_id` | string | Optional | Session ID used to record the turn for sharing. |
+
+**Example request**
+
+```sh
+curl -N -X POST "http://127.0.0.1:1729/v1/tilekit/agent/prompt" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "message": "Hello!",
+  "session_id": "YOUR_SESSION_ID"
+}'
+```
+
+**Response**
+
+Returns `text/event-stream`, rather than the JSON success envelope. `curl -N` displays events without buffering. Omitting `session_id` runs the turn without recording a session snapshot.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/agent/end_session" title="End session">
+
+End the current agent session gracefully.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/end_session"
+```
+
+**Response**
+
+Returns a confirmation in `data.message`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/agent/reload" title="Reload agent">
+
+Restart the agent using its current configuration.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/agent/reload"
+```
+
+**Response**
+
+Returns a confirmation in `data.message`.
+
+</TilekitEndpoint>
+
+## Session
+
+Create sessions and work with locally stored chats. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/session.rs).
+
+<TilekitEndpoint method="POST" path="/session/new" title="Create session">
+
+Create a new session, starting the Pi agent if needed. Start the inference server before sending prompts.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/session/new"
+```
+
+**Response**
+
+Returns the session ID in `data.id`. Pass this value as `session_id` when sending a prompt.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/session/list" title="List sessions">
+
+List sessions stored in the local chat database.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/session/list"
+```
+
+**Response**
+
+Returns the stored sessions in `data`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path={"/session/{session_id}/chats"} title="Get session chats">
+
+Fetch the stored chats for a session.
+
+**Path parameter**
+
+`session_id` · string · required. Replace `YOUR_SESSION_ID` in the example with the session ID.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/session/YOUR_SESSION_ID/chats"
+```
+
+**Response**
+
+Returns the session chat data in `data`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/session/chat" title="Save a chat">
+
+Save a message to the local chat database. The user ID must identify an existing local user.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `text` | string | Required | Message content. |
+| `session_id` | string | Required | Session to save the message in. |
+| `role` | string | Required | One of `system`, `user`, `assistant`, `developer`, or `toolResult`. |
+| `user_id` | string | Required | Existing local user ID. |
+| `model_used` | string | Required | Model associated with the message. |
+| `parent_chat_id` | string | Optional | Parent message ID. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/session/chat" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "text": "Hello!",
+  "session_id": "YOUR_SESSION_ID",
+  "role": "user",
+  "user_id": "YOUR_USER_ID",
+  "model_used": "YOUR_MODEL"
+}'
+```
+
+**Response**
+
+Returns the saved chat in `data`. A user message can create a stored session when that session does not yet exist.
+
+</TilekitEndpoint>
+
+## Account
+
+Create and inspect the local Tiles account. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/account.rs).
+
+<TilekitEndpoint method="POST" path="/account/create" title="Create account">
+
+Create a local account for onboarding.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `nickname` | string | Required | Display nickname for the account. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/account/create" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "nickname": "alice"
+}'
+```
+
+**Response**
+
+Returns the account result in `data`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/account/status" title="Get account status">
+
+Read the current local account details.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/account/status"
+```
+
+**Response**
+
+Returns the local account in `data`. Returns `404` when no local account exists.
+
+</TilekitEndpoint>
+
+## ATproto
+
+Connect an ATproto account and publish session snapshots. [Source](https://github.com/tilesprivacy/tiles/blob/canary/tiles/src/daemon/atproto.rs).
+
+<TilekitEndpoint method="POST" path="/atproto/login" title="Log in">
+
+Begin ATproto login for the supplied handle.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `user_handle` | string | Required | ATproto account handle. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/atproto/login" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "user_handle": "alice.bsky.social"
+}'
+```
+
+**Response**
+
+Returns the login result in `data` after the login flow completes.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path="/atproto/logout" title="Log out">
+
+Log out of the connected ATproto account.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/atproto/logout"
+```
+
+**Response**
+
+Returns the logout result in `data`.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="GET" path="/atproto/status" title="Get login status">
+
+Read the connected ATproto account.
+
+**Request body:** None.
+
+**Example request**
+
+```sh
+curl -X GET "http://127.0.0.1:1729/v1/tilekit/atproto/status"
+```
+
+**Response**
+
+Returns `data.handle` and `data.did`. Returns `404` when not logged in.
+
+</TilekitEndpoint>
+
+<TilekitEndpoint method="POST" path={"/atproto/share-session/{session_id}"} title="Share session">
+
+Publish a stored session to the connected account’s PDS and return a share link. This writes a record each time it is called.
+
+**Path parameter**
+
+`session_id` · string · required. Replace `YOUR_SESSION_ID` in the example with the session ID.
+
+**JSON body**
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `is_private` | boolean | Optional | Defaults to `false`. Use `true` to encrypt the shared session. |
+
+**Example request**
+
+```sh
+curl -X POST "http://127.0.0.1:1729/v1/tilekit/atproto/share-session/YOUR_SESSION_ID" \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "is_private": true
+}'
+```
+
+**Response**
+
+Returns `data.url` and `data.is_private`. Requires an ATproto login and an existing stored session.
+
+</TilekitEndpoint>
+
+## Source and tooling
+
+Open `docs/apis` in **Bruno**, select the Tilekit collection, and use its `dev` environment. It sets `tilekit_base_url` to the local base URL above.
+
+- [Bruno collection and runnable requests](https://github.com/tilesprivacy/tiles/tree/canary/docs/apis/tilekit%20apis)
+- [Daemon route definitions and handlers](https://github.com/tilesprivacy/tiles/tree/canary/tiles/src/daemon)
+- [API design overview](https://github.com/tilesprivacy/tiles/blob/canary/docs/adr/tilekit.md)
+
+The daemon route definitions are authoritative. The design overview includes planned endpoints and older names, including `/server/load-model`, `/agent/stop`, `/session/resume`, `/session/search`, and `/account/set-nickname`, which are not registered in the current daemon. HTTP endpoints live in the daemon.
+
+<h1 id="modelfile-reference">Modelfile Reference<a href="#modelfile-reference" class="subheading-anchor" aria-label="Permalink for this section"></a></h1>
+
+A Modelfile is a text-based blueprint for a model’s configuration, parameters, templates, and system prompt. Tiles supports a format inspired by Ollama-style instructions.
+
+The separate `tilekit` Rust crate exports the Modelfile parser, implemented in [`tilekit/src/modelfile.rs`](https://github.com/tilesprivacy/tiles/blob/main/tilekit/src/modelfile.rs) using the `nom` parser combinator library. It parses a text-based configuration format for defining model configurations, parameters, templates, and system prompts.
+
+This page describes **what is parsed**, **what is validated**, and **what is actually used at runtime today**.
+
+## Quick Start
+
+Minimal working Modelfile:
+
+```text
+FROM mlx-community/gpt-oss-20b-MXFP4-Q4
+SYSTEM You are a concise assistant.
+```
+
+`FROM` is required. Most other fields are optional.
+
+## Supported Instructions
+
+Tiles currently parses these top-level instructions (case-insensitive):
+
+- `FROM` (required, exactly one)
+- `PARAMETER` (repeatable)
+- `TEMPLATE` (at most one)
+- `SYSTEM` (latest value wins)
+- `ADAPTER` (at most one)
+- `LICENSE` (at most one)
+- `MESSAGE` (repeatable)
+- `#` comments
+
+If `FROM` is missing, parsing fails.
+
+## FROM
+
+`FROM` is parsed as a string, but runtime behavior is intentionally narrower right now.
+
+### What works today
+
+- Hugging Face-style **model repo identifiers**, for example:
+  - `mlx-community/gpt-oss-20b-MXFP4-Q4`
+  - `mlx-community/Qwen3.5-4B-MLX-4bit`
+
+### Important nuance
+
+- Any GGUF file hosted on Hugging Face is supported through `FROM`.
+- Local file paths are not supported yet.
+
+In short: `FROM` supports Hugging Face model repositories, including any GGUF file hosted on Hugging Face. Local paths are not yet supported.
+
+## SYSTEM
+
+`SYSTEM` sets the system/developer instruction prompt used in chat requests.
+
+- If multiple `SYSTEM` lines exist, the latest one replaces earlier ones.
+- If omitted, Tiles falls back to the default Modelfile prompt for the selected mode.
+
+This is one of the two Modelfile fields that materially affects runtime behavior today (`FROM` and `SYSTEM`).
+
+## PARAMETER
+
+`PARAMETER` is parsed and validated against an allowlist.
+
+Supported keys:
+
+- `num_ctx` (int)
+- `repeat_last_n` (int)
+- `repeat_penalty` (float)
+- `temperature` (float)
+- `seed` (int)
+- `stop` (string)
+- `num_predict` (int)
+- `top_k` (int)
+- `top_p` (float)
+- `min_p` (float)
+
+Notes:
+
+- Unknown parameter names fail validation.
+- Type mismatches fail validation.
+- Parameters are currently parsed/stored but not fully applied in the runtime request payload yet.
+
+## MESSAGE
+
+`MESSAGE` supports role + content pairs.
+
+Accepted roles:
+
+- `system`
+- `user`
+- `assistant`
+
+Notes:
+
+- Messages are validated and stored.
+- Current runtime conversation assembly does not directly consume `modelfile.messages` yet.
+
+## TEMPLATE, ADAPTER, LICENSE
+
+These instructions are parsed and validated with single-value semantics:
+
+- `TEMPLATE`: at most one
+- `ADAPTER`: at most one
+- `LICENSE`: at most one
+
+Current status:
+
+- They are represented in the parsed Modelfile structure.
+- They are not currently wired into the main model execution path.
+
+## Comments
+
+Lines beginning with `#` are accepted and preserved in serialized Modelfile output.
+
+## Current Runtime Behavior
+
+In the current implementation, the Modelfile fields that directly influence execution are:
+
+1. `FROM` (Hugging Face model repository identifier, including repositories containing GGUF files)
+2. `SYSTEM` (prompt override/fallback behavior)
+
+Other parsed fields are available at parse/validation level and can be considered forward-compatible surface for future runtime expansion.
+
+## Example
+
+```text
+FROM mlx-community/gpt-oss-20b-MXFP4-Q4
+SYSTEM """
+You are Tiles assistant.
+Keep answers practical and concise.
+"""
+PARAMETER temperature 0.2
+PARAMETER num_ctx 4096
+```
+
+The example above is valid. Today, `FROM` and `SYSTEM` drive behavior directly; parameter validation still applies.
+
+<!-- Temporarily hidden; retain for future restoration.
+
+### MIR Extension
+
+<div class="my-6 flex justify-start">
+  <div class="rounded bg-black p-3 inline-block dark:bg-black bg-neutral-100">
+    <img src="/mir300_light.png" alt="MIR" width="876" height="876" class="h-[90px] w-auto dark:hidden" loading="lazy" decoding="async" />
+    <img src="/mir300_dark.png" alt="MIR" width="876" height="876" class="h-[90px] w-auto hidden dark:block" loading="lazy" decoding="async" />
+  </div>
+</div>
+
+Based on the specifications defined by Darkshapes' [MIR](https://huggingface.co/darkshapes/MIR_) (Machine Intelligence Resource), a naming schema for AIGC and ML work, and Ollama's [Modelfile](https://docs.ollama.com/modelfile), this blueprint aims to extend Modelfile's capabilities to support intent-based model chaining driven by the prompt, with an implementation currently in progress.
+
+```bash
+# Base model (required)
+FROM ./model.safetensors
+
+# MIR identifier (custom extension)
+# Format: mir:[domain].[architecture].[series]:[compatibility]
+MIR "mir:model.art.gpt-oss:mlx-q4"
+
+# License for this model
+LICENSE """
+Apache-2.0
+"""
+
+# System prompt
+SYSTEM """
+You are a lightweight technical model.
+"""
+
+# Prompt formatting
+TEMPLATE "{{ .Prompt }}"
+
+# Add adapters (optional LoRA layers)
+ADAPTER ./adapter1.safetensors
+
+# Runtime parameters
+PARAMETER temperature 0.7
+PARAMETER num_ctx 4096
+
+# Initial message context
+MESSAGE user "Hello."
+MESSAGE assistant "Hi there!"
+
+```
+
+#### MIR Reference
+
+Copied verbatim from: [github.com/darkshapes/MIR](https://github.com/darkshapes/MIR):
+
+> MIR (Machine Intelligence Resource)<br /><br />A naming schema for AIGC/ML work.
+
+The MIR classification format seeks to standardize and complete a hyperlinked network of model information, improving accessibility and reproducibility across the AI community.<br />
+
+Example:
+
+> mir : model . transformer . clip-l : stable-diffusion-xl
+
+```
+ mir : model .    lora      .    hyper    :   flux-1
+  ↑      ↑         ↑               ↑            ↑
+ [URI]:[Domain].[Architecture].[Series]:[Compatibility]
+```
+
+Code for this project can be found at [darkshapes/MIR](https://github.com/darkshapes/MIR) on GitHub.
+
+##### Definitions
+
+Like other URI schema, the order of the identifiers roughly indicates their specificity from left (broad) to right (narrow).
+
+###### DOMAINS
+
+> ↑Most Specific/Decentralized
+
+**Dev**
+
+**Pre-release or under evaluation items without an identifier in an expected format**  
+Anything in in-training, pre-public release, and items under evaluation
+
+Meant to be created by anyone, derived from code and file analysis
+
+- Contextual
+- Layers of neural networks
+- Dynamic
+
+**Model**
+
+**Publicly released machine learning models with an identifier in the database**  
+Model weight tensors with arbitrary locations and quantitative dimensions
+
+Meant to be created by file hosts, derived from research pre-prints
+
+- Contextual
+- Layers of neural networks
+- Fixed
+
+**Ops**
+
+**References to specific optimization or manipulation techniques**  
+Algorithms, optimizations and procedures for models
+
+Meant to be created by code libraries, derived from research pre-prints
+
+- Universal
+- Attributes of neural networks
+- Dynamic
+
+**Info**
+
+**Metadata of layer names or settings with an identifier in the database**  
+Information about the model and tensor specifications
+
+Meant to be created by standards community, derived from code and file analysis
+
+- Universal
+- Attributes of neural networks
+- Fixed
+
+> ↓Most General/Centralized
+
+###### ARCHITECTURE
+
+Broad and general terms for system architectures:
+
+| Abbreviation    | Description                               |
+| --------------- | ----------------------------------------- |
+| GRU             | Gated recurrent unit                      |
+| RBM             | Restricted Boltzmann machine              |
+| TAE             | Tiny Autoencoder                          |
+| VAE             | Variable Autoencoder                      |
+| LSTM            | Long Short-Term Memory                    |
+| RESNET          | Residual Network                          |
+| CNN             | Convolutional Neural Network              |
+| RCNN            | Region-based Convolutional Neural Network |
+| RNN             | Recurrent Neural Network                  |
+| BRNN            | Bi-directional Recurrent Neural Network   |
+| GAN             | Generative Adversarial Model              |
+| SSM             | State-Space Model                         |
+| DETR            | Detection Transformer                     |
+| VIT             | Vision Transformer                        |
+| MOE             | Mixture of Experts                        |
+| AET             | Autoencoding Transformer                  |
+| STST            | Sequence-to-Sequence Transformer          |
+| ART             | Autoregressive Transformer                |
+| LORA            | Low-Rank Adaptation                       |
+| CONTROLNET      | Controlnet                                |
+| UNCLASSIFIED    | Unknown                                   |
+
+---
+
+###### SERIES
+
+Foundational network and technique types.
+
+**Rules**
+
+- Lowercase, hyphen only
+- Remove parameter size, non-breaking semantic versioning, library names
+
+Example: `tencent-hunyuan/hunyuandiT-v1.2-diffusers`<br />
+SERIES : `hunyuandit-v1`
+
+Example: `black-forest-labs/FLUX.1-dev`<br />
+SERIES : `flux1dev`
+
+In regex (roughly):
+
+```
+BREAKING*SUFFIX = r".*(?:-)(prior)$|.*(?:-)(diffusers)$|.\*[\*-](\d{3,4}px|-T2V$|-I2V$)"
+PARAMETERS*SUFFIX = r"(\d{1,4}[KkMmBb]|[.*-]\d+[\._-]\d+[Bb][._-]).\*?$"
+SEARCH*SUFFIX = r"\d+[.*-]?\d+[BbMmKk](it)?|[._-]\d+[BbMmKk](it)?"
+```
+
+###### COMPATIBILITY
+
+Implementation details based on version-breaking changes, configuration inconsistencies, or other conflicting indicators that have practical application.
+
+**Rules**
+
+An additional SERIES label for identifying cross-compatibility
+
+##### Notes
+
+If you would like to regenerate or update the example file here, use [nnll](https://github.com/darkshapes/nnll/tree/0.1.dev799):
+
+MIR is inspired by:
+
+- [AIR-URN](https://github.com/civitai/civitai/wiki/AIR-%E2%80%90-Uniform-Resource-Names-for-AI) project by [CivitAI](https://civitai.com/)
+- [Spandrel](https://github.com/chaiNNer-org/spandrel/blob/main/libs/spandrel/spandrel/__helpers/registry.py) super-resolution registry by [chaiNNer](https://github.com/chaiNNer-org/chaiNNer)
+- [SDWebUI Model Toolkit](https://github.com/silveroxides/stable-diffusion-webui-model-toolkit-revisited) by [silveroxides](https://github.com/silveroxides)
+
+-->

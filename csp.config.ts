@@ -6,7 +6,6 @@ export const cspDirectives = {
     "self",
     "https://challenges.cloudflare.com", // Turnstile on the newsletter form
     "https://sniperl.ink", // "Open in Gmail" button after subscribing
-    "https://static.cloudflareinsights.com", // Web Analytics, only after consent
   ],
   "style-src": ["self", "unsafe-inline"],
   "img-src": ["self", "data:", "blob:", "https:"],
@@ -14,13 +13,14 @@ export const cspDirectives = {
   "font-src": ["self"],
   "connect-src": [
     "self",
-    "https://cloudflareinsights.com", // Web Analytics beacon
+    "https://public.api.bsky.app", // blog post discussion (Bluesky replies) and author avatars
   ],
   "frame-src": [
     "https://challenges.cloudflare.com", // Turnstile
     "https://polar.sh", // embedded checkout on /pricing
     "https://buy.polar.sh",
     "https://sandbox.polar.sh",
+    "https://www.youtube-nocookie.com", // talk recording on /blog/own-your-ai and /tiles-at-india-foss
   ],
   "object-src": ["none"],
   "base-uri": ["self"],

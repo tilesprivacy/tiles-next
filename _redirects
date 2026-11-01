@@ -1,0 +1,11 @@
+# Permanent redirects carried over from the old next.config.mjs (Next.js
+# sends 308 for `permanent: true`). Cloudflare applies these before the
+# Worker runs; the adapter appends prerendered redirects (/api/og, /api/llms)
+# below at build time.
+/blog/tiles-privacy-mozilla-foundation-funding /blog/tiles-joins-mozilla-ai-incubator 308
+/book/modelfile /book/tilekit#modelfile-reference 308
+/modelfile /book/tilekit#modelfile-reference 308
+/tilekit /book/tilekit 308
+/changelog /releases 308
+/book/acknowledgements /book/opensource 308
+/book/memory /research/memory-model-trained-with-online-rl 308

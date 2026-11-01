@@ -1,5 +1,4 @@
-import fs from 'fs'
-import path from 'path'
+import { getBookPageMarkdown } from '#lib/book'
 
 export interface ResourceLink {
   title: string
@@ -13,20 +12,11 @@ export interface ResourceLink {
 const LINK_LINE = /^-\s*(✨\s*)?\[(.+)\]\((\S+)\)\s*$/
 
 /**
- * Parses the curated link list out of `content/resources.mdx` so search
- * surfaces (the AI search corpus and llms endpoints) can index every link's
- * title and URL, not just the visible text.
+ * Parses the curated link list out of the book's resources page so the llms
+ * indexes can list every link's title and URL, not just the visible text.
  */
 export function getResourceLinks(): ResourceLink[] {
-  const filePath = path.join(process.cwd(), 'content', 'resources.mdx')
-
-  let raw: string
-  try {
-    raw = fs.readFileSync(filePath, 'utf-8')
-  } catch {
-    return []
-  }
-
+  const raw = getBookPageMarkdown('resources')
   const links: ResourceLink[] = []
   let sectionPath: string[] = []
 

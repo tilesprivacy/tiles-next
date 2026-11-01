@@ -25,68 +25,60 @@ const FALLBACK_ARTIFACT: DownloadArtifact = {
   sha256: "f270d0c5cfb0b1f93179fbb1978b2d3c2b398bf0eb508ec8cd86fc6766f84a34",
 }
 
-function extractSha256Digest(asset: any): string {
-  if (typeof asset?.digest === "string" && asset.digest.startsWith("sha256:")) {
-    return asset.digest.slice("sha256:".length)
-  }
-
-  return "Unavailable"
+interface GithubAsset {
+  name: string
+  size: number
+  digest?: unknown
 }
 
+interface GithubRelease {
+  tag_name: string
+  prerelease: boolean
+  assets: GithubAsset[]
+}
+
+function isPkgAsset(asset: unknown): asset is GithubAsset {
+  if (typeof asset !== "object" || asset === null) return false
+  const { name, size } = asset as Record<string, unknown>
+  return typeof name === "string" && name.endsWith(".pkg") && typeof size === "number"
+}
+
+function pkgAssetOf(candidate: unknown): { release: GithubRelease; asset: GithubAsset } | null {
+  if (typeof candidate !== "object" || candidate === null) return null
+  const release = candidate as Partial<GithubRelease>
+  const version = normalizeReleaseVersion(String(release.tag_name ?? ""))
+  if (!version || release.prerelease || isDownloadReleaseVersionHidden(version)) return null
+  const asset = Array.isArray(release.assets) ? release.assets.find(isPkgAsset) : undefined
+  return asset ? { release: release as GithubRelease, asset } : null
+}
+
+function extractSha256Digest(asset: GithubAsset): string {
+  return typeof asset.digest === "string" && asset.digest.startsWith("sha256:")
+    ? asset.digest.slice("sha256:".length)
+    : "Unavailable"
+}
+
+/** Newest non-prerelease, non-hidden release with a macOS .pkg; the pinned fallback when GitHub fails. */
 export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
   try {
-    const release = await fetchGithubJson<any[], any | undefined>(
-      GITHUB_RELEASES_LATEST_URL,
-      (releases) => {
-        if (!Array.isArray(releases)) {
-          return undefined
-        }
-
-        return releases.find((candidate: any) => {
-          const version = normalizeReleaseVersion(String(candidate?.tag_name || ""))
-          const assets = Array.isArray(candidate?.assets) ? candidate.assets : []
-
-          return (
-            version.length > 0 &&
-            !candidate?.prerelease &&
-            !isDownloadReleaseVersionHidden(version) &&
-            assets.some(
-              (asset: any) =>
-                typeof asset?.name === "string" &&
-                asset.name.endsWith(".pkg") &&
-                typeof asset?.size === "number"
-            )
-          )
-        })
+    const latest = await fetchGithubJson<unknown, ReturnType<typeof pkgAssetOf>>(GITHUB_RELEASES_LATEST_URL, (releases: unknown) => {
+      if (!Array.isArray(releases)) return null
+      for (const candidate of releases) {
+        const match = pkgAssetOf(candidate)
+        if (match) return match
       }
-    )
+      return null
+    })
+    if (!latest) return FALLBACK_ARTIFACT
 
-    if (!release) {
-      throw new Error("No visible .pkg release found")
-    }
-
-    const assets = Array.isArray(release?.assets) ? release.assets : []
-    const pkgAsset = assets.find(
-      (asset: any) =>
-        typeof asset?.name === "string" &&
-        asset.name.endsWith(".pkg") &&
-        typeof asset?.size === "number"
-    )
-
-    if (!pkgAsset) {
-      throw new Error("No .pkg asset found in latest release")
-    }
-
-    const fileName = pkgAsset.name
-    const binarySizeBytes = pkgAsset.size
-
+    const { release, asset } = latest
     return {
-      version: String(release?.tag_name || "").replace(/^v/, "") || "unknown",
-      fileName,
-      downloadUrl: `https://download.tiles.run/${fileName}`,
-      binarySizeBytes,
-      binarySizeLabel: formatBinarySize(binarySizeBytes),
-      sha256: extractSha256Digest(pkgAsset),
+      version: release.tag_name.replace(/^v/, "") || "unknown",
+      fileName: asset.name,
+      downloadUrl: `https://download.tiles.run/${encodeURIComponent(asset.name)}`,
+      binarySizeBytes: asset.size,
+      binarySizeLabel: formatBinarySize(asset.size),
+      sha256: extractSha256Digest(asset),
     }
   } catch {
     return FALLBACK_ARTIFACT

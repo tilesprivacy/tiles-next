@@ -2,6 +2,7 @@ import type { MdsvexOptions } from "mdsvex"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import { createHighlighter } from "shiki"
+import { rehypeBook } from "./src/lib/book-rehype.ts"
 
 // Book pages, research notes and blog posts all go through this.
 // Code is highlighted at build time, so no highlighter ships to the browser.
@@ -16,8 +17,9 @@ function escapeSvelte(html: string) {
 
 export const mdsvexOptions: MdsvexOptions = {
   extensions: [".md"],
-  remarkPlugins: [remarkGfm],
-  rehypePlugins: [rehypeSlug],
+  remarkPlugins: [remarkGfm] as never,
+  // The unified plugin types don't line up with mdsvex's, but these are standard rehype plugins.
+  rehypePlugins: [rehypeSlug, rehypeBook] as never,
   highlight: {
     highlighter: (code, lang) => {
       const language = lang && highlighter.getLoadedLanguages().includes(lang) ? lang : "text"

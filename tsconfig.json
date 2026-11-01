@@ -18,6 +18,17 @@
       "$app/types",
       "./worker-configuration.d.ts",
       "node"
-    ]
+    ],
+    "paths": {
+      "#lib": [
+        "./src/lib"
+      ],
+      "#lib/*": [
+        "./src/lib/*"
+      ],
+      "#content/*": [
+        "./content/*"
+      ]
+    }
   }
 }

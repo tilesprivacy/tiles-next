@@ -1,21 +1,20 @@
 /**
  * Open Graph images for the site's own pages.
  *
- * Every page here is served by `app/api/og/route.tsx`, which draws the Tiles
- * name onto the shared site card. Two rules this module exists to hold:
+ * The cards are drawn at build time by `scripts/og-images.ts` into
+ * `static/og/generated/`. Two rules this module exists to hold:
  *
- * - Social images are served from this site, never from a third party. Pages
- *   used to point at `raw.githubusercontent.com/.../main/public/...`, which
- *   tracked a branch, went around `metadataBase`, and broke every card at once
- *   whenever a file moved or the repo's visibility changed.
+ * - Social images are served from this site, never from a third party, so a
+ *   moved file or a repo visibility change can't break every card at once.
  * - General site pages use one visually consistent Tiles card. Their page
  *   names remain available in the Open Graph and Twitter title metadata.
  *
  * Pages with their own artwork stay on it: blog posts use their cover images
- * (`lib/standard-site.ts`), and `/pricing` uses `app/api/og/pricing`.
+ * (`standard-site.ts`), `/pricing` and each plugin have their own card.
  */
+import { SITE_ORIGIN } from "#lib/absolute-url"
 
-/** Matches the `size` export in `app/api/og/route.tsx`. */
+/** Size of every generated card. */
 export const SOCIAL_IMAGE_WIDTH = 1200
 export const SOCIAL_IMAGE_HEIGHT = 630
 
@@ -27,26 +26,37 @@ export interface SocialImage {
   alt: string
 }
 
-/**
- * Shared Tiles card for a site page. `title` is only used for descriptive alt
- * text; the image itself always displays the Tiles brand name.
- *
- * Relative on purpose: Next resolves it against `metadataBase` in
- * `app/layout.tsx`, so preview and production each point at themselves.
- */
-export function getSocialImage(title?: string): SocialImage {
+/** Absolute URL of a card in `static/og/generated/`. */
+export function generatedOgImageUrl(fileName: string): string {
+  return `${SITE_ORIGIN}/og/generated/${fileName}`
+}
+
+function card(fileName: string, alt: string): SocialImage {
   return {
-    url: "/api/og",
+    url: generatedOgImageUrl(fileName),
     width: SOCIAL_IMAGE_WIDTH,
     height: SOCIAL_IMAGE_HEIGHT,
     type: "image/png",
-    alt: title ? `${title} | Tiles` : "Tiles",
+    alt,
   }
+}
+
+/**
+ * Shared Tiles card for a site page. `title` is only used for descriptive alt
+ * text; the image itself always displays the Tiles brand name.
+ */
+export function getSocialImage(title?: string): SocialImage {
+  return card("og.png", title ? `${title} | Tiles` : "Tiles")
 }
 
 /** The same card, for the `twitter.images` shorthand that takes a bare URL. */
 export function getSocialImageUrl(title?: string): string {
   return getSocialImage(title).url
+}
+
+/** The /pricing card, which shows the plans. */
+export function getPricingSocialImageUrl(): string {
+  return generatedOgImageUrl("pricing.png")
 }
 
 interface PluginSocialImageInput {
@@ -56,18 +66,6 @@ interface PluginSocialImageInput {
 }
 
 /** Card for a plugin detail page, using the plugin's own identity and copy. */
-export function getPluginSocialImage({
-  slug,
-  name,
-  description,
-}: PluginSocialImageInput): SocialImage {
-  const searchParams = new URLSearchParams({ slug, name, description })
-
-  return {
-    url: `/api/og/plugin?${searchParams.toString()}`,
-    width: SOCIAL_IMAGE_WIDTH,
-    height: SOCIAL_IMAGE_HEIGHT,
-    type: "image/png",
-    alt: `${name} plugin for Tiles: ${description}`,
-  }
+export function getPluginSocialImage({ slug, name, description }: PluginSocialImageInput): SocialImage {
+  return card(`plugin-${slug}.png`, `${name} plugin for Tiles: ${description}`)
 }

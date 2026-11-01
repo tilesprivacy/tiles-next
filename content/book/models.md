@@ -1,0 +1,14 @@
+---
+title: "Models"
+description: "Our approach to model selection and optimization"
+cardDescription: "Our approach to model selection and optimization for different tasks and hardware constraints."
+lastUpdated: "2026-09-10T12:20:43.000Z"
+---
+
+Tiles is designed for everyday productivity tasks. It combines a carefully tested model, inference parameters, and agent harness, so users do not have to manage model selection, tuning, or scaffolding themselves.
+
+Tiles uses Google’s <span class="inline-flex items-center gap-1 align-baseline"><img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" class="h-3.5 w-3.5" />[`gemma4-12b`](https://ai.google.dev/gemma/docs)</span> as the default model for everyday tasks. We use [Unsloth’s Dynamic 2.0 GGUF](https://huggingface.co/unsloth/gemma-4-12b-it-GGUF) release of Gemma 4 12B and enable first-party [Multi-Token Prediction (MTP)](https://unsloth.ai/docs/models/mtp) speculative decoding out of the box, reducing decoding latency while preserving the target model’s output quality.
+
+Tiles uses [llama.cpp](https://github.com/ggml-org/llama.cpp) for local inference across supported platforms, with a common inference stack built around GGUF models.
+
+Tiles targets everyday personal machines with at least 16 GB of system memory for real productivity tasks.

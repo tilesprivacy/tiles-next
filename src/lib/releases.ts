@@ -464,9 +464,6 @@ plugin_name
   ],
 }
 
-// Additional changes to append to existing changes (for supplements, not overrides)
-const additionalSections: Record<string, ChangeSection[]> = {}
-
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
   "0.4.19": "Alpha 23",
@@ -475,297 +472,207 @@ const customTitles: Record<string, string> = {
   "0.4.1": "Alpha 5",
 }
 
-// Versions where the last bullet point should be replaced
-const replaceLastChange: Record<string, string> = {}
+const GITHUB_RELEASES_URL = "https://api.github.com/repos/tilesprivacy/tiles/releases"
 
-const normalizeVersion = normalizeReleaseVersion
+/** The fields we read from GitHub's release API, validated before use. */
+interface GithubAsset {
+  name: string
+  size?: number
+  digest?: string
+}
+
+interface GithubRelease {
+  tag_name: string
+  name: string | null
+  body: string | null
+  prerelease: boolean
+  published_at: string | null
+  html_url: string
+  assets: GithubAsset[]
+}
+
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  typeof value === "object" && value !== null
+
+const optionalString = (value: unknown) => (typeof value === "string" ? value : null)
+
+function toGithubAsset(value: unknown): GithubAsset | null {
+  if (!isRecord(value) || typeof value.name !== "string") return null
+  return {
+    name: value.name,
+    size: typeof value.size === "number" ? value.size : undefined,
+    digest: optionalString(value.digest) ?? undefined,
+  }
+}
+
+function toGithubRelease(value: unknown): GithubRelease | null {
+  if (!isRecord(value) || typeof value.tag_name !== "string") return null
+  // html_url becomes a link on the page, so only accept GitHub's own.
+  if (!normalizeReleaseVersion(value.tag_name) || typeof value.html_url !== "string") return null
+  if (!value.html_url.startsWith("https://github.com/")) return null
+  return {
+    tag_name: value.tag_name,
+    name: optionalString(value.name),
+    body: optionalString(value.body),
+    prerelease: value.prerelease === true,
+    published_at: optionalString(value.published_at),
+    html_url: value.html_url,
+    assets: Array.isArray(value.assets)
+      ? value.assets.map(toGithubAsset).filter((asset): asset is GithubAsset => asset !== null)
+      : [],
+  }
+}
+
+/**
+ * GitHub's first page of releases, plus any older release we have hand-written
+ * notes or a title for, so those never drop off as new releases are published.
+ */
+async function fetchGithubReleases(): Promise<GithubRelease[]> {
+  const releases = await fetchGithubJson<unknown, GithubRelease[]>(GITHUB_RELEASES_URL, toGithubReleases)
+
+  const listed = new Set(releases.map((release) => normalizeReleaseVersion(release.tag_name)))
+  const missing = [...new Set([...Object.keys(customSections), ...Object.keys(customTitles)])].filter(
+    (version) => !listed.has(version),
+  )
+  const extra = await Promise.all(
+    missing.map((version) =>
+      fetchGithubJson<unknown, GithubRelease | null>(`${GITHUB_RELEASES_URL}/tags/${version}`, toGithubRelease).catch(
+        () => null,
+      ),
+    ),
+  )
+
+  return publishedNewestFirst([...releases, ...extra.filter((release): release is GithubRelease => release !== null)])
+}
+
+function publishedNewestFirst(releases: GithubRelease[]): GithubRelease[] {
+  return releases
+    .filter((release) => !release.prerelease)
+    .sort((a, b) => Date.parse(b.published_at ?? "") - Date.parse(a.published_at ?? ""))
+}
+
+function toGithubReleases(data: unknown): GithubRelease[] {
+  return Array.isArray(data)
+    ? data.map(toGithubRelease).filter((release): release is GithubRelease => release !== null)
+    : []
+}
 
 function parseVersion(version: string): number[] {
-  const [major = "0", minor = "0", patch = "0"] = normalizeVersion(version).split(".")
-  return [Number(major) || 0, Number(minor) || 0, Number(patch) || 0]
+  return normalizeReleaseVersion(version)
+    .split(".")
+    .slice(0, 3)
+    .map((part) => Number(part) || 0)
 }
 
-function isVersionGte(version: string, minimum: string): boolean {
-  const versionParts = parseVersion(version)
-  const minimumParts = parseVersion(minimum)
-
-  for (let i = 0; i < 3; i++) {
-    const current = versionParts[i] ?? 0
-    const min = minimumParts[i] ?? 0
-    if (current > min) {
-      return true
-    }
-    if (current < min) {
-      return false
-    }
-  }
-
-  return true
-}
-
-function buildBucketDownloadUrl(fileName: string): string {
-  return `https://download.tiles.run/${fileName}`
-}
-
-function buildInstallerFileName(version: string): string {
-  return `tiles-${normalizeVersion(version)}-signed.pkg`
-}
-
-function extractSha256Digest(asset: any): string {
-  const digest = typeof asset?.digest === "string" ? asset.digest.trim() : ""
-  if (!digest.toLowerCase().startsWith("sha256:")) {
-    return "Unavailable"
-  }
-
-  const sha256 = digest.slice("sha256:".length).trim().toLowerCase()
-  return /^[a-f0-9]{64}$/.test(sha256) ? sha256 : "Unavailable"
-}
-
-const requiredVersions = Array.from(
-  new Set([
-    ...Object.keys(customSections),
-    ...Object.keys(customTitles),
-    ...Object.keys(additionalSections),
-    ...Object.keys(replaceLastChange),
-  ])
-)
-
-function isVisibleReleaseData(release: any): boolean {
-  const normalizedVersion = normalizeVersion(String(release?.tag_name || ""))
-  return normalizedVersion.length > 0
-}
-
-function compareVersionsDescending(a: string, b: string): number {
+function compareVersions(a: string, b: string): number {
   const aParts = parseVersion(a)
   const bParts = parseVersion(b)
-
   for (let i = 0; i < 3; i++) {
-    const aValue = aParts[i] ?? 0
-    const bValue = bParts[i] ?? 0
-    if (bValue !== aValue) {
-      return bValue - aValue
-    }
+    const difference = (aParts[i] ?? 0) - (bParts[i] ?? 0)
+    if (difference !== 0) return difference
   }
-
   return 0
 }
 
+function extractSha256Digest(digest: string | undefined): string {
+  const value = digest?.trim().toLowerCase() ?? ""
+  const sha256 = value.startsWith("sha256:") ? value.slice("sha256:".length).trim() : ""
+  return /^[a-f0-9]{64}$/.test(sha256) ? sha256 : "Unavailable"
+}
+
+function releaseFile(name: string, asset?: GithubAsset): ReleaseInstaller {
+  return {
+    name,
+    url: `https://download.tiles.run/${name}`,
+    sizeBytes: asset?.size ?? -1,
+    sha256: extractSha256Digest(asset?.digest),
+  }
+}
+
+function extractTarballs(assets: GithubAsset[]): ReleaseTarball[] {
+  return assets.filter((asset) => asset.name.endsWith(".tar.gz")).map((asset) => releaseFile(asset.name, asset))
+}
+
+/** Network installers start at 0.4.3; older releases had none. */
+function extractInstaller(version: string, assets: GithubAsset[]): ReleaseInstaller | undefined {
+  if (compareVersions(version, "0.4.3") < 0) return undefined
+
+  const pkgAsset = assets.find((asset) => asset.name.toLowerCase().endsWith(".pkg"))
+  return releaseFile(pkgAsset?.name ?? `tiles-${normalizeReleaseVersion(version)}-signed.pkg`, pkgAsset)
+}
+
+function extractCompareUrl(body: string): string | undefined {
+  return body.match(/\[([^\]]+)\]\((https:\/\/github\.com\/[^/]+\/[^/]+\/compare\/[^)]+)\)/)?.[2]
+}
+
+/** Hand-written notes only, for when GitHub can't be reached. */
 function buildOfflineReleases(): Release[] {
-  const versions = Array.from(new Set(Object.keys(customSections))).sort(compareVersionsDescending)
-
-  return versions.map((version) => {
-    const normalizedVersion = normalizeVersion(version)
-
-    return {
+  return Object.keys(customSections)
+    .sort((a, b) => compareVersions(b, a))
+    .map((version) => ({
       version,
       date: "",
-      title: customTitles[version] || customTitles[normalizedVersion] || version,
-      sections: customSections[version] || customSections[normalizedVersion] || [],
+      title: customTitles[version] ?? version,
+      sections: customSections[version],
       isPrerelease: false,
       githubUrl: `https://github.com/tilesprivacy/tiles/releases/tag/${version}`,
       tarballs: [],
-      installer: undefined,
-      fullInstaller: customFullInstallers[normalizedVersion],
-    }
-  })
+      fullInstaller: customFullInstallers[version],
+    }))
 }
 
-export async function fetchReleases(): Promise<Release[]> {
-  let data: any[]
+function toRelease(release: GithubRelease): Release {
+  const body = release.body ?? ""
+  const version = release.tag_name
+  const key = normalizeReleaseVersion(version)
 
-  try {
-    data = await fetchGithubJson<any[]>(
-      "https://api.github.com/repos/tilesprivacy/tiles/releases",
-      (releases) => releases.filter(isVisibleReleaseData)
-    )
-  } catch {
-    return buildOfflineReleases()
-  }
+  // Hand-written sections override what was parsed from the release body.
+  const sections = (customSections[key] ?? extractSections(body)).map((section) => ({
+    ...section,
+    changes: section.changes.map((change) => normalizeChangeItem(change, section.title)),
+  }))
 
-  const missingRequiredVersions = requiredVersions.filter(
-    (requiredVersion) =>
-      !data.some(
-        (release: any) =>
-          normalizeVersion(release.tag_name) === normalizeVersion(requiredVersion)
-      )
-  )
-
-  if (missingRequiredVersions.length > 0) {
-    const requiredReleases = await Promise.all(
-      missingRequiredVersions.map(async (requiredVersion) => {
-        try {
-          return await fetchGithubJson<any>(
-            `https://api.github.com/repos/tilesprivacy/tiles/releases/tags/${requiredVersion}`
-          )
-        } catch {
-          return null
-        }
-      })
-    )
-
-    data = [...requiredReleases.filter(Boolean), ...data]
-  }
-
-  const uniqueByVersion = new Map<string, any>()
-  for (const release of data) {
-    const normalized = normalizeVersion(release.tag_name)
-    if (!uniqueByVersion.has(normalized)) {
-      uniqueByVersion.set(normalized, release)
-    }
-  }
-
-  const normalizedData = Array.from(uniqueByVersion.values()).sort(
-    (a, b) =>
-      new Date(b.published_at || b.created_at || 0).getTime() -
-      new Date(a.published_at || a.created_at || 0).getTime()
-  )
-
-  return normalizedData
-    .filter((release: any) => {
-      const normalizedVersion = normalizeVersion(String(release.tag_name || ""))
-      return !release.prerelease && isVisibleReleaseData(release)
-    })
-    .map((release: any) => {
-      const body = release.body || ""
-      const extractedSections = extractSections(body)
-      const version = release.tag_name
-      const normalizedVersion = normalizeVersion(version)
-
-      // Use custom sections if available (overrides), otherwise use extracted sections
-      let finalSections =
-        customSections[version] || customSections[normalizedVersion] || extractedSections
-
-      // Replace last bullet point if specified
-      if (
-        (replaceLastChange[version] || replaceLastChange[normalizedVersion]) &&
-        finalSections.length > 0
-      ) {
-        const replacement =
-          replaceLastChange[version] || replaceLastChange[normalizedVersion]
-        const sectionsCopy = finalSections.map((section) => ({
-          ...section,
-          changes: [...section.changes],
-        }))
-
-        for (let i = sectionsCopy.length - 1; i >= 0; i--) {
-          const section = sectionsCopy[i]
-          if (section.changes.length > 0) {
-            section.changes = [
-              ...section.changes.slice(0, -1),
-              { text: replacement },
-            ]
-            break
-          }
-        }
-
-        finalSections = sectionsCopy
-      }
-
-      // Append additional sections if specified (for supplements)
-      if (additionalSections[version] || additionalSections[normalizedVersion]) {
-        finalSections = mergeSections(
-          finalSections,
-          additionalSections[version] || additionalSections[normalizedVersion]
-        )
-      }
-
-      // Remove trailing periods from all bullet points and sub-items
-      // Also fix any typos
-      finalSections = finalSections.map((section) => ({
-        ...section,
-        changes: section.changes.map((change) =>
-          normalizeChangeItem(change, section.title)
-        ),
-      }))
-
-      return {
-        version,
-        date: new Date(release.published_at).toLocaleDateString("en-US", {
+  return {
+    version,
+    date: release.published_at
+      ? new Date(release.published_at).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
           year: "numeric",
-        }),
-        title:
-          customTitles[version] ||
-          customTitles[normalizedVersion] ||
-          release.name ||
-          release.tag_name,
-        sections: finalSections,
-        isPrerelease: release.prerelease,
-        githubUrl: release.html_url,
-        compareUrl: extractCompareUrl(body),
-        tarballs: extractTarballs(release.assets),
-        installer: extractInstaller(version, release.assets),
-        fullInstaller: customFullInstallers[normalizedVersion],
-      }
-    })
+          timeZone: "UTC",
+        })
+      : "",
+    title: customTitles[key] || release.name || version,
+    sections,
+    isPrerelease: release.prerelease,
+    githubUrl: release.html_url,
+    compareUrl: extractCompareUrl(body),
+    tarballs: extractTarballs(release.assets),
+    installer: extractInstaller(version, release.assets),
+    fullInstaller: customFullInstallers[key],
+  }
 }
 
-export async function getLatestReleaseVersion(): Promise<string | null> {
+export async function fetchReleases(): Promise<Release[]> {
   try {
-    const releases = await fetchReleases()
-    if (releases.length === 0) {
-      return FALLBACK_DOWNLOAD_VERSION
-    }
+    return (await fetchGithubReleases()).map(toRelease)
+  } catch {
+    return buildOfflineReleases()
+  }
+}
 
-    return normalizeReleaseVersion(releases[0].version)
+/** Only needs GitHub's first page, not the older releases `fetchReleases` adds. */
+export async function getLatestReleaseVersion(): Promise<string> {
+  try {
+    const releases = await fetchGithubJson<unknown, GithubRelease[]>(GITHUB_RELEASES_URL, toGithubReleases)
+    const [latest] = publishedNewestFirst(releases)
+    return latest ? normalizeReleaseVersion(latest.tag_name) : FALLBACK_DOWNLOAD_VERSION
   } catch {
     return FALLBACK_DOWNLOAD_VERSION
   }
 }
 
-function extractTarballs(assets: any[] | undefined): ReleaseTarball[] {
-  if (!Array.isArray(assets)) {
-    return []
-  }
-
-  return assets
-    .filter((asset) => typeof asset?.name === "string" && asset.name.endsWith(".tar.gz"))
-    .map((asset) => ({
-      name: asset.name,
-      url: buildBucketDownloadUrl(asset.name),
-      sizeBytes: typeof asset.size === "number" ? asset.size : -1,
-      sha256: extractSha256Digest(asset),
-    }))
-}
-
-function extractInstaller(
-  version: string,
-  assets: any[] | undefined
-): ReleaseInstaller | undefined {
-  const normalizedVersion = normalizeVersion(version)
-  if (!isVersionGte(normalizedVersion, "0.4.3")) {
-    return undefined
-  }
-
-  const pkgAsset = Array.isArray(assets)
-    ? assets.find(
-        (asset) =>
-          typeof asset?.name === "string" && asset.name.toLowerCase().endsWith(".pkg")
-      )
-    : undefined
-
-  const fileName =
-    typeof pkgAsset?.name === "string"
-      ? pkgAsset.name
-      : buildInstallerFileName(normalizedVersion)
-
-  return {
-    name: fileName,
-    url: buildBucketDownloadUrl(fileName),
-    sizeBytes: typeof pkgAsset?.size === "number" ? pkgAsset.size : -1,
-    sha256: extractSha256Digest(pkgAsset),
-  }
-}
-
-const KEEP_A_CHANGELOG_SECTION_ORDER = [
-  "Added",
-  "Changed",
-  "Deprecated",
-  "Removed",
-  "Fixed",
-  "Security",
-]
+const KEEP_A_CHANGELOG_SECTION_ORDER = ["Added", "Changed", "Deprecated", "Removed", "Fixed", "Security"]
 
 const SECTION_TITLE_ALIASES: Record<string, string> = {
   added: "Added",
@@ -941,94 +848,35 @@ function normalizeChangeItem(
   }
 }
 
+/** Leading verbs that repeat the section heading, e.g. "Added" under Added. */
+const REDUNDANT_SECTION_PREFIXES: Record<string, RegExp> = {
+  Added: /^Added\s+/i,
+  Changed: /^(?:Changed|Updated)\s+/i,
+  Deprecated: /^Deprecated\s+/i,
+  Removed: /^Removed\s+/i,
+  Fixed: /^Fixed\s+/i,
+  Security: /^Security:\s*/i,
+}
+
 function normalizeChangeText(text: string, sectionTitle?: string): string {
   let normalized = sanitizeBulletText(text).replace(/\.$/, "").replace(/enoints/g, "endpoints")
-
-  if (sectionTitle === "Added") {
-    normalized = normalized.replace(/^Added\s+/i, "")
-  } else if (sectionTitle === "Fixed") {
-    normalized = normalized.replace(/^Fixed\s+/i, "")
-  } else if (sectionTitle === "Changed") {
-    normalized = normalized.replace(/^(?:Changed|Updated)\s+/i, "")
-  } else if (sectionTitle === "Removed") {
-    normalized = normalized.replace(/^Removed\s+/i, "")
-  } else if (sectionTitle === "Deprecated") {
-    normalized = normalized.replace(/^Deprecated\s+/i, "")
-  } else if (sectionTitle === "Security") {
-    normalized = normalized.replace(/^Security:\s*/i, "")
-  }
+  const prefix = sectionTitle ? REDUNDANT_SECTION_PREFIXES[sectionTitle] : undefined
+  if (prefix) normalized = normalized.replace(prefix, "")
 
   return capitalizeLeadingText(normalized.trim())
 }
 
 function capitalizeLeadingText(text: string): string {
-  if (!text) {
-    return text
-  }
+  // Product names that stay lowercase, and leading `code`, are left alone.
+  if (text.toLowerCase().startsWith("gpt-oss")) return `gpt-oss${text.slice("gpt-oss".length)}`
+  if (/^`[^`]+`/.test(text)) return text
 
-  const lowercaseLeadingTerms = ["gpt-oss"] as const
-  for (const term of lowercaseLeadingTerms) {
-    if (text.toLowerCase().startsWith(term)) {
-      return term + text.slice(term.length)
-    }
-  }
-
-  const leadingCodeMatch = text.match(/^((?:`[^`]+`\s*)+)/)
-  if (leadingCodeMatch) {
-    return text
-  }
-
-  return capitalizeFirstLetter(text)
+  return text.replace(/^([^A-Za-z]*)([a-z])/, (_, lead: string, letter: string) => `${lead}${letter.toUpperCase()}`)
 }
 
-function capitalizeFirstLetter(text: string): string {
-  return text.replace(/^([^A-Za-z]*)([a-z])/, (_, prefix: string, letter: string) => {
-    return `${prefix}${letter.toUpperCase()}`
-  })
-}
-
+/** Keep a Changelog order. Titles are already normalized to one of these. */
 function sortSections(sections: ChangeSection[]): ChangeSection[] {
-  return [...sections].sort((a, b) => {
-    const indexA = KEEP_A_CHANGELOG_SECTION_ORDER.indexOf(a.title)
-    const indexB = KEEP_A_CHANGELOG_SECTION_ORDER.indexOf(b.title)
-
-    const normalizedA = indexA === -1 ? Number.MAX_SAFE_INTEGER : indexA
-    const normalizedB = indexB === -1 ? Number.MAX_SAFE_INTEGER : indexB
-
-    if (normalizedA !== normalizedB) {
-      return normalizedA - normalizedB
-    }
-    return a.title.localeCompare(b.title)
-  })
-}
-
-function mergeSections(
-  baseSections: ChangeSection[],
-  extraSections: ChangeSection[]
-): ChangeSection[] {
-  const merged = baseSections.map((section) => ({
-    ...section,
-    changes: [...section.changes],
-  }))
-
-  for (const section of extraSections) {
-    const existing = merged.find((item) => item.title === section.title)
-    if (existing) {
-      existing.changes.push(...section.changes)
-    } else {
-      merged.push({
-        ...section,
-        changes: [...section.changes],
-      })
-    }
-  }
-
-  return sortSections(merged)
-}
-
-function extractCompareUrl(body: string): string | undefined {
-  const match = body.match(
-    /\[([^\]]+)\]\((https:\/\/github\.com\/[^/]+\/[^/]+\/compare\/[^)]+)\)/
+  return [...sections].sort(
+    (a, b) => KEEP_A_CHANGELOG_SECTION_ORDER.indexOf(a.title) - KEEP_A_CHANGELOG_SECTION_ORDER.indexOf(b.title),
   )
-  return match?.[2]
 }

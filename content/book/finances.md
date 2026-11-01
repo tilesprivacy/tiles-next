@@ -1,0 +1,168 @@
+---
+title: "Finances"
+description: "Tiles is developed in the open and funded by its community. Our finances are published here every month: revenue, sponsorships, compensation, and expenses."
+cardDescription: "Our finances, published in the open every month."
+lastUpdated: "2026-09-27T07:27:02.000Z"
+---
+
+<script>
+  import BookFaq from "#lib/components/book/BookFaq.svelte"
+  import BookFaqItem from "#lib/components/book/BookFaqItem.svelte"
+</script>
+
+Tiles is developed in the open and funded by its community. We believe a privacy company earns trust through transparency, so our finances are transparent down to individual line items: each month we publish what we earn and what we spend on this page.
+
+## September 2026
+
+With no product revenue yet, sponsorships brought in ₹1,35,000 and teammates shared ₹25,000 back into the company pool, while ₹1,37,200 went out in compensation and expenses. After carrying forward August's ₹42,600 deficit, the net balance is −₹19,800.
+
+| Summary      |      Amount |
+| :----------- | ----------: |
+| Revenue      |          ₹0 |
+| Sponsorships |   ₹1,35,000 |
+| Compensation |   ₹1,35,000 |
+| Expenses     |      ₹2,200 |
+| Company pool |     ₹25,000 |
+| **Net**      | **−₹19,800** |
+
+### Revenue
+
+Tiles earned no revenue in September. Once income from paid plans arrives, it will be itemized here.
+
+### Sponsorships
+
+| Source          |        Amount |
+| :-------------- | ------------: |
+| GitHub Sponsors |     ₹1,35,000 |
+| **Total**       | **₹1,35,000** |
+
+### Compensation
+
+| Contributor                   |        Amount |
+| :---------------------------- | ------------: |
+| Ankesh Bharti, Founder        |       ₹45,000 |
+| Anandu Pavanan, Engineering   |       ₹45,000 |
+| Prashant Mishra, Engineering |       ₹45,000 |
+| **Total**                     | **₹1,35,000** |
+
+### Expenses
+
+| Item                                         |     Amount |
+| :------------------------------------------- | ---------: |
+| Cloud Infrastructure (Vercel, Cloudflare R2) |     ₹2,200 |
+| **Total**                                    | **₹2,200** |
+
+### Company pool
+
+| Shared by       |      Amount |
+| :-------------- | ----------: |
+| Anandu Pavanan  |      ₹5,000 |
+| Prashant Mishra |     ₹20,000 |
+| **Total**       | **₹25,000** |
+
+## August 2026
+
+With no product revenue yet, sponsorships brought in ₹1,75,000 and teammates shared ₹25,000 back into the company pool, while ₹2,42,600 went out in compensation and expenses. The company ran at a deficit of ₹42,600 this month.
+
+| Summary      |    Amount |
+| :----------- | --------: |
+| Revenue      |        ₹0 |
+| Sponsorships | ₹1,75,000 |
+| Compensation | ₹1,35,000 |
+| Expenses     | ₹1,07,600 |
+| Company pool |   ₹25,000 |
+| **Net**      | **−₹42,600** |
+
+### Revenue
+
+Tiles earned no revenue in August. Once income from paid plans arrives, it will be itemized here.
+
+### Sponsorships
+
+| Source                                                          |    Amount |
+| :-------------------------------------------------------------- | --------: |
+| GitHub Sponsors                                                  | ₹1,35,000 |
+| One-time contribution from Jeremie, toward company registration  |   ₹40,000 |
+| **Total**                                                        | **₹1,75,000** |
+
+### Compensation
+
+| Contributor                  |    Amount |
+| :--------------------------- | --------: |
+| Ankesh Bharti, Founder      |   ₹45,000 |
+| Anandu Pavanan, Engineering |   ₹45,000 |
+| Prashant Mishra, Engineering |  ₹45,000 |
+| **Total**                    | **₹1,35,000** |
+
+### Expenses
+
+| Item                                   |    Amount |
+| :------------------------------------- | --------: |
+| Yearly virtual office rent             |   ₹41,000 |
+| Incorporation agency fees              |   ₹35,000 |
+| Government fees & compliance           |   ₹18,500 |
+| Yearly Apple Developer Program Membership |  ₹8,700 |
+| Domain renewals                        |    ₹2,200 |
+| Cloud Infrastructure (Vercel, Cloudflare R2) | ₹2,200 |
+| **Total**                              | **₹1,07,600** |
+
+### Company pool
+
+| Shared by       |  Amount |
+| :-------------- | ------: |
+| Anandu Pavanan  |  ₹5,000 |
+| Prashant Mishra | ₹20,000 |
+| **Total**       | **₹25,000** |
+
+## Frequently asked questions
+
+<BookFaq class="mt-0">
+  <BookFaqItem question="What currency are these figures in?">
+
+All figures are in Indian Rupees. Tiles Privacy Technologies Pvt. Ltd. is registered in Bengaluru, India.
+
+  </BookFaqItem>
+  <BookFaqItem question="What is the mission of Tiles?">
+
+Our mission is to build software that gives people greater agency, control, and choice in their digital lives.
+We believe that privacy adoption at scale must work backwards from preserving utility. This means negligible
+impact on user experience, model intelligence, throughput, latency, tool use &amp; agentic capabilities, and
+web access.
+
+  </BookFaqItem>
+  <BookFaqItem question="How are funds used?">
+
+Funds are used to compensate contributors, cover infrastructure, and pay the administrative costs of running
+the company. We are not beholden to commercial interests or investor pressure: the work is paid for by the
+people who want it to exist. If you would like to help keep it going, you can
+[sponsor Tiles](https://tiles.run/about#sponsor).
+
+  </BookFaqItem>
+  <BookFaqItem question="How are contributors compensated?">
+
+Contributors who have consistently demonstrated high-quality work and friendly behavior in the Tiles community
+may be invited to enter into a paid contributor contract.
+
+Everyone on the team receives the same flat compensation, regardless of role. Contributors may voluntarily
+share part of their compensation back into the company pool; that money flows back into the runway, so it
+counts toward the net.
+
+Contributors maintain full autonomy over when they work and which tasks they choose to pursue. By the time
+someone is offered a contract, they have already shown sound judgment about what meaningfully advances the
+project, and we trust them to continue using that judgment.
+
+All contributor contracts are issued at the discretion of the project lead.
+
+  </BookFaqItem>
+  <BookFaqItem question="How is the project governed and licensed?">
+
+The project continues to follow a [BDFL](https://en.wikipedia.org/wiki/Benevolent_dictator_for_life) model,
+with Ankesh Bharti serving as the project lead and final authority on all decisions, including the direction
+of funds within the company (in accordance with the [mission statement](https://tiles.run/mission) and legal
+requirements).
+
+The project remains licensed under the MIT license, and the rights and permissions granted by that license
+remain unchanged.
+
+  </BookFaqItem>
+</BookFaq>

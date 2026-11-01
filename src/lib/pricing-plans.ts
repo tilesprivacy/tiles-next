@@ -13,7 +13,7 @@
  *
  * Related sources to keep aligned when these change:
  * - `content/licenses.mdx` (the license page at `/book/licenses`)
- * - `lib/polar.ts` (the Polar products the paid plans map to)
+ * - `lib/server/polar.ts` (the Polar products the paid plans map to)
  */
 
 /** Release that firms up provisional pricing. */
@@ -38,6 +38,19 @@ export const PRICING_PAGE_DESCRIPTION =
 export const PRICING_CHECKOUT_UNAVAILABLE_NOTE = `Subscriptions open with the ${PRICING_BETA_RELEASE}.`
 
 export type PricingPlanId = "free" | "plus" | "pro"
+
+/** The paid plans, each backed by its own Polar product (`lib/server/polar.ts`). */
+export type PolarPaidPlanId = Exclude<PricingPlanId, "free">
+
+/**
+ * How a paid plan's Subscribe action behaves, resolved on the server:
+ * `link` opens a public checkout link, `session` mints one on click,
+ * `unavailable` renders the action disabled.
+ */
+export type PolarCheckoutMode =
+  | { kind: "link"; url: string }
+  | { kind: "session" }
+  | { kind: "unavailable" }
 
 export interface PricingPlan {
   id: PricingPlanId
