@@ -14,7 +14,8 @@
   "scripts": {
     "prepare": "svelte-kit sync || echo ''",
     "dev": "vite dev",
-    "build": "node scripts/og-images.ts && vite build",
+    "build": "node scripts/og-images.ts && vite build && pagefind --site .svelte-kit/cloudflare --output-subdir _pagefind",
+    "search:index": "npm run build && pagefind --site .svelte-kit/cloudflare --output-path static/_pagefind",
     "preview": "wrangler dev",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "deploy": "npm run build && wrangler deploy",
@@ -51,6 +52,7 @@
     "mdast-util-to-string": "4.0.0",
     "mdsvex": "0.12.8",
     "micromark-extension-gfm": "3.0.0",
+    "pagefind": "1.5.2",
     "rehype-slug": "6.0.0",
     "remark-gfm": "4.0.1",
     "satori": "0.62.0",

@@ -52,7 +52,7 @@
   const shareLabelClass = "text-xs text-black/45 dark:text-white/45"
 </script>
 
-<div class="mx-auto mt-10 w-full max-w-[44rem] lg:mt-12">
+<div class="mx-auto mt-10 w-full max-w-[44rem] lg:mt-12" data-pagefind-ignore="all">
   {#if showIntro}
     <div class="space-y-2 text-xs text-black/60 dark:text-white/60 lg:text-sm">
       <p>
@@ -99,6 +99,7 @@
 
 <section
   data-blog-newsletter
+  data-pagefind-ignore="all"
   class="mx-auto mt-10 w-full max-w-[44rem] border-y border-black/8 py-6 dark:border-white/12 lg:mt-12 lg:py-7"
 >
   <NewsletterCta />

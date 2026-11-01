@@ -5,7 +5,7 @@
   let { showDownloadCta = true }: { showDownloadCta?: boolean } = $props()
 </script>
 
-<div class="refined-site-footer">
+<div class="refined-site-footer" data-pagefind-ignore="all">
   {#if showDownloadCta}
     <section class="refined-site-footer-download">
       <h2>Try Tiles now.</h2>

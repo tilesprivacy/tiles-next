@@ -2,7 +2,6 @@
   import { ArrowUpRight } from "@lucide/svelte"
   import FaBluesky from "./icons/FaBluesky.svelte"
   import FaDiscord from "./icons/FaDiscord.svelte"
-  import FaGithub from "./icons/FaGithub.svelte"
   import FaLinkedinIn from "./icons/FaLinkedinIn.svelte"
   import FaXTwitter from "./icons/FaXTwitter.svelte"
   import SiHuggingface from "./icons/SiHuggingface.svelte"
@@ -65,7 +64,6 @@
     <a href="https://bsky.app/profile/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Bluesky"><FaBluesky aria-hidden="true" /></a>
     <a href="https://www.linkedin.com/company/tilesprivacy/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn aria-hidden="true" /></a>
     <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden="true" /></a>
-    <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub aria-hidden="true" /></a>
     <a href="https://tangled.org/tiles.run" target="_blank" rel="noopener noreferrer" aria-label="Tangled"><TangledIcon aria-hidden="true" /></a>
     <a href="https://huggingface.co/tilesprivacy" target="_blank" rel="noopener noreferrer" aria-label="Hugging Face"><SiHuggingface aria-hidden="true" /></a>
   </nav>

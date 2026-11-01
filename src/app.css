@@ -419,12 +419,12 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   display: none;
 }
 
-/* AI search in the top nav */
-.ai-search-root {
+/* Site search in the top nav */
+.site-search-root {
   display: inline-flex;
   align-items: center;
 }
-.ai-search-trigger {
+.site-search-trigger {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -439,21 +439,40 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   cursor: pointer;
   transition: background-color 160ms ease;
 }
-.ai-search-trigger:hover {
+.site-search-trigger:hover {
   background: var(--muted);
 }
-.ai-search-trigger-kbd {
+/* Sits beside the search trigger and shares its size and hover. */
+.minimal-topbar-github {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: var(--foreground);
+  transition: background-color 160ms ease;
+}
+.minimal-topbar-github:hover {
+  background: var(--muted);
+}
+.minimal-topbar-github-glyph {
+  width: 16px;
+  height: 16px;
+}
+.site-search-trigger-kbd {
   display: none;
 }
 /* The ⌘K label only fits once the centered nav and right-side actions have
  * generous clearance; below this the trigger stays icon-only. */
 @media (min-width: 1100px) {
-  .ai-search-trigger {
+  .site-search-trigger {
     width: auto;
     gap: 0.45rem;
     padding: 0 0.6rem;
   }
-  .ai-search-trigger-kbd {
+  .site-search-trigger-kbd {
     display: inline-flex;
     align-items: center;
     color: var(--muted-foreground);
@@ -465,11 +484,11 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
     white-space: nowrap;
   }
 }
-.ai-search-glyph {
+.site-search-glyph {
   width: 18px;
   height: 18px;
 }
-.ai-search-bar {
+.site-search-bar {
   position: absolute;
   inset: 0;
   z-index: 10;
@@ -478,13 +497,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   gap: 0.75rem;
   background: var(--background);
 }
-.ai-search-bar-glyph {
+.site-search-bar-glyph {
   flex: none;
   width: 20px;
   height: 20px;
   color: var(--muted-foreground);
 }
-.ai-search-input {
+.site-search-input {
   flex: 1;
   min-width: 0;
   height: 100%;
@@ -494,92 +513,10 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   color: var(--foreground);
   font-size: 1rem;
 }
-.ai-search-input::placeholder {
+.site-search-input::placeholder {
   color: var(--muted-foreground);
 }
-.ai-search-submit {
-  display: inline-flex;
-  flex: none;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--foreground);
-  color: var(--background);
-  padding: 0;
-  cursor: pointer;
-  transition: opacity 160ms ease;
-}
-.ai-search-submit:hover {
-  opacity: 0.85;
-}
-.ai-search-submit-glyph {
-  width: 16px;
-  height: 16px;
-}
-.ai-search-ask-hint {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  width: 100%;
-  border: 0;
-  border-radius: 10px;
-  background: transparent;
-  padding: 0.55rem 0.75rem;
-  color: var(--muted-foreground);
-  font-size: 0.8125rem;
-  text-align: left;
-  cursor: pointer;
-}
-.ai-search-ask-hint:hover {
-  background: var(--muted);
-}
-.ai-search-ask-hint kbd {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: -0.12em;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.14rem 0.3rem;
-  line-height: 1;
-}
-.ai-search-ask-hint kbd svg {
-  width: 11px;
-  height: 11px;
-}
-.ai-search-hint-desktop {
-  display: inline;
-}
-.ai-search-hint-mobile {
-  display: none;
-}
-.ai-search-hint-arrow {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: -0.22em;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  background: var(--foreground);
-  color: var(--background);
-}
-.ai-search-hint-arrow svg {
-  width: 10px;
-  height: 10px;
-}
-@media (max-width: 767px) {
-  .ai-search-hint-desktop {
-    display: none;
-  }
-  .ai-search-hint-mobile {
-    display: inline;
-  }
-}
-.ai-search-close {
+.site-search-close {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -594,14 +531,14 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   cursor: pointer;
   transition: opacity 160ms ease;
 }
-.ai-search-close:hover {
+.site-search-close:hover {
   opacity: 0.75;
 }
-.ai-search-close-glyph {
+.site-search-close-glyph {
   width: 16px;
   height: 16px;
 }
-.ai-search-hairline {
+.site-search-hairline {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -620,7 +557,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   pointer-events: none;
 }
 /* Results take over the viewport below the top nav, centered. */
-.ai-search-panel {
+.site-search-panel {
   position: fixed;
   inset: calc(var(--site-topbar-height) + var(--site-announcement-offset, 0px)) 0 0;
   z-index: 60;
@@ -629,73 +566,22 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   padding: 1rem 1rem 3rem;
   background: var(--background);
 }
-.ai-search-panel-inner {
+.site-search-panel-inner {
   max-width: 42rem;
   margin-inline: auto;
 }
 @media (min-width: 768px) {
-  .ai-search-panel {
+  .site-search-panel {
     padding: 2.25rem 2rem 4rem;
   }
-  .ai-search-panel .ai-search-answer-body {
-    font-size: 0.9375rem;
-    line-height: 1.6;
-  }
 }
-.ai-search-section-label {
+.site-search-section-label {
   margin: 0.5rem 0 0.15rem;
   padding: 0 0.75rem;
   color: var(--muted-foreground);
   font-size: 0.75rem;
 }
-.ai-search-sources {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.35rem 0.75rem;
-  margin: 0.65rem 0 0;
-  font-size: 0.8125rem;
-}
-.ai-search-sources-label {
-  color: var(--muted-foreground);
-  font-size: 0.75rem;
-}
-.ai-search-source-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  color: var(--foreground);
-  text-decoration: none;
-}
-.ai-search-source-favicon {
-  display: inline-flex;
-  width: 0.9rem;
-  height: 0.9rem;
-  flex: none;
-}
-.ai-search-source-favicon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-.ai-search-source-favicon-dark {
-  display: none;
-}
-.dark .ai-search-source-favicon-light {
-  display: none;
-}
-.dark .ai-search-source-favicon-dark {
-  display: block;
-}
-.ai-search-source-label {
-  text-decoration: underline;
-  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
-  text-underline-offset: 3px;
-}
-.ai-search-source-link:hover .ai-search-source-label {
-  text-decoration-color: currentColor;
-}
-.ai-search-results {
+.site-search-results {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -703,7 +589,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   flex-direction: column;
   gap: 2px;
 }
-.ai-search-item {
+.site-search-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -718,13 +604,13 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   text-align: left;
   cursor: pointer;
 }
-.ai-search-item[data-active] {
+.site-search-item[data-active] {
   background: var(--muted);
 }
-.ai-search-hit-title {
+.site-search-hit-title {
   font-weight: 500;
 }
-.ai-search-hit-excerpt {
+.site-search-hit-excerpt {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -733,7 +619,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-size: 0.8125rem;
   line-height: 1.45;
 }
-.ai-search-hit-excerpt mark {
+.site-search-hit-excerpt mark {
   background: transparent;
   color: var(--foreground);
   font-weight: 600;
@@ -746,75 +632,9 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
     6.5rem + var(--site-announcement-offset, 0px) + env(safe-area-inset-top, 0px)
   );
 }
-.ai-search-empty {
+.site-search-empty {
   margin: 0;
   padding: 0.65rem 0.75rem;
-  color: var(--muted-foreground);
-  font-size: 0.8125rem;
-}
-.ai-search-answer {
-  margin-bottom: 0.35rem;
-  border-bottom: 1px solid var(--border);
-  padding: 0.65rem 0.75rem 0.85rem;
-}
-.ai-search-answer-label {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.45rem;
-  color: var(--muted-foreground);
-  font-size: 0.75rem;
-}
-.ai-search-answer-body {
-  font-size: 0.875rem;
-  line-height: 1.55;
-}
-.ai-search-answer-body h1,
-.ai-search-answer-body h2,
-.ai-search-answer-body h3,
-.ai-search-answer-body h4 {
-  margin: 0 0 0.35rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-.ai-search-answer-body code {
-  font-family: var(--font-mono, ui-monospace, monospace);
-  font-size: 0.8125rem;
-  background: var(--muted);
-  border-radius: 4px;
-  padding: 0.1rem 0.3rem;
-}
-.ai-search-answer-body pre {
-  margin: 0 0 0.5rem;
-  padding: 0.5rem 0.65rem;
-  background: var(--muted);
-  border-radius: 8px;
-  overflow-x: auto;
-}
-.ai-search-answer-body pre code {
-  background: transparent;
-  padding: 0;
-}
-.ai-search-answer-body p {
-  margin: 0 0 0.5rem;
-}
-.ai-search-answer-body p:last-child {
-  margin-bottom: 0;
-}
-.ai-search-answer-body ul,
-.ai-search-answer-body ol {
-  margin: 0 0 0.5rem;
-  padding-left: 1.1rem;
-}
-.ai-search-answer-body li {
-  margin-bottom: 0.2rem;
-}
-.ai-search-answer-body a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.ai-search-answer-note {
-  margin: 0;
   color: var(--muted-foreground);
   font-size: 0.8125rem;
 }
@@ -2987,10 +2807,10 @@ html.cyberpunk .minimal-wallet-panel {
   font-size: inherit;
 }
 
-/* Below 900px the absolutely centered nav can collide with the right-side
+/* Below 1024px the absolutely centered nav can collide with the right-side
  * actions, so the links collapse into the hamburger menu instead. The
  * ≤767px block after this one layers compact sizes on top. */
-@media (max-width: 899px) {
+@media (max-width: 1023px) {
   .minimal-topbar nav.minimal-topbar-center-nav {
     display: none;
   }
@@ -3103,19 +2923,23 @@ html.cyberpunk .minimal-wallet-panel {
   .minimal-topbar nav.minimal-topbar-actions {
     gap: 0.5rem;
   }
-  .ai-search-trigger {
+  .site-search-trigger,
+  .minimal-topbar-github {
     width: 32px;
     height: 32px;
   }
-  .ai-search-glyph {
+  .site-search-glyph {
     width: 17px;
     height: 17px;
   }
-  .ai-search-bar {
+  .minimal-topbar-github-glyph {
+    width: 15px;
+    height: 15px;
+  }
+  .site-search-bar {
     gap: 0.6rem;
   }
-  .ai-search-close,
-  .ai-search-submit {
+  .site-search-close {
     width: 32px;
     height: 32px;
   }
@@ -3247,10 +3071,15 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
 }
 
-@media (max-width: 360px) {
+/* The search and GitHub icons leave no room for the alpha badge on phones,
+ * and below ~383px the actions need the compact spacing too. */
+@media (max-width: 428px) {
   .minimal-topbar-alpha {
     display: none;
   }
+}
+
+@media (max-width: 382px) {
   .minimal-topbar nav.minimal-topbar-actions {
     gap: 0.25rem;
   }

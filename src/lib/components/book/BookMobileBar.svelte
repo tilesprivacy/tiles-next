@@ -43,6 +43,7 @@
 
 <nav
   aria-label="Book pages"
+  data-pagefind-ignore="all"
   class="book-mobile-breadcrumb bg-background lg:hidden border-b border-border {inlinePadding}"
 >
   <div class="flex min-h-11 items-stretch gap-1">

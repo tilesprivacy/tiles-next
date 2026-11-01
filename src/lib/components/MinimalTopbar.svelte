@@ -1,6 +1,8 @@
 <script lang="ts">
   import { page } from "$app/state"
   import DownloadTilesCta from "./DownloadTilesCta.svelte"
+  import FaGithub from "./icons/FaGithub.svelte"
+  import SiteSearch from "./SiteSearch.svelte"
   import ThemeSwitcher from "./ThemeSwitcher.svelte"
   import { SHOW_PRICING } from "#lib/feature-flags"
 
@@ -26,7 +28,7 @@
   ]
 </script>
 
-<header class="minimal-topbar max-[767px]:gap-1">
+<header class="minimal-topbar max-[767px]:gap-1" data-pagefind-ignore="all">
   <div class="minimal-topbar-left flex min-w-0 items-center gap-3 max-[520px]:gap-2">
     <a href="/" class="minimal-topbar-brand" aria-label="Tiles home">
       <span class="minimal-theme-logo">
@@ -35,7 +37,7 @@
       </span>
       <span class="minimal-topbar-wordmark">
         <span>Tiles</span>
-        <span class="minimal-topbar-alpha max-[360px]:hidden">alpha</span>
+        <span class="minimal-topbar-alpha max-[428px]:hidden">alpha</span>
       </span>
     </a>
   </div>
@@ -49,6 +51,14 @@
     {/each}
   </nav>
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
+    <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
+    <a
+      href="https://github.com/tilesprivacy"
+      class="minimal-topbar-github"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="GitHub"><FaGithub class="minimal-topbar-github-glyph" aria-hidden="true" /></a
+    >
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
     >

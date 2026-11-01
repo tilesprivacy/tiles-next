@@ -31,7 +31,7 @@
   }
 </script>
 
-<nav class="book-toc" aria-label="table of contents">
+<nav class="book-toc" aria-label="table of contents" data-pagefind-ignore="all">
   <div class="book-toc-inner">
     {#if toc.length > 0}
       <p class="book-toc-title">On This Page</p>

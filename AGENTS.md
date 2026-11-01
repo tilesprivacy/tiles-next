@@ -77,13 +77,13 @@ npm run dev             # http://localhost:5173
 | Path | What |
 | --- | --- |
 | `src/routes/` | Pages and endpoints. Everything prerenders unless the route sets `prerender = false` (`/download`, `/releases`, `/pricing*`, and the `/api/*` routes that need live data) |
-| `src/lib/components/` | Svelte components; `book/` for the docs layout, `icons/` for brand SVGs |
+| `src/lib/components/` | Svelte components; `book/` for the docs layout, `icons/` for brand SVGs. `SiteSearch.svelte` (with `src/lib/site-search.ts`) is the top-bar Pagefind search |
 | `src/lib/*.ts` | Copy and data (product copy, pricing plans, people, plugins, releases, research log) |
 | `src/lib/server/` | Server-only code: newsletter guard, Turnstile, Upstash store, email templates, Polar, blog loading, llms index |
 | `src/lib/blog.ts`, `src/lib/book.ts` | What a blog post is (types, parsing) and the book page order |
 | `content/blog/*.md` | Blog posts (conventions in `content/blog/README.md`) |
 | `content/book/*.md`, `content/research/*.md` | Book pages and research notes (mdsvex) |
-| `static/` | Public files. OG cards are generated into `static/og/generated/` (gitignored) by `scripts/og-images.ts` at build time |
+| `static/` | Public files. OG cards are generated into `static/og/generated/` (gitignored) by `scripts/og-images.ts` at build time; `static/_pagefind/` (gitignored) is the dev search index from `npm run search:index` |
 | `scripts/` | `og-images.ts` (build step), `publish-blog.ts` (blog to PDS) |
 | `csp.config.ts`, `_headers`, `src/hooks.server.ts` | Content Security Policy and security headers |
 | `_redirects` | Permanent redirects, applied by Cloudflare before the Worker |
@@ -95,7 +95,8 @@ npm run dev             # http://localhost:5173
 | --- | --- |
 | `npm run dev` | Dev server on :5173; blog posts come from local files |
 | `npm run check` | Type and Svelte checks; must be clean |
-| `npm run build` | OG images, then the production build (blog posts from the PDS) |
+| `npm run build` | OG images, the production build (blog posts from the PDS), then the Pagefind index into `.svelte-kit/cloudflare/_pagefind` |
+| `npm run search:index` | Production build, then the Pagefind index into `static/_pagefind` so search works in `npm run dev`. Rerun after content changes |
 | `npm run preview` | The built Worker under `wrangler dev`, with secrets from `.dev.vars` |
 | `npm run blog:dry-run` / `blog:publish` | Preview or publish blog posts to the PDS (needs `ATP_IDENTIFIER`, `ATP_APP_PASSWORD`) |
 | `npm run deploy` | Build and `wrangler deploy` by hand; normally CI does this |
@@ -104,6 +105,7 @@ npm run dev             # http://localhost:5173
 
 - Visual parity is the bar. Keep Tailwind class strings and DOM structure stable; `src/app.css` targets them.
 - Theming has exactly one mechanism: `static/theme-init.js` sets `class="light"` or `class="dark cyberpunk"` on `<html>` before paint, `src/lib/theme.svelte.ts` keeps it in sync, and `src/lib/page-theme.ts` decides `data-page-theme` (home, sponsor, own-your-ai). Don't add another.
+- Search indexes everything inside the `data-pagefind-body` wrapper in `src/app.html`. Give new site chrome (headers, footers, navs, TOCs, share or newsletter blocks) `data-pagefind-ignore="all"` so it stays out of results; book code blocks are ignored too, as on the old site.
 - Prefer CSS and build-time work over browser JavaScript. No timers, polling, MutationObservers or scroll handlers where CSS or one event does the job. Lazy-load heavy, rarely used pieces (the wallet panel, the Polar embed, Turnstile, the lightbox) with dynamic `import()`.
 - Images: give `width` and `height`; use `loading="lazy"` and `decoding="async"` below the fold. Keep large images compressed (PNG and JPEG over ~300 KB are usually worth re-encoding).
 - Comments: few, short, human. Explain why, not what.
@@ -111,10 +113,10 @@ npm run dev             # http://localhost:5173
 
 ### Security model
 
-- **Newsletter (`/api/subscribe`)**: Origin and JSON content-type checks, size cap, honeypot, form timing, Cloudflare Turnstile, then Upstash limits (5 per IP per hour; one email per address per 30 days via an atomic claim). Keys are SHA-256 hashes. Production fails closed (503) without Turnstile, Redis or the Resend audience. The email content is fixed: never put request data into outbound mail. Existing Resend contacts are never flipped back to subscribed.
+- **Newsletter (`/api/subscribe`)**: Origin and JSON content-type checks, size cap, honeypot, form timing, Cloudflare Turnstile, then Upstash limits (5 per IP per hour; one email per address per 30 days via an atomic claim). Keys are SHA-256 hashes. Production fails closed (503) without Turnstile, Redis or the Resend segment. The email content is fixed: never put request data into outbound mail. Existing Resend contacts are never flipped back to subscribed.
 - **Polar**: secrets only in `src/lib/server/polar.ts`; every route returns 503 before building a client when unconfigured. Checkout sends only our fixed product id and canonical URLs; nothing from the visitor's query string or Host reaches Polar. Webhooks are signature-checked by the SDK before anything else.
-- **CSP** is hash-based for prerendered pages. No inline scripts or event-handler attributes; new third-party origins go in `csp.config.ts` with a comment naming the feature.
-- Never use `{@html}` on untrusted data. Blog markdown goes through the HTML allowlist in `src/lib/markdown.server.ts`, because production reads it from the PDS; extend the allowlist deliberately and narrowly. Bluesky discussion content is narrowed in `src/lib/bluesky-discussion.ts` (text only, http(s) links, https avatars).
+- **CSP** is hash-based for prerendered pages. No inline scripts or event-handler attributes; new third-party origins go in `csp.config.ts` with a comment naming the feature. `script-src` has `'wasm-unsafe-eval'` because Pagefind runs in WebAssembly; never add `'unsafe-eval'`.
+- Never use `{@html}` on untrusted data. The one exception besides the cases below is search excerpts, which `sanitizeExcerpt` in `src/lib/site-search.ts` reduces to text plus `<mark>` first. Blog markdown goes through the HTML allowlist in `src/lib/markdown.server.ts`, because production reads it from the PDS; extend the allowlist deliberately and narrowly. Bluesky discussion content is narrowed in `src/lib/bluesky-discussion.ts` (text only, http(s) links, https avatars).
 - Links that open a new tab get `rel="noopener noreferrer"`.
 - Every outbound `fetch` has a timeout (`AbortSignal.timeout`).
 - The site has no analytics. The privacy policy (`/privacy`) and the subprocessors list must match what the site actually loads; update them together with any new service, after asking.
@@ -141,7 +143,7 @@ All footers across pages (home, about, etc.) must stay consistent. The developer
 
 ## Learned User Preferences and Workspace Facts
 
-Carried over from the Next.js site; they still describe how the site must look and read. File paths in them refer to the old layout. Map them like this: `components/foo-bar.tsx` is `src/lib/components/FooBar.svelte`, `lib/x.ts` is `src/lib/x.ts` (server-only ones moved to `src/lib/server/`), `app/x/page.tsx` is `src/routes/x/+page.svelte`, `content/x.mdx` is `content/book/x.md`, `public/` is `static/`. Notes about components that no longer render (footer language selector, tech attribution, why-tiles section, the AI search) and about Vercel or Next.js internals are historical.
+Carried over from the Next.js site; they still describe how the site must look and read. File paths in them refer to the old layout. Map them like this: `components/foo-bar.tsx` is `src/lib/components/FooBar.svelte`, `lib/x.ts` is `src/lib/x.ts` (server-only ones moved to `src/lib/server/`), `app/x/page.tsx` is `src/routes/x/+page.svelte`, `content/x.mdx` is `content/book/x.md`, `public/` is `static/`. Notes about components that no longer render (footer language selector, tech attribution, why-tiles section) and about Vercel or Next.js internals are historical. Site search still exists as plain Pagefind full-text search (`SiteSearch.svelte`); only its AI answers (`/api/ai-search`, the "Ask AI" flow) were dropped.
 
 
 - Legal copy near download buttons should be styled as minimal subtext (matching the homepage pattern) instead of prominent body text.

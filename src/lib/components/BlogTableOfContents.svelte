@@ -115,7 +115,7 @@
 
 {#if items.length > 0}
   {#if mode === "print"}
-    <nav aria-label="Table of contents" data-blog-print-toc class="hidden">
+    <nav aria-label="Table of contents" data-blog-print-toc data-pagefind-ignore="all" class="hidden">
       <p data-blog-print-toc-title>Table of Contents</p>
       <ul>
         {#each items as item (item.id)}
@@ -126,6 +126,7 @@
   {:else if mode === "mobile"}
     <nav
       aria-label="Table of contents"
+      data-pagefind-ignore="all"
       class="rounded-sm border border-black/10 bg-black/[0.02] p-5 dark:border-white/10 dark:bg-white/[0.04]"
     >
       <button
@@ -154,6 +155,7 @@
   {:else}
     <nav
       aria-label="Table of contents"
+      data-pagefind-ignore="all"
       class="sticky z-10 overflow-y-auto pr-4"
       style="top: {stickyTop}px; max-height: calc(100dvh - {stickyTop + 16}px);"
     >

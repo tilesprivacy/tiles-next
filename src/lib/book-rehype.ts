@@ -96,7 +96,7 @@ export function rehypeBook() {
 
       // Highlighted code arrives as a raw `{@html ...}` block from the mdsvex highlighter.
       if (isBook && node.type === "raw" && parent && index !== undefined && /^\{@html `<pre/.test(node.value ?? "")) {
-        parent.children![index] = el("div", { className: ["book-code"] }, [
+        parent.children![index] = el("div", { className: ["book-code"], dataPagefindIgnore: "all" }, [
           node,
           el("button", { type: "button", className: ["book-code-copy"], title: "Copy code", ariaLabel: "Copy code" }, [copyIcon(), checkIcon()]),
         ])

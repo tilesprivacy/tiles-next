@@ -3,6 +3,7 @@ node_modules
 .wrangler
 build
 /static/og/generated
+/static/_pagefind
 .env
 .env.*
 !.env.example

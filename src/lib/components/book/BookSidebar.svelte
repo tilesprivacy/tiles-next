@@ -4,7 +4,7 @@
   let { slug }: { slug: string } = $props()
 </script>
 
-<aside class="book-sidebar">
+<aside class="book-sidebar" data-pagefind-ignore="all">
   <div class="book-sidebar-scroll book-mask">
     <ul class="book-sidebar-list">
       {#each bookPages as item (item.href)}

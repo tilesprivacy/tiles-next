@@ -44,7 +44,7 @@
   $effect(() => () => clearTimeout(resetTimer))
 </script>
 
-<div class="book-copy-page" bind:this={root}>
+<div class="book-copy-page" data-pagefind-ignore="all" bind:this={root}>
   <div class="book-copy-page-buttons">
     <button type="button" class="book-copy-page-main" class:copied onclick={copy}>{@render copyIcon()}{copied ? "Copied" : "Copy page"}</button>
     <button

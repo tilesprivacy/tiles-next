@@ -5,8 +5,8 @@
 RESEND_API_KEY=
 # Sender address, e.g. newsletter@tiles.run.
 RESEND_FROM_EMAIL=
-# Resend audience that newsletter signups are stored in. Required in production.
-RESEND_AUDIENCE_ID=
+# Resend segment that newsletter signups are stored in. Required in production.
+RESEND_SEGMENT_ID=
 # Cloudflare Turnstile secret key. Required in production. Cloudflare's test
 # secret 1x0000000000000000000000000000000AA always passes.
 TURNSTILE_SECRET_KEY=

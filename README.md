@@ -17,16 +17,24 @@ npm run dev            # http://localhost:5173
 `npm run check` type-checks the project. CI runs it and a full build on every
 push and pull request.
 
+Site search (the magnifier in the top bar, `Ctrl K` / `⌘K`) reads a Pagefind
+index built from the prerendered pages, so it finds nothing in `npm run dev`
+until you run `npm run search:index` once. That does a production build and
+writes the index to `static/_pagefind/` (gitignored). Rerun it to pick up
+content changes.
+
 ## Build and deploy
 
 ```sh
-npm run build    # OG images, then vite build
+npm run build    # OG images, vite build, then the Pagefind search index
 npm run preview  # the built Worker under wrangler, with secrets from .dev.vars
 npm run deploy   # build, then wrangler deploy
 ```
 
 `scripts/og-images.ts` draws the Open Graph cards into `static/og/generated/`
-(gitignored) before the Vite build. Redirects live in `_redirects`, security
+(gitignored) before the Vite build. After it, Pagefind indexes the prerendered
+pages in `.svelte-kit/cloudflare` into `.svelte-kit/cloudflare/_pagefind/`,
+which deploys with the other static assets. Redirects live in `_redirects`, security
 headers in `_headers` and `src/hooks.server.ts`.
 
 Production builds read blog posts from the Tiles PDS (see below), so a build
@@ -58,7 +66,7 @@ with `wrangler secret put NAME`.
 | Variable | Needed for |
 | --- | --- |
 | `PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Bot check on the newsletter form (required in production) |
-| `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_AUDIENCE_ID` | Storing signups and sending the welcome email |
+| `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_SEGMENT_ID` | Storing signups and sending the welcome email |
 | `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Signup rate limits (required in production) |
 | `POLAR_*` | Checkout and webhooks on `/pricing` |
 | `GITHUB_TOKEN` | Optional, raises the GitHub API rate limit for release data |

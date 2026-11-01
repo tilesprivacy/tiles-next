@@ -6,6 +6,7 @@ export const cspDirectives = {
     "self",
     "https://challenges.cloudflare.com", // Turnstile on the newsletter form
     "https://sniperl.ink", // "Open in Gmail" button after subscribing
+    "wasm-unsafe-eval", // site search: Pagefind runs its index lookups in WebAssembly
   ],
   "style-src": ["self", "unsafe-inline"],
   "img-src": ["self", "data:", "blob:", "https:"],
