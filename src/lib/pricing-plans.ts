@@ -1,0 +1,252 @@
+/**
+ * Canonical pricing copy for `/pricing`.
+ *
+ * There are two paid licenses, Tiles Plus and Tiles Pro. Plans and included
+ * services stay provisional until the 0.5.0 Private Beta, but checkout itself
+ * is live.
+ *
+ * `components/pricing-content.tsx` reads everything from this module so the
+ * copy lives in one place.
+ *
+ * Copy is deliberately sparse: feature entries are short scannable labels,
+ * not sentences. Keep it that way when editing.
+ *
+ * Related sources to keep aligned when these change:
+ * - `content/licenses.mdx` (the license page at `/book/licenses`)
+ * - `lib/polar.ts` (the Polar products the paid plans map to)
+ */
+
+/** Release that firms up provisional pricing. */
+export const PRICING_BETA_RELEASE = "0.5.0 Private Beta"
+
+/** Scheduled window for that release. */
+export const PRICING_BETA_WINDOW = "the last week of Q3 2026"
+
+export const PRICING_PAGE_TITLE = "Early Supporter Pricing"
+
+/** Why members should join the waitlist early. */
+export const PRICING_PAGE_EARLY_MEMBER_NOTE =
+  "Join early to get special pricing and support Tiles’ independent development."
+
+export const PRICING_PAGE_DESCRIPTION =
+  "Tiles is free. Tiles Pro funds independent development and cloud based services we host for you."
+
+/**
+ * Shown under the paid action while checkout is not configured, which is the
+ * current state: Subscribe renders disabled until Polar credentials are set.
+ */
+export const PRICING_CHECKOUT_UNAVAILABLE_NOTE = `Subscriptions open with the ${PRICING_BETA_RELEASE}.`
+
+export type PricingPlanId = "free" | "plus" | "pro"
+
+export interface PricingPlan {
+  id: PricingPlanId
+  name: string
+  /** Display price. Kept as a string so formatting stays in one place. */
+  price: string
+  cadence?: string
+  /** One short line. Not a paragraph. */
+  tagline?: string
+  /** Small label above the feature list. Omit on Free to match a title → price → CTA stack. */
+  featuresIntro?: string
+  /**
+   * Icon token for `featuresIntro`, so this module stays copy and
+   * `components/pricing-content.tsx` owns the rendering. Omit it with
+   * `featuresIntro`.
+   */
+  featuresIntroIcon?: "sparkle" | "gem"
+  /** Short scannable labels, one line each. */
+  features: string[]
+  ctaLabel: string
+  /** True for Tiles Pro. The pricing OG image uses this to accent the paid card. */
+  highlighted: boolean
+}
+
+export const PRICING_PLANS: PricingPlan[] = [
+  {
+    id: "free",
+    name: "Free",
+    price: "$0",
+    tagline: "Everything that runs on your hardware and local networks.",
+    features: [
+      "Run open models locally",
+      "Keep your data private",
+      "Sync and collaborate over LAN or air-gapped networks",
+      "Share chats publicly or privately on the web",
+      "Extend the agent with plugins",
+    ],
+    ctaLabel: "Download for free",
+    highlighted: false,
+  },
+  {
+    id: "plus",
+    // Card heading is the short "Plus"; the license is called Tiles Plus in
+    // prose, metadata, and content/licenses.mdx.
+    name: "Plus",
+    price: "$4",
+    cadence: "/mo",
+    tagline: "Sync and collaborate across devices from anywhere.",
+    featuresIntro: "Everything in Free, and:",
+    featuresIntroIcon: "sparkle",
+    features: [
+      "Sync across networks using end-to-end encrypted relays",
+      "Remote inference for local models across devices",
+    ],
+    ctaLabel: "Join waitlist for Plus",
+    highlighted: false,
+  },
+  {
+    id: "pro",
+    // Card heading is the short "Pro"; the license is called Tiles Pro in
+    // prose, metadata, and content/licenses.mdx.
+    name: "Pro",
+    price: "$15",
+    cadence: "/mo",
+    tagline: "Secure cloud models and services we host for you.",
+    featuresIntro: "Everything in Plus, and:",
+    featuresIntroIcon: "gem",
+    features: [
+      "Run cloud models with confidential compute",
+      "Detect PII, block exposed keys, and apply additional guardrails",
+      "Unlimited private web searches",
+      "Backup and key recovery",
+    ],
+    ctaLabel: "Join waitlist for Pro",
+    highlighted: true,
+  },
+]
+
+/** Polar customer portal, where license keys and billing live. */
+export const POLAR_CUSTOMER_PORTAL_URL = "https://polar.sh/tilesprivacy/portal/"
+
+/**
+ * Which plan's success copy `/pricing/success` should render. `unknown` covers
+ * the case where the checkout did not say, so the page stays truthful rather
+ * than naming a plan the buyer may not be on.
+ */
+export type PricingSuccessPlanId = "plus" | "pro" | "unknown"
+
+export interface PricingSuccessStep {
+  title: string
+  body: string
+  link: { label: string; href: string; external?: boolean } | null
+}
+
+export interface PricingSuccessCopy {
+  title: string
+  description: string
+  steps: PricingSuccessStep[]
+  footnote: string
+}
+
+/**
+ * Success copy for one plan. Steps 1 and 2 are identical everywhere; only the
+ * title, the license name, and what the subscription covers change.
+ */
+function buildPricingSuccess({
+  title,
+  licenseName,
+  coverage,
+}: {
+  title: string
+  licenseName: string
+  coverage: string
+}): PricingSuccessCopy {
+  return {
+    title,
+    description:
+      "Thanks for backing independent development. Here is how to get set up.",
+    steps: [
+      {
+        title: "Find your license key",
+        body: `Your ${licenseName} key is in your receipt email and in the Polar customer portal, along with renewals and billing details.`,
+        link: {
+          label: "Open customer portal",
+          href: POLAR_CUSTOMER_PORTAL_URL,
+          external: true,
+        },
+      },
+      {
+        title: "Install Tiles",
+        body: "Tiles runs on macOS and Linux. Everything local works straight away, with or without a key.",
+        link: { label: "Download Tiles", href: "/download", external: false },
+      },
+      {
+        title: "Activate your key",
+        body: `Key activation ships with the ${PRICING_BETA_RELEASE}, scheduled for ${PRICING_BETA_WINDOW}. Your key stays valid until then, and your subscription covers ${coverage} from the day they open.`,
+        link: null,
+      },
+    ],
+    footnote:
+      "Need a hand, or bought by mistake? Email support@tiles.run and we will sort it out.",
+  }
+}
+
+/** Copy for `/pricing/success`, where Polar sends people after checkout. */
+export const PRICING_SUCCESS: Record<PricingSuccessPlanId, PricingSuccessCopy> =
+  {
+    plus: buildPricingSuccess({
+      title: "You're on Tiles Plus",
+      licenseName: "Tiles Plus license",
+      coverage: "sync and collaboration across devices from anywhere",
+    }),
+    pro: buildPricingSuccess({
+      title: "You're on Tiles Pro",
+      licenseName: "Tiles Pro license",
+      coverage: "the hosted services",
+    }),
+    unknown: buildPricingSuccess({
+      title: "You're subscribed",
+      licenseName: "license",
+      coverage: "your plan's paid features",
+    }),
+  }
+
+export interface PricingFaq {
+  question: string
+  answer: string
+  link?: { label: string; href: string; external?: boolean }
+}
+
+export const PRICING_FAQS: PricingFaq[] = [
+  {
+    question: "Do I need an account?",
+    answer: "No. Every local feature works without one.",
+  },
+  {
+    question: "Can I use Tiles for work?",
+    answer:
+      "Yes. Commercial use is covered on every tier, including Free. Get in touch for bulk purchases.",
+    link: {
+      label: "support@tiles.run",
+      href: "mailto:support@tiles.run",
+      external: true,
+    },
+  },
+  {
+    question: "How do I get access after paying?",
+    answer:
+      "Tiles Plus ($4/month) and Tiles Pro ($15/month) are delivered as license keys, issued at checkout and sent by email. There is no account to create.",
+  },
+  {
+    question: "How do I manage my subscription?",
+    answer:
+      "License keys, renewals, and billing details live in the Polar customer portal.",
+    link: {
+      label: "Open customer portal",
+      href: POLAR_CUSTOMER_PORTAL_URL,
+      external: true,
+    },
+  },
+  {
+    question: "Who handles payments?",
+    answer:
+      "Polar acts as merchant of record on behalf of Tiles Privacy Technologies Pvt. Ltd. Your card details never reach us.",
+    link: { label: "Visit Polar", href: "https://polar.sh", external: true },
+  },
+  {
+    question: "Can I support the project another way?",
+    answer: "Yes, sponsorships and donations go directly to the work.",
+    link: { label: "Sponsor Tiles", href: "/about#sponsor" },
+  },
+]

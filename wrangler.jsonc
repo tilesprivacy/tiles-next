@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "tiles-site",
+  "main": ".svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".svelte-kit/cloudflare",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  }
+  // Secrets (set with `wrangler secret put NAME`, never committed):
+  //   RESEND_API_KEY, RESEND_AUDIENCE_ID, TURNSTILE_SECRET_KEY,
+  //   UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN,
+  //   POLAR_ACCESS_TOKEN, POLAR_WEBHOOK_SECRET
+}

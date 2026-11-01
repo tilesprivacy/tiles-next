@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"%tiles.page_theme%>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="apple-mobile-web-app-title" content="Tiles Privacy" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-dark-96x96.png" sizes="96x96" type="image/png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/icon-light-96x96.png" sizes="96x96" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/icon-dark-32x32.png" sizes="32x32" type="image/png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" href="/icon-light-32x32.png" sizes="32x32" type="image/png" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <link rel="preload" href="/fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Sets light/dark before first paint so there's no flash. -->
+    <script src="/theme-init.js"></script>
+    %sveltekit.head%
+  </head>
+  <body class="antialiased" data-sveltekit-preload-data="hover">
+    <div style="display: contents" data-pagefind-body>%sveltekit.body%</div>
+  </body>
+</html>

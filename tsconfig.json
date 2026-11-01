@@ -1,0 +1,23 @@
+{
+  "extends": "$app/tsconfig",
+  "include": [
+    "src",
+    "test",
+    "*"
+  ],
+  "exclude": [
+    "src/service-worker"
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": [
+      "$app/types",
+      "./worker-configuration.d.ts",
+      "node"
+    ]
+  }
+}
