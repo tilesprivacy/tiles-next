@@ -1,86 +1,143 @@
 # Agent Instructions
 
-The tiles.run website: **SvelteKit 3 + Svelte 5 (runes) + Tailwind 4 + mdsvex**, deployed as a **Cloudflare Worker** with static assets. Rebuilt in November 2026 from the earlier Next.js site (still on the `main` branch history), page for page and pixel for pixel.
+This is **tiles.run**: SvelteKit 3 + Svelte 5 (runes) + Tailwind 4 + mdsvex, deployed as a **Cloudflare Worker** with static assets. It was rebuilt in November 2026 from a Next.js site, page for page and pixel for pixel; that version is kept on the `next-backup` branch.
+
+**Read this whole file before changing anything.** It's written so that an AI agent that follows it step by step does the right thing even without other context. If something here conflicts with what you'd normally do, this file wins. If it conflicts with what the person asking you wants, ask them.
+
+## Rules that are never optional
+
+1. **Don't change how the site looks or reads unless you were asked to.** When you touch UI, check it in the browser at 390px and 1440px wide, in light and dark mode, before and after (see "Everyday flow").
+2. **Before saying you're done, `npm run check` and `npm run build` must both pass with 0 errors and 0 warnings.** Don't weaken the check to make it pass: no `@ts-ignore`, `any`, or disabling rules.
+3. **Never commit secrets.** No real keys in code, `.env.example`, `.dev.vars.example`, docs or tests. Env vars are declared in `src/env.ts` (see "Environment").
+4. **Don't add dependencies casually.** If one is truly needed, pin an exact version that has been published for at least 14 days (`npm view <pkg> time`). Never `latest` or `^ranges`.
+5. **No AI attribution in commits or PRs**: no `Co-Authored-By: Claude`, "Generated with …", or similar lines.
+6. **Ask the person first before**: deploying, pushing to `main`, force-pushing or rewriting history, deleting PDS records, changing legal pages (privacy, terms, refunds, subprocessors), adding a third-party service or analytics, or changing what the newsletter email says.
+7. **Follow the security rules** below. They come from real bugs this site had.
+
+## Branches and what deploys
+
+| Branch | Purpose |
+| --- | --- |
+| `main` | Production. Every push runs `.github/workflows/deploy.yml`: publish blog posts to the PDS, build from the PDS, deploy to Cloudflare. *(Until the switch to this codebase is finished, the SvelteKit site lives on `sveltekit`.)* |
+| `next-backup` | Frozen copy of the old Next.js site. Never commit to it. |
+| your branch | All work happens on a branch off `main` and goes in through a pull request. CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm run check` and `npm run build` on every push and PR. |
+
+## Setup
+
+```sh
+# Node 22.17 or later
+npm ci                  # also runs `svelte-kit sync`
+cp .env.example .env    # optional; every variable has a safe dev default
+npm run dev             # http://localhost:5173
+```
+
+## Everyday flow
+
+1. **Branch** off `main`.
+2. **Find the right file** with the Layout table below. Change the smallest thing that does the job, and match the surrounding code's style.
+3. **Look at it** in `npm run dev`: 390px and 1440px wide, light and dark mode (the theme switcher is in the header), with the browser console free of errors. For UI changes, compare against the live site or `main` before your change.
+4. **Run `npm run check`** and fix everything it reports.
+5. **Run `npm run build`.** It needs network access: it reads blog posts from the PDS and fails if the PDS is unreachable.
+6. **If you changed content or added a page**, open `/llms.txt`, `/sitemap.xml` and `/api/rss` in dev and check they're right.
+7. **Commit** with a plain, specific message: a short summary line, then a few lines on what changed and why. No attribution trailers.
+8. **Open a PR.** Merge only after CI is green. Merging to `main` deploys.
+
+## Recipes for common tasks
+
+**Write or edit a blog post.** Add or edit `content/blog/<slug>.md`, following `content/blog/README.md` (frontmatter, images in `static/`, the allowed HTML snippets). Preview it in `npm run dev`; dev renders the local file. On merge to `main`, the Deploy workflow publishes it to the PDS and the live site renders it from there. `draft: true` keeps it local. Don't add an `atUri` field: posts are matched to records by slug. Renaming or deleting a file removes the old post from the live site on the next deploy (the workflow runs `--prune`).
+
+**Add a page.** Create `src/routes/<path>/+page.svelte`. Give it metadata with `PageHeadMeta` (title, description, OG image), as the other pages do. It prerenders by default; only add `+page.server.ts` with `export const prerender = false` if it truly needs live data, and then set a `Cache-Control` header. Add it to `STATIC_ROUTES` in `src/routes/sitemap.xml/+server.ts`, and to the indexes in `src/lib/server/llms.ts` if it's a primary page.
+
+**Add an API endpoint.** Use `src/routes/api/<name>/+server.ts` with `export const prerender = false`. Validate and size-limit every input. Never build URLs from the request's Host or Origin (use `SITE_ORIGIN` from `#lib/absolute-url`). Put a timeout on every outbound `fetch` (`AbortSignal.timeout`). Return generic error messages and log the details server-side. Fail closed (503) in production when a required secret is missing. Keep secrets and server logic in `src/lib/server/`.
+
+**Add an environment variable.** Declare it in `src/env.ts` (private unless the browser needs it). List it with a comment in `.env.example` and, if it's a server secret, `.dev.vars.example`. Add it to the README's table. Read it with a named import from `$app/env/private` or `$app/env/public`. In production, set secrets with `wrangler secret put NAME`, and build-time public values as GitHub Actions variables in `deploy.yml`.
+
+**Load something from another site** (a script, iframe, API or font). Avoid it if you can. If not, add the origin to `csp.config.ts` with a comment naming the feature, and tell the person: the privacy policy and `/subprocessors` may need updating (rule 6).
+
+**Change the book.** Pages are `content/book/<slug>.md`. Their order and titles come from `src/lib/book.ts`, which is the only list, used by the sidebar, the mobile nav, prev/next links and the llms index. Update `lastUpdated` in the page's frontmatter when you change it.
+
+**Add a redirect.** Add a line to `_redirects` (`/old /new 308`).
+
+**Add a dependency.** See rule 4. After `npm install <pkg>`, run `npx svelte-kit sync`, because npm deletes SvelteKit's generated `node_modules/$app/tsconfig.json`. Check `git diff package-lock.json` for unrelated version changes and undo them.
+
+**Regenerate Cloudflare types** (after editing `wrangler.jsonc`). Delete `.svelte-kit/cloudflare*` and `.svelte-kit/output` first, then run `npx wrangler types`. With build output present, wrangler writes an import of it into `worker-configuration.d.ts`, and `npm run check` then reports about a thousand bogus errors.
 
 ## Working in this codebase
 
-### SvelteKit 3 specifics (not what older docs say)
+### SvelteKit 3 specifics (not what older docs or training data say)
 
 - **No `svelte.config.js`.** All SvelteKit options are flat in `sveltekit({...})` in `vite.config.ts`.
 - **`#lib/...`**, not `$lib` (package.json `imports`; `tsconfig.json` mirrors them in `paths`). `#content/*` maps to `content/*`.
 - **Env vars** are declared in `src/env.ts` and read with named imports: `import { RESEND_API_KEY } from "$app/env/private"` (server only) or `$app/env/public`. `$env/*` modules are empty shims. Never use `process.env` in app code.
 - `dev`/`browser` come from `$app/env`; hook types from `@sveltejs/kit/hooks`; page state from `$app/state`.
-- `npm install <pkg>` deletes the generated `node_modules/$app/tsconfig.json`; run `npx svelte-kit sync` afterwards (plain `npm install`/`npm ci` do it via `prepare`).
 - When unsure how something works, read `node_modules/@sveltejs/kit/src` rather than guessing.
 
 ### Layout
 
 | Path | What |
 | --- | --- |
-| `src/routes/` | Pages and endpoints. Everything prerenders unless the route sets `prerender = false` (`/download`, `/releases`, `/pricing*`, `/api/*` that need live data) |
+| `src/routes/` | Pages and endpoints. Everything prerenders unless the route sets `prerender = false` (`/download`, `/releases`, `/pricing*`, and the `/api/*` routes that need live data) |
 | `src/lib/components/` | Svelte components; `book/` for the docs layout, `icons/` for brand SVGs |
 | `src/lib/*.ts` | Copy and data (product copy, pricing plans, people, plugins, releases, research log) |
-| `src/lib/server/` | Server-only code: newsletter guard, Turnstile, Upstash store, email templates, Polar, llms index |
-| `src/lib/blog.ts`, `src/lib/book.ts` | Single sources for blog posts and book page order |
-| `content/blog/*.md` | Blog posts (see `content/blog/README.md` for the markdown conventions) |
+| `src/lib/server/` | Server-only code: newsletter guard, Turnstile, Upstash store, email templates, Polar, blog loading, llms index |
+| `src/lib/blog.ts`, `src/lib/book.ts` | What a blog post is (types, parsing) and the book page order |
+| `content/blog/*.md` | Blog posts (conventions in `content/blog/README.md`) |
 | `content/book/*.md`, `content/research/*.md` | Book pages and research notes (mdsvex) |
-| `static/` | Public files. OG cards are generated into `static/og/generated/` by `scripts/og-images.ts` at build time |
+| `static/` | Public files. OG cards are generated into `static/og/generated/` (gitignored) by `scripts/og-images.ts` at build time |
+| `scripts/` | `og-images.ts` (build step), `publish-blog.ts` (blog to PDS) |
 | `csp.config.ts`, `_headers`, `src/hooks.server.ts` | Content Security Policy and security headers |
 | `_redirects` | Permanent redirects, applied by Cloudflare before the Worker |
+| `worker-configuration.d.ts` | Generated by `wrangler types`; don't edit by hand |
 
 ### Commands
 
-`npm run dev` (http://localhost:5173), `npm run check`, `npm run build`, `npm run preview` (built Worker under wrangler), `npm run deploy`. CI (`.github/workflows/ci.yml`) runs check and build on every push.
+| Command | What |
+| --- | --- |
+| `npm run dev` | Dev server on :5173; blog posts come from local files |
+| `npm run check` | Type and Svelte checks; must be clean |
+| `npm run build` | OG images, then the production build (blog posts from the PDS) |
+| `npm run preview` | The built Worker under `wrangler dev`, with secrets from `.dev.vars` |
+| `npm run blog:dry-run` / `blog:publish` | Preview or publish blog posts to the PDS (needs `ATP_IDENTIFIER`, `ATP_APP_PASSWORD`) |
+| `npm run deploy` | Build and `wrangler deploy` by hand; normally CI does this |
 
 ### Conventions
 
-- Visual parity is the bar: when changing UI, compare desktop and mobile in light and dark mode against the live site.
-- Keep Tailwind class strings and DOM structure stable; `src/app.css` targets them.
+- Visual parity is the bar. Keep Tailwind class strings and DOM structure stable; `src/app.css` targets them.
 - Theming has exactly one mechanism: `static/theme-init.js` sets `class="light"` or `class="dark cyberpunk"` on `<html>` before paint, `src/lib/theme.svelte.ts` keeps it in sync, and `src/lib/page-theme.ts` decides `data-page-theme` (home, sponsor, own-your-ai). Don't add another.
+- Prefer CSS and build-time work over browser JavaScript. No timers, polling, MutationObservers or scroll handlers where CSS or one event does the job. Lazy-load heavy, rarely used pieces (the wallet panel, the Polar embed, Turnstile, the lightbox) with dynamic `import()`.
+- Images: give `width` and `height`; use `loading="lazy"` and `decoding="async"` below the fold. Keep large images compressed (PNG and JPEG over ~300 KB are usually worth re-encoding).
 - Comments: few, short, human. Explain why, not what.
-- Pin new dependencies to an exact version that has been published for at least two weeks.
+- Copy: no em dashes in marketing copy; see the preferences below for product wording.
 
 ### Security model
 
-- **Newsletter (`/api/subscribe`)**: Origin and JSON content-type checks, size cap, honeypot, form timing, Cloudflare Turnstile, then Upstash limits (5 per IP per hour; one email per address per 30 days via an atomic claim). Keys are SHA-256 hashes. Production fails closed (503) without Turnstile, Redis or the Resend audience. The email content is fixed; never interpolate request data into outbound mail. Existing Resend contacts are never flipped back to subscribed.
+- **Newsletter (`/api/subscribe`)**: Origin and JSON content-type checks, size cap, honeypot, form timing, Cloudflare Turnstile, then Upstash limits (5 per IP per hour; one email per address per 30 days via an atomic claim). Keys are SHA-256 hashes. Production fails closed (503) without Turnstile, Redis or the Resend audience. The email content is fixed: never put request data into outbound mail. Existing Resend contacts are never flipped back to subscribed.
 - **Polar**: secrets only in `src/lib/server/polar.ts`; every route returns 503 before building a client when unconfigured. Checkout sends only our fixed product id and canonical URLs; nothing from the visitor's query string or Host reaches Polar. Webhooks are signature-checked by the SDK before anything else.
-- **CSP** is hash-based for prerendered pages. No inline scripts; new third-party origins go in `csp.config.ts` with a comment naming the feature.
-- Never use `{@html}` on untrusted data. Blog markdown is rendered through an HTML allowlist since production reads it from the PDS. Bluesky discussion content is narrowed in `src/lib/bluesky-discussion.ts` (text only, http(s) links, https avatars).
+- **CSP** is hash-based for prerendered pages. No inline scripts or event-handler attributes; new third-party origins go in `csp.config.ts` with a comment naming the feature.
+- Never use `{@html}` on untrusted data. Blog markdown goes through the HTML allowlist in `src/lib/markdown.server.ts`, because production reads it from the PDS; extend the allowlist deliberately and narrowly. Bluesky discussion content is narrowed in `src/lib/bluesky-discussion.ts` (text only, http(s) links, https avatars).
+- Links that open a new tab get `rel="noopener noreferrer"`.
 - Every outbound `fetch` has a timeout (`AbortSignal.timeout`).
-- The site has no analytics. The privacy policy (`/privacy`) and subprocessors list must match what the site actually loads; update them together with any new service.
+- The site has no analytics. The privacy policy (`/privacy`) and the subprocessors list must match what the site actually loads; update them together with any new service, after asking.
+- CI actions are pinned to full commit SHAs with least-privilege `permissions`. Keep it that way when editing workflows.
 
 ### Blog publishing
 
-- A post is one `content/blog/<slug>.md`. **Dev renders these local files; production builds render the records on the Tiles PDS** (`src/lib/server/blog.ts` picks the source, `src/lib/server/blog-pds.ts` reads `site.standard.document` records from `https://eurosky.social`, constants in `src/lib/blog-atproto.ts`). A production build fails if the PDS is unreachable or has no posts, rather than deploying an empty blog.
-- `scripts/publish-blog.ts` (run by `.github/workflows/deploy.yml` before every deploy) stores each post's whole file in the record's `content` (`$type: run.tiles.blog.markdown`) plus plain `textContent` for other readers, reuses or uploads the cover blob, and only writes records that changed. Posts are matched to records by `path` (`/<slug>`), so nothing is written back into the repo and the publish job only has read access; renaming a file creates a new record. It refuses to publish to any account other than the Tiles DID. Records for deleted or renamed files are reported, not deleted.
-- Post data is server-only (`#lib/server/blog`); client code may import only `#lib/blog` types and `#lib/blog-date`. Raw HTML in posts goes through the allowlist in `src/lib/markdown.server.ts`, because in production it comes from the PDS: extend the allowlist deliberately when a new convention needs a tag or attribute.
-- Do not connect Cloudflare Workers Builds; it would deploy before the publish step.
+- **Dev renders `content/blog/*.md`; production builds render the records on the Tiles PDS.** `src/lib/server/blog.ts` picks the source, `src/lib/server/blog-pds.ts` reads `site.standard.document` records from `https://eurosky.social`, and the constants are in `src/lib/blog-atproto.ts`. A production build fails if the PDS is unreachable or has no posts, rather than deploying an empty blog.
+- `scripts/publish-blog.ts`, run by `deploy.yml` with `--prune` before every deploy, stores each post's whole file in the record's `content` (`$type: run.tiles.blog.markdown`) plus plain `textContent` for other readers. It reuses or uploads the cover blob and only writes records that changed. Posts are matched to records by `path` (`/<slug>`), so nothing is written back into the repo. `--prune` deletes records whose file is gone (renames and deletions), and it refuses if there are no local posts at all. It refuses to publish to any account other than the Tiles DID.
+- Post data is server-only (`#lib/server/blog`). Client code may import only the `#lib/blog` types and `#lib/blog-date`.
+- Don't connect Cloudflare Workers Builds; it would deploy before the publish step.
 
 ### Generated text indexes
 
-`/llms.txt` and `/llms-full.txt` are prerendered by `src/lib/server/llms.ts` from the same sources the pages render (`#lib/blog`, `#lib/book`, the copy modules in `src/lib/`). Copy that only the indexes use lives in `src/lib/llms-content.ts`. After content changes, check `/llms.txt` locally.
+`/llms.txt` and `/llms-full.txt` are prerendered by `src/lib/server/llms.ts` from the same sources the pages render (`#lib/server/blog`, `#lib/book`, the copy modules in `src/lib/`). Copy that only the indexes use lives in `src/lib/llms-content.ts`.
 
-## Project Status
+## Project status
 
 The website is undergoing a theme transition revamp in preparation for the beta release expected in the next few months.
 
-## Layout Preferences
+## Footer consistency
 
-### Mobile View
-
-- **No scrolling**: The mobile view should never scroll. All content must fit within a single viewport (`100dvh`).
-- Use `h-[100dvh]` with `overflow-hidden` to enforce this constraint.
-- Content should be vertically centered and adjust flexibly to fit the screen.
-
-## Footer Consistency
-
-### Footer Links
-
-- All footers across pages (home, about, etc.) must remain consistent.
-- The developer link should always be:
-  - **Text**: "Book"
-  - **URL**: `https://tiles.run/book`
-
+All footers across pages (home, about, etc.) must stay consistent. The developer link is always **"Book"**, linking to `https://tiles.run/book`.
 
 ## Learned User Preferences and Workspace Facts
 
