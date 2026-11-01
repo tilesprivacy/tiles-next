@@ -20,7 +20,7 @@ export const variables = defineEnvVars({
   // Newsletter
   RESEND_API_KEY: { schema: optional },
   RESEND_FROM_EMAIL: { schema: optional, description: 'Sender, e.g. "newsletter@tiles.run"' },
-  RESEND_AUDIENCE_ID: { schema: optional, description: "Resend audience that newsletter signups are added to" },
+  RESEND_SEGMENT_ID: { schema: optional, description: "Resend segment that newsletter signups are added to (Contacts > Segments)" },
   TURNSTILE_SECRET_KEY: { schema: optional },
   UPSTASH_REDIS_REST_URL: { schema: optional },
   UPSTASH_REDIS_REST_TOKEN: { schema: optional },

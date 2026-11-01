@@ -18,7 +18,7 @@ export interface SubscribeDeps {
   guard: ReturnType<typeof createEmailGuard>
   resendApiKey: string | undefined
   resendFromEmail: string | undefined
-  resendAudienceId: string | undefined
+  resendSegmentId: string | undefined
   production: boolean
   /** Adds Resend error details to responses; never on in production. */
   debug: boolean
@@ -62,15 +62,20 @@ function isAlreadyExists(error: ResendError): boolean {
   return error?.statusCode === 409 || /already exist/i.test(error?.message ?? "")
 }
 
-// An existing contact is left alone. Flipping it back to subscribed would let
-// anyone re-subscribe a person who opted out just by typing their address.
-async function storeContact(resend: Resend, audienceId: string, email: string) {
+// New contacts are created subscribed and in the newsletter segment. An
+// existing contact is only added to the segment: its unsubscribed flag is
+// left alone, or anyone could re-subscribe a person who opted out just by
+// typing their address.
+async function storeContact(resend: Resend, segmentId: string, email: string) {
   const created = await resend.contacts.create(
-    { audienceId, email, unsubscribed: false },
+    { email, unsubscribed: false, segments: [{ id: segmentId }] },
     withTimeout(),
   )
-  if (!created.error || isAlreadyExists(created.error)) return null
-  return created.error
+  if (!created.error) return null
+  if (!isAlreadyExists(created.error)) return created.error
+
+  const added = await resend.contacts.segments.add({ email, segmentId }, withTimeout())
+  return added.error && !isAlreadyExists(added.error) ? added.error : null
 }
 
 export async function handleSubscribe(
@@ -78,8 +83,8 @@ export async function handleSubscribe(
   clientIp: string,
   deps: SubscribeDeps,
 ): Promise<Response> {
-  if (!deps.resendApiKey || (deps.production && !deps.resendAudienceId)) {
-    console.error("[Subscribe] Resend API key or audience is not configured")
+  if (!deps.resendApiKey || (deps.production && !deps.resendSegmentId)) {
+    console.error("[Subscribe] Resend API key or segment is not configured")
     return json({ error: "Email service is not configured. Please contact support." }, 503)
   }
 
@@ -90,15 +95,15 @@ export async function handleSubscribe(
     const resend = new Resend(deps.resendApiKey)
     const fromAddress = senderAddress(deps.resendFromEmail)
 
-    if (deps.resendAudienceId) {
-      const error = await storeContact(resend, deps.resendAudienceId, guarded.email)
+    if (deps.resendSegmentId) {
+      const error = await storeContact(resend, deps.resendSegmentId, guarded.email)
       if (error) {
         await guarded.release()
         console.error("[Subscribe] Could not store contact:", error)
         return genericFailure()
       }
     } else {
-      console.warn("[Subscribe] RESEND_AUDIENCE_ID is not set; signup not stored (dev only)")
+      console.warn("[Subscribe] RESEND_SEGMENT_ID is not set; signup not stored (dev only)")
     }
 
     const message = buildSubscriptionEmail()

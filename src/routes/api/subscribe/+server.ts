@@ -1,7 +1,7 @@
 import { dev } from "$app/env"
 import {
   RESEND_API_KEY,
-  RESEND_AUDIENCE_ID,
+  RESEND_SEGMENT_ID,
   RESEND_FROM_EMAIL,
   TURNSTILE_SECRET_KEY,
   UPSTASH_REDIS_REST_TOKEN,
@@ -51,7 +51,7 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
     guard: getGuard(),
     resendApiKey: RESEND_API_KEY,
     resendFromEmail: RESEND_FROM_EMAIL,
-    resendAudienceId: RESEND_AUDIENCE_ID,
+    resendSegmentId: RESEND_SEGMENT_ID,
     production: !dev,
     debug: dev,
   })
