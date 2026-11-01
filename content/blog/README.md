@@ -8,8 +8,8 @@ A post is one markdown file here: `content/blog/<slug>.md` becomes `/blog/<slug>
    `scripts/publish-blog.ts`, which stores each post on the Tiles PDS as a
    `site.standard.document` record (the whole file, plus a plain-text copy for
    other readers), then builds the site **from those records** and deploys it.
-   New posts get the record's `atUri` written back into their frontmatter;
-   don't write `atUri` yourself.
+   Nothing is committed back: a post is matched to its record by its slug, so
+   renaming a file publishes it as a new record.
 
 So what tiles.run shows is what's on the PDS. Write plain markdown that reads
 well anywhere; the site styles it, and the few HTML conventions below cover the

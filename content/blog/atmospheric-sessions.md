@@ -16,7 +16,6 @@ tags:
   - local-first
   - interoperability
 blueskyPostUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mrdjjxixbs2p"
-atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mrdixuvpez23"
 ---
 
 In Tiles, the [chat sessions](https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuY2hhdC5zZXNzaW9uU25hcHNob3QvM21xamdheHR6c3kyZA==) we have with local models can be shared publicly. This is similar to sharing conversations as Shared Links in [ChatGPT](https://chatgpt.com/share/6a421d4b-797c-83ee-bee4-1da04e405976) or via [Pi (using GitHub Gists)](https://pi.dev/docs/latest/usage#exporting-and-sharing-sessions). Sharing our research, ideas, and musings with others is valuable. What Tiles explores is how much ownership we can retain over those shared conversations.

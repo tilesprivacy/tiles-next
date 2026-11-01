@@ -75,8 +75,8 @@ sending unchecked email.
 2. Check it with `npm run dev`: in dev the site renders the local files.
    `draft: true` keeps a post local only.
 3. Push to `main`. The Deploy workflow publishes the post to the Tiles PDS
-   (`scripts/publish-blog.ts`), commits the record's `atUri` back into the
-   file, then builds tiles.run from the records on the PDS.
+   (`scripts/publish-blog.ts`), then builds tiles.run from the records on the
+   PDS. Posts are matched to records by slug; nothing is committed back.
 
 To publish by hand, or to preview what would change:
 

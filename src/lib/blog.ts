@@ -33,7 +33,7 @@ export interface BlogPostMeta {
   keywords: string[]
   section?: string
   twitterCreator?: string
-  /** at:// URI of the site.standard.document record. */
+  /** at:// URI of the site.standard.document record; set from the PDS in production builds. */
   atUri?: string
   /** at:// URI of the Bluesky post whose replies form the discussion. */
   blueskyPostUri?: string
@@ -81,7 +81,6 @@ export function parseBlogPost(slug: string, source: string): BlogPost {
     keywords: data.keywords === undefined ? tags : list(data.keywords),
     section: str(data.section),
     twitterCreator: str(data.twitterCreator),
-    atUri: str(data.atUri),
     blueskyPostUri: str(data.blueskyPostUri),
     toc: data.toc !== false,
     bodyClass: str(data.bodyClass),

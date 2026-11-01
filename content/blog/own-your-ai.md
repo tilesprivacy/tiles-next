@@ -19,7 +19,6 @@ tags:
   - local-first
   - ATproto
 blueskyPostUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mqq45bvxts24"
-atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mqkrpvbar22l"
 ---
 
 <!-- The page at /blog/own-your-ai is built from src/lib/own-your-ai-talk.ts (slides and transcript). Keep this copy in step with it: it is what RSS, llms.txt and ATproto get. -->

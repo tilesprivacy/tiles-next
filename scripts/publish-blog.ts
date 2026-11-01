@@ -1,15 +1,20 @@
 // Publishes content/blog/*.md to the Tiles PDS as site.standard.document
 // records. Each record carries the post's whole markdown file (which the
 // production build renders) and a plain-text copy for other standard.site
-// readers. New posts get their record's at:// URI written back into the file.
+// readers. A post is matched to its record by path (/<slug>), so nothing is
+// ever written back into the repo.
 //
 //   node scripts/publish-blog.ts            publish what changed
-//   node scripts/publish-blog.ts --dry-run  show what would change
+//   node scripts/publish-blog.ts --prune    also delete records whose file is gone
+//   node scripts/publish-blog.ts --dry-run  show what would change (works with --prune)
+//
+// The site shows every record on the PDS, so a deleted or renamed post only
+// disappears once its old record is pruned. The Deploy workflow prunes.
 //
 // Needs ATP_IDENTIFIER (tiles.run) and ATP_APP_PASSWORD; PDS_URL is optional.
 // Plain Node with type stripping: no enums or other TS-only syntax.
 
-import { readdir, readFile, writeFile } from "node:fs/promises"
+import { readdir, readFile } from "node:fs/promises"
 import path from "node:path"
 import { fromMarkdown } from "mdast-util-from-markdown"
 import { toString } from "mdast-util-to-string"
@@ -29,15 +34,14 @@ const BLOG_DIR = path.join(ROOT, "content/blog")
 const STATIC_DIR = path.join(ROOT, "static")
 const SITE_BLOG_URL = "https://www.tiles.run/blog"
 const DRY_RUN = process.argv.includes("--dry-run")
+const PRUNE = process.argv.includes("--prune")
 
 type Json = Record<string, unknown>
 
 interface LocalPost {
   slug: string
-  file: string
-  /** The file as written, minus the atUri line, which is ours to manage. */
+  /** The whole file, frontmatter included. */
   source: string
-  atUri?: string
   data: ReturnType<typeof parseFrontmatter>["data"]
   body: string
 }
@@ -48,8 +52,6 @@ interface ExistingRecord {
   value: Json
 }
 
-const ATURI_LINE = /^atUri:.*\r?\n/m
-
 async function readPosts(): Promise<LocalPost[]> {
   const posts: LocalPost[] = []
   for (const name of (await readdir(BLOG_DIR)).sort()) {
@@ -57,17 +59,15 @@ async function readPosts(): Promise<LocalPost[]> {
     const slug = name.replace(/\.md$/, "")
     if (!BLOG_SLUG_PATTERN.test(slug)) throw new Error(`${name}: file name must be a lowercase slug`)
 
-    const file = path.join(BLOG_DIR, name)
-    const raw = await readFile(file, "utf8")
-    const { data, body } = parseFrontmatter(raw)
+    const source = await readFile(path.join(BLOG_DIR, name), "utf8")
+    const { data, body } = parseFrontmatter(source)
     if (data.draft === true) continue
     if (!str(data.title) || !/^\d{4}-\d{2}-\d{2}$/.test(str(data.publishDate) ?? "")) {
       throw new Error(`${name}: needs a title and a publishDate (YYYY-MM-DD)`)
     }
 
-    const source = raw.replace(ATURI_LINE, "")
     if (Buffer.byteLength(source) > MAX_BLOG_SOURCE_BYTES) throw new Error(`${name}: larger than ${MAX_BLOG_SOURCE_BYTES} bytes`)
-    posts.push({ slug, file, source, atUri: str(data.atUri), data, body })
+    posts.push({ slug, source, data, body })
   }
   return posts
 }
@@ -148,6 +148,15 @@ class Pds {
       swapRecord,
     })
   }
+
+  remove(rkey: string, swapRecord: string) {
+    return this.json("com.atproto.repo.deleteRecord", {
+      repo: this.did,
+      collection: BLOG_DOCUMENT_COLLECTION,
+      rkey,
+      swapRecord,
+    })
+  }
 }
 
 const IMAGE_TYPES: Record<string, string> = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp" }
@@ -201,12 +210,6 @@ function stable(value: unknown): string {
   return JSON.stringify(value)
 }
 
-async function writeAtUri(post: LocalPost, uri: string) {
-  if (DRY_RUN) return
-  const raw = (await readFile(post.file, "utf8")).replace(ATURI_LINE, "")
-  await writeFile(post.file, raw.replace(/^---\r?\n/, `---\natUri: "${uri}"\n`))
-}
-
 async function main() {
   const identifier = process.env.ATP_IDENTIFIER?.trim()
   const password = process.env.ATP_APP_PASSWORD?.trim()
@@ -219,41 +222,48 @@ async function main() {
 
   const posts = await readPosts()
   const existing = (await pds.listDocuments()).filter((record) => record.value.site === STANDARD_SITE_PUBLICATION_URI)
-  const byUri = new Map(existing.map((record) => [record.uri, record]))
-  const byPath = new Map(existing.map((record) => [String(record.value.path), record]))
+  const byPath = new Map<string, ExistingRecord>()
+  for (const record of existing) {
+    const recordPath = String(record.value.path)
+    if (byPath.has(recordPath)) console.log(`note: more than one record for ${recordPath}; using ${byPath.get(recordPath)!.uri}`)
+    else byPath.set(recordPath, record)
+  }
 
   let changed = 0
   for (const post of posts) {
-    // Match on the file's atUri, or on the path if the line went missing.
-    const current = (post.atUri && byUri.get(post.atUri)) || byPath.get(`/${post.slug}`)
+    const current = byPath.get(`/${post.slug}`)
     const record = buildRecord(post, await coverBlob(pds, post, current))
-
-    if (current && stable(current.value) === stable(record)) {
-      if (!post.atUri) await writeAtUri(post, current.uri)
-      continue
-    }
+    if (current && stable(current.value) === stable(record)) continue
 
     changed++
     if (DRY_RUN) {
       console.log(`${current ? "update" : "create"} ${post.slug}`)
-      continue
-    }
-
-    if (current) {
+    } else if (current) {
       await pds.put(current.uri.split("/").pop()!, record, current.cid)
-      if (post.atUri !== current.uri) await writeAtUri(post, current.uri)
       console.log(`updated ${post.slug}`)
     } else {
       const created = await pds.create(record)
-      await writeAtUri(post, String(created.uri))
       console.log(`created ${post.slug} -> ${created.uri}`)
     }
   }
 
-  // Records whose file was deleted stay on the PDS; say so rather than delete.
+  // Records whose file was deleted or renamed. A checkout with no posts at
+  // all is far more likely broken than intentional, so never prune then.
   const localPaths = new Set(posts.map((post) => `/${post.slug}`))
-  for (const record of existing) {
-    if (!localPaths.has(String(record.value.path))) console.log(`note: ${record.uri} (${record.value.path}) has no file here`)
+  const orphans = existing.filter((record) => !localPaths.has(String(record.value.path)))
+  if (orphans.length && PRUNE && posts.length === 0) throw new Error("No local posts found; refusing to prune every record.")
+  for (const record of orphans) {
+    const label = `${record.value.path} (${record.uri})`
+    if (!PRUNE) {
+      console.log(`note: ${label} has no file here; run with --prune to delete it`)
+    } else if (DRY_RUN) {
+      console.log(`delete ${label}`)
+      changed++
+    } else {
+      await pds.remove(record.uri.split("/").pop()!, record.cid)
+      console.log(`deleted ${label}`)
+      changed++
+    }
   }
 
   console.log(`${DRY_RUN ? "would change" : "changed"} ${changed} of ${posts.length} posts`)

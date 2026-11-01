@@ -23,7 +23,6 @@ keywords:
   - venvstacks
   - Python packaging
 blueskyPostUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mir2vki6es2m"
-atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnmj37iuhz2d"
 ---
 
 We ship Tiles as a `tar.gz` tarball and as a native macOS `.pkg`. Either format follows the same broad steps.

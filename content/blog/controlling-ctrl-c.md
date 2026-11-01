@@ -27,7 +27,6 @@ keywords:
   - async IO
   - Unix signals
 blueskyPostUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/app.bsky.feed.post/3mnrvt2gjls23"
-atUri: "at://did:plc:mqmcsjuerbjhu65mpmvkcuw2/site.standard.document/3mnrumkdftw2p"
 ---
 
 ## The REPL UI issue
