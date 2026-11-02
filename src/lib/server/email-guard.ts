@@ -34,7 +34,7 @@ export interface GuardStore {
 export type TurnstileCheck = (token: string, remoteIp: string, hostname: string) => Promise<boolean>
 
 export interface EmailGuardOptions {
-  /** Shared store, or null when Redis is not configured. */
+  /** Shared store (D1), or null when the binding is missing. */
   store: GuardStore | null
   /** Turnstile verification, or null when no secret is configured. */
   verifyTurnstile: TurnstileCheck | null
@@ -51,7 +51,7 @@ export type GuardedEmailRequest =
   | { ok: true; email: string; release: () => Promise<void> }
   | { ok: false; response: Response }
 
-// Keys are hashed so Redis never stores raw IPs or email addresses.
+// Keys are hashed so the database never stores raw IPs or email addresses.
 async function hashKey(value: string): Promise<string> {
   const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value))
   return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("")
@@ -72,7 +72,7 @@ function reject(error: string, status: number): Response {
 const unavailable = () =>
   reject("Signups are temporarily unavailable. Please try again later.", 503)
 
-// Per-instance stand-in for local dev, where Redis is usually not configured.
+// Per-instance stand-in for local dev without the D1 binding.
 // Production never uses it: one isolate cannot enforce a per-address ceiling.
 export function createMemoryStore(now: () => number = Date.now): GuardStore {
   const ipLog = new Map<string, number[]>()
@@ -112,7 +112,7 @@ export function createEmailGuard({
   production,
   canonicalOrigin,
 }: EmailGuardOptions) {
-  // Dev without Redis still exercises the limits, per process.
+  // Dev without D1 still exercises the limits, per process.
   const activeStore = store ?? createMemoryStore()
 
   async function attempt(run: () => Promise<boolean>, label: string): Promise<Outcome> {
@@ -195,7 +195,7 @@ export function createEmailGuard({
     }
 
     if (production && (!store || !verifyTurnstile)) {
-      console.error("[EmailGuard] Redis or Turnstile is not configured; refusing to send.")
+      console.error("[EmailGuard] The D1 binding or Turnstile is not configured; refusing to send.")
       return { ok: false, response: unavailable() }
     }
 

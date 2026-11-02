@@ -1,3 +1,4 @@
+import { env as cloudflare } from "cloudflare:workers"
 import { dev } from "$app/env"
 import {
   NEWSLETTER_TOKEN_KEY,
@@ -17,8 +18,9 @@ export const prerender = false
 
 type Guard = ReturnType<typeof createEmailGuard>
 
-// One guard per D1 binding (in practice, one per isolate). Without the binding
-// (plain `vite dev`) the guard keeps its limits in memory; production refuses.
+// One guard per D1 binding (in practice, one per isolate). SvelteKit 3's
+// Cloudflare adapter passes no `platform`; bindings come from cloudflare:workers,
+// which the adapter also provides in `vite dev` (backed by local D1).
 const guards = new WeakMap<D1Database, Guard>()
 let memoryGuard: Guard | undefined
 
@@ -44,7 +46,7 @@ function getGuard(db: D1Database | undefined): Guard {
   return guard
 }
 
-export const POST: RequestHandler = async ({ request, url, getClientAddress, platform }) => {
+export const POST: RequestHandler = async ({ request, url, getClientAddress }) => {
   let clientIp = request.headers.get("cf-connecting-ip") ?? ""
   if (!clientIp) {
     try {
@@ -55,7 +57,7 @@ export const POST: RequestHandler = async ({ request, url, getClientAddress, pla
   }
 
   const response = await handleSubscribe(request, clientIp, {
-    guard: getGuard(platform?.env.DB),
+    guard: getGuard(cloudflare.DB),
     resendApiKey: RESEND_API_KEY,
     resendFromEmail: RESEND_FROM_EMAIL,
     tokenKey: NEWSLETTER_TOKEN_KEY ?? (dev ? devTokenKey() : undefined),
