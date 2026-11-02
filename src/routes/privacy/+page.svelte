@@ -64,10 +64,10 @@
   <div class="space-y-4">
     <h2>Newsletter</h2>
     <p>
-      If you subscribe to our newsletter, we store your email address with Resend so we can send you product updates. Every newsletter includes a link to unsubscribe, and once you unsubscribe we do not subscribe you again unless you ask.
+      If you sign up for our newsletter, we first email you a link to confirm. Until you confirm, your address is not stored anywhere; the link carries it in encrypted form and stops working after 7 days. Once you confirm, we store your email address with Resend so we can send you product updates. Every newsletter includes a link to unsubscribe, and once you unsubscribe we only subscribe you again if you sign up and confirm again.
     </p>
     <p>
-      To stop automated abuse of the signup form, Cloudflare Turnstile checks that the request comes from a person, and we keep one-way hashes of your email address (for up to 30 days) and IP address (for up to an hour) in a Cloudflare database. These hashes cannot be turned back into your address and are used only to limit how often the form can be used.
+      To stop automated abuse of the signup form, Cloudflare Turnstile checks that the request comes from a person, and we keep one-way hashes of your email address (for up to a day) and IP address (for up to an hour) in a Cloudflare database. These hashes cannot be turned back into your address and are used only to limit how often the form can be used.
     </p>
   </div>
 

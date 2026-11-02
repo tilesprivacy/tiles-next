@@ -20,7 +20,8 @@ export const variables = defineEnvVars({
   // Newsletter
   RESEND_API_KEY: { schema: optional },
   RESEND_FROM_EMAIL: { schema: optional, description: 'Sender, e.g. "newsletter@tiles.run"' },
-  RESEND_SEGMENT_ID: { schema: optional, description: "Resend segment that newsletter signups are added to (Contacts > Segments)" },
+  RESEND_SEGMENT_ID: { schema: optional, description: "Resend segment that confirmed newsletter subscribers are added to (Contacts > Segments)" },
+  NEWSLETTER_TOKEN_KEY: { schema: optional, description: "32 random bytes, base64 (openssl rand -base64 32); encrypts confirmation links" },
   TURNSTILE_SECRET_KEY: { schema: optional },
 
   // Polar billing

@@ -23,6 +23,33 @@ const button = (url: string, label: string) => row(`
     </td></tr>
   </table>`)
 
+// The only variable is a link the server built itself (canonical origin plus
+// an encrypted token); never interpolate request input into outbound mail.
+export function buildConfirmationEmail(confirmUrl: string, linkTtlDays: number) {
+  const subject = "Confirm your subscription to Tiles"
+  const content = [
+    heading("Confirm your subscription"),
+    row(
+      paragraph("Hi there,") +
+        paragraph("Someone, hopefully you, asked for the Tiles newsletter to be sent to this address. Confirm below to start getting product notes, privacy research, release updates, and engineering notes from the team."),
+    ),
+    button(confirmUrl, "Confirm subscription"),
+    row(
+      paragraph(`If this wasn't you, ignore this email. You won't be subscribed, and this link stops working in ${linkTtlDays} days.`) +
+        paragraph(`- ${link("https://www.tilesprivacy.org", "Tiles Privacy")}`),
+    ),
+  ].join("")
+
+  return {
+    subject,
+    html: renderEmailTemplate({
+      subject,
+      preheader: "One click to confirm your subscription to the Tiles newsletter.",
+      content,
+    }),
+  }
+}
+
 // Takes no arguments on purpose: never interpolate request input into outbound
 // mail, or anyone can use the endpoint to send their own text from this domain.
 export function buildSubscriptionEmail() {

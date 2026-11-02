@@ -1,25 +1,21 @@
+// Step one of the newsletter's double opt-in: after the abuse checks, email
+// the address a confirmation link. Nothing is stored until it's confirmed
+// (see newsletter-confirm.ts), so a typo or a stranger's address never ends
+// up on the list.
 import { Resend } from "resend"
 import type { createEmailGuard } from "./email-guard"
-import { buildSubscriptionEmail } from "./email/messages"
-import { toPlainText } from "./email/plain-text"
-
-const SENDER_NAME = "Tiles Privacy"
-// Resend's onboarding address, for local dev without a verified domain.
-const DEFAULT_FROM_EMAIL = "onboarding@resend.dev"
-
-/** RESEND_FROM_EMAIL may be "Name <address>" or a bare address. */
-export function senderAddress(raw: string | undefined): string {
-  const value = raw?.trim()
-  if (!value) return DEFAULT_FROM_EMAIL
-  return value.match(/<([^>]+)>/)?.[1].trim() ?? value
-}
+import { buildConfirmationEmail } from "./email/messages"
+import { CONFIRM_LINK_TTL_DAYS, createConfirmToken } from "./newsletter-token"
+import { sendEmail, senderAddress } from "./resend"
 
 export interface SubscribeDeps {
   guard: ReturnType<typeof createEmailGuard>
   resendApiKey: string | undefined
   resendFromEmail: string | undefined
-  resendSegmentId: string | undefined
-  production: boolean
+  /** Encrypts the address into the confirmation link. */
+  tokenKey: string | undefined
+  /** Origin the confirmation link points at: the canonical site in production. */
+  siteOrigin: string
   /** Adds Resend error details to responses; never on in production. */
   debug: boolean
 }
@@ -30,14 +26,8 @@ const json = (body: unknown, status = 200) => Response.json(body, { status })
 // (honeypot hit, address already emailed recently) is indistinguishable.
 const silentSuccess = () => json({ success: true, message: "Successfully subscribed!" })
 
-const RESEND_TIMEOUT_MS = 10_000
-const withTimeout = () => ({ signal: AbortSignal.timeout(RESEND_TIMEOUT_MS) })
-
 const genericFailure = () =>
-  json(
-    { error: "An error occurred while processing your subscription. Please try again." },
-    500,
-  )
+  json({ error: "An error occurred while processing your subscription. Please try again." }, 500)
 
 function friendlySendError(message: string | undefined): string {
   const text = message?.toLowerCase() ?? ""
@@ -56,35 +46,9 @@ function friendlySendError(message: string | undefined): string {
   return "Failed to send confirmation email. Please try again later."
 }
 
-type ResendError = { message?: string; statusCode?: number | null; name?: string } | null
-
-function isAlreadyExists(error: ResendError): boolean {
-  return error?.statusCode === 409 || /already exist/i.test(error?.message ?? "")
-}
-
-// New contacts are created subscribed and in the newsletter segment. An
-// existing contact is only added to the segment: its unsubscribed flag is
-// left alone, or anyone could re-subscribe a person who opted out just by
-// typing their address.
-async function storeContact(resend: Resend, segmentId: string, email: string) {
-  const created = await resend.contacts.create(
-    { email, unsubscribed: false, segments: [{ id: segmentId }] },
-    withTimeout(),
-  )
-  if (!created.error) return null
-  if (!isAlreadyExists(created.error)) return created.error
-
-  const added = await resend.contacts.segments.add({ email, segmentId }, withTimeout())
-  return added.error && !isAlreadyExists(added.error) ? added.error : null
-}
-
-export async function handleSubscribe(
-  request: Request,
-  clientIp: string,
-  deps: SubscribeDeps,
-): Promise<Response> {
-  if (!deps.resendApiKey || (deps.production && !deps.resendSegmentId)) {
-    console.error("[Subscribe] Resend API key or segment is not configured")
+export async function handleSubscribe(request: Request, clientIp: string, deps: SubscribeDeps): Promise<Response> {
+  if (!deps.resendApiKey || !deps.tokenKey) {
+    console.error("[Subscribe] Resend API key or newsletter token key is not configured")
     return json({ error: "Email service is not configured. Please contact support." }, 503)
   }
 
@@ -92,28 +56,14 @@ export async function handleSubscribe(
   if (!guarded.ok) return guarded.response
 
   try {
-    const resend = new Resend(deps.resendApiKey)
-    const fromAddress = senderAddress(deps.resendFromEmail)
-
-    if (deps.resendSegmentId) {
-      const error = await storeContact(resend, deps.resendSegmentId, guarded.email)
-      if (error) {
-        await guarded.release()
-        console.error("[Subscribe] Could not store contact:", error)
-        return genericFailure()
-      }
-    } else {
-      console.warn("[Subscribe] RESEND_SEGMENT_ID is not set; signup not stored (dev only)")
-    }
-
-    const message = buildSubscriptionEmail()
-    const result = await resend.emails.send({
-      from: `${SENDER_NAME} <${fromAddress}>`,
-      to: guarded.email,
-      subject: message.subject,
-      html: message.html,
-      text: toPlainText(message.html),
-    }, withTimeout())
+    const token = await createConfirmToken(guarded.email, deps.tokenKey)
+    const confirmUrl = `${deps.siteOrigin}/newsletter/confirm?token=${token}`
+    const result = await sendEmail(
+      new Resend(deps.resendApiKey),
+      deps.resendFromEmail,
+      guarded.email,
+      buildConfirmationEmail(confirmUrl, CONFIRM_LINK_TTL_DAYS),
+    )
 
     if (result.error) {
       await guarded.release()
@@ -131,8 +81,8 @@ export async function handleSubscribe(
       success: true,
       message: "Successfully subscribed!",
       id: result.data?.id,
-      // The form uses it for the "Open in Gmail" sniper link.
-      senderEmail: fromAddress,
+      // The form uses it for the "Open in Gmail" button, to find the confirmation email.
+      senderEmail: senderAddress(deps.resendFromEmail),
     })
   } catch (error) {
     await guarded.release()

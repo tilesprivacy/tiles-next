@@ -15,7 +15,9 @@ const MAX_FORM_AGE_MS = 24 * 60 * 60 * 1_000
 
 export const MAX_SENDS_PER_IP = 5
 export const IP_WINDOW_SECONDS = 60 * 60
-export const RECIPIENT_COOLDOWN_SECONDS = 30 * 24 * 60 * 60
+// Long enough to stop repeated mail to one inbox, short enough that someone
+// who lost the confirmation email can ask again the next day.
+export const RECIPIENT_COOLDOWN_SECONDS = 24 * 60 * 60
 const MAX_TRACKED_KEYS = 10_000
 
 type Outcome = "allowed" | "denied" | "unavailable"
