@@ -1,16 +1,32 @@
 <script lang="ts">
+  import { onMount } from "svelte"
+  import { enhance } from "$app/forms"
   import SiteFooter from "#lib/components/SiteFooter.svelte"
   import { themeAwareHeaderPrimaryCtaClasses } from "#lib/header-primary-cta-classes"
   import { marketingPageBodyClass, marketingPageTitleClass } from "#lib/marketing-page-title-classes"
 
   let { data, form } = $props()
 
-  const state = $derived(form?.state ?? (data.token ? "confirm" : "expired"))
+  let confirmForm = $state<HTMLFormElement>()
+  let confirming = $state(false)
+
+  const view = $derived(form?.state ?? (confirming ? "confirming" : data.token ? "confirm" : "expired"))
+
+  // Confirms as soon as the page opens in a browser. Mail scanners that fetch
+  // every link without running scripts never trigger it; without JavaScript,
+  // the button below does the same.
+  onMount(() => {
+    if (data.token && !form) confirmForm?.requestSubmit()
+  })
 
   const copy = {
     confirm: {
       title: "Confirm your subscription",
       body: "One click and you'll start getting product notes, privacy research, release updates, and engineering notes from the Tiles team.",
+    },
+    confirming: {
+      title: "Confirming your subscription",
+      body: "This only takes a moment.",
     },
     subscribed: {
       title: "You're subscribed",
@@ -35,7 +51,6 @@
   <meta name="description" content="Confirm your subscription to the Tiles newsletter." />
   <!-- Personal confirmation links, not a page for search. -->
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="referrer" content="no-referrer" />
 </svelte:head>
 
 <div class="relative flex min-h-[100dvh] flex-col bg-background">
@@ -43,16 +58,28 @@
     class="flex flex-1 flex-col px-4 pb-24 pt-[calc(8.5rem+env(safe-area-inset-top,0px))] sm:px-6 lg:px-8 lg:pb-32 lg:pt-[calc(12.5rem+env(safe-area-inset-top,0px))]"
   >
     <div class="mx-auto w-full max-w-xl text-center">
-      <h1 class={marketingPageTitleClass}>{copy[state].title}</h1>
-      <p class={`mt-6 ${marketingPageBodyClass}`}>{copy[state].body}</p>
+      <h1 class={marketingPageTitleClass}>{copy[view].title}</h1>
+      <p class={`mt-6 ${marketingPageBodyClass}`} aria-live="polite">{copy[view].body}</p>
 
       <div class="mt-10 flex justify-center">
-        {#if (state === "confirm" || state === "error") && data.token}
-          <form method="POST">
+        {#if data.token && (view === "confirm" || view === "confirming" || view === "error")}
+          <form
+            method="POST"
+            bind:this={confirmForm}
+            use:enhance={() => {
+              confirming = true
+              return async ({ update }) => {
+                await update({ reset: false })
+                confirming = false
+              }
+            }}
+          >
             <input type="hidden" name="token" value={data.token} />
-            <button type="submit" class={`minimal-primary-button ${themeAwareHeaderPrimaryCtaClasses}`}>
-              Confirm subscription
-            </button>
+            {#if view !== "confirming"}
+              <button type="submit" class={`minimal-primary-button ${themeAwareHeaderPrimaryCtaClasses}`}>
+                {view === "error" ? "Try again" : "Confirm subscription"}
+              </button>
+            {/if}
           </form>
         {:else}
           <a href="/" class={linkClass}>Back to home</a>

@@ -10,8 +10,9 @@ export const prerender = false
 
 const tokenKey = () => NEWSLETTER_TOKEN_KEY ?? (dev ? devTokenKey() : undefined)
 
-// Opening the link only shows a button. Confirming is a POST, so mail
-// scanners that open every link in an email can't subscribe anyone.
+// Opening the link doesn't confirm by itself: the page then POSTs (on its own
+// in a browser, or via its button without JavaScript), so mail scanners that
+// only fetch links can't subscribe anyone.
 export const load: PageServerLoad = async ({ url, setHeaders }) => {
   setHeaders({ "Cache-Control": "no-store" })
   const token = url.searchParams.get("token") ?? ""
