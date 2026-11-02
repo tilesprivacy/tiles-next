@@ -56,6 +56,24 @@ GitHub settings:
 Don't also connect Cloudflare Workers Builds: it would deploy before new posts
 reach the PDS.
 
+## Shared-chat viewer
+
+`chat.tiles.run` is served by this Worker from `src/routes/chat/` (see the
+"Shared-chat viewer" section of `AGENTS.md`). In dev open
+`http://localhost:5173/chat/<token>`; on any other host a production build
+redirects `/chat/*` to chat.tiles.run. To try the real host locally, run
+`npx wrangler dev --local-upstream chat.tiles.run` after a build.
+
+It needs, once, in Cloudflare (zone tiles.run):
+
+- DNS: `chat` as a proxied record (for example `AAAA chat 100::`, proxied), in
+  place of the old record pointing at Vercel.
+- Worker route: `chat.tiles.run/*` to this Worker (add it to `routes` in
+  `wrangler.jsonc`).
+- Rules > Transform Rules > URL Rewrite: when
+  `(http.host eq "chat.tiles.run" and not starts_with(http.request.uri.path, "/_app/") and http.request.uri.path.extension eq "")`,
+  rewrite the path dynamically to `concat("/chat", http.request.uri.path)`.
+
 ## Environment
 
 Every variable is declared in `src/env.ts` and listed with a comment in

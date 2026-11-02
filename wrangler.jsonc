@@ -17,7 +17,9 @@
   // runs before Workers. The www route only matters if that rule is removed.
   "routes": [
     { "pattern": "www.tiles.run/*", "zone_name": "tiles.run" },
-    { "pattern": "tiles.run/*", "zone_name": "tiles.run" }
+    { "pattern": "tiles.run/*", "zone_name": "tiles.run" },
+    // The shared-chat viewer. A URL Rewrite rule (dashboard) adds the /chat prefix.
+    { "pattern": "chat.tiles.run/*", "zone_name": "tiles.run" }
   ],
   // Only serve the site at tiles.run, not also at *.workers.dev addresses.
   "workers_dev": false,
