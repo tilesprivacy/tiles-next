@@ -24,7 +24,7 @@ In Tiles, the [chat sessions](https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z21
 
 In Tiles, all chat sessions are completely local and stored encrypted on your device. So when we want to share those local conversations with the outside world, we should preserve the same ethos.
 
-There are two ways to share sessions in Tiles. The first is to sync chats end to end encrypted, peer to peer, across your own devices, as described [here](https://www.tiles.run/book/manual#sync). That approach provides the strongest privacy and the most granular control, and deserves its own blog post.
+There are two ways to share sessions in Tiles. The first is to sync chats end to end encrypted, peer to peer, across your own devices, as described [here](https://tiles.run/book/manual#sync). That approach provides the strongest privacy and the most granular control, and deserves its own blog post.
 
 But what if you simply want to share your research, ideas, or musings as a regular web link that anyone can open, even if they don't have Tiles installed, similar to ChatGPT's Shared Links, while still preserving data ownership? And what if other applications could build on those publicly shared conversations for entirely new use cases?
 
@@ -46,9 +46,9 @@ To share a session from Tiles, you first need an ATproto account. The easiest wa
 
 For example, you can create a Bluesky account and use [Bluesky's PDS](https://bsky.app/). There are, of course, other PDS providers as well, such as Northsky and Eurosky. The important point is that you can move your account to a different PDS later if you choose. For example, you can migrate from Bluesky's PDS to Northsky's without changing your ATproto handle or your underlying identity, both of which remain the same.
 
-Once you have an ATproto account, you can sign in to it from Tiles using your ATproto handle, as described [here](https://www.tiles.run/book/manual#atproto-tiles-at). After that, you can open the Tiles CLI (with a web UI coming soon) and share either the current conversation or any existing session using the `/share` command.
+Once you have an ATproto account, you can sign in to it from Tiles using your ATproto handle, as described [here](https://tiles.run/book/manual#atproto-tiles-at). After that, you can open the Tiles CLI (with a web UI coming soon) and share either the current conversation or any existing session using the `/share` command.
 
-Tiles publishes the session to your ATproto PDS and returns a public link that anyone can access. For more details, see the [documentation](https://www.tiles.run/book/manual#sharing-commands).
+Tiles publishes the session to your ATproto PDS and returns a public link that anyone can access. For more details, see the [documentation](https://tiles.run/book/manual#sharing-commands).
 
 <video class="atmospheric-session-video" controls playsinline preload="metadata" aria-label="Sharing a Tiles chat session through AT Protocol">
   <source src="/atmospheric-sessions-share-demo.m4v" type="video/x-m4v" />

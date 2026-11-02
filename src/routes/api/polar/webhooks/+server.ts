@@ -7,7 +7,7 @@ export const prerender = false
 const MAX_BODY_BYTES = 1_000_000
 
 /**
- * Polar webhook receiver, registered as https://www.tiles.run/api/polar/webhooks.
+ * Polar webhook receiver, registered as https://tiles.run/api/polar/webhooks.
  * Entitlement rides on license keys, so the handlers are logging stubs until
  * something needs server-side authorization (see AGENTS.md).
  */

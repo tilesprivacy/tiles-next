@@ -20,7 +20,7 @@ export const OFFLINE_INSTALLER = {
   sha256: "bdf9dc950ed40695ef5434776d7a757cff902d9fc5c6961ee301eadf004ce7e9",
 } as const
 
-export const LINUX_INSTALL_SCRIPT_URL = "https://www.tiles.run/install.sh" as const
+export const LINUX_INSTALL_SCRIPT_URL = "https://tiles.run/install.sh" as const
 
 export const LINUX_INSTALL_COMMAND =
   `curl -LsSf ${LINUX_INSTALL_SCRIPT_URL} | sh` as const

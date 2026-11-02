@@ -5,8 +5,8 @@
 
   const title = "IndiaFOSS 2026 ticket and travel grant giveaway"
   const description = "Applications are closed because all 10 IndiaFOSS 2026 giveaway slots have been booked."
-  const pageUrl = `https://www.tiles.run${INDIAFOSS_GIVEAWAY_PATH}`
-  const ogImage = "https://www.tiles.run/indiafoss-2026-giveaway-og.png"
+  const pageUrl = `https://tiles.run${INDIAFOSS_GIVEAWAY_PATH}`
+  const ogImage = "https://tiles.run/indiafoss-2026-giveaway-og.png"
   const linkClass = "underline underline-offset-4"
 </script>
 

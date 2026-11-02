@@ -32,7 +32,7 @@ import { list, parseFrontmatter, str } from "../src/lib/frontmatter.ts"
 const ROOT = path.resolve(import.meta.dirname, "..")
 const BLOG_DIR = path.join(ROOT, "content/blog")
 const STATIC_DIR = path.join(ROOT, "static")
-const SITE_BLOG_URL = "https://www.tiles.run/blog"
+const SITE_BLOG_URL = "https://tiles.run/blog"
 const DRY_RUN = process.argv.includes("--dry-run")
 const PRUNE = process.argv.includes("--prune")
 

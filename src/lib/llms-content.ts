@@ -17,7 +17,7 @@ export const RECURRING_SPONSORSHIP_LINE = "Current recurring sponsorship: $1,350
 export const MACOS_DOWNLOAD_NOTE =
   "macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app."
 export const LINUX_DOWNLOAD_NOTE =
-  "Linux: Install the canary version with curl -LsSf https://www.tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress."
+  "Linux: Install the canary version with curl -LsSf https://tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress."
 
 export const REFUND_POLICY_SUMMARY =
   "Tiles Pro includes a 7-day money-back guarantee on the initial subscription payment."

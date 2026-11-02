@@ -114,7 +114,7 @@ export function renderEmailTemplate({ subject, preheader, content }: EmailTempla
             <tr>
               <td style="padding:0 0 28px 0;">
                 <h1 style="margin:0; color:#111111; font-family:'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif; font-size:32px; line-height:38px; font-weight:600; letter-spacing:-1px;">
-                  <a href="https://www.tiles.run" aria-label="Tiles Privacy" style="color:#111111; text-decoration:none;">Tiles Privacy</a>
+                  <a href="https://tiles.run" aria-label="Tiles Privacy" style="color:#111111; text-decoration:none;">Tiles Privacy</a>
                 </h1>
               </td>
             </tr>
@@ -122,7 +122,7 @@ ${content}
 <tr>
   <td class="email-divider" style="padding:28px 0 0 0; border-top:1px solid #e5e5e5;">
     <p style="margin:0 0 20px 0; text-align:center;">
-      <a href="https://www.tiles.run" style="display:inline-block; color:#111111; font-family:${EMAIL_FONT}; font-size:20px; line-height:32px; font-weight:600; letter-spacing:-0.5px; text-decoration:none; white-space:nowrap;"><img class="email-logo-on-light" src="https://www.tiles.run/lighticon.png" width="32" height="32" alt="" style="display:inline-block; width:32px; height:32px; margin-right:8px; vertical-align:middle; border:0;" /><!--[if !mso]><!--><img class="email-logo-on-dark" src="https://www.tiles.run/tiles_tlogo_banner_v1.2/png/T_dirty_white_150.png" width="32" height="32" alt="" style="display:none; width:0; height:0; max-height:0; overflow:hidden; mso-hide:all; margin-right:8px; vertical-align:middle; border:0;" /><!--<![endif]--><span style="vertical-align:middle;">Tiles Privacy</span></a>
+      <a href="https://tiles.run" style="display:inline-block; color:#111111; font-family:${EMAIL_FONT}; font-size:20px; line-height:32px; font-weight:600; letter-spacing:-0.5px; text-decoration:none; white-space:nowrap;"><img class="email-logo-on-light" src="https://tiles.run/lighticon.png" width="32" height="32" alt="" style="display:inline-block; width:32px; height:32px; margin-right:8px; vertical-align:middle; border:0;" /><!--[if !mso]><!--><img class="email-logo-on-dark" src="https://tiles.run/tiles_tlogo_banner_v1.2/png/T_dirty_white_150.png" width="32" height="32" alt="" style="display:none; width:0; height:0; max-height:0; overflow:hidden; mso-hide:all; margin-right:8px; vertical-align:middle; border:0;" /><!--<![endif]--><span style="vertical-align:middle;">Tiles Privacy</span></a>
     </p>
                 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%; border-collapse:collapse;">
                   <tr>
@@ -146,37 +146,37 @@ ${content}
                         <tr>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://x.com/tilesprivacy" title="X" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-x.png" width="20" height="20" alt="X profile" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-x.png" width="20" height="20" alt="X profile" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://bsky.app/profile/tiles.run" title="Bluesky" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-bluesky.png" width="20" height="20" alt="Bluesky profile" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-bluesky.png" width="20" height="20" alt="Bluesky profile" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://www.linkedin.com/company/tilesprivacy/" title="LinkedIn" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-linkedin.png" width="20" height="20" alt="LinkedIn profile" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-linkedin.png" width="20" height="20" alt="LinkedIn profile" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://discord.gg/PPSjcpZzvt" title="Discord" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-discord.png" width="20" height="20" alt="Discord community" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-discord.png" width="20" height="20" alt="Discord community" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://github.com/tilesprivacy" title="GitHub" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-github.png" width="20" height="20" alt="GitHub profile" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-github.png" width="20" height="20" alt="GitHub profile" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://tangled.org/tiles.run" title="Tangled" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-tangled.png" width="20" height="20" alt="Tangled profile" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-tangled.png" width="20" height="20" alt="Tangled profile" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
                             <a href="https://huggingface.co/tilesprivacy" title="Hugging Face" style="display:inline-block; padding:6px; text-decoration:none;">
-                              <img src="https://www.tiles.run/email-icon-huggingface.png" width="20" height="20" alt="Hugging Face profile" style="display:block; width:20px; height:20px; border:0;">
+                              <img src="https://tiles.run/email-icon-huggingface.png" width="20" height="20" alt="Hugging Face profile" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>
                         </tr>
@@ -190,7 +190,7 @@ ${content}
                         <span> · </span>
                         <a href="tel:+917338014129" style="color:#111111; text-decoration:underline; text-underline-offset:3px; display:inline-block;">+91 7338014129</a>
                         <span> · </span>
-                        <a href="https://www.tiles.run" style="color:#111111; text-decoration:underline; text-underline-offset:3px; display:inline-block;">tiles.run</a>
+                        <a href="https://tiles.run" style="color:#111111; text-decoration:underline; text-underline-offset:3px; display:inline-block;">tiles.run</a>
                       </p>
                     </td>
                   </tr>

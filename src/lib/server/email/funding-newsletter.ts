@@ -13,7 +13,7 @@ export const FUNDING_NEWSLETTER_PREHEADER =
   "18 months to build private, user-owned AI. Here’s what comes next.";
 
 export const FUNDING_BLOG_URL =
-  "https://www.tiles.run/blog/tiles-joins-mozilla-ai-incubator";
+  "https://tiles.run/blog/tiles-joins-mozilla-ai-incubator";
 
 const INCUBATOR_URL =
   "https://www.mozillafoundation.org/en/what-we-do/grantmaking/incubator/human-scale-ai/";
@@ -27,7 +27,7 @@ export function buildFundingNewsletter(): string {
 <tr>
   <td style="padding:8px 0 28px 0;">
     <a href="${FUNDING_BLOG_URL}" style="display:block; text-decoration:none;">
-      <img src="https://www.tiles.run/email-mozilla-funding.jpg" width="560" height="294" alt="Tiles and Mozilla Foundation logos beside a hand holding a glowing data center" style="display:block; width:100%; max-width:560px; height:auto; border:0; border-radius:8px;" />
+      <img src="https://tiles.run/email-mozilla-funding.jpg" width="560" height="294" alt="Tiles and Mozilla Foundation logos beside a hand holding a glowing data center" style="display:block; width:100%; max-width:560px; height:auto; border:0; border-radius:8px;" />
     </a>
   </td>
 </tr>

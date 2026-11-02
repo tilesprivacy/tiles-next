@@ -53,7 +53,7 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          PUBLIC_SITE_URL: https://www.tiles.run
+          PUBLIC_SITE_URL: https://tiles.run
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
           GITHUB_TOKEN: ${{ github.token }}
       - name: Apply database migrations

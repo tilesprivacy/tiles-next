@@ -28,7 +28,7 @@ export type { PolarCheckoutMode, PolarPaidPlanId }
  * Canonical origin for success and return URLs. Never derived from the
  * request, so a spoofed Host header cannot redirect buyers elsewhere.
  */
-const SITE_ORIGIN = (PUBLIC_SITE_URL ?? "https://www.tiles.run").replace(/\/$/, "")
+const SITE_ORIGIN = (PUBLIC_SITE_URL ?? "https://tiles.run").replace(/\/$/, "")
 
 // Not secrets. Env vars override them only to point a preview at other products.
 const PAID_PLANS: Record<PolarPaidPlanId, { productId: string; checkoutLink: string }> = {

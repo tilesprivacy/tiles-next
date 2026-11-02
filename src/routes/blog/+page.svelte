@@ -14,39 +14,39 @@
     "@graph": [
       {
         "@type": "Blog",
-        "@id": "https://www.tiles.run/blog#blog",
+        "@id": "https://tiles.run/blog#blog",
         name: "Tiles Blog",
         description,
-        url: "https://www.tiles.run/blog",
+        url: "https://tiles.run/blog",
         publisher: {
           "@type": "Organization",
-          "@id": "https://www.tiles.run/#organization",
+          "@id": "https://tiles.run/#organization",
           name: "Tiles Privacy",
-          logo: { "@type": "ImageObject", url: "https://www.tiles.run/tiles_banner_outline_blk.svg" },
-          url: "https://www.tiles.run",
+          logo: { "@type": "ImageObject", url: "https://tiles.run/tiles_banner_outline_blk.svg" },
+          url: "https://tiles.run",
         },
         blogPost: data.posts.map((post) => {
           const author = post.author ? getPersonById(post.author) : null
           return {
             "@type": "BlogPosting",
-            "@id": `https://www.tiles.run/blog/${post.slug}#article`,
+            "@id": `https://tiles.run/blog/${post.slug}#article`,
             headline: post.title,
             description: post.description,
-            url: `https://www.tiles.run/blog/${post.slug}`,
+            url: `https://tiles.run/blog/${post.slug}`,
             datePublished: post.date.toISOString(),
             author: author ? { "@type": "Person", name: author.name, url: author.links[0] } : undefined,
             image: post.coverImage
-              ? { "@type": "ImageObject", url: `https://www.tiles.run${post.coverImage}` }
+              ? { "@type": "ImageObject", url: `https://tiles.run${post.coverImage}` }
               : undefined,
           }
         }),
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://www.tiles.run/blog#breadcrumb",
+        "@id": "https://tiles.run/blog#breadcrumb",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.tiles.run" },
-          { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.tiles.run/blog" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://tiles.run" },
+          { "@type": "ListItem", position: 2, name: "Blog", item: "https://tiles.run/blog" },
         ],
       },
     ],
@@ -57,10 +57,10 @@
   <title>{title}</title>
   <meta name="description" content={description} />
   <meta name="keywords" content="Tiles,privacy technology,open source,AI assistant,blog,engineering,Python,software development" />
-  <link rel="canonical" href="https://www.tiles.run/blog" />
+  <link rel="canonical" href="https://tiles.run/blog" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content="https://www.tiles.run/blog" />
+  <meta property="og:url" content="https://tiles.run/blog" />
   <meta property="og:site_name" content="Tiles Privacy" />
   <meta property="og:image" content={BLOG_LISTING_SOCIAL_IMAGE_URL} />
   <meta property="og:image:type" content="image/jpeg" />

@@ -18,7 +18,7 @@
   <meta name="robots" content="noindex, nofollow" />
   <meta property="og:title" content="Tiles" />
   <meta property="og:description" content={TILES_PRODUCT_DESCRIPTION} />
-  <meta property="og:url" content="https://www.tiles.run" />
+  <meta property="og:url" content="https://tiles.run" />
   <meta property="og:site_name" content="Tiles Privacy" />
   <meta property="og:image" content={image.url} />
   <meta property="og:image:type" content={image.type} />

@@ -13,7 +13,7 @@
   const title = "Tiles at India FOSS"
   const description = "An IndiaFOSS 2026 talk about open models, decentralized protocols, and user-owned AI"
   const published = "2026-09-27T00:00:00+05:30"
-  const image = "https://www.tiles.run/own-your-ai-og.png"
+  const image = "https://tiles.run/own-your-ai-og.png"
 </script>
 
 <svelte:head>
@@ -21,10 +21,10 @@
   <meta name="description" content={description} />
   <meta name="article:author" content="Ankesh Bharti" />
   <meta name="article:published_time" content={published} />
-  <link rel="canonical" href="https://www.tiles.run/tiles-at-india-foss" />
+  <link rel="canonical" href="https://tiles.run/tiles-at-india-foss" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content="https://www.tiles.run/tiles-at-india-foss" />
+  <meta property="og:url" content="https://tiles.run/tiles-at-india-foss" />
   <meta property="og:site_name" content="Tiles Privacy" />
   <meta property="og:image" content={image} />
   <meta property="og:image:type" content="image/png" />

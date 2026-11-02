@@ -14,5 +14,5 @@ export function getSiteUrl(): string {
     return `https://${host}`
   }
 
-  return "https://www.tiles.run"
+  return "https://tiles.run"
 }

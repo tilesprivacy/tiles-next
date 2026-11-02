@@ -10,7 +10,7 @@
   title="Download | Tiles"
   description={TILES_PRODUCT_DESCRIPTION}
   imageTitle="Download"
-  ogUrl="https://www.tiles.run/download"
+  ogUrl="https://tiles.run/download"
   siteName="Tiles Privacy"
 />
 

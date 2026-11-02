@@ -27,7 +27,7 @@ export const GET: RequestHandler = ({ url }) => {
   }
 
   // Preview the repository's image assets; email links still use public URLs.
-  let html = emailHtml.replaceAll('src="https://www.tiles.run/', 'src="/')
+  let html = emailHtml.replaceAll('src="https://tiles.run/', 'src="/')
   const theme = url.searchParams.get("theme")
   if (theme === "dark" || theme === "light") {
     html = html.replaceAll(

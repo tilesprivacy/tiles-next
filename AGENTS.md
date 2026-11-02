@@ -58,6 +58,8 @@ npm run dev             # http://localhost:5173
 
 **Add a redirect.** Add a line to `_redirects` (`/old /new 308`).
 
+**Site address.** The canonical host is `https://tiles.run` (no www): `SITE_ORIGIN` in `src/lib/absolute-url.ts`, used for canonical tags, OG images, the sitemap, emails and the newsletter's origin and Turnstile hostname checks. `www.tiles.run` 301-redirects to it via a Cloudflare Redirect Rule. Never hard-code the host elsewhere.
+
 **Change the database schema.** Add a new file `migrations/000N_<what>.sql`; never edit a migration that has already run. Try it locally with `npx wrangler d1 migrations apply tiles-site --local`. The Deploy workflow applies pending migrations to the real database before deploying.
 
 **Add a dependency.** See rule 4. After `npm install <pkg>`, run `npx svelte-kit sync`, because npm deletes SvelteKit's generated `node_modules/$app/tsconfig.json`. Check `git diff package-lock.json` for unrelated version changes and undo them.

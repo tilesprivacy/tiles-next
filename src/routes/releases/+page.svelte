@@ -9,7 +9,7 @@
   title="Releases | Tiles"
   description="All notable changes and releases for Tiles."
   imageTitle="Releases"
-  ogUrl="https://www.tiles.run/releases"
+  ogUrl="https://tiles.run/releases"
 />
 
 <ChangelogContent releases={data.releases} error={data.error} />

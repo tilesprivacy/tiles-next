@@ -21,11 +21,11 @@
     { label: "Headquarters", value: "Bengaluru, India" },
     { label: "Status", value: "Public alpha" },
     { label: "Platforms", value: "macOS 14+ on Apple Silicon and Linux" },
-    { label: "Website", value: "https://www.tiles.run" },
+    { label: "Website", value: "https://tiles.run" },
   ]
 
   const siteLinks: Array<{ label: string; href: string; external?: boolean }> = [
-    { label: "Website", href: "https://www.tiles.run", external: true },
+    { label: "Website", href: "https://tiles.run", external: true },
     { label: "Download", href: "/download" },
     { label: "Blog", href: "/blog" },
     { label: "Documentation", href: "/book" },
@@ -240,7 +240,7 @@
             {#if link.external}
               <a href={link.href} target="_blank" rel="noopener noreferrer" class={externalLinkClasses}>{link.href}</a>
             {:else}
-              <a href={link.href} class={externalLinkClasses}>{`https://www.tiles.run${link.href}`}</a>
+              <a href={link.href} class={externalLinkClasses}>{`https://tiles.run${link.href}`}</a>
             {/if}
           </li>
         {/each}

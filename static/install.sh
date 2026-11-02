@@ -40,7 +40,7 @@ warn() {
 }
 
 usage() {
-  echo "Usage: curl -LsSf https://www.tiles.run/install.sh | sh -s -- [OPTIONS]"
+  echo "Usage: curl -LsSf https://tiles.run/install.sh | sh -s -- [OPTIONS]"
   echo "   or: scripts/install.sh [OPTIONS]"
   echo ""
   echo "  --dev                Install from a local dist/*.tar.gz instead of GitHub"

@@ -7,7 +7,7 @@
 
   let { post }: { post: BlogPostMeta } = $props()
 
-  const url = $derived(`https://www.tiles.run/blog/${post.slug}`)
+  const url = $derived(`https://tiles.run/blog/${post.slug}`)
   const title = $derived(`${post.title} | Tiles Blog`)
   const image = $derived(toBlogSocialImageUrl(post.ogImage))
   const imageAlt = $derived(post.ogImageAlt ?? post.coverAlt ?? post.title)
@@ -31,10 +31,10 @@
           : undefined,
         publisher: {
           "@type": "Organization",
-          "@id": "https://www.tiles.run/#organization",
+          "@id": "https://tiles.run/#organization",
           name: "Tiles Privacy",
-          logo: { "@type": "ImageObject", url: "https://www.tiles.run/tiles_banner_outline_blk.svg" },
-          url: "https://www.tiles.run",
+          logo: { "@type": "ImageObject", url: "https://tiles.run/tiles_banner_outline_blk.svg" },
+          url: "https://tiles.run",
         },
         mainEntityOfPage: { "@type": "WebPage", "@id": url },
         keywords: post.keywords.length ? post.keywords : undefined,
@@ -45,8 +45,8 @@
         "@type": "BreadcrumbList",
         "@id": `${url}#breadcrumb`,
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.tiles.run" },
-          { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.tiles.run/blog" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://tiles.run" },
+          { "@type": "ListItem", position: 2, name: "Blog", item: "https://tiles.run/blog" },
           { "@type": "ListItem", position: 3, name: post.title, item: url },
         ],
       },

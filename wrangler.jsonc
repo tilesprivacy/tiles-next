@@ -12,8 +12,9 @@
     "directory": ".svelte-kit/cloudflare"
   },
   // The site's domains. Routes take over the existing proxied DNS records for
-  // these hostnames without changing DNS. tiles.run should redirect to www
-  // (a Redirect Rule in the Cloudflare dashboard, which runs before Workers).
+  // these hostnames without changing DNS. The canonical host is tiles.run;
+  // www redirects to it with a Redirect Rule (Cloudflare dashboard), which
+  // runs before Workers. The www route only matters if that rule is removed.
   "routes": [
     { "pattern": "www.tiles.run/*", "zone_name": "tiles.run" },
     { "pattern": "tiles.run/*", "zone_name": "tiles.run" }

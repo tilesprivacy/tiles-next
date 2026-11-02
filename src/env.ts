@@ -13,7 +13,7 @@ export const variables = defineEnvVars({
     public: true,
     static: true,
     schema: optional,
-    description: "Canonical origin. Defaults to https://www.tiles.run; set to http://localhost:5173 in dev.",
+    description: "Canonical origin. Defaults to https://tiles.run; set to http://localhost:5173 in dev.",
   },
   PUBLIC_TURNSTILE_SITE_KEY: { public: true, static: true, schema: optional, description: "Cloudflare Turnstile site key" },
 

@@ -6,7 +6,7 @@
   let { data } = $props()
 
   const title = "Pricing | Tiles"
-  const canonicalUrl = "https://www.tiles.run/pricing"
+  const canonicalUrl = "https://tiles.run/pricing"
   // The plans render into this card, so it stays in step with the page.
   const socialImageUrl = getPricingSocialImageUrl()
   const socialImageAlt = "Tiles pricing: Free, Plus, and Pro"
