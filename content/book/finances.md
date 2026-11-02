@@ -2,7 +2,7 @@
 title: "Finances"
 description: "Tiles is developed in the open and funded by its community. Our finances are published here every month: revenue, sponsorships, compensation, and expenses."
 cardDescription: "Our finances, published in the open every month."
-lastUpdated: "2026-11-02T13:05:27.987Z"
+lastUpdated: "2026-11-02T19:01:54.567Z"
 ---
 
 <script>
@@ -14,15 +14,15 @@ Tiles is developed in the open and funded by its community. We believe a privacy
 
 ## October 2026
 
-Tiles earned no product revenue in October. Sponsorships brought in ₹1,37,800, compensation was ₹1,25,000, and infrastructure expenses were ₹2,800. Anandu Pavanan and Prashant Mishra each contributed ₹10,000 back to the company, and the company pool balance is ₹0.
+Tiles earned no product revenue in October. Sponsorships brought in ₹1,25,000, compensation was ₹1,25,000, and infrastructure expenses were ₹2,800. Anandu Pavanan and Prashant Mishra each contributed ₹10,000 back to the company, and the company pool balance is −₹2,800.
 
 | Summary      |    Amount |
 | :----------- | --------: |
 | Revenue      |        ₹0 |
-| Sponsorships | ₹1,37,800 |
+| Sponsorships | ₹1,25,000 |
 | Compensation | ₹1,25,000 |
 | Expenses     |    ₹2,800 |
-| Company pool |        ₹0 |
+| Company pool |   −₹2,800 |
 
 ### Revenue
 
@@ -32,8 +32,8 @@ Tiles earned no revenue in October. Once income from paid plans arrives, it will
 
 | Source          |        Amount |
 | :-------------- | ------------: |
-| GitHub Sponsors |     ₹1,37,800 |
-| **Total**       | **₹1,37,800** |
+| GitHub Sponsors |     ₹1,25,000 |
+| **Total**       | **₹1,25,000** |
 
 ### Compensation
 
@@ -60,7 +60,7 @@ The amounts below are what each contributor received after Anandu Pavanan and Pr
 | Prashant Mishra |     ₹10,000 |
 | **Total**       | **₹20,000** |
 
-The company pool balance is ₹0.
+The company pool balance is −₹2,800.
 
 ## September 2026
 

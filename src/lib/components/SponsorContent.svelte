@@ -197,7 +197,7 @@
 
       <section class="minimal-sponsor-funding-band">
         <div class="minimal-funding">
-          <div class="flex-wrap"><strong>$1,350/month</strong><span>in recurring sponsorship</span></div>
+          <div class="flex-wrap"><strong>$1,320/month</strong><span>in recurring sponsorship</span></div>
           <div class="minimal-sponsor-actions">
             <a class="minimal-primary-button" href="https://github.com/sponsors/tilesprivacy"
               ><SocialIcon type="github" className="minimal-sponsor-button-icon" />Sponsor on GitHub</a

@@ -12,7 +12,7 @@ export const MOZILLA_COHORT_LINES = [
 ]
 
 export const GITHUB_SPONSORS_LINE = "GitHub Sponsors: https://github.com/sponsors/tilesprivacy"
-export const RECURRING_SPONSORSHIP_LINE = "Current recurring sponsorship: $1,350/month."
+export const RECURRING_SPONSORSHIP_LINE = "Current recurring sponsorship: $1,320/month."
 
 export const MACOS_DOWNLOAD_NOTE =
   "macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app."
