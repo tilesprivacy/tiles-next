@@ -11,6 +11,13 @@
     "binding": "ASSETS",
     "directory": ".svelte-kit/cloudflare"
   },
+  // The site's domains. Routes take over the existing proxied DNS records for
+  // these hostnames without changing DNS. tiles.run should redirect to www
+  // (a Redirect Rule in the Cloudflare dashboard, which runs before Workers).
+  "routes": [
+    { "pattern": "www.tiles.run/*", "zone_name": "tiles.run" },
+    { "pattern": "tiles.run/*", "zone_name": "tiles.run" }
+  ],
   // Newsletter abuse limits (hashed keys only). Schema in migrations/.
   "d1_databases": [
     {
