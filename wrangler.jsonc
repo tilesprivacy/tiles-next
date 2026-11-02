@@ -18,6 +18,9 @@
     { "pattern": "www.tiles.run/*", "zone_name": "tiles.run" },
     { "pattern": "tiles.run/*", "zone_name": "tiles.run" }
   ],
+  // Only serve the site at tiles.run, not also at *.workers.dev addresses.
+  "workers_dev": false,
+  "preview_urls": false,
   // Newsletter abuse limits (hashed keys only). Schema in migrations/.
   "d1_databases": [
     {
