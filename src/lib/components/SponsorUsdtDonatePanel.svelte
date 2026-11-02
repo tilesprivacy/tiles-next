@@ -2,8 +2,15 @@
   import { Check, ChevronRight, Copy, QrCode, TriangleAlert, Wallet, X } from "@lucide/svelte"
   import QRCodeLib from "qrcode"
   import { onMount } from "svelte"
-  import { createPublicClient, createWalletClient, custom, erc20Abi, parseUnits, type EIP1193Provider } from "viem"
-  import { mainnet } from "viem/chains"
+  import {
+    createPublicClient,
+    createWalletClient,
+    custom,
+    defineChain,
+    erc20Abi,
+    parseUnits,
+    type EIP1193Provider,
+  } from "viem"
   import SiEthereum from "#lib/components/icons/SiEthereum.svelte"
   import SiTether from "#lib/components/icons/SiTether.svelte"
   import { SPONSOR_USDT_ETH_ADDRESS, SPONSOR_USDT_ETHERSCAN_URL } from "#lib/sponsor-usdt"
@@ -14,6 +21,32 @@
 
   // USDT (Tether) on Ethereum mainnet (6 decimals).
   const ETHEREUM_USDT_ADDRESS = "0xdAC17F958D2ee523a2206206994597C13D831ec7" as const
+  // Define only the chain this panel uses so the browser bundle does not pull
+  // every viem chain, including Node-only tooling for unrelated networks.
+  const mainnet = defineChain({
+    id: 1,
+    name: "Ethereum",
+    nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
+    blockTime: 12_000,
+    rpcUrls: { default: { http: ["https://ethereum.reth.rs/rpc"] } },
+    blockExplorers: {
+      default: {
+        name: "Etherscan",
+        url: "https://etherscan.io",
+        apiUrl: "https://api.etherscan.io/api",
+      },
+    },
+    contracts: {
+      ensUniversalResolver: {
+        address: "0xeeeeeeee14d718c2b47d9923deab1335e144eeee",
+        blockCreated: 23_085_558,
+      },
+      multicall3: {
+        address: "0xca11bde05977b3631167028862be2a173976ca11",
+        blockCreated: 14_353_601,
+      },
+    },
+  })
 
   const PRESET_AMOUNTS = ["5", "10", "25", "100"]
   const DEFAULT_AMOUNT = "10"

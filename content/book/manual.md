@@ -179,7 +179,7 @@ See the [Agent Plugins authoring guide](https://agent-plugins.org/plugin-authors
 
 ## Sync
 
-<div id="peer-to-peer-linking-tiles-link" />
+<div id="peer-to-peer-linking-tiles-link"></div>
 
 Peer-to-peer sync has two steps. **Link** devices first (consent): one device creates a token, the other accepts it. Then **sync** chats between linked peers. Online and same-local-network offline linking use the same commands; Iroh handles transport, and mDNS can discover peers without internet.
 
@@ -207,7 +207,7 @@ tiles sync <DID> # Start sync with a linked peer
 
 Run `tiles sync` on the receiving device. On the other device, run `tiles sync <DID>` (get the DID from `tiles link list-peers`). When a sync run finishes, both devices should show a notification.
 
-<div id="remote-inference-tiles-remote" />
+<div id="remote-inference-tiles-remote"></div>
 
 ### Remote inference (`tiles remote`)
 
@@ -288,6 +288,8 @@ Show the current session state.
 
 List available sessions in local storage.
 
+<div id="resume-sessionid"></div>
+
 #### `/resume <sessionId>`
 
 Resume a specific session by ID.
@@ -299,6 +301,8 @@ These commands require an active ATproto login. See [ATproto (`tiles at`)](#atpr
 #### `/share` (via ATproto)
 
 Create a shareable link for the current session.
+
+<div id="share-sessionid-via-atproto"></div>
 
 #### `/share <sessionId>` (via ATproto)
 
@@ -313,6 +317,8 @@ Agent Plugins can include skills under `skills/`. Tiles can also use available s
 #### `/skills`
 
 List available skills from installed plugins.
+
+<div id="skill-name"></div>
 
 #### `@<skill-name>`
 
