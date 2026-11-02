@@ -67,7 +67,6 @@ with `wrangler secret put NAME`.
 | --- | --- |
 | `PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Bot check on the newsletter form (required in production) |
 | `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_SEGMENT_ID` | Storing signups and sending the welcome email |
-| `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` | Signup rate limits (required in production) |
 | `POLAR_*` | Checkout and webhooks on `/pricing` |
 | `GITHUB_TOKEN` | Optional, raises the GitHub API rate limit for release data |
 | `PUBLIC_SITE_URL` | Canonical origin |

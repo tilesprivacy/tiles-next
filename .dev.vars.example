@@ -10,9 +10,6 @@ RESEND_SEGMENT_ID=
 # Cloudflare Turnstile secret key. Required in production. Cloudflare's test
 # secret 1x0000000000000000000000000000000AA always passes.
 TURNSTILE_SECRET_KEY=
-# Upstash Redis for the signup rate limits. Required in production.
-UPSTASH_REDIS_REST_URL=
-UPSTASH_REDIS_REST_TOKEN=
 
 # Polar organization access token (polar_oat_...). Enables session-mode checkout.
 POLAR_ACCESS_TOKEN=

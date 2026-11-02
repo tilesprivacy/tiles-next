@@ -11,11 +11,19 @@
     "binding": "ASSETS",
     "directory": ".svelte-kit/cloudflare"
   },
+  // Newsletter abuse limits (hashed keys only). Schema in migrations/.
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tiles-site",
+      "database_id": "16da3fe8-6b03-4d8d-acbb-35386dcb58da",
+      "migrations_dir": "migrations"
+    }
+  ],
   "observability": {
     "enabled": true
   }
   // Secrets (set with `wrangler secret put NAME`, never committed):
-  //   RESEND_API_KEY, RESEND_AUDIENCE_ID, TURNSTILE_SECRET_KEY,
-  //   UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN,
+  //   RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_SEGMENT_ID, TURNSTILE_SECRET_KEY,
   //   POLAR_ACCESS_TOKEN, POLAR_WEBHOOK_SECRET
 }

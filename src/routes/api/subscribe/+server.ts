@@ -4,26 +4,26 @@ import {
   RESEND_SEGMENT_ID,
   RESEND_FROM_EMAIL,
   TURNSTILE_SECRET_KEY,
-  UPSTASH_REDIS_REST_TOKEN,
-  UPSTASH_REDIS_REST_URL,
 } from "$app/env/private"
 import { SITE_ORIGIN } from "#lib/absolute-url"
+import { createD1Store } from "#lib/server/d1-store"
 import { createEmailGuard } from "#lib/server/email-guard"
 import { handleSubscribe } from "#lib/server/subscribe"
 import { createTurnstileVerifier, TURNSTILE_NEWSLETTER_ACTION } from "#lib/server/turnstile"
-import { createUpstashStore } from "#lib/server/upstash-store"
 import type { RequestHandler } from "./$types"
 
 export const prerender = false
 
-let guard: ReturnType<typeof createEmailGuard> | undefined
+type Guard = ReturnType<typeof createEmailGuard>
 
-function getGuard() {
-  guard ??= createEmailGuard({
-    store:
-      UPSTASH_REDIS_REST_URL && UPSTASH_REDIS_REST_TOKEN
-        ? createUpstashStore(UPSTASH_REDIS_REST_URL, UPSTASH_REDIS_REST_TOKEN)
-        : null,
+// One guard per D1 binding (in practice, one per isolate). Without the binding
+// (plain `vite dev`) the guard keeps its limits in memory; production refuses.
+const guards = new WeakMap<D1Database, Guard>()
+let memoryGuard: Guard | undefined
+
+function makeGuard(db: D1Database | undefined): Guard {
+  return createEmailGuard({
+    store: db ? createD1Store(db) : null,
     verifyTurnstile: TURNSTILE_SECRET_KEY
       ? createTurnstileVerifier({
           secret: TURNSTILE_SECRET_KEY,
@@ -34,10 +34,16 @@ function getGuard() {
     production: !dev,
     canonicalOrigin: dev ? null : SITE_ORIGIN,
   })
+}
+
+function getGuard(db: D1Database | undefined): Guard {
+  if (!db) return (memoryGuard ??= makeGuard(undefined))
+  let guard = guards.get(db)
+  if (!guard) guards.set(db, (guard = makeGuard(db)))
   return guard
 }
 
-export const POST: RequestHandler = async ({ request, getClientAddress }) => {
+export const POST: RequestHandler = async ({ request, getClientAddress, platform }) => {
   let clientIp = request.headers.get("cf-connecting-ip") ?? ""
   if (!clientIp) {
     try {
@@ -48,7 +54,7 @@ export const POST: RequestHandler = async ({ request, getClientAddress }) => {
   }
 
   const response = await handleSubscribe(request, clientIp, {
-    guard: getGuard(),
+    guard: getGuard(platform?.env.DB),
     resendApiKey: RESEND_API_KEY,
     resendFromEmail: RESEND_FROM_EMAIL,
     resendSegmentId: RESEND_SEGMENT_ID,

@@ -8,7 +8,6 @@
   const subprocessors = [
     { name: "Iroh", purpose: "Public relays for peer-to-peer networking", location: "US", dpa: "https://www.iroh.computer/legal" },
     { name: "Resend", purpose: "Email sending and newsletter list", location: "US", dpa: "https://resend.com/legal/dpa" },
-    { name: "Upstash", purpose: "Rate limiting for the newsletter form (hashed keys only)", location: "US", dpa: "https://upstash.com/trust/dpa.pdf" },
     { name: "Polar", purpose: "Payment processing", location: "US", dpa: "https://polar.sh/legal/data-processing-addendum" },
     {
       name: "GitHub",

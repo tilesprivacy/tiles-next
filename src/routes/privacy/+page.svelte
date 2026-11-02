@@ -67,7 +67,7 @@
       If you subscribe to our newsletter, we store your email address with Resend so we can send you product updates. Every newsletter includes a link to unsubscribe, and once you unsubscribe we do not subscribe you again unless you ask.
     </p>
     <p>
-      To stop automated abuse of the signup form, Cloudflare Turnstile checks that the request comes from a person, and we keep one-way hashes of your email address and IP address in Upstash for up to 30 days. These hashes cannot be turned back into your address and are used only to limit how often the form can be used.
+      To stop automated abuse of the signup form, Cloudflare Turnstile checks that the request comes from a person, and we keep one-way hashes of your email address (for up to 30 days) and IP address (for up to an hour) in a Cloudflare database. These hashes cannot be turned back into your address and are used only to limit how often the form can be used.
     </p>
   </div>
 
