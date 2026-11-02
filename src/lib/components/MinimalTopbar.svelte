@@ -53,7 +53,7 @@
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
     <a
-      href="https://github.com/tilesprivacy"
+      href="https://github.com/tilesprivacy/tiles"
       class="minimal-topbar-github"
       target="_blank"
       rel="noopener noreferrer"
