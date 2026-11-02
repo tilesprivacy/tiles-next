@@ -1,0 +1,50 @@
+# Landing page demo
+
+The hero uses the updated replacement recording supplied on September 12, 2026, without audio. Its playback duration is 76.767 seconds.
+
+The desktop hero is centered within a 72 rem container, with responsive side padding, a 48 px column gap, and 80 px of clearance below the site header. A 40:60 column split and a 24 rem paragraph width keep the copy close to the video. The frame has no surrounding glow or shadow. Below 768 px, the video sits beneath the copy with 24 px side gutters, a 40 px gap, and 48 px header clearance. The next content section starts 96 px below the mobile hero and 128 px below the desktop hero. Short phones scale the full recording to the remaining viewport height without cropping it. The download button and centered body-content stack are unchanged.
+
+| Asset | Encoding | Bytes |
+| --- | --- | ---: |
+| `tiles-demo.48de4a8b.mp4` | H.264 Main, level 4.0, 8-bit YUV 4:2:0 | 4,417,448 |
+| `tiles-demo.8492c6fd.webm` | VP9, 8-bit YUV 4:2:0 | 3,913,056 |
+| `tiles-demo-poster.2a1af717.webp` | WebP still from 12 seconds into the recording | 17,182 |
+
+Both video versions are 1280 × 896 at a constant 30 fps. The MP4 is selected first for broad browser compatibility. Its metadata precedes the media data (`faststart`), so playback does not need to wait for the complete download. The supplied recording was 83,039,596 bytes. The MP4 is 94.7% smaller, with no cuts or speed changes.
+
+Autoplay is muted and inline, and native looping remains enabled. The frame overlays simple controls: a play/pause toggle, a seek bar, and a full-screen toggle. The controls fade out after three idle seconds during playback so the full recording stays in view; pointer activity on the frame, keyboard focus, or pausing brings them back. Pausing through the toggle is respected until the visitor plays again. Full screen uses the frame element where the API exists and falls back to the native video presentation on iPhone. The mobile hero is capped with `svh` rather than `dvh` units, so collapsing browser UI on the first scroll cannot resize the player. Browsers may still suspend playback or require a user gesture. The player resumes on focus, visibility, and page restoration, and exposes a Play demo button if paused outside the toggle. Failed requests can be retried. Unsupported MP4 and runtime decoding failures can fall back to WebM.
+
+## Re-encode
+
+Use the original recording, not an already compressed web copy. These commands require FFmpeg with libx264 and libvpx-vp9:
+
+```sh
+ffmpeg -i source.mov -map 0:v:0 -an \
+  -vf 'fps=30,scale=1280:896:flags=lanczos,setsar=1' \
+  -c:v libx264 -preset slow -crf 23 -profile:v main -level 4.0 \
+  -pix_fmt yuv420p -movflags +faststart -map_metadata -1 tiles-demo.mp4
+
+ffmpeg -i source.mov -map 0:v:0 -an \
+  -vf 'fps=30,scale=1280:896:flags=lanczos,setsar=1' \
+  -c:v libvpx-vp9 -b:v 0 -crf 32 -row-mt 1 -cpu-used 3 \
+  -pix_fmt yuv420p -map_metadata -1 tiles-demo.webm
+
+ffmpeg -ss 12 -i source.mov -frames:v 1 \
+  -vf 'scale=1280:896:flags=lanczos,setsar=1' \
+  -c:v libwebp -quality 82 -map_metadata -1 tiles-demo-poster.webp
+```
+
+After encoding, append the first eight SHA-256 characters to each filename, including the poster. Update the sources in `components/home-hero-video.tsx` and the exact cache-header paths in `next.config.mjs` together. Never overwrite a hashed asset with different bytes: these URLs have one-year immutable caching. The site service worker leaves video requests to the browser, preserving byte-range delivery.
+
+## Browser regression check
+
+Install Playwright in a separate tooling directory if it is not already available, then install its Firefox and WebKit engines. The check uses installed Google Chrome for Chromium. Set `PLAYWRIGHT_MODULE` to the Playwright package directory when using an external installation.
+
+```sh
+node scripts/check-hero-video.mjs http://localhost:3000
+node scripts/check-hero-video.mjs https://your-preview.example
+```
+
+The check covers decoded frames, the replacement recording's duration, a complete unaccelerated loop, byte-range responses, cache headers, reload with the production service worker, desktop/tablet spacing, visible inline playback on phone-sized viewports, focus recovery, a failed MP4 request, simulated autoplay denial, and retry after both media requests fail. The retry check keeps requests blocked until a trusted click, avoiding a race with automatic format recovery.
+
+Phone checks include five fresh mobile sessions, 24 px gutters, header clearance, the 40 px copy-to-video gap, short and tall portrait layouts, rotation, and returning to portrait. These are browser-emulated checks, not a substitute for testing a physical phone, where Low Power Mode or data-saving settings can block autoplay. Also inspect the actual in-app browser: its lifecycle can pause media even when a standalone browser plays normally.

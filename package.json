@@ -20,7 +20,11 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --fail-on-warnings",
     "deploy": "npm run build && wrangler deploy",
     "blog:publish": "node scripts/publish-blog.ts",
-    "blog:dry-run": "node scripts/publish-blog.ts --dry-run"
+    "blog:dry-run": "node scripts/publish-blog.ts --dry-run",
+    "serve:install": "npm --prefix serve install",
+    "serve:deploy": "npm --prefix serve run deploy",
+    "serve:upload-latest-pkg": "npm --prefix serve run upload:latest-pkg",
+    "serve:upload-file": "npm --prefix serve run upload:file --"
   },
   "dependencies": {
     "@polar-sh/checkout": "0.4.3",
