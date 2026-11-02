@@ -3,7 +3,10 @@
 
 export type ThemeChoice = "light" | "dark" | "system"
 
-const STORAGE_KEY = "tiles-theme"
+// The shared-chat viewer (data-page-theme="chat") keeps its own saved choice,
+// as it did on chat.tiles.run; static/theme-init.js reads the same key.
+const storageKey = () =>
+  document.documentElement.dataset.pageTheme === "chat" ? "share-page-theme" : "tiles-theme"
 
 function systemPrefersDark() {
   return typeof matchMedia !== "undefined" && matchMedia("(prefers-color-scheme: dark)").matches
@@ -11,7 +14,7 @@ function systemPrefersDark() {
 
 function readChoice(): ThemeChoice {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY)
+    const saved = localStorage.getItem(storageKey())
     if (saved === "light" || saved === "dark") return saved
   } catch {}
   return "system"
@@ -49,8 +52,8 @@ class Theme {
   set(choice: ThemeChoice) {
     this.choice = choice
     try {
-      if (choice === "system") localStorage.removeItem(STORAGE_KEY)
-      else localStorage.setItem(STORAGE_KEY, choice)
+      if (choice === "system") localStorage.removeItem(storageKey())
+      else localStorage.setItem(storageKey(), choice)
     } catch {}
     apply(this.resolved === "dark")
   }

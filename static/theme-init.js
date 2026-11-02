@@ -4,13 +4,15 @@
 ;(function () {
   try {
     var root = document.documentElement
+    // The shared-chat viewer keeps the choice it always had on chat.tiles.run.
+    var key = root.getAttribute("data-page-theme") === "chat" ? "share-page-theme" : "tiles-theme"
     var saved = null
     try {
-      saved = localStorage.getItem("tiles-theme")
+      saved = localStorage.getItem(key)
       // Older visits stored the dark skin under its own name.
       if (saved === "cyberpunk") {
         saved = "dark"
-        localStorage.setItem("tiles-theme", saved)
+        localStorage.setItem(key, saved)
       }
     } catch (e) {}
     var dark = saved === "dark" || (saved !== "light" && matchMedia("(prefers-color-scheme: dark)").matches)

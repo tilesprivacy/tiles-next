@@ -6,6 +6,7 @@
   import ScrollAtTopMarker from "#lib/components/ScrollAtTopMarker.svelte"
   import SiteHeader from "#lib/components/SiteHeader.svelte"
   import ThemeFavicon from "#lib/components/ThemeFavicon.svelte"
+  import { isChatRoute } from "#lib/chat/links"
   import { pageThemeFor } from "#lib/page-theme"
   import { theme } from "#lib/theme.svelte"
 
@@ -15,17 +16,21 @@
     theme.init()
   })
 
+  // The shared-chat viewer (chat.tiles.run) has its own chrome.
+  const chat = $derived(isChatRoute(page.route.id))
+
   // The server sets data-page-theme on first load; keep it right on client navigation.
   $effect(() => {
-    const value = pageThemeFor(page.url.pathname)
+    const value = pageThemeFor(page.url.pathname, page.route.id)
     if (value) document.documentElement.dataset.pageTheme = value
     else delete document.documentElement.dataset.pageTheme
   })
 
-  // SvelteKit registers /service-worker.js itself. Older visits may still have
-  // the previous site's workers and caches; clear those out once.
+  // The offline cache is for the site, not the chat viewer. Older visits may
+  // still have the previous site's workers and caches; clear those out once.
   onMount(() => {
     if (!("serviceWorker" in navigator)) return
+    if (!chat) navigator.serviceWorker.register("/service-worker.js", { type: "module" }).catch(() => {})
     navigator.serviceWorker
       .getRegistrations()
       .then((registrations) =>
@@ -51,6 +56,8 @@
 </svelte:head>
 
 <ThemeFavicon />
-<ScrollAtTopMarker />
-<SiteHeader />
+{#if !chat}
+  <ScrollAtTopMarker />
+  <SiteHeader />
+{/if}
 {@render children()}
