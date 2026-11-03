@@ -2,7 +2,7 @@
 title: "Finances"
 description: "Tiles is developed in the open and funded by its community. Our finances are published here every month: revenue, sponsorships, compensation, and expenses."
 cardDescription: "Our finances, published in the open every month."
-lastUpdated: "2026-11-03T00:59:45.974Z"
+lastUpdated: "2026-11-03T05:46:42.405Z"
 ---
 
 <script>
@@ -14,13 +14,13 @@ Tiles is developed in the open and funded by its community. We believe a privacy
 
 ## October 2026
 
-Tiles earned no product revenue in October. Sponsorships brought in ₹1,25,000, compensation was ₹1,25,000, and infrastructure expenses were ₹2,800. Anandu Pavanan and Prashant Mishra each contributed ₹10,000 back to the company, and the company pool balance is −₹2,600.
+Tiles earned no product revenue in October. Sponsorships brought in ₹1,25,000, compensation was ₹1,24,500, and infrastructure expenses were ₹2,800. Anandu Pavanan and Prashant Mishra each contributed ₹10,000 back to the company, and the company pool balance is −₹2,600.
 
 | Summary      |    Amount |
 | :----------- | --------: |
 | Revenue      |        ₹0 |
 | Sponsorships | ₹1,25,000 |
-| Compensation | ₹1,25,000 |
+| Compensation | ₹1,24,500 |
 | Expenses     |    ₹2,800 |
 | Company pool |   −₹2,600 |
 
@@ -37,13 +37,14 @@ Tiles earned no revenue in October. Once income from paid plans arrives, it will
 
 ### Compensation
 
-The amounts below are what each contributor received after Anandu Pavanan and Prashant Mishra each contributed ₹10,000 back to the company pool.
+Each contributor was compensated ₹41,500 in October. Voluntary contributions to the company pool are listed separately below.
 
-| Contributor                   | Amount received |
-| :---------------------------- | --------------: |
-| Ankesh Bharti, Founder        |         ₹41,500 |
-| Anandu Pavanan, Engineering   |         ₹31,500 |
-| Prashant Mishra, Engineering |         ₹31,500 |
+| Contributor                  |  Compensation |
+| :--------------------------- | ------------: |
+| Ankesh Bharti, Founder        |       ₹41,500 |
+| Anandu Pavanan, Engineering   |       ₹41,500 |
+| Prashant Mishra, Engineering  |       ₹41,500 |
+| **Total**                    | **₹1,24,500** |
 
 ### Expenses
 
