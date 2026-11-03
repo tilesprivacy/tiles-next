@@ -2,7 +2,7 @@
 title: "Finances"
 description: "Tiles is developed in the open and funded by its community. Our finances are published here every month: revenue, sponsorships, compensation, and expenses."
 cardDescription: "Our finances, published in the open every month."
-lastUpdated: "2026-11-03T00:12:51.994Z"
+lastUpdated: "2026-11-03T00:59:45.974Z"
 ---
 
 <script>
@@ -185,7 +185,7 @@ web access.
 Funds are used to compensate contributors, cover infrastructure, and pay the administrative costs of running
 the company. We are not beholden to commercial interests or investor pressure: the work is paid for by the
 people who want it to exist. If you would like to help keep it going, you can
-[sponsor Tiles](https://tiles.run/about#sponsor).
+[sponsor Tiles](https://tiles.run/sponsor).
 
   </BookFaqItem>
   <BookFaqItem question="How are contributors compensated?">

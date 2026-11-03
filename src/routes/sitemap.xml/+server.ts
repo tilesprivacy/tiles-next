@@ -25,6 +25,7 @@ const STATIC_ROUTES = [
   "/book",
   "/brand",
   "/about",
+  "/sponsor",
   "/press-kit",
   "/indiafoss-2026-giveaway",
   "/tiles-at-india-foss",

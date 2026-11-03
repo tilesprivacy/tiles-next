@@ -30,7 +30,7 @@ export const LLMS_INDEX_OVERVIEW = [
 ]
 
 export const ABOUT_PAGE_SUMMARY =
-  "Learn about Tiles Privacy, the team and advisors behind it, and how to support the project."
+  "Learn about Tiles Privacy, our mission, and the team and advisors behind it."
 
 export const PRESS_KIT_SUMMARY =
   "Product background, company details, press contact, brand files, and current product screenshots."
@@ -114,6 +114,9 @@ export const ABOUT_FULL = [
   "Tiles was born from the discussions in User & Agents (https://www.userandagents.org), a community focused on shaping the future of user-agent systems. We are also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.",
   "Tiles Privacy is built by a small independent team of three: Ankesh Bharti, Anandu Pavanan, and Prashant Mishra.",
   "The project is advised by Boris Mann, Dietrich Ayala, and Gordon Brander.",
+]
+
+export const SPONSOR_FULL = [
   "Sponsor Tiles Privacy. Support a small team building private, local-first AI that preserves user agency.",
   "We are grateful to the individuals and organizations who support our work financially, including through GitHub Sponsors and cryptocurrency donations.",
 ]

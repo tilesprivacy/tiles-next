@@ -124,6 +124,7 @@ export async function buildLlmsIndex(): Promise<string> {
     `- Releases: ${BASE}/releases`,
     `- Help: ${BASE}/help`,
     `- About: ${BASE}/about`,
+    `- Sponsor: ${BASE}/sponsor`,
     `- Tiles at India FOSS: ${BASE}/tiles-at-india-foss`,
   ])
 
@@ -132,6 +133,10 @@ export async function buildLlmsIndex(): Promise<string> {
     `- ${copy.ABOUT_PAGE_SUMMARY}`,
     ...copy.MOZILLA_COHORT_LINES,
     `- ${sponsorPageTeamSentence}`,
+  ])
+
+  addSection(lines, "Sponsorship", [
+    `- Sponsor page: ${BASE}/sponsor`,
     ...sponsorLines("- "),
     `- ${copy.GITHUB_SPONSORS_LINE}`,
     `- ${copy.RECURRING_SPONSORSHIP_LINE}`,
@@ -263,6 +268,10 @@ export async function buildLlmsFull(): Promise<string> {
 
   pushSection(lines, `About (${BASE}/about)`, [
     ...copy.ABOUT_FULL,
+  ])
+
+  pushSection(lines, `Sponsor (${BASE}/sponsor)`, [
+    ...copy.SPONSOR_FULL,
     ...sponsorLines(""),
     copy.GITHUB_SPONSORS_LINE,
     copy.RECURRING_SPONSORSHIP_LINE,
@@ -313,7 +322,8 @@ export async function buildLlmsFull(): Promise<string> {
     `- Terms: ${BASE}/terms`,
     `- Refund Policy: ${BASE}/refund-policy - ${copy.REFUND_POLICY_SUMMARY}`,
     `- Research: ${BASE}/book/research`,
-    `- About and sponsorship: ${BASE}/about`,
+    `- About: ${BASE}/about`,
+    `- Sponsor: ${BASE}/sponsor`,
     `- Help: ${BASE}/help`,
     `- Press Kit: ${BASE}/press-kit`,
     `- Brand: ${BASE}/brand`,

@@ -1,10 +1,10 @@
 <script lang="ts">
   import PageHeadMeta from "#lib/components/PageHeadMeta.svelte"
-  import SponsorContent from "#lib/components/SponsorContent.svelte"
+  import AboutContent from "#lib/components/AboutContent.svelte"
 
-  const description = "Learn about Tiles Privacy, the team and advisors behind it, and how to support our work."
+  const description = "Learn about Tiles Privacy, our mission, and the team and advisors behind it."
 </script>
 
 <PageHeadMeta title="About | Tiles" {description} imageTitle="About" canonical="/about" ogUrl="/about" />
 
-<SponsorContent />
+<AboutContent />

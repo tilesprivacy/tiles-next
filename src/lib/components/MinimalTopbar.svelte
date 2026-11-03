@@ -25,6 +25,7 @@
     ["/releases", "Releases"],
     ["/help", "Help"],
     ["/about", "About"],
+    ["/sponsor", "Sponsor"],
   ]
 </script>
 
