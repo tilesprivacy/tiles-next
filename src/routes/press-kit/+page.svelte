@@ -44,6 +44,7 @@
     { label: "PAN", value: "AANCT5152A" },
     { label: "CIN", value: "U58200KA2026PTC226312" },
     { label: "TAN", value: "BLRT28790G" },
+    { label: "IEC", value: "AANCT5152A" },
   ]
 
   const screenshotFrame =
