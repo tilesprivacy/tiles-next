@@ -21,9 +21,9 @@ export interface BookPageMeta extends BookPage {
   hidden: boolean
 }
 
-const NAV_ORDER = ["", "overview", "manual", "models", "tilekit", "security", "community", "opensource", "licenses", "finances"]
+const NAV_ORDER = ["", "overview", "manual", "models", "tilekit", "security", "community", "opensource", "finances"]
 // Reachable by URL, kept out of the sidebar and page lists for now.
-const HIDDEN = ["research", "resources"]
+const HIDDEN = ["research", "resources", "licenses"]
 
 const sources = import.meta.glob("/content/book/*.md", {
   query: "?raw",
