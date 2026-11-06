@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Search } from "@lucide/svelte"
   import { page } from "$app/state"
   import DownloadTilesCta from "./DownloadTilesCta.svelte"
   import FaDiscord from "./icons/FaDiscord.svelte"
@@ -9,7 +8,6 @@
   import { SHOW_PRICING } from "#lib/feature-flags"
 
   let menuOpen = $state(false)
-  let search = $state<{ open: () => void }>()
 
   // Sections with child pages stay highlighted on those pages too.
   const sectionRoots = new Set(["/book", "/plugins", "/blog", "/releases", "/help", "/pricing"])
@@ -55,25 +53,23 @@
     {/each}
   </nav>
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
-    <div class="header-search">
-      <SiteSearch bind:this={search} onOpenChange={(open) => open && (menuOpen = false)} />
-    </div>
+    <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
     <a
       href="https://github.com/tilesprivacy/tiles"
-      class="minimal-topbar-github desktop-action"
+      class="minimal-topbar-github"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="GitHub"><FaGithub class="minimal-topbar-github-glyph" aria-hidden="true" /></a
     >
     <a
       href="https://discord.gg/PPSjcpZzvt"
-      class="minimal-topbar-github desktop-action"
+      class="minimal-topbar-github"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Discord"><FaDiscord class="minimal-topbar-github-glyph" aria-hidden="true" /></a
     >
     <div
-      class="minimal-topbar-theme desktop-action inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
+      class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
     >
       <ThemeSwitcher />
     </div>
@@ -95,59 +91,24 @@
   </nav>
   {#if menuOpen}
     <div id="minimal-topbar-menu" class="minimal-topbar-menu">
-      <button class="mobile-menu-search" type="button" onclick={() => search?.open()}>
-        <Search size={18} aria-hidden="true" />
-        <span>Search Tiles</span>
-      </button>
       <nav aria-label="Mobile navigation">
         {#each centerLinks as [href, label] (href)}
           <a {href} onclick={() => (menuOpen = false)}>{label}</a>
         {/each}
       </nav>
-      <div class="mobile-menu-actions">
-        <a href="https://github.com/tilesprivacy/tiles" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-          <FaGithub size={18} aria-hidden="true" />
-        </a>
-        <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-          <FaDiscord size={18} aria-hidden="true" />
-        </a>
-        <div class="minimal-topbar-theme"><ThemeSwitcher /></div>
-      </div>
     </div>
   {/if}
 </header>
 
 <style>
-  .header-search {
-    display: inline-flex;
-  }
-
-  .mobile-menu-search,
-  .mobile-menu-actions {
-    display: none;
-  }
-
   @media (max-width: 767px) {
     .minimal-topbar {
-      gap: 1rem;
+      gap: 0.5rem;
     }
 
     .minimal-topbar-left,
     .minimal-topbar-actions {
       flex-shrink: 0;
-    }
-
-    .minimal-topbar-wordmark {
-      display: inline-flex;
-    }
-
-    .minimal-topbar-actions > .desktop-action,
-    .header-search :global(.site-search-trigger) {
-      display: none;
-    }
-
-    .header-search {
-      position: absolute;
     }
 
     .minimal-topbar-actions :global(.minimal-topbar-download) {
@@ -175,59 +136,11 @@
     .minimal-topbar-menu-button::before {
       inset: 0;
     }
+  }
 
-    .minimal-topbar-menu {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .mobile-menu-search {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-shrink: 0;
-      width: 100%;
-      min-height: 48px;
-      padding: 0.75rem 1rem;
-      border: 0;
-      border-radius: 6px;
-      background: var(--muted);
-      color: var(--muted-foreground);
-      font: inherit;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .minimal-topbar-menu nav {
-      flex-shrink: 0;
-      align-items: flex-start;
-      gap: 0.5rem;
-      padding-block: 1.5rem;
-    }
-
-    .mobile-menu-actions {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-shrink: 0;
-      margin-top: auto;
-      padding-top: 1rem;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-      color: var(--muted-foreground);
-    }
-
-    .mobile-menu-actions a,
-    .mobile-menu-actions .minimal-topbar-theme {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 44px;
-      height: 44px;
-      color: inherit;
-    }
-
-    .mobile-menu-actions a:hover {
-      color: var(--foreground);
+  @media (max-width: 360px) {
+    .minimal-topbar-wordmark {
+      display: none;
     }
   }
 </style>
