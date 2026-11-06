@@ -54,7 +54,7 @@
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
     <div class="minimal-topbar-social" role="group" aria-label="Social links">
-      <TilesSocialLinks includeGithub />
+      <TilesSocialLinks navigation />
     </div>
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
@@ -85,7 +85,7 @@
         {/each}
       </nav>
       <div class="minimal-topbar-menu-social" role="group" aria-label="Social links">
-        <TilesSocialLinks includeGithub onclick={() => (menuOpen = false)} />
+        <TilesSocialLinks navigation onclick={() => (menuOpen = false)} />
       </div>
     </div>
   {/if}
