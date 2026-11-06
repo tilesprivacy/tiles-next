@@ -36,19 +36,33 @@
     label,
     className,
     ariaLabel,
+    mobileIconOnly = false,
   }: {
     size: DownloadTilesCtaSize
     label: string
     className?: string
     ariaLabel?: string
+    mobileIconOnly?: boolean
   } = $props()
 </script>
+
+{#if mobileIconOnly}
+  <a
+    href="/download"
+    onclick={() => triggerHaptic()}
+    aria-label={ariaLabel ?? label}
+    title={label}
+    class="minimal-topbar-github mobile-download focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-foreground"
+  >
+    <Download class="site-search-glyph" aria-hidden="true" />
+  </a>
+{/if}
 
 <a
   href="/download"
   onclick={() => triggerHaptic()}
   aria-label={ariaLabel}
-  class={cn(baseClasses, sizeClasses[size], className)}
+  class={cn(baseClasses, sizeClasses[size], className, mobileIconOnly && "desktop-download")}
   data-slot="button"
 >
   <span class={downloadButtonLabelMotionClasses}>{label}</span>
@@ -57,3 +71,19 @@
     aria-hidden="true"
   />
 </a>
+
+<style>
+  .mobile-download {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .mobile-download {
+      display: inline-flex;
+    }
+
+    .desktop-download {
+      display: none;
+    }
+  }
+</style>
