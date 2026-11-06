@@ -102,19 +102,7 @@
 
 <style>
   @media (max-width: 767px) {
-    .minimal-topbar {
-      gap: 0.5rem;
-    }
-
-    .minimal-topbar-left,
-    .minimal-topbar-actions {
-      flex-shrink: 0;
-    }
-
     .minimal-topbar-actions :global(.minimal-topbar-download) {
-      width: 44px;
-      height: 44px;
-      padding: 0;
       gap: 0;
     }
 
@@ -124,23 +112,6 @@
 
     .minimal-topbar-actions :global(.minimal-topbar-download .download-cta-icon) {
       display: block;
-      width: 20px;
-      height: 20px;
-    }
-
-    .minimal-topbar-menu-button {
-      width: 44px;
-      height: 44px;
-    }
-
-    .minimal-topbar-menu-button::before {
-      inset: 0;
-    }
-  }
-
-  @media (max-width: 360px) {
-    .minimal-topbar-wordmark {
-      display: none;
     }
   }
 </style>
