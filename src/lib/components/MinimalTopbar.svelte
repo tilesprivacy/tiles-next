@@ -41,6 +41,9 @@
         <span class="minimal-topbar-alpha max-[428px]:hidden">alpha</span>
       </span>
     </a>
+    <div class="minimal-topbar-social" role="group" aria-label="Social links">
+      <TilesSocialLinks navigation />
+    </div>
   </div>
   <nav class="minimal-topbar-center-nav" aria-label="Primary navigation">
     {#each centerLinks as [href, label] (href)}
@@ -53,9 +56,6 @@
   </nav>
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
-    <div class="minimal-topbar-social" role="group" aria-label="Social links">
-      <TilesSocialLinks navigation />
-    </div>
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
     >
@@ -92,7 +92,10 @@
 </header>
 
 <style>
-  /* Keep the page links centered independently of the side controls. */
+  /* Balance the social row and actions around the centered page links. */
+  header.minimal-topbar .minimal-topbar-left {
+    gap: 1.5rem;
+  }
   header.minimal-topbar nav.minimal-topbar-center-nav {
     gap: clamp(0.875rem, 1.25vw, 1.5rem);
   }
@@ -106,7 +109,7 @@
     display: flex;
     flex: none;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.25rem;
   }
 
   .minimal-topbar-social :global(a),
@@ -121,7 +124,7 @@
   }
 
   .minimal-topbar-social :global(a) {
-    width: 36px;
+    width: 32px;
     height: 36px;
   }
 
@@ -157,19 +160,7 @@
     height: 44px;
   }
 
-  @media (min-width: 1200px) and (max-width: 1439px) {
-    header.minimal-topbar :global(.site-search-trigger) {
-      width: 36px;
-      gap: 0;
-      padding: 0;
-    }
-
-    header.minimal-topbar :global(.site-search-trigger-kbd) {
-      display: none;
-    }
-  }
-
-  @media (max-width: 1199px) {
+  @media (max-width: 1439px) {
     .minimal-topbar-social {
       display: none;
     }
