@@ -2,6 +2,8 @@
   import { page } from "$app/state"
   import DownloadTilesCta from "./DownloadTilesCta.svelte"
   import TilesSocialLinks from "./TilesSocialLinks.svelte"
+  import FaGithub from "./icons/FaGithub.svelte"
+  import FaDiscord from "./icons/FaDiscord.svelte"
   import SiteSearch from "./SiteSearch.svelte"
   import ThemeSwitcher from "./ThemeSwitcher.svelte"
   import { SHOW_PRICING } from "#lib/feature-flags"
@@ -53,8 +55,9 @@
   </nav>
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
-    <div class="minimal-topbar-social" role="group" aria-label="Social links">
-      <TilesSocialLinks navigation />
+    <div class="minimal-topbar-social" role="group" aria-label="Community links">
+      <a href="https://github.com/tilesprivacy/tiles" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub aria-hidden="true" /></a>
+      <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden="true" /></a>
     </div>
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
@@ -92,7 +95,7 @@
 </header>
 
 <style>
-  /* Keep the page links centered independently of the side controls. */
+  /* Center page links independently of the right-side controls. */
   header.minimal-topbar nav.minimal-topbar-center-nav {
     gap: clamp(0.875rem, 1.25vw, 1.5rem);
   }
@@ -149,7 +152,9 @@
     align-items: center;
     justify-content: center;
     gap: 0.25rem;
-    margin-top: 2rem;
+    flex-shrink: 0;
+    margin-top: auto;
+    padding-top: 1.5rem;
   }
 
   .minimal-topbar-menu-social :global(a) {
@@ -157,19 +162,7 @@
     height: 44px;
   }
 
-  @media (min-width: 1200px) and (max-width: 1439px) {
-    header.minimal-topbar :global(.site-search-trigger) {
-      width: 36px;
-      gap: 0;
-      padding: 0;
-    }
-
-    header.minimal-topbar :global(.site-search-trigger-kbd) {
-      display: none;
-    }
-  }
-
-  @media (max-width: 1199px) {
+  @media (max-width: 1279px) {
     .minimal-topbar-social {
       display: none;
     }
