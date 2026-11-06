@@ -54,7 +54,8 @@ jobs:
           PR: ${{ github.event.pull_request.number }}
           SHA: ${{ github.event.pull_request.head.sha }}
 
-      # One comment per PR, updated on every push.
+      # A fresh comment on every push, so people get notified; the previous
+      # one is deleted afterwards, which leaves one preview comment per PR.
       - name: Comment the address
         run: |
           url=$(jq -r 'select(.type == "version-upload") | .preview_alias_url // empty' "$RUNNER_TEMP/wrangler-output.json")
@@ -64,13 +65,12 @@ jobs:
           **Preview:** $url
 
           Built from $SHA. Previews have no secrets or database, so newsletter signups don't work here."
-          id=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
-            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id" | head -n 1)
-          if [ -n "$id" ]; then
-            gh api -X PATCH "repos/$REPO/issues/comments/$id" -f body="$body" > /dev/null
-          else
-            gh api "repos/$REPO/issues/$PR/comments" -f body="$body" > /dev/null
-          fi
+          old=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id")
+          gh api "repos/$REPO/issues/$PR/comments" -f body="$body" > /dev/null
+          for id in $old; do
+            gh api -X DELETE "repos/$REPO/issues/comments/$id" > /dev/null
+          done
           echo "Preview: $url" >> "$GITHUB_STEP_SUMMARY"
         env:
           GH_TOKEN: ${{ github.token }}
