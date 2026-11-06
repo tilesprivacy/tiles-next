@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state"
   import DownloadTilesCta from "./DownloadTilesCta.svelte"
+  import FaDiscord from "./icons/FaDiscord.svelte"
   import FaGithub from "./icons/FaGithub.svelte"
   import SiteSearch from "./SiteSearch.svelte"
   import ThemeSwitcher from "./ThemeSwitcher.svelte"
@@ -59,6 +60,13 @@
       target="_blank"
       rel="noopener noreferrer"
       aria-label="GitHub"><FaGithub class="minimal-topbar-github-glyph" aria-hidden="true" /></a
+    >
+    <a
+      href="https://discord.gg/PPSjcpZzvt"
+      class="minimal-topbar-github"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Discord"><FaDiscord class="minimal-topbar-github-glyph" aria-hidden="true" /></a
     >
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
