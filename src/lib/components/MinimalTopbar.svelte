@@ -110,6 +110,7 @@
     display: flex;
     flex: none;
     align-items: center;
+    gap: 0.5rem;
   }
 
   .minimal-topbar-social :global(a),
@@ -124,7 +125,7 @@
   }
 
   .minimal-topbar-social :global(a) {
-    width: 28px;
+    width: 36px;
     height: 36px;
   }
 
