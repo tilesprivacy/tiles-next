@@ -92,12 +92,8 @@
 </header>
 
 <style>
-  /* Keep the full social row clear of the page links as the header narrows. */
+  /* Keep the page links centered independently of the side controls. */
   header.minimal-topbar nav.minimal-topbar-center-nav {
-    position: static;
-    transform: none;
-    flex: 1;
-    justify-content: center;
     gap: clamp(0.875rem, 1.25vw, 1.5rem);
   }
 
