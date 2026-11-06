@@ -2814,10 +2814,10 @@ html.cyberpunk .minimal-wallet-panel {
   font-size: inherit;
 }
 
-/* Below 1440px the centered nav needs room beside the full social row,
+/* Below 1280px the centered nav needs room beside the right-side controls,
  * so the links and socials move into the hamburger menu.
  * The ≤767px block after this one layers compact sizes on top. */
-@media (max-width: 1439px) {
+@media (max-width: 1279px) {
   .minimal-topbar nav.minimal-topbar-center-nav {
     display: none;
   }
@@ -2878,12 +2878,14 @@ html.cyberpunk .minimal-wallet-panel {
     position: fixed;
     inset: calc(var(--site-topbar-height) + var(--site-announcement-offset)) 0 0;
     z-index: 40;
-    display: block;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
     background: var(--background);
-    padding: 1.25rem 1.25rem 2rem;
+    padding: 1.25rem 1.25rem calc(1rem + env(safe-area-inset-bottom, 0px));
   }
   .minimal-topbar-menu nav {
+    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
