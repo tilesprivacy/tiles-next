@@ -41,7 +41,8 @@ jobs:
       # hooks.server.ts marks the pages the Worker renders; this covers the
       # prerendered ones, which are served without running it.
       - name: Keep static pages out of search
-        run: printf '\n/*\n  X-Robots-Tag: noindex\n' >> .svelte-kit/cloudflare/_headers
+        run: |
+          printf '\n/*\n  X-Robots-Tag: noindex\n' >> .svelte-kit/cloudflare/_headers
 
       - name: Upload the preview
         run: npx wrangler versions upload --env preview --preview-alias "pr-$PR" --message "PR #$PR at $SHA"
