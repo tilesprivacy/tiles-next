@@ -34,7 +34,7 @@
     }
   })
 
-  export function open() {
+  function open() {
     isOpen = true
     onOpenChange?.(true)
   }
