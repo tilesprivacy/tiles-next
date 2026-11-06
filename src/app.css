@@ -2814,10 +2814,10 @@ html.cyberpunk .minimal-wallet-panel {
   font-size: inherit;
 }
 
-/* Below 1200px the centered nav, including Sponsor, can collide with the
- * right-side actions, so the links collapse into the hamburger menu.
+/* Below 1440px the centered nav needs room beside the full social row,
+ * so the links and socials move into the hamburger menu.
  * The ≤767px block after this one layers compact sizes on top. */
-@media (max-width: 1199px) {
+@media (max-width: 1439px) {
   .minimal-topbar nav.minimal-topbar-center-nav {
     display: none;
   }
