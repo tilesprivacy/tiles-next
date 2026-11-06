@@ -56,6 +56,12 @@ GitHub settings:
 Don't also connect Cloudflare Workers Builds: it would deploy before new posts
 reach the PDS.
 
+`.github/workflows/preview.yml` builds every pull request and uploads it to a
+separate Worker, `tiles-site-preview`, then comments the PR's preview address
+(`https://pr-<number>-tiles-site-preview.<subdomain>.workers.dev`). That Worker
+has no secrets, database or routes, so previews can't send email or touch
+production data. It uses the same two Cloudflare secrets.
+
 ## Shared-chat viewer
 
 `chat.tiles.run` is served by this Worker from `src/routes/chat/` (see the
@@ -89,6 +95,7 @@ with `wrangler secret put NAME`.
 | `POLAR_*` | Checkout and webhooks on `/pricing` |
 | `GITHUB_TOKEN` | Optional, raises the GitHub API rate limit for release data |
 | `PUBLIC_SITE_URL` | Canonical origin |
+| `PUBLIC_DEPLOYMENT` | `preview` in PR preview builds only |
 
 Without the production secrets the newsletter endpoint answers 503 rather than
 sending unchecked email.

@@ -1,6 +1,7 @@
 import { dev } from "$app/env"
 import type { Handle } from "@sveltejs/kit/hooks"
 import { CHAT_HOST, CHAT_ORIGIN, chatHostPath, isChatRoute } from "#lib/chat/links"
+import { preview } from "#lib/deployment"
 import { pageThemeFor } from "#lib/page-theme"
 
 // Same as _headers, for responses the worker renders itself.
@@ -17,8 +18,8 @@ const securityHeaders: Record<string, string> = {
 export const handle: Handle = async ({ event, resolve }) => {
   const chat = isChatRoute(event.route.id)
 
-  // The chat viewer lives only on chat.tiles.run (dev serves /chat/... directly).
-  if (chat && !dev && event.url.hostname !== CHAT_HOST) {
+  // The chat viewer lives only on chat.tiles.run (dev and previews serve /chat/... directly).
+  if (chat && !dev && !preview && event.url.hostname !== CHAT_HOST) {
     return new Response(null, {
       status: 301,
       headers: { Location: `${CHAT_ORIGIN}${chatHostPath(event.url.pathname)}${event.url.search}` },
@@ -35,7 +36,8 @@ export const handle: Handle = async ({ event, resolve }) => {
   for (const [name, value] of Object.entries(securityHeaders)) {
     if (!response.headers.has(name)) response.headers.set(name, value)
   }
-  // Shared chats belong to the people who shared them; keep them out of search.
-  if (chat) response.headers.set("X-Robots-Tag", "noindex")
+  // Shared chats belong to the people who shared them, and previews aren't
+  // the real site; keep both out of search.
+  if (chat || preview) response.headers.set("X-Robots-Tag", "noindex")
   return response
 }

@@ -1,0 +1,79 @@
+# Builds every pull request, uploads it to the tiles-site-preview Worker and
+# comments the preview's address on the PR. Previews have no secrets or
+# database (see wrangler.jsonc), show the branch's own blog files, and are kept
+# out of search. PRs from forks and Dependabot get none: GitHub doesn't give
+# their workflows this repo's secrets.
+name: Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions: {}
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          PUBLIC_DEPLOYMENT: preview
+          PUBLIC_SITE_URL: https://tiles.run
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # hooks.server.ts marks the pages the Worker renders; this covers the
+      # prerendered ones, which are served without running it.
+      - name: Keep static pages out of search
+        run: |
+          printf '\n/*\n  X-Robots-Tag: noindex\n' >> .svelte-kit/cloudflare/_headers
+
+      - name: Upload the preview
+        run: |
+          npx wrangler versions upload --env preview --preview-alias "pr-$PR" --message "PR #$PR at $SHA"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-output.json
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+
+      # One comment per PR, updated on every push.
+      - name: Comment the address
+        run: |
+          url=$(jq -r 'select(.type == "version-upload") | .preview_alias_url // empty' "$RUNNER_TEMP/wrangler-output.json")
+          if [ -z "$url" ]; then echo "wrangler reported no preview URL" >&2; exit 1; fi
+          marker="<!-- tiles-preview -->"
+          body="$marker
+          **Preview:** $url
+
+          Built from $SHA. Previews have no secrets or database, so newsletter signups don't work here."
+          id=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id" | head -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$REPO/issues/comments/$id" -f body="$body" > /dev/null
+          else
+            gh api "repos/$REPO/issues/$PR/comments" -f body="$body" > /dev/null
+          fi
+          echo "Preview: $url" >> "$GITHUB_STEP_SUMMARY"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          SHA: ${{ github.event.pull_request.head.sha }}

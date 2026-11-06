@@ -16,6 +16,12 @@ export const variables = defineEnvVars({
     description: "Canonical origin. Defaults to https://tiles.run; set to http://localhost:5173 in dev.",
   },
   PUBLIC_TURNSTILE_SITE_KEY: { public: true, static: true, schema: optional, description: "Cloudflare Turnstile site key" },
+  PUBLIC_DEPLOYMENT: {
+    public: true,
+    static: true,
+    schema: optional,
+    description: '"preview" for PR preview builds; unset for tiles.run',
+  },
 
   // Newsletter
   RESEND_API_KEY: { schema: optional },

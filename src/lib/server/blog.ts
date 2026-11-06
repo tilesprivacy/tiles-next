@@ -1,8 +1,9 @@
-// Where blog posts come from. In `npm run dev` it's the markdown files in
-// content/blog, so writers see a post before it's published anywhere. Builds
-// for deployment read the posts from the Tiles PDS instead, which makes the
-// published records the source of truth for what tiles.run shows.
+// Where blog posts come from. In `npm run dev` and PR previews it's the
+// markdown files in content/blog, so writers see a post before it's published
+// anywhere. Builds for tiles.run read the posts from the Tiles PDS instead,
+// which makes the published records the source of truth for what it shows.
 import { dev } from "$app/env"
+import { preview } from "#lib/deployment"
 import { parseBlogPost, type BlogPost, type BlogPostMeta } from "#lib/blog"
 import { BLOG_SLUG_PATTERN } from "#lib/blog-atproto"
 import { loadBlogPostsFromPds } from "#lib/server/blog-pds"
@@ -32,7 +33,7 @@ let pdsPosts: Promise<BlogPost[]> | undefined
 // PDS once; if it can't be reached the build fails rather than shipping a
 // blog with posts missing.
 function loadPosts(): Promise<BlogPost[]> {
-  if (dev) return loadLocalPosts().then((posts) => posts.sort(newestFirst))
+  if (dev || preview) return loadLocalPosts().then((posts) => posts.sort(newestFirst))
   pdsPosts ??= loadBlogPostsFromPds().then((posts) => posts.sort(newestFirst))
   return pdsPosts
 }
@@ -42,9 +43,9 @@ export async function getBlogPosts(): Promise<BlogPostMeta[]> {
   return (await loadPosts()).filter((post) => !post.meta.draft).map((post) => post.meta)
 }
 
-/** Posts that get a page: drafts only show in dev. */
+/** Posts that get a page: drafts only show in dev and previews. */
 export async function getVisibleBlogPosts(): Promise<BlogPostMeta[]> {
-  return (await loadPosts()).filter((post) => dev || !post.meta.draft).map((post) => post.meta)
+  return (await loadPosts()).filter((post) => dev || preview || !post.meta.draft).map((post) => post.meta)
 }
 
 export async function getBlogPost(slug: string): Promise<BlogPostMeta | undefined> {

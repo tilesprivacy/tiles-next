@@ -1,8 +1,9 @@
 import { SITE_ORIGIN } from "#lib/absolute-url"
+import { preview } from "#lib/deployment"
 
 export const prerender = true
 
-const ROBOTS = `User-Agent: *
+const ROBOTS = preview ? "User-Agent: *\nDisallow: /\n" : `User-Agent: *
 Allow: /
 Allow: /api/og
 Allow: /api/og/
