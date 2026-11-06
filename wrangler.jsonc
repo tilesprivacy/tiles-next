@@ -35,6 +35,17 @@
   ],
   "observability": {
     "enabled": true
+  },
+  // PR previews (.github/workflows/preview.yml) go to a separate Worker,
+  // tiles-site-preview. It has no routes, database or secrets, so a preview
+  // can't send mail or touch production data. Each PR gets its own URL,
+  // pr-<number>-tiles-site-preview.<subdomain>.workers.dev.
+  "env": {
+    "preview": {
+      "routes": [],
+      "workers_dev": false,
+      "preview_urls": true
+    }
   }
   // Secrets (set with `wrangler secret put NAME`, never committed):
   //   RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_SEGMENT_ID, NEWSLETTER_TOKEN_KEY,

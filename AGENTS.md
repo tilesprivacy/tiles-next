@@ -18,9 +18,11 @@ This is **tiles.run**: SvelteKit 3 + Svelte 5 (runes) + Tailwind 4 + mdsvex, dep
 
 | Branch | Purpose |
 | --- | --- |
-| `main` | Production. Every push runs `.github/workflows/deploy.yml`: publish blog posts to the PDS, build from the PDS, deploy to Cloudflare. *(Until the switch to this codebase is finished, the SvelteKit site lives on `sveltekit`.)* |
+| `main` | Production. Every push runs `.github/workflows/deploy.yml`: publish blog posts to the PDS, build from the PDS, deploy to Cloudflare. |
 | `next-backup` | Frozen copy of the old Next.js site. Never commit to it. |
 | your branch | All work happens on a branch off `main` and goes in through a pull request. CI (`.github/workflows/ci.yml`) runs `npm ci`, `npm run check` and `npm run build` on every push and PR. |
+
+**PR previews.** Every PR from a branch in this repo gets its own address, `https://pr-<number>-tiles-site-preview.feynon.workers.dev`, which `.github/workflows/preview.yml` posts as a comment and updates on each push. Previews go to a separate Worker, `tiles-site-preview` (`env.preview` in `wrangler.jsonc`), which has no secrets, no database and no routes, so a preview can't send email or touch production data. Keep it that way: never `wrangler secret put --env preview` or give the preview environment bindings. Preview builds set `PUBLIC_DEPLOYMENT=preview` (`src/lib/deployment.ts`). This makes them render the branch's own `content/blog` files, drafts included, mark every response `noindex` and disallow all crawling in robots.txt, serve `/chat/...` on the preview address instead of redirecting to chat.tiles.run, and skip the service worker. Newsletter signups fail there because the preview Worker has no secrets. PRs from forks and Dependabot get no preview, since GitHub doesn't give their workflows secrets.
 
 ## Setup
 
@@ -40,11 +42,11 @@ npm run dev             # http://localhost:5173
 5. **Run `npm run build`.** It needs network access: it reads blog posts from the PDS and fails if the PDS is unreachable.
 6. **If you changed content or added a page**, open `/llms.txt`, `/sitemap.xml` and `/api/rss` in dev and check they're right.
 7. **Commit** with a plain, specific message: a short summary line, then a few lines on what changed and why. No attribution trailers.
-8. **Open a PR.** Merge only after CI is green. Merging to `main` deploys.
+8. **Open a PR.** Check the preview link the bot comments. Merge only after CI is green. Merging to `main` deploys.
 
 ## Recipes for common tasks
 
-**Write or edit a blog post.** Add or edit `content/blog/<slug>.md`, following `content/blog/README.md` (frontmatter, images in `static/`, the allowed HTML snippets). Preview it in `npm run dev`; dev renders the local file. On merge to `main`, the Deploy workflow publishes it to the PDS and the live site renders it from there. `draft: true` keeps it local. Don't add an `atUri` field: posts are matched to records by slug. Renaming or deleting a file removes the old post from the live site on the next deploy (the workflow runs `--prune`).
+**Write or edit a blog post.** Add or edit `content/blog/<slug>.md`, following `content/blog/README.md` (frontmatter, images in `static/`, the allowed HTML snippets). Preview it in `npm run dev` or on the PR's preview link; both render the local file. On merge to `main`, the Deploy workflow publishes it to the PDS and the live site renders it from there. `draft: true` keeps it local. Don't add an `atUri` field: posts are matched to records by slug. Renaming or deleting a file removes the old post from the live site on the next deploy (the workflow runs `--prune`).
 
 **Add a page.** Create `src/routes/<path>/+page.svelte`. Give it metadata with `PageHeadMeta` (title, description, OG image), as the other pages do. It prerenders by default; only add `+page.server.ts` with `export const prerender = false` if it truly needs live data, and then set a `Cache-Control` header. Add it to `STATIC_ROUTES` in `src/routes/sitemap.xml/+server.ts`, and to the indexes in `src/lib/server/llms.ts` if it's a primary page.
 
@@ -132,7 +134,7 @@ npm run dev             # http://localhost:5173
 
 ### Blog publishing
 
-- **Dev renders `content/blog/*.md`; production builds render the records on the Tiles PDS.** `src/lib/server/blog.ts` picks the source, `src/lib/server/blog-pds.ts` reads `site.standard.document` records from `https://eurosky.social`, and the constants are in `src/lib/blog-atproto.ts`. A production build fails if the PDS is unreachable or has no posts, rather than deploying an empty blog.
+- **Dev and PR previews render `content/blog/*.md`; production builds render the records on the Tiles PDS.** `src/lib/server/blog.ts` picks the source, `src/lib/server/blog-pds.ts` reads `site.standard.document` records from `https://eurosky.social`, and the constants are in `src/lib/blog-atproto.ts`. A production build fails if the PDS is unreachable or has no posts, rather than deploying an empty blog.
 - `scripts/publish-blog.ts`, run by `deploy.yml` with `--prune` before every deploy, stores each post's whole file in the record's `content` (`$type: run.tiles.blog.markdown`) plus plain `textContent` for other readers. It reuses or uploads the cover blob and only writes records that changed. Posts are matched to records by `path` (`/<slug>`), so nothing is written back into the repo. `--prune` deletes records whose file is gone (renames and deletions), and it refuses if there are no local posts at all. It refuses to publish to any account other than the Tiles DID.
 - Post data is server-only (`#lib/server/blog`). Client code may import only the `#lib/blog` types and `#lib/blog-date`.
 - Don't connect Cloudflare Workers Builds; it would deploy before the publish step.

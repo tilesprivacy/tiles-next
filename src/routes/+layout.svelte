@@ -7,6 +7,7 @@
   import SiteHeader from "#lib/components/SiteHeader.svelte"
   import ThemeFavicon from "#lib/components/ThemeFavicon.svelte"
   import { isChatRoute } from "#lib/chat/links"
+  import { preview } from "#lib/deployment"
   import { pageThemeFor } from "#lib/page-theme"
   import { theme } from "#lib/theme.svelte"
 
@@ -26,11 +27,12 @@
     else delete document.documentElement.dataset.pageTheme
   })
 
-  // The offline cache is for the site, not the chat viewer. Older visits may
-  // still have the previous site's workers and caches; clear those out once.
+  // The offline cache is for the site, not the chat viewer or previews (where
+  // it would keep showing an old build). Older visits may still have the
+  // previous site's workers and caches; clear those out once.
   onMount(() => {
     if (!("serviceWorker" in navigator)) return
-    if (!chat) navigator.serviceWorker.register("/service-worker.js", { type: "module" }).catch(() => {})
+    if (!chat && !preview) navigator.serviceWorker.register("/service-worker.js", { type: "module" }).catch(() => {})
     navigator.serviceWorker
       .getRegistrations()
       .then((registrations) =>
