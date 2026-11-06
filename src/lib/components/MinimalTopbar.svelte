@@ -61,7 +61,7 @@
     >
       <ThemeSwitcher />
     </div>
-    <DownloadTilesCta size="nav" label="Download" ariaLabel="Download Tiles" className="minimal-topbar-download max-[767px]:hidden" />
+    <DownloadTilesCta size="nav" label="Download" ariaLabel="Download Tiles" className="minimal-topbar-download" />
     <button
       class="minimal-topbar-menu-button"
       type="button"
