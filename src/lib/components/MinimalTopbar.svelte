@@ -56,20 +56,20 @@
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
     <a
       href="https://github.com/tilesprivacy/tiles"
-      class="minimal-topbar-github"
+      class="minimal-topbar-github desktop-action"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="GitHub"><FaGithub class="minimal-topbar-github-glyph" aria-hidden="true" /></a
     >
     <a
       href="https://discord.gg/PPSjcpZzvt"
-      class="minimal-topbar-github"
+      class="minimal-topbar-github desktop-action"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Discord"><FaDiscord class="minimal-topbar-github-glyph" aria-hidden="true" /></a
     >
     <div
-      class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
+      class="minimal-topbar-theme desktop-action inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
     >
       <ThemeSwitcher />
     </div>
@@ -96,6 +96,73 @@
           <a {href} onclick={() => (menuOpen = false)}>{label}</a>
         {/each}
       </nav>
+      <div class="mobile-menu-actions">
+        <div class="mobile-menu-socials">
+          <a href="https://github.com/tilesprivacy/tiles" target="_blank" rel="noopener noreferrer">
+            <FaGithub aria-hidden="true" /> GitHub
+          </a>
+          <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer">
+            <FaDiscord aria-hidden="true" /> Discord
+          </a>
+        </div>
+        <div class="mobile-menu-theme">
+          <span>Appearance</span>
+          <div class="minimal-topbar-theme"><ThemeSwitcher /></div>
+        </div>
+      </div>
     </div>
   {/if}
 </header>
+
+<style>
+  .mobile-menu-actions {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .minimal-topbar {
+      gap: 0.75rem;
+    }
+
+    .minimal-topbar-left,
+    .minimal-topbar-actions {
+      flex-shrink: 0;
+    }
+
+    .minimal-topbar-actions > .desktop-action {
+      display: none;
+    }
+
+    .mobile-menu-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-width: 20rem;
+      margin: 2rem auto 0;
+    }
+
+    .mobile-menu-socials {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    .mobile-menu-socials a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 44px;
+      color: var(--foreground);
+      text-decoration: none;
+    }
+
+    .mobile-menu-theme {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 44px;
+      color: var(--muted-foreground);
+    }
+  }
+</style>
