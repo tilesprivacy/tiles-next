@@ -1,7 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state"
   import DownloadTilesCta from "./DownloadTilesCta.svelte"
-  import FaGithub from "./icons/FaGithub.svelte"
+  import TilesSocialLinks from "./TilesSocialLinks.svelte"
   import SiteSearch from "./SiteSearch.svelte"
   import ThemeSwitcher from "./ThemeSwitcher.svelte"
   import { SHOW_PRICING } from "#lib/feature-flags"
@@ -53,13 +53,9 @@
   </nav>
   <nav class="minimal-topbar-actions max-[767px]:gap-1.5" aria-label="Site actions">
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
-    <a
-      href="https://github.com/tilesprivacy/tiles"
-      class="minimal-topbar-github"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="GitHub"><FaGithub class="minimal-topbar-github-glyph" aria-hidden="true" /></a
-    >
+    <div class="minimal-topbar-social" role="group" aria-label="Social links">
+      <TilesSocialLinks navigation />
+    </div>
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"
     >
@@ -88,6 +84,106 @@
           <a {href} onclick={() => (menuOpen = false)}>{label}</a>
         {/each}
       </nav>
+      <div class="minimal-topbar-menu-social" role="group" aria-label="Social links">
+        <TilesSocialLinks navigation onclick={() => (menuOpen = false)} />
+      </div>
     </div>
   {/if}
 </header>
+
+<style>
+  /* Keep the page links centered independently of the side controls. */
+  header.minimal-topbar nav.minimal-topbar-center-nav {
+    gap: clamp(0.875rem, 1.25vw, 1.5rem);
+  }
+
+  header.minimal-topbar nav.minimal-topbar-actions {
+    flex: none;
+    gap: 0.75rem;
+  }
+
+  .minimal-topbar-social {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .minimal-topbar-social :global(a),
+  .minimal-topbar-menu-social :global(a) {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: var(--muted-foreground);
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .minimal-topbar-social :global(a) {
+    width: 36px;
+    height: 36px;
+  }
+
+  .minimal-topbar-social :global(svg),
+  .minimal-topbar-menu-social :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+
+  .minimal-topbar-social :global(a:hover),
+  .minimal-topbar-menu-social :global(a:hover) {
+    background: var(--muted);
+    color: var(--foreground);
+  }
+
+  .minimal-topbar-social :global(a:focus-visible),
+  .minimal-topbar-menu-social :global(a:focus-visible) {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .minimal-topbar-menu-social {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    margin-top: 2rem;
+  }
+
+  .minimal-topbar-menu-social :global(a) {
+    width: 44px;
+    height: 44px;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1439px) {
+    header.minimal-topbar :global(.site-search-trigger) {
+      width: 36px;
+      gap: 0;
+      padding: 0;
+    }
+
+    header.minimal-topbar :global(.site-search-trigger-kbd) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1199px) {
+    .minimal-topbar-social {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    header.minimal-topbar nav.minimal-topbar-actions {
+      gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 382px) {
+    header.minimal-topbar nav.minimal-topbar-actions {
+      gap: 0.25rem;
+    }
+  }
+</style>
