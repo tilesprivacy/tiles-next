@@ -73,7 +73,7 @@
     >
       <ThemeSwitcher />
     </div>
-    <DownloadTilesCta size="nav" label="Download" ariaLabel="Download Tiles" className="minimal-topbar-download" />
+    <DownloadTilesCta size="nav" label="Download" ariaLabel="Download Tiles" className="minimal-topbar-download" mobileIconOnly />
     <button
       class="minimal-topbar-menu-button"
       type="button"
@@ -99,55 +99,3 @@
     </div>
   {/if}
 </header>
-
-<style>
-  @media (max-width: 767px) {
-    .minimal-topbar-actions :global(.minimal-topbar-download) {
-      flex: none;
-      width: 32px;
-      height: 32px;
-      padding: 0;
-      gap: 0;
-      border: 0;
-      border-radius: 999px;
-      box-shadow: none;
-      transform: none;
-      translate: none;
-      transition: background-color 160ms ease;
-    }
-
-    .minimal-topbar-actions :global(.minimal-topbar-download:focus-visible) {
-      outline: 2px solid var(--foreground);
-      outline-offset: 2px;
-    }
-
-    .minimal-topbar-actions :global(.minimal-topbar-download > span) {
-      display: none;
-    }
-
-    .minimal-topbar-actions :global(.minimal-topbar-download .download-cta-icon) {
-      display: block;
-      width: 17px;
-      height: 17px;
-      transform: none;
-      translate: none;
-      transition: none;
-    }
-  }
-
-  /* Match the CTA's important utilities in their layer, including sponsor themes. */
-  @layer utilities {
-    @media (max-width: 767px) {
-      .minimal-topbar .minimal-topbar-actions :global(.minimal-topbar-download) {
-        background: transparent !important;
-        color: var(--foreground) !important;
-        opacity: 1 !important;
-      }
-
-      .minimal-topbar .minimal-topbar-actions :global(.minimal-topbar-download:hover),
-      .minimal-topbar .minimal-topbar-actions :global(.minimal-topbar-download:active) {
-        background: var(--muted) !important;
-      }
-    }
-  }
-</style>
