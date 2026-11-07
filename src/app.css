@@ -3080,14 +3080,6 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
   }
 }
 
-/* The search and GitHub icons leave no room for the alpha badge on phones,
- * and below ~383px the actions need the compact spacing too. */
-@media (max-width: 428px) {
-  .minimal-topbar-alpha {
-    display: none;
-  }
-}
-
 @media (max-width: 382px) {
   .minimal-topbar nav.minimal-topbar-actions {
     gap: 0.25rem;

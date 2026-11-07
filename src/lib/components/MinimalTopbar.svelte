@@ -40,7 +40,7 @@
       </span>
       <span class="minimal-topbar-wordmark">
         <span>Tiles</span>
-        <span class="minimal-topbar-alpha max-[428px]:hidden">alpha</span>
+        <span class="minimal-topbar-alpha">alpha</span>
       </span>
     </a>
   </div>
