@@ -26,6 +26,7 @@
   let form = $state<HTMLFormElement | null>(null)
   let turnstileContainer = $state<HTMLDivElement | null>(null)
   let widget: Promise<TurnstileWidget | null> | null = null
+  let challengeVisible = $state(false)
 
   const isDark = $derived(theme.mounted && theme.resolved === "dark")
   const showSniperLink = $derived(Boolean(subscriberEmail && senderEmail))
@@ -34,7 +35,12 @@
     if (!siteKey || !turnstileContainer) return Promise.resolve(null)
     const container = turnstileContainer
     widget ??= import("#lib/turnstile")
-      .then(({ createTurnstileWidget }) => createTurnstileWidget(container, siteKey))
+      .then(({ createTurnstileWidget }) =>
+        createTurnstileWidget(container, siteKey, {
+          theme: isDark ? "dark" : "light",
+          onVisibleChange: (visible) => (challengeVisible = visible),
+        }),
+      )
       .catch(() => {
         widget = null
         return null
@@ -50,7 +56,8 @@
     window.addEventListener("online", handleOnline)
     window.addEventListener("offline", handleOffline)
 
-    // Fetch Turnstile once the form scrolls into view (or on first focus, below).
+    // Fetch Turnstile once the form scrolls into view (or on first focus, below),
+    // so Subscribe is quick. The check itself only runs on submit.
     let observer: IntersectionObserver | null = null
     if (siteKey && form) {
       observer = new IntersectionObserver((entries) => {
@@ -215,6 +222,7 @@
     {/if}
   </div>
   {#if siteKey}
-    <div bind:this={turnstileContainer}></div>
+    <!-- Empty and zero-height unless Cloudflare asks for a click after Subscribe. -->
+    <div bind:this={turnstileContainer} class={challengeVisible ? "mt-2.5" : ""}></div>
   {/if}
 </form>
