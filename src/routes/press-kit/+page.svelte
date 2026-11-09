@@ -179,6 +179,23 @@
         <a href="/blog/own-your-ai" class={externalLinkClasses}>adapted blog post</a>.
       </p>
 
+      <h2 id="team-photo" class={`mt-16 ${marketingPageSectionTitleClass}`}>Team photo</h2>
+      <figure class="mt-6">
+        <img
+          src="/team.webp"
+          alt="The five members of the Tiles Privacy team standing together outdoors."
+          width="1600"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+          class="h-auto w-full rounded-xl"
+        />
+        <figcaption class="mt-3 flex flex-wrap items-center justify-between gap-2 text-sm leading-snug text-black/55 dark:text-[#929292]">
+          <span>The Tiles Privacy team.</span>
+          <a href="/team.webp" download="tiles-privacy-team.webp" class={externalLinkClasses}>Download team photo</a>
+        </figcaption>
+      </figure>
+
       <h2 id="screenshots" class={`mt-16 ${marketingPageSectionTitleClass}`}>Screenshots</h2>
       <p class="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
         Current product screenshots for use in articles and coverage of Tiles.
