@@ -45,6 +45,14 @@
                 >Agent Plugins standard</a
               >, a portable package format for reusable components that extend AI agents.
             </p>
+            <p class="mt-3 max-w-[30rem] text-sm leading-6 text-muted-foreground">
+              Plugins are supported only in
+              <a
+                href="/download"
+                class="text-foreground underline decoration-current/35 underline-offset-4 transition-opacity hover:opacity-75"
+                >Tiles Canary</a
+              >.
+            </p>
           </div>
 
           <label class="relative block w-full md:mt-2 md:w-[18.75rem] md:shrink-0">
