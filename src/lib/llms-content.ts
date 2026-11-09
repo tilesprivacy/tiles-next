@@ -36,7 +36,7 @@ export const PRESS_KIT_SUMMARY =
   "Product background, company details, press contact, brand files, and current product screenshots."
 
 export const PLUGIN_STANDARD_LINE =
-  "Standard: https://agent-plugins.org/ - Tiles follows the open Agent Plugins standard for portable skills and MCP servers."
+  "Standard: https://agent-plugins.org/ - Tiles follows the open Agent Plugins standard for portable skills and MCP servers. Plugins are supported only in Tiles Canary."
 
 export const EXTERNAL_LINKS = [
   "These links are visible from the website footer or support page.",
@@ -60,6 +60,7 @@ export const HOMEPAGE_FULL = [
 ]
 
 export const PLUGINS_FULL = [
+  "Plugins are supported only in Tiles Canary. Download Canary at https://tiles.run/download.",
   "Tiles supports the open Agent Plugins standard for portable workflow plugins: https://agent-plugins.org/.",
   "Agent Plugins use a root plugin.json manifest and can include Agent Skills under skills/, MCP servers in mcp.json, and client-specific extensions in reverse-domain directories.",
   "Current install pattern:",

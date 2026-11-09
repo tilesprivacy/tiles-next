@@ -7,7 +7,7 @@
 
 <PageHeadMeta
   title="Plugins | Tiles"
-  description="Extend Tiles with portable skills and MCP servers using the open Agent Plugins standard."
+  description="Extend Tiles Canary with portable skills and MCP servers using the open Agent Plugins standard."
   imageTitle="Plugins"
 />
 

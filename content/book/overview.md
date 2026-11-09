@@ -2,7 +2,7 @@
 title: "Overview"
 description: "Tiles, our consumer product, and Tilekit, the SDK for developers."
 cardDescription: "Tiles, our consumer product, and Tilekit, the SDK for developers."
-lastUpdated: "2026-09-12T21:07:18.000Z"
+lastUpdated: "2026-11-09T10:28:31.000Z"
 ---
 
 <script>
@@ -24,6 +24,8 @@ Tiles is currently alpha-quality software. It is usable for everyday tasks, thou
 Tiles is built around a narrow bet: one well-integrated model at a time, optimized for credible local inference on Apple Silicon while balancing privacy, capability, and everyday usability.
 
 <OverviewComparison />
+
+Plugins are supported only in [Tiles Canary](/download).
 
 ## Appendix
 

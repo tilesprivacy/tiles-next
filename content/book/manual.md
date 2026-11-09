@@ -2,7 +2,7 @@
 title: "Manual"
 description: "Command-line interface reference for Tiles, with usage examples and links to additional guides"
 cardDescription: "Command-line interface reference for Tiles, with usage examples"
-lastUpdated: "2026-09-11T08:52:50.000Z"
+lastUpdated: "2026-11-09T10:28:31.000Z"
 ---
 
 ## Command Line Options
@@ -124,6 +124,8 @@ tiles data set-path ~/.tiles/data
 
 Tiles plugins follow the open [Agent Plugins standard](https://agent-plugins.org/), a portable package format for reusable components that extend AI agents.
 
+Plugins are supported only in [Tiles Canary](/download). Install Canary before using the plugin commands below.
+
 ```bash
 tiles plugin install <url-or-path>   # Install from a URL or local archive
 tiles plugin uninstall <plugin-name>  # Remove an installed plugin
@@ -140,7 +142,7 @@ Tiles installs plugins from `.zip` or `.tar.gz` archives, either downloaded from
 
 ### Using plugins
 
-In the Tiles CLI chat, type `@` followed by a plugin name and your request:
+In the Tiles Canary CLI chat, type `@` followed by a plugin name and your request:
 
 ```text
 @exa Find the latest research on local-first software
@@ -311,6 +313,8 @@ Create a shareable link for a specific session.
 Example shared session link: [chat.tiles.run/YXQ6Ly9k...ZTJr](https://chat.tiles.run/YXQ6Ly9kaWQ6cGxjOnZreGY2aTY1a2VoZmY2a2p3cjNjaDJ2eC9ydW4udGlsZXMuc2Vzc2lvbi8zbW9vYmNjeXNnZTJr).
 
 ### Using Skills
+
+Skills installed through plugins are supported only in [Tiles Canary](/download).
 
 Agent Plugins can include skills under `skills/`. Tiles can also use available skills automatically during a conversation when appropriate.
 
