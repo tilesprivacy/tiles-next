@@ -7,7 +7,6 @@ import { isAlreadyExists, sendEmail, withTimeout } from "./resend"
 
 export interface ConfirmDeps {
   resendApiKey: string
-  resendFromEmail: string | undefined
   segmentId: string
 }
 
@@ -23,7 +22,7 @@ export async function confirmSubscription(email: string, deps: ConfirmDeps): Pro
 
     if (!created.error) {
       // A failed welcome email doesn't undo the subscription.
-      const welcome = await sendEmail(resend, deps.resendFromEmail, email, buildSubscriptionEmail())
+      const welcome = await sendEmail(resend, email, buildSubscriptionEmail())
       if (welcome.error) console.error("[Newsletter] Welcome email failed:", JSON.stringify(welcome.error))
       return "subscribed"
     }

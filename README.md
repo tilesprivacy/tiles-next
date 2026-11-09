@@ -90,7 +90,7 @@ with `wrangler secret put NAME`.
 | Variable | Needed for |
 | --- | --- |
 | `PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Bot check on the newsletter form (required in production) |
-| `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, `RESEND_SEGMENT_ID` | Confirmation and welcome emails; storing confirmed subscribers |
+| `RESEND_API_KEY`, `RESEND_SEGMENT_ID` | Confirmation and welcome emails; storing confirmed subscribers |
 | `NEWSLETTER_TOKEN_KEY` | Encrypts newsletter confirmation links (required in production) |
 | `POLAR_*` | Checkout and webhooks on `/pricing` |
 | `GITHUB_TOKEN` | Optional, raises the GitHub API rate limit for release data |

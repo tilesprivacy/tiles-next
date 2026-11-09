@@ -6,12 +6,11 @@ import { Resend } from "resend"
 import type { createEmailGuard } from "./email-guard"
 import { buildConfirmationEmail } from "./email/messages"
 import { CONFIRM_LINK_TTL_DAYS, createConfirmToken } from "./newsletter-token"
-import { sendEmail, senderAddress } from "./resend"
+import { sendEmail, SENDER_EMAIL } from "./resend"
 
 export interface SubscribeDeps {
   guard: ReturnType<typeof createEmailGuard>
   resendApiKey: string | undefined
-  resendFromEmail: string | undefined
   /** Encrypts the address into the confirmation link. */
   tokenKey: string | undefined
   /** Origin the confirmation link points at: the canonical site in production. */
@@ -60,7 +59,6 @@ export async function handleSubscribe(request: Request, clientIp: string, deps: 
     const confirmUrl = `${deps.siteOrigin}/newsletter/confirm?token=${token}`
     const result = await sendEmail(
       new Resend(deps.resendApiKey),
-      deps.resendFromEmail,
       guarded.email,
       buildConfirmationEmail(confirmUrl, CONFIRM_LINK_TTL_DAYS),
     )
@@ -82,7 +80,7 @@ export async function handleSubscribe(request: Request, clientIp: string, deps: 
       message: "Successfully subscribed!",
       id: result.data?.id,
       // The form uses it for the "Open in Gmail" button, to find the confirmation email.
-      senderEmail: senderAddress(deps.resendFromEmail),
+      senderEmail: SENDER_EMAIL,
     })
   } catch (error) {
     await guarded.release()
