@@ -116,35 +116,9 @@
         Tiles press kit
       </h1>
       <p class="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
-        Everything you need to write about Tiles: product background, brand files, screenshots, company details,
-        and contact details.
+        Everything you need to write about Tiles: product background, team photo, screenshots, brand files,
+        company details, and contact information.
       </p>
-
-      <h2 id="company-details" class={`mt-16 ${marketingPageSectionTitleClass}`}>Company details</h2>
-      <dl class="mt-4 max-w-2xl divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
-        {#each companyDetails as detail (detail.label)}
-          <div class="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
-            <dt class="w-36 shrink-0 text-sm font-medium leading-[1.7] text-foreground">{detail.label}</dt>
-            <dd class="text-sm leading-[1.7] text-black/65 dark:text-[#B3B3B3]">{detail.value}</dd>
-          </div>
-        {/each}
-      </dl>
-
-      <h3 class={`mt-10 ${marketingPageSubsectionTitleClass}`}>Contact</h3>
-      <div class="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
-        <p>
-          <span class="font-medium text-foreground">Press and general inquiries:</span>
-          <a href="mailto:hello@tiles.run" class={externalLinkClasses}>hello@tiles.run</a>
-        </p>
-        <p>
-          <span class="font-medium text-foreground">Phone:</span>
-          <a href="tel:+917338014129" class={externalLinkClasses}>+91 7338014129</a>
-        </p>
-        <address class="not-italic">
-          <span class="font-medium text-foreground">Address:</span> WeWork Prestige Atlanta, 80 Feet Rd,
-          Koramangala, Bengaluru, IN 560034
-        </address>
-      </div>
 
       <h2 id="product" class={`mt-16 ${marketingPageSectionTitleClass}`}>Product</h2>
       <div class="mt-4 max-w-2xl space-y-4 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
@@ -250,6 +224,32 @@
       </div>
 
       <DarkshapesCredit marginClass="mt-8" />
+
+      <h2 id="company-details" class={`mt-16 ${marketingPageSectionTitleClass}`}>Company details</h2>
+      <dl class="mt-4 max-w-2xl divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
+        {#each companyDetails as detail (detail.label)}
+          <div class="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
+            <dt class="w-36 shrink-0 text-sm font-medium leading-[1.7] text-foreground">{detail.label}</dt>
+            <dd class="text-sm leading-[1.7] text-black/65 dark:text-[#B3B3B3]">{detail.value}</dd>
+          </div>
+        {/each}
+      </dl>
+
+      <h2 id="contact" class={`mt-16 ${marketingPageSectionTitleClass}`}>Contact</h2>
+      <div class="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
+        <p>
+          <span class="font-medium text-foreground">Press and general inquiries:</span>
+          <a href="mailto:hello@tiles.run" class={externalLinkClasses}>hello@tiles.run</a>
+        </p>
+        <p>
+          <span class="font-medium text-foreground">Phone:</span>
+          <a href="tel:+917338014129" class={externalLinkClasses}>+91 7338014129</a>
+        </p>
+        <address class="not-italic">
+          <span class="font-medium text-foreground">Address:</span> WeWork Prestige Atlanta, 80 Feet Rd,
+          Koramangala, Bengaluru, IN 560034
+        </address>
+      </div>
 
       <h2 id="links-and-contact" class={`mt-16 ${marketingPageSectionTitleClass}`}>Links</h2>
       <ul class="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
