@@ -162,7 +162,7 @@
           href="https://github.com/tilesprivacy/tiles"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1 text-[0.79rem] font-medium text-foreground/60 transition-colors hover:text-foreground focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:text-[0.83rem]"
+          class="inline-flex items-center gap-1 text-[0.79rem] font-medium leading-none !text-black/48 dark:!text-[#9A9A9A] !no-underline focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:text-[0.83rem]"
         >
           View source <ArrowUpRight class="h-3 w-3" aria-hidden="true" />
         </a>
