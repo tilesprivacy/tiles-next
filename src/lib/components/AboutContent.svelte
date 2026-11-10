@@ -10,7 +10,7 @@
       name: "Ankesh Bharti",
       employmentType: "FTE",
       username: "@feynon",
-      role: "CEO & Founder",
+      role: "Founder & CEO",
       href: "https://ankeshbharti.com",
       links: ["https://ankeshbharti.com", "https://github.com/feynon"],
     },
