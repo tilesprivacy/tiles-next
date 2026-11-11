@@ -2,12 +2,12 @@
 title: "Manual"
 description: "Command-line interface reference for Tiles, with usage examples and links to additional guides"
 cardDescription: "Command-line interface reference for Tiles, with usage examples"
-lastUpdated: "2026-11-09T10:28:31.000Z"
+lastUpdated: "2026-11-11T15:18:46.000Z"
 ---
 
 ## Command Line Options
 
-Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts**, **Sync**, **System**, and **Tools**.
+Commands match the groups shown in `tiles help`: **Getting Started**, **Accounts**, **Collaboration**, **System**, and **Tools**.
 
 ## Getting Started
 
@@ -179,35 +179,84 @@ A minimal manifest identifies the standard version and plugin name:
 
 See the [Agent Plugins authoring guide](https://agent-plugins.org/plugin-authors/build-an-agent-plugin) for the complete portable format. Learn how to [use plugins](#using-plugins) in chat.
 
-## Sync
+## Collaboration
 
+<div id="sync"></div>
 <div id="peer-to-peer-linking-tiles-link"></div>
 
-Peer-to-peer sync has two steps. **Link** devices first (consent): one device creates a token, the other accepts it. Then **sync** chats between linked peers. Online and same-local-network offline linking use the same commands; Iroh handles transport, and mDNS can discover peers without internet.
+Peer-to-peer sync has two steps. **Link** two devices once (consent): one device creates a token, the other joins with it. Then **sync** chats between them whenever you like. Devices reach each other over the internet through Iroh, so both must be online with Tiles running.
+
+The examples below use two devices. DIDs are shortened here.
+
+- **Device A**, a laptop, with the DID `did:key:z6MkpTHR...dvktH`
+- **Device B**, a desktop, with the DID `did:key:z6MkiTBz...DooWp`
 
 ### Link devices (`tiles link`)
 
 ```bash
-tiles link create <DID> # Start a link toward a peer and print a token
-tiles link add <token>  # Accept the token on the other device
-tiles link list-peers   # List linked peers by DID and nickname
-tiles link revoke <DID> # Unlink a peer
+tiles link create <PEER_DID>        # Create a link token for a peer's DID
+tiles link join <token> [nickname]  # Join with the token on the other device
+tiles link linked-devices           # List linked devices by nickname and DID
+tiles link revoke <DID>             # Unlink a device
 ```
 
-Run `tiles link create <DID>` on one device, using the other device's DID, and share the printed token out of band. On the other device, run `tiles link add <token>`. Online tokens are **UCAN**s (for example, `ucan:eyJ...YzQ`); on the same local network without internet, the token is an **eight-character alphanumeric code**.
+Linking Device A and Device B:
 
-**`tiles link revoke <DID>`**: Unlinks a peer; their future sync requests are ignored.
+```bash
+# Device B: show your DID
+tiles account
+
+# Device A: create a token for Device B's DID
+tiles link create did:key:z6MkiTBz...DooWp
+
+# Device B: join with the token, and save Device A as "laptop"
+tiles link join <token> laptop
+
+# Either device: confirm the link
+tiles link linked-devices
+```
+
+1. On Device B, run `tiles account` and copy the `id` line. That is Device B's DID.
+2. On Device A, run `tiles link create <PEER_DID>` with that DID. It prints a token. Send the token to Device B yourself, over a channel you trust.
+3. On Device B, run `tiles link join <token> [nickname]`. Device A must be online with Tiles running, because Device B sends the link request to it.
+4. On either device, run `tiles link linked-devices` to see the other one listed.
+
+Linking once is enough for both directions. After it, either device can start a sync.
+
+**`tiles link create <PEER_DID>`**: Creates a **UCAN** token that authorizes the device with that DID. The DID is required.
+
+**`tiles link join <token> [nickname]`**: Completes the link from the other device. The optional nickname is the name this device saves for the device that created the token, so Device B can later refer to Device A as `laptop`.
+
+**`tiles link linked-devices`**: Lists every linked device with its nickname and DID.
+
+**`tiles link revoke <DID>`**: Unlinks a device. Its future sync requests are ignored. Run it on both devices to remove the link from each list.
+
+Each device has its own name for the other. Device B knows Device A by the nickname given to `tiles link join`. Device A knows Device B by Device B's account nickname, set with `tiles account set-nickname`.
 
 ### Sync chats (`tiles sync`)
 
-After devices are linked, one device listens while the other starts sync toward the listener's DID.
-
 ```bash
-tiles sync       # Listen for a sync request
-tiles sync <DID> # Start sync with a linked peer
+tiles sync <DID>       # Sync with a linked device by its DID
+tiles sync <nickname>  # Sync with a linked device by its nickname
 ```
 
-Run `tiles sync` on the receiving device. On the other device, run `tiles sync <DID>` (get the DID from `tiles link list-peers`). When a sync run finishes, both devices should show a notification.
+Syncing Device A and Device B:
+
+```bash
+# Device B: sync with Device A by the nickname saved while linking
+tiles sync laptop
+
+# Device A: sync with Device B by DID
+tiles sync did:key:z6MkiTBz...DooWp
+```
+
+Run `tiles sync` on either device. The other device must be online with Tiles running. It does not need to run a command, because Tiles listens for sync requests from linked devices in the background.
+
+One run syncs both ways: each device sends the chats the other is missing. The command prints a confirmation when the sync finishes.
+
+Get the nickname or DID of a linked device from `tiles link linked-devices`. A nickname that matches no linked device fails with an error.
+
+If linking or syncing cannot reach the other device, run `tiles network status` on both. See Network under System.
 
 <div id="remote-inference-tiles-remote"></div>
 
@@ -274,6 +323,16 @@ Configure daemon behavior.
 tiles daemon start        # Start the daemon (auto-starts when you run `tiles`)
 tiles daemon start 1729   # Start the daemon on a custom port
 tiles daemon stop         # Stop the daemon
+```
+
+### Network (`tiles network`)
+
+Linking and sync run on the Tiles network. It starts with the daemon, so these commands are only needed to check it or restart it.
+
+```bash
+tiles network status   # Show whether the network is running
+tiles network start    # Start the network
+tiles network stop     # Stop the network, which pauses linking and sync
 ```
 
 ## Slash commands
