@@ -1,4 +1,6 @@
 import { SITE_ORIGIN } from "#lib/absolute-url"
+import { allBookPages } from "#lib/book"
+import { getTilesPlugins } from "#lib/plugins"
 import { getBlogPosts } from "#lib/server/blog"
 import { SHOW_PRICING } from "#lib/feature-flags"
 import { RESEARCH_LOG_ENTRIES } from "#lib/research-log"
@@ -14,15 +16,13 @@ interface SitemapEntry {
 
 const STATIC_ROUTES = [
   "",
+  "/download",
   "/mission",
-  "/book/finances",
   "/blog",
   "/plugins",
-  "/book/research",
   "/releases",
   ...(SHOW_PRICING ? ["/pricing"] : []),
   "/help",
-  "/book",
   "/brand",
   "/about",
   "/sponsor",
@@ -41,6 +41,16 @@ async function entries(): Promise<SitemapEntry[]> {
       path: path || "/",
       changeFrequency: "weekly" as const,
       priority: path === "" ? 1 : 0.7,
+    })),
+    ...allBookPages.map((page) => ({
+      path: page.href,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    })),
+    ...(await getTilesPlugins()).map((plugin) => ({
+      path: `/plugins/${plugin.slug}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
     })),
     ...(await getBlogPosts()).map((post) => ({
       path: `/blog/${post.slug}`,

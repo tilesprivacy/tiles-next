@@ -1,5 +1,6 @@
 <script lang="ts">
   import { absoluteUrl } from "#lib/absolute-url"
+  import CanonicalMeta from "#lib/components/CanonicalMeta.svelte"
   import { getSocialImage } from "#lib/social-image"
 
   let {
@@ -22,13 +23,13 @@
   const image = $derived(getSocialImage(imageTitle))
 </script>
 
+<CanonicalMeta path={canonical} {ogUrl} />
+
 <svelte:head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  {#if canonical}<link rel="canonical" href={absoluteUrl(canonical)} />{/if}
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  {#if ogUrl}<meta property="og:url" content={absoluteUrl(ogUrl)} />{/if}
   {#if siteName}<meta property="og:site_name" content={siteName} />{/if}
   <meta property="og:image" content={absoluteUrl(image.url)} />
   <meta property="og:image:type" content={image.type} />
