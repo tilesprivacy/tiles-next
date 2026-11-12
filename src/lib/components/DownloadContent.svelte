@@ -111,8 +111,7 @@
 
       <section class="minimal-download-platform" aria-labelledby="macos-heading">
         <p class="minimal-download-detail mb-6">
-          The network and offline installers include only the CLI. The Canary
-          version includes a desktop app and a menu bar app.
+          Canary version includes experimental support for Agent plugins.
         </p>
         <h2 id="macos-heading">
           <FaApple class="minimal-download-platform-icon" aria-hidden="true" />macOS

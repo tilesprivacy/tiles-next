@@ -15,7 +15,7 @@ export const GITHUB_SPONSORS_LINE = "GitHub Sponsors: https://github.com/sponsor
 export const RECURRING_SPONSORSHIP_LINE = "Current recurring sponsorship: $1,320/month."
 
 export const MACOS_DOWNLOAD_NOTE =
-  "macOS: The network and offline installers include only the CLI. The Canary version includes a desktop app and a menu bar app."
+  "macOS: Canary version includes experimental support for Agent plugins."
 export const LINUX_DOWNLOAD_NOTE =
   "Linux: Install the canary version with curl -LsSf https://tiles.run/install.sh | sh -s -- --canary. The offline installer for Linux is a work in progress."
 

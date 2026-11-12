@@ -157,7 +157,7 @@ const customSections: Record<string, ChangeSection[]> = {
       title: "Changed",
       changes: [
         {
-          text: "Automatic mode downloads the appropriate llama.cpp GPU build when missing, including after a reinstall",
+          text: "Automatic model downloads the appropriate llama.cpp GPU build when missing, including after a reinstall",
         },
         {
           text: "Linux ships one tarball with the CPU build of llama.cpp, instead of one per GPU backend",

@@ -202,5 +202,4 @@
       </div>
     {/if}
   </div>
-  <figcaption class="mt-2 text-center text-xs text-muted-foreground">Preview of the canary version.</figcaption>
 </figure>
