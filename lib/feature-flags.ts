@@ -1,5 +1,5 @@
 /** Set to true to restore the pricing page and its public links. */
-export const SHOW_PRICING = false
+export const SHOW_PRICING = true
 
 /** Set to true when Remote Link is ready to show in marketing UI again. */
 export const SHOW_REMOTE_LINK = false
