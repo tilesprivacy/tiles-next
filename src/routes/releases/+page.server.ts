@@ -8,7 +8,7 @@ import { normalizeReleaseVersion } from "#lib/release-visibility"
 import type { PageServerLoad } from "./$types"
 
 // Live from GitHub on each request; fetchReleases falls back to the
-// hand-written notes when the API is unavailable.
+// saved release data when the API is unavailable.
 export const prerender = false
 
 export const load: PageServerLoad = async ({ setHeaders }) => {

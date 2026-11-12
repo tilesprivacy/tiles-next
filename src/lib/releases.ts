@@ -2,6 +2,7 @@ import { fetchGithubJson } from "#lib/github-json"
 import { FALLBACK_DOWNLOAD_VERSION } from "#lib/download-artifact"
 import { OFFLINE_INSTALLER } from "#lib/download-page-data"
 import { normalizeReleaseVersion } from "#lib/release-visibility"
+import fallbackReleases from "#lib/releases-fallback.json"
 
 export interface ChangeItem {
   text: string
@@ -639,20 +640,9 @@ function extractCompareUrl(body: string): string | undefined {
   return body.match(/\[([^\]]+)\]\((https:\/\/github\.com\/[^/]+\/[^/]+\/compare\/[^)]+)\)/)?.[2]
 }
 
-/** Known releases, for when GitHub can't be reached. */
+/** Keep notes and downloads available when GitHub is unreachable or rate-limited. */
 function buildOfflineReleases(): Release[] {
-  return [...new Set([...Object.keys(customSections), ...Object.keys(customTitles)])]
-    .sort((a, b) => compareVersions(b, a))
-    .map((version) => ({
-      version,
-      date: "",
-      title: customTitles[version] ?? version,
-      sections: customSections[version] ?? [],
-      isPrerelease: false,
-      githubUrl: `https://github.com/tilesprivacy/tiles/releases/tag/${version}`,
-      tarballs: [],
-      fullInstaller: customFullInstallers[version],
-    }))
+  return publishedNewestFirst(toGithubReleases(fallbackReleases)).map(toRelease)
 }
 
 function toRelease(release: GithubRelease): Release {
