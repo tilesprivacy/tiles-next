@@ -47,7 +47,7 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
     name: "tiles-0.5.1-full-signed.pkg",
     url: "https://download.tiles.run/tiles-0.5.1-full-signed.pkg",
     sizeBytes: 7539555979,
-    sha256: "Unavailable",
+    sha256: "be1082adf335a45349f326e63d51dee79a4773d796e53e18fa62fb86593d0d2a",
   },
   "0.5.0": {
     name: "tiles-0.5.0-full-signed.pkg",
