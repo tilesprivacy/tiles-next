@@ -1610,17 +1610,18 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   font-variant-numeric: tabular-nums;
   line-height: 1.5;
 }
-/* Constrained measure so the offline explanation reads as a paragraph. */
-.minimal-download-platform > p.minimal-download-detail {
+/* Keep the installer notes at a readable width. */
+.minimal-download-platform > .minimal-download-detail {
   display: block;
   max-width: 38rem;
   margin-top: 1.5rem;
+  color: var(--muted-foreground);
   font-size: 0.8125rem;
   line-height: 1.6;
   text-wrap: pretty;
 }
 /* Give the installer note its own space above the platform heading. */
-.minimal-download-platform > p.minimal-download-detail:first-child {
+.minimal-download-platform > .minimal-download-detail:first-child {
   margin: 0 0 2rem;
 }
 .minimal-download-action-icon {
