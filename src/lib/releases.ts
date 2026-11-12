@@ -466,6 +466,8 @@ plugin_name
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
+  "0.5.1": "Alpha 25",
+  "0.5.0": "Alpha 24",
   "0.4.19": "Alpha 23",
   "0.4.18": "Alpha 22",
   "0.4.17": "Alpha 21",
