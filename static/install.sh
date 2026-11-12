@@ -26,10 +26,13 @@ set -euo pipefail
 
 REPO="tilesprivacy/tiles"
 
-VERSION="0.4.19"
+# the latest release unless --version picks one
+VERSION=""
 DEV="false"
 NIGHTLY="false"
 CANARY="false"
+BACKEND=""
+HEADLESS="false"
 INSTALL_DIR_OVERRIDE=""
 LIB_DIR_OVERRIDE=""
 
@@ -44,11 +47,21 @@ usage() {
   echo "   or: scripts/install.sh [OPTIONS]"
   echo ""
   echo "  --dev                Install from a local dist/*.tar.gz instead of GitHub"
+  echo "  --version VERSION    Install that release, like an rc (default: the latest release)"
   echo "  --nightly            Install the latest nightly GitHub release"
+  echo "                       (e.g. tiles-v0.4.17-x86_64-linux.tar.gz)"
   echo "  --canary             Install the latest canary build (the canary branch, unreleased)"
-  echo "                       (e.g. tiles-v0.4.20-x86_64-linux.tar.gz)"
+  echo "  --headless           Leave out the Tiles app and the web UI, for servers and Tilekit"
   echo "  --install-dir PATH   Override the binary installation directory"
   echo "  --lib-dir PATH       Override the runtime installation directory"
+}
+
+# github.com redirects /releases/latest to the newest release that isn't a pre-release
+latest_version() {
+  local location
+  location="$(curl -fsSI "https://github.com/${REPO}/releases/latest" | tr -d '\r' | grep -i '^location:' || true)"
+  [[ "${location}" == */releases/tag/* ]] || err "Couldn't find the latest Tiles release on GitHub."
+  echo "${location##*/}"
 }
 
 # Resolve the tarball the rolling `canary` release carries for this platform.
@@ -134,10 +147,18 @@ while [[ $# -gt 0 ]]; do
     --canary|-canary)
       CANARY="true"
       ;;
+    --version)
+      [[ $# -ge 2 && -n "$2" ]] || err "--version requires a value."
+      VERSION="${2#v}"
+      [[ -n "${VERSION}" ]] || err "--version requires a value."
+      shift
+      ;;
+    --headless|-headless)
+      HEADLESS="true"
+      ;;
     --backend)
-      # accepted for older instructions, the backend is picked at runtime now
       [[ $# -ge 2 ]] || err "--backend requires a value."
-      warn "⚠️  --backend is no longer needed; the inference backend is selected at runtime."
+      BACKEND="$2"
       shift
       ;;
     --install-dir)
@@ -168,26 +189,20 @@ done
 if [[ "${DEV}" == "true" && "${NIGHTLY}" == "true" ]]; then
   err "--dev and --nightly cannot be used together."
 fi
-if [[ "${CANARY}" == "true" && ( "${DEV}" == "true" || "${NIGHTLY}" == "true" ) ]]; then
-  err "--canary cannot be combined with --dev or --nightly."
+if [[ -n "${VERSION}" && ( "${DEV}" == "true" || "${NIGHTLY}" == "true" ) ]]; then
+  err "--version cannot be used with --dev or --nightly."
+fi
+if [[ "${CANARY}" == "true" && ( "${DEV}" == "true" || "${NIGHTLY}" == "true" || -n "${VERSION}" ) ]]; then
+  err "--canary cannot be combined with --dev, --nightly or --version."
 fi
 
 OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 ARCH=$(uname -m)
 
-if [[ "${OS}" == "linux" ]]; then
-  # cuda and vulkan runtimes ship in the tarball, only the gpu driver is needed
-  HAS_NVIDIA="false"
-  if command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi -L >/dev/null 2>&1; then
-    HAS_NVIDIA="true"
-  fi
-  if [[ "${HAS_NVIDIA}" == "false" ]] \
-    && ! ldconfig -p 2>/dev/null | grep 'libvulkan\.so\.1' >/dev/null; then
-    warn "⚠️  No NVIDIA driver or Vulkan loader (libvulkan.so.1) found; inference will run on CPU."
-    warn "    Install your GPU driver, or your distro's vulkan-loader package."
-  fi
-elif [[ "${OS}" != "darwin" ]]; then
-  err "Unsupported OS: ${OS}."
+[[ "${OS}" == "linux" || "${OS}" == "darwin" ]] || err "Unsupported OS: ${OS}."
+
+if [[ -n "${BACKEND}" ]]; then
+  warn "⚠️  --backend is no longer needed. Tiles asks to download the GPU engine the first time it runs a model."
 fi
 
 if [[ "${OS}" == "linux" && "$(id -u)" != "0" ]]; then
@@ -204,9 +219,25 @@ fi
 SERVER_DIR="${LIB_DIR}/server"         # Python server folder
 MODELFILE_DIR="${LIB_DIR}/modelfiles"  # Modelfile server folder
 PI_DIR="${LIB_DIR}/pi"
-VENDOR_DIR="${LIB_DIR}/vendor"        # Vendored node packages for Pi extensions
-PLUGINS_DIR="${LIB_DIR}/plugins"      # First-party plugins shipped with Tiles
-UI_DIR="${LIB_DIR}/ui"                # Chat UI, served by the daemon to a browser
+# canary only
+VENDOR_DIR="${LIB_DIR}/vendor"         # Vendored node packages for Pi extensions
+PLUGINS_DIR="${LIB_DIR}/plugins"       # First-party plugins shipped with Tiles
+UI_DIR="${LIB_DIR}/ui"                 # web UI the daemon serves on port 1730
+
+# the Tiles app. on Linux its launcher entry and icon go where the desktop looks for them
+MAC_APP="/Applications/Tiles.app"
+DESKTOP_BIN="${LIB_DIR}/tiles-desktop"
+if [[ "$(id -u)" == "0" ]]; then
+  SHARE_DIR="/usr/local/share"
+else
+  SHARE_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}"
+fi
+DESKTOP_ENTRY="${SHARE_DIR}/applications/tiles.desktop"
+DESKTOP_ICON="${SHARE_DIR}/icons/hicolor/256x256/apps/tiles.png"
+
+if [[ "${DEV}" == "false" && "${NIGHTLY}" == "false" && "${CANARY}" == "false" && -z "${VERSION}" ]]; then
+  VERSION="$(latest_version)"
+fi
 
 TMPDIR="$(mktemp -d)"
 RELEASE_TAG="${VERSION}"
@@ -226,7 +257,7 @@ fi
 
 if [[ "${DEV}" == "false" ]]; then
   # Stable (default), --nightly and --canary all download from GitHub.
-  # Unflagged install always uses the hardcoded VERSION above (never nightly).
+  # Unflagged install gets the latest release, or the one --version picks.
   # Nightly uses RELEASE_ASSET from resolve_nightly_version (may differ from tag).
   TAR_URL="https://github.com/${REPO}/releases/download/${RELEASE_TAG}/${RELEASE_ASSET}"
   curl -fL -o "${TMPDIR}/tiles.tar.gz" "$TAR_URL"
@@ -253,6 +284,25 @@ else
   cp "${LOCAL_TARBALL}" "${TMPDIR}/tiles.tar.gz"
 fi
 
+# a daemon left running would keep serving the old version, so stop it first
+stop_running_daemon() {
+  local url="http://127.0.0.1:1729"
+  curl -fsS -m 2 -o /dev/null "${url}/" 2>/dev/null || return 0
+
+  log "⏹️ Stopping the running Tiles daemon..."
+  curl -fsS -m 5 -o /dev/null -X POST -H "Content-Type: application/json" "${url}/shutdown" 2>/dev/null \
+    || curl -fsS -m 5 -o /dev/null "${url}/shutdown" 2>/dev/null \
+    || true
+
+  for _ in $(seq 40); do
+    curl -fsS -m 1 -o /dev/null "${url}/" 2>/dev/null || return 0
+    sleep 0.25
+  done
+  warn "⚠️  The Tiles daemon is still running. Run \`tiles daemon stop\` after the update."
+}
+
+stop_running_daemon
+
 echo "⬇️ Installing tiles..."
 # Lets point to tile repo
 tar -xzf "${TMPDIR}/tiles.tar.gz" -C "${TMPDIR}"
@@ -277,47 +327,71 @@ mkdir -p "${PI_DIR}"
 
 cp -r "${TMPDIR}/pi"/* "${PI_DIR}/"
 
-
-log "Installing vendored Pi extensions ..."
-
-rm -rf "${VENDOR_DIR}"
-
-mkdir -p "${VENDOR_DIR}"
-
-cp -r "${TMPDIR}/vendor"/* "${VENDOR_DIR}/"
-
-
-log "Installing bundled plugins ..."
-
-rm -rf "${PLUGINS_DIR}"
-
-mkdir -p "${PLUGINS_DIR}"
-
-# guarded: an empty plugins dir leaves the glob unexpanded and cp would abort
-if [ -d "${TMPDIR}/plugins" ] && [ -n "$(ls -A "${TMPDIR}/plugins" 2>/dev/null)" ]; then
-  cp -r "${TMPDIR}/plugins"/* "${PLUGINS_DIR}/"
+# only the canary build ships these two
+rm -rf "${VENDOR_DIR}" "${PLUGINS_DIR}"
+if [ -d "${TMPDIR}/vendor" ]; then
+  log "Installing vendored Pi extensions ..."
+  mkdir -p "${VENDOR_DIR}"
+  cp -r "${TMPDIR}/vendor"/. "${VENDOR_DIR}/"
+fi
+if [ -d "${TMPDIR}/plugins" ]; then
+  log "Installing bundled plugins ..."
+  mkdir -p "${PLUGINS_DIR}"
+  cp -r "${TMPDIR}/plugins"/. "${PLUGINS_DIR}/"
 fi
 
+# releases from before the web UI have no ui folder
+if [[ "${HEADLESS}" == "true" ]]; then
+  rm -rf "${UI_DIR}"
+elif [[ -d "${TMPDIR}/ui" ]]; then
+  log "Installing the web UI ..."
+  rm -rf "${UI_DIR}"
+  mkdir -p "${UI_DIR}"
+  cp -r "${TMPDIR}/ui"/. "${UI_DIR}/"
+fi
 
-if [[ "${OS}" == "linux" ]]; then
-  # linux has no desktop app for now, the chat opens in the browser. an earlier
-  # install may have left one behind, with its launcher entry
-  if [[ "$(id -u)" != "0" ]]; then
-    SHARE_DIR="${XDG_DATA_HOME:-${HOME}/.local/share}"
+# remembered for `tiles update`, which runs this script again without the flag
+if [[ "${HEADLESS}" == "true" ]]; then
+  touch "${LIB_DIR}/.headless"
+else
+  rm -f "${LIB_DIR}/.headless"
+fi
+
+APP_INSTALLED="false"
+# a headless install also takes away an app an earlier install left
+if [[ "${HEADLESS}" == "true" ]]; then
+  log "Leaving out the Tiles app and the web UI"
+  [[ "${OS}" == "darwin" ]] && rm -rf "${MAC_APP}"
+  rm -f "${DESKTOP_BIN}" "${DESKTOP_ENTRY}" "${DESKTOP_ICON}"
+elif [[ -d "${TMPDIR}/desktop" ]]; then
+  log "Installing the Tiles app ..."
+  if [[ "${OS}" == "darwin" ]]; then
+    rm -rf "${MAC_APP}"
+    cp -R "${TMPDIR}/desktop/Tiles.app" "${MAC_APP}"
   else
-    SHARE_DIR="/usr/local/share"
+    install -m 755 "${TMPDIR}/desktop/tiles-desktop" "${DESKTOP_BIN}"
+    mkdir -p "$(dirname "${DESKTOP_ENTRY}")" "$(dirname "${DESKTOP_ICON}")"
+    install -m 644 "${TMPDIR}/desktop/tiles.png" "${DESKTOP_ICON}"
+    # an icon cache another app left would hide the new icon
+    HICOLOR_DIR="${SHARE_DIR}/icons/hicolor"
+    touch "${HICOLOR_DIR}"
+    gtk-update-icon-cache -q -f -t "${HICOLOR_DIR}" >/dev/null 2>&1 || true
+    sed "s|^Exec=.*|Exec=\"${DESKTOP_BIN}\"|" "${TMPDIR}/desktop/tiles.desktop" > "${DESKTOP_ENTRY}"
+    update-desktop-database "$(dirname "${DESKTOP_ENTRY}")" >/dev/null 2>&1 || true
+    if command -v ldconfig >/dev/null 2>&1 \
+      && ! ldconfig -p 2>/dev/null | grep 'libwebkit2gtk-4\.1\.so\.0' >/dev/null; then
+      warn "⚠️  The Tiles app needs WebKitGTK 4.1, and it isn't installed."
+      warn "    Install libwebkit2gtk-4.1-0 (apt), webkit2gtk4.1 (dnf) or webkit2gtk-4.1 (pacman)."
+      warn "    Until then \`tiles ui\` opens Tiles in your browser."
+    fi
   fi
-  rm -f "${LIB_DIR}/tiles-menubar" \
-    "${SHARE_DIR}/applications/tiles.desktop" \
-    "${SHARE_DIR}/icons/hicolor/128x128/apps/tiles.png"
-
-  if [ -d "${TMPDIR}/ui" ]; then
-    log "Installing the chat UI ..."
-    rm -rf "${UI_DIR}"
-    mkdir -p "${UI_DIR}"
-    cp -r "${TMPDIR}/ui"/* "${UI_DIR}/"
-  fi
+  APP_INSTALLED="true"
+elif [[ "${CANARY}" == "true" && "${OS}" == "linux" ]]; then
+  # canary has no app, its chat opens in the browser
+  rm -f "${DESKTOP_BIN}" "${DESKTOP_ENTRY}" "${DESKTOP_ICON}" \
+    "${LIB_DIR}/tiles-menubar" "${SHARE_DIR}/icons/hicolor/128x128/apps/tiles.png"
 fi
+
 
 log "📦 Installing Python server to ${SERVER_DIR}..."
 rm -rf "${SERVER_DIR}"
@@ -344,13 +418,14 @@ rm -rf "${TMPDIR}"
 
 log "✅ Tiles installed successfully!"
 log ""
+[[ "${APP_INSTALLED}" == "true" ]] && echo "🪟 Open Tiles from your apps, or run \"tiles ui\""
 
-CHAT_HINT=""
-[[ "${OS}" == "linux" ]] && CHAT_HINT=", then open http://127.0.0.1:1729 in your browser (or run \"tiles ui\")"
+[[ "${CANARY}" == "true" && "${OS}" == "linux" ]] \
+  && echo "🌐 Canary opens in your browser at http://127.0.0.1:1729, or run \"tiles ui\""
 
 case ":$PATH:" in
   *":$INSTALL_DIR:"*)
-    echo "🚀 Start Tiles by running \"tiles\"${CHAT_HINT}"
+    echo "🚀 Start Tiles by running \"tiles\""
     ;;
   *)
     echo ""
@@ -360,6 +435,6 @@ case ":$PATH:" in
     echo ""
     echo "  export PATH=$INSTALL_DIR:\$PATH"
     echo ""
-    echo "🚀 Then restart your terminal and run \"tiles\"${CHAT_HINT}"
+    echo "🚀 Then restart your terminal..."
     ;;
 esac
