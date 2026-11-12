@@ -42,6 +42,18 @@ export interface ReleaseInstaller {
 }
 
 const customFullInstallers: Record<string, ReleaseInstaller> = {
+  "0.5.1": {
+    name: "tiles-0.5.1-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.5.1-full-signed.pkg",
+    sizeBytes: 7539555979,
+    sha256: "Unavailable",
+  },
+  "0.5.0": {
+    name: "tiles-0.5.0-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.5.0-full-signed.pkg",
+    sizeBytes: 7539078982,
+    sha256: "Unavailable",
+  },
   "0.4.4": {
     name: "tiles-0.4.4-full-signed.pkg",
     url: "https://download.tiles.run/tiles-0.4.4-full-signed.pkg",
@@ -627,15 +639,15 @@ function extractCompareUrl(body: string): string | undefined {
   return body.match(/\[([^\]]+)\]\((https:\/\/github\.com\/[^/]+\/[^/]+\/compare\/[^)]+)\)/)?.[2]
 }
 
-/** Hand-written notes only, for when GitHub can't be reached. */
+/** Known releases, for when GitHub can't be reached. */
 function buildOfflineReleases(): Release[] {
-  return Object.keys(customSections)
+  return [...new Set([...Object.keys(customSections), ...Object.keys(customTitles)])]
     .sort((a, b) => compareVersions(b, a))
     .map((version) => ({
       version,
       date: "",
       title: customTitles[version] ?? version,
-      sections: customSections[version],
+      sections: customSections[version] ?? [],
       isPrerelease: false,
       githubUrl: `https://github.com/tilesprivacy/tiles/releases/tag/${version}`,
       tarballs: [],
