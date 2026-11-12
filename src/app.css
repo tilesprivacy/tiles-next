@@ -1459,7 +1459,8 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1;
   letter-spacing: -0.05em;
 }
-.minimal-page-intro > p:last-child {
+.minimal-page-intro > p:last-child,
+.minimal-page-intro > .minimal-download-lead {
   max-width: 38rem;
   margin: 1.5rem 0 0;
   color: color-mix(in srgb, var(--foreground) 76%, transparent);
@@ -1611,18 +1612,17 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   line-height: 1.5;
 }
 /* Keep the installer notes at a readable width. */
-.minimal-download-platform > .minimal-download-detail {
+.minimal-page-intro .minimal-download-detail {
   display: block;
   max-width: 38rem;
-  margin-top: 1.5rem;
+  margin-top: 1.25rem;
   color: var(--muted-foreground);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.6;
   text-wrap: pretty;
 }
-/* Give the installer note its own space above the platform heading. */
-.minimal-download-platform > .minimal-download-detail:first-child {
-  margin: 0 0 2rem;
+.minimal-download-detail > p + p {
+  margin-top: 0.75rem;
 }
 .minimal-download-action-icon {
   width: 0.95rem;

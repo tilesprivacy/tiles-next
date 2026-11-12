@@ -108,14 +108,11 @@
     <article class="minimal-inner-content">
       <header class="minimal-page-intro">
         <h1>Download Tiles</h1>
-        <p>Public alpha for macOS and Linux.</p>
-      </header>
-
-      <section class="minimal-download-platform" aria-labelledby="macos-heading">
-        <ul class="minimal-download-detail list-disc space-y-2 pl-5">
-          <li>Canary version includes experimental support for Agent plugins.</li>
+        <p class="minimal-download-lead">Public alpha for macOS and Linux.</p>
+        <div class="minimal-download-detail">
+          <p>Canary version includes experimental support for Agent plugins.</p>
           {#if SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE}
-            <li>
+            <p>
               The offline installer is ideal for computers that cannot connect
               to the internet or operate in air-gapped environments. It is
               also useful for installing Tiles across a large number of
@@ -130,9 +127,12 @@
               model for fully offline use.{#if initialDownload?.version && initialDownload.version !== OFFLINE_INSTALLER.version}{" "}Offline installer builds aren't published for every
                 release, whereas network installers always fetch the latest
                 version available.{/if}
-            </li>
+            </p>
           {/if}
-        </ul>
+        </div>
+      </header>
+
+      <section class="minimal-download-platform" aria-labelledby="macos-heading">
         <h2 id="macos-heading">
           <FaApple class="minimal-download-platform-icon" aria-hidden="true" />macOS
         </h2>
