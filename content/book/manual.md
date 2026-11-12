@@ -2,7 +2,7 @@
 title: "Manual"
 description: "Command-line interface reference for Tiles, with usage examples and links to additional guides"
 cardDescription: "Command-line interface reference for Tiles, with usage examples"
-lastUpdated: "2026-11-09T10:28:31.000Z"
+lastUpdated: "2026-11-11T14:29:22.279Z"
 ---
 
 ## Command Line Options
@@ -22,6 +22,8 @@ tiles   # Onboarding (if needed) and interactive chat
 ### Run models (`tiles run`)
 
 Run a Modelfile (uses the default model if none is provided).
+
+> **Very experimental:** Modelfile support currently works only in [Tiles Canary (App + CLI)](/download). It is not yet supported in regular Tiles (CLI only). Fixes are coming soon in future versions of Tiles.
 
 ```bash
 tiles run [MODELFILE_PATH]   # Default model if path omitted
