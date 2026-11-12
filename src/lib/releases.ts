@@ -95,6 +95,26 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
+  "0.5.1": [
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Automatic mode downloads the appropriate llama.cpp GPU build when missing, including after a reinstall",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        { text: "Window controls on macOS no longer overlap dialogs" },
+        { text: "The macOS window no longer bounces when scrolling past its edges" },
+        { text: "Back and forward buttons appear dimmed when no history is available" },
+        { text: "The macOS account menu fits its content" },
+        { text: "Menu bar information tooltips match the app's styling" },
+      ],
+    },
+  ],
   "0.4.19": [
     {
       title: "Added",
