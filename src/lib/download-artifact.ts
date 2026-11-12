@@ -14,15 +14,15 @@ export interface DownloadArtifact {
 const GITHUB_RELEASES_LATEST_URL =
   "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
-export const FALLBACK_DOWNLOAD_VERSION = "0.4.19" as const
+export const FALLBACK_DOWNLOAD_VERSION = "0.5.1" as const
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: FALLBACK_DOWNLOAD_VERSION,
-  fileName: "tiles-0.4.19-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.19-signed.pkg",
-  binarySizeBytes: 101271740,
-  binarySizeLabel: "96.58 MB",
-  sha256: "f270d0c5cfb0b1f93179fbb1978b2d3c2b398bf0eb508ec8cd86fc6766f84a34",
+  fileName: "tiles-0.5.1-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.5.1-signed.pkg",
+  binarySizeBytes: 125459362,
+  binarySizeLabel: "119.65 MB",
+  sha256: "978275950ccb2e55c69df5c8267dec6c06218a2a88ef57f10aa04018220c8ba6",
 }
 
 interface GithubAsset {

@@ -1,0 +1,542 @@
+[
+  {
+    "tag_name": "0.5.1",
+    "name": "0.5.1",
+    "body": "## Changed\r\nOn Automatic, Tiles downloads the llama.cpp build for the GPU by itself when it isn't on the computer, also after a reinstall https://github.com/tilesprivacy/tiles/pull/302\r\n## Fixed\r\nOn a Mac the traffic lights no longer sit over dialogs, and the window no longer bounces when scrolled past its edge https://github.com/tilesprivacy/tiles-ui/pull/9\r\nBack and forward are dimmed when there's no history https://github.com/tilesprivacy/tiles-ui/pull/9\r\nThe account menu is as wide as its content on a Mac https://github.com/tilesprivacy/tiles-ui/pull/7\r\nThe menu bar's info tooltips look like the app's https://github.com/tilesprivacy/tiles-ui/pull/8",
+    "prerelease": false,
+    "published_at": "2026-11-12T15:49:38Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.5.1",
+    "assets": [
+      {
+        "name": "checksums.txt",
+        "size": 99,
+        "digest": "sha256:898110dd5b9ae58c7ce0f9fad2e760d27dbd26fa7bc3014188ca72412a94a264"
+      },
+      {
+        "name": "tiles-0.5.1-signed.pkg",
+        "size": 125459362,
+        "digest": "sha256:978275950ccb2e55c69df5c8267dec6c06218a2a88ef57f10aa04018220c8ba6"
+      },
+      {
+        "name": "tiles-v0.5.1-arm64-darwin.tar.gz",
+        "size": 100414196,
+        "digest": "sha256:753bc1f3a85e89dac23e2d015124c9ae4b0d2c0cd06468b2b91ca4d7f1405b33"
+      },
+      {
+        "name": "tiles-v0.5.1-x86_64-linux.tar.gz",
+        "size": 116869145,
+        "digest": "sha256:3f9120c78c0e4b818f010c0bbf0b784fa656e9d438319f2c7a31815c7861c2c3"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.5.0",
+    "name": "0.5.0",
+    "body": "### Added\r\n\r\n- The Tiles desktop app for macOS and Linux: the chat window, with the menu bar on a Mac and a tray on Linux. `tiles ui` opens it, or the web UI in the browser when there's no app or display [#293](https://github.com/tilesprivacy/tiles/pull/293)\r\n- A web UI the daemon serves at `http://127.0.0.1:1730`, to chat, download and pick models, and switch the llama.cpp engine [#285](https://github.com/tilesprivacy/tiles/pull/285)\r\n- Link your devices and sync chats between them. A linked device can be dialed by its nickname as well as its DID [#275](https://github.com/tilesprivacy/tiles/pull/275) [#290](https://github.com/tilesprivacy/tiles/pull/290)\r\n- Sign in with an ATmosphere account. Sign-in shows its progress and gives up after five minutes [#276](https://github.com/tilesprivacy/tiles/pull/276)\r\n- Old chats can be continued, also after Tiles restarts [#294](https://github.com/tilesprivacy/tiles/pull/294)\r\n- Tiles finds the GPU and downloads the llama.cpp build for it the first time a model runs. `tiles run` asks once before downloading [#289](https://github.com/tilesprivacy/tiles/pull/289) [#291](https://github.com/tilesprivacy/tiles/pull/291) [#292](https://github.com/tilesprivacy/tiles/pull/292)\r\n- Model downloads resume after a pause or a crash, and each file's SHA-256 is checked [#281](https://github.com/tilesprivacy/tiles/pull/281)\r\n- Pick the model chats use, and delete downloaded models, including the one in use after unloading it [#285](https://github.com/tilesprivacy/tiles/pull/285) [#294](https://github.com/tilesprivacy/tiles/pull/294)\r\n- Gemma 4 E2B, E4B, 26B-A4B and 31B, next to the default Gemma 4 12B [#281](https://github.com/tilesprivacy/tiles/pull/281)\r\n- Keep the Mac awake, also with the lid closed [#227](https://github.com/tilesprivacy/tiles/pull/227) [#284](https://github.com/tilesprivacy/tiles/pull/284)\r\n- `tiles service install` starts the daemon at login [#200](https://github.com/tilesprivacy/tiles/pull/200)\r\n- `install.sh --headless` installs only the daemon, without the app and the web UI, for servers [#293](https://github.com/tilesprivacy/tiles/pull/293)\r\n- Tilekit, the daemon's HTTP API for accounts, sessions, the agent, the inference server, models and engines [#196](https://github.com/tilesprivacy/tiles/pull/196)\r\n\r\n### Changed\r\n\r\n- Linux ships one tarball with the CPU build of llama.cpp, instead of one per GPU backend [#292](https://github.com/tilesprivacy/tiles/pull/292)\r\n- Every platform runs the same upstream llama.cpp release. `load_mode` replaces `no_mmap` in `config.toml` [#286](https://github.com/tilesprivacy/tiles/pull/286)\r\n- The menu bar is part of the desktop app, and the separate menu bar app is gone [#293](https://github.com/tilesprivacy/tiles/pull/293)\r\n- Routes that change something are POST and need a JSON content type, so websites can't call the daemon through the browser [#277](https://github.com/tilesprivacy/tiles/pull/277)\r\n\r\n### Removed\r\n\r\n- The gpt-oss and Qwen Modelfiles [#281](https://github.com/tilesprivacy/tiles/pull/281)\r\n\r\n### Fixed\r\n\r\n- Starting the inference server waits until it's ready, and stopping it waits until it has exited, so no server is left behind [#272](https://github.com/tilesprivacy/tiles/pull/272)\r\n- Chats are saved with the right model and account, and a failed save leaves no empty session [#271](https://github.com/tilesprivacy/tiles/pull/271) [#274](https://github.com/tilesprivacy/tiles/pull/274)\r\n\r\n### Security\r\n\r\n- Updated rustls-webpki, webpki-roots and certifi for the eMudhra CA compromise, plus rustls and h2 advisories [#279](https://github.com/tilesprivacy/tiles/pull/279)",
+    "prerelease": false,
+    "published_at": "2026-11-12T07:54:07Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.5.0",
+    "assets": [
+      {
+        "name": "checksums.txt",
+        "size": 99,
+        "digest": "sha256:cb217b3ee948c8d9724df31104f142701d5395b81e6ea803c85a370d1ae330be"
+      },
+      {
+        "name": "tiles-0.5.0-signed.pkg",
+        "size": 124982456,
+        "digest": "sha256:d780c525ede2c9793cf02bede8b3d4935bc780f6703c58d7cb235ef91b7843f2"
+      },
+      {
+        "name": "tiles-v0.5.0-arm64-darwin.tar.gz",
+        "size": 100342514,
+        "digest": "sha256:788bcb6c8c6a01b198a5a19e0251f6dd0001707c21b93393a02cd250cd6e2744"
+      },
+      {
+        "name": "tiles-v0.5.0-x86_64-linux.tar.gz",
+        "size": 116781191,
+        "digest": "sha256:2d4a01a98ad94062da10791eb828f6f2838bde4f252cd30bc25abc550ab70e65"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.19",
+    "name": "0.4.19",
+    "body": "### Added\r\n\r\n- `--mtp` flag for `tiles run` to enable/disable MTP speculative decoding (persists to `config.toml` like the other llama flags).\r\n\r\n- Model-load warnings from the inference server (e.g. MTP requested but no MTP head GGUF found) are now surfaced in the CLI as yellow `WARNING:` lines before the input prompt.\r\n\r\n### Changed\r\n\r\n- MTP speculative decoding is now opt-in: it no longer auto-enables when an MTP head GGUF is detected next to the model. Enable it with `mtp = true` under `[llama]` in `config.toml` or per-run with `tiles run --mtp`.\r\n\r\n### Fixed\r\n\r\n- Chances of installing multiple version of Tiles during `tiles update` [#194](https://github.com/tilesprivacy/tiles/pull/194)\r\n",
+    "prerelease": false,
+    "published_at": "2026-08-31T06:26:25Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.19",
+    "assets": [
+      {
+        "name": "checksums.txt",
+        "size": 212,
+        "digest": "sha256:3df34f10231a92ab1cdd891c19274b69985880e3c4cd7c0ba1a4404f27537e5c"
+      },
+      {
+        "name": "tiles-0.4.19-signed.pkg",
+        "size": 101271740,
+        "digest": "sha256:f270d0c5cfb0b1f93179fbb1978b2d3c2b398bf0eb508ec8cd86fc6766f84a34"
+      },
+      {
+        "name": "tiles-v0.4.19-arm64-darwin.tar.gz",
+        "size": 82529962,
+        "digest": "sha256:44f424d1a65015bb61f60d223647d3b7da49e1cb9bab1632e79229cc0cf0397c"
+      },
+      {
+        "name": "tiles-v0.4.19-x86_64-linux-cuda.tar.gz",
+        "size": 239259790,
+        "digest": "sha256:62fd8b3d7590e1ed464b6e6da2e3e17a2ae6737cf9cb7380f8037204378dd565"
+      },
+      {
+        "name": "tiles-v0.4.19-x86_64-linux-vulkan.tar.gz",
+        "size": 119766813,
+        "digest": "sha256:6c0458366c3aa49086161593ec744a30cc4e25616498fd5add486e63d8c7f066"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.18",
+    "name": "0.4.18",
+    "body": "## What's Changed\r\n\r\n### Added\r\n- Added Vulkan support for llama.cpp, enabling GPU acceleration beyond NVIDIA across vendors on Linux. [#189](https://github.com/tilesprivacy/tiles/pull/189)\r\n\r\n### Fixed\r\n\r\n- MTP was disabled due to a hardcoded symlink. [#187](https://github.com/tilesprivacy/tiles/pull/187)\r\n\r\n- (Linux) Tool calls were returning 422 errors due to incorrect types introduced by an openresponses-types version bump. [#188](https://github.com/tilesprivacy/tiles/pull/188)\r\n\r\n- OAuth callbacks sometimes failed during ATproto login because the child process used to open the browser did not resolve immediately. [#190](https://github.com/tilesprivacy/tiles/pull/190)\r\n\r\n@bruhfr29 FTW\r\n\r\n## New Contributors\r\n* @codelif made their first contribution in https://github.com/tilesprivacy/tiles/pull/187\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.17...0.4.18\r\n",
+    "prerelease": false,
+    "published_at": "2026-08-23T13:07:28Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.18",
+    "assets": [
+      {
+        "name": "checksums.txt",
+        "size": 212,
+        "digest": "sha256:356e84fbe83ca690639abe6f862c9b78a238b94bb46e57558310fe4d7b5c6669"
+      },
+      {
+        "name": "tiles-0.4.18-signed.pkg",
+        "size": 101241359,
+        "digest": "sha256:980d94b2bdfba1fe86efebafd10c49b1183c67180b51f5c150c19bcfa0d823c5"
+      },
+      {
+        "name": "tiles-v0.4.18-arm64-darwin.tar.gz",
+        "size": 82526426,
+        "digest": "sha256:ef8501fd09b0dfac7238df0975d9f183e710c996ed8b94a6d70edb75f57c7b59"
+      },
+      {
+        "name": "tiles-v0.4.18-x86_64-linux-cuda.tar.gz",
+        "size": 239450360,
+        "digest": "sha256:09f46681b693eaf575901526b7c2cc8a09da68ed759ee429ff8a7094180eea97"
+      },
+      {
+        "name": "tiles-v0.4.18-x86_64-linux-vulkan.tar.gz",
+        "size": 119748649,
+        "digest": "sha256:5bd3d7315be56bb815b0c74d68c3c631f8afe4059cf5d33a22c8b1b3b8f5488f"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.17",
+    "name": "0.4.17",
+    "body": "## What's Changed\r\n* remote-inference v0 by @madclaws in https://github.com/tilesprivacy/tiles/pull/182\r\n* Decouple Pi agent from repl by @madclaws in https://github.com/tilesprivacy/tiles/pull/183\r\n* LLama-server refactors by @PrimalPimmy in https://github.com/tilesprivacy/tiles/pull/181\r\n* chore: security patch upgrades by @madclaws in https://github.com/tilesprivacy/tiles/pull/184\r\n* Gemma 4 12b as default model along with auto enabling MTP if the model supports it by @PrimalPimmy in https://github.com/tilesprivacy/tiles/pull/185\r\n* Release 0.14.7 by @PrimalPimmy in https://github.com/tilesprivacy/tiles/pull/186\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.16...0.4.17",
+    "prerelease": false,
+    "published_at": "2026-08-18T05:51:03Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.17",
+    "assets": [
+      {
+        "name": "checksums.txt",
+        "size": 100,
+        "digest": "sha256:3443a55a64feaf3ee437dabda4c61b63352a06c014ce5221fa4c4711c6bd5957"
+      },
+      {
+        "name": "tiles-0.4.17-signed.pkg",
+        "size": 81688937,
+        "digest": "sha256:ee6bc2d5e9da122a2d417a24d29d994a5456d22d3881ad64425569cb8681bd57"
+      },
+      {
+        "name": "tiles-v0.4.17-arm64-darwin.tar.gz",
+        "size": 81585357,
+        "digest": "sha256:f8a8ed260f0022d4d2da5bbf778179a200ae6e952b0c30c880543b72848d5bce"
+      },
+      {
+        "name": "tiles-v0.4.17-x86_64-linux.tar.gz",
+        "size": 239410798,
+        "digest": "sha256:5040fb4c2d50b9e1c594277f214ca4081898a880f24dca578e6175b7c8dfe580"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.16",
+    "name": "0.4.16",
+    "body": "### Added\r\n\r\n- Peer-to-peer remote inference.\r\n- Inference now runs through llama-server across platforms.",
+    "prerelease": false,
+    "published_at": "2026-07-11T16:20:05Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.16",
+    "assets": [
+      {
+        "name": "tiles-0.4.16-signed.pkg",
+        "size": 79190138,
+        "digest": "sha256:0033a606c56a456ab8f6d26030480f27bc1fe88a53e5d634d97a1cbed0cc8a91"
+      },
+      {
+        "name": "tiles-v0.4.16-arm64-darwin.tar.gz",
+        "size": 79099766,
+        "digest": "sha256:3d17f9bf2290d5fb85c319879691791fbcf8703ed7039bad343765690fac3c3d"
+      },
+      {
+        "name": "tiles-v0.4.16-x86_64-linux.tar.gz",
+        "size": 174332089,
+        "digest": "sha256:08aa155f688aeeb28e9456caaff5c399baec2e719a70adf83eea43bee4881c8c"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.15",
+    "name": "0.4.15",
+    "body": "### Added\r\n\r\n- Added `tiles uninstall` command to uninstall tiles from the system [#173](https://github.com/tilesprivacy/tiles/pull/173)\r\n  - By default it will keep the user data folder and config.toml. If pass `--all` will do a complete cleanup.\r\n\r\n- Added ATproto lexicon support for the shared sessions. The lexicon for that can be found [here](https://lexicon.garden/lexicon/did:plc:mqmcsjuerbjhu65mpmvkcuw2/run.tiles.chat.sessionSnapshot) [#175](https://github.com/tilesprivacy/tiles/pull/175)\r\n\r\n### Fixed\r\n- Optimizations in ToolCalling by adding timeouts and removing recursive syscalls + preventing 422 errors in /v1/responses api [#174](https://github.com/tilesprivacy/tiles/pull/174).\r\n- Set Pi's compaction setting to false by default to prevent it interfering with prompt/response cycle [#174](https://github.com/tilesprivacy/tiles/pull/174).\r\n",
+    "prerelease": false,
+    "published_at": "2026-07-07T18:41:46Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.15",
+    "assets": [
+      {
+        "name": "tiles-0.4.15-signed.pkg",
+        "size": 97895105,
+        "digest": "sha256:5fc87c38c94f4b5bf3474d7a1dcb216646d9e47b353f0564b5043f093f9109af"
+      },
+      {
+        "name": "tiles-v0.4.15-arm64-darwin.tar.gz",
+        "size": 97772641,
+        "digest": "sha256:b7fad46dbe06b6e87bf73949dbabf0fbfc58502d44854360f8f6c484b0b89237"
+      },
+      {
+        "name": "tiles-v0.4.15-x86_64-linux.tar.gz",
+        "size": 1377833681,
+        "digest": "sha256:3687faf83af0b4fc00a559a3aad87185caeb3dab0c196611bae6a55214598140"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.14",
+    "name": "0.4.14",
+    "body": "### Added\r\n\r\n- Implemented Tiles plugin system [#171](https://github.com/tilesprivacy/tiles/pull/171).\r\n\r\n  - `tiles plugin install <url / filesystem-path>`, `tiles plugin uninstall <plugin-name>`, `tiles plugin list` (for installed plugins).\r\n    - Plugins should be a `.zip` or `.tar.gz` file either hosted or available in local filesystem.\r\n    ```markdown\r\n\r\n      ## Plugin folder structure\r\n\r\n      plugin_name\r\n        - extensions\r\n          - extension_1\r\n            - ...\r\n          - extension_2\r\n            - ...\r\n        - skills\r\n          - skill_1\r\n            - SKILLS.md\r\n      ```\r\n    - Added skills support via plugins\r\n      - In repl use `/skills` for list of skills and `$<skill-name>` to use the skill directly. Tiles can use available skills as needed too.\r\n\r\n### Changed\r\n\r\n- Upgraded project dependencies [#168](https://github.com/tilesprivacy/tiles/pull/168), [#170](https://github.com/tilesprivacy/tiles/pull/170).\r\n\r\n",
+    "prerelease": false,
+    "published_at": "2026-06-28T18:16:58Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.14",
+    "assets": [
+      {
+        "name": "tiles-0.4.14-signed.pkg",
+        "size": 97076543,
+        "digest": "sha256:e6c4bd0d2409f2f7be78d17573cd1e5f83f899d8cc9053f4f885023b4be82bba"
+      },
+      {
+        "name": "tiles-v0.4.14-arm64-darwin.tar.gz",
+        "size": 96975734,
+        "digest": "sha256:69c48b7ebb321acffb8bc04192c7e5d9304157d21eb9a4abe83ca386880e1ec1"
+      },
+      {
+        "name": "tiles-v0.4.14-x86_64-linux.tar.gz",
+        "size": 1295083328,
+        "digest": "sha256:269c888ff4fbb71ffdaefd95d6c1e8981665fec2a61a7fb798aee7533bc8c4f6"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.13",
+    "name": "0.4.13",
+    "body": "### Added\r\n- Added `tiles run` flags for llama.cpp tuning: `--context-length`, `--gpu-layers`, `--offload-kqv`, and `--batch-size` [#160](https://github.com/tilesprivacy/tiles/pull/160).\r\n- Added a daemon `/config` endpoint so the Python inference backend can read Rust-owned Tiles config [#160](https://github.com/tilesprivacy/tiles/pull/160).\r\n\r\n### Changed\r\n- Persist llama.cpp settings under `[llama]` in `config.toml` instead of using `TILES_LLAMA_CPP_*` environment variables [#160](https://github.com/tilesprivacy/tiles/pull/160).\r\n- Reload the Linux llama.cpp runner when llama configuration changes, even if the selected model path stays the same [#160](https://github.com/tilesprivacy/tiles/pull/160).\r\n- Reworked link command UX around `tiles link create`, `tiles link add`, `tiles link list-peers`, and `tiles link revoke`, with support for both offline link codes and UCAN tokens [#163](https://github.com/tilesprivacy/tiles/pull/163).\r\n- Renamed inference system controls  from `tiles inference` to `tiles server` with `start`, `stop`, and `daemon` subcommands [#163](https://github.com/tilesprivacy/tiles/pull/163).\r\n- Switched Harmony handling to `tiles-harmony` across active server manifests [#162](https://github.com/tilesprivacy/tiles/pull/162).\r\n\r\n### Fixed\r\n- Improved gpt-oss tool call handling by normalizing malformed tool names, passing tool metadata into Harmony conversation replay, and detecting tool calls emitted through the analysis channel [#162](https://github.com/tilesprivacy/tiles/pull/162).\r\n- Fixed tool-call streaming state handling so final answers and function-call arguments are emitted more reliably [#162](https://github.com/tilesprivacy/tiles/pull/162).\r\n- Improved dev Modelfile handling so `cargo run -- run modelfiles/gpt-oss-gguf` no longer depends on a pre-existing copied default Modelfile [#160](https://github.com/tilesprivacy/tiles/pull/160).\r\n",
+    "prerelease": false,
+    "published_at": "2026-06-19T18:37:35Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.13",
+    "assets": [
+      {
+        "name": "tiles-0.4.13-signed.pkg",
+        "size": 98120563,
+        "digest": "sha256:443fbb7dde2ec53fe34da0daf38ad18624edf267852158a393d0c8c1d7d5861c"
+      },
+      {
+        "name": "tiles-v0.4.13-arm64-darwin.tar.gz",
+        "size": 98027062,
+        "digest": "sha256:16d4db6a2f2c63540d8d71b9c82c7fbae1891b107524b2edbc820f11f067f2b1"
+      },
+      {
+        "name": "tiles-v0.4.13-x86_64-linux.tar.gz",
+        "size": 1294693799,
+        "digest": "sha256:9653b8ac30dcb37a32a04043dd5a911661fed4709e5c940f96282b3fa7809a36"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.12",
+    "name": "0.4.12",
+    "body": "## What's Changed\r\n### Added\r\n- Added full support for Linux. Model Inference(llama.cpp), keychain management, Installer etc by @PrimalPimmy [#138](https://github.com/tilesprivacy/tiles/pull/138).\r\n\r\n- Added UCAN based capability tokens for authorization in p2p syncing, thus replacing the need for synchronous peer linking [#154](https://github.com/tilesprivacy/tiles/pull/154)\r\n    - Added two new sub commands under `tiles link`. `tiles link create-token <DID>`, which creates a UCAN token for the DID. `tiles link add-token <token>`, adds a given UCAN token to local DB for further use in in syncing.\r\n\r\n### Changed\r\n- Changed `tiles server` command to `tiles inference` with a newly added sub-command `run-background` which takes a boolean value. If true, closing the Tiles repl won't close the inference [#156](https://github.com/tilesprivacy/tiles/pull/156), [#157](https://github.com/tilesprivacy/tiles/pull/157).\r\n- Added extra metadata regarding tool and the arguments used in a tool-call to the session records, thus can be seen in Tiles sessions hosted in ATproto PDS [#155](https://github.com/tilesprivacy/tiles/pull/155).\r\n\r\n\r\n## New Contributors\r\n* @PrimalPimmy made their first contribution in https://github.com/tilesprivacy/tiles/pull/138\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.11...0.4.12",
+    "prerelease": false,
+    "published_at": "2026-06-15T18:21:36Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.12",
+    "assets": [
+      {
+        "name": "tiles-0.4.12-signed.pkg",
+        "size": 98168419,
+        "digest": "sha256:5f3ba62585447c0df28ce2997cc055d6402b0efc7bd847185f72d40fd508228d"
+      },
+      {
+        "name": "tiles-v0.4.12-arm64-darwin.tar.gz",
+        "size": 98073363,
+        "digest": "sha256:76424fa21541508c71451e9d1fc18cce8b29ad609cd8fd9bf4f3c37aff99d425"
+      },
+      {
+        "name": "tiles-v0.4.12-x86_64-linux.tar.gz",
+        "size": 1294650970,
+        "digest": "sha256:355beebec700e17ca96bbe317e458813690eb02305220c4e34ea9c003a891f9d"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.11",
+    "name": "0.4.11",
+    "body": "### Added\r\n- New repl command `/reasoning` to switch reasoning effort on the fly [#150](https://github.com/tilesprivacy/tiles/pull/150), [#153](https://github.com/tilesprivacy/tiles/pull/153).\r\n  - eg: `/reasoning low` - sets effort to low. Other options are medium, high\r\n\r\n### Fixed\r\n- Broken repl behaviour on SIGINT (ctr-c) [#152](https://github.com/tilesprivacy/tiles/pull/152).\r\n\r\n### Changed\r\n- Using the tool_call name model gives, instead of figuring out from the tool_call arguments [#151](https://github.com/tilesprivacy/tiles/pull/151).\r\n",
+    "prerelease": false,
+    "published_at": "2026-06-07T14:05:23Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.11",
+    "assets": [
+      {
+        "name": "tiles-0.4.11-signed.pkg",
+        "size": 100523647,
+        "digest": "sha256:9b68d642caf589fd9eafaae95929e5623eb361964b029971a89b66eb1eaed2d1"
+      },
+      {
+        "name": "tiles-v0.4.11-arm64-darwin.tar.gz",
+        "size": 100425655,
+        "digest": "sha256:58df630086d320bdf06f5b370ace3ea38c07a2017c2bdf436daf25b6ff2c6fbe"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.10",
+    "name": "0.4.10",
+    "body": "Enjoy this release's changelog as a Tiles session [here](https://www.tiles.run/share/YXQ6Ly9kaWQ6cGxjOm1iazZ3Z214aWF0b3R6eTViM3E1N25hdy9ydW4udGlsZXMuc2Vzc2lvbi8zbW41ZGx3bnQ2NzJ4)\r\n\r\n## What's Changed\r\n### Added\r\n- Implemented Tool calls [#144](https://github.com/tilesprivacy/tiles/pull/144)\r\n  - Support READ, WRITE, BASH, EDIT by default\r\n\r\n### Fixed\r\n\r\n- Handling the DNS resolver err and showing freindly user msg [#143](https://github.com/tilesprivacy/tiles/pull/143)\r\n\r\n### Changed\r\n\r\n- Major refactor related to Inference and REPL [#140](https://github.com/tilesprivacy/tiles/pull/140)",
+    "prerelease": false,
+    "published_at": "2026-05-31T10:40:13Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.10",
+    "assets": [
+      {
+        "name": "tiles-0.4.10-signed.pkg",
+        "size": 100534354,
+        "digest": "sha256:9dd2177edd6a166c218971df737a586a1909ef55deffae91435da4164406dd9b"
+      },
+      {
+        "name": "tiles-v0.4.10-arm64-darwin.tar.gz",
+        "size": 100437978,
+        "digest": "sha256:8bc430e000e9d7da0cefbbf5d6956a588d0a45437f4c7fc919385bee28009b56"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.9",
+    "name": "0.4.9",
+    "body": "## What's Changed\r\n\r\n### Added\r\n\r\n- Added encrypted session sharing over ATProto [#141](https://github.com/tilesprivacy/tiles/pull/141)\r\n    - Use the same `/share` command, but Tiles will ask for public or private sharing.\r\n  \r\n### Changed\r\n- Routine refactoring and error handling [#139](https://github.com/tilesprivacy/tiles/pull/139)\r\n\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.8...0.4.9",
+    "prerelease": false,
+    "published_at": "2026-05-22T11:57:19Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.9",
+    "assets": [
+      {
+        "name": "tiles-0.4.9-signed.pkg",
+        "size": 100496346,
+        "digest": "sha256:603eb7d5177d4b074e04b19fd72fcfb34777b1e93ee32b4f5e01d5167d196237"
+      },
+      {
+        "name": "tiles-v0.4.9-arm64-darwin.tar.gz",
+        "size": 100418818,
+        "digest": "sha256:d3f8a9dbed4ef2a0e38d31a9921822afba1bdefd6851fb8ecc6425ebb745351f"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.8",
+    "name": "0.4.8",
+    "body": "## What's Changed\r\n\r\n## Added\r\n- Integrated Pi as the agent harness via RPC embedding [#126](https://github.com/tilesprivacy/tiles/pull/126)\r\n\r\n- Added sessions feature [#126](https://github.com/tilesprivacy/tiles/pull/126)\r\n\r\n- Added ATProto login [#129](https://github.com/tilesprivacy/tiles/pull/129)\r\n  - `tiles at login <handle>`\r\n  - `tiles at logout`\r\n\r\n- Added slash commands for session management [#132](https://github.com/tilesprivacy/tiles/pull/132)\r\n  - `/sessions` — List sessions\r\n  - `/share` — Share the current session by writing to the PDS\r\n  - `/share <sessionId>` — Share a specific session by writing to the PDS\r\n  - `/resume <sessionId>` — Load and continue a specific session\r\n\r\n- Added `/status` slash command to show the current session status [#134](https://github.com/tilesprivacy/tiles/pull/134)\r\n\r\n## Changed\r\n- Multiple UI/UX improvements and refactoring in:\r\n  - [#127](https://github.com/tilesprivacy/tiles/pull/127)\r\n  - [#131](https://github.com/tilesprivacy/tiles/pull/131)\r\n  - [#133](https://github.com/tilesprivacy/tiles/pull/133)\r\n  - [#135](https://github.com/tilesprivacy/tiles/pull/135)\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.7...0.4.8",
+    "prerelease": false,
+    "published_at": "2026-05-01T08:21:47Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.8",
+    "assets": [
+      {
+        "name": "tiles-0.4.8-signed.pkg",
+        "size": 100844810,
+        "digest": "sha256:265096cd1ce0b2e475c089aacbdb6f84139e42f3be4a6e48a453d746c3b2fe70"
+      },
+      {
+        "name": "tiles-v0.4.8-arm64-darwin.tar.gz",
+        "size": 100774057,
+        "digest": "sha256:c714a0615d62cb7c6ba4f7f445422c28568841df33f57f4f1de030a04b9ebcfb"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.7",
+    "name": "0.4.7",
+    "body": "## What's Changed\r\n\r\n### Fixed\r\n- Fixed config and user directory empty issue during initial db connection in https://github.com/tilesprivacy/tiles/pull/114\r\n- Fixed  model download not resuming for partial downloads in https://github.com/tilesprivacy/tiles/pull/115\r\n\r\n### Changed\r\n\r\n* Health command upgrade and other QOL changes in https://github.com/tilesprivacy/tiles/pull/116\r\n* Sync process now auto-exits after syncing and added code signing for the Tiles tarball binary https://github.com/tilesprivacy/tiles/pull/117\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.6...0.4.7",
+    "prerelease": false,
+    "published_at": "2026-04-05T17:42:13Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.7",
+    "assets": [
+      {
+        "name": "tiles-0.4.7-signed.pkg",
+        "size": 71040022,
+        "digest": "sha256:2c17999f25d34d78a9e4e21100d8ebdb8daf15fe375a2a10ec8c6f27c2195d9b"
+      },
+      {
+        "name": "tiles-v0.4.7-arm64-darwin.tar.gz",
+        "size": 71015694,
+        "digest": "sha256:20bc824496f45bc17e601fb6c9bbf181aebd16c9fb437b9eb6bd720015468684"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.6",
+    "name": "0.4.6",
+    "body": "## What's Changed\r\n\r\n### Added\r\n- Added P2P chat sync in [#109](https://github.com/tilesprivacy/tiles/pull/109)\r\n  - Commands for chat syncing\r\n    - `tiles sync` - Starts listening for a sync request from the linked peers.\r\n    - `tiles sync <DID>` - Initiates the syncing with the peer using the peer's linked DID (which one can get from `tiles link list-peers`).\r\n- Added at rest encryption for local databases in [#110](https://github.com/tilesprivacy/tiles/pull/110)\r\n\r\n### Fixed\r\n- Fixed the loading issue of qwen 3.5 series in [#111](https://github.com/tilesprivacy/tiles/pull/111)",
+    "prerelease": false,
+    "published_at": "2026-03-29T21:24:08Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.6",
+    "assets": [
+      {
+        "name": "tiles-0.4.6-signed.pkg",
+        "size": 113114386,
+        "digest": "sha256:9129a9d809e138c8c39ad31c07da4e31e4b92ff5a48dc75b7d53f414dfc5c073"
+      },
+      {
+        "name": "tiles-v0.4.6-arm64-darwin.tar.gz",
+        "size": 113085348,
+        "digest": "sha256:07bcedf7d64f0890c3a6a9862889229500932fe58334781f047d2bdede604866"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.5",
+    "name": "0.4.5",
+    "body": "## What's Changed\r\n\r\n### Added\r\n- Added P2P device linking v1 in [#106](https://github.com/tilesprivacy/tiles/pull/106).\r\n  - Works both online and offline networks\r\n  - Utility Commands for device linking\r\n    - `tiles link enable` - creates the ticket and listens for any link requests\r\n    - `tiles link enable <ticket>`- Device that need to join will run this command with the ticket from the sender. **NOTE**: The ticket sharing is out-of-band.\r\n    - `tiles link list-peers` - Shows the info (DID, nickname etc) of the linked devices.\r\n    - `tiles link disable <DID>` - Unlinks a linked device \r\n\r\n### Fixed\r\n- Fixed the permission issues while trying to update Tiles using `tiles update` in [#104](https://github.com/tilesprivacy/tiles/pull/104). This was due to new binary location is in `/usr/` instead of `~/.local/`. Running the internal script with `sudo` fixed it.",
+    "prerelease": false,
+    "published_at": "2026-03-22T23:45:00Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.5",
+    "assets": [
+      {
+        "name": "tiles-0.4.5-signed.pkg",
+        "size": 95508571,
+        "digest": "sha256:8d35c02c085de2fee728f81be2fb1a6c44b9cc5aa5c9d63f7656fe434cd03c11"
+      },
+      {
+        "name": "tiles-v0.4.5-arm64-darwin.tar.gz",
+        "size": 95482753,
+        "digest": "sha256:e95b318952b168497a814a15021af07c2a821d070b0fbccc5d7f02c724a1a048"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.4",
+    "name": "0.4.4",
+    "body": "## What's Changed\r\n\r\n### Added\r\n\r\n- Added a core daemon process which will be useful for handling background processes in https://github.com/tilesprivacy/tiles/pull/102.\r\n    - Use `tiles daemon stop` and `tiles daemon start` for starting and stopping the daemon explicitly.\r\n **NOTE**: daemon will auto-start when you run `tiles`.\r\n- Added support for fully offline/portable installer in https://github.com/tilesprivacy/tiles/pull/97\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.3...0.4.4",
+    "prerelease": false,
+    "published_at": "2026-03-15T23:45:33Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.4",
+    "assets": [
+      {
+        "name": "tiles-0.4.4-signed.pkg",
+        "size": 80798815,
+        "digest": "sha256:a783b5e563c6727be8704c82ecaf50d4f4056fcb016e709024aedc63f25c952f"
+      },
+      {
+        "name": "tiles-v0.4.4-arm64-darwin.tar.gz",
+        "size": 80772110,
+        "digest": "sha256:b2717bbd1ee55d2e399da1372b962a298597cc5fe8f9048ddd8ad08bc7c03a6e"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.3",
+    "name": "0.4.3",
+    "body": "## What's Changed\r\n\r\n### Added\r\n- Chats are now persisted using sqlite underneath by @madclaws in https://github.com/tilesprivacy/tiles/pull/94\r\n- Release artifacts will have .pkg bundle too for easy installs by @madclaws in https://github.com/tilesprivacy/tiles/pull/96\r\n    - NOTE: remove the old tiles binary from `/.local/bin` if its there, as newer installation path is `/usr/local/bin`\r\n### Changed\r\n-  Inference enhancements by @madclaws in https://github.com/tilesprivacy/tiles/pull/95\r\n   - Support for non-harmony response models\r\n   - Supports turn conversation with the model\r\n### Fixed\r\n- fixed venvstack generating multiple app-server tar on build by @madclaws in https://github.com/tilesprivacy/tiles/pull/93\r\n\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.2...0.4.3",
+    "prerelease": false,
+    "published_at": "2026-03-08T18:14:30Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.3",
+    "assets": [
+      {
+        "name": "tiles-0.4.3-signed.pkg",
+        "size": 79153404,
+        "digest": "sha256:e972bddfc063818f4c08a42eccf32ab33d9145b1c267404d9c233c51b86dd2d3"
+      },
+      {
+        "name": "tiles-v0.4.3-arm64-darwin.tar.gz",
+        "size": 79128686,
+        "digest": "sha256:835d8fecec6643dda541167bd45e7e071c954c4010d32ed76c7ea7ae77126701"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.2",
+    "name": "0.4.2",
+    "body": "## What's Changed\r\n## [0.4.2] - 2026-03-01\r\n### Added\r\n- Added FTUE changes for account setup in https://github.com/tilesprivacy/tiles/pull/88\r\n- Added OTA updater in https://github.com/tilesprivacy/tiles/pull/89\r\n  - Supports auto update checking and installing\r\n  - Use `tiles update` for updating Tiles CLI manually\r\n\r\n### Changed\r\n- Integrated Harmony renderer for gpt-oss model in https://github.com/tilesprivacy/tiles/pull/92\r\n\r\n### Fixed\r\n- fix: Added path unavailability warning during installation in https://github.com/tilesprivacy/tiles/pull/90\r\n- coverage patch-1 in https://github.com/tilesprivacy/tiles/pull/91\r\n\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.1...0.4.2",
+    "prerelease": false,
+    "published_at": "2026-03-01T18:41:50Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.2",
+    "assets": [
+      {
+        "name": "tiles-v0.4.2-arm64-darwin.tar.gz",
+        "size": 77834855,
+        "digest": "sha256:30f4d2435917716857147b7dcf8e1b9301ba10a0ba8b0b4695a17553b9d51869"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.1",
+    "name": "0.4.1",
+    "body": "## What's Changed\r\n* Basic Identity system for Tiles by @madclaws in https://github.com/tilesprivacy/tiles/pull/87\r\n    - `tiles account` - shows the account details from toml\r\n    - `tiles account create <nickname>` - Creates root identity and add nickname(optional)\r\n    - `tiles account set-nickname` - set nickname to the root identity\r\n* feat: update CLI to add default tiles command by @feynon in https://github.com/tilesprivacy/tiles/pull/85\r\n\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.4.0...0.4.1",
+    "prerelease": false,
+    "published_at": "2026-02-22T15:48:42Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.1",
+    "assets": [
+      {
+        "name": "tiles-v0.4.1-arm64-darwin.tar.gz",
+        "size": 75734749,
+        "digest": "sha256:55d2766505f7203cb9a04d0ee2b12000a259c7bddad75cbfb153a638df75da4a"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.4.0",
+    "name": "0.4.0",
+    "body": "## What's Changed\r\n\r\n### Tiles 0.4.0\r\n* Implemented a portable Python runtime in the installer by @madclaws in https://github.com/tilesprivacy/tiles/pull/75  \r\n  * Tiles can now be installed without any system Python or other system dependencies.\r\n* Bundled default Modelfiles and now read the system prompt directly from the Modelfile by @madclaws in https://github.com/tilesprivacy/tiles/pull/76\r\n  * Default Modelfiles are bundled directly with the Tiles installer.\r\n* **feat:** Added support for gpt-oss-20b in interactive chat by @madclaws in https://github.com/tilesprivacy/tiles/pull/79  \r\n  * gpt-oss-20b is supported and used as the default model for non-memory chat.\r\n* Added basic support for the Open Responses API (`/v1/responses`) and REST endpoints by @madclaws in https://github.com/tilesprivacy/tiles/pull/82.\r\n* Added token metrics for model responses in the REPL.\r\n* Added the `-m` flag to `tiles run` to execute Tiles in memory mode. This is an experimental feature.\r\n\r\n### Tilekit 0.2.0\r\n* **feat:** Added the `optimize` subcommand for automatic SYSTEM prompt optimization using DSRs (#45) by @bxff in https://github.com/tilesprivacy/tiles/pull/61  \r\n  * `tiles optimize <Modelfile>` updates the Modelfile’s system prompt using server based LLMs as optimizer models.\r\n\r\n## New Contributors\r\n* @bxff made their first contribution in https://github.com/tilesprivacy/tiles/pull/61\r\n\r\n**Full Changelog:** https://github.com/tilesprivacy/tiles/compare/0.3.1...0.4.0",
+    "prerelease": false,
+    "published_at": "2026-02-04T12:56:13Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.4.0",
+    "assets": [
+      {
+        "name": "tiles-v0.4.0-arm64-darwin.tar.gz",
+        "size": 73960109,
+        "digest": "sha256:752892c3a9ca23ba4bb5dfa87c85151cfec40e542c7f1ebefff61269deb65ee5"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.3.1",
+    "name": "0.3.1",
+    "body": "## What's Changed\r\n* Added `--relay-count` or `-r` flag to `tiles run` command by @kshitijgetsac in https://github.com/tilesprivacy/tiles/pull/35\r\n    - Useful if model get stuck while chatting.\r\n* CLI now shows progress status while downloading models by @madclaws in https://github.com/tilesprivacy/tiles/pull/38\r\n* Add slash commands and placeholder hint to REPL by @kshitijgetsac in https://github.com/tilesprivacy/tiles/pull/42\r\n* Added ability to set custom memory location by @madclaws in https://github.com/tilesprivacy/tiles/pull/40\r\n    - Use `tiles memory set-path <PATH>` anytime to change the memory location\r\n    - Will ask for the custom location on `tiles run` first time.\r\n* Minor refactoring by @madclaws in https://github.com/tilesprivacy/tiles/pull/46\r\n\r\n## New Contributors\r\n* @kshitijgetsac made their first contribution in https://github.com/tilesprivacy/tiles/pull/35\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.3.0...0.3.1",
+    "prerelease": false,
+    "published_at": "2026-01-09T21:09:07Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.3.1",
+    "assets": [
+      {
+        "name": "tiles-v0.3.1-arm64-darwin.tar.gz",
+        "size": 2292249,
+        "digest": "sha256:f3d42dd1cb5b74feec458bbfc1663d2461a13e76b073067b8cd1fdfb9efb6438"
+      }
+    ]
+  },
+  {
+    "tag_name": "0.3.0",
+    "name": "0.3.0",
+    "body": "## What's Changed\r\n### Tiles CLI\r\n- fix: tiles binary server startup issue, if binary executed from directory other than the project directory .\r\n- fix: Model not getting unloaded after exiting REPL.\r\n\r\n### Dev\r\n\r\n* fix:  py version to 3.13 for development by @madclaws in https://github.com/tilesprivacy/tiles/pull/32\r\n* Linux compatibility by @madclaws in https://github.com/tilesprivacy/tiles/pull/30\r\n    - Dev version works in Linux, enabling local model inference experiments there.\r\n* Basic refactoring wrto multiple runtime supports [89dbebf](https://github.com/tilesprivacy/tiles/commit/89dbebf83b7eb76c723fd1272b6c9c42bf99829d)\r\n\r\n**Full Changelog**: https://github.com/tilesprivacy/tiles/compare/0.2.0...0.3.0",
+    "prerelease": false,
+    "published_at": "2026-01-06T07:55:20Z",
+    "html_url": "https://github.com/tilesprivacy/tiles/releases/tag/0.3.0",
+    "assets": [
+      {
+        "name": "tiles-v0.3.0-arm64-darwin.tar.gz",
+        "size": 1731990,
+        "digest": "sha256:b7a65d5b5fda6d22bb5d788b7d9d03fb4c73e82402b917bcc01ac1013fb29521"
+      }
+    ]
+  }
+]

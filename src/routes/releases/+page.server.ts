@@ -8,7 +8,7 @@ import { normalizeReleaseVersion } from "#lib/release-visibility"
 import type { PageServerLoad } from "./$types"
 
 // Live from GitHub on each request; fetchReleases falls back to the
-// hand-written notes when the API is unavailable.
+// saved release data when the API is unavailable.
 export const prerender = false
 
 export const load: PageServerLoad = async ({ setHeaders }) => {
@@ -20,11 +20,14 @@ export const load: PageServerLoad = async ({ setHeaders }) => {
 
   try {
     // The hand-written copy only applies to the release it was written for.
-    releases = (await fetchReleases()).map((release) =>
-      normalizeReleaseVersion(release.version) === LATEST_RELEASE_VERSION
-        ? { ...release, title: LATEST_RELEASE_TITLE, sections: LATEST_RELEASE_SECTIONS }
-        : release,
-    )
+    releases = (await fetchReleases())
+      // Its notes are included in 0.5.1.
+      .filter((release) => normalizeReleaseVersion(release.version) !== "0.5.0")
+      .map((release) =>
+        normalizeReleaseVersion(release.version) === LATEST_RELEASE_VERSION
+          ? { ...release, title: LATEST_RELEASE_TITLE, sections: LATEST_RELEASE_SECTIONS }
+          : release,
+      )
   } catch {
     error = "Failed to load releases. Please try again later."
   }

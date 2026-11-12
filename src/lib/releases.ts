@@ -2,6 +2,7 @@ import { fetchGithubJson } from "#lib/github-json"
 import { FALLBACK_DOWNLOAD_VERSION } from "#lib/download-artifact"
 import { OFFLINE_INSTALLER } from "#lib/download-page-data"
 import { normalizeReleaseVersion } from "#lib/release-visibility"
+import fallbackReleases from "#lib/releases-fallback.json"
 
 export interface ChangeItem {
   text: string
@@ -42,6 +43,12 @@ export interface ReleaseInstaller {
 }
 
 const customFullInstallers: Record<string, ReleaseInstaller> = {
+  "0.5.0": {
+    name: "tiles-0.5.0-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.5.0-full-signed.pkg",
+    sizeBytes: 7539078982,
+    sha256: "Unavailable",
+  },
   "0.4.4": {
     name: "tiles-0.4.4-full-signed.pkg",
     url: "https://download.tiles.run/tiles-0.4.4-full-signed.pkg",
@@ -85,6 +92,12 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
     sizeBytes: 11070278205,
     sha256: "25d27f6284c67a0818746ef118d57951bded5cb98819754b608eea56ecb",
   },
+  "0.4.17": {
+    name: "tiles-0.4.17-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.4.17-full-signed.pkg",
+    sizeBytes: 7_536_225_216,
+    sha256: "bdf9dc950ed40695ef5434776d7a757cff902d9fc5c6961ee301eadf004ce7e9",
+  },
   [OFFLINE_INSTALLER.version]: {
     name: OFFLINE_INSTALLER.fileName,
     url: OFFLINE_INSTALLER.downloadUrl,
@@ -95,6 +108,99 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
 
 // Custom changes to supplement or override GitHub release data
 const customSections: Record<string, ChangeSection[]> = {
+  "0.5.1": [
+    {
+      title: "Added",
+      changes: [
+        {
+          text: "The Tiles desktop app for macOS and Linux: the chat window, with the menu bar on a Mac and a tray on Linux. `tiles ui` opens it, or the web UI in the browser when there's no app or display",
+        },
+        {
+          text: "A web UI the daemon serves at `http://127.0.0.1:1730`, to chat, download and pick models, and switch the llama.cpp engine",
+        },
+        {
+          text: "Link your devices and sync chats between them. A linked device can be dialed by its nickname as well as its DID",
+        },
+        {
+          text: "Sign in with an ATmosphere account. Sign-in shows its progress and gives up after five minutes",
+        },
+        {
+          text: "Old chats can be continued, also after Tiles restarts",
+        },
+        {
+          text: "Tiles finds the GPU and downloads the llama.cpp build for it the first time a model runs. `tiles run` asks once before downloading",
+        },
+        {
+          text: "Model downloads resume after a pause or a crash, and each file's SHA-256 is checked",
+        },
+        {
+          text: "Pick the model chats use, and delete downloaded models, including the one in use after unloading it",
+        },
+        {
+          text: "Gemma 4 E2B, E4B, 26B-A4B and 31B, next to the default Gemma 4 12B",
+        },
+        {
+          text: "Keep the Mac awake, also with the lid closed",
+        },
+        {
+          text: "`tiles service install` starts the daemon at login",
+        },
+        {
+          text: "`install.sh --headless` installs only the daemon, without the app and the web UI, for servers",
+        },
+        {
+          text: "Tilekit, the daemon's HTTP API for accounts, sessions, the agent, the inference server, models and engines",
+        },
+      ],
+    },
+    {
+      title: "Changed",
+      changes: [
+        {
+          text: "Automatic model downloads the appropriate llama.cpp GPU build when missing, including after a reinstall",
+        },
+        {
+          text: "Linux ships one tarball with the CPU build of llama.cpp, instead of one per GPU backend",
+        },
+        {
+          text: "Every platform runs the same upstream llama.cpp release. `load_mode` replaces `no_mmap` in `config.toml`",
+        },
+        {
+          text: "The menu bar is part of the desktop app, and the separate menu bar app is gone",
+        },
+        {
+          text: "Routes that change something are POST and need a JSON content type, so websites can't call the daemon through the browser",
+        },
+      ],
+    },
+    {
+      title: "Removed",
+      changes: [
+        {
+          text: "The gpt-oss and Qwen Modelfiles",
+        },
+      ],
+    },
+    {
+      title: "Fixed",
+      changes: [
+        {
+          text: "Starting the inference server waits until it's ready, and stopping it waits until it has exited, so no server is left behind",
+        },
+        {
+          text: "Chats are saved with the right model and account, and a failed save leaves no empty session",
+        },
+      ],
+    },
+    {
+      title: "Security",
+      changes: [
+        {
+          text: "Updated rustls-webpki, webpki-roots and certifi for the eMudhra CA compromise, plus rustls and h2 advisories",
+        },
+      ],
+    },
+  ],
   "0.4.19": [
     {
       title: "Added",
@@ -466,6 +572,8 @@ plugin_name
 
 // Override release titles when GitHub release names are not user-facing labels
 const customTitles: Record<string, string> = {
+  "0.5.1": "Alpha 24",
+  "0.5.0": "Alpha 24",
   "0.4.19": "Alpha 23",
   "0.4.18": "Alpha 22",
   "0.4.17": "Alpha 21",
@@ -605,20 +713,9 @@ function extractCompareUrl(body: string): string | undefined {
   return body.match(/\[([^\]]+)\]\((https:\/\/github\.com\/[^/]+\/[^/]+\/compare\/[^)]+)\)/)?.[2]
 }
 
-/** Hand-written notes only, for when GitHub can't be reached. */
+/** Keep notes and downloads available when GitHub is unreachable or rate-limited. */
 function buildOfflineReleases(): Release[] {
-  return Object.keys(customSections)
-    .sort((a, b) => compareVersions(b, a))
-    .map((version) => ({
-      version,
-      date: "",
-      title: customTitles[version] ?? version,
-      sections: customSections[version],
-      isPrerelease: false,
-      githubUrl: `https://github.com/tilesprivacy/tiles/releases/tag/${version}`,
-      tarballs: [],
-      fullInstaller: customFullInstallers[version],
-    }))
+  return publishedNewestFirst(toGithubReleases(fallbackReleases)).map(toRelease)
 }
 
 function toRelease(release: GithubRelease): Release {

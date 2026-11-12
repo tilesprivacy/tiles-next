@@ -85,11 +85,13 @@
   }
 
   const networkInstallerReleaseLabel = $derived(
-    initialDownload?.version === LATEST_RELEASE_VERSION
-      ? LATEST_RELEASE_TITLE
-      : initialDownload?.version
-        ? `Version ${initialDownload.version}`
-        : null,
+    initialDownload?.version === OFFLINE_INSTALLER.version
+      ? OFFLINE_INSTALLER.releaseTitle
+      : initialDownload?.version === LATEST_RELEASE_VERSION
+        ? LATEST_RELEASE_TITLE
+        : initialDownload?.version
+          ? `Version ${initialDownload.version}`
+          : null,
   )
 </script>
 
@@ -106,14 +108,31 @@
     <article class="minimal-inner-content">
       <header class="minimal-page-intro">
         <h1>Download Tiles</h1>
-        <p>Public alpha for macOS and Linux.</p>
+        <p class="minimal-download-lead">Public alpha for macOS and Linux.</p>
+        <div class="minimal-download-detail">
+          <p>Canary version includes experimental support for Agent plugins.</p>
+          {#if SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE}
+            <p>
+              The offline installer is ideal for computers that cannot connect
+              to the internet or operate in air-gapped environments. It is
+              also useful for installing Tiles across a large number of
+              computers at once. It includes the default
+              <span class="minimal-model-label"
+                ><img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width="15" height="15" loading="lazy" /><a
+                  href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
+                  target="_blank"
+                  rel="noopener noreferrer">gemma-4-12b-it-GGUF</a
+                ></span
+              >
+              model for fully offline use.{#if initialDownload?.version && initialDownload.version !== OFFLINE_INSTALLER.version}{" "}Offline installer builds aren't published for every
+                release, whereas network installers always fetch the latest
+                version available.{/if}
+            </p>
+          {/if}
+        </div>
       </header>
 
       <section class="minimal-download-platform" aria-labelledby="macos-heading">
-        <p class="minimal-download-detail mb-6">
-          The network and offline installers include only the CLI. The Canary
-          version includes a desktop app and a menu bar app.
-        </p>
         <h2 id="macos-heading">
           <FaApple class="minimal-download-platform-icon" aria-hidden="true" />macOS
         </h2>
@@ -148,24 +167,6 @@
           {/if}
           <CanaryDownloadAction release={canaryRelease} />
         </div>
-        {#if SHOW_OFFLINE_INSTALLER_ON_DOWNLOAD_PAGE}
-          <p class="minimal-download-detail">
-            The offline installer is ideal for computers that cannot connect
-            to the internet or operate in air-gapped environments. It is
-            also useful for installing Tiles across a large number of
-            computers at once. It includes the default
-            <span class="minimal-model-label"
-              ><img src="https://ai.google.dev/gemma/images/gemma_sq.png" alt="Gemma logo" width="15" height="15" loading="lazy" /><a
-                href="https://huggingface.co/unsloth/gemma-4-12b-it-GGUF"
-                target="_blank"
-                rel="noopener noreferrer">gemma-4-12b-it-GGUF</a
-              ></span
-            >
-            model for fully offline use.{#if initialDownload?.version && initialDownload.version !== OFFLINE_INSTALLER.version}{" "}Offline installer builds aren't published for every
-              release, whereas network installers always fetch the latest
-              version available.{/if}
-          </p>
-        {/if}
       </section>
 
       <section class="minimal-download-platform" aria-labelledby="linux-heading">
