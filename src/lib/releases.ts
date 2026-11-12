@@ -43,12 +43,6 @@ export interface ReleaseInstaller {
 }
 
 const customFullInstallers: Record<string, ReleaseInstaller> = {
-  "0.5.1": {
-    name: "tiles-0.5.1-full-signed.pkg",
-    url: "https://download.tiles.run/tiles-0.5.1-full-signed.pkg",
-    sizeBytes: 7539555979,
-    sha256: "be1082adf335a45349f326e63d51dee79a4773d796e53e18fa62fb86593d0d2a",
-  },
   "0.5.0": {
     name: "tiles-0.5.0-full-signed.pkg",
     url: "https://download.tiles.run/tiles-0.5.0-full-signed.pkg",
@@ -97,6 +91,12 @@ const customFullInstallers: Record<string, ReleaseInstaller> = {
     url: "https://download.tiles.run/tiles-0.4.16-full-signed.pkg",
     sizeBytes: 11070278205,
     sha256: "25d27f6284c67a0818746ef118d57951bded5cb98819754b608eea56ecb",
+  },
+  "0.4.17": {
+    name: "tiles-0.4.17-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.4.17-full-signed.pkg",
+    sizeBytes: 7_536_225_216,
+    sha256: "bdf9dc950ed40695ef5434776d7a757cff902d9fc5c6961ee301eadf004ce7e9",
   },
   [OFFLINE_INSTALLER.version]: {
     name: OFFLINE_INSTALLER.fileName,

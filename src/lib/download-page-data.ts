@@ -11,13 +11,13 @@ export const CANARY_FALLBACK_DOWNLOAD = {
 export const OFFLINE_MODEL_NAME = "gpt-oss-20b-MXFP4-Q4"
 
 export const OFFLINE_INSTALLER = {
-  version: "0.4.17",
-  releaseTitle: "Alpha 21",
-  downloadUrl: "https://download.tiles.run/tiles-0.4.17-full-signed.pkg",
-  fileName: "tiles-0.4.17-full-signed.pkg",
-  binarySizeBytes: 7_536_225_216,
+  version: "0.5.1",
+  releaseTitle: "Alpha 24",
+  downloadUrl: "https://download.tiles.run/tiles-0.5.1-full-signed.pkg",
+  fileName: "tiles-0.5.1-full-signed.pkg",
+  binarySizeBytes: 7_539_555_979,
   binarySizeLabel: "7.02 GB",
-  sha256: "bdf9dc950ed40695ef5434776d7a757cff902d9fc5c6961ee301eadf004ce7e9",
+  sha256: "be1082adf335a45349f326e63d51dee79a4773d796e53e18fa62fb86593d0d2a",
 } as const
 
 export const LINUX_INSTALL_SCRIPT_URL = "https://tiles.run/install.sh" as const

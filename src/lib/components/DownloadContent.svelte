@@ -85,11 +85,13 @@
   }
 
   const networkInstallerReleaseLabel = $derived(
-    initialDownload?.version === LATEST_RELEASE_VERSION
-      ? LATEST_RELEASE_TITLE
-      : initialDownload?.version
-        ? `Version ${initialDownload.version}`
-        : null,
+    initialDownload?.version === OFFLINE_INSTALLER.version
+      ? OFFLINE_INSTALLER.releaseTitle
+      : initialDownload?.version === LATEST_RELEASE_VERSION
+        ? LATEST_RELEASE_TITLE
+        : initialDownload?.version
+          ? `Version ${initialDownload.version}`
+          : null,
   )
 </script>
 
