@@ -8,9 +8,10 @@ export function formatBinarySize(
     return unknownLabel
   }
 
-  const kb = bytes / 1024
-  const mb = kb / 1024
-  const gb = mb / 1024
+  // Decimal units match the KB, MB and GB labels shown on download pages.
+  const kb = bytes / 1000
+  const mb = kb / 1000
+  const gb = mb / 1000
 
   if (gb >= 1) {
     return `${gb.toFixed(2)} GB`

@@ -15,13 +15,14 @@ const GITHUB_RELEASES_LATEST_URL =
   "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
 export const FALLBACK_DOWNLOAD_VERSION = "0.5.1" as const
+const FALLBACK_BINARY_SIZE_BYTES = 100475777
 
 const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: FALLBACK_DOWNLOAD_VERSION,
   fileName: "tiles-0.5.1-signed.pkg",
   downloadUrl: "https://download.tiles.run/tiles-0.5.1-signed.pkg",
-  binarySizeBytes: 100475777,
-  binarySizeLabel: "95.82 MB",
+  binarySizeBytes: FALLBACK_BINARY_SIZE_BYTES,
+  binarySizeLabel: formatBinarySize(FALLBACK_BINARY_SIZE_BYTES),
   sha256: "9de4ca93777d622e60155feaeef1528778a470618fc94f930b852ff7c805b7f4",
 }
 

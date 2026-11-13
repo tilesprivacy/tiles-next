@@ -2,6 +2,7 @@
   import { Download } from "@lucide/svelte"
   import type { CanaryReleaseData } from "#lib/canary-release"
   import { CANARY_FALLBACK_DOWNLOAD } from "#lib/download-page-data"
+  import { formatBinarySize } from "#lib/format-binary-size"
   import {
     downloadButtonIconMotionClasses,
     downloadButtonMotionClasses,
@@ -23,12 +24,6 @@
     const live = (release?.assets ?? []).filter(isReleaseAsset)
     return live.length ? live : [CANARY_FALLBACK_DOWNLOAD]
   })
-
-  function formatSize(size: number) {
-    if (size < 1024) return `${size} bytes`
-    if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`
-    return `${(size / (1024 * 1024)).toFixed(1)} MB`
-  }
 </script>
 
 {#each assets as asset (asset.name)}
@@ -41,7 +36,7 @@
       <Download class={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`} aria-hidden="true" />
     </a>
     <span class="minimal-download-size"
-      >{typeof asset.size === "number" ? `${formatSize(asset.size)} · ` : ""}For trying experimental features</span
+      >{typeof asset.size === "number" ? `${formatBinarySize(asset.size)} · ` : ""}For trying experimental features</span
     >
   </div>
 {/each}
