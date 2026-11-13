@@ -46,7 +46,7 @@
               >, a portable package format for reusable components that extend AI agents.
             </p>
             <p class="mt-3 max-w-[30rem] text-sm leading-6 text-muted-foreground">
-              Plugins are supported only in
+              Plugins are experimental and supported only in
               <a
                 href="/download"
                 class="text-foreground underline decoration-current/35 underline-offset-4 transition-opacity hover:opacity-75"
