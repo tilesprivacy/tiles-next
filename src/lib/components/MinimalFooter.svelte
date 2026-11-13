@@ -49,7 +49,6 @@
   <nav class="minimal-footer-links" aria-label="Footer links">
     <a href="/sub-processors">Subprocessors</a>
     <a href="/terms">Terms</a>
-    <a href="/refund-policy">Refunds</a>
     <a href="/privacy">Privacy</a>
     <a href="/press-kit">Press Kit</a>
     <a class="minimal-footer-status" href="https://status.tiles.run" target="_blank" rel="noopener noreferrer">Status<ArrowUpRight aria-hidden="true" /></a>

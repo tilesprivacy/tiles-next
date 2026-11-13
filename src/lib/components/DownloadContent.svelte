@@ -13,7 +13,6 @@
     downloadButtonMotionClasses,
     themeAwareHeaderPrimaryCtaClasses,
   } from "#lib/header-primary-cta-classes"
-  import { LATEST_RELEASE_TITLE, LATEST_RELEASE_VERSION } from "#lib/latest-release-copy"
 
   interface DownloadMetadata {
     version: string
@@ -84,15 +83,6 @@
     window.setTimeout(() => (copied = null), 1400)
   }
 
-  const networkInstallerReleaseLabel = $derived(
-    initialDownload?.version === OFFLINE_INSTALLER.version
-      ? OFFLINE_INSTALLER.releaseTitle
-      : initialDownload?.version === LATEST_RELEASE_VERSION
-        ? LATEST_RELEASE_TITLE
-        : initialDownload?.version
-          ? `Version ${initialDownload.version}`
-          : null,
-  )
 </script>
 
 {#snippet linuxCommand(command: string)}
@@ -137,7 +127,7 @@
           <FaApple class="minimal-download-platform-icon" aria-hidden="true" />macOS
         </h2>
         <p>Apple Silicon · macOS 14+ · 16 GB unified memory recommended</p>
-        <!-- One stanza per installer: the action, then a one-line caption naming its size and release. -->
+        <!-- One stanza per installer: the action, then a one-line caption naming its size and purpose. -->
         <div class="minimal-download-actions">
           <div class="minimal-download-option">
             {#if initialDownload?.downloadUrl}
@@ -146,7 +136,7 @@
                 <Download class={primaryIconClass} aria-hidden="true" />
               </a>
               <span class="minimal-download-size"
-                >{[initialDownload.binarySizeLabel, networkInstallerReleaseLabel, "Recommended for most users"]
+                >{[initialDownload.binarySizeLabel, "Recommended for most users"]
                   .filter(Boolean)
                   .join(" · ")}</span
               >
@@ -161,7 +151,7 @@
                 <Download class={primaryIconClass} aria-hidden="true" />
               </a>
               <span class="minimal-download-size"
-                >{OFFLINE_INSTALLER.binarySizeLabel} · {OFFLINE_INSTALLER.releaseTitle} · For air-gapped systems</span
+                >{OFFLINE_INSTALLER.binarySizeLabel} · For air-gapped systems</span
               >
             </div>
           {/if}
