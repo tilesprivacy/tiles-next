@@ -22,6 +22,7 @@ export const sponsorPageAdvisors = [
     name: borisMann?.name ?? "Boris Mann @bmann.ca",
     links: borisMann?.links ?? ["https://bmannconsulting.com/", "https://bsky.app/profile/bmann.ca"],
     roles: [
+      "General Manager, Atmosphere Community Cooperative",
       "COO, Ink & Switch",
       "Project Lead, AT Community Fund",
       "Co-founder & CEO, Fission Labs",
