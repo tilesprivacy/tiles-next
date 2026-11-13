@@ -24,7 +24,6 @@ export const sponsorPageAdvisors = [
     roles: [
       "General Manager, Atmosphere Community Cooperative",
       "COO, Ink & Switch",
-      "Project Lead, AT Community Fund",
       "Co-founder & CEO, Fission Labs",
     ],
   },
