@@ -1,7 +1,7 @@
 <script lang="ts">
   import { theme } from "#lib/theme.svelte"
 
-  const BUST = "v=20260413"
+  const BUST = "v=20261114"
 
   function upsertIconLink(marker: string, attrs: { rel: string; type?: string; sizes?: string; href: string }) {
     let el = document.querySelector<HTMLLinkElement>(`link[data-tiles-theme-icon="${marker}"]`)
