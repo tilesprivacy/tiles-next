@@ -41,7 +41,7 @@
       <Download class={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`} aria-hidden="true" />
     </a>
     <span class="minimal-download-size"
-      >{typeof asset.size === "number" ? `${formatSize(asset.size)} · ` : ""}For early testers</span
+      >{typeof asset.size === "number" ? `${formatSize(asset.size)} · ` : ""}For trying experimental features</span
     >
   </div>
 {/each}
