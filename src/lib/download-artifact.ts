@@ -20,9 +20,9 @@ const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: FALLBACK_DOWNLOAD_VERSION,
   fileName: "tiles-0.5.1-signed.pkg",
   downloadUrl: "https://download.tiles.run/tiles-0.5.1-signed.pkg",
-  binarySizeBytes: 125459362,
-  binarySizeLabel: "119.65 MB",
-  sha256: "978275950ccb2e55c69df5c8267dec6c06218a2a88ef57f10aa04018220c8ba6",
+  binarySizeBytes: 100475777,
+  binarySizeLabel: "95.82 MB",
+  sha256: "9de4ca93777d622e60155feaeef1528778a470618fc94f930b852ff7c805b7f4",
 }
 
 interface GithubAsset {
