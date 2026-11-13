@@ -3566,6 +3566,8 @@ html.cyberpunk .book-copy-page-buttons button:hover {
   top: calc(100% + 9px);
   right: 1px;
   z-index: 30;
+  width: max-content;
+  max-width: calc(100vw - 2rem);
   max-height: 16rem;
   padding-block: 0.25rem;
   overflow: auto;
@@ -3587,9 +3589,13 @@ html.cyberpunk .book-copy-page-buttons button:hover {
   color: oklch(27.8% 0.033 256.848);
   line-height: 1.25rem;
   text-align: start;
-  white-space: nowrap;
+  white-space: normal;
   cursor: pointer;
   transition: background-color 0.15s;
+}
+
+.book-copy-page-menu button > svg {
+  flex-shrink: 0;
 }
 
 .book-copy-page-menu button:hover,
@@ -3599,6 +3605,7 @@ html.cyberpunk .book-copy-page-buttons button:hover {
 
 .book-copy-page-option {
   display: flex;
+  min-width: 0;
   flex-direction: column;
 }
 
@@ -3632,6 +3639,11 @@ html.cyberpunk .book-copy-page-option small {
     float: none;
     width: fit-content;
     margin: 0 0 2.25rem;
+  }
+
+  .book-copy-page-menu {
+    left: 0;
+    right: auto;
   }
 }
 
