@@ -22,6 +22,7 @@
   import RemoteInferenceIcon from "./RemoteInferenceIcon.svelte"
   import SiteFooter from "./SiteFooter.svelte"
   import { TILES_PRODUCT_TECHNOLOGY_LINE } from "#lib/product-description"
+  import { DISCORD_URL } from "#lib/community-links"
 
   interface Disclosure {
     title: string
@@ -169,7 +170,7 @@
               View source <ArrowUpRight class="h-3 w-3" aria-hidden="true" />
             </a>
             <a
-              href="https://discord.gg/PPSjcpZzvt"
+              href={DISCORD_URL}
               target="_blank"
               rel="noopener noreferrer"
               class="inline-flex min-h-11 cursor-pointer items-center gap-1 text-[0.79rem] font-medium leading-none !text-black/48 dark:!text-[#9A9A9A] !underline decoration-current/40 underline-offset-4 hover:decoration-current focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring sm:min-h-0 sm:text-[0.83rem]"

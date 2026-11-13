@@ -2,7 +2,7 @@
 title: "Community"
 description: "See how you can make Tiles better."
 cardDescription: "See how you can make Tiles better."
-lastUpdated: "2026-10-25T16:27:34.000Z"
+lastUpdated: "2026-11-13T00:00:00.000Z"
 ---
 
 <script>
@@ -20,7 +20,7 @@ To understand the project goals and architecture, start with:
 ## Communication and Support
 
 If you have questions or want to discuss ideas, you can reach the team and community via:
-- Discord: https://discord.gg/PPSjcpZzvt
+- Discord: https://tiles.run/discord
 - Email: [hello@tiles.run](mailto:hello@tiles.run)
 
 ## Roadmap

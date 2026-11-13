@@ -6,13 +6,14 @@
   import SiHuggingface from "#lib/components/icons/SiHuggingface.svelte"
   import TangledIcon from "#lib/components/TangledIcon.svelte"
   import { SITE_ORIGIN } from "#lib/absolute-url"
+  import { DISCORD_URL } from "#lib/community-links"
 
   const bannerAlt = "@tmopsheric — Atmospheric sessions wordmark floating above the clouds"
 
   const socialLinks = [
     { href: "https://x.com/tilesprivacy", label: "X (Twitter)", Icon: FaXTwitter },
     { href: "https://bsky.app/profile/tiles.run", label: "Bluesky", Icon: FaBluesky },
-    { href: "https://go.tiles.run/discord", label: "Discord", Icon: FaDiscord },
+    { href: DISCORD_URL, label: "Discord", Icon: FaDiscord },
     { href: "https://github.com/tilesprivacy", label: "GitHub", Icon: FaGithub },
     { href: "https://tangled.org/tiles.run", label: "Tangled", Icon: TangledIcon },
     { href: "https://huggingface.co/tilesprivacy", label: "Hugging Face", Icon: SiHuggingface },

@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { DISCORD_URL } from "#lib/community-links"
+
   // The GitHub / Discord sign-off shared by the legal pages.
   let { lead }: { lead: string } = $props()
 </script>
@@ -8,6 +10,6 @@
     {lead}
     <a href="https://github.com/tilesprivacy" target="_blank" rel="noopener noreferrer" class="underline">GitHub</a>
     or
-    <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" class="underline">Discord</a>.
+    <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" class="underline">Discord</a>.
   </p>
 </div>

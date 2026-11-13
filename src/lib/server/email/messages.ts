@@ -1,3 +1,4 @@
+import { DISCORD_URL } from "#lib/community-links"
 import {
   EMAIL_BODY_STYLE,
   EMAIL_FONT,
@@ -63,7 +64,7 @@ export function buildSubscriptionEmail() {
     heading("Get started"),
     row(paragraph("Install Tiles for macOS or Linux, read the manual, or join the community shaping what comes next.")),
     button("https://tiles.run/download", "Download Tiles"),
-    row(paragraph(`${link("https://tiles.run/book/manual", "Read the manual")} · ${link("https://discord.gg/PPSjcpZzvt", "Join Discord")}`)),
+    row(paragraph(`${link("https://tiles.run/book/manual", "Read the manual")} · ${link(DISCORD_URL, "Join Discord")}`)),
     row(paragraph("Reply anytime with feedback. Your notes help shape what we build next.") +
       paragraph(`- ${link("https://www.tilesprivacy.org", "Tiles Privacy")}`)),
   ].join("")

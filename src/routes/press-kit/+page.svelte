@@ -11,6 +11,7 @@
   } from "#lib/marketing-page-title-classes"
   import { ownYourAiTalkRecording } from "#lib/own-your-ai-talk"
   import { TILES_PRODUCT_DESCRIPTION } from "#lib/product-description"
+  import { DISCORD_URL } from "#lib/community-links"
 
   const externalLinkClasses =
     "text-foreground underline decoration-current underline-offset-2 transition-colors hover:text-black/80 dark:hover:text-[#E6E6E6]"
@@ -33,7 +34,7 @@
     { label: "X (Twitter)", href: "https://x.com/tilesprivacy", external: true },
     { label: "Bluesky", href: "https://bsky.app/profile/tiles.run", external: true },
     { label: "LinkedIn", href: "https://www.linkedin.com/company/tilesprivacy/", external: true },
-    { label: "Discord", href: "https://discord.gg/PPSjcpZzvt", external: true },
+    { label: "Discord", href: DISCORD_URL, external: true },
     { label: "Hugging Face", href: "https://huggingface.co/tilesprivacy", external: true },
   ]
 

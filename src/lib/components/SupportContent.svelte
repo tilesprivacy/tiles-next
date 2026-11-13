@@ -3,6 +3,7 @@
   import Github from "#lib/components/icons/LucideGithub.svelte"
   import SiteFooter from "#lib/components/SiteFooter.svelte"
   import SupportLink from "#lib/components/SupportLink.svelte"
+  import { DISCORD_URL } from "#lib/community-links"
   import {
     marketingPageBodyClass,
     marketingPageSectionTitleClass,
@@ -30,7 +31,7 @@
     {
       title: "Discord",
       description: "Fast async help from users and maintainers when you need a quick route forward.",
-      href: "https://discord.gg/PPSjcpZzvt",
+      href: DISCORD_URL,
       label: "Join Discord",
       icon: MessageCircle,
       external: true,

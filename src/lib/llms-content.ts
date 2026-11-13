@@ -1,3 +1,5 @@
+import { DISCORD_URL } from "#lib/community-links"
+
 // Copy that only the /llms.txt and /llms-full.txt indexes use: page summaries
 // written for language models rather than text lifted from a rendered page.
 // Anything the site renders comes from its own module instead (product
@@ -40,7 +42,7 @@ export const PLUGIN_STANDARD_LINE =
 
 export const EXTERNAL_LINKS = [
   "These links are visible from the website footer or support page.",
-  "- Discord: https://discord.gg/PPSjcpZzvt",
+  `- Discord: ${DISCORD_URL}`,
   "- GitHub organization: https://github.com/tilesprivacy",
   "- X / Twitter: https://x.com/tilesprivacy",
   "- Bluesky: https://bsky.app/profile/tiles.run",

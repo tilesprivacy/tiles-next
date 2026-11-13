@@ -1,3 +1,5 @@
+import { DISCORD_URL } from "#lib/community-links"
+
 /** The funding newsletter design is the single layout for every Tiles email. */
 export const EMAIL_FONT = "'Geist',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif";
 export const EMAIL_BODY_STYLE = `color:#333333; font-family:${EMAIL_FONT}; font-size:16px; line-height:26px; font-weight:400;`;
@@ -160,7 +162,7 @@ ${content}
                             </a>
                           </td>
                           <td align="center" valign="middle" style="padding:0; mso-padding-alt:6px; font-size:0; line-height:0;">
-                            <a href="https://discord.gg/PPSjcpZzvt" title="Discord" style="display:inline-block; padding:6px; text-decoration:none;">
+                            <a href="${DISCORD_URL}" title="Discord" style="display:inline-block; padding:6px; text-decoration:none;">
                               <img src="https://tiles.run/email-icon-discord.png" width="20" height="20" alt="Discord community" style="display:block; width:20px; height:20px; border:0;">
                             </a>
                           </td>

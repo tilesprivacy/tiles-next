@@ -7,6 +7,7 @@
   import SiteSearch from "./SiteSearch.svelte"
   import ThemeSwitcher from "./ThemeSwitcher.svelte"
   import { SHOW_PRICING } from "#lib/feature-flags"
+  import { DISCORD_URL } from "#lib/community-links"
 
   let menuOpen = $state(false)
 
@@ -57,7 +58,7 @@
     <SiteSearch onOpenChange={(open) => open && (menuOpen = false)} />
     <div class="minimal-topbar-social" role="group" aria-label="Community links">
       <a href="https://github.com/tilesprivacy/tiles" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub aria-hidden="true" /></a>
-      <a href="https://discord.gg/PPSjcpZzvt" target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden="true" /></a>
+      <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" aria-label="Discord"><FaDiscord aria-hidden="true" /></a>
     </div>
     <div
       class="minimal-topbar-theme inline-flex h-9 w-9 shrink-0 items-center justify-center max-[767px]:h-8 max-[767px]:w-8"

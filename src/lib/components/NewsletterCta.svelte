@@ -1,6 +1,7 @@
 <script lang="ts">
   import FaRss from "./icons/FaRss.svelte"
   import NewsletterForm from "./NewsletterForm.svelte"
+  import { DISCORD_URL } from "#lib/community-links"
 
   const linkClass = "text-black hover:text-black/65 dark:text-[#e7e7ed] dark:hover:text-[#c6c6cf]"
 </script>
@@ -20,7 +21,7 @@
       </a>
     </div>
     <p class="text-[0.84rem] leading-6 text-black/70 dark:text-[#b8b8c2]">
-      Follow development in <a href="https://discord.gg/PPSjcpZzvt" class="underline transition-colors {linkClass}"
+      Follow development in <a href={DISCORD_URL} class="underline transition-colors {linkClass}"
         >Discord</a
       > or via email.
     </p>
