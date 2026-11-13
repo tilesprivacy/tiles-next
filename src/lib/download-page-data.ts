@@ -15,9 +15,9 @@ export const OFFLINE_INSTALLER = {
   releaseTitle: "Alpha 24",
   downloadUrl: "https://download.tiles.run/tiles-0.5.1-full-signed.pkg",
   fileName: "tiles-0.5.1-full-signed.pkg",
-  binarySizeBytes: 7_539_555_979,
+  binarySizeBytes: 7_539_558_820,
   binarySizeLabel: "7.02 GB",
-  sha256: "be1082adf335a45349f326e63d51dee79a4773d796e53e18fa62fb86593d0d2a",
+  sha256: "a596d58caf8255fee82222a092dc8a0f1044fb755bc30608ca086fa6b0c7d262",
 } as const
 
 export const LINUX_INSTALL_SCRIPT_URL = "https://tiles.run/install.sh" as const
