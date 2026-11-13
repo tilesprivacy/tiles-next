@@ -2,7 +2,7 @@
 title: "Manual"
 description: "Command-line interface reference for Tiles, with usage examples and links to additional guides"
 cardDescription: "Command-line interface reference for Tiles, with usage examples"
-lastUpdated: "2026-11-11T15:18:46.000Z"
+lastUpdated: "2026-11-13T01:26:10.881Z"
 ---
 
 ## Command Line Options
@@ -196,7 +196,7 @@ The examples below use two devices. DIDs are shortened here.
 ```bash
 tiles link create <PEER_DID>        # Create a link token for a peer's DID
 tiles link join <token> [nickname]  # Join with the token on the other device
-tiles link linked-devices           # List linked devices by nickname and DID
+tiles link devices                 # List linked devices by nickname and DID
 tiles link revoke <DID>             # Unlink a device
 ```
 
@@ -213,13 +213,13 @@ tiles link create did:key:z6MkiTBz...DooWp
 tiles link join <token> laptop
 
 # Either device: confirm the link
-tiles link linked-devices
+tiles link devices
 ```
 
 1. On Device B, run `tiles account` and copy the `id` line. That is Device B's DID.
 2. On Device A, run `tiles link create <PEER_DID>` with that DID. It prints a token. Send the token to Device B yourself, over a channel you trust.
 3. On Device B, run `tiles link join <token> [nickname]`. Device A must be online with Tiles running, because Device B sends the link request to it.
-4. On either device, run `tiles link linked-devices` to see the other one listed.
+4. On either device, run `tiles link devices` to see the other one listed.
 
 Linking once is enough for both directions. After it, either device can start a sync.
 
@@ -227,7 +227,7 @@ Linking once is enough for both directions. After it, either device can start a 
 
 **`tiles link join <token> [nickname]`**: Completes the link from the other device. The optional nickname is the name this device saves for the device that created the token, so Device B can later refer to Device A as `laptop`.
 
-**`tiles link linked-devices`**: Lists every linked device with its nickname and DID.
+**`tiles link devices`**: Lists every linked device with its nickname and DID.
 
 **`tiles link revoke <DID>`**: Unlinks a device. Its future sync requests are ignored. Run it on both devices to remove the link from each list.
 
@@ -254,7 +254,7 @@ Run `tiles sync` on either device. The other device must be online with Tiles ru
 
 One run syncs both ways: each device sends the chats the other is missing. The command prints a confirmation when the sync finishes.
 
-Get the nickname or DID of a linked device from `tiles link linked-devices`. A nickname that matches no linked device fails with an error.
+Get the nickname or DID of a linked device from `tiles link devices`. A nickname that matches no linked device fails with an error.
 
 If linking or syncing cannot reach the other device, run `tiles network status` on both. See Network under System.
 
