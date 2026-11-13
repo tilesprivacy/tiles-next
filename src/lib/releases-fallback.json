@@ -10,12 +10,12 @@
       {
         "name": "checksums.txt",
         "size": 99,
-        "digest": "sha256:898110dd5b9ae58c7ce0f9fad2e760d27dbd26fa7bc3014188ca72412a94a264"
+        "digest": "sha256:3ae22a925beeda6ef235006ecb5cb356090b6c94cecc43f3d0c2df56b522a79c"
       },
       {
         "name": "tiles-0.5.1-signed.pkg",
-        "size": 125459362,
-        "digest": "sha256:978275950ccb2e55c69df5c8267dec6c06218a2a88ef57f10aa04018220c8ba6"
+        "size": 194944728,
+        "digest": "sha256:3d41fbabeb68b14878f49c3e4986786b3e93d5de5a818b7ddaeea51981253259"
       },
       {
         "name": "tiles-v0.5.1-arm64-darwin.tar.gz",
@@ -24,8 +24,8 @@
       },
       {
         "name": "tiles-v0.5.1-x86_64-linux.tar.gz",
-        "size": 116869145,
-        "digest": "sha256:3f9120c78c0e4b818f010c0bbf0b784fa656e9d438319f2c7a31815c7861c2c3"
+        "size": 116878560,
+        "digest": "sha256:335d5c3fd7c6fc6073f4f0ec0159ec82e8a455fc9a30244f750c30ad426f46dc"
       }
     ]
   },
