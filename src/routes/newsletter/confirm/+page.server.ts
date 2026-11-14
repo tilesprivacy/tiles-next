@@ -1,6 +1,6 @@
 import { fail } from "@sveltejs/kit"
 import { dev } from "$app/env"
-import { NEWSLETTER_TOKEN_KEY, RESEND_API_KEY, RESEND_FROM_EMAIL, RESEND_SEGMENT_ID } from "$app/env/private"
+import { NEWSLETTER_TOKEN_KEY, RESEND_API_KEY, RESEND_SEGMENT_ID } from "$app/env/private"
 import { confirmSubscription } from "#lib/server/newsletter-confirm"
 import { devTokenKey } from "#lib/server/newsletter-dev"
 import { readConfirmToken } from "#lib/server/newsletter-token"
@@ -37,7 +37,6 @@ export const actions: Actions = {
 
     const result = await confirmSubscription(email, {
       resendApiKey: RESEND_API_KEY,
-      resendFromEmail: RESEND_FROM_EMAIL,
       segmentId: RESEND_SEGMENT_ID,
     })
     return result === "subscribed" ? { state: "subscribed" as const } : fail(502, { state: "error" as const })
