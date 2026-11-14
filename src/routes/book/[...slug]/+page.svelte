@@ -1,5 +1,6 @@
 <script lang="ts">
   import BookCopyPage from "#lib/components/book/BookCopyPage.svelte"
+  import CanonicalMeta from "#lib/components/CanonicalMeta.svelte"
   import BookMobileBar from "#lib/components/book/BookMobileBar.svelte"
   import BookPageCards from "#lib/components/book/BookPageCards.svelte"
   import BookPageNavigation from "#lib/components/book/BookPageNavigation.svelte"
@@ -49,6 +50,8 @@
     )
   }
 </script>
+
+<CanonicalMeta path={meta.href} />
 
 <svelte:head>
   <title>{title}</title>
