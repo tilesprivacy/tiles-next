@@ -38,16 +38,6 @@
     { label: "Hugging Face", href: "https://huggingface.co/tilesprivacy", external: true },
   ]
 
-  const companyDetails = [
-    { label: "Legal name", value: "Tiles Privacy Technologies Pvt. Ltd." },
-    { label: "Date of incorporation", value: "21 August 2026" },
-    { label: "GSTIN", value: "29AANCT5152A1ZB" },
-    { label: "PAN", value: "AANCT5152A" },
-    { label: "CIN", value: "U58200KA2026PTC226312" },
-    { label: "TAN", value: "BLRT28790G" },
-    { label: "IEC", value: "AANCT5152A" },
-  ]
-
   const screenshotFrame =
     "flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-sm border border-black/10 bg-black/[0.025] p-2 dark:border-white/10 dark:bg-white/[0.03]"
   const screenshotImg = "h-full w-full object-contain [content-visibility:visible]"
@@ -106,7 +96,7 @@
 
 <PageHeadMeta
   title="Press Kit | Tiles"
-  description="Editorial summary, brand files, screenshots, company details, and contact details for writing about Tiles."
+  description="Editorial summary, brand files, screenshots, and contact details for writing about Tiles."
   imageTitle="Press Kit"
 />
 
@@ -118,7 +108,7 @@
       </h1>
       <p class="mt-4 max-w-2xl text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
         Everything you need to write about Tiles: product background, team photo, screenshots, brand files,
-        company details, and contact information.
+        and contact information.
       </p>
 
       <h2 id="product" class={`mt-16 ${marketingPageSectionTitleClass}`}>Product</h2>
@@ -225,16 +215,6 @@
       </div>
 
       <DarkshapesCredit marginClass="mt-8" />
-
-      <h2 id="company-details" class={`mt-16 ${marketingPageSectionTitleClass}`}>Company details</h2>
-      <dl class="mt-4 max-w-2xl divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
-        {#each companyDetails as detail (detail.label)}
-          <div class="flex flex-col gap-1 py-3 sm:flex-row sm:gap-6">
-            <dt class="w-36 shrink-0 text-sm font-medium leading-[1.7] text-foreground">{detail.label}</dt>
-            <dd class="text-sm leading-[1.7] text-black/65 dark:text-[#B3B3B3]">{detail.value}</dd>
-          </div>
-        {/each}
-      </dl>
 
       <h2 id="contact" class={`mt-16 ${marketingPageSectionTitleClass}`}>Contact</h2>
       <div class="mt-4 max-w-2xl space-y-2 text-base leading-[1.7] text-black/65 dark:text-[#B3B3B3]">
