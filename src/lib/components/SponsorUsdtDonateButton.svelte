@@ -8,7 +8,7 @@
   // of the page bundle.
   const loadPanel = () => import("#lib/components/SponsorUsdtDonatePanel.svelte")
 
-  let open = $state(false)
+  let { open, ontoggle }: { open: boolean; ontoggle: () => void } = $props()
   // Once loaded, the panel stays mounted (hidden via `open`) so the amount
   // and flow state survive close and reopen.
   let Panel = $state<Component<{ open: boolean }> | null>(null)
@@ -30,7 +30,7 @@
   })
 
   async function toggle() {
-    open = !open
+    ontoggle()
     if (!Panel) Panel = (await loadPanel()).default
   }
 </script>
@@ -48,7 +48,7 @@
     <SiTether class="minimal-sponsor-button-icon" />
     <SiEthereum class="minimal-wallet-button-token-eth" />
   </span>
-  Donate with USDT
+  Cryptocurrencies
   <ChevronDown class="minimal-wallet-toggle-chevron" data-open={open} aria-hidden="true" />
 </button>
 {#if Panel}

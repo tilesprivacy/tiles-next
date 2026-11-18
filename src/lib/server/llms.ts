@@ -136,7 +136,7 @@ export async function buildLlmsIndex(): Promise<string> {
   ])
 
   addSection(lines, "Sponsorship", [
-    `- Sponsor page: ${BASE}/sponsor`,
+    `- Sponsor page and Wise bank transfer details by currency: ${BASE}/sponsor`,
     ...sponsorLines("- "),
     `- ${copy.GITHUB_SPONSORS_LINE}`,
     `- ${copy.RECURRING_SPONSORSHIP_LINE}`,

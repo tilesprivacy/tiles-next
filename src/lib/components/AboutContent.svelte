@@ -2,6 +2,7 @@
   import MinimalTopbar from "#lib/components/MinimalTopbar.svelte"
   import PersonAvatar from "#lib/components/PersonAvatar.svelte"
   import SiteFooter from "#lib/components/SiteFooter.svelte"
+  import { companyDetails } from "#lib/company-details"
   import { splitPersonDisplayName } from "#lib/people"
   import { sponsorPageAdvisors } from "#lib/sponsor-page-people"
 
@@ -182,6 +183,20 @@
             </article>
           {/each}
         </div>
+      </section>
+
+      <section id="company-details" class="minimal-section !py-12 scroll-mt-28" aria-labelledby="company-details-heading">
+        <div class="minimal-sponsor-list-heading !mb-6 flex min-h-7 items-center justify-between">
+          <h2 id="company-details-heading" class="!m-0">Company details</h2>
+        </div>
+        <dl class="space-y-4 text-sm leading-[1.7]">
+          {#each companyDetails as detail (detail.label)}
+            <div class="grid gap-1 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
+              <dt class="font-medium text-foreground dark:text-[#E4E4E7]">{detail.label}</dt>
+              <dd class="min-w-0 break-words text-muted-foreground dark:text-[#A1A1AA]">{detail.value}</dd>
+            </div>
+          {/each}
+        </dl>
       </section>
 
       <p id="sponsor" class="minimal-note scroll-mt-28">

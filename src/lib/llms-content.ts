@@ -1,4 +1,5 @@
 import { DISCORD_URL } from "#lib/community-links"
+import { companyDetails } from "#lib/company-details"
 
 // Copy that only the /llms.txt and /llms-full.txt indexes use: page summaries
 // written for language models rather than text lifted from a rendered page.
@@ -32,10 +33,10 @@ export const LLMS_INDEX_OVERVIEW = [
 ]
 
 export const ABOUT_PAGE_SUMMARY =
-  "Learn about Tiles Privacy, our mission, and the team and advisors behind it."
+  "Learn about Tiles Privacy, our mission, team, advisors, and company details."
 
 export const PRESS_KIT_SUMMARY =
-  "Product background, company details, press contact, brand files, and current product screenshots."
+  "Product background, press contact, brand files, and current product screenshots."
 
 export const PLUGIN_STANDARD_LINE =
   "Standard: https://agent-plugins.org/ - Tiles follows the open Agent Plugins standard for portable skills and MCP servers. Plugins are supported only in Tiles Canary."
@@ -87,19 +88,12 @@ export const HELP_FULL = [
 
 export const PRESS_KIT_INTRO = [
   "Tiles press kit",
-  "Editorial summary, brand files, screenshots, company details, and contact details for writing about Tiles.",
+  "Editorial summary, brand files, screenshots, and contact details for writing about Tiles.",
 ]
 
 export const PRESS_KIT_BODY = [
   "Tiles runs open models on your own device, so your conversations and data stay with you. Peer-to-peer encrypted sync connects your devices without a central server, and social features are built on the AT Protocol. Identity is user-owned through locally generated DIDs and UCANs, so your data and identity remain yours.",
   "Tiles is in public alpha for macOS and Linux. It is built by Tiles Privacy Technologies Pvt. Ltd., an independent team based in Bengaluru, India.",
-  "",
-  "Company details:",
-  "Legal name: Tiles Privacy Technologies Pvt. Ltd.",
-  "GSTIN: 29AANCT5152A1ZB",
-  "PAN: AANCT5152A",
-  "CIN: U58200KA2026PTC226312",
-  "TAN: BLRT28790G",
   "",
   "Contact:",
   "Press and general inquiries: hello@tiles.run",
@@ -117,11 +111,14 @@ export const ABOUT_FULL = [
   "Tiles was born from the discussions in User & Agents (https://www.userandagents.org), a community focused on shaping the future of user-agent systems. We are also a signatory to the European Social Stack initiative (https://european.social/#signatories), supporting an open, interoperable, and publicly accountable digital ecosystem for Europe.",
   "Tiles Privacy is built by a small independent team of three: Ankesh Bharti, Anandu Pavanan, and Prashant Mishra.",
   "The project is advised by Boris Mann, Dietrich Ayala, and Gordon Brander.",
+  "",
+  "Company details:",
+  ...companyDetails.map(({ label, value }) => `${label}: ${value}`),
 ]
 
 export const SPONSOR_FULL = [
   "Sponsor Tiles Privacy. Support a small team building private, local-first AI that preserves user agency.",
-  "We are grateful to the individuals and organizations who support our work financially, including through GitHub Sponsors and cryptocurrency donations.",
+  "We are grateful to the individuals and organizations who support our work financially.",
 ]
 
 export const INDIA_FOSS_TALK_INTRO = [

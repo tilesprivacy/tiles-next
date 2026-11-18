@@ -2333,6 +2333,11 @@ html.cyberpunk .minimal-sponsor-page .minimal-sponsor-actions .minimal-secondary
   padding-inline: 0.75rem;
   white-space: nowrap;
 }
+@media (min-width: 701px) {
+  .minimal-sponsor-actions > .minimal-wallet-panel {
+    order: 1;
+  }
+}
 @media (max-width: 700px) {
   .minimal-sponsor-actions {
     flex-direction: column;
