@@ -40,7 +40,7 @@
       <div class="bank-select">
         <select id="bank-currency" bind:value={currency}>
           {#each Object.entries(bankAccounts) as [code, account] (code)}
-            <option value={code}>{code} · {account.name}</option>
+            <option value={code}>{code} · {account.flag} {account.name}</option>
           {/each}
         </select>
         <ChevronDown aria-hidden="true" />

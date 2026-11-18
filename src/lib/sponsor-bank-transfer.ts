@@ -1,5 +1,5 @@
 type BankFields = Record<string, string>
-type CurrencyAccount = { name: string; routes: Record<string, BankFields> }
+type CurrencyAccount = { flag: string; name: string; routes: Record<string, BankFields> }
 
 export const bankAccountHolder = "Tiles Privacy Technologies Pvt Ltd"
 
@@ -31,8 +31,9 @@ const nzBank = bank("Wise Payments New Zealand Ltd.", "Level 11, 41 Shortland St
 const sgBank = bank("Wise Asia-Pacific Pte. Ltd.", "2 Tanjong Katong Road, #07-01, PLQ3, Singapore, 437161, Singapore")
 
 export const bankAccounts: Record<string, CurrencyAccount> = {
-  AED: { name: "UAE dirham", routes: gbSwift },
+  AED: { flag: "🇦🇪", name: "UAE dirham", routes: gbSwift },
   AUD: {
+    flag: "🇦🇺",
     name: "Australian dollar",
     routes: {
       "Local transfer in Australia": { "BSB code": "774-001", ...aud },
@@ -44,6 +45,7 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
     },
   },
   CAD: {
+    flag: "🇨🇦",
     name: "Canadian dollar",
     routes: {
       "Local transfer in Canada": { ...cad, "Institution number": "705", "Branch number": "00001" },
@@ -54,11 +56,12 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
       },
     },
   },
-  CHF: { name: "Swiss franc", routes: gbSwift },
-  CNY: { name: "Chinese yuan", routes: { ...gbSwift, ...hkLocal } },
-  CZK: { name: "Czech koruna", routes: gbSwift },
-  DKK: { name: "Danish krone", routes: gbSwift },
+  CHF: { flag: "🇨🇭", name: "Swiss franc", routes: gbSwift },
+  CNY: { flag: "🇨🇳", name: "Chinese yuan", routes: { ...gbSwift, ...hkLocal } },
+  CZK: { flag: "🇨🇿", name: "Czech koruna", routes: gbSwift },
+  DKK: { flag: "🇩🇰", name: "Danish krone", routes: gbSwift },
   EUR: {
+    flag: "🇪🇺",
     name: "Euro",
     routes: {
       "Local SEPA transfer": { ...eur, ...euBank },
@@ -67,6 +70,7 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
     },
   },
   GBP: {
+    flag: "🇬🇧",
     name: "British pound",
     routes: {
       "Local transfer in the UK": { ...account("83527967"), "Sort code": "60-84-64", ...gbBank },
@@ -74,6 +78,7 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
     },
   },
   HKD: {
+    flag: "🇭🇰",
     name: "Hong Kong dollar",
     routes: {
       ...hkLocal,
@@ -85,16 +90,18 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
     },
   },
   HUF: {
+    flag: "🇭🇺",
     name: "Hungarian forint",
     routes: {
       "Local transfer in Hungary": { ...account("12600016-16420213-21986630"), ...huf, ...huBank },
       "International SWIFT": { ...huf, "SWIFT/BIC": "TRWIBEBBXXX", ...huBank },
     },
   },
-  ILS: { name: "Israeli new shekel", routes: gbSwift },
-  JPY: { name: "Japanese yen", routes: gbSwift },
-  NOK: { name: "Norwegian krone", routes: gbSwift },
+  ILS: { flag: "🇮🇱", name: "Israeli new shekel", routes: gbSwift },
+  JPY: { flag: "🇯🇵", name: "Japanese yen", routes: gbSwift },
+  NOK: { flag: "🇳🇴", name: "Norwegian krone", routes: gbSwift },
   NZD: {
+    flag: "🇳🇿",
     name: "New Zealand dollar",
     routes: {
       "Local transfer in New Zealand": { ...nzd, ...nzBank },
@@ -102,6 +109,7 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
     },
   },
   PHP: {
+    flag: "🇵🇭",
     name: "Philippine peso",
     routes: {
       "Local transfer in the Philippines": {
@@ -111,17 +119,19 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
       },
     },
   },
-  PLN: { name: "Polish złoty", routes: gbSwift },
-  SEK: { name: "Swedish krona", routes: gbSwift },
+  PLN: { flag: "🇵🇱", name: "Polish złoty", routes: gbSwift },
+  SEK: { flag: "🇸🇪", name: "Swedish krona", routes: gbSwift },
   SGD: {
+    flag: "🇸🇬",
     name: "Singapore dollar",
     routes: {
       "Local transfer in Singapore": { "Bank code": "0516", ...sgd, ...sgBank },
       "International SWIFT": { ...sgd, "SWIFT/BIC": "TRWISGSGXXX", ...sgBank },
     },
   },
-  UGX: { name: "Ugandan shilling", routes: gbSwift },
+  UGX: { flag: "🇺🇬", name: "Ugandan shilling", routes: gbSwift },
   USD: {
+    flag: "🇺🇸",
     name: "US dollar",
     routes: {
       "US ACH or domestic wire": {
@@ -138,5 +148,5 @@ export const bankAccounts: Record<string, CurrencyAccount> = {
       },
     },
   },
-  ZAR: { name: "South African rand", routes: gbSwift },
+  ZAR: { flag: "🇿🇦", name: "South African rand", routes: gbSwift },
 }
