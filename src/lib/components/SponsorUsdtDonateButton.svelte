@@ -48,7 +48,7 @@
     <SiTether class="minimal-sponsor-button-icon" />
     <SiEthereum class="minimal-wallet-button-token-eth" />
   </span>
-  Donate with USDT
+  Cryptocurrencies
   <ChevronDown class="minimal-wallet-toggle-chevron" data-open={open} aria-hidden="true" />
 </button>
 {#if Panel}

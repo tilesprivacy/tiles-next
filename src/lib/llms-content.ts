@@ -118,7 +118,7 @@ export const ABOUT_FULL = [
 
 export const SPONSOR_FULL = [
   "Sponsor Tiles Privacy. Support a small team building private, local-first AI that preserves user agency.",
-  "We are grateful to the individuals and organizations who support our work financially, including through GitHub Sponsors, cryptocurrency donations, and bank transfers.",
+  "We are grateful to the individuals and organizations who support our work financially.",
 ]
 
 export const INDIA_FOSS_TALK_INTRO = [
