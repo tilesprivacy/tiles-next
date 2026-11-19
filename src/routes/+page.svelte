@@ -1,11 +1,14 @@
 <script lang="ts">
   import HomeContent from "#lib/components/HomeContent.svelte"
+  import CanonicalMeta from "#lib/components/CanonicalMeta.svelte"
   import { absoluteUrl } from "#lib/absolute-url"
   import { TILES_HOMEPAGE_DESCRIPTION, TILES_SITE_TITLE, TILES_SOCIAL_TITLE } from "#lib/product-description"
   import { getSocialImageUrl } from "#lib/social-image"
 
   const image = absoluteUrl(getSocialImageUrl())
 </script>
+
+<CanonicalMeta path="/" />
 
 <svelte:head>
   <title>{TILES_SITE_TITLE}</title>
