@@ -193,7 +193,13 @@
           {#each companyDetails as detail (detail.label)}
             <div class="grid gap-1 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
               <dt class="font-medium text-foreground dark:text-[#E4E4E7]">{detail.label}</dt>
-              <dd class="min-w-0 break-words text-muted-foreground dark:text-[#A1A1AA]">{detail.value}</dd>
+              <dd class="min-w-0 break-words text-muted-foreground dark:text-[#A1A1AA]">
+                {#if detail.href}
+                  <a href={detail.href}>{detail.value}</a>
+                {:else}
+                  {detail.value}
+                {/if}
+              </dd>
             </div>
           {/each}
         </dl>
