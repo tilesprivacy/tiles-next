@@ -113,7 +113,10 @@ export const ABOUT_FULL = [
   "The project is advised by Boris Mann, Dietrich Ayala, and Gordon Brander.",
   "",
   "Company details:",
-  ...companyDetails.map(({ label, value }) => `${label}: ${value}`),
+  ...companyDetails.map(({ label, value }) => {
+    const text = typeof value === "string" ? value : value.map((link) => link.text).join(", ")
+    return `${label}: ${text}`
+  }),
 ]
 
 export const SPONSOR_FULL = [

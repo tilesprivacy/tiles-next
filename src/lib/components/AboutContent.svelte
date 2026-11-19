@@ -194,10 +194,12 @@
             <div class="grid gap-1 sm:grid-cols-[11rem_minmax(0,1fr)] sm:gap-6">
               <dt class="font-medium text-foreground dark:text-[#E4E4E7]">{detail.label}</dt>
               <dd class="min-w-0 break-words text-muted-foreground dark:text-[#A1A1AA]">
-                {#if detail.href}
-                  <a href={detail.href}>{detail.value}</a>
-                {:else}
+                {#if typeof detail.value === "string"}
                   {detail.value}
+                {:else}
+                  {#each detail.value as link, i (link.href)}
+                    <a href={link.href}>{link.text}</a>{i < detail.value.length - 1 ? ", " : ""}
+                  {/each}
                 {/if}
               </dd>
             </div>
