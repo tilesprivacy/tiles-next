@@ -3,7 +3,6 @@ import { dev } from "$app/env"
 import {
   NEWSLETTER_TOKEN_KEY,
   RESEND_API_KEY,
-  RESEND_FROM_EMAIL,
   TURNSTILE_SECRET_KEY,
 } from "$app/env/private"
 import { SITE_ORIGIN } from "#lib/absolute-url"
@@ -59,7 +58,6 @@ export const POST: RequestHandler = async ({ request, url, getClientAddress }) =
   const response = await handleSubscribe(request, clientIp, {
     guard: getGuard(cloudflare.DB),
     resendApiKey: RESEND_API_KEY,
-    resendFromEmail: RESEND_FROM_EMAIL,
     tokenKey: NEWSLETTER_TOKEN_KEY ?? (dev ? devTokenKey() : undefined),
     siteOrigin: dev ? url.origin : SITE_ORIGIN,
     debug: dev,

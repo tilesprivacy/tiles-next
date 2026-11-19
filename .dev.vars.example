@@ -4,7 +4,6 @@
 # Resend API key for the newsletter welcome email (re_...).
 RESEND_API_KEY=
 # Sender address, e.g. newsletter@tiles.run.
-RESEND_FROM_EMAIL=
 # Resend segment that confirmed newsletter subscribers are added to. Required in production.
 RESEND_SEGMENT_ID=
 # Encrypts newsletter confirmation links: 32 random bytes, base64 (openssl rand -base64 32).
