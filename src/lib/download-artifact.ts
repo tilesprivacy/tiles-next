@@ -17,7 +17,7 @@ const GITHUB_RELEASES_LATEST_URL =
 export const FALLBACK_DOWNLOAD_VERSION = "0.5.2" as const
 const FALLBACK_BINARY_SIZE_BYTES = 132_732_453
 
-const FALLBACK_ARTIFACT: DownloadArtifact = {
+export const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: FALLBACK_DOWNLOAD_VERSION,
   fileName: "tiles-0.5.2-signed.pkg",
   downloadUrl: "https://download.tiles.run/tiles-0.5.2-signed.pkg",

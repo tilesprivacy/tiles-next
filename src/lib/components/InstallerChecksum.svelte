@@ -5,7 +5,7 @@
 
   const label = $derived(lastKnown ? "Last verified SHA-256 checksum" : "SHA-256 checksum")
   const checksumUrl = $derived(
-    checksumPath ?? `data:text/plain;charset=utf-8,${encodeURIComponent(`${sha256}  ${fileName}\n`)}`
+    checksumPath ?? `/download/checksums/${sha256}/${encodeURIComponent(fileName)}.sha256`
   )
 </script>
 
