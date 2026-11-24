@@ -3,7 +3,7 @@
     sha256, fileName, checksumPath, lastKnown = false,
   }: { sha256: string; fileName: string; checksumPath?: string; lastKnown?: boolean } = $props()
 
-  const label = $derived(`${lastKnown ? "Last verified SHA-256 checksum" : "SHA-256 checksum"} for ${fileName}`)
+  const label = $derived(`${lastKnown ? "Last verified " : ""}SHA256 checksum for ${fileName}`)
   const checksumUrl = $derived(
     checksumPath ?? `/download/checksums/${sha256}/${encodeURIComponent(fileName)}.sha256`
   )
@@ -16,5 +16,5 @@
     download={`${fileName}.sha256`}
     aria-label={label}
     title={label}
-  >SHA</a> ·
+  >SHA256</a> ·
 {/if}
