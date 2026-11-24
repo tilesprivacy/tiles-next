@@ -207,7 +207,6 @@ export async function buildLlmsFull(): Promise<string> {
     getLatestDownloadArtifact(),
     getCanaryRelease(),
   ])
-  const offlineChecksumUrl = `https://download.tiles.run/checksums/${OFFLINE_INSTALLER.fileName}.sha256`
 
   const lines: string[] = []
   lines.push("# llms-full.txt for Tiles Privacy", "")
@@ -237,7 +236,7 @@ export async function buildLlmsFull(): Promise<string> {
     OFFLINE_INSTALLER.downloadUrl,
     `Size: ${OFFLINE_INSTALLER.binarySizeLabel}`,
     `SHA256: ${OFFLINE_INSTALLER.sha256}`,
-    `SHA256 file: ${offlineChecksumUrl}`,
+    `SHA256 file: ${BASE}${OFFLINE_INSTALLER.checksumPath}`,
     "",
     `Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
     CANARY_RELEASE_DESCRIPTION,

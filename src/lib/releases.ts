@@ -43,6 +43,12 @@ export interface ReleaseInstaller {
 }
 
 const customFullInstallers: Record<string, ReleaseInstaller> = {
+  "0.5.1": {
+    name: "tiles-0.5.1-full-signed.pkg",
+    url: "https://download.tiles.run/tiles-0.5.1-full-signed.pkg",
+    sizeBytes: 7_539_558_820,
+    sha256: "a596d58caf8255fee82222a092dc8a0f1044fb755bc30608ca086fa6b0c7d262",
+  },
   "0.5.0": {
     name: "tiles-0.5.0-full-signed.pkg",
     url: "https://download.tiles.run/tiles-0.5.0-full-signed.pkg",

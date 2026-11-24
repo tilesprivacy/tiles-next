@@ -153,6 +153,11 @@
               <span class="minimal-download-size"
                 >{OFFLINE_INSTALLER.binarySizeLabel} · For air-gapped systems</span
               >
+              <details class="minimal-download-size">
+                <summary class="cursor-pointer">SHA-256 checksum</summary>
+                <code class="break-all select-all">{OFFLINE_INSTALLER.sha256}</code>
+                <a class="block underline underline-offset-2" href={OFFLINE_INSTALLER.checksumPath} download>Download checksum file</a>
+              </details>
             </div>
           {/if}
           <CanaryDownloadAction release={canaryRelease} />
