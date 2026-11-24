@@ -4,6 +4,7 @@ import { allBookPages, getBookPageMarkdown } from "#lib/book"
 import { getCanaryRelease } from "#lib/canary-release"
 import { getLatestDownloadArtifact } from "#lib/download-artifact"
 import {
+  CANARY_FALLBACK_DOWNLOAD,
   CANARY_RELEASE_DESCRIPTION,
   CANARY_RELEASE_URL,
   OFFLINE_INSTALLER,
@@ -207,6 +208,7 @@ export async function buildLlmsFull(): Promise<string> {
     getLatestDownloadArtifact(),
     getCanaryRelease(),
   ])
+  const canaryAssets = canaryRelease?.assets.length ? canaryRelease.assets : [CANARY_FALLBACK_DOWNLOAD]
 
   const lines: string[] = []
   lines.push("# llms-full.txt for Tiles Privacy", "")
@@ -241,12 +243,11 @@ export async function buildLlmsFull(): Promise<string> {
     `Canary downloads and release notes: ${CANARY_RELEASE_URL}`,
     CANARY_RELEASE_DESCRIPTION,
     copy.LINUX_DOWNLOAD_NOTE,
-    ...(canaryRelease
-      ? [
-          ...canaryRelease.assets.map((asset) => `${asset.name}: ${asset.browser_download_url}`),
-          canaryRelease.body || "",
-        ]
-      : []),
+    ...canaryAssets.flatMap((asset) => [
+      `${asset.name}: ${asset.browser_download_url}`,
+      `${asset === CANARY_FALLBACK_DOWNLOAD ? "Last verified SHA256" : "SHA256"}: ${asset.sha256}`,
+    ]),
+    canaryRelease?.body || "",
   ])
 
   pushSection(lines, `Plugins (${BASE}/plugins)`, copy.PLUGINS_FULL)

@@ -1,4 +1,4 @@
-import { fetchGithubJson } from "#lib/github-json"
+import { extractSha256Digest, fetchGithubJson } from "#lib/github-json"
 import { FALLBACK_DOWNLOAD_VERSION } from "#lib/download-artifact"
 import { OFFLINE_INSTALLER } from "#lib/download-page-data"
 import { normalizeReleaseVersion } from "#lib/release-visibility"
@@ -687,12 +687,6 @@ function compareVersions(a: string, b: string): number {
     if (difference !== 0) return difference
   }
   return 0
-}
-
-function extractSha256Digest(digest: string | undefined): string {
-  const value = digest?.trim().toLowerCase() ?? ""
-  const sha256 = value.startsWith("sha256:") ? value.slice("sha256:".length).trim() : ""
-  return /^[a-f0-9]{64}$/.test(sha256) ? sha256 : "Unavailable"
 }
 
 function releaseFile(name: string, asset?: GithubAsset): ReleaseInstaller {

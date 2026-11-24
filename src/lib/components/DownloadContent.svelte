@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Check, Copy, Download } from "@lucide/svelte"
   import CanaryDownloadAction from "#lib/components/CanaryDownloadAction.svelte"
+  import InstallerChecksum from "#lib/components/InstallerChecksum.svelte"
   import FaApple from "#lib/components/icons/FaApple.svelte"
   import FaLinux from "#lib/components/icons/FaLinux.svelte"
   import MinimalTopbar from "#lib/components/MinimalTopbar.svelte"
@@ -140,6 +141,7 @@
                   .filter(Boolean)
                   .join(" · ")}</span
               >
+              <InstallerChecksum sha256={initialDownload.sha256} fileName={initialDownload.fileName} />
             {:else}
               <span class="minimal-disabled-button">Network installer unavailable</span>
             {/if}
@@ -153,11 +155,11 @@
               <span class="minimal-download-size"
                 >{OFFLINE_INSTALLER.binarySizeLabel} · For air-gapped systems</span
               >
-              <details class="minimal-download-size">
-                <summary class="cursor-pointer">SHA-256 checksum</summary>
-                <code class="break-all select-all">{OFFLINE_INSTALLER.sha256}</code>
-                <a class="block underline underline-offset-2" href={OFFLINE_INSTALLER.checksumPath} download>Download checksum file</a>
-              </details>
+              <InstallerChecksum
+                sha256={OFFLINE_INSTALLER.sha256}
+                fileName={OFFLINE_INSTALLER.fileName}
+                checksumPath={OFFLINE_INSTALLER.checksumPath}
+              />
             </div>
           {/if}
           <CanaryDownloadAction release={canaryRelease} />

@@ -6,9 +6,11 @@ export const CANARY_RELEASE_DESCRIPTION = "Nightly builds for developers who wan
 
 /** Direct Canary installer link, shown whenever live release data is unavailable. */
 export const CANARY_FALLBACK_DOWNLOAD = {
-  name: "tiles-canary-3.pkg",
+  name: "tiles-canary.pkg",
+  size: 103_689_613,
   browser_download_url:
-    "https://github.com/tilesprivacy/tiles/releases/download/canary/tiles-canary-3.pkg",
+    "https://github.com/tilesprivacy/tiles/releases/download/canary/tiles-canary.pkg",
+  sha256: "c9f85e3e710911eebbd8ec735a80b563ad71d5326a3cadd48bcd41aea209c104",
 } as const
 
 export const OFFLINE_MODEL_NAME = "gpt-oss-20b-MXFP4-Q4"
