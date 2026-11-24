@@ -36,9 +36,10 @@
       <span>Download canary installer</span>
       <Download class={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`} aria-hidden="true" />
     </a>
-    <span class="minimal-download-size"
-      >{typeof asset.size === "number" ? `${formatBinarySize(asset.size)} · ` : ""}For trying experimental features</span
-    >
-    <InstallerChecksum sha256={asset.sha256} fileName={asset.name} lastKnown={asset === CANARY_FALLBACK_DOWNLOAD} />
+    <span class="minimal-download-size">
+      {#if typeof asset.size === "number"}{formatBinarySize(asset.size)} · {/if}
+      <InstallerChecksum sha256={asset.sha256} fileName={asset.name} lastKnown={asset === CANARY_FALLBACK_DOWNLOAD} />
+      For trying experimental features
+    </span>
   </div>
 {/each}
