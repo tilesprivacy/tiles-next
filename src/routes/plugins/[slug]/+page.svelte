@@ -1,5 +1,6 @@
 <script lang="ts">
   import PluginDetailContent from "#lib/components/PluginDetailContent.svelte"
+  import CanonicalMeta from "#lib/components/CanonicalMeta.svelte"
   import { getPluginSocialImage } from "#lib/social-image"
 
   let { data } = $props()
@@ -7,6 +8,8 @@
   const title = $derived(`${data.plugin.name} | Tiles Plugins`)
   const image = $derived(getPluginSocialImage(data.plugin))
 </script>
+
+<CanonicalMeta path={`/plugins/${data.plugin.slug}`} />
 
 <svelte:head>
   <title>{title}</title>

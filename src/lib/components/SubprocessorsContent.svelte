@@ -4,7 +4,6 @@
   import PageHeadMeta from "#lib/components/PageHeadMeta.svelte"
   import { LEGAL_LAST_UPDATED } from "#lib/legal-last-updated"
 
-  // Served at both /subprocessors and /sub-processors.
   const subprocessors = [
     { name: "Iroh", purpose: "Public relays for peer-to-peer networking", location: "US", dpa: "https://www.iroh.computer/legal" },
     { name: "Resend", purpose: "Email sending and newsletter list", location: "US", dpa: "https://resend.com/legal/dpa" },
