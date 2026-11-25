@@ -5,9 +5,7 @@
 import { env } from "cloudflare:workers"
 import { dev } from "$app/env"
 import { initWasm, Resvg } from "@resvg/resvg-wasm"
-// satori 0.25, the version inside Next.js's card renderer: newer releases lay
-// the card out a few pixels differently (the build-time cards use 0.62).
-import satori, { init as initSatori } from "satori-og/standalone"
+import satori, { init as initSatori } from "satori/standalone"
 import type { SharedBy } from "#lib/chat/share-page"
 
 const WIDTH = 1200
@@ -21,7 +19,10 @@ function h(type: string, props: Record<string, unknown>, ...children: (Node | st
   return { type, props: { ...props, children: kids.length === 1 ? kids[0] : kids.length ? kids : undefined } }
 }
 
-const div = (style: Record<string, unknown>, ...children: (Node | string | null)[]) => h("div", { style }, ...children)
+// Lay boxes out like the older satori inside Next.js's card renderer, as
+// scripts/og-images.ts does: border-box, and no synthesized bold.
+const div = (style: Record<string, unknown>, ...children: (Node | string | null)[]) =>
+  h("div", { style: { boxSizing: "border-box", fontSynthesis: "none", ...style } }, ...children)
 
 interface CardAssets {
   font: ArrayBuffer
@@ -32,11 +33,11 @@ async function loadWasmModules(): Promise<[WebAssembly.Module, WebAssembly.Modul
   if (dev) {
     const { readFile } = await import("node:fs/promises")
     const compile = async (path: string) => WebAssembly.compile(await readFile(new URL(`../../../../node_modules/${path}`, import.meta.url)))
-    return Promise.all([compile("satori-og/yoga.wasm"), compile("@resvg/resvg-wasm/index_bg.wasm")])
+    return Promise.all([compile("satori/layout.wasm"), compile("@resvg/resvg-wasm/index_bg.wasm")])
   }
   // Workers can't compile WebAssembly at run time; wrangler uploads these
   // precompiled (they stay external in vite.config.ts).
-  const [layout, resvg] = await Promise.all([import("satori-og/yoga.wasm"), import("@resvg/resvg-wasm/index_bg.wasm")])
+  const [layout, resvg] = await Promise.all([import("satori/layout.wasm"), import("@resvg/resvg-wasm/index_bg.wasm")])
   return [layout.default, resvg.default]
 }
 

@@ -121,21 +121,24 @@ function textContent(node: ElementContent | RootContent): string {
 /* Math */
 
 const KATEX_ERROR_COLOR = "var(--color-muted-foreground)"
+// trust is false by default; set here too, so links and HTML in TeX stay off
+// even if something were to change the default.
+const KATEX_OPTIONS = { errorColor: KATEX_ERROR_COLOR, trust: false } as const
 
 function renderMath(tex: string, displayMode: boolean, katex: typeof Katex | null): ElementContent {
   if (!katex) return text(tex)
   let html: string
   try {
-    html = katex.renderToString(tex, { displayMode, errorColor: KATEX_ERROR_COLOR, throwOnError: true })
+    html = katex.renderToString(tex, { ...KATEX_OPTIONS, displayMode, throwOnError: true })
   } catch (error) {
     try {
-      html = katex.renderToString(tex, { displayMode, errorColor: KATEX_ERROR_COLOR, strict: "ignore", throwOnError: false })
+      html = katex.renderToString(tex, { ...KATEX_OPTIONS, displayMode, strict: "ignore", throwOnError: false })
     } catch {
       return el("span", { className: ["katex-error"], style: `color:${KATEX_ERROR_COLOR}`, title: String(error) }, [text(tex)])
     }
   }
   // KaTeX builds this markup from the TeX alone (no links or HTML pass
-  // through with its default `trust: false`), after the allowlist has run.
+  // through with `trust: false`), after the allowlist has run.
   return { type: "raw", value: html } as unknown as ElementContent
 }
 
