@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Check, Copy, Download } from "@lucide/svelte"
   import CanaryDownloadAction from "#lib/components/CanaryDownloadAction.svelte"
-  import InstallerChecksum from "#lib/components/InstallerChecksum.svelte"
   import FaApple from "#lib/components/icons/FaApple.svelte"
   import FaLinux from "#lib/components/icons/FaLinux.svelte"
   import MinimalTopbar from "#lib/components/MinimalTopbar.svelte"
@@ -128,7 +127,7 @@
           <FaApple class="minimal-download-platform-icon" aria-hidden="true" />macOS
         </h2>
         <p>Apple Silicon · macOS 14+ · 16 GB unified memory recommended</p>
-        <!-- Each installer caption lists its size, checksum link and purpose. -->
+        <!-- One stanza per installer: the action, then a one-line caption naming its size and purpose. -->
         <div class="minimal-download-actions">
           <div class="minimal-download-option">
             {#if initialDownload?.downloadUrl}
@@ -136,11 +135,11 @@
                 <span>Download network installer</span>
                 <Download class={primaryIconClass} aria-hidden="true" />
               </a>
-              <span class="minimal-download-size">
-                {#if initialDownload.binarySizeLabel}{initialDownload.binarySizeLabel} · {/if}
-                <InstallerChecksum sha256={initialDownload.sha256} fileName={initialDownload.fileName} />
-                Recommended for most users
-              </span>
+              <span class="minimal-download-size"
+                >{[initialDownload.binarySizeLabel, "Recommended for most users"]
+                  .filter(Boolean)
+                  .join(" · ")}</span
+              >
             {:else}
               <span class="minimal-disabled-button">Network installer unavailable</span>
             {/if}
@@ -151,15 +150,9 @@
                 <span>Download offline installer</span>
                 <Download class={primaryIconClass} aria-hidden="true" />
               </a>
-              <span class="minimal-download-size">
-                {OFFLINE_INSTALLER.binarySizeLabel} ·
-                <InstallerChecksum
-                  sha256={OFFLINE_INSTALLER.sha256}
-                  fileName={OFFLINE_INSTALLER.fileName}
-                  checksumPath={OFFLINE_INSTALLER.checksumPath}
-                />
-                For air-gapped systems
-              </span>
+              <span class="minimal-download-size"
+                >{OFFLINE_INSTALLER.binarySizeLabel} · For air-gapped systems</span
+              >
             </div>
           {/if}
           <CanaryDownloadAction release={canaryRelease} />

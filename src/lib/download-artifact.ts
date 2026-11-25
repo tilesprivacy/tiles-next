@@ -1,5 +1,5 @@
 import { formatBinarySize } from "#lib/format-binary-size"
-import { extractSha256Digest, fetchGithubJson } from "#lib/github-json"
+import { fetchGithubJson } from "#lib/github-json"
 import { isDownloadReleaseVersionHidden, normalizeReleaseVersion } from "#lib/release-visibility"
 
 export interface DownloadArtifact {
@@ -14,16 +14,16 @@ export interface DownloadArtifact {
 const GITHUB_RELEASES_LATEST_URL =
   "https://api.github.com/repos/tilesprivacy/tiles/releases?per_page=20"
 
-export const FALLBACK_DOWNLOAD_VERSION = "0.5.2" as const
-const FALLBACK_BINARY_SIZE_BYTES = 132_732_453
+export const FALLBACK_DOWNLOAD_VERSION = "0.5.1" as const
+const FALLBACK_BINARY_SIZE_BYTES = 100475777
 
-export const FALLBACK_ARTIFACT: DownloadArtifact = {
+const FALLBACK_ARTIFACT: DownloadArtifact = {
   version: FALLBACK_DOWNLOAD_VERSION,
-  fileName: "tiles-0.5.2-signed.pkg",
-  downloadUrl: "https://download.tiles.run/tiles-0.5.2-signed.pkg",
+  fileName: "tiles-0.5.1-signed.pkg",
+  downloadUrl: "https://download.tiles.run/tiles-0.5.1-signed.pkg",
   binarySizeBytes: FALLBACK_BINARY_SIZE_BYTES,
   binarySizeLabel: formatBinarySize(FALLBACK_BINARY_SIZE_BYTES),
-  sha256: "a49d70a269878905040a58793306f8a4bd15f8bdee46fa9c320e03a95e9a1007",
+  sha256: "9de4ca93777d622e60155feaeef1528778a470618fc94f930b852ff7c805b7f4",
 }
 
 interface GithubAsset {
@@ -53,6 +53,12 @@ function pkgAssetOf(candidate: unknown): { release: GithubRelease; asset: Github
   return asset ? { release: release as GithubRelease, asset } : null
 }
 
+function extractSha256Digest(asset: GithubAsset): string {
+  return typeof asset.digest === "string" && asset.digest.startsWith("sha256:")
+    ? asset.digest.slice("sha256:".length)
+    : "Unavailable"
+}
+
 /** Newest non-prerelease, non-hidden release with a macOS .pkg; the pinned fallback when GitHub fails. */
 export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
   try {
@@ -73,7 +79,7 @@ export async function getLatestDownloadArtifact(): Promise<DownloadArtifact> {
       downloadUrl: `https://download.tiles.run/${encodeURIComponent(asset.name)}`,
       binarySizeBytes: asset.size,
       binarySizeLabel: formatBinarySize(asset.size),
-      sha256: extractSha256Digest(asset.digest),
+      sha256: extractSha256Digest(asset),
     }
   } catch {
     return FALLBACK_ARTIFACT
