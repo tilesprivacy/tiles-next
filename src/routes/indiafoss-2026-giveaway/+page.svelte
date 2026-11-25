@@ -33,7 +33,7 @@
 
 <div class="minimal-product-page">
   <main
-    class="mx-auto w-full max-w-[1180px] px-5 pb-24 pt-[calc(var(--site-announcement-height)+7rem)] sm:px-8 sm:pb-32 lg:px-10 lg:pt-[calc(var(--site-announcement-height)+9rem)]"
+    class="mx-auto w-full max-w-[1180px] px-5 pb-24 pt-28 sm:px-8 sm:pb-32 lg:px-10 lg:pt-36"
   >
     <div class="grid items-start gap-12 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:gap-16">
       <aside class="lg:sticky lg:top-32">
