@@ -4,7 +4,6 @@
   import { onMount } from "svelte"
   import { page } from "$app/state"
   import ScrollAtTopMarker from "#lib/components/ScrollAtTopMarker.svelte"
-  import SiteAnnouncement from "#lib/components/SiteAnnouncement.svelte"
   import SiteHeader from "#lib/components/SiteHeader.svelte"
   import ThemeFavicon from "#lib/components/ThemeFavicon.svelte"
   import { isChatRoute } from "#lib/chat/links"
@@ -61,7 +60,6 @@
 <ThemeFavicon />
 {#if !chat}
   <ScrollAtTopMarker />
-  <SiteAnnouncement />
   <SiteHeader />
 {/if}
 {@render children()}

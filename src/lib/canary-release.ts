@@ -1,10 +1,10 @@
-import { extractSha256Digest, fetchGithubJson } from "#lib/github-json"
+import { fetchGithubJson } from "#lib/github-json"
 
 export interface CanaryReleaseData {
   body: string | null
   published_at: string | null
   updated_at: string | null
-  assets: Array<{ name: string; size: number; browser_download_url: string; sha256: string }>
+  assets: Array<{ name: string; size: number; browser_download_url: string }>
 }
 
 type CanaryAsset = CanaryReleaseData["assets"][number]
@@ -13,11 +13,11 @@ const stringOrNull = (value: unknown) => (typeof value === "string" ? value : nu
 
 function toPkgAsset(asset: unknown): CanaryAsset | null {
   if (typeof asset !== "object" || asset === null) return null
-  const { name, size, browser_download_url, digest } = asset as Record<string, unknown>
+  const { name, size, browser_download_url } = asset as Record<string, unknown>
   if (typeof name !== "string" || !/\.pkg$/i.test(name)) return null
   if (typeof size !== "number" || typeof browser_download_url !== "string") return null
   // Only the fields the page uses; GitHub's asset objects are large.
-  return { name, size, browser_download_url, sha256: extractSha256Digest(digest) }
+  return { name, size, browser_download_url }
 }
 
 function toCanaryRelease(release: unknown): CanaryReleaseData {

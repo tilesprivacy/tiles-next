@@ -2,12 +2,6 @@ import { GITHUB_TOKEN } from "$app/env/private"
 
 const DEFAULT_REVALIDATE_SECONDS = 300
 
-export function extractSha256Digest(digest: unknown): string {
-  const value = typeof digest === "string" ? digest.trim().toLowerCase() : ""
-  const sha256 = value.startsWith("sha256:") ? value.slice("sha256:".length).trim() : ""
-  return /^[a-f0-9]{64}$/.test(sha256) ? sha256 : "Unavailable"
-}
-
 function getGithubHeaders(): Record<string, string> {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",

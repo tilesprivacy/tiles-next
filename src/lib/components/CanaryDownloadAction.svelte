@@ -1,7 +1,6 @@
 <script lang="ts">
   import { Download } from "@lucide/svelte"
   import type { CanaryReleaseData } from "#lib/canary-release"
-  import InstallerChecksum from "#lib/components/InstallerChecksum.svelte"
   import { CANARY_FALLBACK_DOWNLOAD } from "#lib/download-page-data"
   import { formatBinarySize } from "#lib/format-binary-size"
   import {
@@ -12,7 +11,7 @@
 
   let { release }: { release: CanaryReleaseData | null } = $props()
 
-  type CanaryAsset = CanaryReleaseData["assets"][number]
+  type CanaryAsset = { name: string; browser_download_url: string; size?: number }
 
   // Release data reaches the browser through /api/canary-release, so only link
   // to installers that really live on our GitHub releases.
@@ -36,10 +35,8 @@
       <span>Download canary installer</span>
       <Download class={`download-cta-icon minimal-download-action-icon ${downloadButtonIconMotionClasses}`} aria-hidden="true" />
     </a>
-    <span class="minimal-download-size">
-      {#if typeof asset.size === "number"}{formatBinarySize(asset.size)} · {/if}
-      <InstallerChecksum sha256={asset.sha256} fileName={asset.name} lastKnown={asset === CANARY_FALLBACK_DOWNLOAD} />
-      For trying experimental features
-    </span>
+    <span class="minimal-download-size"
+      >{typeof asset.size === "number" ? `${formatBinarySize(asset.size)} · ` : ""}For trying experimental features</span
+    >
   </div>
 {/each}
