@@ -16,6 +16,6 @@
   <a href="/blog/tiles-joins-mozilla-ai-incubator">
     <img src="/mozilla-foundation-logo-dark.svg" alt="Mozilla Foundation" width="440" height="92" class="site-announcement-logo dark:hidden" />
     <img src="/mozilla-foundation-logo.svg" alt="Mozilla Foundation" width="229" height="48" class="site-announcement-logo hidden dark:block" />
-    <span class="site-announcement-message">Tiles joins the Human-Scale AI Incubator as an anchor project</span>
+    <span class="site-announcement-message">Tiles joins Mozilla’s AI incubator</span>
   </a>
 </aside>
