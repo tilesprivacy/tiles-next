@@ -7,6 +7,7 @@
   // Served at both /subprocessors and /sub-processors.
   const subprocessors = [
     { name: "Iroh", purpose: "Public relays for peer-to-peer networking", location: "US", dpa: "https://www.iroh.computer/legal" },
+    { name: "Resend", purpose: "Email sending and newsletter list", location: "US", dpa: "https://resend.com/legal/dpa" },
     { name: "Polar", purpose: "Payment processing", location: "US", dpa: "https://polar.sh/legal/data-processing-addendum" },
     {
       name: "GitHub",
@@ -23,7 +24,7 @@
     { name: "Better Stack", purpose: "Infrastructure monitoring and incident management", location: "EU", dpa: "https://betterstack.com/dpa" },
     {
       name: "Cloudflare",
-      purpose: "Infrastructure for hosting the website, sending email, serving download assets, and protecting against bots with Turnstile",
+      purpose: "Infrastructure for hosting the website, serving download assets, and protecting against bots with Turnstile",
       location: "US",
       dpa: "https://www.cloudflare.com/cloudflare-customer-dpa/",
     },
