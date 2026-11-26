@@ -18,7 +18,6 @@
       name: "Blacksmith",
       purpose: "GitHub Actions runners for building and testing Tiles",
       location: "US and EU",
-      website: "https://www.blacksmith.sh/",
       dpa: "https://docs.blacksmith.sh/about/data-processing-addendum",
     },
     { name: "Better Stack", purpose: "Infrastructure monitoring and incident management", location: "EU", dpa: "https://betterstack.com/dpa" },
@@ -61,12 +60,8 @@
             <span class="font-medium subprocessor-label">Location:</span> {item.location}
           </p>
           <p>
-            <span class="font-medium subprocessor-label">{item.website ? "References:" : "Reference:"}</span>
+            <span class="font-medium subprocessor-label">Reference:</span>
             <a href={item.dpa} target="_blank" rel="noopener noreferrer" class="underline transition-colors">DPA</a>
-            {#if item.website}
-              <span aria-hidden="true"> · </span>
-              <a href={item.website} target="_blank" rel="noopener noreferrer" class="underline transition-colors">Website</a>
-            {/if}
           </p>
         </div>
       </div>
