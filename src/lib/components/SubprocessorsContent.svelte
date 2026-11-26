@@ -7,7 +7,6 @@
   // Served at both /subprocessors and /sub-processors.
   const subprocessors = [
     { name: "Iroh", purpose: "Public relays for peer-to-peer networking", location: "US", dpa: "https://www.iroh.computer/legal" },
-    { name: "Resend", purpose: "Email sending and newsletter list", location: "US", dpa: "https://resend.com/legal/dpa" },
     { name: "Polar", purpose: "Payment processing", location: "US", dpa: "https://polar.sh/legal/data-processing-addendum" },
     {
       name: "GitHub",
@@ -15,10 +14,17 @@
       location: "US",
       dpa: "https://github.com/customer-terms/github-data-protection-agreement",
     },
+    {
+      name: "Blacksmith",
+      purpose: "GitHub Actions runners for building and testing Tiles",
+      location: "US and EU",
+      website: "https://www.blacksmith.sh/",
+      dpa: "https://docs.blacksmith.sh/about/data-processing-addendum",
+    },
     { name: "Better Stack", purpose: "Infrastructure monitoring and incident management", location: "EU", dpa: "https://betterstack.com/dpa" },
     {
       name: "Cloudflare",
-      purpose: "Website hosting and bot protection (Turnstile)",
+      purpose: "Infrastructure for hosting the website, sending email, serving download assets, and protecting against bots with Turnstile",
       location: "US",
       dpa: "https://www.cloudflare.com/cloudflare-customer-dpa/",
     },
@@ -55,8 +61,12 @@
             <span class="font-medium subprocessor-label">Location:</span> {item.location}
           </p>
           <p>
-            <span class="font-medium subprocessor-label">Reference:</span>
+            <span class="font-medium subprocessor-label">{item.website ? "References:" : "Reference:"}</span>
             <a href={item.dpa} target="_blank" rel="noopener noreferrer" class="underline transition-colors">DPA</a>
+            {#if item.website}
+              <span aria-hidden="true"> · </span>
+              <a href={item.website} target="_blank" rel="noopener noreferrer" class="underline transition-colors">Website</a>
+            {/if}
           </p>
         </div>
       </div>
