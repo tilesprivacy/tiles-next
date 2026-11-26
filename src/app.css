@@ -5,87 +5,74 @@
 @custom-variant cyberpunk (&:is(.cyberpunk *));
 
 :root {
+  --site-announcement-min-height: 2rem;
   --site-announcement-height: 0px;
   --site-announcement-offset: var(--site-announcement-height);
   --site-topbar-height: 5.5rem;
 }
 
-/*
- * Pinned to the viewport (not the document) so overscroll bounce, iOS momentum
- * scrolling and body scroll locks can never push it down past the topbar.
- * It hides by sliding out of view with the same offset that drives the topbar's
- * `top`, so the two always move as one unit: `--site-announcement-offset` is the
- * banner height at the very top of the page and 0 once scrolled, and the 100%
- * here resolves against the banner's own height, so the slide is exact.
- */
+/* Position the fixed header on first paint, before the strip is measured. */
+:root:has(.site-announcement) {
+  --site-announcement-height: calc(var(--site-announcement-min-height) + env(safe-area-inset-top, 0px));
+}
+
+html[data-scroll-at-top="false"]:not(:has(.site-announcement a:focus-visible)) {
+  --site-announcement-offset: env(safe-area-inset-top, 0px);
+  --site-announcement-translate: -100%;
+}
+
 .site-announcement {
-  position: fixed;
-  inset: 0 0 auto;
+  position: sticky;
+  top: 0;
   z-index: 40;
-  height: var(--site-announcement-height);
-  transform: translate3d(0, calc(var(--site-announcement-offset) - 100%), 0);
-  will-change: transform;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #111;
-  background: #020202;
-  color: #fff;
-  font-size: 0.8125rem;
-  font-weight: 400;
-  letter-spacing: 0;
+  transform: translateY(var(--site-announcement-translate, 0%));
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--secondary);
+  color: var(--foreground);
+  font-size: 0.875rem;
   line-height: 1.35;
 }
 
 .site-announcement a {
-  width: min(100%, 64rem);
-  min-height: 100%;
-  display: grid;
-  grid-template-columns: auto minmax(0, auto);
+  display: flex;
+  min-height: var(--site-announcement-min-height);
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 3.25rem;
+  gap: 0.125rem 1em;
+  padding: 0.25rem max(0.375rem, env(safe-area-inset-right, 0px)) 0.25rem max(0.375rem, env(safe-area-inset-left, 0px));
   color: inherit;
   text-align: center;
   text-decoration: none;
 }
 
-.site-announcement-message {
-  display: inline-flex;
-  min-width: 0;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  text-align: center;
-  white-space: nowrap;
-}
-
+.site-announcement-message,
 .site-announcement-cta {
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  color: inherit;
-  font-weight: 600;
-  white-space: nowrap;
-  text-underline-offset: 4px;
+  gap: 0.35em;
 }
 
-.site-announcement-logo {
-  width: auto;
-  height: 1.5rem;
+.site-announcement-message svg {
   flex: none;
-  filter: none;
+  width: auto;
+  height: 1.15em;
 }
 
-.dark .site-announcement {
-  border-bottom-color: #e5e5e5;
-  background: #fff;
-  color: #111;
+.site-announcement-cta {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.2em;
 }
 
-.dark .site-announcement-logo {
-  filter: grayscale(1) invert(1);
+.site-announcement a:is(:hover, :focus-visible) .site-announcement-cta {
+  text-decoration-color: currentColor;
+}
+
+.site-announcement a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
 }
 
 /* Own Your AI articles: near-black canvas in dark themes. */
@@ -148,17 +135,6 @@ html.cyberpunk {
   color-scheme: dark;
 }
 
-html.cyberpunk .site-announcement {
-  border-bottom-color: transparent;
-  background: var(--sponsor-yellow);
-  color: #000;
-}
-
-html.cyberpunk .site-announcement-logo {
-  filter: grayscale(1) invert(1);
-  mix-blend-mode: multiply;
-}
-
 html.cyberpunk .minimal-primary-button,
 html.cyberpunk .minimal-secondary-button {
   border: 2px solid var(--sponsor-yellow) !important;
@@ -192,16 +168,6 @@ html.dark {
   --sidebar: #000000;
   --sidebar-accent: #18181b;
   --sidebar-border: rgba(255, 255, 255, 0.12);
-}
-
-html[data-page-theme="home"].dark:not(.cyberpunk) .site-announcement {
-  border-bottom-color: #e5e5e5;
-  background: #fff;
-  color: #111;
-}
-
-html[data-page-theme="home"].dark:not(.cyberpunk) .site-announcement-logo {
-  filter: grayscale(1) invert(1);
 }
 
 html[data-page-theme="home"].dark .minimal-feature-icon {
@@ -244,20 +210,25 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
   color: #f5f5f5;
 }
 
-.site-announcement a:hover .site-announcement-cta {
-  text-decoration: underline;
-}
-
 @media (max-width: 520px) {
-  .site-announcement a {
-    gap: 0.35rem;
-    padding-inline: 0.5rem;
-    font-size: clamp(0.5rem, 2.6vw, 0.7rem);
+  :root {
+    --site-announcement-min-height: 1.75rem;
   }
 
-  .site-announcement-logo {
-    width: auto;
-    height: 1rem;
+  .site-announcement {
+    font-size: clamp(0.6875rem, 3.15vw, 0.8125rem);
+  }
+
+  .site-announcement a {
+    column-gap: 0.55em;
+  }
+}
+
+@media (max-width: 21rem) {
+  .site-announcement a {
+    column-gap: 0.3em;
+    padding-inline: max(0.125rem, env(safe-area-inset-left, 0px)) max(0.125rem, env(safe-area-inset-right, 0px));
+    letter-spacing: -0.025em;
   }
 }
 
@@ -300,11 +271,11 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
   gap: 2rem;
 }
 
-html[data-site-announcement-ready="true"] .site-announcement {
+html[data-scroll-at-top] .site-announcement {
   transition: transform 140ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-html[data-site-announcement-ready="true"] .minimal-topbar {
+html[data-scroll-at-top] .minimal-topbar {
   transition: top 140ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 .minimal-topbar::before {
@@ -663,9 +634,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar {
   width: min(100%, 72rem);
   min-height: 0;
   margin: 0 auto;
-  /* Keep document content independent from the fixed banner's scroll state.
-   * Only the banner and topbar move when the banner collapses. */
-  padding: calc(var(--site-announcement-height) + 10.5rem) 1.5rem 0;
+  padding: 10.5rem 1.5rem 0;
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
   align-content: start;
@@ -2976,14 +2945,14 @@ html.cyberpunk .minimal-wallet-panel {
   }
 }
 
-html[data-site-announcement-ready="true"] .minimal-topbar-menu {
+html[data-scroll-at-top] .minimal-topbar-menu {
   transition: top 140ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html[data-site-announcement-ready="true"] .site-announcement,
-  html[data-site-announcement-ready="true"] .minimal-topbar,
-  html[data-site-announcement-ready="true"] .minimal-topbar-menu {
+  html[data-scroll-at-top] .site-announcement,
+  html[data-scroll-at-top] .minimal-topbar,
+  html[data-scroll-at-top] .minimal-topbar-menu {
     transition: none;
   }
 }
@@ -2995,7 +2964,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
      * on the first scroll — the same moment the banner fades — resizing the
      * demo row mid-scroll. svh is constant, so the player never shifts. */
     max-height: 100svh;
-    padding: calc(var(--site-announcement-height) + 7rem) 1.5rem 0;
+    padding: 7rem 1.5rem 0;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: max-content minmax(0, 1fr);
     gap: 2.5rem;
@@ -3080,7 +3049,7 @@ html[data-site-announcement-ready="true"] .minimal-topbar-menu {
 
 @media (min-width: 521px) and (max-width: 767px) {
   .minimal-hero {
-    padding-top: calc(var(--site-announcement-height) + 7rem);
+    padding-top: 7rem;
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
@@ -4633,7 +4602,7 @@ html.cyberpunk .book-code-copy[data-copied] {
 
   /* Do not let root momentum scrolling expose an empty viewport below the footer.
      A blanket `none` on the root scroller also swallows mobile pull-to-refresh,
-     so ScrollAtTopMarker stamps <html data-scroll-at-top> while the page rests
+     so ScrollAtTopMarker stamps <html data-scroll-at-top="true"> while the page rests
      at the very top — the only position the gesture can start from — and the
      browser gets its default overscroll (and pull-to-refresh) back there. */
   html,
@@ -4641,8 +4610,8 @@ html.cyberpunk .book-code-copy[data-copied] {
     overscroll-behavior-y: none;
   }
 
-  html[data-scroll-at-top],
-  html[data-scroll-at-top] body {
+  html[data-scroll-at-top="true"],
+  html[data-scroll-at-top="true"] body {
     overscroll-behavior-y: auto;
   }
 
