@@ -15,5 +15,5 @@ export const companyDetails = [
   { label: "CIN", value: "U58200KA2026PTC226312" },
   { label: "TAN", value: "BLRT28790G" },
   { label: "IEC", value: "AANCT5152A" },
-  { label: "D-U-N-S number", value: "312269094" },
+  { label: "D-U-N-S Number", value: "312269094" },
 ]
