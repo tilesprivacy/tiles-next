@@ -146,6 +146,15 @@ export async function getRecord(pds: string, did: string, collection: string, rk
 
 const readString = (value: unknown) => (typeof value === "string" && value.trim() ? value.trim() : null)
 
+// ATproto handle syntax (atproto.com/specs/handle). The handle is drawn into
+// the link-preview card by satori 0.25, which can't be upgraded on Workers (see
+// og-card.ts), so only letters, digits, dots and hyphens ever reach it.
+const HANDLE = /^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]([a-z0-9-]{0,61}[a-z0-9])?$/i
+const readHandle = (value: unknown) => {
+  const handle = readString(value)?.replace(/^@+/, "")
+  return handle && HANDLE.test(handle) ? handle : null
+}
+
 /** Display name, handle and avatar; just the DID when Bluesky doesn't answer. */
 export async function getProfile(did: string): Promise<SharedBy> {
   try {
@@ -156,7 +165,7 @@ export async function getProfile(did: string): Promise<SharedBy> {
     const avatar = readString(body.avatar)
     return {
       did,
-      handle: readString(body.handle)?.replace(/^@+/, "") ?? null,
+      handle: readHandle(body.handle),
       displayName: readString(body.displayName),
       avatarUrl: avatar?.startsWith("https://") ? avatar : null,
     }

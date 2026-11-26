@@ -5,8 +5,13 @@
 import { env } from "cloudflare:workers"
 import { dev } from "$app/env"
 import { initWasm, Resvg } from "@resvg/resvg-wasm"
-// satori 0.25, the version inside Next.js's card renderer: newer releases lay
-// the card out a few pixels differently (the build-time cards use 0.62).
+// satori 0.25, the version inside Next.js's card renderer. Releases from 0.33
+// on (which fix GHSA-wx4j-mvgx-mqwp) load harfbuzz when imported, which fails
+// on Workers. That advisory is about unescaped inline <svg> and style values;
+// everything on this card is fixed except the handle (text, which 0.25 does
+// escape, and checked against the handle syntax in atproto.ts), the DID
+// (checked in share.ts) and the avatar (a base64 JPEG or PNG). The result is
+// rasterised to PNG, so the SVG itself is never served.
 import satori, { init as initSatori } from "satori-og/standalone"
 import type { SharedBy } from "#lib/chat/share-page"
 
