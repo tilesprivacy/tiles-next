@@ -226,8 +226,9 @@ html[data-page-theme="home"].dark .minimal-footer-social a:hover {
 
 @media (max-width: 21rem) {
   .site-announcement a {
-    column-gap: 0.4em;
-    letter-spacing: -0.015em;
+    column-gap: 0.3em;
+    padding-inline: max(0.125rem, env(safe-area-inset-left, 0px)) max(0.125rem, env(safe-area-inset-right, 0px));
+    letter-spacing: -0.025em;
   }
 }
 
